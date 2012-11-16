@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"  
+      xmlns:h="http://java.sun.com/jsf/html"  
+      xmlns:p="http://primefaces.org/ui"> >
+
+    <h:head>  
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />   
+    </h:head>  
+
+    <h:body>    
+        
+        <h:form>            
+            <p:menubar> 
+                <p:menuitem value="Home" url="index.xhtml"/>
+                <p:menuitem value="Ajuda"/>
+                <p:menuitem value="Sair"/>
+            </p:menubar>
+        </h:form>
+
+        <div id="content">  
+            <ui:insert name="content"></ui:insert>  
+        </div>  
+    </h:body>  
+</html>  
