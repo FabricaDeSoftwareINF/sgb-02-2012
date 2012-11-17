@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"  
+      xmlns:h="http://java.sun.com/jsf/html"  
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>  
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />  
+        <h:outputStylesheet name="default.css" library="css"/>
+    </h:head>  
+
+    <h:body>   
+        <p:layout style="min-width:400px;min-height:200px;" id="layout">  
+            <p:layoutUnit position="east" resizable="true" size="600" minSize="200" 
+                          maxSize="700" style="border-width: medium">  
+                <p:panel header="Não tem Cadastro?">  
+                    <h:outputText value="Não tem cadastro no sistema? Clique no
+                                  botão abaixo para fazer o seu cadastro e ter
+                                  acesso as funcionalidades do SGB."/> 
+                    <div id="content">  
+                        <ui:insert name="content"></ui:insert>  
+                    </div>
+                </p:panel>
+            </p:layoutUnit>  
+
+            <p:layoutUnit position="center" style="border-width: medium">  
+                <p:panel header="Login">  
+                    <h:outputText value="Seja bem-vindo ao SGB, entre com suas
+                                  informações abaixo para ter acesso ao sistema"/> 
+                    <div id="content2">  
+                        <ui:insert name="content"></ui:insert>  
+                    </div>
+                </p:panel>
+            </p:layoutUnit>  
+        </p:layout>
+
+
+        <div id="content3">  
+            <ui:insert name="content"></ui:insert>  
+        </div>  
+        
+        <div id="footer">
+            <h:outputText value="Universidade Federal de Goiás - "/>
+            <h:outputText value="Sistema de Gestão Bibliográfica - SGB"/>
+        </div>
+        
+    </h:body>  
+</html>  
