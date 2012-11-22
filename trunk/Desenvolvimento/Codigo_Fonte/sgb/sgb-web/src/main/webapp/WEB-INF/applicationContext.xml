@@ -23,7 +23,8 @@
        http://www.springframework.org/schema/jdbc 
        http://www.springframework.org/schema/jdbc/spring-jdbc-3.1.xsd 
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
-        http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.1.xsd">
+       http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.1.xsd"
+       default-lazy-init="true" default-autowire="byName">
     
     <context:annotation-config/>
     
@@ -49,14 +50,33 @@
 
     </sec:authentication-manager>
     
-    <bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor" />
- 
-    <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalEntityManagerFactoryBean">
-        <property name="persistenceUnitName" value="sgb_unit" />
+    <tx:annotation-driven proxy-target-class="true" />
+    
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+        <property name="dataSource">
+                <ref bean="dataSource" />
+        </property>
+        <property name="packagesToScan" value="br.ufg.inf.es.model" />
+        <property name="hibernateProperties">
+            <props>
+                    <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+                    <prop key="hibernate.hbm2ddl.auto">update</prop>
+                    <prop key="hibernate.show_sql">true</prop>
+            </props>
+        </property>
     </bean>
- 
-    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
-        <property name="entityManagerFactory" ref="entityManagerFactory" />
+
+    <bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+        <property name="sessionFactory">
+                <ref bean="sessionFactory" />
+        </property>
+    </bean>
+
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver" />
+        <property name="url" value="jdbc:mysql://localhost:3306/sgb" />
+        <property name="username" value="root" />
+        <property name="password" value="000123" />
     </bean>
     
     <bean id="sgbAuth" class="br.ufg.inf.es.web.controller.LoginController">
@@ -66,7 +86,36 @@
     </bean>
     
     <bean id="authMock" class="br.ufg.inf.es.integracao.AuthMock" />
-
-    <tx:annotation-driven />
+    
+    <bean class="org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator">
+        
+        <property name="beanNames">
+            
+            <value>*Service</value>
+            
+        </property>
+        
+        <property name="interceptorNames">
+            
+            <list>
+                
+                <value>RNGExecutor</value>
+                
+            </list>
+            
+        </property>
+        
+    </bean>
+    
+    <bean id="methodBeforeAdvice" class="br.ufg.inf.es.integracao.aop.RNGExecutor"/>
+    
+    <bean id="RNGExecutor" class="org.springframework.aop.support.RegexpMethodPointcutAdvisor">
+        <property name="patterns">
+            <list>
+                <value>.*</value>
+            </list>
+        </property>
+        <property name="advice" ref="methodBeforeAdvice"/>
+    </bean>
 
 </beans>

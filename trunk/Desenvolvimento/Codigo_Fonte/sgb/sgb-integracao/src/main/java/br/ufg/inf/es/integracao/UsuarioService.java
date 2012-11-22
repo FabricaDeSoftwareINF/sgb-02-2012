@@ -1,17 +1,19 @@
 package br.ufg.inf.es.integracao;
 
 import br.ufg.inf.es.base.validation.ValidationException;
-import br.ufg.inf.es.base.validation.annotations.Validator;
-import br.ufg.inf.es.integracao.rng.RNG001;
+import br.ufg.inf.es.integracao.annotations.RNG001;
 import br.ufg.inf.es.model.Usuario;
 import br.ufg.inf.es.persistencia.UsuarioDAO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Component;
 
 /**
  * @author Cézar Augusto Ferreira
  */
 @Component
+@Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class UsuarioService extends GenericService<Usuario> {
 
     @Autowired
@@ -23,8 +25,13 @@ public class UsuarioService extends GenericService<Usuario> {
         return this.dao;
     }
 
+    public void setDao(UsuarioDAO dao) {
+
+        this.dao = dao;
+    }
+
     @Override
-    @Validator(validatorClass = RNG001.class)
+    @RNG001
     public Long insert(Usuario entity) throws ValidationException {
 
         return super.insert(entity);

@@ -8,7 +8,7 @@ import java.util.Collection;
  *
  * @author Cézar Augusto Ferreira
  */
-public interface DAO<E extends Entity<ID>, ID extends Serializable> {
+public interface DAO<E extends Entity<ID>, ID extends Serializable> extends Serializable {
 
     E find(final ID id);
 

@@ -10,7 +10,7 @@ import java.lang.annotation.Target;
  * @author Cézar Augusto Ferreira
  */
 @Retention(RetentionPolicy.RUNTIME)
-@Target(value = {ElementType.METHOD, ElementType.ANNOTATION_TYPE})
+@Target(value = {ElementType.ANNOTATION_TYPE})
 public @interface Validator {
 
     Class<? extends Validation> validatorClass();

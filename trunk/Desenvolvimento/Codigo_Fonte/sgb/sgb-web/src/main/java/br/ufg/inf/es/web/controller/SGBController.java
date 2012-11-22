@@ -16,4 +16,14 @@ public abstract class SGBController<E extends AbstractEntityModel,
 
     @Override
     public abstract S getService();
+
+    @Override
+    public void initData() {
+        
+        this.getForm().clearInsertData();
+        
+        this.getForm().clearSearchData();
+        
+        this.getForm().setCollectionEntities(this.getService().list());
+    }
 }

@@ -12,8 +12,8 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @Scope("session")
-public class UsuarioController 
-    extends SGBController<Usuario, UsuarioForm, UsuarioService> {
+public class UsuarioController
+        extends SGBController<Usuario, UsuarioForm, UsuarioService> {
 
     @Autowired
     private UsuarioForm form;
@@ -23,13 +23,23 @@ public class UsuarioController
     
     @Override
     public UsuarioForm getForm() {
-        
+
         return this.form;
     }
 
     @Override
     public UsuarioService getService() {
-        
+
         return this.service;
-    }   
+    }
+
+    public void setForm(UsuarioForm form) {
+        
+        this.form = form;
+    }
+
+    public void setService(UsuarioService service) {
+        
+        this.service = service;
+    }
 }

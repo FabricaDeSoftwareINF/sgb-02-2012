@@ -5,6 +5,7 @@ import br.ufg.inf.es.base.validation.Validation;
 import br.ufg.inf.es.base.validation.ValidationException;
 import br.ufg.inf.es.base.validation.annotations.Validator;
 import br.ufg.inf.es.base.validation.annotations.Validators;
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -22,42 +23,47 @@ public class RNGExecutor implements MethodBeforeAdvice {
 
     public void before(Method method, Object[] params, Object o) throws Throwable {
 
-        if (method.isAnnotationPresent(Validators.class)) {
-            
-            Validators validators = method.getAnnotation(Validators.class);
-            
-            Collection<String> keysMessage = new ArrayList<String>();
-            
-            for (Validator validator : validators.value()) {
-                
-                try {
-                    
-                    this.executeValidation(validator, params[0]);
-                    
-                } catch (ValidationException ex) {
-                    
-                    keysMessage.add((String)ex.getKeyMessage());
+        Annotation[] annotations = method.getDeclaredAnnotations();
+
+        for (Annotation annotation : annotations) {
+
+            if (annotation.annotationType().isAnnotationPresent(Validators.class)) {
+
+                Validators validators = annotation.annotationType().getAnnotation(Validators.class);
+
+                Collection<String> keysMessage = new ArrayList<String>();
+
+                for (Validator validator : validators.value()) {
+
+                    try {
+
+                        this.executeValidation(validator, params[0]);
+
+                    } catch (ValidationException ex) {
+
+                        keysMessage.add((String) ex.getKeyMessage());
+                    }
                 }
-            }
-            
-            if (keysMessage.isEmpty()) {
-                
-                throw new MultipleValidationException(
-                        keysMessage.toArray(new String[keysMessage.size()]));
-            }
-            
-        } else if (method.isAnnotationPresent(Validator.class)) {
 
-            Validator validator = method.getAnnotation(Validator.class);
+                if (keysMessage.isEmpty()) {
 
-            this.executeValidation(validator, params[0]);
+                    throw new MultipleValidationException(
+                            keysMessage.toArray(new String[keysMessage.size()]));
+                }
+
+            } else if (annotation.annotationType().isAnnotationPresent(Validator.class)) {
+
+                Validator validator = annotation.annotationType().getAnnotation(Validator.class);
+
+                this.executeValidation(validator, params[0]);
+            }
         }
     }
 
     private void executeValidation(Validator validator, Object o) throws ValidationException {
 
         Validation validation = this.applicationContext.getBean(validator.validatorClass());
-        
+
         validation.validate(o);
     }
 }
