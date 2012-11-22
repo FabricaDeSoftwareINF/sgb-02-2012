@@ -26,6 +26,8 @@ public abstract class MaintenanceJSFController<E extends AbstractEntityModel>
     @Override
     public void openInsertView() {
         
+        this.initData();
+        
         this.getForm().clearInsertData();
     }
 
@@ -35,6 +37,8 @@ public abstract class MaintenanceJSFController<E extends AbstractEntityModel>
         try {
             
             this.getService().insert(this.getForm().getEntity());
+            
+            this.initData();
             
         } catch (ValidationException ex) {
             
@@ -70,15 +74,20 @@ public abstract class MaintenanceJSFController<E extends AbstractEntityModel>
         
             try {
                 
-                Long entityID = Long.parseLong(this.getParameterFromRequest("entityID"));
-                
-                this.getForm().setEntity(this.getService().find(entityID));
+                this.loadEntityFromRequest();
             
             } catch (NumberFormatException e) {
                 
                 this.addErrorMessage("entityID parameter not found.");
             }
         }
+    }
+    
+    private void loadEntityFromRequest() {
+        
+        Long entityID = Long.parseLong(this.getParameterFromRequest("entityID"));
+                
+        this.getForm().setEntity(this.getService().find(entityID));
     }
     
     public String openEditPage() {
@@ -95,6 +104,8 @@ public abstract class MaintenanceJSFController<E extends AbstractEntityModel>
             
             this.getService().update(this.getForm().getEntity());
             
+            this.initData();
+            
         } catch (ValidationException ex) {
             
             this.addWarningMessage(ex.getKeyMessage());
@@ -104,9 +115,16 @@ public abstract class MaintenanceJSFController<E extends AbstractEntityModel>
     @Override
     public void remove() {
         
+        if (this.getForm().getEntity().isNew()) {
+            
+            this.loadEntityFromRequest();
+        }
+        
         try {
             
             this.getService().remove(this.getForm().getEntity());
+            
+            this.initData();
             
         } catch (ValidationException ex) {
             

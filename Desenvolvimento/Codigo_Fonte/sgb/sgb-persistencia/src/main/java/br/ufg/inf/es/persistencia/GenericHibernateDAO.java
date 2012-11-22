@@ -8,9 +8,10 @@ import br.ufg.inf.es.base.util.UtilObjeto;
 import java.lang.reflect.Field;
 import java.lang.reflect.Type;
 import java.util.Collection;
-import javax.persistence.EntityManager;
+import java.util.logging.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Example;
 import org.hibernate.criterion.Order;
 import sun.reflect.generics.reflectiveObjects.ParameterizedTypeImpl;
@@ -20,11 +21,18 @@ import sun.reflect.generics.reflectiveObjects.ParameterizedTypeImpl;
  */
 public abstract class GenericHibernateDAO<E extends Entity<Long>> implements DAO<E, Long> {
 
-    protected abstract EntityManager getEntityManager();
+    private Session session;
+
+    protected abstract SessionFactory getSessionFactory();
 
     protected Session getSession() {
 
-        return (Session) this.getEntityManager().getDelegate();
+        if (this.session == null || !this.session.isOpen()) {
+
+            this.session = this.getSessionFactory().openSession();
+        }
+
+        return this.session;
     }
 
     protected Class<E> getClassEntity() {
@@ -45,7 +53,7 @@ public abstract class GenericHibernateDAO<E extends Entity<Long>> implements DAO
 
     public E find(Long id) {
 
-        return (E) this.getEntityManager().find(this.getClassEntity(), id);
+        return (E) this.getSession().get(this.getClassEntity(), id);
     }
 
     public Long insert(E entidade) {
@@ -59,7 +67,9 @@ public abstract class GenericHibernateDAO<E extends Entity<Long>> implements DAO
 
         isReferencia(entidade);
 
-        this.getEntityManager().merge(entidade);
+        this.getSession().merge(entidade);
+        
+        this.getSession().flush();
     }
 
     public void save(E entidade) {
@@ -67,6 +77,8 @@ public abstract class GenericHibernateDAO<E extends Entity<Long>> implements DAO
         isReferencia(entidade);
 
         this.getSession().persist(entidade);
+        
+        this.getSession().flush();
     }
 
     public void remove(E entidade) {
@@ -74,6 +86,8 @@ public abstract class GenericHibernateDAO<E extends Entity<Long>> implements DAO
         isReferencia(entidade);
 
         this.getSession().delete(entidade);
+        
+        this.getSession().flush();
     }
 
     public void removeAll(Collection<E> entidades) {
@@ -142,16 +156,31 @@ public abstract class GenericHibernateDAO<E extends Entity<Long>> implements DAO
             }
         }
 
-        return ((queryOrdering == null && Object.class.equals(clazzEntity)) ? queryOrdering : this.buildOrdering(clazzEntity.getSuperclass()));
+        return ((queryOrdering != null) ? queryOrdering : ((Object.class.equals(clazzEntity)) ? null : this.buildOrdering(clazzEntity.getSuperclass())));
     }
 
     private void addOrder(Criteria criteria) {
-        
+
         Order order = this.buildOrdering(this.getClassEntity());
 
         if (order != null) {
 
             criteria.addOrder(order);
         }
+    }
+
+    @Override
+    protected void finalize() throws Throwable {
+
+        try {
+            
+            this.session.close();
+            
+        } catch (Exception e) {
+            
+            Logger.getLogger(this.getClass().getSimpleName()).info(e.getMessage());
+        }
+
+        super.finalize();
     }
 }
