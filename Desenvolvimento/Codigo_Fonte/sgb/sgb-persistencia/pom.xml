@@ -20,6 +20,12 @@
             <groupId>br.ufg.inf.es</groupId>
             <artifactId>sgb-model</artifactId>
             <version>1.0-SNAPSHOT</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>jta</artifactId>
+                    <groupId>javax.transaction</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>br.ufg.inf.es</groupId>
@@ -46,6 +52,18 @@
             <groupId>hibernate</groupId>
             <artifactId>hibernate</artifactId>
             <version>3.0.5</version>
+        </dependency>
+        <dependency>
+            <artifactId>hibernate</artifactId>
+            <groupId>org.hibernate</groupId>
+            <type>jar</type>
+            <version>3.0.5</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>jta</artifactId>
+                    <groupId>javax.transaction</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
     </dependencies>
 </project>
