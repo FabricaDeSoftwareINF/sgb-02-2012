@@ -205,16 +205,6 @@
             
         </dependency>
         
-        <dependency>
-            
-            <groupId>org.apache.derby</groupId>
-            
-            <artifactId>derbyclient</artifactId>
-            
-            <version>10.4.2.0</version>
-            
-        </dependency>
-        
     </dependencies>
     
 </project>
