@@ -38,7 +38,7 @@ public class BaseController implements Serializable {
         
         if (this.getBundle().containsKey(keyMessage)) {
             
-            this.getBundle().getString(keyMessage);
+            message = this.getBundle().getString(keyMessage);
         }
         
         this.getFacesContext().addMessage("", new FacesMessage(severityMessage, message, ""));
