@@ -10,7 +10,7 @@ import javax.persistence.Table;
  * @author cézar Augusto Ferreira
  */
 @Entity
-@Table(name = "sgb_usuarios")
+@Table(name = "USUARIO")
 public class Usuario extends AbstractEntityModel {
 
     @OrderingProperty(sortOrder = SortOrder.DESC)

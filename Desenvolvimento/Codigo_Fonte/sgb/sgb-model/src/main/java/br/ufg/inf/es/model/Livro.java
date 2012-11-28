@@ -1,51 +1,32 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.ufg.inf.es.model;
 
-import br.ufg.inf.es.base.model.annotations.OrderingProperty;
-import br.ufg.inf.es.base.model.annotations.SortOrder;
 import java.util.Collection;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
 /**
- *
- * @author cezar
+ * 
+ * @author Henrique Hirako
  */
 @Entity
-@Table(name = "sgb_livros")
-public class Livro extends AbstractEntityModel{
-    @OrderingProperty(sortOrder = SortOrder.ASC)
-    private String nome;
-    private String autor;
+@Table(name = "LIVRO")
+public class Livro extends AbstractEntityModel {
+
+    private String titulo;
+    private Long ano;
+    private String isbn11;
+    private String isbn13;
     private String edicao;
-    private Long ano;   
-    private Collection<Disciplina> disciplinas;
+    private Editora editora;
+    private Collection<Autor> autor;
+    private Collection<Bibliografia> bibliografia;
 
-    public String getNome() {
-        return nome;
+    public String getTitulo() {
+        return titulo;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getAutor() {
-        return autor;
-    }
-
-    public void setAutor(String autor) {
-        this.autor = autor;
-    }
-
-    public String getEdicao() {
-        return edicao;
-    }
-
-    public void setEdicao(String edicao) {
-        this.edicao = edicao;
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
     }
 
     public Long getAno() {
@@ -56,15 +37,53 @@ public class Livro extends AbstractEntityModel{
         this.ano = ano;
     }
 
-    public Collection<Disciplina> getDisciplinas() {
-        return disciplinas;
+    public String getIsbn11() {
+        return isbn11;
     }
 
-    public void setDisciplinas(Collection<Disciplina> disciplinas) {
-        this.disciplinas = disciplinas;
+    public void setIsbn11(String isbn11) {
+        this.isbn11 = isbn11;
     }
-    
-    
-    
+
+    public String getIsbn13() {
+        return isbn13;
+    }
+
+    public void setIsbn13(String isbn13) {
+        this.isbn13 = isbn13;
+    }
+
+    public String getEdicao() {
+        return edicao;
+    }
+
+    public void setEdicao(String edicao) {
+        this.edicao = edicao;
+    }
+
+    public Editora getEditora() {
+        return editora;
+    }
+
+    public void setEditora(Editora editora) {
+        this.editora = editora;
+    }
+
+    public Collection<Autor> getAutor() {
+        return autor;
+    }
+
+    public void setAutor(Collection<Autor> autor) {
+        this.autor = autor;
+    }
+
+    public Collection<Bibliografia> getBibliografia() {
+        return bibliografia;
+    }
+
+    public void setBibliografia(Collection<Bibliografia> bibliografia) {
+        this.bibliografia = bibliografia;
+    }
+
     
 }
