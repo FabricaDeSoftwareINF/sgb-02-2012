@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html>
+<!--@autor: Wilker de Jesus Machado-->
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"  
       xmlns:h="http://java.sun.com/jsf/html"  
@@ -7,17 +8,42 @@
 
     <h:head>  
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link rel="shortcut icon" href="resources/images/sgb.png"/>
         <h:outputStylesheet name="default.css" library="css"/>
+        <title>SGB - Sistema de Gestão Bibliográfica</title>
     </h:head>  
 
     <h:body>   
-        
-        <h:form id="header">            
-            <p:menubar > 
-                <p:menuitem value="Home"/>
-                <p:menuitem value="Ajuda"/> 
-                <p:menuitem value="Sair" style="right: 10px; position: absolute"/>
-            </p:menubar>
+
+        <h:form id="header">
+            <h:panelGrid width="100%" columns="2">
+                <p:graphicImage value="resources/images/sgb.png" width="150" height="130"/>
+                <h:panelGrid width="100%" columns="1">
+                    <h:panelGrid style="float: right" columns="6" >
+                        <h:panelGrid columns="2">
+                            <p:inputText id="pesquisaLivro" size="65"/> 
+                            <p:commandButton icon="ui-icon-search"/>
+                        </h:panelGrid>
+                        <p:watermark for="pesquisaLivro" value="Pesquisar Livro"/>
+                        <p:spacer width="45" height="0"/>
+                        <h2>Nome do Usuário Logado</h2>
+                        <p:spacer width="45" height="0"/>
+                        <p:commandButton value="Sair"  icon="ui-icon-close"/>
+                    </h:panelGrid>
+                    <p:menubar > 
+                        <p:menuitem value="Home"/>
+                        <p:submenu label="Cadastros">
+                            <p:menuitem value="Livro"/>
+                            <p:menuitem value="Disciplina"/>
+                            <p:menuitem value="Curso"/>
+                            <p:menuitem value="Usuário"/>
+                        </p:submenu>
+                        <p:menuitem value="Cotação"/>
+                        <p:menuitem value="Ajuda"/> 
+                    </p:menubar>
+                </h:panelGrid>
+            </h:panelGrid>
+
         </h:form>
 
         <div id="content">  
@@ -25,8 +51,8 @@
         </div>  
 
         <div id="footer">
+            <h:outputText value=" - SGB - Sistema de Gestão Bibliográfica / "/>
             <h:outputText value="Universidade Federal de Goiás - "/>
-            <h:outputText value="Sistema de Gestão Bibliográfica - SGB"/>
         </div>
     </h:body>  
 </html>  
