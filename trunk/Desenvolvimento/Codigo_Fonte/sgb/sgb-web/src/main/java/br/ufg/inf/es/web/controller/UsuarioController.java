@@ -1,5 +1,6 @@
 package br.ufg.inf.es.web.controller;
 
+import br.ufg.inf.es.base.validation.ValidationException;
 import br.ufg.inf.es.integracao.UsuarioService;
 import br.ufg.inf.es.model.Usuario;
 import br.ufg.inf.es.web.controller.form.UsuarioForm;
@@ -32,7 +33,7 @@ public class UsuarioController
 
         return this.service;
     }
-
+    
     public void setForm(UsuarioForm form) {
         
         this.form = form;

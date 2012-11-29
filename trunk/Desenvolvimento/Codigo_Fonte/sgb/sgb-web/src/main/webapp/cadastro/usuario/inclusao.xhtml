@@ -5,11 +5,11 @@
     
     <h:head>
         
-        <title>TODO supply a title</title>
+        <title>Cadastro de Usuários</title>
         
     </h:head>
     
-    <body>
+    <h:body>
 
         <p:panel header="#{msg['cadastro.usuario.panel.header']}">
             
@@ -17,15 +17,34 @@
                 
                 <p:messages />
                 
-                <h:panelGrid>
+                <h:panelGrid columns="2">
                     
-                    <h:outputLabel value="#{msg['cadastro.usuario.label.login']}:" for="usuarioLogin" />
+                    <h:outputLabel value="#{msg['cadastro.usuario.label.nome']}:" for="usuarioNome" />
                     
-                    <h:inputText value="#{usuarioController.form.entity.login}" id="usuarioLogin" />
+                    <h:inputText value="#{usuarioController.form.entity.nome}" id="usuarioNome" />
+                    
+                    <h:outputLabel value="#{msg['cadastro.usuario.label.sobrenome']}:" for="usuarioSobrenome" />
+                    
+                    <h:inputText value="#{usuarioController.form.entity.sobrenome}" id="usuarioSobrenome" />
+                    
+                    <h:outputLabel value="#{msg['cadastro.usuario.label.email']}:" for="usuarioEmail" />
+                    
+                    <h:inputText value="#{usuarioController.form.entity.email}" id="usuarioEmail" />
+                    
+                    <h:outputLabel value="#{msg['cadastro.usuario.label.confirmacaoemail']}:" for="usuarioConfirmacaoEmail" />
+                    
+                    <h:inputText value="#{usuarioController.form.entity.confirmacaoEmail}" id="usuarioConfirmacaoEmail" />
                     
                     <h:outputLabel value="#{msg['cadastro.usuario.label.password']}:" for="usuarioPassword" />
                     
-                    <h:inputText value="#{usuarioController.form.entity.senha}" id="usuarioPassword" />
+                    <p:password value="#{usuarioController.form.entity.senha}" id="usuarioPassword" match="usuarioConfirmacaoPassword" />
+                    
+                    <h:outputLabel value="#{msg['cadastro.usuario.label.confirmacaopassword']}:" for="usuarioConfirmacaoPassword" />
+                    
+                    <p:password value="#{usuarioController.form.entity.senha}" id="usuarioConfirmacaoPassword" />
+                    
+                    <h:outputLabel value="#{msg['cadastro.usuario.label.perfil']}:" for="listaPerfil" />
+                     
                     
                 </h:panelGrid>
                 
@@ -33,48 +52,8 @@
                 
             </h:form>
             
-        </p:panel>
-        
-        <p:panel>
-            
-            <h:form>
-            
-                <p:dataTable value="#{usuarioController.form.collectionEntities}" var="usuario">
+        </p:panel>        
 
-                    <p:column headerText="Login">
-
-                        <h:outputText value="#{usuario.login}" />
-
-                    </p:column>
-
-                    <p:column headerText="Senha">
-
-                        <h:outputText value="#{usuario.senha}" />
-
-                    </p:column>
-
-                    <p:column headerText="Ações">
-
-                        <h:panelGrid columns="3" width="100%">
-
-                            <p:commandButton value="Remover" action="#{usuarioController.remove}" update="@all">
-
-                                <f:setPropertyActionListener value="#{usuario}" target="#{usuarioController.form.entity}" />
-
-                                <f:param name="entityID" value="#{usuario.id}" />
-
-                            </p:commandButton>
-
-                        </h:panelGrid>
-
-                    </p:column>
-
-                </p:dataTable>
-
-            </h:form>
-                
-        </p:panel>
-
-    </body>
+    </h:body>
     
 </html>
