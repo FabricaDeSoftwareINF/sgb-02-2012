@@ -2,10 +2,8 @@ package br.ufg.inf.es.model;
 
 import br.ufg.inf.es.base.model.annotations.OrderingProperty;
 import br.ufg.inf.es.base.model.annotations.SortOrder;
-import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -13,7 +11,6 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.Transient;
@@ -23,7 +20,7 @@ import javax.persistence.Transient;
  * @author cézar Augusto Ferreira e Luã Silvério
  */
 @Entity
-@Table(name = "sgb_usuario")
+@Table(name = "USUARIO")
 public class Usuario extends AbstractEntityModel {
     
     private String senha;

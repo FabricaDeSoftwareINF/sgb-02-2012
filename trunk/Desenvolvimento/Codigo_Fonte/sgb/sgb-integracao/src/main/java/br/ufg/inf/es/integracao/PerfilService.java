@@ -4,9 +4,9 @@
  */
 package br.ufg.inf.es.integracao;
 
-import br.ufg.inf.es.base.persistence.DAO;
 import br.ufg.inf.es.model.Perfil;
 import br.ufg.inf.es.persistencia.PerfilDAO;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
@@ -33,4 +33,5 @@ public class PerfilService extends GenericService<Perfil> {
 
         this.dao = dao;
     }
+
 }
