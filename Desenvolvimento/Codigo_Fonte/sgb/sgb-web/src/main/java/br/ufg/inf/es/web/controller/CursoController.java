@@ -1,6 +1,7 @@
 package br.ufg.inf.es.web.controller;
 
 import br.ufg.inf.es.integracao.CursoService;
+import br.ufg.inf.es.integracao.DisciplinaService;
 import br.ufg.inf.es.model.Curso;
 import br.ufg.inf.es.web.controller.form.CursoForm;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,11 @@ public class CursoController extends SGBController<Curso, CursoForm, CursoServic
     private CursoForm form;
     @Autowired
     private CursoService service;
+    
+    @Autowired
+    private DisciplinaService disciplinaService;
+
+    private String buscaCurso;
 
     @Override
     public CursoForm getForm() {
@@ -36,5 +42,21 @@ public class CursoController extends SGBController<Curso, CursoForm, CursoServic
 
     public void setService(CursoService service) {
         this.service = service;
+    }
+    
+     public String getBuscaCurso() {
+        return buscaCurso;
+    }
+
+    public void setBuscaCurso(String buscaCurso) {
+        this.buscaCurso = buscaCurso;
+    }
+    
+      public DisciplinaService getDisciplinaService() {
+        return disciplinaService;
+    }
+
+    public void setDisciplinaService(DisciplinaService disciplinaService) {
+        this.disciplinaService = disciplinaService;
     }
 }

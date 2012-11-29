@@ -17,7 +17,7 @@
             
         </navigation-case>
         
-                <navigation-case>
+        <navigation-case>
             
             <from-outcome>CursoController/insertPage</from-outcome>
             
