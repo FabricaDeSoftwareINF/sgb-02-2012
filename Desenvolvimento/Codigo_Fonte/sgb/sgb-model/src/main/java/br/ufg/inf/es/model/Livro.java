@@ -1,6 +1,7 @@
 package br.ufg.inf.es.model;
 
 import java.util.Collection;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -31,11 +32,11 @@ public class Livro extends AbstractEntityModel {
     @ManyToOne
     @JoinColumn(name = "id_editora")
     private Editora editora;
-    @ManyToMany
+    @ManyToMany(cascade= CascadeType.ALL)
     @JoinTable(name = "livro_autor", joinColumns =
     @JoinColumn(name = "id_livro"), inverseJoinColumns =
     @JoinColumn(name = "id_autor"))
-    private Collection<Autor> autor;
+    private Collection<Autor> autores;
     @OneToMany(targetEntity=Bibliografia.class)
     private Collection<Bibliografia> bibliografia;
 
@@ -87,12 +88,12 @@ public class Livro extends AbstractEntityModel {
         this.editora = editora;
     }
 
-    public Collection<Autor> getAutor() {
-        return autor;
+    public Collection<Autor> getAutores() {
+        return autores;
     }
 
-    public void setAutor(Collection<Autor> autor) {
-        this.autor = autor;
+    public void setAutores(Collection<Autor> autores) {
+        this.autores = autores;
     }
 
     public Collection<Bibliografia> getBibliografia() {
@@ -102,4 +103,5 @@ public class Livro extends AbstractEntityModel {
     public void setBibliografia(Collection<Bibliografia> bibliografia) {
         this.bibliografia = bibliografia;
     }
+
 }
