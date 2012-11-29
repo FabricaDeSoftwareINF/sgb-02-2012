@@ -1,9 +1,13 @@
 package br.ufg.inf.es.web.controller;
 
 import br.ufg.inf.es.base.validation.ValidationException;
+import br.ufg.inf.es.integracao.PerfilService;
 import br.ufg.inf.es.integracao.UsuarioService;
+import br.ufg.inf.es.model.Perfil;
 import br.ufg.inf.es.model.Usuario;
 import br.ufg.inf.es.web.controller.form.UsuarioForm;
+import java.util.ArrayList;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -22,6 +26,9 @@ public class UsuarioController
     @Autowired
     private UsuarioService service;
     
+    @Autowired
+    private PerfilService perfilService;
+
     @Override
     public UsuarioForm getForm() {
 
@@ -33,14 +40,28 @@ public class UsuarioController
 
         return this.service;
     }
-    
+
     public void setForm(UsuarioForm form) {
-        
+
         this.form = form;
     }
 
     public void setService(UsuarioService service) {
-        
+
         this.service = service;
+    }
+
+    public PerfilService getPerfilService() {
+        
+        return perfilService;
+    }
+
+    public void setPerfilService(PerfilService perfilService) {
+        
+        this.perfilService = perfilService;
+    }
+    
+    public List<Perfil> getPerfil(){
+        return new ArrayList<Perfil>(this.perfilService.getDAO().list());
     }
 }

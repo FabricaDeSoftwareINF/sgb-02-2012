@@ -16,9 +16,8 @@
     <h:body>   
 
         <h:form id="header">
-            <h:panelGrid width="100%" columns="2">
-                <p:graphicImage value="resources/images/sgb.png" width="150" height="130"/>
-                <h:panelGrid width="100%" columns="1">
+                <h:panelGrid width="100%" columns="2">
+                    <p:graphicImage value="resources/images/sgb.png" width="80" height="60"/>
                     <h:panelGrid style="float: right" columns="6" >
                         <h:panelGrid columns="2">
                             <p:inputText id="pesquisaLivro" size="65"/> 
@@ -30,19 +29,18 @@
                         <p:spacer width="45" height="0"/>
                         <p:commandButton value="Sair"  icon="ui-icon-close"/>
                     </h:panelGrid>
-                    <p:menubar > 
-                        <p:menuitem value="Home"/>
-                        <p:submenu label="Cadastros">
-                            <p:menuitem value="Livro"/>
-                            <p:menuitem value="Disciplina"/>
-                            <p:menuitem value="Curso"/>
-                            <p:menuitem value="Usuário"/>
-                        </p:submenu>
-                        <p:menuitem value="Cotação"/>
-                        <p:menuitem value="Ajuda"/> 
-                    </p:menubar>
                 </h:panelGrid>
-            </h:panelGrid>
+                <p:menubar > 
+                    <p:menuitem value="Home"/>
+                    <p:submenu label="Cadastros">
+                        <p:menuitem value="Livro"/>
+                        <p:menuitem value="Disciplina"/>
+                        <p:menuitem value="Curso"/>
+                        <p:menuitem value="Usuário"/>
+                    </p:submenu>
+                    <p:menuitem value="Cotação"/>
+                    <p:menuitem value="Ajuda"/> 
+                </p:menubar>
 
         </h:form>
 
