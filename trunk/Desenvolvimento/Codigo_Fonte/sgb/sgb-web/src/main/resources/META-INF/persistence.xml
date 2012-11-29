@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence version="1.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd">
   <persistence-unit name="sgb_unit" transaction-type="RESOURCE_LOCAL">
-      
     <provider>org.hibernate.ejb.HibernatePersistence</provider>
-    
     <non-jta-data-source>java:comp/env/jdbc/sgb</non-jta-data-source>
-    
+    <class>br.ufg.inf.es.model.Curso</class>
     <class>br.ufg.inf.es.model.Usuario</class>
-    
+    <class>br.ufg.inf.es.model.Autor</class>
+    <class>br.ufg.inf.es.model.Bibliografia</class>
+    <class>br.ufg.inf.es.model.Disciplina</class>
+    <class>br.ufg.inf.es.model.Editora</class>
+    <class>br.ufg.inf.es.model.Livro</class>
     <properties>
       <property name="hibernate.show_sql" value="true"/>
       <property name="hibernate.order_updates" value="true"/>
@@ -23,8 +25,9 @@
       <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"/>
       <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/sgb"/>
       <property name="hibernate.connection.username" value="root"/>
-      <property name="hibernate.connection.password" value="000123"/>-->
+      <property name="hibernate.connection.password" value="bd*Mysql"/>-->
       <property name="hibernate.hbm2ddl.auto" value="update"/>
-    </properties>
+    
+</properties>
   </persistence-unit>
 </persistence>
