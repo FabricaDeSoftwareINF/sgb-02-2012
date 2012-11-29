@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <head>
+        <title>Inclusão de Curso</title>
+    </head>
+    <body>
+        
+        <p:panel header="#{msg['cadastro.curso.panel.header']}">
+            
+            <h:form>
+                
+                <p:messages />
+                
+                <h:panelGrid>
+                    
+                    <h:outputLabel value="#{msg['cadastro.curso.label.nome']}:" for="nomeCurso" />
+                    <h:inputText value="#{cursoController.form.entity.nome}" id="nomeCurso" />
+                    
+                    <h:outputLabel value="#{msg['cadastro.curso.label.vagas']}:" for="qtdVagas" />
+                    <h:inputText values="#{cursoController.form.entity.vagas}" id="qtdVagas" />
+                </h:panelGrid>
+                
+                <h:commandButton action="#{cursoController.insert()}" value="#{msg['cadastro.curso.button.insert']}" />
+                
+            </h:form>
+        </p:panel>
+
+    </body>
+</html>

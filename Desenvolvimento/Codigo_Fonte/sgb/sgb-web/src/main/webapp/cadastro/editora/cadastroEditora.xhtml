@@ -1,0 +1,17 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    
+    <p:dialog widgetVar="editoraModal" header="Cadastro Editora">
+        <h:form>
+            <h:panelGrid columns="2">
+                <h:outputLabel value="#{msg['cadastro.editora.label.nome']}" ></h:outputLabel>
+                <p:inputText value="#{editoraController.form.entity.nome}"></p:inputText>
+                <p:commandButton action="#{editoraController.insert()}" onsuccess="editoraModal.hide()" value="Salvar"></p:commandButton>
+                <p:commandButton onclick="autorModal.hide()" value="Cancelar"></p:commandButton>
+            </h:panelGrid>
+        </h:form>
+    </p:dialog>
+    
+</html>
