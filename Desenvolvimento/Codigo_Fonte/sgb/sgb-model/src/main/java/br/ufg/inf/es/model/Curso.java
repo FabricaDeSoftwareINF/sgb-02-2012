@@ -3,7 +3,9 @@ package br.ufg.inf.es.model;
 import br.ufg.inf.es.base.model.annotations.OrderingProperty;
 import br.ufg.inf.es.base.model.annotations.SortOrder;
 import java.util.Collection;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -16,8 +18,11 @@ import javax.persistence.Table;
 public class Curso extends AbstractEntityModel {
 
     @OrderingProperty(sortOrder = SortOrder.ASC)
+    @Column(name="nome")
     private String nome;
+    @Column(name="vagas")
     private int vagas;
+    @OneToMany(targetEntity=Disciplina.class)
     private Collection<Disciplina> disciplinas;
 
     public Collection<Disciplina> getDisciplinas() {
