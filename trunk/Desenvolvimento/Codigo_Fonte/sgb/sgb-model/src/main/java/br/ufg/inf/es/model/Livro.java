@@ -1,24 +1,42 @@
 package br.ufg.inf.es.model;
 
 import java.util.Collection;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
- * 
+ *
  * @author Henrique Hirako
  */
 @Entity
 @Table(name = "LIVRO")
 public class Livro extends AbstractEntityModel {
 
+    @Column(name = "titulo")
     private String titulo;
+    @Column(name = "ano")
     private Long ano;
+    @Column(name = "isbn11")
     private String isbn11;
+    @Column(name = "isbn13")
     private String isbn13;
+    @Column(name = "edicao")
     private String edicao;
+    @ManyToOne
+    @JoinColumn(name = "id_editora")
     private Editora editora;
+    @ManyToMany
+    @JoinTable(name = "livro_autor", joinColumns =
+    @JoinColumn(name = "id_livro"), inverseJoinColumns =
+    @JoinColumn(name = "id_autor"))
     private Collection<Autor> autor;
+    @OneToMany(targetEntity=Bibliografia.class)
     private Collection<Bibliografia> bibliografia;
 
     public String getTitulo() {
@@ -84,6 +102,4 @@ public class Livro extends AbstractEntityModel {
     public void setBibliografia(Collection<Bibliografia> bibliografia) {
         this.bibliografia = bibliografia;
     }
-
-    
 }
