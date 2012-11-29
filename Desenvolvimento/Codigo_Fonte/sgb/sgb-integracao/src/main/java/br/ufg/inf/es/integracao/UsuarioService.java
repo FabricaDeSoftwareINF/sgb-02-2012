@@ -2,6 +2,7 @@ package br.ufg.inf.es.integracao;
 
 import br.ufg.inf.es.base.validation.ValidationException;
 import br.ufg.inf.es.integracao.annotations.RNG001;
+import br.ufg.inf.es.integracao.annotations.RNG002;
 import br.ufg.inf.es.model.Usuario;
 import br.ufg.inf.es.persistencia.UsuarioDAO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,8 +33,9 @@ public class UsuarioService extends GenericService<Usuario> {
 
     @Override
     @RNG001
+    @RNG002
     public Long insert(Usuario entity) throws ValidationException {
-
+        
         return super.insert(entity);
     }
 }
