@@ -5,12 +5,15 @@
 package br.ufg.inf.es.web.controller.form;
 
 import br.ufg.inf.es.model.Livro;
-import br.ufg.inf.es.model.Usuario;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
 /**
- *
+ * 
  * @author cezar
  */
-public class LivroForm extends GenericForm<Livro>{
-    
+@Component
+@Scope("session")
+public class LivroForm extends GenericForm<Livro> {
+
 }
