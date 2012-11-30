@@ -21,7 +21,7 @@ public class Curso extends AbstractEntityModel {
     @Column(name="nome")
     private String nome;
     @Column(name="vagas")
-    private int vagas;
+    private Integer vagas;
     @OneToMany(targetEntity=Disciplina.class)
     private Collection<Disciplina> disciplinas;
 
@@ -41,11 +41,11 @@ public class Curso extends AbstractEntityModel {
         this.nome = nome;
     }
 
-    public int getVagas() {
+    public Integer getVagas() {
         return vagas;
     }
 
-    public void setVagas(int vagas) {
+    public void setVagas(Integer vagas) {
         this.vagas = vagas;
     }
 }
