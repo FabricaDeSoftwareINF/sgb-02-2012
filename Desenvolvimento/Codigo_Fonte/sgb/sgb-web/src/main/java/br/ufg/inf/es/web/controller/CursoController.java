@@ -3,7 +3,9 @@ package br.ufg.inf.es.web.controller;
 import br.ufg.inf.es.integracao.CursoService;
 import br.ufg.inf.es.integracao.DisciplinaService;
 import br.ufg.inf.es.model.Curso;
+import br.ufg.inf.es.model.Disciplina;
 import br.ufg.inf.es.web.controller.form.CursoForm;
+import java.util.LinkedList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -20,11 +22,21 @@ public class CursoController extends SGBController<Curso, CursoForm, CursoServic
     private CursoForm form;
     @Autowired
     private CursoService service;
-    
     @Autowired
     private DisciplinaService disciplinaService;
+ 
+    public void addDisciplina() {
+        
+        if(this.getForm().getEntity().getDisciplinas() == null){
+            this.getForm().getEntity().setDisciplinas(new LinkedList<Disciplina>());
+        }
+        this.getForm().getEntity().getDisciplinas().add(
+                this.getDisciplinaService().find(this.getForm().getDisciplinaSelecionada().getId()));
+    }
 
-    private String buscaCurso;
+    public void removeDisciplina() {
+        this.getForm().getEntity().getDisciplinas().remove(this.getForm().getDisciplinaToRemove());
+    }
 
     @Override
     public CursoForm getForm() {
@@ -43,16 +55,8 @@ public class CursoController extends SGBController<Curso, CursoForm, CursoServic
     public void setService(CursoService service) {
         this.service = service;
     }
-    
-     public String getBuscaCurso() {
-        return buscaCurso;
-    }
 
-    public void setBuscaCurso(String buscaCurso) {
-        this.buscaCurso = buscaCurso;
-    }
-    
-      public DisciplinaService getDisciplinaService() {
+    public DisciplinaService getDisciplinaService() {
         return disciplinaService;
     }
 
