@@ -2,10 +2,14 @@ package br.ufg.inf.es.model;
 
 import br.ufg.inf.es.base.model.annotations.OrderingProperty;
 import br.ufg.inf.es.base.model.annotations.SortOrder;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
@@ -32,13 +36,12 @@ public class Usuario extends AbstractEntityModel {
     private String sobrenome;
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date dataCadastro;
-    private String status;
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE, targetEntity = Usuario.class)
-    @JoinTable(name = "USUARIO_PERFIL", joinColumns= {
-        @JoinColumn(name = "id_usuario")},
-    inverseJoinColumns = {
-        @JoinColumn(name="id_perfil")})
-    private Set<Perfil> perfil = new HashSet<Perfil>();
+    private boolean status;
+    @ManyToMany(
+        mappedBy="usuarios",
+        cascade={CascadeType.PERSIST, CascadeType.MERGE}
+    )
+    private Collection<Perfil> perfil = new HashSet<Perfil>();
 
     public String getSenha() {
         return senha;
@@ -80,19 +83,19 @@ public class Usuario extends AbstractEntityModel {
         this.dataCadastro = dataCadastro;
     }
 
-    public String getStatus() {
+    public boolean getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(boolean status) {
         this.status = status;
     }
 
-    public Set<Perfil> getPerfil() {
+    public Collection<Perfil> getPerfil() {
         return perfil;
     }
 
-    public void setPerfil(Set<Perfil> perfil) {
+    public void setPerfil(Collection<Perfil> perfil) {
         this.perfil = perfil;
     }
     

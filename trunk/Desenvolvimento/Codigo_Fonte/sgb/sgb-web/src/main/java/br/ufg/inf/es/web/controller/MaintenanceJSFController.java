@@ -38,6 +38,8 @@ public abstract class MaintenanceJSFController<E extends AbstractEntityModel>
             
             this.getService().insert(this.getForm().getEntity());
             
+            this.addSuccessMessage("arquitetura.msg.sucesso");
+            
             this.initData();
             
         } catch (ValidationException ex) {

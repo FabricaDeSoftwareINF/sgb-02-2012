@@ -21,6 +21,4 @@ public class UsuarioDAO extends GenericHibernateDAO<Usuario> {
         
         return this.sessionFactory;
     }
-
-    
 }

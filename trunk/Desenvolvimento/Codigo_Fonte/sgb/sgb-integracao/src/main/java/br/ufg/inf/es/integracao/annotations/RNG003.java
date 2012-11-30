@@ -5,8 +5,7 @@
 package br.ufg.inf.es.integracao.annotations;
 
 import br.ufg.inf.es.base.validation.annotations.Validator;
-import br.ufg.inf.es.integracao.rng.DadosUsuarioValidator;
-import br.ufg.inf.es.integracao.rng.VerificaQtdeMinimaDeCaracteresDeSenhaDeUsuario;
+import br.ufg.inf.es.integracao.rng.VerificaSeEmailsDigitadosSaoIguais;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -18,7 +17,7 @@ import java.lang.annotation.Target;
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
-@Validator(validatorClass = VerificaQtdeMinimaDeCaracteresDeSenhaDeUsuario.class)
-public @interface RNG002 {
+@Validator(validatorClass = VerificaSeEmailsDigitadosSaoIguais.class)
+public @interface RNG003 {
     
 }
