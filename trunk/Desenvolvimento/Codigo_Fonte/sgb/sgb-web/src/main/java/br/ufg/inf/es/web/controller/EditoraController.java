@@ -45,16 +45,5 @@ public class EditoraController
         this.service = service;
     }
     
-    public Collection<Editora> complete(String query) {  
-        Collection<Editora> results = new ArrayList<Editora>();
-          
-        for(Editora editora : form.getCollectionEntities()){
-            if(editora.getNome().contains(query)){
-                results.add(editora);
-            }
-        }
-          
-        return results;  
-    }  
     
 }

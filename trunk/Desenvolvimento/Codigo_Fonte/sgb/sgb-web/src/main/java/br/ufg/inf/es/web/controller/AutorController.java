@@ -45,16 +45,4 @@ public class AutorController
         this.service = service;
     }
     
-    public Collection<Autor> complete(String query) {  
-        Collection<Autor> results = new ArrayList<Autor>();
-          
-        for(Autor autor : form.getCollectionEntities()){
-            if(autor.getNome().contains(query)){
-                results.add(autor);
-            }
-        }
-          
-        return results;  
-    }  
-    
 }
