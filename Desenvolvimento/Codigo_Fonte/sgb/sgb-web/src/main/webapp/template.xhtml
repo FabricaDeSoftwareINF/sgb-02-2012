@@ -16,31 +16,43 @@
     <h:body>   
 
         <h:form id="header">
-                <h:panelGrid width="100%" columns="2">
-                    <p:graphicImage value="resources/images/sgb.png" width="80" height="60"/>
-                    <h:panelGrid style="float: right" columns="6" >
-                        <h:panelGrid columns="2">
-                            <p:inputText id="pesquisaLivro" size="65"/> 
-                            <p:commandButton icon="ui-icon-search"/>
-                        </h:panelGrid>
-                        <p:watermark for="pesquisaLivro" value="Pesquisar Livro"/>
-                        <p:spacer width="45" height="0"/>
-                        <h2>Nome do Usuário Logado</h2>
-                        <p:spacer width="45" height="0"/>
-                        <p:commandButton value="Sair"  icon="ui-icon-close"/>
+            <h:panelGrid width="100%" columns="2">
+                <p:graphicImage value="resources/images/sgb.png" width="80" height="60"/>
+                <h:panelGrid style="float: right" columns="6" >
+                    <h:panelGrid columns="2">
+                        <p:inputText id="pesquisaLivro" size="65"/> 
+                        <p:commandButton icon="ui-icon-search"/>
                     </h:panelGrid>
+                    <p:watermark for="pesquisaLivro" value="Pesquisar Livro"/>
+                    <p:spacer width="45" height="0"/>
+                    <h2>Nome do Usuário Logado</h2>
+                    <p:spacer width="45" height="0"/>
+                    <p:commandButton value="Sair"  icon="ui-icon-close"/>
                 </h:panelGrid>
-                <p:menubar > 
-                    <p:menuitem value="Home"/>
-                    <p:submenu label="Cadastros">
-                        <p:menuitem value="Livro"/>
-                        <p:menuitem value="Disciplina"/>
-                        <p:menuitem value="Curso"/>
-                        <p:menuitem value="Usuário"/>
+            </h:panelGrid>
+            <p:menubar > 
+                <p:menuitem value="Home"/>
+                <p:submenu label="Cadastros">
+                    <p:submenu label="Curso">
+                        <p:menuitem value="Manter" action="/cadastro/curso/manterCurso.xhtml" />
+                        <p:menuitem value="Cadastrar" action="#{cursoController.openInsertPage}" />
                     </p:submenu>
-                    <p:menuitem value="Cotação"/>
-                    <p:menuitem value="Ajuda"/> 
-                </p:menubar>
+                    <p:submenu label="Livro">
+                        <p:menuitem value="Busca" action="/cadastro/livro/busca.xhtml" />
+                        <p:menuitem value="Cadastrar" action="/cadastro/livro/inclusao.xhtml" />
+                    </p:submenu>
+                    <p:submenu label="Disciplina">
+                        <p:menuitem value="Manter" action="#{disciplinaController.openSearchPage}" />
+                        <p:menuitem value="Cadastrar" action="#{disciplinaController.openInsertPage}" />
+                    </p:submenu>
+                    <p:submenu label="Usuário">
+                        <p:menuitem value="Manter" action="/cadastro/usuario/inclusao.xhtml" />
+                        <p:menuitem value="Cadastrar" action="#{usuarioController.openInsertPage}" />
+                    </p:submenu>
+                </p:submenu>
+                <p:menuitem value="Cotação"/>
+                <p:menuitem value="Ajuda"/> 
+            </p:menubar>
 
         </h:form>
 

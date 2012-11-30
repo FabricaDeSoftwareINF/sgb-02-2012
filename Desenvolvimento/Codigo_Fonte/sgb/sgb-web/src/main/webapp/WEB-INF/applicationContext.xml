@@ -32,11 +32,11 @@
     
     <sec:http auto-config="true" use-expressions="true">
 		
-        <sec:form-login login-page="/login.jsf" login-processing-url="/j_spring_security_check" default-target-url="/index.jsf" authentication-failure-url="/login.jsf"/>		
+        <sec:form-login login-page="/login.jsf" login-processing-url="/j_spring_security_check" default-target-url="/template.jsf" authentication-failure-url="/login.jsf"/>		
 
         <sec:logout logout-success-url="/login.jsf" invalidate-session="true" />
 
-        <sec:intercept-url pattern="/index.jsf" access="hasAnyRole('ROLE_ADMIN', 'ROLE_CONSELHEIRO', 'ROLE_PROFESSOR')" />
+        <sec:intercept-url pattern="/template.jsf" access="hasAnyRole('ROLE_ADMIN', 'ROLE_CONSELHEIRO', 'ROLE_PROFESSOR')" />
 
         <sec:access-denied-handler error-page="/denied.jsf" />
 
@@ -74,9 +74,9 @@
 
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="com.mysql.jdbc.Driver" />
-        <property name="url" value="jdbc:mysql://localhost:3306/sgb" />
+        <property name="url" value="jdbc:mysql://localhost:3306/SGB" />
         <property name="username" value="root" />
-        <property name="password" value="12345678" />
+        <property name="password" value="bd*Mysql" />
     </bean>
     
     <bean id="sgbAuth" class="br.ufg.inf.es.web.controller.LoginController">
