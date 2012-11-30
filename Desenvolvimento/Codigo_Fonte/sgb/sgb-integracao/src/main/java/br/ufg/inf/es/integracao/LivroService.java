@@ -43,6 +43,5 @@ public class LivroService extends GenericService<Livro>{
     public Long insert(Livro entity) throws ValidationException {
 
         return super.insert(entity);
-    }
-    
+    }   
 }

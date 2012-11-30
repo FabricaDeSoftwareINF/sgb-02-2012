@@ -9,6 +9,7 @@
     <class>br.ufg.inf.es.model.Disciplina</class>
     <class>br.ufg.inf.es.model.Editora</class>
     <class>br.ufg.inf.es.model.Livro</class>
+    <class>br.ufg.inf.es.model.Perfil</class>
     <properties>
       <property name="hibernate.connection.username" value="root"/>
       <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"/>

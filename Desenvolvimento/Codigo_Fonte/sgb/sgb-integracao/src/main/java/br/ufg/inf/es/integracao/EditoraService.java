@@ -3,6 +3,8 @@ package br.ufg.inf.es.integracao;
 import br.ufg.inf.es.base.validation.ValidationException;
 import br.ufg.inf.es.model.Editora;
 import br.ufg.inf.es.persistencia.EditoraDAO;
+import java.util.ArrayList;
+import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
@@ -34,4 +36,16 @@ public class EditoraService extends GenericService<Editora> {
 
         return super.insert(entity);
     }
+    
+    public Collection<Editora> complete(String query) {  
+        Collection<Editora> results = new ArrayList<Editora>();
+          
+        for(Editora editora : dao.list()){
+            if(editora.getNome().contains(query)){
+                results.add(editora);
+            }
+        }
+          
+        return results;  
+    }  
 }
