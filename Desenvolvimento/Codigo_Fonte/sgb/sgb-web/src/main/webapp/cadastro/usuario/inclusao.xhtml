@@ -45,7 +45,7 @@
 
                     <h:outputLabel value="#{msg['cadastro.usuario.label.perfil']}:" />
 
-                    <p:selectManyCheckbox value="#{usuarioController.form.entity.perfil}" layout="pageDirection">  
+                    <p:selectManyCheckbox value="#{usuarioController.form.entity.perfil}" layout="pageDirection" converter="perfilConverter">  
                         <f:selectItems value="#{usuarioController.perfil}" var="perfil" itemLabel="#{perfil.tipo}" itemValue="#{perfil}" /> 
                     </p:selectManyCheckbox>  
 

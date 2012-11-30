@@ -7,11 +7,13 @@ package br.ufg.inf.es.integracao.rng;
 import br.ufg.inf.es.base.validation.Validation;
 import br.ufg.inf.es.base.validation.ValidationException;
 import br.ufg.inf.es.model.Usuario;
+import org.springframework.stereotype.Component;
 
 /**
  *
  * @author Luã
  */
+@Component
 public class VerificaQtdeMinimaDeCaracteresDeSenhaDeUsuario implements Validation<Usuario> {
 
     public void validate(Usuario object) throws ValidationException {

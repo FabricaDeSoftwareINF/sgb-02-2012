@@ -10,6 +10,7 @@
     <class>br.ufg.inf.es.model.Disciplina</class>
     <class>br.ufg.inf.es.model.Editora</class>
     <class>br.ufg.inf.es.model.Livro</class>
+    <class>brbr.ufg.inf.es.model.Perfil</class>
     <properties>
       <property name="hibernate.show_sql" value="true"/>
       <property name="hibernate.order_updates" value="true"/>
