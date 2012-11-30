@@ -20,7 +20,7 @@ public class Disciplina extends AbstractEntityModel{
     @ManyToOne
     @JoinColumn(name="id_curso")
     private Curso curso;
-    @OneToMany(mappedBy="disciplina")
+    @OneToMany(targetEntity=Bibliografia.class)
     private Collection<Bibliografia> bibliografias;
 
     public String getNome() {

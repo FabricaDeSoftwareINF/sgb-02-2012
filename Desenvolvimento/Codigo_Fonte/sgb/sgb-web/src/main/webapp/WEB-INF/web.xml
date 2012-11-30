@@ -32,7 +32,7 @@
         </session-timeout>
     </session-config>
     <welcome-file-list>
-        <welcome-file>index.jsf</welcome-file>
+        <welcome-file>templateLogin.jsf</welcome-file>
     </welcome-file-list>
     
     <!-- Início da configuração do Spring-->
