@@ -32,12 +32,12 @@ public class Livro extends AbstractEntityModel {
     @ManyToOne
     @JoinColumn(name = "id_editora")
     private Editora editora;
-    @ManyToMany(cascade= CascadeType.ALL)
+    @ManyToMany(mappedBy="livros", cascade= CascadeType.ALL)
     @JoinTable(name = "livro_autor", joinColumns =
     @JoinColumn(name = "id_livro"), inverseJoinColumns =
     @JoinColumn(name = "id_autor"))
     private Collection<Autor> autores;
-    @OneToMany(targetEntity=Bibliografia.class)
+    @OneToMany(targetEntity = Bibliografia.class)
     private Collection<Bibliografia> bibliografia;
 
     public String getTitulo() {
@@ -103,5 +103,4 @@ public class Livro extends AbstractEntityModel {
     public void setBibliografia(Collection<Bibliografia> bibliografia) {
         this.bibliografia = bibliografia;
     }
-
 }
