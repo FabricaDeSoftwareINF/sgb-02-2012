@@ -13,14 +13,16 @@
     </h:head>
     <h:body>
         <h:form id="busca">
+             <!--<h1>"#{msg['curso.manter']}"</h1>-->
             <h:panelGrid width="100%" columns="2">
+               
                 <h:panelGrid width="100%" columns="1">
-                    <h:panelGrid style="float: right" columns="6" >
+                    <h:panelGrid style="float: left" columns="6" >
                         <h:panelGrid columns="2">
-                            <p:inputText id="pesquisaLivro" size="65"/> 
+                            <p:inputText id="pesquisaCurso" size="65"/> 
                             <p:commandButton icon="ui-icon-search"/>
                         </h:panelGrid>
-                        <p:watermark for="pesquisaCurso" value="Pesquisar Curso"/>
+                        <p:watermark for="pesquisaCurso" value="#{msg['curso.pesquisar']}"/>
 
                     </h:panelGrid>
                     <p:dataTable id="associationTable" var="assTab" 
@@ -55,6 +57,6 @@
             </h:panelGrid>
 
         </h:form>
-        <div>TODO write content</div>
+        
     </h:body>
 </html>

@@ -3,8 +3,10 @@ package br.ufg.inf.es.model;
 import br.ufg.inf.es.base.model.annotations.OrderingProperty;
 import br.ufg.inf.es.base.model.annotations.SortOrder;
 import java.util.Collection;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -22,7 +24,7 @@ public class Curso extends AbstractEntityModel {
     private String nome;
     @Column(name="vagas")
     private Integer vagas;
-    @OneToMany(targetEntity=Disciplina.class)
+    @OneToMany(targetEntity=Disciplina.class, fetch= FetchType.LAZY, cascade= CascadeType.ALL)
     private Collection<Disciplina> disciplinas;
 
     public Collection<Disciplina> getDisciplinas() {
