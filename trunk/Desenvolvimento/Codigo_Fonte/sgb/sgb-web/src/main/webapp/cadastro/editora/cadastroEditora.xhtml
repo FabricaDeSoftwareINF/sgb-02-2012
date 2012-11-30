@@ -9,7 +9,7 @@
                 <h:outputLabel value="#{msg['cadastro.editora.label.nome']}" ></h:outputLabel>
                 <p:inputText value="#{editoraController.form.entity.nome}"></p:inputText>
                 <p:commandButton action="#{editoraController.insert()}" onsuccess="editoraModal.hide()" value="Salvar"></p:commandButton>
-                <p:commandButton onclick="autorModal.hide()" value="Cancelar"></p:commandButton>
+                <p:commandButton onclick="editoraModal.hide()" value="Cancelar"></p:commandButton>
             </h:panelGrid>
         </h:form>
     </p:dialog>
