@@ -1,0 +1,111 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!--@autor: Diogo Goncalves Teodoro-->
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"  
+      xmlns:h="http://java.sun.com/jsf/html"  
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <h:outputStylesheet name="default.css" library="css"/>
+        <title>Cadastrar Curso</title>
+    </h:head>
+
+    <h:body>   
+
+        <h:panelGrid width="100%">
+            <h:form id="header" style="">
+                <h:panelGrid width="100%" style="float: left" columns="1" >
+                    <h:panelGrid columns="4">
+                        <h:outputLabel value="#{msg['cadastro.curso.label.nome']}:" for="nomeCurso" />
+                        <p:inputText value="#{cursoController.form.entity.nome}" id="nomeCurso" size="65" required="true" />
+                        <h:outputLabel value="#{msg['cadastro.curso.label.vagas']}:" for="qtdVagas" />
+                        <p:inputText value="#{cursoController.form.entity.vagas}" id="qtdVagas" size="15" required="true" />
+                    </h:panelGrid>
+
+
+                </h:panelGrid>
+                <br></br> <br></br>
+                <br></br>
+                <h:panelGrid width="100%">
+                    <p:fieldset legend="Associação Disciplina/Curso">
+                        <h:panelGrid columns="2" style="float: left" cellspacing="20">
+
+                            <h:outputLabel value="#{msg['cadastro.disciplina']}:" for="disciplina" />
+                            <p:selectOneMenu id="disciplina" value="#{cursoController.form.disciplinaSelecionada.id}"  style="width: 500px">
+                                <f:selectItem itemLabel="Selecione a Disicplina"/>
+                                <f:selectItems value="#{cursoController.disciplinaService.list()}" rendered="true" var="disciplinaList"
+                                               itemLabel="#{disciplinaList.nome}" itemValue="#{disciplinaList.id}"/>
+                            </p:selectOneMenu>
+
+                            <br></br>
+                            <p:commandButton value="#{msg['cadastro.associar.disciplina']}" 
+                                             action="#{cursoController.addDisciplina()}" 
+                                             update="associationTable"
+                                             ajax="false"/>
+                        </h:panelGrid>
+                        <br></br>
+                        <br></br>
+                        <br></br>
+                        <br></br>
+                        <p:dataTable id="associationTable" var="assTab" 
+                                     value="#{cursoController.form.entity.disciplinas}">
+
+                            <p:column>  
+                                <f:facet name="header">  
+                                    <h:outputText value="#{msg['cadastro.disciplina']}" />  
+                                </f:facet>  
+                                <h:outputText value="#{assTab.nome}" />  
+                            </p:column>
+                            <p:column>  
+                                <f:facet name="header">  
+                                    <h:outputText value="#{msg['cadastro.acao']}" />  
+                                </f:facet>  
+                                <h:commandLink id="linkAcao" 
+                                               value="Remover" 
+                                               action="#{cursoController.removeDisciplina()}">
+                                    <f:setPropertyActionListener value="#{assTab}" target="#{cursoController.form.disciplinaToRemove}"/>
+                                </h:commandLink>
+                            </p:column> 
+
+                        </p:dataTable>
+
+
+                    </p:fieldset>
+                </h:panelGrid>
+                <div align="right" style="float: right">
+                    <h:panelGrid width="100%" columns="2" >
+                        <p:commandButton value="#{msg['cadastro.curso.panel.cadastrar']}" 
+                                         oncomplete="confirmation.show()"/>
+
+                        <p:commandButton value="#{msg['acao.voltar']}" 
+                                         action="/index.xhtml"
+                                         />
+                        <p:confirmDialog  message="Confirma Cadastro do Curso?" closable="false" header="Aviso" severity="alert" widgetVar="confirmation" style="float: top">  
+                            <p:commandButton id="btnSim" value="Sim" oncomplete="confirmation.hide()" 
+                                             action="#{cursoController.service.insert(cursoController.form.entity)}"
+                                             onsuccess="/template.xhtml"
+                                             />  
+                            <p:commandButton id="btnNao" value="Não" onclick="confirmation.hide()" type="#{cursoController.form.clearInsertData()}" />  
+                        </p:confirmDialog>  
+                    </h:panelGrid>
+
+                </div>
+            </h:form>
+        </h:panelGrid>
+    </h:body>  
+
+    <!--                        <p:dataTable id="associationTable" var="assTab" 
+                                      value="#{cursoController.form.collectionEntities}"
+                                      paginator="true" rows="5"
+                                      paginatorTemplate="{CurrentPageReport}  
+                                      {FirstPageLink} {PreviousPageLink} 
+                                      {PageLinks} {NextPageLink} {LastPageLink} 
+                                      {RowsPerPageDropdown}"
+                                      rowsPerPageTemplate="5,10,15">-->
+
+
+
+
+</html>
