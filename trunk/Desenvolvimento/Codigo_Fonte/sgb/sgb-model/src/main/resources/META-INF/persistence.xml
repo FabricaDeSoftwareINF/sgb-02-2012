@@ -13,7 +13,7 @@
     <properties>
       <property name="hibernate.connection.username" value="root"/>
       <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"/>
-      <property name="hibernate.connection.password" value="12345678"/>
+      <property name="hibernate.connection.password" value="123"/>
       <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/sgb"/>
       <property name="hibernate.cache.provider_class" value="org.hibernate.cache.NoCacheProvider"/>
       <property name="hibernate.hbm2ddl.auto" value="update"/>
