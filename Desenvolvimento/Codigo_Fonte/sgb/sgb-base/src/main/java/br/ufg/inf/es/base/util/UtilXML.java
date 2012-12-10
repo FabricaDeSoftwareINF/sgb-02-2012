@@ -48,8 +48,6 @@ public class UtilXML extends UtilFile {
         if (mapaDeAlias != null) {
             for (Map.Entry<Class, String> entry : mapaDeAlias.entrySet()) {
                 xStream.alias(entry.getValue(), entry.getKey());
-                System.out.println("ENTROU " +  entry.getValue());
-                System.out.println("ENTROU KEY " +  entry.getKey());
             }
         }
     }
