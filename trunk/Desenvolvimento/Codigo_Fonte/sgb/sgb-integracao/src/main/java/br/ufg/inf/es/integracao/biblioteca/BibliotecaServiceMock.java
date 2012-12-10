@@ -28,7 +28,7 @@ public class BibliotecaServiceMock implements Biblioteca {
         Collection<LivroBiblioteca> matches = new ArrayList<LivroBiblioteca>();
 
         for (LivroBiblioteca livro : livros) {
-            if (livro.getNome() == nomeLivro) {
+            if (livro.getNome().equals(nomeLivro)) {
                 matches.add(livro);
             }
         }
