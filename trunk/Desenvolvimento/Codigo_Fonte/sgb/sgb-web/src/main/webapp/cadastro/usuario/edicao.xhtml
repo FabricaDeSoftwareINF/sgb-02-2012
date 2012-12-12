@@ -5,13 +5,13 @@
 
     <h:head>
 
-        <title>Cadastro de Usuários</title>
+        <title>Edição de Usuários</title>
 
     </h:head>
 
     <h:body>
 
-        <p:panel header="#{msg['cadastro.usuario.panel.header']}">
+        <p:panel header="#{msg['edicao.usuario.panel.header']}">
 
             <h:form>
 
@@ -37,7 +37,7 @@
 
                     <h:outputLabel value="#{msg['cadastro.usuario.label.password']}:" for="usuarioPassword" />
 
-                    <p:password value="#{usuarioController.form.entity.senha}" id="usuarioPassword" feedback="true" match="usuarioConfirmacaoPassword" autocomplete="off" />
+                    <p:password value="#{usuarioController.form.entity.senha}" id="usuarioPassword" match="usuarioConfirmacaoPassword" autocomplete="off" />
 
                     <h:outputLabel value="#{msg['cadastro.usuario.label.confirmacaopassword']}:" for="usuarioConfirmacaoPassword" />
 
@@ -45,19 +45,20 @@
 
                     <h:outputLabel value="#{msg['cadastro.usuario.label.perfil']}:" />
 
-                    <p:selectManyCheckbox value="#{usuarioController.form.entity.perfil}" layout="pageDirection" converter="perfilConverter">  
+                    <p:selectManyCheckbox value="#{usuarioController.form.entity.perfil}" layout="pageDirection">  
                         <f:selectItems value="#{usuarioController.perfil}" var="perfil" itemLabel="#{perfil.tipo}" itemValue="#{perfil}" /> 
                     </p:selectManyCheckbox>  
 
-
                 </h:panelGrid>
 
-                <h:commandButton action="#{usuarioController.insert}" value="#{msg['cadastro.usuario.button.insert']}" />
-                
-                <h:commandButton action="#{usuarioController.openSearchPage()}" value="#{msg['cadastro.usuario.button.voltar']}" />
+                <h:commandButton action="#{usuarioController.edit()}" value="#{msg['cadastro.usuario.button.edit']}" />
 
             </h:form>
-
+            <h:form>
+                
+                <h:commandButton action="#{usuarioController.openSearchPage()}" value="#{msg['cadastro.usuario.button.voltar']}" />
+                
+            </h:form>
         </p:panel>        
 
     </h:body>

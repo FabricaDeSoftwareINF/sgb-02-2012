@@ -6,18 +6,14 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.Transient;
+import org.hibernate.collection.PersistentBag;
 
 /**
  *
@@ -39,7 +35,8 @@ public class Usuario extends AbstractEntityModel {
     private boolean status;
     @ManyToMany(
         mappedBy="usuarios",
-        cascade={CascadeType.PERSIST, CascadeType.MERGE}
+        cascade={CascadeType.PERSIST, CascadeType.MERGE},
+        fetch=FetchType.LAZY
     )
     private Collection<Perfil> perfil = new HashSet<Perfil>();
 
@@ -97,6 +94,15 @@ public class Usuario extends AbstractEntityModel {
 
     public void setPerfil(Collection<Perfil> perfil) {
         this.perfil = perfil;
+    }
+    
+    public String getStringPerfil() {
+        String retorno = "";
+        PersistentBag persistPerfil = (PersistentBag) perfil;
+        for (int i = 0; i < perfil.size(); i ++) {
+            retorno += persistPerfil.get(i).toString() + "; "; 
+        }
+        return retorno;
     }
     
     public String getConfirmacaoEmail() {

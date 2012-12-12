@@ -4,15 +4,10 @@
  */
 package br.ufg.inf.es.model;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Set;
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
@@ -25,7 +20,7 @@ import javax.persistence.Table;
 public class Perfil extends AbstractEntityModel {
     
     @ManyToMany(
-        fetch= FetchType.EAGER,
+        fetch= FetchType.LAZY,
         cascade = CascadeType.ALL,
         targetEntity = Usuario.class
     )
@@ -47,5 +42,10 @@ public class Perfil extends AbstractEntityModel {
 
     public void setTipo(String tipo) {
         this.tipo = tipo;
+    }
+    
+    @Override
+    public String toString() {
+        return getTipo();
     }
 }

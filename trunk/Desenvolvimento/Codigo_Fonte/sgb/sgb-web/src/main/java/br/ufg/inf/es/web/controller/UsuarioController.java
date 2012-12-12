@@ -7,6 +7,7 @@ import br.ufg.inf.es.model.Usuario;
 import br.ufg.inf.es.web.controller.form.UsuarioForm;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -26,7 +27,7 @@ public class UsuarioController
     private UsuarioService service;
     @Autowired
     private PerfilService perfilService;
-    private Collection<Usuario> usuarioSelecionado;
+    private Collection<Usuario> usuarioSelecionado = new HashSet<Usuario>();
 
     @Override
     public UsuarioForm getForm() {
@@ -72,12 +73,24 @@ public class UsuarioController
         this.usuarioSelecionado = usuarioSelecionado;
     }
 
-
     public void selecionaUsuario(Usuario usuario) {
         this.usuarioSelecionado.add(usuario);
     }
 
     public void removerUsuarioSelecionados() {
-            this.service.getDAO().removeAll(usuarioSelecionado);
+        this.service.getDAO().removeAll(usuarioSelecionado);
+        String openSearchPage = openSearchPage();
+    }
+    
+    @Override
+    public String openEditPage(Usuario usuario) {
+        String pagRetorno = super.openEditPage(usuario);
+        this.getForm().clearCollectionData();
+        this.getForm().clearInsertData();
+        this.getForm().clearSearchData();
+        
+        this.getForm().setEntity(usuario);
+        
+        return pagRetorno;
     }
 }
