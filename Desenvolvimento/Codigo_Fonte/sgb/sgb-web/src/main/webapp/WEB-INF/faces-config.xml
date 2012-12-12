@@ -19,6 +19,30 @@
         
         <navigation-case>
             
+            <from-outcome>UsuarioController/searchPage</from-outcome>
+            
+            <to-view-id>/cadastro/usuario/busca.xhtml</to-view-id>
+            
+        </navigation-case>
+        
+        <navigation-case>
+            
+            <from-outcome>UsuarioController/editPage</from-outcome>
+            
+            <to-view-id>/cadastro/usuario/edicao.xhtml</to-view-id>
+            
+        </navigation-case>
+        
+        <navigation-case>
+            
+            <from-outcome>UsuarioController/viewPage</from-outcome>
+            
+            <to-view-id>/cadastro/usuario/visualizacao.xhtml</to-view-id>
+            
+        </navigation-case>
+        
+        <navigation-case>
+            
             <from-outcome>DisciplinaController/insertPage</from-outcome>
             
             <to-view-id>/cadastro/disciplina/inclusao.xhtml</to-view-id>

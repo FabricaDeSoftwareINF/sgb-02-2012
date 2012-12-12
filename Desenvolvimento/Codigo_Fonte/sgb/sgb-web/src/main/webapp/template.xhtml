@@ -46,8 +46,8 @@
                         <p:menuitem value="Cadastrar" action="/cadastro/disciplina/inclusao.xhtml" />
                     </p:submenu>
                     <p:submenu label="Usuário">
-                        <p:menuitem value="Manter" action="/cadastro/usuario/inclusao.xhtml" />
-                        <p:menuitem value="Cadastrar" action="/cadastro/usuario/busca.xhtml" />
+                        <p:menuitem value="Manter" action="#{usuarioController.openSearchPage()}" />
+                        <p:menuitem value="Cadastrar" action="#{usuarioController.openInsertPage()}" />
                     </p:submenu>
                 </p:submenu>
                 <p:menuitem value="Cotação"/>

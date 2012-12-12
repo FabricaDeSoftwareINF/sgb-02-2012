@@ -65,4 +65,19 @@ public class UsuarioService extends GenericService<Usuario> {
         
         return id;
     }
+    
+    @Override
+    @RNG001
+    @RNG002
+    @RNG003
+    public void update(Usuario entity) throws ValidationException {
+        entity.setStatus(true);
+        
+        super.update(entity);
+     
+        for (Perfil perfil : entity.getPerfil()) {
+            
+            this.getPerfilDao().vincularUsuarioPerfil(entity, perfil);
+        }
+    }
 }

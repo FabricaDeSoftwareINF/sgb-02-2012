@@ -50,7 +50,6 @@ public class PerfilConverter implements Converter {
 
     @Override
     public String getAsString(FacesContext context, UIComponent component, Object value) {
-        
         return String.valueOf(((Perfil)value).getId());
     }
     

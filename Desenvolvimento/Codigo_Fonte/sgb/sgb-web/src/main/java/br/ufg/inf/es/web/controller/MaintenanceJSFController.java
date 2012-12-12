@@ -5,6 +5,7 @@ import br.ufg.inf.es.base.controller.form.Form;
 import br.ufg.inf.es.base.service.Service;
 import br.ufg.inf.es.base.validation.ValidationException;
 import br.ufg.inf.es.model.AbstractEntityModel;
+import org.hibernate.Hibernate;
 
 /**
  * @author Cézar Augusto Ferreira
@@ -51,6 +52,8 @@ public abstract class MaintenanceJSFController<E extends AbstractEntityModel>
     @Override
     public void openSearchView() {
         
+        this.getForm().clearCollectionData();
+        
         this.getForm().getCollectionEntities().addAll(this.getService().list());
     }
 
@@ -93,16 +96,46 @@ public abstract class MaintenanceJSFController<E extends AbstractEntityModel>
     }
     
     public String openEditPage() {
+        try {
+            this.openEditView();
+
+            return this.getRootNavigation() + "editPage";
+        } catch (Exception e) {
+        }
+        return "";
+    }
+    
+    public String openEditPage(E entity) {
         
-        this.openEditView();
+        this.getForm().clearInsertData();
         
+        this.getForm().setEntity(entity);
+                
         return this.getRootNavigation() + "editPage";
+    }
+    
+    public String openViewPage() {
+        try {
+            this.openEditView();
+            
+            return this.getRootNavigation() + "viewPage";
+        } catch (Exception e) {            
+        }
+        return "";
+    }
+    
+    public String openViewPage(E entity) {
+        
+        this.getForm().setEntity(entity);
+        
+        return this.getRootNavigation() + "viewPage";
     }
 
     @Override
     public void edit() {
         
         try {
+            Hibernate.initialize(this.getForm().getEntity());
             
             this.getService().update(this.getForm().getEntity());
             
@@ -111,7 +144,7 @@ public abstract class MaintenanceJSFController<E extends AbstractEntityModel>
         } catch (ValidationException ex) {
             
             this.addWarningMessage(ex.getKeyMessage());
-        }
+        }        
     }
 
     @Override
