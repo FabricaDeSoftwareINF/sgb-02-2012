@@ -62,6 +62,6 @@ public class UtilXMLTest extends TestCase {
     }
 
     private String obtenhaPath(String nomeArquivo) {
-        return this.getClass().getResource("/resources/" + nomeArquivo).getPath();
+        return "src/test/java/resources/" + nomeArquivo;
     }
 }

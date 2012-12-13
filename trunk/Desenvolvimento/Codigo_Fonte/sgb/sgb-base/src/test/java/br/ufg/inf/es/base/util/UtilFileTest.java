@@ -18,8 +18,8 @@ public class UtilFileTest extends TestCase {
         assertEquals("O conteúdo lido do arquivo está diferente do esperado",
                 obtenhaConteudoEsperado(), result);
     }
-    
-     /**
+
+    /**
      * Test of crieArquivo method, of class UtilFile.
      */
     public void testCrieArquivo() {
@@ -30,13 +30,9 @@ public class UtilFileTest extends TestCase {
         result.delete();
         assertTrue(arquivoGerado);
     }
-    
+
     private String obtenhaPath(String nomeArquivo) {
-        return obtenhaPath() + "/resources/" + nomeArquivo;
-    }
-    
-        private String obtenhaPath() {
-        return this.getClass().getResource("/").getPath();
+        return "src/test/java/resources/" + nomeArquivo;
     }
 
     private String obtenhaConteudoEsperado() {
