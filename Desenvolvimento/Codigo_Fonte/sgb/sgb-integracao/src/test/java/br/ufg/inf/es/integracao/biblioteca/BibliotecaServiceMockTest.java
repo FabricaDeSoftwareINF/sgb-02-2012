@@ -70,7 +70,6 @@ public class BibliotecaServiceMockTest extends TestCase {
         String path = obtenhaPath("LivrosBiblioteca.xml");
 
         boolean gerouXML = UtilXML.convertaObjetoParaXML(livros, mapaAliasXML, path);
-
         assertEquals("O arquivo xml com os livros da biblioteca deveriam ter sido gerados",
                 true, gerouXML);
     }
@@ -80,12 +79,11 @@ public class BibliotecaServiceMockTest extends TestCase {
         for (int i = 0; i < 20; i++) {
             livros.add(obtenhaLivro(new Long(i), "Livro " + i, isbnBase + i, i));
         }
-
         return livros;
     }
 
     private String obtenhaPath(String nomeArquivo) {
-        return this.getClass().getResource("/resources/" + nomeArquivo).getPath();
+        return "src/test/java/resources/" + nomeArquivo;
     }
 
     private LivroBiblioteca obtenhaLivro(Long id, String nome, String isbn, Integer quantidade) {
