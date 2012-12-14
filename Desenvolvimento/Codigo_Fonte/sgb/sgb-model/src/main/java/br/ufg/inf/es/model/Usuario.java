@@ -33,11 +33,7 @@ public class Usuario extends AbstractEntityModel {
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date dataCadastro;
     private boolean status;
-    @ManyToMany(
-        mappedBy="usuarios",
-        cascade={CascadeType.PERSIST, CascadeType.MERGE},
-        fetch=FetchType.LAZY
-    )
+    @Transient
     private Collection<Perfil> perfil = new HashSet<Perfil>();
 
     public String getSenha() {
@@ -98,9 +94,8 @@ public class Usuario extends AbstractEntityModel {
     
     public String getStringPerfil() {
         String retorno = "";
-        PersistentBag persistPerfil = (PersistentBag) perfil;
-        for (int i = 0; i < perfil.size(); i ++) {
-            retorno += persistPerfil.get(i).toString() + "; "; 
+        for (Perfil p : this.perfil) {
+            retorno += p.getTipo() + "; ";
         }
         return retorno;
     }

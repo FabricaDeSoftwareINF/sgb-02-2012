@@ -5,7 +5,9 @@ import br.ufg.inf.es.base.controller.form.Form;
 import br.ufg.inf.es.base.service.Service;
 import br.ufg.inf.es.base.validation.ValidationException;
 import br.ufg.inf.es.model.AbstractEntityModel;
+import org.apache.commons.collections.Factory;
 import org.hibernate.Hibernate;
+import org.hibernate.Session;
 
 /**
  * @author Cézar Augusto Ferreira
@@ -26,8 +28,6 @@ public abstract class MaintenanceJSFController<E extends AbstractEntityModel>
     
     @Override
     public void openInsertView() {
-        
-        this.initData();
         
         this.getForm().clearInsertData();
     }
@@ -71,22 +71,6 @@ public abstract class MaintenanceJSFController<E extends AbstractEntityModel>
         
         this.getForm().getCollectionEntities().addAll(this.getService().search(this.getForm().getSearch()));
     }
-
-    @Override
-    public void openEditView() {
-        
-        if (this.getForm().getEntity().isNew()) {
-        
-            try {
-                
-                this.loadEntityFromRequest();
-            
-            } catch (NumberFormatException e) {
-                
-                this.addErrorMessage("entityID parameter not found.");
-            }
-        }
-    }
     
     private void loadEntityFromRequest() {
         
@@ -113,12 +97,28 @@ public abstract class MaintenanceJSFController<E extends AbstractEntityModel>
                 
         return this.getRootNavigation() + "editPage";
     }
+
+    @Override
+    public void openEditView() {
+        
+        if (this.getForm().getEntity().isNew()) {
+        
+            try {
+                
+                this.loadEntityFromRequest();
+            
+            } catch (NumberFormatException e) {
+                
+                this.addErrorMessage("entityID parameter not found.");
+            }
+        }
+    }
     
     public String openViewPage() {
         try {
-            this.openEditView();
             
             return this.getRootNavigation() + "viewPage";
+            
         } catch (Exception e) {            
         }
         return "";

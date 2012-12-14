@@ -1,7 +1,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://java.sun.com/jsf/core">
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
 
     <h:head>
 
@@ -10,6 +11,8 @@
     </h:head>
 
     <h:body>
+        
+        <ui:include src="../../template.xhtml" />
 
         <p:panel header="#{msg['edicao.usuario.panel.header']}">
 
@@ -45,13 +48,13 @@
 
                     <h:outputLabel value="#{msg['cadastro.usuario.label.perfil']}:" />
 
-                    <p:selectManyCheckbox value="#{usuarioController.form.entity.perfil}" layout="pageDirection">  
+                    <p:selectManyCheckbox value="#{usuarioController.form.entity.perfil}" layout="pageDirection" converter="perfilConverter">  
                         <f:selectItems value="#{usuarioController.perfil}" var="perfil" itemLabel="#{perfil.tipo}" itemValue="#{perfil}" /> 
                     </p:selectManyCheckbox>  
 
                 </h:panelGrid>
 
-                <h:commandButton action="#{usuarioController.edit()}" value="#{msg['cadastro.usuario.button.edit']}" />
+                <h:commandButton action="#{usuarioController.editarUsuario()}" value="#{msg['cadastro.usuario.button.edit']}" />
 
             </h:form>
             <h:form>

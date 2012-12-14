@@ -82,15 +82,13 @@ public class UsuarioController
         String openSearchPage = openSearchPage();
     }
     
-    @Override
-    public String openEditPage(Usuario usuario) {
-        String pagRetorno = super.openEditPage(usuario);
-        this.getForm().clearCollectionData();
-        this.getForm().clearInsertData();
-        this.getForm().clearSearchData();
-        
-        this.getForm().setEntity(usuario);
-        
-        return pagRetorno;
+    public String editarUsuario() {
+        super.edit();
+        return super.openSearchPage();
+    }
+    
+    public String criarUsuario() {
+        super.insert();
+        return super.openSearchPage();
     }
 }
