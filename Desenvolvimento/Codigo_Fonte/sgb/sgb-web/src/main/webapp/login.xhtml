@@ -5,34 +5,41 @@
       xmlns:p="http://primefaces.org/ui">
     <h:head>
         <title>LOGIN</title>
+        <h:outputStylesheet library="css" name="login.css"/>
     </h:head>
 
     <h:body>
+        <div class="container">
+            <div class="form-login">
+                <div class="logo">
+                    <h:graphicImage value="/resources/images/sgb.png"/>
+                    <h2>Login</h2>
+                </div>
+                <p>Seja bem-vindo ao SGB, entre com suas informações<br /> abaixo para ter acesso ao sistema.</p>
+                <form action="#{facesContext.externalContext.requestContextPath}/j_spring_security_check" method="post">
 
-        <form action="#{facesContext.externalContext.requestContextPath}/j_spring_security_check" method="post">
 
-            <p:panel header="Cabeçalho do Painel">
+                    <h:panelGrid columns="2">
 
-                <p:messages />
+                        <h:outputLabel value="Login:" for="j_username" />
 
-                <h:panelGrid columns="2">
+                        <p:inputText id="j_username" styleClass="form-login-input" />
+                        
+                        <h:outputLabel value="" />
+                        <h:outputLink value="#">Esqueceu a senha?</h:outputLink>
 
-                    <h:outputLabel value="Login:" for="j_username" />
+                        <h:outputLabel value="Senha:" for="j_password" />
 
-                    <p:inputText id="j_username" />
+                        <p:password id="j_password" styleClass="form-login-input"/>
 
-                    <h:outputLabel value="Senha:" for="j_password" />
-
-                    <p:password id="j_password" />
-
-                </h:panelGrid>
-
-                <h:commandButton styleClass="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" type="submit" value="Sign In" />
-
-            </p:panel>
-
-        </form>
+                    </h:panelGrid>
+                    
+                    <p:messages />
+                    <div>&nbsp;</div>
+                    <h:commandButton styleClass="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" type="submit" value="Entrar" id="form-submit"/>
+                </form>
+            </div>
+        </div>
 
     </h:body>
-    
 </html>

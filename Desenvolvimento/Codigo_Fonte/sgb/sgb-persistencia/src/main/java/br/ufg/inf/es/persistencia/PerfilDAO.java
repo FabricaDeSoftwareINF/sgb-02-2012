@@ -6,8 +6,6 @@ package br.ufg.inf.es.persistencia;
 
 import br.ufg.inf.es.model.Perfil;
 import br.ufg.inf.es.model.Usuario;
-import org.hibernate.Hibernate;
-import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;

@@ -85,7 +85,10 @@
         <dispatcher>FORWARD</dispatcher>
         <dispatcher>REQUEST</dispatcher>
     </filter-mapping>
-
+    
+    <listener>
+        <lislistener-class>br.ufg.inf.es.web.bootstrap.Bootstrap</lislistener-class>
+    </listener>
     <!-- Fim da configuração do Spring Security-->
     
 <!--    <error-page>

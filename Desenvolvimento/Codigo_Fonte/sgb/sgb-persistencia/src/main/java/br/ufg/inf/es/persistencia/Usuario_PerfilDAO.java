@@ -4,9 +4,14 @@
  */
 package br.ufg.inf.es.persistencia;
 
-import br.ufg.inf.es.model.Usuario_Perfil;
+import br.ufg.inf.es.model.Perfil;
+import br.ufg.inf.es.model.UsuarioPerfil;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 import org.hibernate.Criteria;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +24,7 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Repository
 @Transactional
-public class Usuario_PerfilDAO  extends GenericHibernateDAO<Usuario_Perfil>{
+public class Usuario_PerfilDAO  extends GenericHibernateDAO<UsuarioPerfil>{
     
     @Autowired
     private SessionFactory sessionFactory;
@@ -30,14 +35,18 @@ public class Usuario_PerfilDAO  extends GenericHibernateDAO<Usuario_Perfil>{
         return this.sessionFactory;
     }
     
-    public Collection<Usuario_Perfil> list (long idUsuario) {
-        
+    public Collection<UsuarioPerfil> list (long idUsuario) {
+        System.out.println("Procurando perfis do usuario: " + idUsuario);
         Criteria criteria = this.createCriteria();
 
         criteria.add(Restrictions.eq("id_usuario", idUsuario));
 
         return criteria.list();
         
+    }
+    
+    public Collection<Perfil> listPerfis(long idUsuario) {
+        return Arrays.asList(new Perfil("ROLE_ADMIN"));
     }
     
 }

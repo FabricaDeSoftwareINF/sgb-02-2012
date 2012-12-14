@@ -13,7 +13,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "PERFIL_USUARIO")
-public class Usuario_Perfil extends AbstractEntityModel {
+public class UsuarioPerfil extends AbstractEntityModel {
 
     private long id_usuario;
     private long id_perfil;
