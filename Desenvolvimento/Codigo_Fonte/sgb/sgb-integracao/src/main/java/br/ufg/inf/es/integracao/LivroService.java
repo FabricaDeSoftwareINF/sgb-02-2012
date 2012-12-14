@@ -1,17 +1,9 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.ufg.inf.es.integracao;
 
-import br.ufg.inf.es.base.persistence.DAO;
 import br.ufg.inf.es.base.validation.ValidationException;
 import br.ufg.inf.es.integracao.annotations.RNG000;
-import br.ufg.inf.es.integracao.annotations.RNG001;
 import br.ufg.inf.es.model.Livro;
-import br.ufg.inf.es.model.Usuario;
 import br.ufg.inf.es.persistencia.LivroDAO;
-import br.ufg.inf.es.persistencia.UsuarioDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;

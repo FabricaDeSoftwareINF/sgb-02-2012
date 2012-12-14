@@ -33,7 +33,7 @@ public class AutorConverter implements Converter {
             Autor a = new Autor();
             a.setNome(value);
             Collection<Autor> lista = dao.search(a);
-            return lista.toArray()[0];
+            return lista.toArray()[0];  
         }  
     }
 
