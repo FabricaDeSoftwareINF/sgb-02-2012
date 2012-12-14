@@ -1,7 +1,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://java.sun.com/jsf/core">
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
 
     <h:head>
 
@@ -10,6 +11,8 @@
     </h:head>
 
     <h:body>
+        
+        <ui:include src="../../template.xhtml" />
 
         <p:panel header="#{msg['cadastro.usuario.panel.header']}">
 
@@ -52,7 +55,7 @@
 
                 </h:panelGrid>
 
-                <h:commandButton action="#{usuarioController.insert}" value="#{msg['cadastro.usuario.button.insert']}" />
+                <h:commandButton action="#{usuarioController.criarUsuario()}" value="#{msg['cadastro.usuario.button.insert']}" />
                 
                 <h:commandButton action="#{usuarioController.openSearchPage()}" value="#{msg['cadastro.usuario.button.voltar']}" />
 

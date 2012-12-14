@@ -19,22 +19,7 @@ import javax.persistence.Table;
 @Table(name = "PERFIL")
 public class Perfil extends AbstractEntityModel {
     
-    @ManyToMany(
-        fetch= FetchType.LAZY,
-        cascade = CascadeType.ALL,
-        targetEntity = Usuario.class
-    )
-    private Collection<Usuario> usuarios;
-    
     private String tipo;
-
-    public Collection<Usuario> getUsuarios() {
-        return usuarios;
-    }
-
-    public void setUsuarios(Collection<Usuario> usuarios) {
-        this.usuarios = usuarios;
-    }
     
     public String getTipo() {
         return tipo;
@@ -42,10 +27,5 @@ public class Perfil extends AbstractEntityModel {
 
     public void setTipo(String tipo) {
         this.tipo = tipo;
-    }
-    
-    @Override
-    public String toString() {
-        return getTipo();
     }
 }
