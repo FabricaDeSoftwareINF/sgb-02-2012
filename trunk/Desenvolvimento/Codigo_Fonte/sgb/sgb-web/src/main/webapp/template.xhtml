@@ -11,6 +11,7 @@
         <link rel="shortcut icon" href="resources/images/sgb.png"/>
         <h:outputStylesheet name="default.css" library="css"/>
         <title>SGB - Sistema de Gestão Bibliográfica</title>
+<h:outputStylesheet name="css/jsfcrud.css"/>
     </h:head>  
 
     <h:body>   
@@ -50,6 +51,7 @@
                         <p:menuitem value="Cadastrar" action="#{usuarioController.openInsertPage()}" />
                     </p:submenu>
                 </p:submenu>
+                <p:menuitem value="Configurações" action="#{parametrosBibliotecaController.openViewPage()}"/>
                 <p:menuitem value="Cotação"/>
                 <p:menuitem value="Ajuda"/> 
             </p:menubar>

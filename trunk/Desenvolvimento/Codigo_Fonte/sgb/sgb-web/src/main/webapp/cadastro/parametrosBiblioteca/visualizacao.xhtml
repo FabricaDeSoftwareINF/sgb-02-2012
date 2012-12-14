@@ -1,0 +1,30 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <h:head>
+        <title>#{msg['parametros.biblioteca.visualisar.title']}</title>
+    </h:head>
+
+    <h:body>
+        <p:panel header="#{msg['parametros.biblioteca.panel.header']}">
+            <h:form prependId="false">  
+                <p:growl id="msgs" />  
+                <h:panelGrid columns="2" columnClasses="column" cellpadding="5">  
+                    <h:outputText value="#{msg['parametros.biblioteca.label.valorfrete']}: "/>  
+                    <p:inplace id="ajaxSetFrete" editor="true">  
+                        <h:inputText id="valorFrete" required="true" value="#{parametrosBibliotecaController.form.entity.valorFrete}">
+                            <f:convertNumber maxFractionDigits="2"
+                                             groupingUsed="true"
+                                             currencySymbol="R$"
+                                             maxIntegerDigits="4"
+                                             type="currency"/>
+                        </h:inputText>
+                        <p:ajax event="save" listener="#{parametrosBibliotecaController.edit()}"/>
+                    </p:inplace>  
+                </h:panelGrid>  
+            </h:form>  
+        </p:panel>   
+    </h:body>
+</html>
