@@ -6,13 +6,14 @@ import br.ufg.inf.es.integracao.annotations.RNG002;
 import br.ufg.inf.es.integracao.annotations.RNG003;
 import br.ufg.inf.es.model.Perfil;
 import br.ufg.inf.es.model.Usuario;
-import br.ufg.inf.es.model.Usuario_Perfil;
+import br.ufg.inf.es.model.UsuarioPerfil;
 import br.ufg.inf.es.persistencia.PerfilDAO;
 import br.ufg.inf.es.persistencia.UsuarioDAO;
 import br.ufg.inf.es.persistencia.Usuario_PerfilDAO;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
@@ -64,7 +65,7 @@ public class UsuarioService extends GenericService<Usuario> {
         Long id = super.insert(entity);
 
         for (Perfil perfil : entity.getPerfil()) {
-            Usuario_Perfil usuarioPerfil = new Usuario_Perfil();
+            UsuarioPerfil usuarioPerfil = new UsuarioPerfil();
             usuarioPerfil.setId_usuario(id);
             usuarioPerfil.setId_perfil(perfil.getId());
 
@@ -87,7 +88,7 @@ public class UsuarioService extends GenericService<Usuario> {
         super.update(entity);
 
         for (Perfil perfil : entity.getPerfil()) {
-            Usuario_Perfil usuarioPerfil = new Usuario_Perfil();
+            UsuarioPerfil usuarioPerfil = new UsuarioPerfil();
             usuarioPerfil.setId_perfil(perfil.getId());
             usuarioPerfil.setId_usuario(entity.getId());
 
@@ -107,8 +108,8 @@ public class UsuarioService extends GenericService<Usuario> {
     public void removeAll(Collection<Usuario> collectionEntities) throws ValidationException {
 
         for (Usuario usuario : collectionEntities) {
-            Usuario_Perfil usuarioPerfil = new Usuario_Perfil();
-            Collection<Usuario_Perfil> colUsuarioPerfil = usuario_perfilDao.list(usuario.getId());
+            UsuarioPerfil usuarioPerfil = new UsuarioPerfil();
+            Collection<UsuarioPerfil> colUsuarioPerfil = usuario_perfilDao.list(usuario.getId());
 
             usuario_perfilDao.removeAll(colUsuarioPerfil);
         }
@@ -123,10 +124,10 @@ public class UsuarioService extends GenericService<Usuario> {
 
         for (Usuario usuario : colUsuario) {
 
-            Collection<Usuario_Perfil> colUsuarioPerfil = usuario_perfilDao.list(usuario.getId());
+            Collection<UsuarioPerfil> colUsuarioPerfil = usuario_perfilDao.list(usuario.getId());
             HashSet<Perfil> hsPerfil = new HashSet<Perfil>();
 
-            for (Usuario_Perfil usuPerfil : colUsuarioPerfil) {
+            for (UsuarioPerfil usuPerfil : colUsuarioPerfil) {
                 Perfil perfil = perfilDao.find(usuPerfil.getId_perfil());
                 hsPerfil.add(perfil);
             }
@@ -143,10 +144,10 @@ public class UsuarioService extends GenericService<Usuario> {
 
         for (Usuario usuario : colUsuario) {
 
-            Collection<Usuario_Perfil> colUsuarioPerfil = usuario_perfilDao.list(usuario.getId());
+            Collection<UsuarioPerfil> colUsuarioPerfil = usuario_perfilDao.list(usuario.getId());
             HashSet<Perfil> hsPerfil = new HashSet<Perfil>();
 
-            for (Usuario_Perfil usuPerfil : colUsuarioPerfil) {
+            for (UsuarioPerfil usuPerfil : colUsuarioPerfil) {
                 Perfil perfil = perfilDao.find(usuPerfil.getId_perfil());
                 hsPerfil.add(perfil);
             }
@@ -159,15 +160,23 @@ public class UsuarioService extends GenericService<Usuario> {
     @Override
     public void refresh(Usuario entity) {
 
-        Usuario_Perfil usuarioPerfil = new Usuario_Perfil();
+        UsuarioPerfil usuarioPerfil = new UsuarioPerfil();
         usuarioPerfil.setId_usuario(entity.getId());
-        Collection<Usuario_Perfil> colUsuarioPerfil = usuario_perfilDao.search(usuarioPerfil);
+        Collection<UsuarioPerfil> colUsuarioPerfil = usuario_perfilDao.search(usuarioPerfil);
         HashSet<Perfil> hsPerfil = new HashSet<Perfil>();
-        for (Usuario_Perfil usuPerfil : colUsuarioPerfil) {
+        for (UsuarioPerfil usuPerfil : colUsuarioPerfil) {
             Perfil perfil = perfilDao.find(usuPerfil.getId_perfil());
             hsPerfil.add(perfil);
         }
         entity.setPerfil(hsPerfil);
 
+    }
+
+    public Collection<Perfil> carreguePerfis(Usuario usuario) {
+        return usuario_perfilDao.listPerfis(usuario.getId());
+    }
+
+    public Usuario authUser(String user, String password) {
+        return dao.findUserByEmailAndPassword(user, password);
     }
 }

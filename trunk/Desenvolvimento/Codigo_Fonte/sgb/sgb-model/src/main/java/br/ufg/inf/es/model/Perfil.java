@@ -20,6 +20,12 @@ import javax.persistence.Table;
 public class Perfil extends AbstractEntityModel {
     
     private String tipo;
+
+    public Perfil(){ }
+    
+    public Perfil(String tipo){
+        this.tipo = tipo;
+    }
     
     public String getTipo() {
         return tipo;
