@@ -50,7 +50,7 @@
                         <br></br>
                         <br></br>
                         <p:dataTable id="associationTable" var="assTab" 
-                                     value="#{cursoController.form.entity.disciplinas}">
+                                     value="#{cursoController.form.listaDisc}">
 
                             <p:column>  
                                 <f:facet name="header">  
@@ -84,8 +84,8 @@
                                          />
                         <p:confirmDialog  message="Confirma Cadastro do Curso?" closable="false" header="Aviso" severity="alert" widgetVar="confirmation" style="float: top">  
                             <p:commandButton id="btnSim" value="Sim" oncomplete="confirmation.hide()" 
-                                             action="#{cursoController.service.insert(cursoController.form.entity)}"
-                                             onsuccess="/template.xhtml"
+                                             action="#{cursoController.salvarCurso()}"
+                                             onsuccess="#{cursoController.form.clearInsertData()}"
                                              />  
                             <p:commandButton id="btnNao" value="Não" onclick="confirmation.hide()" type="#{cursoController.form.clearInsertData()}" />  
                         </p:confirmDialog>  
