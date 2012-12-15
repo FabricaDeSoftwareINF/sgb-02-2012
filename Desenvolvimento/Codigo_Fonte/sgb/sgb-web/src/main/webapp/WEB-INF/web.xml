@@ -87,7 +87,7 @@
     </filter-mapping>
     
     <listener>
-        <lislistener-class>br.ufg.inf.es.web.bootstrap.Bootstrap</lislistener-class>
+        <listener-class>br.ufg.inf.es.web.bootstrap.Bootstrap</listener-class>
     </listener>
     <!-- Fim da configuração do Spring Security-->
     
