@@ -3,6 +3,9 @@ package br.ufg.inf.es.web.controller;
 import br.ufg.inf.es.base.service.Auth;
 import java.util.ArrayList;
 import java.util.Collection;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
+import org.springframework.context.annotation.Scope;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -10,10 +13,13 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.GrantedAuthorityImpl;
+import org.springframework.stereotype.Component;
 
 /**
  * @author Cézar Augusto Ferreira
  */
+@Component
+@Scope("session")
 public class LoginController extends JSFController implements AuthenticationProvider {
 
     private Auth auth;
@@ -37,8 +43,9 @@ public class LoginController extends JSFController implements AuthenticationProv
         
         Collection<String> roles = this.getAuth().login(username, password);
         
-        if (roles == null)  {
-            
+        if (roles == null || roles.size() == 0)  {
+//            this.addErrorMessage("Login inválido");
+//            FacesContext.getCurrentInstance().addMessage("", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Login inválido", ""));
             throw new BadCredentialsException("msg.login.invalido");
         }
         
