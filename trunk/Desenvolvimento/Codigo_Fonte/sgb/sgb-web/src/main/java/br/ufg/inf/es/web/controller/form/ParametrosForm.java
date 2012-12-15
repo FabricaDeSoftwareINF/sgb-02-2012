@@ -1,6 +1,6 @@
 package br.ufg.inf.es.web.controller.form;
 
-import br.ufg.inf.es.model.ParametrosBiblioteca;
+import br.ufg.inf.es.model.Parametros;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -10,5 +10,5 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @Scope("session")
-public class ParametrosBibliotecaForm extends GenericForm<ParametrosBiblioteca> {
+public class ParametrosForm extends GenericForm<Parametros> {
 }

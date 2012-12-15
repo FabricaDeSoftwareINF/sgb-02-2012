@@ -1,9 +1,9 @@
 package br.ufg.inf.es.integracao;
 
 import br.ufg.inf.es.base.validation.ValidationException;
-import br.ufg.inf.es.integracao.annotations.RN006_ParametroFrete;
-import br.ufg.inf.es.model.ParametrosBiblioteca;
-import br.ufg.inf.es.persistencia.ParametrosBibliotecaDAO;
+import br.ufg.inf.es.integracao.annotations.RN006_Parametros;
+import br.ufg.inf.es.model.Parametros;
+import br.ufg.inf.es.persistencia.ParametrosDAO;
 import java.math.BigDecimal;
 import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,26 +17,26 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
-public class ParametrosBibliotecaService extends GenericService<ParametrosBiblioteca> {
+public class ParametrosService extends GenericService<Parametros> {
 
     @Autowired
-    private ParametrosBibliotecaDAO dao;
+    private ParametrosDAO dao;
 
     @Override
-    public ParametrosBibliotecaDAO getDAO() {
+    public ParametrosDAO getDAO() {
         return this.dao;
     }
 
     public BigDecimal obtenhaValorFrete() throws ValidationException {
-        ParametrosBiblioteca parametros = this.find();
+        Parametros parametros = this.find();
         return parametros.getValorFrete();
     }
 
-    public ParametrosBiblioteca find() throws ValidationException {
-        ParametrosBiblioteca parametros;
-        Collection<ParametrosBiblioteca> listaDeParametros = this.list();
+    public Parametros find() throws ValidationException {
+        Parametros parametros;
+        Collection<Parametros> listaDeParametros = this.list();
         if (!listaDeParametros.isEmpty()) {
-            parametros = (ParametrosBiblioteca) listaDeParametros.toArray()[0];
+            parametros = (Parametros) listaDeParametros.toArray()[0];
         } else {
             parametros = obtenhaParametroValido();
             this.save(parametros);
@@ -45,13 +45,13 @@ public class ParametrosBibliotecaService extends GenericService<ParametrosBiblio
         return parametros;
     }
 
-    private ParametrosBiblioteca obtenhaParametroValido() {
-        return new ParametrosBiblioteca();
+    private Parametros obtenhaParametroValido() {
+        return new Parametros();
     }
 
     @Override
-    @RN006_ParametroFrete
-    public void update(ParametrosBiblioteca entity) throws ValidationException {
+    @RN006_Parametros
+    public void update(Parametros entity) throws ValidationException {
         super.update(entity);
 
     }
