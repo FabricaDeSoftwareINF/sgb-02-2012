@@ -1,14 +1,12 @@
 package br.ufg.inf.es.web.controller;
 
 import java.io.Serializable;
-import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
 import javax.faces.application.FacesMessage.Severity;
 import javax.faces.context.FacesContext;
-import javax.persistence.Persistence;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -35,12 +33,12 @@ public class BaseController implements Serializable {
     private void showMessage(final Severity severityMessage, final String keyMessage) {
 
         String message = keyMessage;
-        
+
         if (this.getBundle().containsKey(keyMessage)) {
-            
+
             message = this.getBundle().getString(keyMessage);
         }
-        
+
         this.getFacesContext().addMessage("", new FacesMessage(severityMessage, message, ""));
     }
 
@@ -82,9 +80,9 @@ public class BaseController implements Serializable {
 
         return null;
     }
-    
+
     public ResourceBundle getBundle() {
-        
+
         return ResourceBundle.getBundle("resources.messages");
     }
 }
