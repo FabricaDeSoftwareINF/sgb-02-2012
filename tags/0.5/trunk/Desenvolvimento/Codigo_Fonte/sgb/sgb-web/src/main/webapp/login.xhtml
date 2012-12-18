@@ -1,0 +1,52 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+    <h:head>
+        <title>LOGIN</title>
+        <h:outputStylesheet library="css" name="login.css"/>
+    </h:head>
+
+    <h:body>
+        <div class="container">
+            <div class="form-login">
+                <div class="logo">
+                    <h:graphicImage value="/resources/images/sgb.png"/>
+                    <h2>Login</h2>
+                </div>
+                <p>Seja bem-vindo ao SGB, entre com suas informações<br /> abaixo para ter acesso ao sistema.</p>
+                <form action="#{facesContext.externalContext.requestContextPath}/j_spring_security_check" method="post">
+
+
+                    <h:panelGrid columns="2">
+
+                        <h:outputLabel value="Login:" for="j_username" />
+
+                        <p:inputText id="j_username" styleClass="form-login-input" />
+                        
+                        <h:outputLabel value="" />
+                        <h:outputLink value="#">Esqueceu a senha?</h:outputLink>
+
+                        <h:outputLabel value="Senha:" for="j_password" />
+
+                        <p:password id="j_password" styleClass="form-login-input"/>
+                        
+                        
+                        <h:selectBooleanCheckbox id="_spring_security_remember_me"/>
+                        <h:outputLabel value="Lembrar de mim" for="_spring_security_remember_me"/>
+
+                    </h:panelGrid>
+                    
+                    <c:if test="${param.error eq 'true'}">
+                        <h:outputText style="color: #ff0000" value="Login inválido"/>
+                    </c:if>
+                    <div>&nbsp;</div>
+                    <h:commandButton styleClass="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" type="submit" value="Entrar" id="form-submit"/>
+                </form>
+            </div>
+        </div>
+
+    </h:body>
+</html>

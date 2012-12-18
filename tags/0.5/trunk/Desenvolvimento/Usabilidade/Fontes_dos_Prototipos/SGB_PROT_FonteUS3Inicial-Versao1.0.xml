@@ -1,0 +1,120 @@
+<mockup version="1.0" skin="sketch" fontFace="Balsamiq Sans" measuredW="1104" measuredH="698" mockupW="1078" mockupH="698">
+  <controls>
+    <control controlID="595" controlTypeID="com.balsamiq.mockups::BrowserWindow" x="26" y="0" w="1078" h="698" measuredW="450" measuredH="400" zOrder="0" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Manter%20Livro%0Ahttp%3A//inf.ufg.br/sgb</text>
+      </controlProperties>
+    </control>
+    <control controlID="596" controlTypeID="com.balsamiq.mockups::Button" x="867" y="280" w="-1" h="-1" measuredW="53" measuredH="27" zOrder="1" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Novo</text>
+      </controlProperties>
+    </control>
+    <control controlID="597" controlTypeID="com.balsamiq.mockups::Button" x="959" y="280" w="-1" h="-1" measuredW="77" measuredH="27" zOrder="2" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Remover</text>
+      </controlProperties>
+    </control>
+    <control controlID="598" controlTypeID="com.balsamiq.mockups::Label" x="368" y="203" w="41" h="25" measuredW="41" measuredH="21" zOrder="3" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Titulo%3A</text>
+      </controlProperties>
+    </control>
+    <control controlID="599" controlTypeID="com.balsamiq.mockups::Label" x="368" y="241" w="50" h="25" measuredW="50" measuredH="21" zOrder="4" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Editora%3A</text>
+      </controlProperties>
+    </control>
+    <control controlID="600" controlTypeID="com.balsamiq.mockups::Label" x="368" y="262" w="40" h="25" measuredW="40" measuredH="21" zOrder="5" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Autor%3A</text>
+      </controlProperties>
+    </control>
+    <control controlID="601" controlTypeID="com.balsamiq.mockups::Button" x="867" y="418" w="53" h="27" measuredW="53" measuredH="27" zOrder="6" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Novo</text>
+      </controlProperties>
+    </control>
+    <control controlID="602" controlTypeID="com.balsamiq.mockups::Button" x="959" y="418" w="77" h="27" measuredW="77" measuredH="27" zOrder="7" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Remover</text>
+      </controlProperties>
+    </control>
+    <control controlID="603" controlTypeID="com.balsamiq.mockups::TextInput" x="368" y="248" w="300" h="-1" measuredW="79" measuredH="27" zOrder="8" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="604" controlTypeID="com.balsamiq.mockups::Button" x="867" y="280" w="-1" h="-1" measuredW="53" measuredH="27" zOrder="9" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Novo</text>
+      </controlProperties>
+    </control>
+    <control controlID="605" controlTypeID="com.balsamiq.mockups::Canvas" x="85" y="180" w="810" h="201" measuredW="100" measuredH="70" zOrder="10" locked="false" isInGroup="-1"/>
+    <control controlID="606" controlTypeID="com.balsamiq.mockups::Button" x="959" y="280" w="-1" h="-1" measuredW="77" measuredH="27" zOrder="11" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Remover</text>
+      </controlProperties>
+    </control>
+    <control controlID="607" controlTypeID="com.balsamiq.mockups::TextArea" x="571" y="180" w="465" h="140" measuredW="200" measuredH="140" zOrder="12" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="608" controlTypeID="com.balsamiq.mockups::DataGrid" x="50" y="205" w="986" h="176" measuredW="836" measuredH="173" zOrder="13" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>%2CNome%2C%20Sobrenome%2CE-mail%2C%20Privil%E9gios%2C%20A%E7%F5es%0A%5Bx%5D%2C%20Luis%20Eduardo%20%20%20%20%20%20%20%20%20%20%20%2C%20Rocha%2C%20luisedrocha@gmail.com%2C%20Admnistrador%20%7C%20Docente%2C%20%5BEditar%5D%20%5BDetalhe%5D%20%0A%5Bx%5D%2C%20Allan%2C%20Vieira%20Ribeiro%20%20%20%20%20%20%20%20%20%20%20%2C%20allan123134@gmail.com%2C%20Auxiliar%2C%20%5BEditar%5D%20%5BDetalhe%5D%20%0A%5Bx%5D%2C%20C%E1ssio%2C%20Abreu%2C%20luisedrocha@gmail.com%2C%20Docente%2C%20%5BEditar%5D%20%5BDetalhe%5D%20%0A%5Bx%5D%2C%20Jackeline%2CNeves%2C%20luisedrocha@gmail.com%2C%20Coordenador%20%7C%20Docente%20%7C%20Conselheiro%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%2C%20%5BEditar%5D%20%5BDetalhe%5D%20%0A%5Bx%5D%2C%20Juliano%2C%20Lopes%2C%20luisedrocha@gmail.com%2C%20Conselheiro%2C%20%5BEditar%5D%20%5BDetalhe%5D%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="609" controlTypeID="com.balsamiq.mockups::Label" x="50" y="101" w="-1" h="-1" measuredW="54" measuredH="21" zOrder="14" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Usuarios</text>
+      </controlProperties>
+    </control>
+    <control controlID="610" controlTypeID="com.balsamiq.mockups::SearchBox" x="85" y="180" w="149" h="-1" measuredW="120" measuredH="25" zOrder="15" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>search</text>
+      </controlProperties>
+    </control>
+    <control controlID="611" controlTypeID="com.balsamiq.mockups::SearchBox" x="391" y="180" w="181" h="-1" measuredW="120" measuredH="25" zOrder="16" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>search</text>
+      </controlProperties>
+    </control>
+    <control controlID="612" controlTypeID="com.balsamiq.mockups::CheckBox" x="937" y="183" w="99" h="18" measuredW="86" measuredH="18" zOrder="17" locked="false" isInGroup="-1">
+      <controlProperties>
+        <size>10</size>
+        <text>Administrador</text>
+      </controlProperties>
+    </control>
+    <control controlID="613" controlTypeID="com.balsamiq.mockups::CheckBox" x="836" y="180" w="91" h="24" measuredW="79" measuredH="18" zOrder="18" locked="false" isInGroup="-1">
+      <controlProperties>
+        <size>10</size>
+        <text>Conselheiro</text>
+      </controlProperties>
+    </control>
+    <control controlID="614" controlTypeID="com.balsamiq.mockups::CheckBox" x="575" y="183" w="64" h="18" measuredW="56" measuredH="18" zOrder="19" locked="false" isInGroup="-1">
+      <controlProperties>
+        <size>10</size>
+        <text>Auxiliar</text>
+      </controlProperties>
+    </control>
+    <control controlID="615" controlTypeID="com.balsamiq.mockups::CheckBox" x="728" y="183" w="98" h="18" measuredW="85" measuredH="18" zOrder="20" locked="false" isInGroup="-1">
+      <controlProperties>
+        <size>10</size>
+        <text>Coordenador</text>
+      </controlProperties>
+    </control>
+    <control controlID="616" controlTypeID="com.balsamiq.mockups::CheckBox" x="643" y="183" w="75" h="18" measuredW="65" measuredH="18" zOrder="21" locked="false" isInGroup="-1">
+      <controlProperties>
+        <size>10</size>
+        <text>Docente</text>
+      </controlProperties>
+    </control>
+    <control controlID="617" controlTypeID="com.balsamiq.mockups::SearchBox" x="234" y="180" w="157" h="-1" measuredW="120" measuredH="25" zOrder="22" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>search</text>
+      </controlProperties>
+    </control>
+  </controls>
+</mockup>
