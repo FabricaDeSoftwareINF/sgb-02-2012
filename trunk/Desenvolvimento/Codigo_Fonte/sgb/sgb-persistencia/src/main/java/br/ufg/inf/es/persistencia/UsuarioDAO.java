@@ -18,6 +18,13 @@ public class UsuarioDAO extends GenericHibernateDAO<Usuario> {
     @Autowired
     private SessionFactory sessionFactory;
 
+    public UsuarioDAO(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
+    }
+     public UsuarioDAO() {
+        
+    }
+
     @Override
     protected SessionFactory getSessionFactory() {
         
