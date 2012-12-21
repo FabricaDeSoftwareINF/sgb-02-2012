@@ -125,4 +125,13 @@
             <version>1.5.4</version>
         </dependency>
     </dependencies>
+    
+    <distributionManagement>
+        <snapshotRepository>
+            <id>linux-by69</id>
+            <name>linux-by69-snapshots</name>
+            <url>http://fs.inf.ufg.br:8080/artifactory/sgb-02-2012-snapshot</url>
+        </snapshotRepository>
+    </distributionManagement>
+    
 </project>
