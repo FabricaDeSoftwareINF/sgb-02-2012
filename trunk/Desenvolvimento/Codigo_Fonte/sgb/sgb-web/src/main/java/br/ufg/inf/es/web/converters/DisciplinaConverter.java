@@ -5,9 +5,7 @@
 package br.ufg.inf.es.web.converters;
 
 import br.ufg.inf.es.model.Disciplina;
-import br.ufg.inf.es.model.Editora;
 import br.ufg.inf.es.persistencia.DisciplinaDAO;
-import br.ufg.inf.es.persistencia.EditoraDAO;
 import java.util.Collection;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;

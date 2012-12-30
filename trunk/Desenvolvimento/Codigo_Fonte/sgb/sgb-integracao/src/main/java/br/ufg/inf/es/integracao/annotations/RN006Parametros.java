@@ -14,5 +14,5 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
 @Validator(validatorClass = ParametrosValidator.class)
-public @interface RN006_Parametros {
+public @interface RN006Parametros {
 }

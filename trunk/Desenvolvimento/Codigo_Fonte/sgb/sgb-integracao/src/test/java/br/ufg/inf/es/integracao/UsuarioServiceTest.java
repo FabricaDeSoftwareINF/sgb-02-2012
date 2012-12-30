@@ -6,7 +6,7 @@ package br.ufg.inf.es.integracao;
 
 import br.ufg.inf.es.model.Usuario;
 import br.ufg.inf.es.persistencia.UsuarioDAO;
-import br.ufg.inf.es.persistencia.Usuario_PerfilDAO;
+import br.ufg.inf.es.persistencia.UsuarioPerfilDAO;
 import java.io.Serializable;
 import java.sql.Connection;
 import java.util.*;
@@ -79,7 +79,7 @@ public class UsuarioServiceTest {
     @Test
     public void testGetUsuario_perfilDao() {
         UsuarioService instance = new UsuarioService();
-        Usuario_PerfilDAO perfil = new Usuario_PerfilDAO();
+        UsuarioPerfilDAO perfil = new UsuarioPerfilDAO();
         instance.setUsuario_perfilDao(perfil);
         assertEquals(perfil, instance.getUsuario_perfilDao());
         
@@ -90,7 +90,7 @@ public class UsuarioServiceTest {
      */
     @Test
     public void testSetUsuario_perfilDao() {
-        Usuario_PerfilDAO usuario_perfilDao = null;
+        UsuarioPerfilDAO usuario_perfilDao = null;
         UsuarioService instance = new UsuarioService();
         instance.setUsuario_perfilDao(usuario_perfilDao);
     }

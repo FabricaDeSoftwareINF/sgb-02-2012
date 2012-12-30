@@ -4,9 +4,7 @@
  */
 package br.ufg.inf.es.web.converters;
 
-import br.ufg.inf.es.model.Editora;
 import br.ufg.inf.es.model.Perfil;
-import br.ufg.inf.es.persistencia.EditoraDAO;
 import br.ufg.inf.es.web.controller.UsuarioController;
 import java.util.Collection;
 import javax.faces.component.UIComponent;
@@ -14,9 +12,6 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import javax.servlet.ServletContext;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
 /**
