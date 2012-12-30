@@ -5,9 +5,7 @@ import br.ufg.inf.es.base.controller.form.Form;
 import br.ufg.inf.es.base.service.Service;
 import br.ufg.inf.es.base.validation.ValidationException;
 import br.ufg.inf.es.model.AbstractEntityModel;
-import org.apache.commons.collections.Factory;
 import org.hibernate.Hibernate;
-import org.hibernate.Session;
 
 /**
  * @author Cézar Augusto Ferreira

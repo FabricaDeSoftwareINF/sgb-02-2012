@@ -4,9 +4,7 @@
  */
 package br.ufg.inf.es.web.converters;
 
-import br.ufg.inf.es.model.Autor;
 import br.ufg.inf.es.model.Livro;
-import br.ufg.inf.es.persistencia.AutorDAO;
 import br.ufg.inf.es.persistencia.LivroDAO;
 import java.util.Collection;
 import javax.faces.component.UIComponent;

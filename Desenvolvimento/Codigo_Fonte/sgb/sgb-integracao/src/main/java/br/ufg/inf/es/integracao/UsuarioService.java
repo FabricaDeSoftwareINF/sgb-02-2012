@@ -9,11 +9,10 @@ import br.ufg.inf.es.model.Usuario;
 import br.ufg.inf.es.model.UsuarioPerfil;
 import br.ufg.inf.es.persistencia.PerfilDAO;
 import br.ufg.inf.es.persistencia.UsuarioDAO;
-import br.ufg.inf.es.persistencia.Usuario_PerfilDAO;
+import br.ufg.inf.es.persistencia.UsuarioPerfilDAO;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
-import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
@@ -29,7 +28,7 @@ public class UsuarioService extends GenericService<Usuario> {
     @Autowired
     private UsuarioDAO dao;
     @Autowired
-    private Usuario_PerfilDAO usuario_perfilDao;
+    private UsuarioPerfilDAO usuario_perfilDao;
     @Autowired
     private PerfilDAO perfilDao;
 
@@ -44,11 +43,11 @@ public class UsuarioService extends GenericService<Usuario> {
         this.dao = dao;
     }
 
-    public Usuario_PerfilDAO getUsuario_perfilDao() {
+    public UsuarioPerfilDAO getUsuario_perfilDao() {
         return usuario_perfilDao;
     }
 
-    public void setUsuario_perfilDao(Usuario_PerfilDAO usuario_perfilDao) {
+    public void setUsuario_perfilDao(UsuarioPerfilDAO usuario_perfilDao) {
         this.usuario_perfilDao = usuario_perfilDao;
     }
 

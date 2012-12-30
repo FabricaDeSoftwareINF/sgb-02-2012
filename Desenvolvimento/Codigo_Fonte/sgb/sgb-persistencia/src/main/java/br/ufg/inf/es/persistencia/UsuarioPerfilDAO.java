@@ -6,12 +6,9 @@ package br.ufg.inf.es.persistencia;
 
 import br.ufg.inf.es.model.Perfil;
 import br.ufg.inf.es.model.UsuarioPerfil;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.List;
 import org.hibernate.Criteria;
-import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Repository
 @Transactional
-public class Usuario_PerfilDAO  extends GenericHibernateDAO<UsuarioPerfil>{
+public class UsuarioPerfilDAO  extends GenericHibernateDAO<UsuarioPerfil>{
     
     @Autowired
     private SessionFactory sessionFactory;

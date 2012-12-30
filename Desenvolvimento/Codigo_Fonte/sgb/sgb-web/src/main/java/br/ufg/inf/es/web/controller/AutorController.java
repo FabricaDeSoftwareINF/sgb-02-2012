@@ -3,8 +3,6 @@ package br.ufg.inf.es.web.controller;
 import br.ufg.inf.es.integracao.AutorService;
 import br.ufg.inf.es.model.Autor;
 import br.ufg.inf.es.web.controller.form.AutorForm;
-import java.util.ArrayList;
-import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;

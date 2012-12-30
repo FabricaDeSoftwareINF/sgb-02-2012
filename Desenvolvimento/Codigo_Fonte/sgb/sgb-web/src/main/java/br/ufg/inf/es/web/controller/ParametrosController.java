@@ -5,8 +5,6 @@ import br.ufg.inf.es.integracao.ParametrosService;
 import br.ufg.inf.es.model.Parametros;
 import br.ufg.inf.es.web.controller.form.ParametrosForm;
 import java.math.BigDecimal;
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;

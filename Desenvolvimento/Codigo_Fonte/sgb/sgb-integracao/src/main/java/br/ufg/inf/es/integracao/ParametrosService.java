@@ -1,7 +1,7 @@
 package br.ufg.inf.es.integracao;
 
 import br.ufg.inf.es.base.validation.ValidationException;
-import br.ufg.inf.es.integracao.annotations.RN006_Parametros;
+import br.ufg.inf.es.integracao.annotations.RN006Parametros;
 import br.ufg.inf.es.model.Parametros;
 import br.ufg.inf.es.persistencia.ParametrosDAO;
 import java.math.BigDecimal;
@@ -50,7 +50,7 @@ public class ParametrosService extends GenericService<Parametros> {
     }
 
     @Override
-    @RN006_Parametros
+    @RN006Parametros
     public void update(Parametros entity) throws ValidationException {
         super.update(entity);
 

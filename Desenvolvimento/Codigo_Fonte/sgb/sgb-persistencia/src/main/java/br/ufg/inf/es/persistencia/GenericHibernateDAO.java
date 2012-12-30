@@ -79,7 +79,9 @@ public abstract class GenericHibernateDAO<E extends Entity<Long>> implements DAO
             this.getSession().merge(entidade);
 
             this.getSession().flush();
+            
         } finally {
+            
             this.getSessionFactory().close();
         }
     }
@@ -216,5 +218,5 @@ public abstract class GenericHibernateDAO<E extends Entity<Long>> implements DAO
         }
 
         super.finalize();
-    }
+    } 
 }

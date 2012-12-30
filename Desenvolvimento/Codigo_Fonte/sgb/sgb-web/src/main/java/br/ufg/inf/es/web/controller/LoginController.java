@@ -3,8 +3,6 @@ package br.ufg.inf.es.web.controller;
 import br.ufg.inf.es.base.service.Auth;
 import java.util.ArrayList;
 import java.util.Collection;
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
 import org.springframework.context.annotation.Scope;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;

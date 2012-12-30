@@ -5,7 +5,6 @@
 package br.ufg.inf.es.integracao.annotations;
 
 import br.ufg.inf.es.base.validation.annotations.Validator;
-import br.ufg.inf.es.integracao.rng.DadosUsuarioValidator;
 import br.ufg.inf.es.integracao.rng.VerificaQtdeMinimaDeCaracteresDeSenhaDeUsuario;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

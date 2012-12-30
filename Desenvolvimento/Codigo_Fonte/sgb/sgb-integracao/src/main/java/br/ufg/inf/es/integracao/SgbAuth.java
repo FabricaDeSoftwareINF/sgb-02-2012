@@ -3,11 +3,8 @@ package br.ufg.inf.es.integracao;
 import br.ufg.inf.es.base.service.Auth;
 import br.ufg.inf.es.model.Perfil;
 import br.ufg.inf.es.model.Usuario;
-import br.ufg.inf.es.persistencia.Usuario_PerfilDAO;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
-import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**

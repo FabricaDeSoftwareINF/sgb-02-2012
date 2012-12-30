@@ -6,7 +6,6 @@ package br.ufg.inf.es.integracao.rng;
 
 import br.ufg.inf.es.base.validation.Validation;
 import br.ufg.inf.es.base.validation.ValidationException;
-import br.ufg.inf.es.integracao.DisciplinaService;
 import br.ufg.inf.es.model.*;
 
 /**
