@@ -30,5 +30,4 @@ public class UtilObjetoTest extends TestCase {
         
         assertEquals(UtilObjeto.isReferencia(texto), false);
     }
-    
 }

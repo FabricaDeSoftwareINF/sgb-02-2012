@@ -2,8 +2,12 @@ package br.ufg.inf.es.base.util;
 
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.util.Map;
 
 /**
@@ -13,6 +17,11 @@ import java.util.Map;
  */
 public class UtilXML extends UtilFile {
 
+    /**
+     * Atributo CHARSET.
+     */
+    private static final String CHARSET = "UTF-8";
+    
     /**
      * Atributo xStream.
      */
@@ -44,12 +53,13 @@ public class UtilXML extends UtilFile {
         String xml = convertaObjetoParaXML(objeto, mapaDeAlias);
 
         try {
+            FileOutputStream stream = new FileOutputStream(caminho);
+
+            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(stream, UtilXML.CHARSET));
+                        
+            writer.write(xml);
             
-            FileWriter fw = new FileWriter(caminho, false);
-            
-            fw.write(xml);
-            
-            fw.close();
+            writer.close();
             
             return true;
             
