@@ -39,7 +39,9 @@ public class UtilFile {
 
             boolean arquivoCriado = f.createNewFile();
 
-            if (arquivoCriado) {
+            if (!arquivoCriado) {
+                
+                throw new IOException();
             }
 
         } catch (IOException ex) {
