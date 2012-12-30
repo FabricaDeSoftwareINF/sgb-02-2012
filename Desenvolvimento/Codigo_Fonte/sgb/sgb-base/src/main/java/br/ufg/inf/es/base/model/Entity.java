@@ -14,8 +14,13 @@ public interface Entity<I extends Serializable> extends Serializable {
      *
      * @return obtem o identificador da entidade
      */
-    public I getId();
+    I getId();
     
     
-    public boolean isNew();
+    /**
+     * Método que verifica se o objeto é novo e não foi persistido.
+     * 
+     * @return <code>true</code> se objeto for novo
+     */
+    boolean isNew();
 }
