@@ -31,7 +31,6 @@ public class EditoraService extends GenericService<Editora> {
         this.dao = dao;
     }
 
-    @Override
     public Long insert(Editora entity) throws ValidationException {
 
         return super.insert(entity);

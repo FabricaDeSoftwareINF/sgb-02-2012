@@ -7,7 +7,7 @@ package br.ufg.inf.es.model.biblioteca;
  */
 public class LivroBiblioteca {
 
-    private final static int SALTO = 56;
+    private static final int SALTO = 56;
     private Long id;
     private String nome;
     private String isbn;
@@ -118,7 +118,7 @@ public class LivroBiblioteca {
         if ((this.autor == null) ? (other.autor != null) : !this.autor.equals(other.autor)) {
             return false;
         }
-        if (this.quantidade != other.quantidade && (this.quantidade == null || !this.quantidade.equals(other.quantidade))) {
+        if (!this.quantidade.equals(other.quantidade) && (this.quantidade == null || !this.quantidade.equals(other.quantidade))) {
             return false;
         }
         return true;

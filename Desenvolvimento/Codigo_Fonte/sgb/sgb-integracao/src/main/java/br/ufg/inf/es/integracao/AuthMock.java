@@ -13,9 +13,9 @@ public class AuthMock implements Auth {
 
     private static class User {
 
-        private final static int VALOR_HASH = 5;
+        private static final int VALOR_HASH = 5;
     
-        private final static int SALTO = 71;
+        private static final int SALTO = 71;
         
         String login;
         String password;
@@ -55,6 +55,8 @@ public class AuthMock implements Auth {
         }
     }
     
+    private static final String SENHA_PADRAO = "123";
+    
     private static final Map<User, Collection<String>> USERS;
 
     private static void addUser(User user, String... roles) {
@@ -66,13 +68,13 @@ public class AuthMock implements Auth {
 
         USERS = new HashMap<User, Collection<String>>();
 
-        addUser(new User("professor", "123"), "ROLE_PROFESSOR");
+        addUser(new User("professor", AuthMock.SENHA_PADRAO), "ROLE_PROFESSOR");
 
-        addUser(new User("conselheiro", "123"), "ROLE_CONSELHEIRO");
+        addUser(new User("conselheiro", AuthMock.SENHA_PADRAO), "ROLE_CONSELHEIRO");
 
-        addUser(new User("admin", "123"), "ROLE_ADMIN");
+        addUser(new User("admin", AuthMock.SENHA_PADRAO), "ROLE_ADMIN");
 
-        addUser(new User("all", "123"), "ROLE_ADMIN", "ROLE_PROFESSOR", "ROLE_CONSELHEIRO");
+        addUser(new User("all", AuthMock.SENHA_PADRAO), "ROLE_ADMIN", "ROLE_PROFESSOR", "ROLE_CONSELHEIRO");
     }
 
     public Collection<String> login(String user, String password) {

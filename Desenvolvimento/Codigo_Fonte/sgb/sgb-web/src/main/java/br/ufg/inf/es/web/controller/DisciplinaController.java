@@ -97,7 +97,6 @@ public class DisciplinaController extends SGBController<Disciplina, DisciplinaFo
         }
     }
 
-    @Override
     public String openInitialPage() {
         return super.openInitialPage();
     }

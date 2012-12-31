@@ -13,9 +13,9 @@ import javax.persistence.Table;
 @Table(name = "PARAMETROS_BIBLIOTECA")
 public class ParametrosBiblioteca extends AbstractEntityModel {
 
-    private final static int VALOR_HASH = 3;
+    private static final int VALOR_HASH = 3;
     
-    private final static int SALTO = 67;
+    private static final int SALTO = 67;
     
     @Column(name = "valor_frete", columnDefinition = "Decimal(10,2) default '30.00'")
     private BigDecimal valorFrete = new BigDecimal("30.00");

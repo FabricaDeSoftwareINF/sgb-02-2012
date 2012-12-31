@@ -15,9 +15,9 @@ import javax.persistence.MappedSuperclass;
 @MappedSuperclass
 public class AbstractEntityModel implements Entity<Long> {
 
-    private final static int VALOR_HASH = 5;
+    private static final int VALOR_HASH = 5;
     
-    private final static int SALTO = 71;
+    private static final int SALTO = 71;
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

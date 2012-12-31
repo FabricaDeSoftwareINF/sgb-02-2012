@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 import br.ufg.inf.es.model.Curso;
 import br.ufg.inf.es.model.Disciplina;
 import java.util.LinkedList;
+import java.util.List;
 
 /**
  * @author Diogo Gon&ccedil;alves Teodoro
@@ -18,12 +19,12 @@ public class CursoForm extends GenericForm<Curso> {
     private Disciplina disciplinaSelecionada;
     private Disciplina disciplinaToRemove;
     
-    private LinkedList<Disciplina> listaDisc;
-    private LinkedList<Disciplina> listaBanco;
+    private List<Disciplina> listaDisc;
+    private List<Disciplina> listaBanco;
 
   
     
-     public LinkedList<Disciplina> getListaDisc() {
+     public List<Disciplina> getListaDisc() {
         if (listaDisc == null) {
             listaDisc = new LinkedList<Disciplina>();
         }
@@ -57,7 +58,7 @@ public class CursoForm extends GenericForm<Curso> {
     public void setDisciplinaToRemove(Disciplina disciplinaToRemove) {
         this.disciplinaToRemove = disciplinaToRemove;
     }
-      public LinkedList<Disciplina> getListaBanco() {
+      public List<Disciplina> getListaBanco() {
         return listaBanco;
     }
 

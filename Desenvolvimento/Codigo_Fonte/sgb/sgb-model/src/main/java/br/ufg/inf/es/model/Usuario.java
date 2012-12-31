@@ -64,11 +64,13 @@ public class Usuario extends AbstractEntityModel {
     }
 
     public Date getDataCadastro() {
-        return dataCadastro;
+        
+        return (Date) dataCadastro.clone();
     }
 
     public void setDataCadastro(Date dataCadastro) {
-        this.dataCadastro = dataCadastro;
+        
+        this.dataCadastro = (Date) dataCadastro.clone();
     }
 
     public boolean getStatus() {

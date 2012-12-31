@@ -15,22 +15,22 @@ import javax.persistence.Table;
 @Table(name = "PERFIL_USUARIO")
 public class UsuarioPerfil extends AbstractEntityModel {
 
-    private long id_usuario;
-    private long id_perfil;
+    private long idUsuario;
+    private long idPerfil;
 
-    public long getId_usuario() {
-        return id_usuario;
+    public long getIdUsuario() {
+        return idUsuario;
     }
 
-    public void setId_usuario(long id_usuario) {
-        this.id_usuario = id_usuario;
+    public void setIdUsuario(long idUsuario) {
+        this.idUsuario = idUsuario;
     }
 
-    public long getId_perfil() {
-        return id_perfil;
+    public long getIdPerfil() {
+        return idPerfil;
     }
 
-    public void setId_perfil(long id_perfil) {
-        this.id_perfil = id_perfil;
+    public void setIdPerfil(long idPerfil) {
+        this.idPerfil = idPerfil;
     }
 }

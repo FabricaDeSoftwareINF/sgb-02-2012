@@ -80,8 +80,8 @@ public class UsuarioServiceTest {
     public void testGetUsuario_perfilDao() {
         UsuarioService instance = new UsuarioService();
         UsuarioPerfilDAO perfil = new UsuarioPerfilDAO();
-        instance.setUsuario_perfilDao(perfil);
-        assertEquals(perfil, instance.getUsuario_perfilDao());
+        instance.setUsuarioPerfilDao(perfil);
+        assertEquals(perfil, instance.getUsuarioPerfilDao());
         
     }
 
@@ -92,7 +92,7 @@ public class UsuarioServiceTest {
     public void testSetUsuario_perfilDao() {
         UsuarioPerfilDAO usuario_perfilDao = null;
         UsuarioService instance = new UsuarioService();
-        instance.setUsuario_perfilDao(usuario_perfilDao);
+        instance.setUsuarioPerfilDao(usuario_perfilDao);
     }
 
     /**

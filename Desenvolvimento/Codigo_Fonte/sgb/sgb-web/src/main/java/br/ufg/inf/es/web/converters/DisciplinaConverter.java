@@ -21,30 +21,46 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
  */
 @FacesConverter("disciplinaConverter")
 public class DisciplinaConverter implements Converter {
+    
     @Override
     public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
-        if (value.trim().equals("")) {  
+        
+        if (value.trim().equals("")) {
+            
             return null;  
+            
         } else {  
+            
             ServletContext servletContext = (ServletContext)facesContext.getExternalContext().getContext();
+            
             WebApplicationContext context = WebApplicationContextUtils.getWebApplicationContext(servletContext);
+            
             DisciplinaDAO dao = context.getBean(DisciplinaDAO.class);
+            
             Disciplina d = new Disciplina();
+            
             d.setNome(value);
+            
             Collection<Disciplina> lista = dao.search(d);
-            if(lista.isEmpty())
+            
+            if(lista.isEmpty()){
+                
                 return null;
+            }
             return lista.toArray()[0];
         }  
     }
 
     @Override
     public String getAsString(FacesContext context, UIComponent component, Object value) {
+        
         if (value == null || value.equals("")) {  
+        
             return "";  
+            
         } else {  
+            
             return String.valueOf(((Disciplina) value).getNome());  
         }  
-    }
-    
+    }    
 }
