@@ -41,8 +41,7 @@ public class LoginController extends JSFController implements AuthenticationProv
         Collection<String> roles = this.getAuth().login(username, password);
         
         if (roles == null || roles.isEmpty())  {
-//            this.addErrorMessage("Login inválido");
-//            FacesContext.getCurrentInstance().addMessage("", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Login inválido", ""));
+
             throw new BadCredentialsException("msg.login.invalido");
         }
         

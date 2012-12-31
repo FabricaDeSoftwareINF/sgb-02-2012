@@ -12,7 +12,6 @@ public abstract class JSFController extends BaseController implements Controller
     @Override
     public void initData() {
         
-        //initData();
     }
     
     @Override

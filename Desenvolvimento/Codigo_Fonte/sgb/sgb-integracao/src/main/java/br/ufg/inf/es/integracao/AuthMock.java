@@ -17,14 +17,31 @@ public class AuthMock implements Auth {
     
         private static final int SALTO = 71;
         
-        String login;
-        String password;
+        private String login;
+        
+        private String password;
 
         public User(String login, String password) {
             this.login = login;
             this.password = password;
         }
 
+        public String getLogin() {
+            return login;
+        }
+
+        public void setLogin(String login) {
+            this.login = login;
+        }
+
+        public String getPassword() {
+            return password;
+        }
+
+        public void setPassword(String password) {
+            this.password = password;
+        }
+        
         @Override
         public int hashCode() {
             int hash = User.VALOR_HASH;

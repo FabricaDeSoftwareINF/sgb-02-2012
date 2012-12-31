@@ -30,12 +30,7 @@ public class EditoraService extends GenericService<Editora> {
 
         this.dao = dao;
     }
-
-    public Long insert(Editora entity) throws ValidationException {
-
-        return super.insert(entity);
-    }
-    
+   
     public Collection<Editora> complete(String query) {  
         Collection<Editora> results = new ArrayList<Editora>();
           

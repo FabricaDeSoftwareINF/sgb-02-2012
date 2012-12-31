@@ -13,7 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class SgbAuth implements Auth {
     
     @Autowired
-    UsuarioService usuarioService;
+    private UsuarioService usuarioService;
 
     public Collection<String> login(String user, String password) {
         Collection<String> roles = new ArrayList<String>();
@@ -27,5 +27,9 @@ public class SgbAuth implements Auth {
         }
         
         return roles;
+    }
+
+    public UsuarioService getUsuarioService() {
+        return usuarioService;
     }
 }

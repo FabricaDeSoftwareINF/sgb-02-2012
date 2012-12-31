@@ -95,14 +95,5 @@ public class DisciplinaController extends SGBController<Disciplina, DisciplinaFo
         } catch (ValidationException ex) {
             this.addWarningMessage(ex.getKeyMessage());
         }
-    }
-
-    public String openInitialPage() {
-        return super.openInitialPage();
-    }
-    
-    
-    
-    
-    
+    }    
 }

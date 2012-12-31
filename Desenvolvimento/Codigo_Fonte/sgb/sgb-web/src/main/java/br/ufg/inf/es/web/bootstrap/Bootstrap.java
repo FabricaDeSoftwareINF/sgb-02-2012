@@ -25,7 +25,7 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
  */
 public class Bootstrap implements ServletContextListener {
 
-    SessionFactory sessionFactory;
+    private SessionFactory sessionFactory;
 
     @Override
     public void contextInitialized(ServletContextEvent sce) {
@@ -99,5 +99,9 @@ public class Bootstrap implements ServletContextListener {
         session.merge(entidade);
         session.flush();
         session.close();
+    }
+
+    public SessionFactory getSessionFactory() {
+        return sessionFactory;
     }
 }

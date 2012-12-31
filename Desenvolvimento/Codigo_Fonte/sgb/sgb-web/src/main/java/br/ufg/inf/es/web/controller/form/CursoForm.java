@@ -36,7 +36,7 @@ public class CursoForm extends GenericForm<Curso> {
          getListaDisc().add(disciplina);
      }
 
-    public void setListaDisc(LinkedList<Disciplina> listaDisc) {
+    public void setListaDisc(List<Disciplina> listaDisc) {
         this.listaDisc = listaDisc;
     }
 
@@ -62,7 +62,7 @@ public class CursoForm extends GenericForm<Curso> {
         return listaBanco;
     }
 
-    public void setListaBanco(LinkedList<Disciplina> listaBanco) {
+    public void setListaBanco(List<Disciplina> listaBanco) {
         this.listaBanco = listaBanco;
     }
 }
