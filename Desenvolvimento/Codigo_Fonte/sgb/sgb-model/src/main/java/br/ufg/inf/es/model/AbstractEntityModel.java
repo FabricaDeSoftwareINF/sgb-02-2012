@@ -15,6 +15,10 @@ import javax.persistence.MappedSuperclass;
 @MappedSuperclass
 public class AbstractEntityModel implements Entity<Long> {
 
+    private final static int VALOR_HASH = 5;
+    
+    private final static int SALTO = 71;
+    
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @OrderingProperty
@@ -32,8 +36,10 @@ public class AbstractEntityModel implements Entity<Long> {
 
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 71 * hash + (this.id != null ? this.id.hashCode() : 0);
+        int hash = AbstractEntityModel.VALOR_HASH;
+        
+        hash = AbstractEntityModel.SALTO * hash + (this.id != null ? this.id.hashCode() : 0);
+        
         return hash;
     }
 

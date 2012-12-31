@@ -2,11 +2,12 @@ package br.ufg.inf.es.model.biblioteca;
 
 /**
  * Representacao dos dados retornados da biblioteca
- * 
+ *
  * @author Victor Ribeiro de Carvalho
  */
 public class LivroBiblioteca {
 
+    private final static int SALTO = 56;
     private Long id;
     private String nome;
     private String isbn;
@@ -125,15 +126,24 @@ public class LivroBiblioteca {
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 59 * hash + (this.id != null ? this.id.hashCode() : 0);
-        hash = 59 * hash + (this.nome != null ? this.nome.hashCode() : 0);
-        hash = 59 * hash + (this.isbn != null ? this.isbn.hashCode() : 0);
-        hash = 59 * hash + (this.ano != null ? this.ano.hashCode() : 0);
-        hash = 59 * hash + (this.edicao != null ? this.edicao.hashCode() : 0);
-        hash = 59 * hash + (this.editora != null ? this.editora.hashCode() : 0);
-        hash = 59 * hash + (this.autor != null ? this.autor.hashCode() : 0);
-        hash = 59 * hash + (this.quantidade != null ? this.quantidade.hashCode() : 0);
+        int hash = 0;
+
+        hash = LivroBiblioteca.SALTO * hash + (this.id != null ? this.id.hashCode() : 0);
+
+        hash = LivroBiblioteca.SALTO * hash + (this.nome != null ? this.nome.hashCode() : 0);
+
+        hash = LivroBiblioteca.SALTO * hash + (this.isbn != null ? this.isbn.hashCode() : 0);
+
+        hash = LivroBiblioteca.SALTO * hash + (this.ano != null ? this.ano.hashCode() : 0);
+
+        hash = LivroBiblioteca.SALTO * hash + (this.edicao != null ? this.edicao.hashCode() : 0);
+
+        hash = LivroBiblioteca.SALTO * hash + (this.editora != null ? this.editora.hashCode() : 0);
+
+        hash = LivroBiblioteca.SALTO * hash + (this.autor != null ? this.autor.hashCode() : 0);
+
+        hash = LivroBiblioteca.SALTO * hash + (this.quantidade != null ? this.quantidade.hashCode() : 0);
+
         return hash;
     }
 }

@@ -13,6 +13,10 @@ public class AuthMock implements Auth {
 
     private static class User {
 
+        private final static int VALOR_HASH = 5;
+    
+        private final static int SALTO = 71;
+        
         String login;
         String password;
 
@@ -23,9 +27,12 @@ public class AuthMock implements Auth {
 
         @Override
         public int hashCode() {
-            int hash = 7;
-            hash = 59 * hash + (this.login != null ? this.login.hashCode() : 0);
-            hash = 59 * hash + (this.password != null ? this.password.hashCode() : 0);
+            int hash = User.VALOR_HASH;
+            
+            hash = User.SALTO * hash + (this.login != null ? this.login.hashCode() : 0);
+            
+            hash = User.SALTO * hash + (this.password != null ? this.password.hashCode() : 0);
+            
             return hash;
         }
 
@@ -48,16 +55,16 @@ public class AuthMock implements Auth {
         }
     }
     
-    private static final Map<User, Collection<String>> users;
+    private static final Map<User, Collection<String>> USERS;
 
     private static void addUser(User user, String... roles) {
 
-        users.put(user, Arrays.asList(roles));
+        USERS.put(user, Arrays.asList(roles));
     }
 
     static {
 
-        users = new HashMap<User, Collection<String>>();
+        USERS = new HashMap<User, Collection<String>>();
 
         addUser(new User("professor", "123"), "ROLE_PROFESSOR");
 
@@ -70,6 +77,6 @@ public class AuthMock implements Auth {
 
     public Collection<String> login(String user, String password) {
 
-        return users.get(new User(user, password));
+        return USERS.get(new User(user, password));
     }
 }

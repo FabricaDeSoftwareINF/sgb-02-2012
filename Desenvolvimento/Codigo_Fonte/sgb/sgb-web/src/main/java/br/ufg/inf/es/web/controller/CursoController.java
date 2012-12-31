@@ -36,8 +36,13 @@ public class CursoController extends SGBController<Curso, CursoForm, CursoServic
         long id = service.insert(curso);
         
         curso = this.getService().find(id);
+        
+        listaDisc = this.getForm().getListaDisc();
+        
         for (Disciplina disc : listaDisc)  {
+            
             disc.setCurso(curso);
+            
             disciplinaService.update(disc);
         }      
 //        curso.setDisciplinas(this.getForm().getListaDisc());

@@ -8,7 +8,6 @@ import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.GrantedAuthorityImpl;
 import org.springframework.stereotype.Component;
@@ -33,7 +32,7 @@ public class LoginController extends JSFController implements AuthenticationProv
     }
 
     @Override
-    public Authentication authenticate(Authentication a) throws AuthenticationException {
+    public Authentication authenticate(Authentication a) {
         
         String username = (String) a.getPrincipal();
         
@@ -41,7 +40,7 @@ public class LoginController extends JSFController implements AuthenticationProv
         
         Collection<String> roles = this.getAuth().login(username, password);
         
-        if (roles == null || roles.size() == 0)  {
+        if (roles == null || roles.isEmpty())  {
 //            this.addErrorMessage("Login inválido");
 //            FacesContext.getCurrentInstance().addMessage("", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Login inválido", ""));
             throw new BadCredentialsException("msg.login.invalido");

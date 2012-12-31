@@ -13,6 +13,10 @@ import javax.persistence.Table;
 @Table(name = "PARAMETROS_BIBLIOTECA")
 public class ParametrosBiblioteca extends AbstractEntityModel {
 
+    private final static int VALOR_HASH = 3;
+    
+    private final static int SALTO = 67;
+    
     @Column(name = "valor_frete", columnDefinition = "Decimal(10,2) default '30.00'")
     private BigDecimal valorFrete = new BigDecimal("30.00");
 
@@ -41,8 +45,8 @@ public class ParametrosBiblioteca extends AbstractEntityModel {
 
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 67 * hash + (this.valorFrete != null ? this.valorFrete.hashCode() : 0);
+        int hash = ParametrosBiblioteca.VALOR_HASH;
+        hash = ParametrosBiblioteca.SALTO * hash + (this.valorFrete != null ? this.valorFrete.hashCode() : 0);
         return hash;
     }
 }
