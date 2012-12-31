@@ -78,8 +78,8 @@ public class UsuarioController
     }
 
     public void removerUsuarioSelecionados() {
-        this.service.getDAO().removeAll(usuarioSelecionado);
-        String openSearchPage = openSearchPage();
+        
+        this.service.getDAO().removeAll(usuarioSelecionado);  
     }
     
     public String editarUsuario() {

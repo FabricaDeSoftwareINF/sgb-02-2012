@@ -88,11 +88,11 @@ public class Usuario extends AbstractEntityModel {
     }
     
     public String getStringPerfil() {
-        String retorno = "";
+        StringBuilder retorno = new StringBuilder();
         for (Perfil p : this.perfil) {
-            retorno += p.getTipo() + "; ";
+            retorno.append(p.getTipo()); retorno.append(";");
         }
-        return retorno;
+        return retorno.toString();
     }
     
     public String getConfirmacaoEmail() {

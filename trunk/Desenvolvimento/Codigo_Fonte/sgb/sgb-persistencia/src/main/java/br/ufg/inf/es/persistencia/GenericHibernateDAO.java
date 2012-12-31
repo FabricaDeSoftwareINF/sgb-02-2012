@@ -6,6 +6,7 @@ import br.ufg.inf.es.base.model.annotations.SortOrder;
 import br.ufg.inf.es.base.persistence.DAO;
 import br.ufg.inf.es.base.util.UtilObjeto;
 import java.lang.reflect.Field;
+import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.Collection;
 import java.util.logging.Logger;
@@ -14,7 +15,6 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Example;
 import org.hibernate.criterion.Order;
-import sun.reflect.generics.reflectiveObjects.ParameterizedTypeImpl;
 
 /**
  * @author Cézar Augusto Ferreira
@@ -37,7 +37,7 @@ public abstract class GenericHibernateDAO<E extends Entity<Long>> implements DAO
 
     protected Class<E> getClassEntity() {
 
-        final Type type[] = ((ParameterizedTypeImpl) this.getClass()
+        final Type type[] = ((ParameterizedType) this.getClass()
                 .getGenericSuperclass()).getActualTypeArguments();
 
         return (Class<E>) type[0];

@@ -107,7 +107,7 @@ public class UsuarioService extends GenericService<Usuario> {
     public void removeAll(Collection<Usuario> collectionEntities) throws ValidationException {
 
         for (Usuario usuario : collectionEntities) {
-            UsuarioPerfil usuarioPerfil = new UsuarioPerfil();
+           
             Collection<UsuarioPerfil> colUsuarioPerfil = usuario_perfilDao.list(usuario.getId());
 
             usuario_perfilDao.removeAll(colUsuarioPerfil);

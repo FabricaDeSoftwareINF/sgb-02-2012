@@ -2,12 +2,12 @@ package br.ufg.inf.es.web.controller.form;
 
 import br.ufg.inf.es.base.controller.form.Form;
 import br.ufg.inf.es.model.AbstractEntityModel;
+import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import sun.reflect.generics.reflectiveObjects.ParameterizedTypeImpl;
 
 /**
  * @author Cézar Augusto Ferreira
@@ -35,7 +35,7 @@ public class GenericForm<E extends AbstractEntityModel> implements Form<E> {
 
     protected final Class<E> getClassEntity() {
 
-        final Type type[] = ((ParameterizedTypeImpl) this.getClass()
+        final Type type[] = ((ParameterizedType) this.getClass()
                 .getGenericSuperclass()).getActualTypeArguments();
 
         return (Class<E>) type[0];

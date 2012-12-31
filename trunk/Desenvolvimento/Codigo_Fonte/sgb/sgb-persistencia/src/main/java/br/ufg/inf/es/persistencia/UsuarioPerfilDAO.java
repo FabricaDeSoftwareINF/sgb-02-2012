@@ -33,7 +33,7 @@ public class UsuarioPerfilDAO  extends GenericHibernateDAO<UsuarioPerfil>{
     }
     
     public Collection<UsuarioPerfil> list (long idUsuario) {
-        System.out.println("Procurando perfis do usuario: " + idUsuario);
+        
         Criteria criteria = this.createCriteria();
 
         criteria.add(Restrictions.eq("id_usuario", idUsuario));
