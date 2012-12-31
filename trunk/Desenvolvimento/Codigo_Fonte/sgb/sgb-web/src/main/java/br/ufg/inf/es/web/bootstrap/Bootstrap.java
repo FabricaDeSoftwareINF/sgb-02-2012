@@ -42,7 +42,9 @@ public class Bootstrap implements ServletContextListener {
 
     private void initializeDefaulUser() {
         if (sessionFactory == null) {
-            System.out.println("sessionFactory is null");
+            
+            Logger.getLogger(Bootstrap.class.getName()).log(Level.SEVERE, "sessionFactory is null");
+
             return;
         }
 
@@ -54,7 +56,10 @@ public class Bootstrap implements ServletContextListener {
                 Long idPerfil = insert(sessionFactory, perfil);
                 perfil.setId(idPerfil);
                 
-                if(idPerfil == null) return;
+                if (idPerfil == null) {
+                    
+                    return;
+                }
                 
                 Usuario user = new Usuario();
                 user.setEmail("admin@email.com");
@@ -66,8 +71,8 @@ public class Bootstrap implements ServletContextListener {
                 user.setId(idUser);
                 
                 UsuarioPerfil usuarioPerfil = new UsuarioPerfil();
-                usuarioPerfil.setId_perfil(idPerfil);
-                usuarioPerfil.setId_usuario(idUser);
+                usuarioPerfil.setIdPerfil(idPerfil);
+                usuarioPerfil.setIdUsuario(idUser);
                 insert(sessionFactory, usuarioPerfil);
             } catch (Exception ex) {
                 Logger.getLogger(Bootstrap.class.getName()).log(Level.SEVERE, null, ex);

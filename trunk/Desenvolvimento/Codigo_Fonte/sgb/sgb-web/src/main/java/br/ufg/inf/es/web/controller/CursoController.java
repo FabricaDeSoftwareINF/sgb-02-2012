@@ -25,7 +25,6 @@ public class CursoController extends SGBController<Curso, CursoForm, CursoServic
     private CursoService service;
     @Autowired
     private DisciplinaService disciplinaService;
-    private LinkedList<Disciplina> listaDisc;
     
     public void salvarCurso() throws ValidationException{
         
@@ -37,9 +36,7 @@ public class CursoController extends SGBController<Curso, CursoForm, CursoServic
         
         curso = this.getService().find(id);
         
-        listaDisc = this.getForm().getListaDisc();
-        
-        for (Disciplina disc : listaDisc)  {
+        for (Disciplina disc : this.getForm().getListaDisc())  {
             
             disc.setCurso(curso);
             

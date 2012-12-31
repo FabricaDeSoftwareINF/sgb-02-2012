@@ -28,7 +28,7 @@ public class UsuarioService extends GenericService<Usuario> {
     @Autowired
     private UsuarioDAO dao;
     @Autowired
-    private UsuarioPerfilDAO usuario_perfilDao;
+    private UsuarioPerfilDAO usuarioPerfilDao;
     @Autowired
     private PerfilDAO perfilDao;
 
@@ -43,12 +43,12 @@ public class UsuarioService extends GenericService<Usuario> {
         this.dao = dao;
     }
 
-    public UsuarioPerfilDAO getUsuario_perfilDao() {
-        return usuario_perfilDao;
+    public UsuarioPerfilDAO getUsuarioPerfilDao() {
+        return usuarioPerfilDao;
     }
 
-    public void setUsuario_perfilDao(UsuarioPerfilDAO usuario_perfilDao) {
-        this.usuario_perfilDao = usuario_perfilDao;
+    public void setUsuarioPerfilDao(UsuarioPerfilDAO usuarioPerfilDao) {
+        this.usuarioPerfilDao = usuarioPerfilDao;
     }
 
     @Override
@@ -65,10 +65,10 @@ public class UsuarioService extends GenericService<Usuario> {
 
         for (Perfil perfil : entity.getPerfil()) {
             UsuarioPerfil usuarioPerfil = new UsuarioPerfil();
-            usuarioPerfil.setId_usuario(id);
-            usuarioPerfil.setId_perfil(perfil.getId());
+            usuarioPerfil.setIdUsuario(id);
+            usuarioPerfil.setIdPerfil(perfil.getId());
 
-            usuario_perfilDao.insert(usuarioPerfil);
+            usuarioPerfilDao.insert(usuarioPerfil);
         }
 
         return id;
@@ -80,7 +80,7 @@ public class UsuarioService extends GenericService<Usuario> {
     @RNG003
     public void update(Usuario entity) throws ValidationException {
 
-        usuario_perfilDao.removeAll(usuario_perfilDao.list(entity.getId()));
+        usuarioPerfilDao.removeAll(usuarioPerfilDao.list(entity.getId()));
 
         entity.setStatus(true);
 
@@ -88,17 +88,17 @@ public class UsuarioService extends GenericService<Usuario> {
 
         for (Perfil perfil : entity.getPerfil()) {
             UsuarioPerfil usuarioPerfil = new UsuarioPerfil();
-            usuarioPerfil.setId_perfil(perfil.getId());
-            usuarioPerfil.setId_usuario(entity.getId());
+            usuarioPerfil.setIdPerfil(perfil.getId());
+            usuarioPerfil.setIdUsuario(entity.getId());
 
-            usuario_perfilDao.insert(usuarioPerfil);
+            usuarioPerfilDao.insert(usuarioPerfil);
         }
     }
 
     @Override
     public void remove(Usuario entity) throws ValidationException {
 
-        usuario_perfilDao.removeAll(usuario_perfilDao.list(entity.getId()));
+        usuarioPerfilDao.removeAll(usuarioPerfilDao.list(entity.getId()));
 
         super.remove(entity);
     }
@@ -108,9 +108,9 @@ public class UsuarioService extends GenericService<Usuario> {
 
         for (Usuario usuario : collectionEntities) {
            
-            Collection<UsuarioPerfil> colUsuarioPerfil = usuario_perfilDao.list(usuario.getId());
+            Collection<UsuarioPerfil> colUsuarioPerfil = usuarioPerfilDao.list(usuario.getId());
 
-            usuario_perfilDao.removeAll(colUsuarioPerfil);
+            usuarioPerfilDao.removeAll(colUsuarioPerfil);
         }
 
         super.removeAll(collectionEntities);
@@ -123,11 +123,11 @@ public class UsuarioService extends GenericService<Usuario> {
 
         for (Usuario usuario : colUsuario) {
 
-            Collection<UsuarioPerfil> colUsuarioPerfil = usuario_perfilDao.list(usuario.getId());
+            Collection<UsuarioPerfil> colUsuarioPerfil = usuarioPerfilDao.list(usuario.getId());
             HashSet<Perfil> hsPerfil = new HashSet<Perfil>();
 
             for (UsuarioPerfil usuPerfil : colUsuarioPerfil) {
-                Perfil perfil = perfilDao.find(usuPerfil.getId_perfil());
+                Perfil perfil = perfilDao.find(usuPerfil.getIdPerfil());
                 hsPerfil.add(perfil);
             }
             usuario.setPerfil(hsPerfil);
@@ -143,11 +143,11 @@ public class UsuarioService extends GenericService<Usuario> {
 
         for (Usuario usuario : colUsuario) {
 
-            Collection<UsuarioPerfil> colUsuarioPerfil = usuario_perfilDao.list(usuario.getId());
+            Collection<UsuarioPerfil> colUsuarioPerfil = usuarioPerfilDao.list(usuario.getId());
             HashSet<Perfil> hsPerfil = new HashSet<Perfil>();
 
             for (UsuarioPerfil usuPerfil : colUsuarioPerfil) {
-                Perfil perfil = perfilDao.find(usuPerfil.getId_perfil());
+                Perfil perfil = perfilDao.find(usuPerfil.getIdPerfil());
                 hsPerfil.add(perfil);
             }
             usuario.setPerfil(hsPerfil);
@@ -160,11 +160,11 @@ public class UsuarioService extends GenericService<Usuario> {
     public void refresh(Usuario entity) {
 
         UsuarioPerfil usuarioPerfil = new UsuarioPerfil();
-        usuarioPerfil.setId_usuario(entity.getId());
-        Collection<UsuarioPerfil> colUsuarioPerfil = usuario_perfilDao.search(usuarioPerfil);
+        usuarioPerfil.setIdUsuario(entity.getId());
+        Collection<UsuarioPerfil> colUsuarioPerfil = usuarioPerfilDao.search(usuarioPerfil);
         HashSet<Perfil> hsPerfil = new HashSet<Perfil>();
         for (UsuarioPerfil usuPerfil : colUsuarioPerfil) {
-            Perfil perfil = perfilDao.find(usuPerfil.getId_perfil());
+            Perfil perfil = perfilDao.find(usuPerfil.getIdPerfil());
             hsPerfil.add(perfil);
         }
         entity.setPerfil(hsPerfil);
@@ -172,7 +172,7 @@ public class UsuarioService extends GenericService<Usuario> {
     }
 
     public Collection<Perfil> carreguePerfis(Usuario usuario) {
-        return usuario_perfilDao.listPerfis(usuario.getId());
+        return usuarioPerfilDao.listPerfis(usuario.getId());
     }
 
     public Usuario authUser(String user, String password) {

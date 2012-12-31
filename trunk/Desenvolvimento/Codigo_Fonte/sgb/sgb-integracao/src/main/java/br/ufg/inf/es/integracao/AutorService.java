@@ -31,12 +31,10 @@ public class AutorService extends GenericService<Autor> {
         this.dao = dao;
     }
 
-    @Override
     public Long insert(Autor entity) throws ValidationException {
 
         return super.insert(entity);
     }
-    
     
     public Collection<Autor> complete(String query) {  
         Collection<Autor> results = new ArrayList<Autor>();

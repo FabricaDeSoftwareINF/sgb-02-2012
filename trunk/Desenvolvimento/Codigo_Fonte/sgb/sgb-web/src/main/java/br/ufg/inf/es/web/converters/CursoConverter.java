@@ -21,29 +21,46 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
  */
 @FacesConverter("cursoConverter")
 public class CursoConverter implements Converter {
+    
     @Override
     public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
+       
         if (value.trim().equals("")) {  
+            
             return null;  
+            
         } else {  
+            
             ServletContext servletContext = (ServletContext)facesContext.getExternalContext().getContext();
+            
             WebApplicationContext context = WebApplicationContextUtils.getWebApplicationContext(servletContext);
+            
             CursoDAO dao = context.getBean(CursoDAO.class);
             
             Curso c = new Curso();
+            
             c.setNome(value);
+            
             Collection<Curso> lista = dao.search(c);
-            if(lista.isEmpty())
+            
+            if(lista.isEmpty()) {
+             
                 return null;
+            }
+            
             return lista.toArray()[0];
         }  
     }
 
     @Override
     public String getAsString(FacesContext context, UIComponent component, Object value) {
+        
         if (value == null || value.equals("")) {  
+            
             return "";  
+        
         } else {  
+         
             return String.valueOf(((Curso) value).getNome());  
         }  
     }

@@ -21,7 +21,7 @@ public class RNGExecutor implements MethodBeforeAdvice {
     @Autowired
     private ApplicationContext applicationContext;
 
-    public void before(Method method, Object[] params, Object o) throws Throwable {
+    public void before(Method method, Object[] params, Object o) throws ValidationException , MultipleValidationException {
 
         Annotation[] annotations = method.getDeclaredAnnotations();
 
