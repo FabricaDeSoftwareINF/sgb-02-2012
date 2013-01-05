@@ -4,6 +4,7 @@
  */
 package br.ufg.inf.es.web.bootstrap;
 
+import br.ufg.inf.es.base.util.SgbCryptography;
 import br.ufg.inf.es.model.Perfil;
 import br.ufg.inf.es.model.Usuario;
 import br.ufg.inf.es.model.UsuarioPerfil;
@@ -63,7 +64,7 @@ public class Bootstrap implements ServletContextListener {
                 
                 Usuario user = new Usuario();
                 user.setEmail("admin@email.com");
-                user.setSenha("123456");
+                user.setSenha(new SgbCryptography().encrypt("123456"));
                 user.setStatus(true);
                 user.setPerfil(Arrays.asList(perfil));
                 

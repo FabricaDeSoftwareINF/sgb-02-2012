@@ -1,5 +1,6 @@
 package br.ufg.inf.es.integracao;
 
+import br.ufg.inf.es.base.util.SgbCryptography;
 import br.ufg.inf.es.base.validation.ValidationException;
 import br.ufg.inf.es.integracao.annotations.RNG001;
 import br.ufg.inf.es.integracao.annotations.RNG002;
@@ -13,6 +14,7 @@ import br.ufg.inf.es.persistencia.UsuarioPerfilDAO;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Random;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
@@ -31,6 +33,8 @@ public class UsuarioService extends GenericService<Usuario> {
     private UsuarioPerfilDAO usuarioPerfilDao;
     @Autowired
     private PerfilDAO perfilDao;
+    
+    private SgbCryptography cryptography = new SgbCryptography();
 
     @Override
     public UsuarioDAO getDAO() {
@@ -58,6 +62,9 @@ public class UsuarioService extends GenericService<Usuario> {
     public Long insert(Usuario entity) throws ValidationException {
 
         entity.setDataCadastro(new Date());
+        String oldPass = entity.getSenha();
+        String passEncrypted = cryptography.encrypt(oldPass);
+        entity.setSenha(passEncrypted);
 
         entity.setStatus(true);
 
@@ -83,6 +90,8 @@ public class UsuarioService extends GenericService<Usuario> {
         usuarioPerfilDao.removeAll(usuarioPerfilDao.list(entity.getId()));
 
         entity.setStatus(true);
+        String passEncrypted = cryptography.encrypt(entity.getSenha());
+        entity.setSenha(passEncrypted);
 
         super.update(entity);
 
@@ -177,5 +186,26 @@ public class UsuarioService extends GenericService<Usuario> {
 
     public Usuario authUser(String user, String password) {
         return dao.findUserByEmailAndPassword(user, password);
+    }
+
+    public void recuperarSenha(String emailUsuario) {
+        Usuario usuario = dao.findUserByEmail(emailUsuario);
+        
+        if(usuario == null) return;
+        
+        String letters = "abcdefghjkmnpqrstuvwxyzABCDEFGHJKMNPQRSTUVWXYZ23456789_-";
+
+        Integer passwordLength = 8;
+        String newPass = "";
+        for (int i=0; i<passwordLength; i++){
+            int index = (int)(new Random().nextDouble()*letters.length());
+            newPass += letters.substring(index, index+1);
+        }
+        
+        usuario.setSenha(newPass);
+        EmailService.enviarNovaSenha(usuario);
+        usuario.setSenha(cryptography.encrypt(newPass));
+        dao.update(usuario);
+        dao.update(usuario);
     }
 }
