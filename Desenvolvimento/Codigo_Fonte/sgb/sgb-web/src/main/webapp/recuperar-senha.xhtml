@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>LOGIN</title>
+        <h:outputStylesheet library="css" name="login.css"/>
+    </h:head>
+
+    <h:body>
+        <div class="container">
+            <div class="form-login">
+                <div class="logo">
+                    <h:graphicImage value="/resources/images/sgb.png"/>
+                    <h2>Recuperar senha</h2>
+                </div>
+                <p>Seja bem-vindo ao SGB, entre com suas informações<br /> abaixo para ter acesso ao sistema.</p>
+                <h:form prependId="false">
+
+                    <h:panelGrid columns="2">
+
+                        <h:outputLabel value="Email:" for="email" />
+
+                        <p:inputText id="email" styleClass="form-login-input" />
+                        
+                        <h:outputLabel value="" />
+                    </h:panelGrid>
+                    <div>&nbsp;</div>
+                    <h:commandButton action="#{usuarioController.recuperarSenha}" styleClass="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" type="submit" value="Entrar" id="form-submit"/>
+                </h:form>
+            </div>
+        </div>
+
+    </h:body>
+</html>

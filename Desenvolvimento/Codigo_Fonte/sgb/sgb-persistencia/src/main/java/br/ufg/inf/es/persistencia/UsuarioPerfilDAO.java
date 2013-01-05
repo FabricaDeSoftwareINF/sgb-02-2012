@@ -36,7 +36,7 @@ public class UsuarioPerfilDAO  extends GenericHibernateDAO<UsuarioPerfil>{
         
         Criteria criteria = this.createCriteria();
 
-        criteria.add(Restrictions.eq("id_usuario", idUsuario));
+        criteria.add(Restrictions.eq("idUsuario", idUsuario));
 
         return criteria.list();
         

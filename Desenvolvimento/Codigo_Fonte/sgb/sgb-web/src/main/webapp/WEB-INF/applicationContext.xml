@@ -33,7 +33,7 @@
     <sec:http auto-config="true" use-expressions="true">
 		
         <sec:form-login login-page="/login.jsf" login-processing-url="/j_spring_security_check" authentication-failure-url="/login.jsf?error=true" default-target-url="/template.jsf" />
-
+        
         <sec:logout logout-success-url="/login.jsf" invalidate-session="true" />
 
         <sec:intercept-url pattern="/template.jsf" access="hasAnyRole('ROLE_ADMIN', 'ROLE_CONSELHEIRO', 'ROLE_PROFESSOR')" />
@@ -41,7 +41,7 @@
         <sec:access-denied-handler error-page="/login.jsf" />
 
         <sec:session-management invalid-session-url="/login.jsf" session-authentication-error-url="/login.jsf" />
-
+        
     </sec:http>
 	
     <sec:authentication-manager>

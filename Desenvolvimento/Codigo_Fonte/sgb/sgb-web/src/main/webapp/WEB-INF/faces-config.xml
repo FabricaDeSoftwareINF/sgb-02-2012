@@ -13,6 +13,10 @@
             <to-view-id>/cadastro/usuario/inclusao.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
+            <from-outcome>UsuarioController/recuperarSenha</from-outcome>
+            <to-view-id>/recuperar-senha.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
             <from-outcome>UsuarioController/searchPage</from-outcome>
             <to-view-id>/cadastro/usuario/busca.xhtml</to-view-id>
         </navigation-case>

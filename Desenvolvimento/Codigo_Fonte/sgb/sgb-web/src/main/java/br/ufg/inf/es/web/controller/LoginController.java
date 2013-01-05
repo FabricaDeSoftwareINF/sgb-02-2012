@@ -1,6 +1,7 @@
 package br.ufg.inf.es.web.controller;
 
 import br.ufg.inf.es.base.service.Auth;
+import br.ufg.inf.es.base.util.SgbCryptography;
 import java.util.ArrayList;
 import java.util.Collection;
 import org.springframework.context.annotation.Scope;
@@ -20,6 +21,7 @@ import org.springframework.stereotype.Component;
 public class LoginController extends JSFController implements AuthenticationProvider {
 
     private Auth auth;
+    private SgbCryptography cryptography = new SgbCryptography();
 
     public Auth getAuth() {
 
@@ -37,6 +39,7 @@ public class LoginController extends JSFController implements AuthenticationProv
         String username = (String) a.getPrincipal();
         
         String password = (String) a.getCredentials();
+        password = cryptography.encrypt(password);
         
         Collection<String> roles = this.getAuth().login(username, password);
         

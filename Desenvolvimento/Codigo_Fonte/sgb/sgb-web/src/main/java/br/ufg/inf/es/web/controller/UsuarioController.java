@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
+import javax.faces.context.FacesContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -90,5 +91,15 @@ public class UsuarioController
     public String criarUsuario() {
         super.insert();
         return super.openSearchPage();
+    }
+    
+    public String janelaRecuperarSenha(){
+        return this.getRootNavigation() + "recuperarSenha";
+    }
+
+    public String recuperarSenha(){
+        String email = this.getParameterFromRequest("email");
+        service.recuperarSenha(email);
+        return "/login.xhtml";
     }
 }

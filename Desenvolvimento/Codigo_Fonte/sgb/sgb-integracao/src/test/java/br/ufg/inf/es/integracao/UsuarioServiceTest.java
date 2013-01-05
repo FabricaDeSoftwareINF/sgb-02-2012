@@ -102,6 +102,7 @@ public class UsuarioServiceTest {
     public void testInsert() throws Exception {
         
         Usuario entity = new Usuario();
+        entity.setSenha("123456");
         UsuarioService instance = new UsuarioService();
         UsuarioDAO ususarioDAO = new UsuarioDAO(new SessionFactory() {
 
