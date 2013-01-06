@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html >
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <ui:composition template="/template.xhtml">
+
+        <ui:define name="content">
+
+            <h:form id="formManterAutor">
+
+                <h:outputLabel value="#{msg['cadastro.autor.label.manterAutor']}" style="font-size: 40px;"></h:outputLabel>
+                
+                <p:spacer width="40"></p:spacer>
+
+                <p:dataTable value="#{autorController.form.model}" style=" width: 98%" paginator="true" paginatorAlwaysVisible="false" rows="10" var="autor">
+
+                    <p:column selectionMode="multiple" style="width: 18px;"></p:column>
+
+                    <p:column headerText="#{msg['cadastro.autor.label.nome']}">
+                        <h:outputLabel value="#{autor.nome}"></h:outputLabel>
+                    </p:column>
+
+                    <p:column headerText="#{msg['cadastro.autor.label.sobrenome']}">
+                        <h:outputLabel value="#{autor.sobrenome}"></h:outputLabel>
+                    </p:column>
+
+                    <p:column headerText="#{msg['cadastro.autor.label.acoes']}">             
+                        
+                        <h:panelGrid columns="1" >
+                        
+                            <p:commandLink value="Editar">
+                                
+                            </p:commandLink>
+                           
+                        </h:panelGrid>
+                        
+                    </p:column>
+
+                </p:dataTable>
+
+                <h:panelGrid columns="2" style="float: right">
+
+                    <p:commandButton value="#{msg['cadastro.autor.label.novo']}" style="margin-right: 4em"></p:commandButton>
+
+                    <p:commandButton value="#{msg['cadastro.autor.label.remover']}"></p:commandButton>
+
+                </h:panelGrid>
+
+            </h:form>
+        </ui:define>
+
+    </ui:composition>
+</html>
+

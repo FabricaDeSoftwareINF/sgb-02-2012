@@ -1,6 +1,5 @@
 package br.ufg.inf.es.integracao;
 
-import br.ufg.inf.es.base.validation.ValidationException;
 import br.ufg.inf.es.model.Autor;
 import br.ufg.inf.es.persistencia.AutorDAO;
 import java.util.ArrayList;
@@ -14,7 +13,7 @@ import org.springframework.stereotype.Component;
  * @author Henrique Hirako
  */
 @Component
-@Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
+@Scope(proxyMode= ScopedProxyMode.TARGET_CLASS)
 public class AutorService extends GenericService<Autor> {
 
     @Autowired
@@ -42,5 +41,16 @@ public class AutorService extends GenericService<Autor> {
           
         return results;  
     }  
+    /**
+     * Método responsável por buscar todos os autores do Banco de dados
+     * 
+     * @author Cássio Augusto
+     * @return Coleção de Autores
+     */
+    public Collection<Autor> buscaTodosAutores() {
+        
+        return this.getDAO().list();
+    
+    }
     
 }

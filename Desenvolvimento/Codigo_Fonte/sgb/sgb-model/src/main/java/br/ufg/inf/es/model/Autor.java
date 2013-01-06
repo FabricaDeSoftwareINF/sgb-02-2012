@@ -5,16 +5,11 @@
 package br.ufg.inf.es.model;
 
 import java.util.Collection;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  *
- * @author Henrique
+ * @author Henrique, Cássio Augusto
  */
 @Entity
 @Table(name = "AUTOR")
@@ -22,11 +17,23 @@ public class Autor extends AbstractEntityModel {
 
     @Column(name = "nome")
     private String nome;
+    
+    @Column(name = "sobrenome")
+    private String sobrenome;
+    
     @ManyToMany
     @JoinTable(name = "livro_autor", joinColumns =
     @JoinColumn(name = "id_autor"), inverseJoinColumns =
     @JoinColumn(name = "id_livro"))
     private Collection<Livro> livros;
+
+    public String getSobrenome() {
+        return sobrenome;
+    }
+
+    public void setSobrenome(String sobrenome) {
+        this.sobrenome = sobrenome;
+    }
 
     public String getNome() {
         return nome;
