@@ -11,41 +11,54 @@
 
             <h:form id="formManterAutor">
 
-                <h:outputLabel value="#{msg['cadastro.autor.label.manterAutor']}" style="font-size: 40px;"></h:outputLabel>
-                
-                <p:spacer width="40"></p:spacer>
+                <h:panelGrid style="width: 70%; margin-top: 20px;">
 
-                <p:dataTable value="#{autorController.form.model}" style=" width: 98%" paginator="true" paginatorAlwaysVisible="false" rows="10" var="autor">
+                    <h:outputLabel value="#{msg['cadastro.autor.label.manterAutor']}" style="font-size: 40px;"></h:outputLabel>
 
-                    <p:column selectionMode="multiple" style="width: 18px;"></p:column>
-
-                    <p:column headerText="#{msg['cadastro.autor.label.nome']}">
-                        <h:outputLabel value="#{autor.nome}"></h:outputLabel>
-                    </p:column>
-
-                    <p:column headerText="#{msg['cadastro.autor.label.sobrenome']}">
-                        <h:outputLabel value="#{autor.sobrenome}"></h:outputLabel>
-                    </p:column>
-
-                    <p:column headerText="#{msg['cadastro.autor.label.acoes']}">             
+                    <p:spacer width="20"></p:spacer>
+                    
+                    <h:panelGrid columns="2" style="width: 100%">
                         
-                        <h:panelGrid columns="1" >
+                        <p:inputText value="#{autorController.form.filtroNome}" style="width: 50%" ></p:inputText>
                         
-                            <p:commandLink value="Editar">
-                                
-                            </p:commandLink>
-                           
-                        </h:panelGrid>
-                        
-                    </p:column>
+                        <p:commandButton icon="ui-icon-search" action="#{autorController.buscaTodosAutores()}" update="dtTable" ></p:commandButton>
+                    
+                    </h:panelGrid>
+                    
+                    <p:dataTable id="dtTable" value="#{autorController.form.model}" style=" width: 98%" paginator="true" paginatorAlwaysVisible="false" rows="10" var="autor" 
+                                selection="#{autorController.form.autoresSelecionados}">
 
-                </p:dataTable>
+                        <p:column selectionMode="multiple" style="width: 18px;"></p:column>
 
-                <h:panelGrid columns="2" style="float: right">
+                        <p:column headerText="#{msg['cadastro.autor.label.nome']}" style="width: 50%" >
+                            <h:outputLabel value="#{autor.nome}"></h:outputLabel>
+                        </p:column>
 
-                    <p:commandButton value="#{msg['cadastro.autor.label.novo']}" style="margin-right: 4em"></p:commandButton>
+                        <p:column headerText="#{msg['cadastro.autor.label.sobrenome']}" style="width: 100%">
+                            <h:outputLabel value="#{autor.sobrenome}"></h:outputLabel>
+                        </p:column>
 
-                    <p:commandButton value="#{msg['cadastro.autor.label.remover']}"></p:commandButton>
+                        <p:column headerText="#{msg['cadastro.autor.label.acoes']}" style="width: 10%;">             
+
+                            <h:panelGrid columns="1" >
+
+                                <p:commandLink value="Editar">
+
+                                </p:commandLink>
+
+                            </h:panelGrid>
+
+                        </p:column>
+
+                    </p:dataTable>
+
+                    <h:panelGrid columns="2" style="float: right">
+
+                        <p:commandButton value="#{msg['cadastro.autor.label.novo']}" style="margin-right: 4em"></p:commandButton>
+
+                        <p:commandButton value="#{msg['cadastro.autor.label.remover']}"></p:commandButton>
+
+                    </h:panelGrid>
 
                 </h:panelGrid>
 

@@ -47,9 +47,9 @@ public class AutorService extends GenericService<Autor> {
      * @author Cássio Augusto
      * @return Coleção de Autores
      */
-    public Collection<Autor> buscaTodosAutores() {
+    public Collection<Autor> buscaTodosAutores(String filtroNome) {
         
-        return this.getDAO().list();
+        return this.getDAO().listarAutores(filtroNome);
     
     }
     
