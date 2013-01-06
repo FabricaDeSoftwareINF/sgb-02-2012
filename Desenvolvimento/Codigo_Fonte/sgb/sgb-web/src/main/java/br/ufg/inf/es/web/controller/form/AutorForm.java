@@ -15,16 +15,33 @@ import org.springframework.stereotype.Component;
 @Scope("session")
 public class AutorForm extends GenericForm<Autor> {
     
+    private String filtroNome;
+    
     private AutorDataModel model;
     
-    private Collection<Autor> autoresSelecionados;
-    
+    private Autor[] autoresSelecionados;
+       
     private Collection<String> nomesSelecionados;
     
     /*Todos os autores*/
     private Collection<Autor> todosAutores;
-    
 
+    public String getFiltroNome() {
+        return filtroNome;
+    }
+
+    public void setFiltroNome(String filtroNome) {
+        this.filtroNome = filtroNome;
+    }
+
+    public Autor[] getAutoresSelecionados() {
+        return autoresSelecionados;
+    }
+
+    public void setAutoresSelecionados(Autor[] autoresSelecionados) {
+        this.autoresSelecionados = autoresSelecionados;
+    }
+    
     public AutorDataModel getModel() {
        
         List<Autor> autores =  new ArrayList<Autor>(this.getTodosAutores());
@@ -46,14 +63,6 @@ public class AutorForm extends GenericForm<Autor> {
         this.todosAutores = todosAutores;
     }
    
-    public Collection<Autor> getAutoresSelecionados() {
-        return autoresSelecionados;
-    }
-
-    public void setAutoresSelecionados(Collection<Autor> autoresSelecionados) {
-        this.autoresSelecionados = autoresSelecionados;
-    }
-
     public Collection<String> getNomesSelecionados() {
         return nomesSelecionados;
     }

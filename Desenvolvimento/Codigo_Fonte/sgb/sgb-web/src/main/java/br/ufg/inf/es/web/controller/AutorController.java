@@ -39,8 +39,9 @@ public class AutorController
     */
     public void buscaTodosAutores() {
         
-        this.getForm().setTodosAutores(this.getService().buscaTodosAutores());
+        this.getForm().setTodosAutores(this.getService().buscaTodosAutores(this.getForm().getFiltroNome()));
         
+        this.getForm().setFiltroNome("");
     }
     
      @Override
