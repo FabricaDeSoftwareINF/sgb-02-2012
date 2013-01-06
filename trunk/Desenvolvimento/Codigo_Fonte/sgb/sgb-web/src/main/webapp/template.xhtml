@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html>
-<!--@autor: Wilker de Jesus Machado-->
+<!--@autor: Wilker de Jesus Machado, Cássio Augusto Silva de Freitas-->
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"  
       xmlns:h="http://java.sun.com/jsf/html"  
@@ -42,6 +42,11 @@
                         <p:menuitem value="Busca" action="/cadastro/livro/busca.xhtml" />
                         <p:menuitem value="Cadastrar" action="/cadastro/livro/inclusao.xhtml" />
                     </p:submenu>
+                  
+                    <p:menuitem value="#{msg['cadastro.autor.label.autor']}" action="#{autorController.openInitialPage()}">
+                                          
+                    </p:menuitem>
+                
                     <p:submenu label="Disciplina">
                         <p:menuitem value="Busca" action="/cadastro/disciplina/busca.xhtml" />
                         <p:menuitem value="Cadastrar" action="/cadastro/disciplina/inclusao.xhtml" />

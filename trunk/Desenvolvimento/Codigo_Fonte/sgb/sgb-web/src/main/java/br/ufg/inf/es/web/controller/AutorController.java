@@ -20,8 +20,30 @@ public class AutorController
     
     @Autowired
     private AutorService service;
-    
+
     @Override
+    public String openInitialPage() {
+      
+        buscaTodosAutores();
+       
+        return super.openInitialPage();
+    }
+    
+    
+    
+   /**
+    * Método responsável por buscar todos os autores do banco de dados e colocar
+    * a coleção no formulário da estória de usuário.
+    * 
+    * @author Cássio Augusto Silva de Freitas
+    */
+    public void buscaTodosAutores() {
+        
+        this.getForm().setTodosAutores(this.getService().buscaTodosAutores());
+        
+    }
+    
+     @Override
     public AutorForm getForm() {
 
         return this.form;
@@ -42,5 +64,6 @@ public class AutorController
         
         this.service = service;
     }
+    
     
 }
