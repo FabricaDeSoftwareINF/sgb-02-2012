@@ -1,6 +1,9 @@
 package br.ufg.inf.es.integracao;
 
+import br.ufg.inf.es.base.validation.ValidationException;
+import br.ufg.inf.es.integracao.annotations.RNG012;
 import br.ufg.inf.es.model.Autor;
+import br.ufg.inf.es.model.AutorDTO;
 import br.ufg.inf.es.persistencia.AutorDAO;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -10,10 +13,10 @@ import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Component;
 
 /**
- * @author Henrique Hirako
+ * @author Henrique Hirako, Cássio Augusto Silva de Freitas
  */
 @Component
-@Scope(proxyMode= ScopedProxyMode.TARGET_CLASS)
+@Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class AutorService extends GenericService<Autor> {
 
     @Autowired
@@ -29,28 +32,53 @@ public class AutorService extends GenericService<Autor> {
 
         this.dao = dao;
     }
-  
-    public Collection<Autor> complete(String query) {  
+
+    public Collection<Autor> complete(String query) {
         Collection<Autor> results = new ArrayList<Autor>();
-          
-        for(Autor autor : dao.list()){
-            if(autor.getNome().contains(query)){
+
+        for (Autor autor : dao.list()) {
+            if (autor.getNome().contains(query)) {
                 results.add(autor);
             }
         }
-          
-        return results;  
-    }  
+
+        return results;
+    }
+
     /**
      * Método responsável por buscar todos os autores do Banco de dados
-     * 
      * @author Cássio Augusto
      * @return Coleção de Autores
      */
-    public Collection<Autor> buscaTodosAutores(String filtroNome) {
-        
+    public Collection<AutorDTO> buscaTodosAutores(String filtroNome) {
+
         return this.getDAO().listarAutores(filtroNome);
-    
+
     }
-    
+
+    /**
+     * Método responsável por realizar a inserção de um novo Autor
+     * @author Cássio Augusto Silva de Freitas
+     * @param autor a ser inserido
+     * @return id da nova entidade
+     * @throws ValidationException 
+     */
+    @RNG012
+    @Override
+    public Long insert(Autor autor) throws ValidationException {
+
+        return this.getDAO().insert(autor);
+
+    }
+
+    /**
+     * Método reponsável por realizar a edição de um determinado autor
+     * @author Cássio Augusto Silva de Freitas
+     * @param entidade
+     * @throws ValidationException 
+     */
+    public void editar(Autor entidade) throws ValidationException {
+        
+        super.save(entidade);
+    }
 }

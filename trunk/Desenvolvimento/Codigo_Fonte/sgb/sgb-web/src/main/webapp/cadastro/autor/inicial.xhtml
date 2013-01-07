@@ -3,34 +3,36 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
+      xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core">
 
     <ui:composition template="/template.xhtml">
 
         <ui:define name="content">
-
+            
             <h:form id="formManterAutor">
-
+                          
                 <h:panelGrid style="width: 70%; margin-top: 20px;">
 
                     <h:outputLabel value="#{msg['cadastro.autor.label.manterAutor']}" style="font-size: 40px;"></h:outputLabel>
 
                     <p:spacer width="20"></p:spacer>
                     
-                    <h:panelGrid columns="2" style="width: 100%">
+                    <p:messages id="messages" autoUpdate="true"></p:messages>
+                    
+                    <h:panelGrid columns="2">
                         
-                        <p:inputText value="#{autorController.form.filtroNome}" style="width: 50%" ></p:inputText>
+                        <p:inputText value="#{autorController.form.filtroNome}" size="65" style="margin-left: 38px;"></p:inputText>
                         
-                        <p:commandButton icon="ui-icon-search" action="#{autorController.buscaTodosAutores()}" update="dtTable" ></p:commandButton>
+                        <p:commandButton icon="ui-icon-search" action="#{autorController.buscaTodosAutores()}" update="@form" ></p:commandButton>
                     
                     </h:panelGrid>
-                    
-                    <p:dataTable id="dtTable" value="#{autorController.form.model}" style=" width: 98%" paginator="true" paginatorAlwaysVisible="false" rows="10" var="autor" 
-                                selection="#{autorController.form.autoresSelecionados}">
+                                  
+                    <p:dataTable id="dtTable" value="#{autorController.form.model}" style=" width: 100%" paginator="true" paginatorAlwaysVisible="false" rows="10" var="autor" 
+                                 selection="#{autorController.form.autoresSelecionados}" emptyMessage="#{msg['cadastro.autor.label.nenhumRegistro']}">
 
                         <p:column selectionMode="multiple" style="width: 18px;"></p:column>
 
-                        <p:column headerText="#{msg['cadastro.autor.label.nome']}" style="width: 50%" >
+                        <p:column headerText="#{msg['cadastro.autor.label.nome']}" style="width: 50%" filterBy="#{autor.nome}" filterMatchMode="contains">
                             <h:outputLabel value="#{autor.nome}"></h:outputLabel>
                         </p:column>
 
@@ -38,11 +40,13 @@
                             <h:outputLabel value="#{autor.sobrenome}"></h:outputLabel>
                         </p:column>
 
-                        <p:column headerText="#{msg['cadastro.autor.label.acoes']}" style="width: 10%;">             
+                        <p:column headerText="#{msg['cadastro.autor.label.acoes']}" style="width: 10%; " >             
 
                             <h:panelGrid columns="1" >
 
-                                <p:commandLink value="Editar">
+                                <p:commandLink value="#{msg['cadastro.autor.label.editar']}" oncomplete="autorModalEditar.show()" update=":formEdicaoAutor">
+                                    
+                                    <f:setPropertyActionListener value="#{autor}" target="#{autorController.form.autorEdicao}"></f:setPropertyActionListener>
 
                                 </p:commandLink>
 
@@ -54,15 +58,22 @@
 
                     <h:panelGrid columns="2" style="float: right">
 
-                        <p:commandButton value="#{msg['cadastro.autor.label.novo']}" style="margin-right: 4em"></p:commandButton>
+                        <p:commandButton value="#{msg['cadastro.autor.label.novo']}"  action="#{autorController.prepararInsercao}" oncomplete="autorModal.show()" style="width: 100px;margin-right: 4em" update=":formCadastroAutor"></p:commandButton>
 
-                        <p:commandButton value="#{msg['cadastro.autor.label.remover']}"></p:commandButton>
+                        <p:commandButton value="#{msg['cadastro.autor.label.remover']}" action="#{autorController.prepararExclusao}" update=":formRemoverAutor"></p:commandButton>
 
                     </h:panelGrid>
 
                 </h:panelGrid>
-
+                                      
             </h:form>
+            
+            <ui:include src="/cadastro/autor/cadastroAutor.xhtml"/>
+            
+            <ui:include src="/cadastro/autor/removerAutor.xhtml"/>
+            
+            <ui:include src="/cadastro/autor/editarAutor.xhtml"/>
+                    
         </ui:define>
 
     </ui:composition>

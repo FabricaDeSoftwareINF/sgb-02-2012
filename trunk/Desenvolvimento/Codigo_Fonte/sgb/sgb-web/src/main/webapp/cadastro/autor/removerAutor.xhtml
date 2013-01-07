@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="formRemoverAutor">
+        <p:confirmDialog id="dialogRemocao" message="#{msg['cadastro.autor.label.remocao']}" header="#{msg['cadastro.autor.label.remocaoTitulo']}" severity="alert" widgetVar="confirmation" visible="#{autorController.form.exibirDialogExclusao}">
+
+            <center>
+
+                <p:commandButton value="#{msg['cadastro.autor.label.sim']}" action="#{autorController.removerAutoresSelecionados()}" update=":formManterAutor" oncomplete="confirmation.hide()"></p:commandButton>
+
+                <p:commandButton value="#{msg['cadastro.autor.label.nao']}" action="#{autorController.openInitialPage()}" onclick="confirmation.hide()"></p:commandButton>
+
+            </center>
+
+        </p:confirmDialog>
+
+    </h:form> 
+</html>
+

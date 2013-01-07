@@ -3,12 +3,7 @@ package br.ufg.inf.es.model;
 import br.ufg.inf.es.base.model.annotations.OrderingProperty;
 import br.ufg.inf.es.base.model.annotations.SortOrder;
 import java.util.Collection;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  *
