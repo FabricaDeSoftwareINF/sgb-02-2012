@@ -9,9 +9,9 @@
     <h:head>  
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <link rel="shortcut icon" href="resources/images/sgb.png"/>
-        <h:outputStylesheet name="default.css" library="css"/>
         <title>SGB - Sistema de Gestão Bibliográfica</title>
-<h:outputStylesheet name="css/jsfcrud.css"/>
+        <h:outputStylesheet library="css" name="default.css"/>
+        <h:outputStylesheet library="css" name="panelGrid.css"/>
     </h:head>  
 
     <h:body>   
@@ -43,7 +43,7 @@
                         <p:menuitem value="Cadastrar" action="/cadastro/livro/inclusao.xhtml" />
                     </p:submenu>
                   
-                    <p:menuitem value="#{msg['cadastro.autor.label.autor']}" action="#{autorController.openInitialPage()}">
+                    <p:menuitem value="#{msg['cadastro.autor.label.autor']}" action="#{autorController.openInitialPage()}" ajax="false">
                                           
                     </p:menuitem>
                 
@@ -64,7 +64,10 @@
         </h:form>
 
         <div id="content">  
-            <ui:insert name="content"></ui:insert>  
+
+            <ui:insert name="content">
+                
+            </ui:insert>  
         </div>  
 
         <div id="footer">

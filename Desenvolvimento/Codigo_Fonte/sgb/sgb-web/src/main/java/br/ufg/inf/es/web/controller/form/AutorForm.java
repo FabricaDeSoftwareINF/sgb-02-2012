@@ -1,6 +1,7 @@
 package br.ufg.inf.es.web.controller.form;
 
 import br.ufg.inf.es.model.Autor;
+import br.ufg.inf.es.model.AutorDTO;
 import br.ufg.inf.es.web.datamodel.AutorDataModel;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -19,12 +20,42 @@ public class AutorForm extends GenericForm<Autor> {
     
     private AutorDataModel model;
     
-    private Autor[] autoresSelecionados;
-       
+    private AutorDTO autorEdicao;
+    
+    private Long idAutorEdicao;
+    
+    private AutorDTO[] autoresSelecionados;
+    
+    private Boolean exibirDialogExclusao;
+    
     private Collection<String> nomesSelecionados;
     
     /*Todos os autores*/
-    private Collection<Autor> todosAutores;
+    private Collection<AutorDTO> todosAutores;
+
+    public Boolean getExibirDialogExclusao() {
+        return exibirDialogExclusao;
+    }
+
+    public void setExibirDialogExclusao(Boolean exibirDialogExclusao) {
+        this.exibirDialogExclusao = exibirDialogExclusao;
+    }
+    
+    public Long getIdAutorEdicao() {
+        return idAutorEdicao;
+    }
+
+    public void setIdAutorEdicao(Long idAutorEdicao) {
+        this.idAutorEdicao = idAutorEdicao;
+    }
+    
+    public AutorDTO getAutorEdicao() {
+        return autorEdicao;
+    }
+
+    public void setAutorEdicao(AutorDTO autorEdicao) {
+        this.autorEdicao = autorEdicao;
+    }
 
     public String getFiltroNome() {
         return filtroNome;
@@ -34,17 +65,17 @@ public class AutorForm extends GenericForm<Autor> {
         this.filtroNome = filtroNome;
     }
 
-    public Autor[] getAutoresSelecionados() {
+    public AutorDTO[] getAutoresSelecionados() {
         return autoresSelecionados;
     }
 
-    public void setAutoresSelecionados(Autor[] autoresSelecionados) {
+    public void setAutoresSelecionados(AutorDTO[] autoresSelecionados) {
         this.autoresSelecionados = autoresSelecionados;
     }
     
     public AutorDataModel getModel() {
        
-        List<Autor> autores =  new ArrayList<Autor>(this.getTodosAutores());
+        List<AutorDTO> autores =  new ArrayList<AutorDTO>(this.getTodosAutores());
         
         model = new AutorDataModel(autores);
       
@@ -55,11 +86,11 @@ public class AutorForm extends GenericForm<Autor> {
         this.model = model;
     }
     
-    public Collection<Autor> getTodosAutores() {
+    public Collection<AutorDTO> getTodosAutores() {
         return todosAutores;
     }
 
-    public void setTodosAutores(Collection<Autor> todosAutores) {
+    public void setTodosAutores(Collection<AutorDTO> todosAutores) {
         this.todosAutores = todosAutores;
     }
    

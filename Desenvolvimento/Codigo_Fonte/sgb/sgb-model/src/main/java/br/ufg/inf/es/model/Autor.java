@@ -8,7 +8,7 @@ import java.util.Collection;
 import javax.persistence.*;
 
 /**
- *
+ * Entidade Autor
  * @author Henrique, Cássio Augusto
  */
 @Entity

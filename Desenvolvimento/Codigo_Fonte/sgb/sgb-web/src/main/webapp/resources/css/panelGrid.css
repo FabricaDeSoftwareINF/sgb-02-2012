@@ -1,0 +1,11 @@
+/* 
+    Document   : panelGrid
+    Created on : 06/01/2013, 18:10:45
+    Author     : Cassio
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+.semborda  tr, .semborda td{
+    border: none !important;
+}
