@@ -38,6 +38,12 @@
                         <p:menuitem value="Manter" action="/cadastro/curso/manterCurso.xhtml" />
                         <p:menuitem value="Cadastrar" action="#{cursoController.openInsertPage}" />
                     </p:submenu>
+                    
+                    <p:submenu label="Editora">
+                        <p:menuitem value="Manter" action="#{editoraController.openSearchPage()}" />
+                        <p:menuitem value="Cadastrar" action="#{editoraController.openInsertPage()}" />
+                    </p:submenu>
+                    
                     <p:submenu label="Livro">
                         <p:menuitem value="Busca" action="/cadastro/livro/busca.xhtml" />
                         <p:menuitem value="Cadastrar" action="/cadastro/livro/inclusao.xhtml" />

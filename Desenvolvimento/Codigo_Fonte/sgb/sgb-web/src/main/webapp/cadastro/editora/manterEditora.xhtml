@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--@autor: wilker de jesus machado-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"  
+      xmlns:h="http://java.sun.com/jsf/html"  
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <h:outputStylesheet name="default.css" library="css"/>
+        <title>Manter Editora</title>
+    </h:head>
+    <h:body>
+        <h:form id="busca">
+            <h:panelGrid width="100%" columns="2">
+
+                <h:panelGrid width="100%" columns="1">
+                    
+                    <p:dataTable id="associationTable" var="assTab" 
+                                 value="#{editoraController.form.collectionEntities}">
+                        <p:column>  
+                             <p:selectBooleanCheckbox >
+                                    <p:ajax event="click" listener="#{editoraController.selecionaEditora(assTab)}" />
+                                </p:selectBooleanCheckbox>
+                        </p:column> 
+                        <p:column sortBy="#{assTab.nome}" filterBy="#{assTab.nome}">  
+                            <f:facet name="header">  
+                                <h:outputText value="#{msg['cadastro.editora.label.nome']}" />  
+                            </f:facet>  
+                            <h:outputText value="#{assTab.nome}" />  
+                        </p:column> 
+                        <p:column>  
+                            <f:facet name="header">  
+                                <h:outputText value="#{msg['cadastro.acao']}" />  
+                            </f:facet>  
+                            <h:commandLink id="linkAcaoEditar" 
+                                           value="#{msg['acao.editar']}" 
+                                           action="/cadastro/curso/inclusaoCurso.xhtml"/>
+                        </p:column> 
+                    </p:dataTable>
+                    
+                    <h:panelGrid columns="2" cellpadding="10">
+                        <p:commandButton action="#{editoraController.openInsertPage()}"  value="Novo"></p:commandButton>
+                        <p:commandButton action="#{editoraController.removerEditoraSelecionadas()}" value="Remover"></p:commandButton>
+                    </h:panelGrid>
+                    
+                </h:panelGrid>
+                
+            </h:panelGrid>
+
+        </h:form>
+
+    </h:body>
+</html>
