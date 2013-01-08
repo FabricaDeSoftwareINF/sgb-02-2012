@@ -8,6 +8,20 @@
               xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd">
 
     <navigation-rule>
+         <navigation-case>
+            
+            <from-outcome>EditoraController/insertPage</from-outcome>
+            
+            <to-view-id>/cadastro/editora/inclusaoEditora.xhtml</to-view-id>
+            
+        </navigation-case>
+        
+        <navigation-case>
+            <from-outcome>EditoraController/searchPage</from-outcome>
+            
+            <to-view-id>/cadastro/editora/manterEditora.xhtml</to-view-id>
+            
+        </navigation-case>
         
         <navigation-case>
             
@@ -16,7 +30,7 @@
             <to-view-id>/cadastro/usuario/inclusao.xhtml</to-view-id>
             
         </navigation-case>
-        
+       
         <navigation-case>
             <from-outcome>UsuarioController/recuperarSenha</from-outcome>
             <to-view-id>/recuperar-senha.xhtml</to-view-id>
