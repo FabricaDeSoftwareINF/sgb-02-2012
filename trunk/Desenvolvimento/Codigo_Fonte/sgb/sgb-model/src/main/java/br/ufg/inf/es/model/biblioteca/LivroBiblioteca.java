@@ -118,7 +118,7 @@ public class LivroBiblioteca {
         if ((this.autor == null) ? (other.autor != null) : !this.autor.equals(other.autor)) {
             return false;
         }
-        if (!this.quantidade.equals(other.quantidade) && this.quantidade == null) {
+        if (this.quantidade == null && !this.quantidade.equals(other.quantidade)) {
             return false;
         }
         return true;

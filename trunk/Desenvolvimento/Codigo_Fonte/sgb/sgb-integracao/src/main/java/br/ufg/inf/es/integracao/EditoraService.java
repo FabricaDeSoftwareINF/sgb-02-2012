@@ -1,6 +1,5 @@
 package br.ufg.inf.es.integracao;
 
-import br.ufg.inf.es.base.validation.ValidationException;
 import br.ufg.inf.es.model.Editora;
 import br.ufg.inf.es.persistencia.EditoraDAO;
 import java.util.ArrayList;
