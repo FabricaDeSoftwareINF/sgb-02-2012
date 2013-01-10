@@ -66,4 +66,10 @@ public class RNGExecutor implements MethodBeforeAdvice {
 
         validation.validate(o);
     }
+    
+    public void setApplicationContext(ApplicationContext context) {
+        
+        this.applicationContext = context;
+    }
+      
 }
