@@ -50,6 +50,7 @@ public class AutorServiceTest extends TestCase {
      */
     @Test
     public void testInserirAutor001() throws ValidationException {
+        
         Autor autor = new Autor();
         autor.setNome("Autor 1");
         autor.setSobrenome("Sobrenome 1");
@@ -98,14 +99,15 @@ public class AutorServiceTest extends TestCase {
         autor.setSobrenome("Sobrenome 1");
         
         try {
-            Long id = autorService.insert(autor);
+            Long id = autorService.insert(autor);         
         } catch (ValidationException ex) {
-            assertTrue("O nome do autor não pode ser vazio", true);
+            System.out.println("Teste passou, mensagem: O nome do autor não pode ser vazio, keyMessage: " + ex.getKeyMessage());
+            Assert.assertTrue("O nome do autor não pode ser vazio, keyMessage: " + ex.getKeyMessage(), true);
         }
     }
     
     /**
-     * Teste inserir Autor com nome Vazio
+     * Teste inserir Autor com sobrenome Vazio
      *
      * @throws ValidationException
      */
@@ -113,13 +115,54 @@ public class AutorServiceTest extends TestCase {
     public void testInserirAutor004() throws ValidationException {
         
         Autor autor = new Autor();
-        autor.setNome("");
-        autor.setSobrenome("Sobrenome 1");
+        autor.setNome("Autor 1");
+        autor.setSobrenome("");
         
         try {
             Long id = autorService.insert(autor);
         } catch (ValidationException ex) {
-            assertTrue(ex.getMessage(), true);
+            System.out.println("O Teste passou, mensagem: O sobrenome do autor não pode ser vazio, keyMessage: " + ex.getKeyMessage());
+            Assert.assertTrue("O sobrenome do autor não pode ser vazio, keyMessage: " + ex.getKeyMessage(), true);
+        }
+    }
+    
+    /**
+     * Teste inserir Autor com nome e sobrenome Vazio
+     *
+     * @throws ValidationException
+     */
+    @Test
+    public void testInserirAutor005() throws ValidationException {
+        
+        Autor autor = new Autor();
+        autor.setNome("");
+        autor.setSobrenome("");
+        
+        try {
+            Long id = autorService.insert(autor);
+        } catch (ValidationException ex) {
+            System.out.println("O Teste passou, mensagem: O nome e sobrenome do autor não pode ser vazio, keyMessage: " + ex.getKeyMessage());
+            Assert.assertTrue("O nome e sobrenome do autor não pode ser vazio, keyMessage: " + ex.getKeyMessage(), true);
+        }
+    }
+    
+    /**
+     * Teste inserir Autor com nome e sobrenome Nullos
+     *
+     * @throws ValidationException
+     */
+    @Test
+    public void testInserirAutor006() throws ValidationException {
+        
+        Autor autor = new Autor();
+        autor.setNome(null);
+        autor.setSobrenome(null);
+        
+        try {
+            Long id = autorService.insert(autor);
+        } catch (ValidationException ex) {
+            System.out.println("O Teste passou, mensagem: O nome e sobrenome do autor não pode ser null, keyMessage: " + ex.getKeyMessage());
+            Assert.assertTrue("O nome e sobrenome do autor não pode ser null, keyMessage: " + ex.getKeyMessage(), true);
         }
     }
 }
