@@ -66,11 +66,13 @@ public class AutorForm extends GenericForm<Autor> {
     }
 
     public AutorDTO[] getAutoresSelecionados() {
-        return autoresSelecionados;
+        
+        return (AutorDTO[]) autoresSelecionados.clone();
     }
 
     public void setAutoresSelecionados(AutorDTO[] autoresSelecionados) {
-        this.autoresSelecionados = autoresSelecionados;
+        
+        this.autoresSelecionados = (AutorDTO[]) autoresSelecionados.clone();
     }
     
     public AutorDataModel getModel() {

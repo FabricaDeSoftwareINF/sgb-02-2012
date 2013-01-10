@@ -4,7 +4,6 @@
  */
 package br.ufg.inf.es.web.datamodel;
 
-import br.ufg.inf.es.model.Autor;
 import br.ufg.inf.es.model.AutorDTO;
 import java.io.Serializable;
 import java.util.List;
@@ -32,8 +31,11 @@ public class AutorDataModel extends ListDataModel<AutorDTO> implements Selectabl
         List<AutorDTO> autores = (List<AutorDTO>) getWrappedData();  
           
         for(AutorDTO autor : autores) {  
-            if(String.valueOf(autor.getId()).equals(rowKey))  
+            
+            if(String.valueOf(autor.getId()).equals(rowKey)) {
+                
                 return autor;  
+            }
         }  
           
         return null;  
