@@ -10,6 +10,14 @@
     <navigation-rule>
          <navigation-case>
             
+            <from-outcome>EditoraController/editPage</from-outcome>
+            
+            <to-view-id>/cadastro/editora/editarEditora.xhtml</to-view-id>
+            
+        </navigation-case>
+        
+         <navigation-case>
+            
             <from-outcome>EditoraController/insertPage</from-outcome>
             
             <to-view-id>/cadastro/editora/inclusaoEditora.xhtml</to-view-id>
