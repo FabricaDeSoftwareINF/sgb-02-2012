@@ -5,7 +5,10 @@
 package br.ufg.inf.es.persistencia;
 
 import br.ufg.inf.es.model.Usuario;
+import org.hibernate.Criteria;
+import org.hibernate.classic.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.impl.SessionImpl;
 import org.junit.*;
 import org.mockito.Mockito;
 import static org.junit.Assert.*;
@@ -30,11 +33,32 @@ public class UsuarioDAOTest {
         
     }
 
-    /**
-     * Test of findUserByEmail method, of class UsuarioDAO.
-     */
     @Test
     public void testFindUserByEmail() {
+       
+        String user = "a";
+        Session session = Mockito.mock(Session.class);
+        SessionFactory factory = Mockito.mock(SessionFactory.class);
+        Mockito.when(factory.openSession()).thenReturn(session);
+        
+        Criteria criteria = Mockito.mock(Criteria.class);
+        
+        Mockito.when(session.createCriteria(UsuarioDAO.class)).thenReturn(criteria);
+        UsuarioDAO a = new UsuarioDAO(factory);
+        Mockito.when(a.createCriteria()).thenReturn(criteria);
+        
+        Usuario usuario = new Usuario();
+        usuario.setId(1L);
+        
+        Mockito.when(criteria.uniqueResult()).thenReturn(usuario);
+        Mockito.when(a.getSession()).thenReturn(session);
+        
+        Usuario usuarioEcontrado =  a.findUserByEmail("a");
+        assertEquals(usuario.getId(), usuarioEcontrado.getId());
+       
+    }
+    @Test
+    public void testFindUserByEmail2() {
        
         String user = "a";
         UsuarioDAO instance = Mockito.mock(UsuarioDAO.class);
