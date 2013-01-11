@@ -90,6 +90,14 @@
             
         </navigation-case>
         
+         <navigation-case>
+            
+            <from-outcome>LivroController/insertPage</from-outcome>
+            
+            <to-view-id>/cadastro/livro/inclusao.xhtml</to-view-id>
+            
+        </navigation-case>
+        
         <navigation-case>
             
             <from-outcome>CursoController/openSearchPage</from-outcome>
@@ -97,6 +105,7 @@
             <to-view-id>/cadastro/curso/manterCurso.xhtml</to-view-id>
             
         </navigation-case>
+
 
         <navigation-case>
             

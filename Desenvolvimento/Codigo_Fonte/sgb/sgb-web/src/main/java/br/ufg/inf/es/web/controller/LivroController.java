@@ -135,9 +135,14 @@ public class LivroController extends SGBController<Livro, LivroForm, LivroServic
     public String openInsertPage() {
         
         cursos = cursoService.list();
-        
+     
         this.openInsertView();
+        return "/cadastro/livro/inclusao.xhtml";
+        //return this.getRootNavigation() + "insertPage";
+    }
+    
+    public void voltar() {
+
         
-        return this.getRootNavigation() + "insertPage";
     }
 }
