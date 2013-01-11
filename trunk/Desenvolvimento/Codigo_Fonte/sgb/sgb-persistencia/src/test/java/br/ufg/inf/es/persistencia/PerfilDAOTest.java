@@ -26,5 +26,14 @@ public class PerfilDAOTest {
         assertEquals(sessionF, result);
         
     }
+     @Test
+    public void testGetSessionFactory2() {
+        
+        PerfilDAO instance = new PerfilDAO();
+        
+        SessionFactory result = instance.getSessionFactory();
+        assertEquals(null, result);
+        
+    }
 
 }
