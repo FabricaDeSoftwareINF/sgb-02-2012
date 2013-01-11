@@ -15,7 +15,6 @@ import javax.naming.Reference;
 import org.hibernate.*;
 import org.hibernate.classic.Session;
 import org.hibernate.engine.FilterDefinition;
-import org.hibernate.impl.SessionFactoryImpl;
 import org.hibernate.metadata.ClassMetadata;
 import org.hibernate.metadata.CollectionMetadata;
 import org.hibernate.stat.SessionStatistics;

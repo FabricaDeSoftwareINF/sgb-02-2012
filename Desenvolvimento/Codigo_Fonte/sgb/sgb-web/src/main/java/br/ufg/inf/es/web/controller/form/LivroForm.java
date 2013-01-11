@@ -3,7 +3,6 @@ package br.ufg.inf.es.web.controller.form;
 
 import br.ufg.inf.es.model.Bibliografia;
 import br.ufg.inf.es.model.Livro;
-import org.hibernate.mapping.Collection;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
