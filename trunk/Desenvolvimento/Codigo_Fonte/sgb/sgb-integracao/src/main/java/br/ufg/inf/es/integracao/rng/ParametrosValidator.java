@@ -4,11 +4,13 @@ import br.ufg.inf.es.base.validation.Validation;
 import br.ufg.inf.es.base.validation.ValidationException;
 import br.ufg.inf.es.model.Parametros;
 import java.math.BigDecimal;
+import org.springframework.stereotype.Component;
 
 /**
  *
  * @author Victor Carvalho
  */
+@Component
 public class ParametrosValidator implements Validation<Parametros> {
 
     public void validate(Parametros parametros) throws ValidationException {

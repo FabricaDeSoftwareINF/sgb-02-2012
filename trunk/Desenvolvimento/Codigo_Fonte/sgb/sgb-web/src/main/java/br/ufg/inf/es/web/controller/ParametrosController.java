@@ -43,7 +43,7 @@ public class ParametrosController
         try {
             Parametros parametro = this.getForm().getEntity();
             Hibernate.initialize(parametro);
-            getService().update(parametro);
+            getService().save(parametro);
             addSuccessMessage("Valor atualizado com sucesso!");
         } catch (ValidationException ex) {
             addWarningMessage(ex.getKeyMessage());

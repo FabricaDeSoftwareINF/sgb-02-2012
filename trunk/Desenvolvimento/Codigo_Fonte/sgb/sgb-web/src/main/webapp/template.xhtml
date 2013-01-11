@@ -32,27 +32,27 @@
                 </h:panelGrid>
             </h:panelGrid>
             <p:menubar > 
-                <p:menuitem value="Home"/>
+                <p:menuitem value="Início" action="/template.xhtml"/>
                 <p:submenu label="Cadastros">
                     <p:submenu label="Curso">
                         <p:menuitem value="Manter" action="/cadastro/curso/manterCurso.xhtml" />
                         <p:menuitem value="Cadastrar" action="#{cursoController.openInsertPage}" />
                     </p:submenu>
-                    
+
                     <p:submenu label="Editora">
                         <p:menuitem value="Manter" action="#{editoraController.openSearchPage()}" />
                         <p:menuitem value="Cadastrar" action="#{editoraController.openInsertPage()}" />
                     </p:submenu>
-                    
+
                     <p:submenu label="Livro">
                         <p:menuitem value="Busca" action="/cadastro/livro/busca.xhtml" />
                         <p:menuitem value="Cadastrar" action="/cadastro/livro/inclusao.xhtml" />
                     </p:submenu>
-                  
+
                     <p:menuitem value="#{msg['cadastro.autor.label.autor']}" action="#{autorController.openInitialPage()}" ajax="false">
-                                          
+
                     </p:menuitem>
-                
+
                     <p:submenu label="Disciplina">
                         <p:menuitem value="Busca" action="/cadastro/disciplina/busca.xhtml" />
                         <p:menuitem value="Cadastrar" action="/cadastro/disciplina/inclusao.xhtml" />
@@ -62,23 +62,24 @@
                         <p:menuitem value="Cadastrar" action="#{usuarioController.openInsertPage()}" />
                     </p:submenu>
                 </p:submenu>
+                <p:submenu label="Cotação">
+                    <p:menuitem value="Livros para cotação" action="#{livroParaCotacaoController.openSearchPage()}" />
+                </p:submenu>
                 <p:menuitem value="Configurações" action="#{parametrosController.openViewPage()}"/>
-                <p:menuitem value="Cotação"/>
                 <p:menuitem value="Ajuda"/> 
             </p:menubar>
 
         </h:form>
 
         <div id="content">  
-
             <ui:insert name="content">
-                
+
             </ui:insert>  
         </div>  
 
         <div id="footer">
-            <h:outputText value=" - SGB - Sistema de Gestão Bibliográfica / "/>
-            <h:outputText value="Universidade Federal de Goiás - "/>
+            <h:outputText value="- SGB - Sistema de Gestão Bibliográfica | "/>
+            <h:outputText value="Universidade Federal de Goiás -"/>
         </div>
     </h:body>  
 </html>  
