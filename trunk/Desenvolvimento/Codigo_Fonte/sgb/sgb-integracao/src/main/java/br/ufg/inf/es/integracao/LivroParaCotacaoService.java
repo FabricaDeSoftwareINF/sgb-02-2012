@@ -29,12 +29,15 @@ import org.springframework.stereotype.Component;
 @Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class LivroParaCotacaoService extends GenericService<LivroParaCotacao> {
 
+    // TODO Remover o mock pelo serviço real da biblioteca
     @Autowired
-    BibliotecaServiceMock bibliotecaService; //TODO Remover o mock pelo serviço real da biblioteca
+    private BibliotecaServiceMock bibliotecaService; 
+    
     @Autowired
-    ParametrosService parametrosService;
+    private ParametrosService parametrosService;
+    
     @Autowired
-    LivroService livroService;
+    private LivroService livroService;
 
     /**
      * Obtem uma listagem dos livros necessários para cotação
@@ -117,9 +120,21 @@ public class LivroParaCotacaoService extends GenericService<LivroParaCotacao> {
 
         return disciplinas;
     }
-
+    
     @Override
     public DAO getDAO() {
         return livroService.getDAO();
+    }
+
+    public BibliotecaServiceMock getBibliotecaService() {
+        return bibliotecaService;
+    }
+
+    public LivroService getLivroService() {
+        return livroService;
+    }
+
+    public ParametrosService getParametrosService() {
+        return parametrosService;
     }
 }

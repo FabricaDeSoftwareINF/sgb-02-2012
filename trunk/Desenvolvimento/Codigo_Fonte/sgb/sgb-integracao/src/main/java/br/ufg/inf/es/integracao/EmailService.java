@@ -14,7 +14,7 @@ import org.apache.commons.mail.HtmlEmail;
  *
  * @author diogo
  */
-public class EmailService {
+public final class EmailService {
     
     /**
      * Construtor protegido

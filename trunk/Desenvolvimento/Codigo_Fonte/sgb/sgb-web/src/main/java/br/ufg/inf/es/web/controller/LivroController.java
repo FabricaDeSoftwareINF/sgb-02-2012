@@ -139,7 +139,6 @@ public class LivroController extends SGBController<Livro, LivroForm, LivroServic
      
         this.openInsertView();
         return "/cadastro/livro/inclusao.xhtml";
-        //return this.getRootNavigation() + "insertPage";
     }
     
     public String salvarLivro() throws ValidationException {
