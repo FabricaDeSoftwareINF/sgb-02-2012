@@ -18,12 +18,12 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class DisciplinaDAO extends GenericHibernateDAO<Disciplina> {
 
-     @Autowired
+    @Autowired
     private SessionFactory sessionFactory;
 
     @Override
     protected SessionFactory getSessionFactory() {
-        
+
         return this.sessionFactory;
     }
     

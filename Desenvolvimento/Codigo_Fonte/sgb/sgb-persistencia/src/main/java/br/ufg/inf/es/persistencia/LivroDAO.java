@@ -17,10 +17,10 @@ import org.springframework.transaction.annotation.Transactional;
 @Repository
 @Transactional
 public class LivroDAO  extends GenericHibernateDAO<Livro> {
-    
+
     @Autowired
     private SessionFactory sessionFactory;
-    
+
     @Override
     protected SessionFactory getSessionFactory() {
         return this.sessionFactory;
