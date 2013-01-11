@@ -4,6 +4,7 @@
  */
 package br.ufg.inf.es.web.controller;
 
+import br.ufg.inf.es.base.validation.ValidationException;
 import br.ufg.inf.es.integracao.AutorService;
 import br.ufg.inf.es.integracao.CursoService;
 import br.ufg.inf.es.integracao.DisciplinaService;
@@ -141,8 +142,15 @@ public class LivroController extends SGBController<Livro, LivroForm, LivroServic
         //return this.getRootNavigation() + "insertPage";
     }
     
-    public void voltar() {
+    public String salvarLivro() throws ValidationException {
 
-        
+        super.insert();
+
+        return super.openSearchPage();
+    }
+
+    public String voltar() {
+        return "/template.jsf";
+
     }
 }
