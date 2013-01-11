@@ -11,6 +11,7 @@
     </h:head>
 
     <body>
+        <h:messages />
         <h:form id="formLivro">
             <h:panelGrid columns="6">
                 <h:outputLabel value="#{msg['cadastro.livro.label.titulo']}" ></h:outputLabel>
@@ -38,12 +39,7 @@
             </h:panelGrid>
             <p:fieldset legend="#{msg['cadastro.livro.legend.associarDisciplina']}">
                 <h:panelGrid columns="2">
-                    <h:outputLabel value="Tipo da Bibliografia:"></h:outputLabel>
-                    <p:selectOneMenu value="#{livroController.form.bibliografiaTemp.tipo}">
-                        <f:selectItem itemValue="#{msg['cadastro.bibliografia.value.basica']}" itemLabel="#{msg['cadastro.bibliografia.value.basica']}"></f:selectItem>
-                        <f:selectItem itemValue="#{msg['cadastro.bibliografia.value.complementar']}" itemLabel="#{msg['cadastro.bibliografia.value.complementar']}"></f:selectItem>
-                        <f:selectItem itemValue="#{msg['cadastro.bibliografia.value.suplementar']}" itemLabel="#{msg['cadastro.bibliografia.value.suplementar']}"></f:selectItem>
-                    </p:selectOneMenu>
+                   
                     <h:outputLabel value="Curso:"></h:outputLabel>
                     <p:selectOneMenu value="#{livroController.cursoSelecionado}"  converter="cursoConverter">
                         <p:ajax event="change" process="@this" update="disciplina" listener="#{livroController.limparDisciplina}" />
@@ -76,8 +72,15 @@
                 <p:commandButton action="#{livroController.insert}" value="#{msg['cadastro.livro.button.back']}" />
             </div>
         </h:form>
-        <ui:include src="/cadastro/autor/cadastroAutor.xhtml"></ui:include>
-        <ui:include src="/cadastro/editora/cadastroEditora.xhtml"></ui:include>
+        <h:form>
+         <div align="right">
+                <p:commandButton action="#{livroController.insert}" value="#{msg['cadastro.livro.button.insert']}" />
+                <p:commandButton action="#{livroController.insert}" value="#{msg['cadastro.livro.button.back']}" />
+         </div>
+        </h:form>
+        
+        <!--<ui:include src="/cadastro/autor/cadastroAutor.xhtml"></ui:include>
+        <ui:include src="/cadastro/editora/cadastroEditora.xhtml"></ui:include> -->
     </body>
 
 </html>

@@ -46,7 +46,7 @@
 
                     <p:submenu label="Livro">
                         <p:menuitem value="Busca" action="/cadastro/livro/busca.xhtml" />
-                        <p:menuitem value="Cadastrar" action="/cadastro/livro/inclusao.xhtml" />
+                        <p:menuitem value="Cadastrar" action="#{livroController.openInsertPage()}" />
                     </p:submenu>
 
                     <p:menuitem value="#{msg['cadastro.autor.label.autor']}" action="#{autorController.openInitialPage()}" ajax="false">
