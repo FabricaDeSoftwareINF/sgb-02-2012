@@ -25,6 +25,14 @@ public class ParametrosController
         return this.form;
     }
 
+    public void setForm(ParametrosForm form) {
+        this.form = form;
+    }
+
+    public void setService(ParametrosService service) {
+        this.service = service;
+    }
+
     @Override
     public ParametrosService getService() {
         return this.service;
