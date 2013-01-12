@@ -14,12 +14,13 @@ import org.springframework.stereotype.Component;
  * @author Cézar Augusto Ferreira
  */
 @Component
-@Scope("session")
+@Scope("request")
 public class AutorController
         extends SGBController<Autor, AutorForm, AutorService> {
 
     @Autowired
     private AutorForm form;
+    
     @Autowired
     private AutorService service;
 
@@ -38,6 +39,16 @@ public class AutorController
 
         return super.openInitialPage();
     }
+
+    @Override
+    public String openEditPage() {
+        
+        buscaTodosAutores();
+       
+        return this.getRootNavigation() + "editPage";
+    }
+    
+    
 
     /**
      * Método responsável por buscar todos os autores do banco de dados e
@@ -127,6 +138,8 @@ public class AutorController
             this.addSuccessMessage("arquitetura.msg.sucesso");
 
             buscaTodosAutores();
+            
+            this.getForm().setExibirDialogExclusao(Boolean.FALSE);
 
         } catch (ValidationException ex) {
 
@@ -140,7 +153,7 @@ public class AutorController
      * Método responsável por editar um Autor e validar os campos do mesmo.
      * @author Cássio Augusto Silva de Freitas
      */
-    public void editarAutor() {
+    public String editarAutor() {
 
         try {
 
@@ -162,14 +175,11 @@ public class AutorController
              
                 autor.setNome(this.getForm().getAutorEdicao().getNome());
               
-                autor.setSobrenome(this.getForm().getAutorEdicao().getSobrenome());
-               
-                this.getForm().setEntity(autor);
+                autor.setSobrenome(this.getForm().getAutorEdicao().getSobrenome());            
 
-                this.getService().editar(this.getForm().getEntity());
+                this.getService().editar(autor);
 
                 this.addSuccessMessage("arquitetura.msg.sucesso");
-
             }
         } catch (ValidationException ex) {
 
@@ -177,7 +187,7 @@ public class AutorController
 
         }
         
-        buscaTodosAutores();
+        return this.openInitialPage();
         
     }
 

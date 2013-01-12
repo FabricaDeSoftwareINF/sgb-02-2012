@@ -5,40 +5,53 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets">
-    
-    <p:dialog widgetVar="autorModalEditar" header="Editar Autor" modal="true" position="center" resizable="false" width="400">
-       
-        <h:form id="formEdicaoAutor" >
 
-            <p:panelGrid styleClass="semborda">
-                <p:row>
-                    <p:column>
-                        <h:outputLabel value="#{msg['cadastro.autor.label.nome']}:" style="float: right;"></h:outputLabel>
-                    </p:column><p:column>
-                        <p:inputText value="#{autorController.form.autorEdicao.nome}"></p:inputText>
-                    </p:column>
-                </p:row>
-                <p:row>
-                    <p:column>
-                        <h:outputLabel value="#{msg['cadastro.autor.label.sobrenome']}:" style="float: right;" ></h:outputLabel>
-                    </p:column>
-                    <p:column>
-                        <p:inputText value="#{autorController.form.autorEdicao.sobrenome}"></p:inputText>
-                    </p:column>
-                </p:row>
-            </p:panelGrid>
+    <ui:composition template="/template.xhtml">
 
-            <h:panelGrid columns="2" style="float: right;"> 
+        <ui:define name="content">
 
-                <p:commandButton actionListener="#{autorController.editarAutor()}" value="#{msg['cadastro.autor.label.atualizar']}" update=":formManterAutor" oncomplete="autorModalEditar.hide()" ajax="true"></p:commandButton>
+            <h:form id="formEdicaoAutor" >
 
-                <p:commandButton oncomplete="autorModalEditar.hide()" action="#{autorController.buscaTodosAutores()}" update=":formManterAutor" process="@all" value="#{msg['cadastro.autor.label.voltar']}"></p:commandButton>
+                <h:panelGrid style="width: 50%; margin-top: 20px;">
 
-            </h:panelGrid>
+                    <h:outputLabel value="#{msg['cadastro.autor.label.editarAutor']}" style="font-size: 40px;"></h:outputLabel>
+                    
+                    <p:spacer width="20"></p:spacer>
 
-        </h:form>
+                    <p:panelGrid styleClass="semborda" style="width: 100%; float: left;">
+                        <p:row>
+                            <p:column>
+                                <h:outputLabel value="#{msg['cadastro.autor.label.nome']}:" style="float: right;"></h:outputLabel>
+                            </p:column><p:column>
+                                <p:inputText value="#{autorController.form.autorEdicao.nome}" style="width: 100%;"></p:inputText>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column>
+                                <h:outputLabel value="#{msg['cadastro.autor.label.sobrenome']}:" style="float: right;" ></h:outputLabel>
+                            </p:column>
+                            <p:column>
+                                <p:inputText value="#{autorController.form.autorEdicao.sobrenome}" style="width: 100%;"></p:inputText>
+                            </p:column>
+                        </p:row>
+                    </p:panelGrid>
 
-    </p:dialog>
-    
+                    <h:panelGrid columns="2" style="float: right;"> 
+
+                        <p:commandButton action="#{autorController.editarAutor}" value="#{msg['cadastro.autor.label.atualizar']}" ></p:commandButton>
+
+                        <p:commandButton action="#{autorController.openInitialPage()}"  value="#{msg['cadastro.autor.label.voltar']}"></p:commandButton>
+
+                    </h:panelGrid>
+
+                </h:panelGrid>
+
+
+            </h:form>
+
+        </ui:define>
+
+    </ui:composition>
+
 </html>
 

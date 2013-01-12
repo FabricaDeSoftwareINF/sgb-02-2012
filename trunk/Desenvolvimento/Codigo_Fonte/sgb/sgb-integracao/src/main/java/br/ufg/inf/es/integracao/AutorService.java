@@ -33,18 +33,6 @@ public class AutorService extends GenericService<Autor> {
         this.dao = dao;
     }
 
-    public Collection<Autor> complete(String query) {
-        Collection<Autor> results = new ArrayList<Autor>();
-
-        for (Autor autor : dao.list()) {
-            if (autor.getNome().contains(query)) {
-                results.add(autor);
-            }
-        }
-
-        return results;
-    }
-
     /**
      * Método responsável por buscar todos os autores do Banco de dados
      * @author Cássio Augusto
@@ -63,8 +51,8 @@ public class AutorService extends GenericService<Autor> {
      * @return id da nova entidade
      * @throws ValidationException 
      */
-    @RNG012
     @Override
+    @RNG012
     public Long insert(Autor autor) throws ValidationException {
 
         return this.getDAO().insert(autor);
@@ -77,8 +65,9 @@ public class AutorService extends GenericService<Autor> {
      * @param entidade
      * @throws ValidationException 
      */
+    @RNG012
     public void editar(Autor entidade) throws ValidationException {
         
-        super.save(entidade);
+        this.getDAO().save(entidade);
     }
 }
