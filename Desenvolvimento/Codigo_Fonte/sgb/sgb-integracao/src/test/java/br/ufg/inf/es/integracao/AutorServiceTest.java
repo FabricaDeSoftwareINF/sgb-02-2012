@@ -12,7 +12,7 @@ import junit.framework.Assert;
 import junit.framework.TestCase;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mockito;
+import org.mockito.*;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 
@@ -77,13 +77,13 @@ public class AutorServiceTest extends TestCase {
         autor.setNome("joaquina");
         
         autor.setSobrenome("Sobrenome 1");
-
+        
         Mockito.when(autorDAO.insert(autor)).thenReturn(Long.MIN_VALUE);
 
         Long id = autorService.insert(autor);
 
         Mockito.verify(autorDAO).insert(autor);
-
+       
     }
 
     /**

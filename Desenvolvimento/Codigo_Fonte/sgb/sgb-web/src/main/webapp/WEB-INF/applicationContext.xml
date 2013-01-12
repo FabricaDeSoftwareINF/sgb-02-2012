@@ -54,22 +54,28 @@
     
     <bean id="sessionFactory" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
         <property name="dataSource">
-                <ref bean="dataSource" />
+            <ref bean="dataSource" />
         </property>
         <property name="packagesToScan" value="br.ufg.inf.es.model" />
         <property name="hibernateProperties">
             <props>
-                    <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
-                    <prop key="hibernate.hbm2ddl.auto">update</prop>
-                    <prop key="hibernate.show_sql">true</prop>
-                    <prop key="hibernate.current_session_context_class">thread</prop>
+                <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+                <prop key="hibernate.hbm2ddl.auto">update</prop>
+                <prop key="hibernate.show_sql">true</prop>
+                <prop key="hibernate.current_session_context_class">thread</prop>
             </props>
+            <!-- Para rodar no laboratorio da universidade com banco do derby do netbeans -->
+            <!--<props> 
+                <prop key="hibernate.dialect">org.hibernate.dialect.DerbyDialect</prop>
+                <prop key="hibernate.hbm2ddl.auto">update</prop>
+                <prop key="hibernate.show_sql">true</prop>
+                <prop key="hibernate.current_session_context_class">thread</prop>
+            </props>-->
         </property>
     </bean>
 
     <bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
-        <property name="sessionFactory">
-                <ref bean="sessionFactory" />
+        <property name="sessionFactory" ref="sessionFactory">
         </property>
     </bean>
 
@@ -77,7 +83,12 @@
         <property name="driverClassName" value="com.mysql.jdbc.Driver" />
         <property name="url" value="jdbc:mysql://localhost:3306/sgb" />
         <property name="username" value="root" />
-        <property name="password" value="" />
+        <property name="password" value="0991" />
+        <!-- Para rodar no laboratorio da universidade com banco do derby do netbeans -->
+    <!--<property name="driverClassName" value="org.apache.derby.jdbc.ClientDriver" />
+        <property name="url" value="jdbc:derby://localhost:1527/sgb" />
+        <property name="username" value="app" />
+        <property name="password" value="app" />-->
     </bean>
     
     <bean id="sgbAuth" class="br.ufg.inf.es.web.controller.LoginController">

@@ -115,7 +115,7 @@
             
         </navigation-case>
         
-        <!-- ESTUS 12: Manter Autor  -->
+        <!-- ESTÓRIA 12: Manter Autor  -->
         <navigation-case>
             
             <from-outcome>AutorController/initialPage</from-outcome>
@@ -125,10 +125,26 @@
         </navigation-case>
         
         <navigation-case>
+            
+            <from-outcome>AutorController/insertPage</from-outcome>
+            
+            <to-view-id>/cadastro/autor/cadastroAutor.xhtml</to-view-id>
+        
+        </navigation-case>
+        
+        <navigation-case>
+            
+            <from-outcome>AutorController/editPage</from-outcome>
+            
+            <to-view-id>/cadastro/autor/editarAutor.xhtml</to-view-id>
+        
+        </navigation-case>
+        
+        <navigation-case>
             <from-outcome>LivroParaCotacaoController/openSearchPage</from-outcome>
             <to-view-id>/cotacao/busca.xhtml</to-view-id>
         </navigation-case>
-
+        
     </navigation-rule>
 
     <application>

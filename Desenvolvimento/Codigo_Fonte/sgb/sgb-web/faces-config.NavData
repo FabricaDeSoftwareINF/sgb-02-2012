@@ -1,6 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scene Scope="Project" version="2">
     <Scope Scope="Faces Configuration Only"/>
-    <Scope Scope="Project"/>
+    <Scope Scope="Project">
+        <Node id="recuperar-senha.xhtml" x="650" y="300" zoom="true"/>
+        <Node id="template.xhtml" x="1150" y="450" zoom="true"/>
+        <Node id="cadastro/usuario/busca.xhtml" x="400" y="300" zoom="true"/>
+        <Node id="cadastro/disciplina/busca.xhtml" x="900" y="600" zoom="true"/>
+        <Node id="cadastro/usuario/visualizacao.xhtml" x="900" y="450" zoom="true"/>
+        <Node id="cadastro/editora/manterEditora.xhtml" x="150" y="300" zoom="true"/>
+        <Node id="templateLogin.xhtml" x="150" y="750" zoom="true"/>
+        <Node id="cadastro/curso/manterCurso.xhtml" x="150" y="450" zoom="true"/>
+        <Node id="denied.xhtml" x="900" y="150" zoom="true"/>
+        <Node id="cadastro/curso/inclusaoCurso.xhtml" x="150" y="150" zoom="true"/>
+        <Node id="cadastro/editora/cadastroEditora.xhtml" x="1400" y="150" zoom="true"/>
+        <Node id="login.xhtml" x="1150" y="150" zoom="true"/>
+        <Node id="cadastro/parametros/show.xhtml" x="400" y="150" zoom="true"/>
+        <Node id="cadastro/livro/busca.xhtml" x="900" y="300" zoom="true"/>
+        <Node id="cadastro/autor/cadastroAutor.xhtml" x="150" y="900" zoom="true"/>
+        <Node id="cadastro/autor/inicial.xhtml" x="650" y="450" zoom="true"/>
+        <Node id="cadastro/editora/editarEditora.xhtml" x="1150" y="300" zoom="true"/>
+        <Node id="cadastro/autor/editarAutor.xhtml" x="1650" y="150" zoom="true"/>
+        <Node id="cadastro/disciplina/inclusao.xhtml" x="400" y="450" zoom="true"/>
+        <Node id="cadastro/livro/inclusao.xhtml" x="150" y="600" zoom="true"/>
+        <Node id="cadastro/autor/removerAutor.xhtml" x="650" y="150" zoom="true"/>
+        <Node id="index.xhtml" x="400" y="750" zoom="true"/>
+        <Node id="cadastro/usuario/inclusao.xhtml" x="650" y="600" zoom="true"/>
+        <Node id="cadastro/usuario/edicao.xhtml" x="400" y="600" zoom="true"/>
+        <Node id="cadastro/editora/inclusaoEditora.xhtml" x="1400" y="300" zoom="true"/>
+    </Scope>
     <Scope Scope="All Faces Configurations"/>
 </Scene>
