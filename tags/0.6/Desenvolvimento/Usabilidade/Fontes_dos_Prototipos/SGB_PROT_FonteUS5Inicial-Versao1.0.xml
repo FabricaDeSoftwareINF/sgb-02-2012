@@ -1,0 +1,88 @@
+<mockup version="1.0" skin="sketch" fontFace="Balsamiq Sans" measuredW="1097" measuredH="581" mockupW="1068" mockupH="575">
+  <controls>
+    <control controlID="456" controlTypeID="com.balsamiq.mockups::BrowserWindow" x="29" y="6" w="1068" h="575" measuredW="450" measuredH="400" zOrder="0" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>SGB%0Ahttp%3A//www.inf.ufg.br/sgb</text>
+      </controlProperties>
+    </control>
+    <control controlID="457" controlTypeID="com.balsamiq.mockups::Image" x="60" y="86" w="-1" h="-1" measuredW="77" measuredH="79" zOrder="1" locked="false" isInGroup="-1"/>
+    <control controlID="458" controlTypeID="com.balsamiq.mockups::StickyNote" x="64" y="92" w="69" h="66" measuredW="109" measuredH="123" zOrder="2" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Logo</text>
+      </controlProperties>
+    </control>
+    <control controlID="459" controlTypeID="com.balsamiq.mockups::MenuBar" x="152" y="136" w="917" h="29" measuredW="280" measuredH="29" zOrder="3" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Home%20%20%20%20%20%2C%20%20Cadastros%20%20%20%20%2C%20%20Cota%E7%E3o%20%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="460" controlTypeID="com.balsamiq.mockups::Link" x="1033" y="100" w="-1" h="-1" measuredW="28" measuredH="21" zOrder="4" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Sair</text>
+      </controlProperties>
+    </control>
+    <control controlID="461" controlTypeID="com.balsamiq.mockups::Label" x="934" y="100" w="-1" h="-1" measuredW="84" measuredH="21" zOrder="5" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Nome%20usuario</text>
+      </controlProperties>
+    </control>
+    <control controlID="462" controlTypeID="com.balsamiq.mockups::Canvas" x="60" y="190" w="1009" h="334" measuredW="100" measuredH="70" zOrder="6" locked="false" isInGroup="-1"/>
+    <control controlID="463" controlTypeID="com.balsamiq.mockups::Menu" x="249" y="165" w="110" h="-1" measuredW="150" measuredH="94" zOrder="7" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Livro%0ADisciplina%0ACurso%0AUsu%E1rio</text>
+      </controlProperties>
+    </control>
+    <control controlID="464" controlTypeID="com.balsamiq.mockups::StickyNote" x="76" y="213" w="138" h="93" measuredW="109" measuredH="123" zOrder="8" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Conte%FAdo%20dos%20prot%F3tipos%20dos%20casos%20de%20uso</text>
+      </controlProperties>
+    </control>
+    <control controlID="465" controlTypeID="com.balsamiq.mockups::SearchBox" x="770" y="98" w="149" h="-1" measuredW="120" measuredH="25" zOrder="9" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Pesquisar%20livro</text>
+      </controlProperties>
+    </control>
+    <control controlID="466" controlTypeID="com.balsamiq.mockups::BrowserWindow" x="29" y="6" w="1068" h="575" measuredW="450" measuredH="400" zOrder="10" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>SGB%0Ahttp%3A//www.inf.ufg.br/sgb</text>
+      </controlProperties>
+    </control>
+    <control controlID="467" controlTypeID="com.balsamiq.mockups::DataGrid" x="50" y="207" w="986" h="83" measuredW="656" measuredH="53" zOrder="11" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>%2CC%F3digo%2C%20Nome%2C%20Curso%2C%20Livro%2C%20A%E7%F5es%0A%5Bx%5D%2C%20ESINT%2C%20Introdu%E7%E3o%20a%20programa%E7%E3o%2C%20Engenharia%20de%20Software%2C%20Java%20como%20programar%2C%20%5BEditar%5D%20%5BDetalhe%5D%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="468" controlTypeID="com.balsamiq.mockups::Label" x="50" y="118" w="-1" h="-1" measuredW="189" measuredH="33" zOrder="12" locked="false" isInGroup="-1">
+      <controlProperties>
+        <bold>true</bold>
+        <size>24</size>
+        <text>Manter%20Disciplina</text>
+      </controlProperties>
+    </control>
+    <control controlID="469" controlTypeID="com.balsamiq.mockups::Button" x="867" y="310" w="-1" h="-1" measuredW="53" measuredH="27" zOrder="13" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Novo</text>
+      </controlProperties>
+    </control>
+    <control controlID="470" controlTypeID="com.balsamiq.mockups::Button" x="959" y="310" w="-1" h="-1" measuredW="77" measuredH="27" zOrder="14" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Remover</text>
+      </controlProperties>
+    </control>
+    <control controlID="471" controlTypeID="com.balsamiq.mockups::SearchBox" x="85" y="182" w="84" h="-1" measuredW="120" measuredH="25" zOrder="15" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="472" controlTypeID="com.balsamiq.mockups::SearchBox" x="169" y="182" w="258" h="-1" measuredW="120" measuredH="25" zOrder="16" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="473" controlTypeID="com.balsamiq.mockups::SearchBox" x="427" y="182" w="239" h="-1" measuredW="120" measuredH="25" zOrder="17" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text/>
+      </controlProperties>
+    </control>
+  </controls>
+</mockup>
