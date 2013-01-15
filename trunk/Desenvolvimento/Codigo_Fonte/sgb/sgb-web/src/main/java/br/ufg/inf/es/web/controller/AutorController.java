@@ -3,8 +3,10 @@ package br.ufg.inf.es.web.controller;
 import br.ufg.inf.es.base.validation.ValidationException;
 import br.ufg.inf.es.integracao.AutorService;
 import br.ufg.inf.es.model.Autor;
+import br.ufg.inf.es.model.AutorDTO;
 import br.ufg.inf.es.web.controller.form.AutorForm;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -33,7 +35,7 @@ public class AutorController
     @Override
     public String openInitialPage() {
 
-        this.getForm().setExibirDialogExclusao(Boolean.FALSE);
+        this.getForm().setExibirDialogExclusao(Boolean.FALSE);   
 
         buscaTodosAutores();
 
