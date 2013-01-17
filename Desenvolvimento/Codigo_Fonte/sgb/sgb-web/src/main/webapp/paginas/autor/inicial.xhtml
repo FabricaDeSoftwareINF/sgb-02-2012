@@ -42,15 +42,11 @@
 
                         <p:column headerText="#{msg['cadastro.autor.label.acoes']}" style="width: 10%; " >             
 
-                            <h:panelGrid columns="1" >
-
                                 <p:commandLink value="#{msg['cadastro.autor.label.editar']}" action="#{autorController.openEditPage}" ajax="false">
 
                                     <f:setPropertyActionListener value="#{autor}" target="#{autorController.form.autorEdicao}"></f:setPropertyActionListener>
 
                                 </p:commandLink>
-
-                            </h:panelGrid>
 
                         </p:column>
 
