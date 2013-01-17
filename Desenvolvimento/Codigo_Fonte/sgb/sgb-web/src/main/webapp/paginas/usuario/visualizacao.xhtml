@@ -4,52 +4,48 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets">
 
-    <h:head>
+    <ui:composition template="/template/template.xhtml">
 
-        <title>Visualização de Usuários</title>
+        <ui:define name="content">
 
-    </h:head>
+            <p:panel header="#{msg['visualizacao.usuario.panel.header']}">
 
-    <h:body>
-        
-        <ui:include src="../../template.xhtml" />
+                <p:messages />
+                <h:form>
+                    <h:panelGrid columns="2">
 
-        <p:panel header="#{msg['visualizacao.usuario.panel.header']}">
+                        <h:outputLabel value="#{msg['cadastro.usuario.label.nome']}:" for="usuarioNome" />
 
-            <p:messages />
-            <h:form>
-                <h:panelGrid columns="2">
+                        <p:inputText value="#{usuarioController.form.entity.nome}" id="usuarioNome" readonly="readonly" autocomplete="off" />
 
-                    <h:outputLabel value="#{msg['cadastro.usuario.label.nome']}:" for="usuarioNome" />
+                        <h:outputLabel value="#{msg['cadastro.usuario.label.sobrenome']}:" for="usuarioSobrenome" />
 
-                    <p:inputText value="#{usuarioController.form.entity.nome}" id="usuarioNome" readonly="readonly" autocomplete="off" />
+                        <p:inputText value="#{usuarioController.form.entity.sobrenome}" id="usuarioSobrenome" readonly="readonly" autocomplete="off" />
 
-                    <h:outputLabel value="#{msg['cadastro.usuario.label.sobrenome']}:" for="usuarioSobrenome" />
+                        <h:outputLabel value="#{msg['cadastro.usuario.label.email']}:" for="usuarioEmail" />
 
-                    <p:inputText value="#{usuarioController.form.entity.sobrenome}" id="usuarioSobrenome" readonly="readonly" autocomplete="off" />
+                        <p:inputText value="#{usuarioController.form.entity.email}" id="usuarioEmail" readonly="readonly" autocomplete="off" />
 
-                    <h:outputLabel value="#{msg['cadastro.usuario.label.email']}:" for="usuarioEmail" />
+                        <h:outputLabel value="#{msg['cadastro.usuario.label.perfil']}:" />
 
-                    <p:inputText value="#{usuarioController.form.entity.email}" id="usuarioEmail" readonly="readonly" autocomplete="off" />
-
-                    <h:outputLabel value="#{msg['cadastro.usuario.label.perfil']}:" />
-
-                    <p:selectManyCheckbox value="#{usuarioController.form.entity.perfil}" layout="pageDirection" converter="perfilConverter" >  
-                        <f:selectItems value="#{usuarioController.perfil}" var="perfil" itemLabel="#{perfil.tipo}" itemValue="#{perfil}" /> 
-                    </p:selectManyCheckbox>  
+                        <p:selectManyCheckbox value="#{usuarioController.form.entity.perfil}" layout="pageDirection" converter="perfilConverter" >  
+                            <f:selectItems value="#{usuarioController.perfil}" var="perfil" itemLabel="#{perfil.tipo}" itemValue="#{perfil}" /> 
+                        </p:selectManyCheckbox>  
 
 
-                </h:panelGrid>
-            </h:form>
-            
-            <h:form>
-                
-                <h:commandButton action="#{usuarioController.openSearchPage()}" value="#{msg['cadastro.usuario.button.voltar']}" />
+                    </h:panelGrid>
+                </h:form>
 
-            </h:form>
+                <h:form>
 
-        </p:panel>        
+                    <h:commandButton action="#{usuarioController.openSearchPage()}" value="#{msg['cadastro.usuario.button.voltar']}" />
 
-    </h:body>
+                </h:form>
+
+            </p:panel>      
+
+        </ui:define>
+
+    </ui:composition>
 
 </html>

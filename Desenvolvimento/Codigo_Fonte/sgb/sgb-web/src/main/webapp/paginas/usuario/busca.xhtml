@@ -5,24 +5,17 @@
       xmlns:c="http://java.sun.com/jsp/jstl/core"
       xmlns:ui="http://java.sun.com/jsf/facelets">
 
-    <h:head>
+    <ui:composition template="/template/template.xhtml">
 
-        <title>Listar de Usuários</title>
+        <ui:define name="content">
 
-    </h:head>
+            <p:panel header="Listar Usuário">
 
-    <h:body>
-        
-        <ui:include src="../../template.xhtml" />
-        
+                <h:form>
 
-        <p:panel header="Listar Usuário">
-
-            <h:form>
-
-                <p:messages />
-                <h:panelGrid columns="2">
-                    <p:dataTable id="listaUsuarios" value="#{usuarioController.form.collectionEntities}" var="usuario">
+                    <p:messages />
+                    <h:panelGrid columns="2">
+                        <p:dataTable id="listaUsuarios" value="#{usuarioController.form.collectionEntities}" var="usuario">
                             <p:column headerText="">
 
                                 <p:selectBooleanCheckbox >
@@ -51,17 +44,19 @@
                                 <p:commandButton value="Editar" action="#{usuarioController.openEditPage(usuario)}"/>
                                 <p:commandButton value="Detalhe" action="#{usuarioController.openViewPage(usuario)}"/>
                             </p:column>
-                    </p:dataTable>
-                    <p:spacer height="15"/>
-                </h:panelGrid>
-                <h:panelGrid columns="2">
-                    <p:commandButton value="Novo" action="#{usuarioController.openInsertPage()}"/>
-                    <p:commandButton update="listaUsuarios" actionListener="#{usuarioController.removerUsuarioSelecionados()}" value="Remover"/>
-                </h:panelGrid>
-            </h:form>
+                        </p:dataTable>
+                        <p:spacer height="15"/>
+                    </h:panelGrid>
+                    <h:panelGrid columns="2">
+                        <p:commandButton value="Novo" action="#{usuarioController.openInsertPage()}"/>
+                        <p:commandButton update="listaUsuarios" actionListener="#{usuarioController.removerUsuarioSelecionados()}" value="Remover"/>
+                    </h:panelGrid>
+                </h:form>
 
-        </p:panel>        
+            </p:panel>        
 
-    </h:body>
+        </ui:define>
+
+    </ui:composition>
 
 </html>
