@@ -29,7 +29,7 @@ public abstract class JSFController extends BaseController implements Controller
 
     private String getOpenInitialPageNavigator() {
         
-        return this.getRootNavigation() + "OP";
+        return this.getRootNavigation() + "initialPage";
     }
 
     protected String getRootNavigation() {
