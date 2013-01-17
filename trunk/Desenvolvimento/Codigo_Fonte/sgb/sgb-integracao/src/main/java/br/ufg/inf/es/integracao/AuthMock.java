@@ -1,6 +1,7 @@
 package br.ufg.inf.es.integracao;
 
 import br.ufg.inf.es.base.service.Auth;
+import br.ufg.inf.es.base.util.SgbCryptography;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
@@ -84,14 +85,15 @@ public class AuthMock implements Auth {
     static {
 
         USERS = new HashMap<User, Collection<String>>();
+        SgbCryptography cryptography = new SgbCryptography();
+        String passEncrypt =  cryptography.encrypt(AuthMock.SENHA_PADRAO);
+        addUser(new User("professor",passEncrypt), "ROLE_PROFESSOR");
 
-        addUser(new User("professor", AuthMock.SENHA_PADRAO), "ROLE_PROFESSOR");
+        addUser(new User("conselheiro", passEncrypt), "ROLE_CONSELHEIRO");
 
-        addUser(new User("conselheiro", AuthMock.SENHA_PADRAO), "ROLE_CONSELHEIRO");
+        addUser(new User("admin",passEncrypt), "ROLE_ADMIN");
 
-        addUser(new User("admin", AuthMock.SENHA_PADRAO), "ROLE_ADMIN");
-
-        addUser(new User("all", AuthMock.SENHA_PADRAO), "ROLE_ADMIN", "ROLE_PROFESSOR", "ROLE_CONSELHEIRO");
+        addUser(new User("all",passEncrypt), "ROLE_ADMIN", "ROLE_PROFESSOR", "ROLE_CONSELHEIRO");
     }
 
     public Collection<String> login(String user, String password) {
