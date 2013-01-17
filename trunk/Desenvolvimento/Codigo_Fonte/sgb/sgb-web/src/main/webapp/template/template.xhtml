@@ -7,46 +7,77 @@
       xmlns:p="http://primefaces.org/ui">
 
     <h:head>  
+        
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        
         <link rel="shortcut icon" href="resources/images/sgb.png"/>
+        
         <title>SGB - Sistema de Gestão Bibliográfica</title>
+        
         <h:outputStylesheet library="css" name="default.css"/>
+        
         <h:outputStylesheet library="css" name="panelGrid.css"/>
+   
     </h:head>  
 
     <h:body>   
 
         <h:form id="header">
+    
             <h:panelGrid width="100%" columns="2">
-                <p:graphicImage value="resources/images/sgb.png" width="80" height="60"/>
+            
+                <p:graphicImage value="/resources/images/sgb.png" width="80" height="60"/>
+                
                 <h:panelGrid style="float: right" columns="6" >
+                
                     <h:panelGrid columns="2">
+                    
                         <p:inputText id="pesquisaLivro" size="65"/> 
+                        
                         <p:commandButton icon="ui-icon-search"/>
-                    </h:panelGrid>
-                    <p:watermark for="pesquisaLivro" value="Pesquisar Livro"/>
-                    <p:spacer width="45" height="0"/>
-                    <h2>Nome do Usuário Logado</h2>
-                    <p:spacer width="45" height="0"/>
-                    <h:outputLink icon="ui-icon-close" value="j_spring_security_logout">Sair</h:outputLink>
-                </h:panelGrid>
-            </h:panelGrid>
-            <p:menubar > 
-                <p:menuitem value="Início" action="/template.xhtml"/>
-                <p:submenu label="Cadastros">
-                    <p:submenu label="Curso">
-                        <p:menuitem value="Manter" action="/cadastro/curso/manterCurso.xhtml" />
-                        <p:menuitem value="Cadastrar" action="#{cursoController.openInsertPage}" />
-                    </p:submenu>
 
+                    </h:panelGrid>
+
+                    <p:watermark for="pesquisaLivro" value="Pesquisar Livro"/>
+
+                    <p:spacer width="45" height="0"/>
+
+                    <h2>Nome do Usuário Logado</h2>
+
+                    <p:spacer width="45" height="0"/>
+
+                    <h:outputLink icon="ui-icon-close" value="j_spring_security_logout">Sair</h:outputLink>
+
+                </h:panelGrid>
+
+            </h:panelGrid>
+
+            <p:menubar > 
+
+                <p:menuitem value="Início" action="/template.xhtml"/>
+
+                <p:submenu label="Cadastros">
+
+                    <p:submenu label="Curso">
+
+                        <p:menuitem value="Manter" action="/cadastro/curso/manterCurso.xhtml" />
+
+                        <p:menuitem value="Cadastrar" action="#{cursoController.openInsertPage}" />
+
+                    </p:submenu>
+                                  
                     <p:submenu label="Editora">
-                        <p:menuitem value="Manter" action="#{editoraController.openSearchPage()}" />
-                        <p:menuitem value="Cadastrar" action="#{editoraController.openInsertPage()}" />
+                    
+                        <p:menuitem value="#{msg['cadastro.editora.label.editora']}" action="#{editoraController.openInitialPage()}" />
+                                     
                     </p:submenu>
 
                     <p:submenu label="Livro">
-                        <p:menuitem value="Busca" action="/cadastro/livro/busca.xhtml" />
+
+                        <p:menuitem value="#{msg['cadastro.livro.label.livro']}" action="/cadastro/livro/busca.xhtml" />
+
                         <p:menuitem value="Cadastrar" action="#{livroController.openInsertPage()}" />
+
                     </p:submenu>
 
                     <p:menuitem value="#{msg['cadastro.autor.label.autor']}" action="#{autorController.openInitialPage()}">
@@ -54,32 +85,54 @@
                     </p:menuitem>
 
                     <p:submenu label="Disciplina">
+
                         <p:menuitem value="Busca" action="/cadastro/disciplina/busca.xhtml" />
+
                         <p:menuitem value="Cadastrar" action="/cadastro/disciplina/inclusao.xhtml" />
+
                     </p:submenu>
+
                     <p:submenu label="Usuário">
+
                         <p:menuitem value="Manter" action="#{usuarioController.openSearchPage()}" />
+
                         <p:menuitem value="Cadastrar" action="#{usuarioController.openInsertPage()}" />
+
                     </p:submenu>
+
                 </p:submenu>
+
                 <p:submenu label="Cotação">
+
                     <p:menuitem value="Livros para cotação" action="#{livroParaCotacaoController.openSearchPage()}" />
+
                 </p:submenu>
+
                 <p:menuitem value="Configurações" action="#{parametrosController.openViewPage()}"/>
+
                 <p:menuitem value="Ajuda"/> 
+
             </p:menubar>
 
+            
         </h:form>
 
+
         <div id="content">  
+
             <ui:insert name="content">
 
             </ui:insert>  
+
         </div>  
 
+
         <div id="footer">
+
             <h:outputText value="- SGB - Sistema de Gestão Bibliográfica | "/>
+
             <h:outputText value="Universidade Federal de Goiás -"/>
+
         </div>
     </h:body>  
 </html>  
