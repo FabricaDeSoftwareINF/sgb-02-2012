@@ -4,6 +4,7 @@
  */
 package br.ufg.inf.es.integracao;
 
+import br.ufg.inf.es.base.util.SgbCryptography;
 import java.util.ArrayList;
 import java.util.Collection;
 import org.junit.*;
@@ -17,8 +18,10 @@ public class AuthMockTest {
     @Test
     public void testLogin() {
         String user = "professor";
-        String password = "123";
+     
         AuthMock instance = new AuthMock();
+         SgbCryptography cryptography = new SgbCryptography();
+        String password =  cryptography.encrypt("123");
         Collection<String> expResult = new ArrayList();
         expResult.add("ROLE_PROFESSOR");
         Collection<String> result = instance.login(user, password);
