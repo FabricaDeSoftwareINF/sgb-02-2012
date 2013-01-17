@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--@autor: wilker de jesus machado-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"  
+      xmlns:h="http://java.sun.com/jsf/html"  
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <h:outputStylesheet name="default.css" library="css"/>
+        <title>Cadastrar Editora</title>
+    </h:head>
+
+    <h:body>   
+        <h:form >
+            <h:panelGrid width="100%">
+
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{msg['cadastro.editora.label.nome']}:" ></h:outputLabel>
+                    <p:inputText value="#{editoraController.form.entity.nome}"></p:inputText>
+                    <p:commandButton action="#{editoraController.salvarEditora()}" value="Salvar"></p:commandButton>
+                    <p:commandButton value="Cancelar"></p:commandButton>
+                </h:panelGrid>
+
+            </h:panelGrid>
+            
+        </h:form>
+    </h:body>  
+
+
+</html>

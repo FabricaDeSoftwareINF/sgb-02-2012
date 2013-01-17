@@ -8,11 +8,21 @@
               xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd">
 
     <navigation-rule>
+        
+        <!--  Estória de Usuário 12-->
+        <navigation-case>
+            
+            <from-outcome>EditoraController/initialPage</from-outcome>
+            
+            <to-view-id>/paginas/editora/editarEditora.xhtml</to-view-id>
+            
+        </navigation-case>
+        
         <navigation-case>
             
             <from-outcome>EditoraController/editPage</from-outcome>
             
-            <to-view-id>/cadastro/editora/editarEditora.xhtml</to-view-id>
+            <to-view-id>/paginas/editora/editarEditora.xhtml</to-view-id>
             
         </navigation-case>
         
@@ -20,14 +30,14 @@
             
             <from-outcome>EditoraController/insertPage</from-outcome>
             
-            <to-view-id>/cadastro/editora/inclusaoEditora.xhtml</to-view-id>
+            <to-view-id>/paginas/editora/inclusaoEditora.xhtml</to-view-id>
             
         </navigation-case>
         
         <navigation-case>
             <from-outcome>EditoraController/searchPage</from-outcome>
             
-            <to-view-id>/cadastro/editora/manterEditora.xhtml</to-view-id>
+            <to-view-id>/paginas/editora/manterEditora.xhtml</to-view-id>
             
         </navigation-case>
         
@@ -35,7 +45,7 @@
             
             <from-outcome>UsuarioController/insertPage</from-outcome>
             
-            <to-view-id>/cadastro/usuario/inclusao.xhtml</to-view-id>
+            <to-view-id>/paginas/usuario/inclusao.xhtml</to-view-id>
             
         </navigation-case>
        
@@ -46,7 +56,7 @@
         <navigation-case>
             <from-outcome>UsuarioController/searchPage</from-outcome>
             
-            <to-view-id>/cadastro/usuario/busca.xhtml</to-view-id>
+            <to-view-id>/paginas/usuario/busca.xhtml</to-view-id>
             
         </navigation-case>
         
@@ -54,7 +64,7 @@
             
             <from-outcome>UsuarioController/editPage</from-outcome>
             
-            <to-view-id>/cadastro/usuario/edicao.xhtml</to-view-id>
+            <to-view-id>/paginas/usuario/edicao.xhtml</to-view-id>
             
         </navigation-case>
         
@@ -62,7 +72,7 @@
             
             <from-outcome>UsuarioController/viewPage</from-outcome>
             
-            <to-view-id>/cadastro/usuario/visualizacao.xhtml</to-view-id>
+            <to-view-id>/paginas/usuario/visualizacao.xhtml</to-view-id>
             
         </navigation-case>
         
@@ -70,7 +80,7 @@
             
             <from-outcome>DisciplinaController/insertPage</from-outcome>
             
-            <to-view-id>/cadastro/disciplina/inclusao.xhtml</to-view-id>
+            <to-view-id>/paginas/disciplina/inclusao.xhtml</to-view-id>
             
         </navigation-case>
         
@@ -78,7 +88,7 @@
             
             <from-outcome>DisciplinaController/searchPage</from-outcome>
             
-            <to-view-id>/cadastro/disciplina/busca.xhtml</to-view-id>
+            <to-view-id>/paginas/disciplina/busca.xhtml</to-view-id>
             
         </navigation-case>
         
@@ -86,15 +96,15 @@
             
             <from-outcome>CursoController/insertPage</from-outcome>
             
-            <to-view-id>/cadastro/curso/inclusaoCurso.xhtml</to-view-id>
+            <to-view-id>/paginas/curso/inclusaoCurso.xhtml</to-view-id>
             
         </navigation-case>
         
-         <navigation-case>
+        <navigation-case>
             
             <from-outcome>LivroController/insertPage</from-outcome>
             
-            <to-view-id>/cadastro/livro/inclusao.xhtml</to-view-id>
+            <to-view-id>/paginas/livro/inclusao.xhtml</to-view-id>
             
         </navigation-case>
         
@@ -102,7 +112,7 @@
             
             <from-outcome>CursoController/openSearchPage</from-outcome>
             
-            <to-view-id>/cadastro/curso/manterCurso.xhtml</to-view-id>
+            <to-view-id>/paginas/curso/manterCurso.xhtml</to-view-id>
             
         </navigation-case>
 
@@ -111,7 +121,7 @@
             
             <from-outcome>ParametrosController/viewPage</from-outcome>
             
-            <to-view-id>/cadastro/parametros/show.xhtml</to-view-id>
+            <to-view-id>/paginas/parametros/show.xhtml</to-view-id>
             
         </navigation-case>
         
@@ -120,7 +130,7 @@
             
             <from-outcome>AutorController/initialPage</from-outcome>
             
-            <to-view-id>/cadastro/autor/inicial.xhtml</to-view-id>
+            <to-view-id>/paginas/autor/inicial.xhtml</to-view-id>
         
         </navigation-case>
         
@@ -128,7 +138,7 @@
             
             <from-outcome>AutorController/insertPage</from-outcome>
             
-            <to-view-id>/cadastro/autor/cadastroAutor.xhtml</to-view-id>
+            <to-view-id>/paginas/autor/cadastroAutor.xhtml</to-view-id>
         
         </navigation-case>
         
@@ -136,13 +146,13 @@
             
             <from-outcome>AutorController/editPage</from-outcome>
             
-            <to-view-id>/cadastro/autor/editarAutor.xhtml</to-view-id>
+            <to-view-id>/paginas/autor/editarAutor.xhtml</to-view-id>
         
         </navigation-case>
         
         <navigation-case>
             <from-outcome>LivroParaCotacaoController/openSearchPage</from-outcome>
-            <to-view-id>/cotacao/busca.xhtml</to-view-id>
+            <to-view-id>/paginas/cotacao/busca.xhtml</to-view-id>
         </navigation-case>
         
     </navigation-rule>
