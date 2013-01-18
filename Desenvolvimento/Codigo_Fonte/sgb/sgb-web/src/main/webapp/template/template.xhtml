@@ -91,15 +91,9 @@
                         <p:menuitem value="Cadastrar" action="/cadastro/disciplina/inclusao.xhtml" />
 
                     </p:submenu>
-
-                    <p:submenu label="Usuário">
-
-                        <p:menuitem value="Manter" action="#{usuarioController.openSearchPage()}" />
-
-                        <p:menuitem value="Cadastrar" action="#{usuarioController.openInsertPage()}" />
-
-                    </p:submenu>
-
+                  
+                    <p:menuitem value="#{msg['usuario.label.usuarios']}" action="#{usuarioController.openInitialPage()}" />
+                    
                 </p:submenu>
 
                 <p:submenu label="Cotação">
@@ -134,5 +128,7 @@
             <h:outputText value="Universidade Federal de Goiás -"/>
 
         </div>
-    </h:body>  
+        
+    </h:body>
+    
 </html>  

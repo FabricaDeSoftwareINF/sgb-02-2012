@@ -36,6 +36,8 @@ public class AutorController
     public String openInitialPage() {
 
         this.getForm().setExibirDialogExclusao(Boolean.FALSE);   
+        
+        this.getForm().setTodosAutores(new ArrayList<AutorDTO>());
 
         buscaTodosAutores();
 
@@ -192,6 +194,17 @@ public class AutorController
         return this.openInitialPage();
         
     }
+    
+    
+    /**
+     * Método responsável por inicializar a Entidade
+     * @author Cássio Augusto Silva de Freitas
+     */
+    private void limpaEntidadeDeCadastro() {
+
+        this.getForm().setEntity(new Autor());
+
+    }
 
     @Override
     public AutorForm getForm() {
@@ -215,13 +228,4 @@ public class AutorController
         this.service = service;
     }
 
-    /**
-     * Método responsável por inicializar a Entidade
-     * @author Cássio Augusto Silva de Freitas
-     */
-    private void limpaEntidadeDeCadastro() {
-
-        this.getForm().setEntity(new Autor());
-
-    }
 }
