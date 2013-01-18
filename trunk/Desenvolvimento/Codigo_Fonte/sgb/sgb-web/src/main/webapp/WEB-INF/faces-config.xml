@@ -41,6 +41,16 @@
             
         </navigation-case>
         
+        <!-- ESTÓRIA DE USUÁRIO 03-->
+        
+        <navigation-case>
+            
+            <from-outcome>UsuarioController/initialPage</from-outcome>
+            
+            <to-view-id>/paginas/usuario/inicial.xhtml</to-view-id>
+            
+        </navigation-case>
+        
         <navigation-case>
             
             <from-outcome>UsuarioController/insertPage</from-outcome>
@@ -50,15 +60,12 @@
         </navigation-case>
        
         <navigation-case>
+         
             <from-outcome>UsuarioController/recuperarSenha</from-outcome>
+       
             <to-view-id>/recuperar-senha.xhtml</to-view-id>
-        </navigation-case>
-        <navigation-case>
-            <from-outcome>UsuarioController/searchPage</from-outcome>
-            
-            <to-view-id>/paginas/usuario/busca.xhtml</to-view-id>
-            
-        </navigation-case>
+     
+        </navigation-case>  
         
         <navigation-case>
             
@@ -76,6 +83,7 @@
             
         </navigation-case>
         
+        <!-- ESTÓRIA DE USUÁRIO XX-->
         <navigation-case>
             
             <from-outcome>DisciplinaController/insertPage</from-outcome>
