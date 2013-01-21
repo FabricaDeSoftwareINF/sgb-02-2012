@@ -1,0 +1,47 @@
+<mockup version="1.0" skin="sketch" fontFace="Balsamiq Sans" measuredW="1075" measuredH="534" mockupW="1052" mockupH="477">
+  <controls>
+    <control controlID="49" controlTypeID="com.balsamiq.mockups::Label" x="748" y="100" w="-1" h="-1" measuredW="81" measuredH="21" zOrder="0" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Nome%20usuario</text>
+      </controlProperties>
+    </control>
+    <control controlID="50" controlTypeID="com.balsamiq.mockups::Canvas" x="23" y="57" w="1052" h="477" measuredW="100" measuredH="70" zOrder="1" locked="true" isInGroup="-1"/>
+    <control controlID="51" controlTypeID="com.balsamiq.mockups::DataGrid" x="44" y="145" w="986" h="247" measuredW="965" measuredH="111" zOrder="2" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>%5B%5D%2CT%EDtulo%2C%20Autor%2C%20Edi%E7%E3o%2C%20Ano%2C%20Editora%2C%20ISBN13%2C%20Disciplinas%2C%20Estrangeiro%2C%20A%E7%F5es%0A%5Bx%5D%2C%20Como%20programar%20Java%2C%20Deitel%2C%206%2C%202005%2C%20Pearson%2C%20123.4567.890.12.3%2C%20Introdu%E7%E3o%20a%20programa%E7%E3o%2C%20N%E3o%2C%20%5BEditar%5D%20%5BDetalhe%5D%20%0A%5B%5D%2C%20Aprendendo%20a%20Programar%20Java%202%2C%20Boente%2C%201%2C%202003%2C%20Brasport%2C%20123.4567.890.12.3%2C%20Introdu%E7%E3o%20a%20programa%E7%E3o%2C%20N%E3o%2C%20%5BEditar%5D%20%5BDetalhe%5D%20%0A%5B%5D%2C%20Use%20a%20Cabe%E7a%20Java%2C%20Sierra%20e%20Bates%2C%202%2C%202005%2C%20Alta%20Books%2C%20123.4567.890.12.3%2C%20Introdu%E7%E3o%20a%20programa%E7%E3o%2C%20N%E3o%2C%20%5BEditar%5D%20%5BDetalhe%5D%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="52" controlTypeID="com.balsamiq.mockups::Label" x="44" y="72" w="-1" h="-1" measuredW="130" measuredH="32" zOrder="3" locked="true" isInGroup="-1">
+      <controlProperties>
+        <bold>true</bold>
+        <size>24</size>
+        <text>Cotar%20Livro</text>
+      </controlProperties>
+    </control>
+    <control controlID="53" controlTypeID="com.balsamiq.mockups::Button" x="884" y="469" w="-1" h="-1" measuredW="123" measuredH="27" zOrder="4" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Realizar%20Cota%E7%E3o</text>
+      </controlProperties>
+    </control>
+    <control controlID="54" controlTypeID="com.balsamiq.mockups::SearchBox" x="74" y="121" w="211" h="-1" measuredW="120" measuredH="25" zOrder="5" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>java</text>
+      </controlProperties>
+    </control>
+    <control controlID="55" controlTypeID="com.balsamiq.mockups::SearchBox" x="285" y="121" w="99" h="-1" measuredW="120" measuredH="24" zOrder="6" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="56" controlTypeID="com.balsamiq.mockups::SearchBox" x="673" y="121" w="171" h="-1" measuredW="120" measuredH="24" zOrder="7" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="57" controlTypeID="com.balsamiq.mockups::SearchBox" x="844" y="121" w="80" h="-1" measuredW="120" measuredH="24" zOrder="8" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text/>
+      </controlProperties>
+    </control>
+  </controls>
+</mockup>
