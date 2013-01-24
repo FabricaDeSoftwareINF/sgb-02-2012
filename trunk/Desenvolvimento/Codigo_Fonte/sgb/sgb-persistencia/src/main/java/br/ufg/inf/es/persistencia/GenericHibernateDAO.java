@@ -54,9 +54,13 @@ public abstract class GenericHibernateDAO<E extends Entity<Long>> implements DAO
     public E find(Long id) {
         E objeto;
         try {
+            
             objeto = (E) this.getSession().get(this.getClassEntity(), id);
+        
         } finally {
+        
             this.getSessionFactory().close();
+        
         }
         return objeto;
     }
@@ -64,8 +68,13 @@ public abstract class GenericHibernateDAO<E extends Entity<Long>> implements DAO
     public Long insert(E entidade) {
         Long id;
         try {
+           
             isReferencia(entidade);
+            
             id = (Long) this.getSession().save(entidade);
+                  
+            this.getSession().flush();
+            
         } finally {
             this.getSessionFactory().close();
         }
