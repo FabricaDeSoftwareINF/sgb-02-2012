@@ -1,50 +1,87 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://java.sun.com/jsf/core">
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+    <ui:define name="title">
+        Gerênciamento de Livros - SGB
+    </ui:define>
     
-    <h:head>
+    <ui:composition template="/template/template.xhtml">
+
         
-        <title>TODO supply a title</title>
-        
-    </h:head>
-    
-    <body>
-        
-        <p:panel>
+        <ui:define name="content">
+
+            <ui:include src="exportacao_dialog.xhtml"/>
             
-            <h:form>
-            
-                <p:dataTable value="#{livroController.form.collectionEntities}" var="usuario">
+            <p:panel>
 
-                    <p:column headerText="Login">
+                <h:form>
 
-                        <h:outputText value="#{livro.nome}" />
+                    <p:dataTable value="#{livroController.form.collectionEntities}" var="livro">
 
-                    </p:column>
+                        <p:column headerText="Login">
 
-                    <p:column headerText="Ações">
+                            <h:outputText value="#{livro.titulo}" />
 
-                        <h:panelGrid columns="3" width="100%">
+                        </p:column>
+                        
+                        <p:column headerText="Autor">
+                            <c:forEach items="#{livro.autores}" var="autor">
+                                <h:outputText value="#{autor.nome}" />
+                            </c:forEach>
+                        </p:column>
+                        
+                        <p:column headerText="Edição">
+                            <h:outputText value="#{livro.edicao}" />
+                        </p:column>
+                        
+                        <p:column headerText="Ano">
+                            <h:outputText value="#{livro.ano}" />
+                        </p:column>
+                        
+                        <p:column headerText="Editora">
+                            <h:outputText value="#{livro.editora.nome}" />
+                        </p:column>
+                        
+                        <p:column headerText="ISNB13">
+                            <h:outputText value="#{livro.isbn13}" />
+                        </p:column>
 
-                            <p:commandButton value="Remover" action="#{livroController.remove}" update="@all">
+                        <p:column headerText="Ações">
 
-                                <f:setPropertyActionListener value="#{livro}" target="#{livroController.form.entity}" />
+                            <h:panelGrid columns="3" width="100%">
 
-                                <f:param name="entityID" value="#{livro.id}" />
+                                <p:commandLink value="Remover" action="#{livroController.remove}" update="@all">
 
-                            </p:commandButton>
+                                    <f:setPropertyActionListener value="#{livro}" target="#{livroController.form.entity}" />
 
-                        </h:panelGrid>
+                                    <f:param name="entityID" value="#{livro.id}" />
 
-                    </p:column>
+                                </p:commandLink>
+                                
+                                <p:commandButton id="exportar_button" value="Exportar"
+                                         oncomplete="geracaoPlanilhaDialog.show()">
 
-                </p:dataTable>
+                                    <f:setPropertyActionListener value="#{livro}" target="#{livroController.form.entity}" />
 
-            </h:form>
-                
-        </p:panel>
+                                    <f:param name="entityID" value="#{livro.id}" />
 
-    </body>
-    
+                                </p:commandButton>
+
+                            </h:panelGrid>
+
+                        </p:column>
+
+                    </p:dataTable>
+
+                </h:form>
+
+            </p:panel>
+
+        </ui:define>
+    </ui:composition>
+
 </html>

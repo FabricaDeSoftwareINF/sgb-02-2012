@@ -21,10 +21,7 @@ public class Autor extends AbstractEntityModel {
     @Column(name = "sobrenome")
     private String sobrenome;
     
-    @ManyToMany
-    @JoinTable(name = "livro_autor", joinColumns =
-    @JoinColumn(name = "id_autor"), inverseJoinColumns =
-    @JoinColumn(name = "id_livro"))
+    @ManyToMany(mappedBy="autores", cascade= CascadeType.ALL)
     private Collection<Livro> livros;
 
     public String getSobrenome() {
