@@ -1,8 +1,10 @@
 package br.ufg.inf.es.model;
 
 import java.util.Collection;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -10,16 +12,16 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "DISCIPLINA")
-public class Disciplina extends AbstractEntityModel{
-    
-    @Column(name="nome")
+public class Disciplina extends AbstractEntityModel {
+
+    @Column(name = "nome")
     private String nome;
-    @Column(name="codigo")
+    @Column(name = "codigo")
     private String codigo;
     @ManyToOne
-    @JoinColumn(name="id_curso")
+    @JoinColumn(name = "id_curso")
     private Curso curso;
-    @OneToMany(targetEntity=Bibliografia.class)
+    @OneToMany(targetEntity = Bibliografia.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Collection<Bibliografia> bibliografias;
 
     public String getNome() {
@@ -53,5 +55,4 @@ public class Disciplina extends AbstractEntityModel{
     public void setBibliografias(Collection<Bibliografia> bibliografias) {
         this.bibliografias = bibliografias;
     }
-    
 }
