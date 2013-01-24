@@ -13,34 +13,29 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
- *
- * @author Henrique
+ * 
+ * @author Henrique, Marco Aurélio
  */
 @Entity
-@Table(name="BIBLIOGRAFIA")
-public class Bibliografia implements Serializable{
-    
-    @Column(name="tipo")
+@Table(name = "BIBLIOGRAFIA")
+public class Bibliografia extends AbstractEntityModel {
+
+    @Column(name = "tipo")
     private String tipo;
-    
-    @Id
     @ManyToOne
-    @JoinColumn(name="id_livro")    
+    @JoinColumn(name = "id_livro")
     private Livro livro;
-    
-    @Id
-    @ManyToOne
-    @JoinColumn(name="id_disciplina")
+    @ManyToOne(targetEntity=Disciplina.class)
+    @JoinColumn(name = "id_disciplina")
     private Disciplina disciplina;
 
-    public String getTipo() {
-        return tipo;
+    public Disciplina getDisciplina() {
+        return disciplina;
     }
 
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
+    public void setDisciplina(Disciplina disciplina) {
+        this.disciplina = disciplina;
     }
-
 
     public Livro getLivro() {
         return livro;
@@ -50,12 +45,11 @@ public class Bibliografia implements Serializable{
         this.livro = livro;
     }
 
-    public Disciplina getDisciplina() {
-        return disciplina;
+    public String getTipo() {
+        return tipo;
     }
 
-    public void setDisciplina(Disciplina disciplina) {
-        this.disciplina = disciplina;
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
     }
-    
 }
