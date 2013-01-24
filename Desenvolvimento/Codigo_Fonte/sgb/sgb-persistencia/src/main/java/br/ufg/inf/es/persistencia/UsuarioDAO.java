@@ -25,6 +25,11 @@ public class UsuarioDAO extends GenericHibernateDAO<Usuario> {
         
     }
 
+    public void setSessionFactory(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
+    }
+
+     
     @Override
     protected SessionFactory getSessionFactory() {
         

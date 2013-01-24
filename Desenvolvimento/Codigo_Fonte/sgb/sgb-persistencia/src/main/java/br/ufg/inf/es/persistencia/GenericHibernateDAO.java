@@ -24,7 +24,7 @@ public abstract class GenericHibernateDAO<E extends Entity<Long>> implements DAO
     private Session session;
 
     protected abstract SessionFactory getSessionFactory();
-
+    protected abstract void setSessionFactory(SessionFactory sessionFactory);
     protected Session getSession() {
 
         if (this.session == null || !this.session.isOpen()) {

@@ -21,6 +21,11 @@ public class LivroDAO  extends GenericHibernateDAO<Livro> {
     @Autowired
     private SessionFactory sessionFactory;
 
+    public void setSessionFactory(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
+    }
+
+    
     @Override
     protected SessionFactory getSessionFactory() {
         return this.sessionFactory;

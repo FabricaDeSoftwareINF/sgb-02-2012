@@ -26,6 +26,11 @@ public class UsuarioPerfilDAO  extends GenericHibernateDAO<UsuarioPerfil>{
     @Autowired
     private SessionFactory sessionFactory;
 
+    public void setSessionFactory(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
+    }
+
+    
     @Override
     protected SessionFactory getSessionFactory() {
         

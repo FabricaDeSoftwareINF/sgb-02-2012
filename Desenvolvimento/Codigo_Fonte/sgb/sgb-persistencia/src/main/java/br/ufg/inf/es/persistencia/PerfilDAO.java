@@ -21,6 +21,11 @@ public class PerfilDAO extends GenericHibernateDAO<Perfil> {
     @Autowired
     private SessionFactory sessionFactory;
 
+    public void setSessionFactory(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
+    }
+
+    
     @Override
     protected SessionFactory getSessionFactory() {
 
