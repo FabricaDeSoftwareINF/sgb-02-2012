@@ -5,24 +5,12 @@
 package br.ufg.inf.es.integracao;
 
 import br.ufg.inf.es.model.Usuario;
+import br.ufg.inf.es.model.UsuarioPerfil;
 import br.ufg.inf.es.persistencia.UsuarioDAO;
 import br.ufg.inf.es.persistencia.UsuarioPerfilDAO;
-import java.io.Serializable;
-import java.sql.Connection;
 import java.util.*;
-import javax.naming.NamingException;
-import javax.naming.Reference;
-import org.hibernate.*;
-import org.hibernate.classic.Session;
-import org.hibernate.engine.FilterDefinition;
-import org.hibernate.metadata.ClassMetadata;
-import org.hibernate.metadata.CollectionMetadata;
-import org.hibernate.stat.SessionStatistics;
-import org.hibernate.stat.Statistics;
-import org.hibernate.type.Type;
 import org.junit.*;
 import static org.junit.Assert.*;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 
 /**
@@ -30,6 +18,9 @@ import org.mockito.Mockito;
  * @author alunoufg
  */
 public class UsuarioServiceTest {
+
+    Usuario entity = new Usuario();
+    UsuarioService instance = new UsuarioService();
 
     public UsuarioServiceTest() {
     }
@@ -44,6 +35,15 @@ public class UsuarioServiceTest {
 
     @Before
     public void setUp() {
+        entity.setSenha("123456");
+        entity.setId(Long.MIN_VALUE);
+        UsuarioPerfilDAO perfilDao = Mockito.mock(UsuarioPerfilDAO.class);
+        Mockito.when(perfilDao.list(0)).thenReturn(new ArrayList<UsuarioPerfil>());
+        instance.setUsuarioPerfilDao(perfilDao);
+
+        UsuarioDAO ususarioDAO = Mockito.mock(UsuarioDAO.class);
+        instance.setDao(ususarioDAO);
+        instance.setUsuarioPerfilDao(perfilDao);
     }
 
     @After
@@ -83,7 +83,7 @@ public class UsuarioServiceTest {
         UsuarioPerfilDAO perfil = new UsuarioPerfilDAO();
         instance.setUsuarioPerfilDao(perfil);
         assertEquals(perfil, instance.getUsuarioPerfilDao());
-        
+
     }
 
     /**
@@ -101,109 +101,99 @@ public class UsuarioServiceTest {
      */
     @Test
     public void testInsert() throws Exception {
-        
+
         Usuario entity = new Usuario();
         entity.setSenha("123456");
         UsuarioService instance = new UsuarioService();
-        SessionFactory sessionFactory = Mockito.mock(SessionFactory.class);
-        Session session = Mockito.mock(Session.class);
-        Mockito.when(sessionFactory.openSession()).thenReturn(session);
+
+
+
         UsuarioDAO ususarioDAO = Mockito.mock(UsuarioDAO.class);
         Mockito.when(ususarioDAO.insert(entity)).thenReturn(0L);
-        
+
         instance.setDao(ususarioDAO);
         Long expResult = new Long(0);
-        
+
         Long result = instance.insert(entity);
         assertEquals(expResult, result);
-        
+
     }
 
     /**
      * Test of update method, of class UsuarioService.
      */
     @Test
-    @Ignore
     public void testUpdate() throws Exception {
-        System.out.println("update");
-        Usuario entity = null;
+
+        Usuario entity = new Usuario();
+        entity.setSenha("123456");
+        entity.setId(Long.MIN_VALUE);
+
         UsuarioService instance = new UsuarioService();
+        UsuarioPerfilDAO perfilDao = Mockito.mock(UsuarioPerfilDAO.class);
+        Mockito.when(perfilDao.list(0)).thenReturn(new ArrayList<UsuarioPerfil>());
+        instance.setUsuarioPerfilDao(perfilDao);
+
+        UsuarioDAO ususarioDAO = Mockito.mock(UsuarioDAO.class);
+        instance.setDao(ususarioDAO);
+        instance.setUsuarioPerfilDao(perfilDao);
         instance.update(entity);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+
     }
 
     /**
      * Test of remove method, of class UsuarioService.
      */
     @Test
-    @Ignore
     public void testRemove() throws Exception {
-        System.out.println("remove");
-        Usuario entity = null;
-        UsuarioService instance = new UsuarioService();
         instance.remove(entity);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
      * Test of removeAll method, of class UsuarioService.
      */
     @Test
-    @Ignore
     public void testRemoveAll() throws Exception {
-        System.out.println("removeAll");
-        Collection<Usuario> collectionEntities = null;
-        UsuarioService instance = new UsuarioService();
+       
+        Collection<Usuario> collectionEntities = new ArrayList<Usuario>();
+      
         instance.removeAll(collectionEntities);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+     
     }
 
     /**
      * Test of search method, of class UsuarioService.
      */
     @Test
-    @Ignore
+   
     public void testSearch() {
-        System.out.println("search");
-        Usuario entity = null;
-        UsuarioService instance = new UsuarioService();
-        Collection expResult = null;
+        
+        
+        Collection expResult = new ArrayList<Usuario>();
         Collection result = instance.search(entity);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+       
     }
 
-    /**
-     * Test of list method, of class UsuarioService.
-     */
+   
     @Test
-    @Ignore
+   
     public void testList() {
-        System.out.println("list");
-        UsuarioService instance = new UsuarioService();
-        Collection expResult = null;
+       
+         Collection expResult = new ArrayList<Usuario>();
         Collection result = instance.list();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+       
     }
 
     /**
      * Test of refresh method, of class UsuarioService.
      */
     @Test
-    @Ignore
     public void testRefresh() {
-        System.out.println("refresh");
-        Usuario entity = null;
-        UsuarioService instance = new UsuarioService();
+      
         instance.refresh(entity);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
     }
 
     /**
@@ -212,14 +202,11 @@ public class UsuarioServiceTest {
     @Test
     @Ignore
     public void testCarreguePerfis() {
-        System.out.println("carreguePerfis");
-        Usuario usuario = null;
-        UsuarioService instance = new UsuarioService();
-        Collection expResult = null;
+       
+        Usuario usuario = new Usuario();
+        Collection expResult = new ArrayList<Usuario>();
         Collection result = instance.carreguePerfis(usuario);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -228,14 +215,15 @@ public class UsuarioServiceTest {
     @Test
     @Ignore
     public void testAuthUser() {
-        System.out.println("authUser");
-        String user = "";
-        String password = "";
+        
+        String user = "a";
+        String password = "123";
         UsuarioService instance = new UsuarioService();
-        Usuario expResult = null;
+        Usuario expResult = new Usuario();
+        expResult.setNome(user);
+        expResult.setSenha(password);
         Usuario result = instance.authUser(user, password);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+       
     }
 }
