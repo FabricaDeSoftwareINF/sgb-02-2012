@@ -10,6 +10,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+/**
+ * 
+ * @author 
+ */
 @Entity
 @Table(name = "DISCIPLINA")
 public class Disciplina extends AbstractEntityModel {
