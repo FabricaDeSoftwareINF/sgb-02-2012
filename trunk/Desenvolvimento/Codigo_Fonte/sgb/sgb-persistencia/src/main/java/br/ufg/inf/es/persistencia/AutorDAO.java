@@ -27,6 +27,11 @@ public class AutorDAO extends GenericHibernateDAO<Autor> {
         return this.sessionFactory;
     }
 
+    @Override
+    protected void setSessionFactory(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
+    }
+
     /**
      * Método responsável por obter uma coleção de Autores em DTO e listar todos
      * eles
@@ -37,14 +42,14 @@ public class AutorDAO extends GenericHibernateDAO<Autor> {
      */
     public Collection<AutorDTO> listarAutores(String filtroNome) {
 
-        Criteria criteria = this.getSession().createCriteria(Autor.class,"autor");
+        Criteria criteria = this.getSession().createCriteria(Autor.class, "autor");
 
         if (!(filtroNome == null || filtroNome.equals(""))) {
 
             criteria.add(Restrictions.ilike("autor.nome", filtroNome, MatchMode.ANYWHERE));
 
         }
-        
+
         criteria.setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY);
 
         criteria.setProjection(Projections.projectionList().add(Projections.property("autor.id"), "id").add(Projections.property("autor.nome"), "nome").add(Projections.property("autor.sobrenome"), "sobrenome")).setResultTransformer(Transformers.aliasToBean(AutorDTO.class));

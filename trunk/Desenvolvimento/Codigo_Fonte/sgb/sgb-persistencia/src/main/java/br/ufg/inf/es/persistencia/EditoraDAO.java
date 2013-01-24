@@ -16,6 +16,10 @@ public class EditoraDAO extends GenericHibernateDAO<Editora> {
     @Autowired
     private SessionFactory sessionFactory;
 
+    public void setSessionFactory(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
+    }
+
     @Override
     protected SessionFactory getSessionFactory() {
         

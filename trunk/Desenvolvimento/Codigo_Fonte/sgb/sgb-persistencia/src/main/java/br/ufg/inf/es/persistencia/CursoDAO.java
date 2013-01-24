@@ -8,19 +8,22 @@ import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author Diogo Gon&ccedil;alves Teodoro
- * 
+ *
  */
 @Repository
 @Transactional
 public class CursoDAO extends GenericHibernateDAO<Curso> {
 
-	@Autowired
-	private SessionFactory sessionFactory;
+    @Autowired
+    private SessionFactory sessionFactory;
 
-	@Override
-	protected SessionFactory getSessionFactory() {
+    public void setSessionFactory(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
+    }
 
-		return this.sessionFactory;
-	}
+    @Override
+    protected SessionFactory getSessionFactory() {
 
+        return this.sessionFactory;
+    }
 }
