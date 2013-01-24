@@ -51,11 +51,11 @@
             
                 <fieldset style="width: 600px">
                     <legend>Bibliografia ---- EM CONSTRUÇÃO ----</legend>
-                    <h:selectOneMenu    id="tipo" value="#{disciplinaController.livroForm.entity.id}"
+                    <h:selectOneMenu    id="tipo" value="#{disciplinaController.form.entity.id}"
 					style=" width : 300px;" >
                         <f:selectItem itemLabel="~~TIPO~~" />
-                        <f:selectItems value="#{disciplinaController.livroForm.collectionEntities}" />
-                        </h:selectOneMenu>
+                        <f:selectItems value="#{disciplinaController.form.collectionEntities}" />
+                    </h:selectOneMenu>
                     
                     <br/>
                     <h:outputLabel value="Título do livros: " for="autoCompleteLivro" />
