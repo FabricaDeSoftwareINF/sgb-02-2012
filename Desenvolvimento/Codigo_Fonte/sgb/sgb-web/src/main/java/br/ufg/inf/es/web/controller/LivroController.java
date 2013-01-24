@@ -1,21 +1,23 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.ufg.inf.es.web.controller;
 
+import br.ufg.inf.es.base.util.UtilFile;
 import br.ufg.inf.es.base.validation.ValidationException;
 import br.ufg.inf.es.integracao.AutorService;
 import br.ufg.inf.es.integracao.CursoService;
 import br.ufg.inf.es.integracao.DisciplinaService;
 import br.ufg.inf.es.integracao.EditoraService;
 import br.ufg.inf.es.integracao.LivroService;
+import br.ufg.inf.es.integracao.exportacaodados.MarcParser;
 import br.ufg.inf.es.model.Curso;
 import br.ufg.inf.es.model.Disciplina;
 import br.ufg.inf.es.model.Livro;
 import br.ufg.inf.es.web.controller.form.LivroForm;
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collection;
+import org.primefaces.model.DefaultStreamedContent;
+import org.primefaces.model.StreamedContent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -30,23 +32,23 @@ public class LivroController extends SGBController<Livro, LivroForm, LivroServic
 
     @Autowired
     private LivroForm form;
-    
     @Autowired
     private LivroService service;
-    
     @Autowired
     private DisciplinaService disciplinaService;
-    
     @Autowired
     private CursoService cursoService;
-    
     @Autowired
     private EditoraService editoraService;
-    
     @Autowired
     private AutorService autorService;
     
+    @Autowired
+    private MarcParser marcParser;
+    
     private Curso cursoSelecionado;
+    private String formatoSelecionado;
+    private StreamedContent fileExportado;
 
     public Curso getCursoSelecionado() {
         return cursoSelecionado;
@@ -55,7 +57,6 @@ public class LivroController extends SGBController<Livro, LivroForm, LivroServic
     public void setCursoSelecionado(Curso cursoSelecionado) {
         this.cursoSelecionado = cursoSelecionado;
     }
-    
     private Collection<Curso> cursos;
 
     public LivroForm getForm() {
@@ -73,8 +74,8 @@ public class LivroController extends SGBController<Livro, LivroForm, LivroServic
     public void setService(LivroService service) {
         this.service = service;
     }
-    
-    public void limparDisciplina(){
+
+    public void limparDisciplina() {
         this.form.getBibliografiaTemp().setDisciplina(new Disciplina());
     }
 
@@ -117,30 +118,40 @@ public class LivroController extends SGBController<Livro, LivroForm, LivroServic
     public void setAutorService(AutorService autorService) {
         this.autorService = autorService;
     }
-    
-    public void associarDisciplina(){
+
+    public String getFormatoSelecionado() {
+        return formatoSelecionado;
+    }
+
+    public void setFormatoSelecionado(String formatoSelecionado) {
+        this.formatoSelecionado = formatoSelecionado;
+    }
+
+    public void associarDisciplina() {
         this.form.getEntity().getBibliografia().add(this.form.getBibliografiaTemp());
     }
-    public Collection<Livro> complete(String query) {  
+
+    public Collection<Livro> complete(String query) {
         Collection<Livro> results = new ArrayList<Livro>();
-          
-        for(Livro autor : form.getCollectionEntities()){
-            if(autor.getTitulo().contains(query)){
+
+        for (Livro autor : form.getCollectionEntities()) {
+            if (autor.getTitulo().contains(query)) {
                 results.add(autor);
             }
         }
-          
-        return results;  
+
+        return results;
     }
+
     @Override
     public String openInsertPage() {
-        
+
         cursos = cursoService.list();
-     
+
         this.openInsertView();
         return "/cadastro/livro/inclusao.xhtml";
     }
-    
+
     public String salvarLivro() throws ValidationException {
 
         super.insert();
@@ -149,7 +160,19 @@ public class LivroController extends SGBController<Livro, LivroForm, LivroServic
     }
 
     public String voltar() {
-        return "/template.jsf";
+        return "/index.jsf";
 
+    }
+
+    public void gerarRelatorio() {
+        String livroMarc = marcParser.livroToMarc(this.getForm().getEntity());
+        ByteArrayInputStream bais = new ByteArrayInputStream(livroMarc.getBytes());
+        
+        this.fileExportado = new DefaultStreamedContent(bais, "application/marc",
+                "livro.mrc");
+    }
+
+    public StreamedContent getFile() {
+        return this.fileExportado;
     }
 }

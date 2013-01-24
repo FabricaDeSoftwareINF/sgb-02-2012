@@ -155,6 +155,7 @@ public abstract class GenericHibernateDAO<E extends Entity<Long>> implements DAO
             this.addOrder(criteria);
             lista = criteria.list();
         } finally {
+            this.getSession().flush();
             this.getSessionFactory().close();
         }
         return lista;

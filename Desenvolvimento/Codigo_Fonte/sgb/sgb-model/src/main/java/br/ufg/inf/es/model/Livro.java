@@ -32,8 +32,9 @@ public class Livro extends AbstractEntityModel {
     @ManyToOne
     @JoinColumn(name = "id_editora")
     private Editora editora;
-    @ManyToMany(mappedBy="livros", cascade= CascadeType.ALL)
-    @JoinTable(name = "livro_autor", joinColumns =
+    
+    @ManyToMany(cascade= CascadeType.ALL)
+    @JoinTable(name = "LIVRO_AUTOR", joinColumns =
     @JoinColumn(name = "id_livro"), inverseJoinColumns =
     @JoinColumn(name = "id_autor"))
     private Collection<Autor> autores;
