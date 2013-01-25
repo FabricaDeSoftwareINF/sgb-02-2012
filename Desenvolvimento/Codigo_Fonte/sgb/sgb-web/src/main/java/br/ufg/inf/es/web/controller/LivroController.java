@@ -75,6 +75,11 @@ public class LivroController extends SGBController<Livro, LivroForm, LivroServic
         this.form = form;
     }
 
+    public void setFileExportado(StreamedContent fileExportado) {
+        this.fileExportado = fileExportado;
+    }
+
+
     public LivroService getService() {
         return service;
     }
