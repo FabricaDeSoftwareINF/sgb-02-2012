@@ -21,6 +21,9 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
  */
 @FacesConverter("autorConverter")
 public class AutorConverter implements Converter {
+    
+    private static final String SEPARATOR = "%&";
+    
     @Override
     public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
         if (value.trim().equals("")) {  
@@ -30,9 +33,12 @@ public class AutorConverter implements Converter {
             WebApplicationContext context = WebApplicationContextUtils.getWebApplicationContext(servletContext);
             AutorDAO dao = context.getBean(AutorDAO.class);
             
-            Autor a = new Autor();
-            a.setNome(value);
-            Collection<Autor> lista = dao.search(a);
+            String[] atributos = value.split(SEPARATOR);
+            Autor autor = new Autor();
+            autor.setId(Long.parseLong(atributos[0]));
+            autor.setNome(atributos[1]);
+            autor.setSobrenome(atributos[2]);
+            Collection<Autor> lista = dao.search(autor);
             return lista.toArray()[0];  
         }  
     }
@@ -42,7 +48,12 @@ public class AutorConverter implements Converter {
         if (value == null || value.equals("")) {  
             return "";  
         } else {  
-            return String.valueOf(((Autor) value).getNome());  
+            Autor autor = (Autor) value;
+            StringBuilder sb = new StringBuilder();
+            sb.append(autor.getId()).append(SEPARATOR);
+            sb.append(autor.getNome()).append(SEPARATOR);
+            sb.append(autor.getSobrenome()).append(SEPARATOR);
+            return String.valueOf(sb.toString());  
         }  
     }
     

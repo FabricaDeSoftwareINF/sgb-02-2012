@@ -70,4 +70,17 @@ public class AutorService extends GenericService<Autor> {
         
         this.getDAO().save(entidade);
     }
+    
+    public Collection<Autor> complete(String query) {  
+        Collection<Autor> results = new ArrayList<Autor>();
+          
+        for(Autor autor : dao.list()){
+            if(autor.getNome().contains(query)){
+                results.add(autor);
+            }
+        }
+          
+        return results;  
+    }
+    
 }

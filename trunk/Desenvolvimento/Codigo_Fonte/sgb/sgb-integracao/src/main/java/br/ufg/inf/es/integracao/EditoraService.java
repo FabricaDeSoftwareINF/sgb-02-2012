@@ -41,4 +41,5 @@ public class EditoraService extends GenericService<Editora> {
           
         return results;  
     }  
+    
 }

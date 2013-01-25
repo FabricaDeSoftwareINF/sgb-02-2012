@@ -150,6 +150,7 @@ public abstract class GenericHibernateDAO<E extends Entity<Long>> implements DAO
             lista = this.createCriteria().add(example).list();
       
         } finally {
+            this.getSession().close();
             this.getSessionFactory().close();
         }
 

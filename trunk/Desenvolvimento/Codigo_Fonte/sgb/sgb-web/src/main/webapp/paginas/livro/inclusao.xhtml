@@ -25,8 +25,8 @@
                     <p:inputText value="#{livroController.form.entity.isbn11}" />
                     <h:outputLabel value="#{msg['cadastro.livro.label.autor']}" ></h:outputLabel>
                     <h:panelGrid columns="2" >
-                        <p:autoComplete id="autoCompleteAutor" value="#{livroController.form.entity.autores}" completeMethod="#{livroController.autorService.complete}"  
-                                        var="autor" itemLabel="#{autor.nome}" itemValue="#{autor}" converter="autorConverter" multiple="true"></p:autoComplete>  
+                        <p:autoComplete id="autorCompleteAutor" value="#{livroController.form.entity.autores}" completeMethod="#{livroController.autorService.complete}"  
+                                        var="autor" itemLabel="#{autor.toString()}" itemValue="#{autor}" converter="autorConverter" multiple="true"></p:autoComplete>  
                         <p:commandButton onclick="autorModal.show()" immediate="true" value="+"></p:commandButton>
                     </h:panelGrid>
                     <h:outputLabel value="#{msg['cadastro.livro.label.editora']}" ></h:outputLabel>
@@ -71,7 +71,7 @@
 
                 </p:fieldset>
                 <div align="right">
-                    <p:commandButton update="@form" actionListener="#{livroController.salvarLivro()}" value="#{msg['cadastro.livro.button.insert']}" />
+                    <p:commandButton update="@form" actionListener="#{livroController.salvarLivro()}" value="#{msg['cadastro.livro.button.cadastrar']}" />
                 </div>
             </h:form>
             <h:form>
