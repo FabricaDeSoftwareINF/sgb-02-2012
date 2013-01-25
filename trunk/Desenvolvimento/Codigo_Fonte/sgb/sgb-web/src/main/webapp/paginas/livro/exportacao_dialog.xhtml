@@ -18,7 +18,7 @@
                         <f:selectItem itemValue="marc" itemLabel="MARC"/>
                     </p:selectOneMenu>
                     <p:commandButton id="gerar_planilha_btn" value="Gerar Planilha"
-                                     actionListener="#{livroController.gerarRelatorio()}"
+                                     actionListener="#{livroController.exportarLivro()}"
                                      ajax="false"
                                      onclick="geracaoPlanilhaDialog.hide()">
                         <p:fileDownload value="#{livroController.file}" />

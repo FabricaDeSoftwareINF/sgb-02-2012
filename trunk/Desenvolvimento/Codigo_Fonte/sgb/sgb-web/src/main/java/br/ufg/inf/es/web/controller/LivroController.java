@@ -42,9 +42,6 @@ public class LivroController extends SGBController<Livro, LivroForm, LivroServic
     @Autowired
     private AutorService autorService;
     
-    @Autowired
-    private MarcParser marcParser;
-    
     private Curso cursoSelecionado;
     private String formatoSelecionado;
     private StreamedContent fileExportado;
@@ -175,9 +172,9 @@ public class LivroController extends SGBController<Livro, LivroForm, LivroServic
 
     }
 
-    public void gerarRelatorio() {
+    public void exportarLivro() {
         Livro livroSelecionado = this.getForm().getEntity();
-        String livroMarc = marcParser.livroToMarc(this.getForm().getEntity());
+        String livroMarc = MarcParser.livroToMarc(this.getForm().getEntity());
         ByteArrayInputStream bais = new ByteArrayInputStream(livroMarc.getBytes());
         
         this.fileExportado = new DefaultStreamedContent(bais, "application/marc",
