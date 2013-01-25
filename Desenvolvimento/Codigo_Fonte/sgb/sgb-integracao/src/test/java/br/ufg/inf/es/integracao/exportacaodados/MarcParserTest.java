@@ -16,7 +16,6 @@ import org.junit.Before;
  */
 public class MarcParserTest {
 
-    private static MarcParser marcParser;
     private static final String titulo = "Livro Teste";
     private static final Long ano = 2009l;
     private static final String autorNome1 = "João";
@@ -33,14 +32,8 @@ public class MarcParserTest {
     public MarcParserTest() {
     }
 
-    @BeforeClass
-    public static void setUpClass() {
-        marcParser = new MarcParser();
-    }
-
     @Before
     public void setUp() {
-        marcParser = new MarcParser();
 
         Autor autor1 = new Autor();
         autor1.setNome(autorNome1);
@@ -70,7 +63,7 @@ public class MarcParserTest {
      */
     @Test
     public void testLivroToMarcTitulo() {
-        String livroMarc = marcParser.livroToMarc(livro);
+        String livroMarc = MarcParser.livroToMarc(livro);
         assertTrue(livroMarc.contains(titulo));
     }
     
@@ -79,7 +72,7 @@ public class MarcParserTest {
      */
     @Test
     public void testLivroToMarcAno() {
-        String livroMarc = marcParser.livroToMarc(livro);
+        String livroMarc = MarcParser.livroToMarc(livro);
         assertTrue(livroMarc.contains(ano.toString()));
     }
     
@@ -88,7 +81,7 @@ public class MarcParserTest {
      */
     @Test
     public void testLivroToMarcAutores() {
-        String livroMarc = marcParser.livroToMarc(livro);
+        String livroMarc = MarcParser.livroToMarc(livro);
         String autoresString = autores.toString().
                 replace("[", "").replace("]", "");
         assertTrue(livroMarc.contains(autoresString));
@@ -99,7 +92,7 @@ public class MarcParserTest {
      */
     @Test
     public void testLivroToMarcEdicao() {
-        String livroMarc = marcParser.livroToMarc(livro);
+        String livroMarc = MarcParser.livroToMarc(livro);
         assertTrue(livroMarc.contains(edicao));
     }
     
@@ -108,7 +101,7 @@ public class MarcParserTest {
      */
     @Test
     public void testLivroToMarcEditora() {
-        String livroMarc = marcParser.livroToMarc(livro);
+        String livroMarc = MarcParser.livroToMarc(livro);
         assertTrue(livroMarc.contains(editoraNome));
     }
     
@@ -118,7 +111,7 @@ public class MarcParserTest {
      */
     @Test
     public void testLivroToMarcIsbn11() {
-        String livroMarc = marcParser.livroToMarc(livro);
+        String livroMarc = MarcParser.livroToMarc(livro);
         assertTrue(livroMarc.contains(isbn11));
     }
     
@@ -127,7 +120,7 @@ public class MarcParserTest {
      */
     @Test
     public void testLivroToMarcIsbn13() {
-        String livroMarc = marcParser.livroToMarc(livro);
+        String livroMarc = MarcParser.livroToMarc(livro);
         assertTrue(livroMarc.contains(isbn13));
     }
     

@@ -21,8 +21,6 @@ import org.springframework.stereotype.Component;
  *
  * @author vinicius
  */
-@Component
-@Scope(BeanDefinition.SCOPE_SINGLETON)
 public class MarcParser implements Serializable {
     
     /**
@@ -33,7 +31,7 @@ public class MarcParser implements Serializable {
      * @param livro
      * @return 
      */
-    public String livroToMarc(Livro livro) {
+    public static String livroToMarc(Livro livro) {
         Record record = new RecordImpl();
         record.setLeader(new LeaderImpl("00714cam a2200205 a 4500"));
         
