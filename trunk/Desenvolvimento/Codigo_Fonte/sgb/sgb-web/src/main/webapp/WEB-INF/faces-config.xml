@@ -14,7 +14,7 @@
             
             <from-outcome>EditoraController/initialPage</from-outcome>
             
-            <to-view-id>/paginas/editora/editarEditora.xhtml</to-view-id>
+            <to-view-id>/paginas/editora/manterEditora.xhtml</to-view-id>
             
         </navigation-case>
         

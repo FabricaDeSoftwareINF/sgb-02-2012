@@ -34,9 +34,9 @@
 		
         <sec:form-login login-page="/login.jsf" login-processing-url="/j_spring_security_check" authentication-failure-url="/login.jsf?error=true" default-target-url="/paginas/index.jsf" />
         
-        <sec:logout logout-success-url="/login.jsf" invalidate-session="true" />
+        <sec:logout logout-success-url="/login.jsf" invalidate-session="true"/>
 
-        <sec:intercept-url pattern="/paginas/*" access="hasAnyRole('ROLE_ADMIN', 'ROLE_CONSELHEIRO', 'ROLE_PROFESSOR')" />
+        <sec:intercept-url pattern="/paginas/**" access="hasAnyRole('ROLE_ADMIN', 'ROLE_CONSELHEIRO', 'ROLE_PROFESSOR')" />
 
         <sec:access-denied-handler error-page="/login.jsf" />
 

@@ -28,7 +28,7 @@ public class AutorController
 
     /**
      * Método responsável por retornar a string de navegação para a pagina incial da Estória de usuário
-     * buscar todos os altores.
+     * buscar todos os autores.
      * @author Cássio Augusto Silva de Freitas
      * @return  string de navegação
      */
