@@ -18,23 +18,22 @@ public class MarcParserTest {
 
     private static final String titulo = "Livro Teste";
     private static final Long ano = 2009l;
-    private static final String autorNome1 = "João";
-    private static final String autorNome2 = "Inácio";
-    private static final String autorSobrenome1 = "José";
+    private static final String autorNome1 = "Joao";
+    private static final String autorNome2 = "Inacio";
+    private static final String autorSobrenome1 = "Jose";
     private static final String autorSobrenome2 = "Silva";
     private static final String edicao = "2";
     private static final String isbn11 = "12345678901";
     private static final String isbn13 = "1234567890123";
     private static final String editoraNome = "Moderna";
     private static final List autores = new ArrayList();
-    private Livro livro = new Livro();
+    private static Livro livro = new Livro();
 
     public MarcParserTest() {
     }
 
-    @Before
-    public void setUp() {
-
+    @BeforeClass
+    public static void setUpClass() {
         Autor autor1 = new Autor();
         autor1.setNome(autorNome1);
         autor1.setSobrenome(autorSobrenome1);
@@ -55,7 +54,7 @@ public class MarcParserTest {
         livro.setEdicao(edicao);
         livro.setEditora(editora);
         livro.setIsbn11(isbn11);
-        livro.setIsbn13(isbn13);
+        livro.setIsbn13(isbn13);        
     }
 
     /**

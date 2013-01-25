@@ -48,4 +48,9 @@ public class Autor extends AbstractEntityModel {
         this.livros = livros;
     }
 
+    @Override
+    public String toString() {
+        return nome + " " + sobrenome;
+    }
+    
 }

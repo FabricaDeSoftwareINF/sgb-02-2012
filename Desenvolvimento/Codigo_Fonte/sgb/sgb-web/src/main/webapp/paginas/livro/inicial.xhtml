@@ -30,9 +30,9 @@
                         </p:column>
 
                         <p:column headerText="#{msg['cadastro.livro.label.autor']}">
-                            <c:forEach items="#{livro.autores}" var="autor">
-                                <h:outputText value="#{autor.nome}" />
-                            </c:forEach>
+                            <p:dataList value="#{livro.autores}" var="autor">
+                                <h:outputText value="#{autor}" />
+                            </p:dataList>
                         </p:column>
 
                         <p:column headerText="#{msg['cadastro.livro.label.edicao']}">
