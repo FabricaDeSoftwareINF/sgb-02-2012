@@ -1,7 +1,6 @@
 package br.ufg.inf.es.integracao.optimizer;
 
 import java.math.BigDecimal;
-import java.util.Objects;
 
 /**
  * Representa os dados de uma cotação
@@ -118,13 +117,13 @@ public final class DataQuotation implements Quotation<DataQuotation> {
 
         final DataQuotation other = (DataQuotation) obj;
 
-        if (!Objects.equals(this.productId, other.productId)) {
-
+        //if (!Objects.equals(this.productId, other.productId)) { 
+        if (!this.productId.equals( other.productId)) {
             return false;
         }
 
-        if (!Objects.equals(this.price, other.price)) {
-
+       // if (!Objects.equals(this.price, other.price)) {
+        if (!this.price.equals( other.price)) {
             return false;
         }
 
@@ -138,11 +137,16 @@ public final class DataQuotation implements Quotation<DataQuotation> {
     public int hashCode() {
 
         int hash = 7;
-
-        hash = 11 * hash + Objects.hashCode(this.productId);
-
-        hash = 11 * hash + Objects.hashCode(this.price);
-
+        /*TODO o ambiente de integração continua depende do java 1.6 e o 
+        objeto 'OBjects' é do java 1.7
+        */
+        
+       //hash = 11 * hash + Objects.hashCode(this.productId); 
+         hash = 11 * hash + this.productId.hashCode();
+        
+        //hash = 11 * hash + Objects.hashCode(this.price);
+         hash = 11 * hash + this.price.hashCode();
+         
         return hash;
     }
 
