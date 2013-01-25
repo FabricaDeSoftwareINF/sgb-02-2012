@@ -42,11 +42,11 @@
 
                         <p:column headerText="#{msg['cadastro.autor.label.acoes']}" style="width: 10%; " >             
 
-                                <p:commandLink value="#{msg['cadastro.autor.label.editar']}" action="#{autorController.openEditPage}" ajax="false">
+                            <p:commandLink value="#{msg['cadastro.autor.label.editar']}" action="#{autorController.openEditPage}" ajax="false">
 
-                                    <f:setPropertyActionListener value="#{autor}" target="#{autorController.form.autorEdicao}"></f:setPropertyActionListener>
+                                <f:setPropertyActionListener value="#{autor}" target="#{autorController.form.autorEdicao}"></f:setPropertyActionListener>
 
-                                </p:commandLink>
+                            </p:commandLink>
 
                         </p:column>
 
@@ -60,7 +60,7 @@
 
                     </h:panelGrid>
 
-               </h:panelGrid>                        
+                </h:panelGrid>                        
 
                 <p:confirmDialog id="dialogRemocao" message="#{msg['cadastro.autor.label.remocao']}"
                                  header="#{msg['cadastro.autor.label.remocaoTitulo']}" severity="alert" widgetVar="confirmation" visible="#{autorController.form.exibirDialogExclusao}">

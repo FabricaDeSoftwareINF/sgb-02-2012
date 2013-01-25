@@ -4,11 +4,13 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets">
 
-    <ui:define name="title">
-        Cadastro de Livro - SGB
-    </ui:define>
-    
     <ui:composition template="/template/template.xhtml">
+
+
+        <ui:define name="title">
+            Cadastro de Livro - SGB
+        </ui:define>
+
 
         <ui:define name="content">
 
@@ -81,7 +83,7 @@
             <!--<ui:include src="/cadastro/autor/cadastroAutor.xhtml"></ui:include>-->
             <p:fieldset legend="#{msg['cadastro.livro.legend.CadastroEditoraLivro']}">
                 <h:panelGrid columns="2">
-                    <ui:include src="/paginas/editora/inclusaoEditora.xhtml"></ui:include> 
+                    <!--<ui:include src="/paginas/editora/inclusaoEditora.xhtml"></ui:include>-->
                 </h:panelGrid>
             </p:fieldset>
 

@@ -121,12 +121,16 @@ public abstract class GenericHibernateDAO<E extends Entity<Long>> implements DAO
 
     public void removeAll(Collection<E> entidades) {
         try {
+            
             isReferencia(entidades);
 
             for (E entidade : entidades) {
 
                 this.remove(entidade);
             }
+            
+            this.getSession().flush();
+            
         } finally {
             this.getSessionFactory().close();
         }
@@ -142,7 +146,9 @@ public abstract class GenericHibernateDAO<E extends Entity<Long>> implements DAO
             example.excludeZeroes();
 
             example.excludeNone();
+            
             lista = this.createCriteria().add(example).list();
+      
         } finally {
             this.getSessionFactory().close();
         }
@@ -162,21 +168,30 @@ public abstract class GenericHibernateDAO<E extends Entity<Long>> implements DAO
             Criteria criteria = this.createCriteria();
 
             this.addOrder(criteria);
+        
             lista = criteria.list();
+        
         } finally {
+            
             this.getSession().flush();
+        
             this.getSessionFactory().close();
         }
+        
         return lista;
     }
 
     public void refresh(E entidade) {
         try {
+            
             isReferencia(entidade);
 
             this.getSession().refresh(entidade);
+        
         } finally {
+        
             this.getSessionFactory().close();
+        
         }
     }
 
