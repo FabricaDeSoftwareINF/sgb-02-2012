@@ -1,0 +1,93 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <ui:composition template="/template/template.xhtml">
+
+
+        <ui:define name="title">
+            Cadastro de Livro - SGB
+        </ui:define>
+
+
+        <ui:define name="content">
+
+            <h:form id="formLivro">
+                <p:messages  autoUpdate="true"/>
+                <h:panelGrid columns="6">
+                    <h:outputLabel value="#{msg['cadastro.livro.label.titulo']}"  ></h:outputLabel>
+                    <p:inputText required="true" value="#{livroController.form.entity.titulo}" requiredMessage="Por favor Informe o Titulo." />
+                    <h:outputLabel value="#{msg['cadastro.livro.label.edicao']}"  ></h:outputLabel>
+                    <p:inputText required="true" value="#{livroController.form.entity.edicao}" requiredMessage="Por favor Informe a Edicao." />
+                    <h:outputLabel value="#{msg['cadastro.livro.label.isbn11']}" ></h:outputLabel>
+                    <p:inputText value="#{livroController.form.entity.isbn11}" />
+                    <h:outputLabel value="#{msg['cadastro.livro.label.autor']}" ></h:outputLabel>
+                    <h:panelGrid columns="2" >
+                        <p:autoComplete id="autoCompleteAutor" value="#{livroController.form.entity.autores}" completeMethod="#{livroController.autorService.complete}"  
+                                        var="autor" itemLabel="#{autor.nome}" itemValue="#{autor}" converter="autorConverter" multiple="true"></p:autoComplete>  
+                        <p:commandButton onclick="autorModal.show()" immediate="true" value="+"></p:commandButton>
+                    </h:panelGrid>
+                    <h:outputLabel value="#{msg['cadastro.livro.label.editora']}" ></h:outputLabel>
+                    <h:panelGrid columns="2">
+                        <p:autoComplete id="autoCompleteEditora" value="#{livroController.form.entity.editora}" completeMethod="#{livroController.editoraService.complete}"  
+                                        var="editora" itemLabel="#{editora.nome}" itemValue="#{editora}" converter="editoraConverter" ></p:autoComplete>  
+                        <p:commandButton onclick="editoraModal.show()" immediate="true" value="+"></p:commandButton>
+                    </h:panelGrid>
+                    <h:outputLabel value="#{msg['cadastro.livro.label.isbn13']}" ></h:outputLabel>
+                    <p:inputText required="true" value="#{livroController.form.entity.isbn13}" requiredMessage="Por favor Informe o ISBN correto."/>
+                    <h:outputLabel value="#{msg['cadastro.livro.label.ano']}" ></h:outputLabel>
+                    <p:inputText value="#{livroController.form.entity.ano}"/>
+                </h:panelGrid>
+                <p:fieldset legend="#{msg['cadastro.livro.legend.associarDisciplina']}">
+                    <h:panelGrid columns="2">
+
+                        <h:outputLabel value="Curso:"></h:outputLabel>
+                        <p:selectOneMenu value="#{livroController.cursoSelecionado}"  converter="cursoConverter">
+                            <p:ajax event="change" process="@this" update="disciplina" listener="#{livroController.limparDisciplina}" />
+                            <f:selectItems  var="curso" value="#{livroController.cursoService.list()}" itemLabel="#{curso.nome}" itemValue="#{curso}"/>
+                        </p:selectOneMenu>
+                        <h:outputLabel value="Disciplina"></h:outputLabel>
+                        <p:autoComplete id="disciplina" value="#{livroController.form.bibliografiaTemp.disciplina}" completeMethod="#{livroController.disciplinaService.complete}"  
+                                        var="disciplina" itemLabel="#{disciplina.nome}" itemValue="#{disciplina}" converter="disciplinaConverter" ></p:autoComplete>  
+                        <div></div>
+                        <p:commandButton value="Associar disciplina" action="#{livroController.associarDisciplina}" ></p:commandButton>
+                    </h:panelGrid>
+                    <p:dataTable value="#{livroController.form.entity.bibliografia}" var="item">
+                        <p:column headerText="Tipo">
+                            <h:outputText value="#{item.tipo}"/>
+                        </p:column>
+                        <p:column headerText="Curso">
+                            <h:outputText value="#{item.disciplina.curso.nome}"/>
+                        </p:column>
+                        <p:column headerText="Disciplina">
+                            <h:outputText value="#{item.disciplina.nome}"/>
+                        </p:column>
+                        <p:column headerText="Ação">
+                            <p:commandLink value="Remover"/>
+                        </p:column>
+                    </p:dataTable>
+
+                </p:fieldset>
+                <div align="right">
+                    <p:commandButton update="@form" actionListener="#{livroController.salvarLivro()}" value="#{msg['cadastro.livro.button.insert']}" />
+                </div>
+            </h:form>
+            <h:form>
+                <div align="right">
+                    <p:commandButton  update="@form"  actionListener="#{livroController.voltar}" value="#{msg['cadastro.livro.button.back']}" />
+                </div>
+            </h:form>
+
+            <!--<ui:include src="/cadastro/autor/cadastroAutor.xhtml"></ui:include>-->
+            <p:fieldset legend="#{msg['cadastro.livro.legend.CadastroEditoraLivro']}">
+                <h:panelGrid columns="2">
+                    <!--<ui:include src="/paginas/editora/inclusaoEditora.xhtml"></ui:include>-->
+                </h:panelGrid>
+            </p:fieldset>
+
+        </ui:define>
+    </ui:composition>
+
+</html>

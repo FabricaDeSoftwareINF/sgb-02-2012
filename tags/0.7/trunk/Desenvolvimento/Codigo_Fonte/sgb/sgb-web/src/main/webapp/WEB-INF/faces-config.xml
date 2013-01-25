@@ -1,0 +1,197 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<!-- =========== FULL CONFIGURATION FILE ================================== -->
+
+<faces-config version="2.0"
+              xmlns="http://java.sun.com/xml/ns/javaee" 
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+              xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd">
+
+    <navigation-rule>
+        
+        <!--  Estória de Usuário 12-->
+        <navigation-case>
+            
+            <from-outcome>EditoraController/initialPage</from-outcome>
+            
+            <to-view-id>/paginas/editora/manterEditora.xhtml</to-view-id>
+            
+        </navigation-case>
+        
+        <navigation-case>
+            
+            <from-outcome>EditoraController/editPage</from-outcome>
+            
+            <to-view-id>/paginas/editora/editarEditora.xhtml</to-view-id>
+            
+        </navigation-case>
+        
+        <navigation-case>
+            
+            <from-outcome>EditoraController/insertPage</from-outcome>
+            
+            <to-view-id>/paginas/editora/inclusaoEditora.xhtml</to-view-id>
+            
+        </navigation-case>
+        
+        <navigation-case>
+            <from-outcome>EditoraController/searchPage</from-outcome>
+            
+            <to-view-id>/paginas/editora/manterEditora.xhtml</to-view-id>
+            
+        </navigation-case>
+        
+        <!-- ESTÓRIA DE USUÁRIO 02-->
+        
+        <navigation-case>
+            <from-outcome>LivroController/searchPage</from-outcome>
+            <to-view-id>/paginas/livro/visualizacao.xhtml</to-view-id>
+        </navigation-case>
+        
+        <navigation-case>
+            <from-outcome>LivroController/initialPage</from-outcome>
+            <to-view-id>/paginas/livro/inicial.xhtml</to-view-id>
+        </navigation-case>
+        
+        <!-- ESTÓRIA DE USUÁRIO 03-->
+        
+        <navigation-case>
+            
+            <from-outcome>UsuarioController/initialPage</from-outcome>
+            
+            <to-view-id>/paginas/usuario/inicial.xhtml</to-view-id>
+            
+        </navigation-case>
+        
+        <navigation-case>
+            
+            <from-outcome>UsuarioController/insertPage</from-outcome>
+            
+            <to-view-id>/paginas/usuario/inclusao.xhtml</to-view-id>
+            
+        </navigation-case>
+       
+        <navigation-case>
+         
+            <from-outcome>UsuarioController/recuperarSenha</from-outcome>
+       
+            <to-view-id>/recuperar-senha.xhtml</to-view-id>
+     
+        </navigation-case>  
+        
+        <navigation-case>
+            
+            <from-outcome>UsuarioController/editPage</from-outcome>
+            
+            <to-view-id>/paginas/usuario/edicao.xhtml</to-view-id>
+            
+        </navigation-case>
+        
+        <navigation-case>
+            
+            <from-outcome>UsuarioController/viewPage</from-outcome>
+            
+            <to-view-id>/paginas/usuario/visualizacao.xhtml</to-view-id>
+            
+        </navigation-case>
+        
+        <!-- ESTÓRIA DE USUÁRIO XX-->
+        <navigation-case>
+            
+            <from-outcome>DisciplinaController/insertPage</from-outcome>
+            
+            <to-view-id>/paginas/disciplina/inclusao.xhtml</to-view-id>
+            
+        </navigation-case>
+        
+        <navigation-case>
+            
+            <from-outcome>DisciplinaController/searchPage</from-outcome>
+            
+            <to-view-id>/paginas/disciplina/busca.xhtml</to-view-id>
+            
+        </navigation-case>
+        
+        <navigation-case>
+            
+            <from-outcome>CursoController/insertPage</from-outcome>
+            
+            <to-view-id>/paginas/curso/inclusaoCurso.xhtml</to-view-id>
+            
+        </navigation-case>
+        
+        <navigation-case>
+            
+            <from-outcome>LivroController/insertPage</from-outcome>
+            
+            <to-view-id>/paginas/livro/inclusao.xhtml</to-view-id>
+            
+        </navigation-case>
+        
+        <navigation-case>
+            
+            <from-outcome>CursoController/openSearchPage</from-outcome>
+            
+            <to-view-id>/paginas/curso/manterCurso.xhtml</to-view-id>
+            
+        </navigation-case>
+
+
+        <navigation-case>
+            
+            <from-outcome>ParametrosController/viewPage</from-outcome>
+            
+            <to-view-id>/paginas/parametros/show.xhtml</to-view-id>
+            
+        </navigation-case>
+        
+        <!-- ESTÓRIA 12: Manter Autor  -->
+        <navigation-case>
+            
+            <from-outcome>AutorController/initialPage</from-outcome>
+            
+            <to-view-id>/paginas/autor/inicial.xhtml</to-view-id>
+        
+        </navigation-case>
+        
+        <navigation-case>
+            
+            <from-outcome>AutorController/insertPage</from-outcome>
+            
+            <to-view-id>/paginas/autor/cadastroAutor.xhtml</to-view-id>
+        
+        </navigation-case>
+        
+        <navigation-case>
+            
+            <from-outcome>AutorController/editPage</from-outcome>
+            
+            <to-view-id>/paginas/autor/editarAutor.xhtml</to-view-id>
+        
+        </navigation-case>
+        
+        <navigation-case>
+            <from-outcome>LivroParaCotacaoController/openSearchPage</from-outcome>
+            <to-view-id>/paginas/cotacao/busca.xhtml</to-view-id>
+        </navigation-case>
+        
+        <navigation-case>
+            <from-outcome>LivroParaCotacaoController/openSearchPage</from-outcome>
+            <to-view-id>/paginas/cotacao/busca.xhtml</to-view-id>
+        </navigation-case>
+
+        
+    </navigation-rule>
+
+    <application>
+        <el-resolver>org.springframework.web.jsf.el.SpringBeanFacesELResolver</el-resolver>
+        <locale-config>
+            <default-locale>pt_BR</default-locale>
+        </locale-config>
+    
+        <resource-bundle>
+            <base-name>resources.messages</base-name>
+            <var>msg</var>
+        </resource-bundle>
+    </application>
+</faces-config>

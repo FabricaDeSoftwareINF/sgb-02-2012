@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <ui:composition template="/template/template.xhtml">
+
+        <ui:define name="content">
+
+            <h:form id="formEdicaoAutor" >
+
+                <h:panelGrid style="width: 50%; margin-top: 20px;">
+
+                    <h:outputLabel value="#{msg['cadastro.autor.label.editarAutor']}" style="font-size: 40px;"></h:outputLabel>
+                    
+                    <p:spacer width="20"></p:spacer>
+
+                    <p:panelGrid styleClass="semborda" style="width: 100%; float: left;">
+                        <p:row>
+                            <p:column>
+                                <h:outputLabel value="#{msg['cadastro.autor.label.nome']}:" style="float: right;"></h:outputLabel>
+                            </p:column><p:column>
+                                <p:inputText value="#{autorController.form.autorEdicao.nome}" style="width: 100%;"></p:inputText>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column>
+                                <h:outputLabel value="#{msg['cadastro.autor.label.sobrenome']}:" style="float: right;" ></h:outputLabel>
+                            </p:column>
+                            <p:column>
+                                <p:inputText value="#{autorController.form.autorEdicao.sobrenome}" style="width: 100%;"></p:inputText>
+                            </p:column>
+                        </p:row>
+                    </p:panelGrid>
+
+                    <h:panelGrid columns="2" style="float: right;"> 
+
+                        <p:commandButton action="#{autorController.editarAutor}" value="#{msg['cadastro.autor.label.atualizar']}" ></p:commandButton>
+
+                        <p:commandButton action="#{autorController.openInitialPage()}"  value="#{msg['cadastro.autor.label.voltar']}"></p:commandButton>
+
+                    </h:panelGrid>
+
+                </h:panelGrid>
+
+
+            </h:form>
+
+        </ui:define>
+
+    </ui:composition>
+
+</html>
+

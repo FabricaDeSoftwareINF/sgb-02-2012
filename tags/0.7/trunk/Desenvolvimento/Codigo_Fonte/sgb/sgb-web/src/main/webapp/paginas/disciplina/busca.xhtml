@@ -1,0 +1,72 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    
+    <h:head>
+        
+        <title>Pesquisa de disciplina</title>
+        
+    </h:head>
+    
+    <body>
+        
+        <p:panel>
+            
+            <h:form>
+            
+                <p:dataTable value="#{disciplinaController.form.collectionEntities}" var="disciplina" >
+                    
+                    <p:column headerText="Código" sortBy="#{disciplina.codigo}">
+
+                        <h:outputText value="#{disciplina.codigo}" />
+
+                    </p:column>
+
+                    <p:column headerText="Nome" sortBy="#{disciplina.nome}">
+
+                        <h:outputText value="#{disciplina.nome}" />
+
+                    </p:column>
+                    
+                    <p:column headerText="Curso" sortBy="#{disciplina.curso.titulo}">
+
+                        <h:outputText value="#{disciplina.curso.titulo}" />
+
+                    </p:column>
+                    
+                     
+
+                    <p:column headerText="Ações">
+
+                        <h:panelGrid columns="3" width="100%">
+
+                            <p:commandButton value="Remover" action="#{disciplinaController.remove}" update="@all">
+
+                                <f:setPropertyActionListener value="#{disciplina}" target="#{disciplinaController.form.entity}" />
+
+                                <f:param name="entityID" value="#{disciplina.id}" />
+
+                            </p:commandButton>
+                            
+                            <p:commandButton value="Editar" action="#{disciplinaController.openInsertPage}" update="@all">
+
+                                <f:setPropertyActionListener value="#{disciplina}" target="#{disciplinaController.form.entity}" />
+
+                                <f:param name="entityID" value="#{disciplina.id}" />
+
+                            </p:commandButton>
+
+                        </h:panelGrid>
+
+                    </p:column>
+
+                </p:dataTable>
+
+            </h:form>
+                
+        </p:panel>
+
+    </body>
+    
+</html>

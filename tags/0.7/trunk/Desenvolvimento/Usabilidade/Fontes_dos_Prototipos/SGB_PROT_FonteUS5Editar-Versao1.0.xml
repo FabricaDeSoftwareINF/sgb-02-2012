@@ -1,0 +1,109 @@
+<mockup version="1.0" skin="sketch" fontFace="Balsamiq Sans" measuredW="1104" measuredH="698" mockupW="1078" mockupH="698">
+  <controls>
+    <control controlID="543" controlTypeID="com.balsamiq.mockups::BrowserWindow" x="26" y="0" w="1078" h="698" measuredW="450" measuredH="400" zOrder="0" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Manter%20Livro%0Ahttp%3A//inf.ufg.br/sgb</text>
+      </controlProperties>
+    </control>
+    <control controlID="544" controlTypeID="com.balsamiq.mockups::Button" x="779" y="535" w="-1" h="-1" measuredW="58" measuredH="27" zOrder="1" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Editar</text>
+      </controlProperties>
+    </control>
+    <control controlID="545" controlTypeID="com.balsamiq.mockups::Button" x="936" y="535" w="-1" h="-1" measuredW="58" measuredH="27" zOrder="2" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Voltar</text>
+      </controlProperties>
+    </control>
+    <control controlID="547" controlTypeID="com.balsamiq.mockups::Label" x="61" y="97" w="-1" h="-1" measuredW="182" measuredH="33" zOrder="3" locked="false" isInGroup="-1">
+      <controlProperties>
+        <bold>true</bold>
+        <size>24</size>
+        <text>Editar%20Disciplina</text>
+      </controlProperties>
+    </control>
+    <control controlID="548" controlTypeID="com.balsamiq.mockups::Label" x="96" y="161" w="56" h="25" measuredW="51" measuredH="21" zOrder="4" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>C%F3digo%3A</text>
+      </controlProperties>
+    </control>
+    <control controlID="549" controlTypeID="com.balsamiq.mockups::TextInput" x="161" y="160" w="199" h="-1" measuredW="51" measuredH="27" zOrder="5" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>ESINT</text>
+      </controlProperties>
+    </control>
+    <control controlID="550" controlTypeID="com.balsamiq.mockups::Label" x="724" y="162" w="54" h="25" measuredW="44" measuredH="21" zOrder="6" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Curso%3A</text>
+      </controlProperties>
+    </control>
+    <control controlID="553" controlTypeID="com.balsamiq.mockups::Label" x="144" y="161" w="20" h="25" measuredW="12" measuredH="21" zOrder="7" locked="false" isInGroup="-1">
+      <controlProperties>
+        <color>13369344</color>
+        <text>*</text>
+      </controlProperties>
+    </control>
+    <control controlID="554" controlTypeID="com.balsamiq.mockups::Label" x="425" y="161" w="48" h="25" measuredW="44" measuredH="21" zOrder="8" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Nome%3A</text>
+      </controlProperties>
+    </control>
+    <control controlID="555" controlTypeID="com.balsamiq.mockups::TextInput" x="483" y="160" w="209" h="-1" measuredW="167" measuredH="27" zOrder="9" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Introdu%E7%E3o%20a%20programa%E7%E3o</text>
+      </controlProperties>
+    </control>
+    <control controlID="556" controlTypeID="com.balsamiq.mockups::Label" x="465" y="161" w="20" h="25" measuredW="12" measuredH="21" zOrder="10" locked="false" isInGroup="-1">
+      <controlProperties>
+        <color>13369344</color>
+        <text>*</text>
+      </controlProperties>
+    </control>
+    <control controlID="564" controlTypeID="com.balsamiq.mockups::FieldSet" x="96" y="242" w="892" h="270" measuredW="200" measuredH="170" zOrder="11" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Associa%E7%E3o%20disciplinas%20a%20este%20livro</text>
+      </controlProperties>
+    </control>
+    <control controlID="565" controlTypeID="com.balsamiq.mockups::Label" x="136" y="277" w="-1" h="-1" measuredW="118" measuredH="21" zOrder="12" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Tipo%20da%20Bibliografia%3A</text>
+      </controlProperties>
+    </control>
+    <control controlID="567" controlTypeID="com.balsamiq.mockups::Label" x="136" y="329" w="-1" h="-1" measuredW="87" measuredH="21" zOrder="13" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>T%EDtulo%20do%20livro%3A</text>
+      </controlProperties>
+    </control>
+    <control controlID="568" controlTypeID="com.balsamiq.mockups::DataGrid" x="136" y="427" w="800" h="53" measuredW="325" measuredH="53" zOrder="14" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Tipo%20de%20Bibliografia%2C%20T%EDtulo%20do%20livro%2C%20A%E7%E3o%0AB%E1sica%2C%20Use%20a%20cabe%E7a%20Java%2C%20%5BRemover%5D</text>
+      </controlProperties>
+    </control>
+    <control controlID="569" controlTypeID="com.balsamiq.mockups::Button" x="263" y="378" w="-1" h="-1" measuredW="99" measuredH="27" zOrder="15" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Associar%20livro</text>
+      </controlProperties>
+    </control>
+    <control controlID="570" controlTypeID="com.balsamiq.mockups::ComboBox" x="263" y="276" w="168" h="-1" measuredW="69" measuredH="23" zOrder="16" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>B%E1sica</text>
+      </controlProperties>
+    </control>
+    <control controlID="572" controlTypeID="com.balsamiq.mockups::TextInput" x="263" y="326" w="168" h="-1" measuredW="144" measuredH="27" zOrder="17" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Java%20Como%20Programar</text>
+      </controlProperties>
+    </control>
+    <control controlID="590" controlTypeID="com.balsamiq.mockups::ComboBox" x="789" y="162" w="199" h="-1" measuredW="170" measuredH="23" zOrder="18" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Engenharia%20de%20Software</text>
+      </controlProperties>
+    </control>
+    <control controlID="591" controlTypeID="com.balsamiq.mockups::Label" x="759" y="161" w="20" h="25" measuredW="12" measuredH="21" zOrder="19" locked="false" isInGroup="-1">
+      <controlProperties>
+        <color>13369344</color>
+        <text>*</text>
+      </controlProperties>
+    </control>
+  </controls>
+</mockup>
