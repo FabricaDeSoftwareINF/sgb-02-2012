@@ -74,13 +74,8 @@
 
                     <p:menuitem value="#{msg['cadastro.editora.label.editora']}" action="#{editoraController.openInitialPage()}" />
 
-                    <p:submenu label="Livro">
-
-                        <p:menuitem value="#{msg['cadastro.livro.label.livro']}" action="/cadastro/livro/busca.xhtml" />
-
-                        <p:menuitem value="Cadastrar" action="#{livroController.openInsertPage()}" />
-
-                    </p:submenu>
+                    <p:menuitem value="#{msg['cadastro.livro.label.livro']}" 
+                                    action="#{livroController.openInitialPage()}" />
 
                     <p:menuitem value="#{msg['cadastro.autor.label.autor']}" action="#{autorController.openInitialPage()}">
 

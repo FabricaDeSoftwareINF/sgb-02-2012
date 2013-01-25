@@ -1,6 +1,5 @@
 package br.ufg.inf.es.web.controller;
 
-import br.ufg.inf.es.base.util.UtilFile;
 import br.ufg.inf.es.base.validation.ValidationException;
 import br.ufg.inf.es.integracao.AutorService;
 import br.ufg.inf.es.integracao.CursoService;
@@ -8,12 +7,12 @@ import br.ufg.inf.es.integracao.DisciplinaService;
 import br.ufg.inf.es.integracao.EditoraService;
 import br.ufg.inf.es.integracao.LivroService;
 import br.ufg.inf.es.integracao.exportacaodados.MarcParser;
+import br.ufg.inf.es.model.AutorDTO;
 import br.ufg.inf.es.model.Curso;
 import br.ufg.inf.es.model.Disciplina;
 import br.ufg.inf.es.model.Livro;
 import br.ufg.inf.es.web.controller.form.LivroForm;
 import java.io.ByteArrayInputStream;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collection;
 import org.primefaces.model.DefaultStreamedContent;
@@ -49,6 +48,18 @@ public class LivroController extends SGBController<Livro, LivroForm, LivroServic
     private Curso cursoSelecionado;
     private String formatoSelecionado;
     private StreamedContent fileExportado;
+    
+    /**
+     * Método responsável por retornar a string de navegação para a pagina incial da Estória de usuário
+     * buscar todos os livros.
+     * @return  string de navegação
+     */
+    @Override
+    public String openInitialPage() {
+        this.getForm().setCollectionEntities(service.list());
+
+        return super.openInitialPage();
+    }
 
     public Curso getCursoSelecionado() {
         return cursoSelecionado;
@@ -149,7 +160,7 @@ public class LivroController extends SGBController<Livro, LivroForm, LivroServic
         cursos = cursoService.list();
 
         this.openInsertView();
-        return "/cadastro/livro/inclusao.xhtml";
+        return "/paginas/livro/inclusao.xhtml";
     }
 
     public String salvarLivro() throws ValidationException {
@@ -165,11 +176,12 @@ public class LivroController extends SGBController<Livro, LivroForm, LivroServic
     }
 
     public void gerarRelatorio() {
+        Livro livroSelecionado = this.getForm().getEntity();
         String livroMarc = marcParser.livroToMarc(this.getForm().getEntity());
         ByteArrayInputStream bais = new ByteArrayInputStream(livroMarc.getBytes());
         
         this.fileExportado = new DefaultStreamedContent(bais, "application/marc",
-                "livro.mrc");
+                livroSelecionado.getTitulo() + ".mrc");
     }
 
     public StreamedContent getFile() {

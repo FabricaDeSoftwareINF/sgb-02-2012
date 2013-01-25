@@ -5,6 +5,7 @@ import br.ufg.inf.es.base.model.annotations.SortOrder;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -19,6 +20,8 @@ import javax.persistence.Transient;
 public class Usuario extends AbstractEntityModel {
     
     private String senha;
+    
+    @Column(nullable=false, unique=true)
     private String email;
     @Transient
     private String confirmacaoEmail;
