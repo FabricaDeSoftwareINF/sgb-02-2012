@@ -4,16 +4,14 @@
  */
 package br.ufg.inf.es.model;
 
-import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
- * 
+ *
  * @author Henrique, Marco Aurélio
  */
 @Entity
@@ -25,7 +23,7 @@ public class Bibliografia extends AbstractEntityModel {
     @ManyToOne
     @JoinColumn(name = "id_livro")
     private Livro livro;
-    @ManyToOne(targetEntity=Disciplina.class)
+    @ManyToOne(targetEntity = Disciplina.class)
     @JoinColumn(name = "id_disciplina")
     private Disciplina disciplina;
 
