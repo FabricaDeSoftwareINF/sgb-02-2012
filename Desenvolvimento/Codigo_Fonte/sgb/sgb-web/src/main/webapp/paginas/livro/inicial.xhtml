@@ -8,62 +8,63 @@
     <ui:define name="title">
         Gerênciamento de Livros - SGB
     </ui:define>
-    
+
     <ui:composition template="/template/template.xhtml">
 
-        
+
         <ui:define name="content">
 
             <ui:include src="exportacao_dialog.xhtml"/>
-            
+
             <p:panel>
 
                 <h:form>
 
-                    <p:dataTable value="#{livroController.form.collectionEntities}" var="livro">
+                    <p:dataTable value="#{livroController.form.collectionEntities}" var="livro"
+                                 rows="10" paginator="true">
 
-                        <p:column headerText="Título">
+                        <p:column headerText="#{msg['cadastro.livro.label.titulo']}">
 
                             <h:outputText value="#{livro.titulo}" />
 
                         </p:column>
-                        
-                        <p:column headerText="Autor">
+
+                        <p:column headerText="#{msg['cadastro.livro.label.autor']}">
                             <c:forEach items="#{livro.autores}" var="autor">
                                 <h:outputText value="#{autor.nome}" />
                             </c:forEach>
                         </p:column>
-                        
-                        <p:column headerText="Edição">
+
+                        <p:column headerText="#{msg['cadastro.livro.label.edicao']}">
                             <h:outputText value="#{livro.edicao}" />
                         </p:column>
-                        
-                        <p:column headerText="Ano">
+
+                        <p:column headerText="#{msg['cadastro.livro.label.ano']}">
                             <h:outputText value="#{livro.ano}" />
                         </p:column>
-                        
-                        <p:column headerText="Editora">
+
+                        <p:column headerText="#{msg['cadastro.livro.label.editora']}">
                             <h:outputText value="#{livro.editora.nome}" />
                         </p:column>
-                        
-                        <p:column headerText="ISNB13">
+
+                        <p:column headerText="#{msg['cadastro.livro.label.isbn13']}">
                             <h:outputText value="#{livro.isbn13}" />
                         </p:column>
 
-                        <p:column headerText="Ações">
+                        <p:column headerText="#{msg['cadastro.livro.label.acoes']}">
 
-                            <h:panelGrid columns="3" width="100%">
+                            <p:panelGrid columns="3" width="100%">
 
-                                <p:commandLink value="Remover" action="#{livroController.remove}" update="@all">
+                                <p:commandLink value="#{msg['cadastro.livro.button.remover']}" action="#{livroController.remove}" update="@all">
 
                                     <f:setPropertyActionListener value="#{livro}" target="#{livroController.form.entity}" />
 
                                     <f:param name="entityID" value="#{livro.id}" />
 
                                 </p:commandLink>
-                                
-                                <p:commandButton id="exportar_button" value="Exportar"
-                                         oncomplete="geracaoPlanilhaDialog.show()">
+
+                                <p:commandButton id="exportar_button" value="#{msg['cadastro.livro.button.exportar']}"
+                                                 oncomplete="geracaoPlanilhaDialog.show()">
 
                                     <f:setPropertyActionListener value="#{livro}" target="#{livroController.form.entity}" />
 
@@ -71,11 +72,18 @@
 
                                 </p:commandButton>
 
-                            </h:panelGrid>
+                            </p:panelGrid>
 
                         </p:column>
 
                     </p:dataTable>
+
+
+                    <p:panelGrid id="buttons" columns="2">
+                        <p:commandButton value="Novo"></p:commandButton>
+                        <p:commandButton value="Excluir"></p:commandButton>
+                    </p:panelGrid>
+
 
                 </h:form>
 

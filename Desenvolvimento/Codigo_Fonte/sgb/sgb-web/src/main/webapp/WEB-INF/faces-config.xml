@@ -41,6 +41,18 @@
             
         </navigation-case>
         
+        <!-- ESTÓRIA DE USUÁRIO 02-->
+        
+        <navigation-case>
+            <from-outcome>LivroController/searchPage</from-outcome>
+            <to-view-id>/paginas/livro/visualizacao.xhtml</to-view-id>
+        </navigation-case>
+        
+        <navigation-case>
+            <from-outcome>LivroController/initialPage</from-outcome>
+            <to-view-id>/paginas/livro/inicial.xhtml</to-view-id>
+        </navigation-case>
+        
         <!-- ESTÓRIA DE USUÁRIO 03-->
         
         <navigation-case>
@@ -162,6 +174,12 @@
             <from-outcome>LivroParaCotacaoController/openSearchPage</from-outcome>
             <to-view-id>/paginas/cotacao/busca.xhtml</to-view-id>
         </navigation-case>
+        
+        <navigation-case>
+            <from-outcome>LivroParaCotacaoController/openSearchPage</from-outcome>
+            <to-view-id>/paginas/cotacao/busca.xhtml</to-view-id>
+        </navigation-case>
+
         
     </navigation-rule>
 
