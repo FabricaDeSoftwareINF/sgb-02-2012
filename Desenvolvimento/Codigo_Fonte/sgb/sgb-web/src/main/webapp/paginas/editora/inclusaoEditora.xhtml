@@ -23,9 +23,9 @@
 
                             <p:inputText value="#{editoraController.form.entity.nome}"></p:inputText>
 
-                            <p:commandButton action="#{editoraController.salvarEditora()}" value="Salvar"></p:commandButton>
+                            <p:commandButton action="#{editoraController.salvarEditora()}" value="Salvar" ajax="false"/>
 
-                            <p:commandButton value="Cancelar"></p:commandButton>
+                            <p:commandButton value="Cancelar" action="#{editoraController.openInitialPage()}" ajax="false"/>
 
                         </h:panelGrid>
 

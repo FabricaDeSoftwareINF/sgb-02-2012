@@ -8,6 +8,7 @@ import br.ufg.inf.es.web.controller.form.AutorForm;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -44,11 +45,14 @@ public class AutorController
         return super.openInitialPage();
     }
 
+    /**
+     * Método responsável por navegar para a tela de edição de Autor.
+     * @author Cássio Augusto Silva de Freitas
+     * @return String de navegação para a página de edição.
+     */
     @Override
     public String openEditPage() {
-        
-        buscaTodosAutores();
-       
+             
         return this.getRootNavigation() + "editPage";
     }
     
@@ -160,31 +164,13 @@ public class AutorController
     public String editarAutor() {
 
         try {
-
-            if ((this.getForm().getAutorEdicao().getNome() == null || this.getForm().getAutorEdicao().getNome().equals("")) && (this.getForm().getAutorEdicao().getSobrenome() == null || this.getForm().getAutorEdicao().getSobrenome().equals(""))) {
-            
-                addWarningMessage("cadastro.autor.label.RNG012.nomeEsobreNome");
-
-            } else if (this.getForm().getAutorEdicao().getNome() == null || this.getForm().getAutorEdicao().getNome().equals("")) {
+                Hibernate.isInitialized(this.getForm().getEntity());
                 
-                addWarningMessage("cadastro.autor.label.RNG012.nome");
-
-            } else if (this.getForm().getAutorEdicao().getSobrenome() == null || this.getForm().getAutorEdicao().getSobrenome().equals("")) {
-             
-                addWarningMessage("cadastro.autor.label.RNG012.sobrenome");
-
-            } else {
-                          
-                Autor autor = this.getService().find(this.getForm().getAutorEdicao().getId());
-             
-                autor.setNome(this.getForm().getAutorEdicao().getNome());
-              
-                autor.setSobrenome(this.getForm().getAutorEdicao().getSobrenome());            
-
-                this.getService().editar(autor);
+                Hibernate.initialize(this.getForm().getEntity());
+                this.getService().editar(this.getForm().getEntity());
 
                 this.addSuccessMessage("arquitetura.msg.sucesso");
-            }
+            
         } catch (ValidationException ex) {
 
             this.addWarningMessage(ex.getKeyMessage());

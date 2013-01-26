@@ -9,7 +9,7 @@
 
     <navigation-rule>
         
-        <!--  Estória de Usuário 12-->
+        <!--  Estória de Usuário 13: Manter Editora-->
         <navigation-case>
             
             <from-outcome>EditoraController/initialPage</from-outcome>

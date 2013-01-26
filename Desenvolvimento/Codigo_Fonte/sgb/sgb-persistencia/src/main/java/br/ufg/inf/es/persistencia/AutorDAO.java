@@ -1,5 +1,6 @@
 package br.ufg.inf.es.persistencia;
 
+import br.ufg.inf.es.base.validation.ValidationException;
 import br.ufg.inf.es.model.Autor;
 import br.ufg.inf.es.model.AutorDTO;
 import java.util.Collection;
@@ -15,7 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @author Henrique Hirako, Cássio Augusto Silva de Freitas
  */
 @Repository
-@Transactional
+@Transactional(rollbackFor=ValidationException.class)
 public class AutorDAO extends GenericHibernateDAO<Autor> {
 
     @Autowired
@@ -34,7 +35,7 @@ public class AutorDAO extends GenericHibernateDAO<Autor> {
 
     /**
      * Método responsável por obter uma coleção de Autores em DTO e listar todos
-     * eles
+     * eles.
      *
      * @author Cássio Augusto Silva de Freitas
      * @param filtroNome

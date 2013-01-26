@@ -7,6 +7,7 @@ import br.ufg.inf.es.model.AutorDTO;
 import br.ufg.inf.es.persistencia.AutorDAO;
 import java.util.ArrayList;
 import java.util.Collection;
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
@@ -67,10 +68,14 @@ public class AutorService extends GenericService<Autor> {
      */
     @RNG012
     public void editar(Autor entidade) throws ValidationException {
+     
+        this.getDAO().update(entidade);
         
-        this.getDAO().save(entidade);
     }
     
+    /**
+     * 
+     */
     public Collection<Autor> complete(String query) {  
         Collection<Autor> results = new ArrayList<Autor>();
           
