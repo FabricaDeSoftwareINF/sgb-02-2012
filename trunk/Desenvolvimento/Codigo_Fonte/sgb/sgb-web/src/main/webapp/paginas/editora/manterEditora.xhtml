@@ -13,62 +13,59 @@
 
             <h:form id="busca">
 
-                <h:panelGrid width="100%" columns="2">
+                <p:panel header="#{msg['cadastro.editora.label.manterEditora']}">
 
-                    <h:panelGrid width="100%" columns="1">
+                    <h:panelGrid width="100%" columns="2">
 
-                        <p:messages id="messages" autoUpdate="true"></p:messages>
+                        <h:panelGrid width="100%" columns="1" >
 
-                        <p:dataTable id="associationTable" var="assTab" 
-                                     value="#{editoraController.form.collectionEntities}">
-                            <p:column>  
+                            <p:messages id="messages" autoUpdate="true"></p:messages>
 
-                                <p:selectBooleanCheckbox >
-                                    <p:ajax listener="#{editoraController.selecionaEditora(assTab)}" />
-                                </p:selectBooleanCheckbox>
+                            <p:dataTable id="associationTable" var="assTab" 
+                                         value="#{editoraController.form.collectionEntities}">
+                                <p:column style="width: 18px;">  
 
-                            </p:column> 
+                                    <p:selectBooleanCheckbox >
+                                        <p:ajax listener="#{editoraController.selecionaEditora(assTab)}"  />
+                                    </p:selectBooleanCheckbox>
 
-                            <p:column sortBy="#{assTab.nome}" filterBy="#{assTab.nome}">  
-                                <f:facet name="header">  
-                                    <h:outputText value="#{msg['cadastro.editora.label.nome']}" />  
-                                </f:facet>  
-                                <h:outputText value="#{assTab.nome}" />  
-                            </p:column> 
+                                </p:column> 
 
-                            <p:column>  
-                                <f:facet name="header">  
-                                    <h:outputText value="#{msg['cadastro.acao']}" />  
-                                </f:facet>  
-                                <p:commandLink id="linkAcaoEditar" 
-                                               value="#{msg['acao.editar']}" type="button"
-                                               action="#{editoraController.openEditPage(assTab)}"/>
+                                <p:column sortBy="#{assTab.nome}" filterBy="#{assTab.nome}" styleClass="widthFilterBy">  
+                                    <f:facet name="header">  
+                                        <h:outputText value="#{msg['cadastro.editora.label.nome']}" />  
+                                    </f:facet>  
+                                    <h:outputText value="#{assTab.nome}" />  
+                                </p:column> 
 
-                                <p:spacer height="1" width="15"/>
+                                <p:column style="width: 50%">  
+                                    <f:facet name="header">  
+                                        <h:outputText value="#{msg['cadastro.acao']}" />  
+                                    </f:facet>  
+                                    
+                                    <h:commandLink id="linkAcaoEditar" 
+                                                   value="#{msg['acao.editar']}" type="button"
+                                                   action="#{editoraController.openEditPage(assTab)}"/>
 
-                                <p:commandLink id="linkAcaoExcluir" 
-                                               value="excluir" onclick="confirmacao.show()" type="button"
-                                               action="#{editoraController.preparaEditora(assTab)}"/> 
+                                    <p:spacer height="1" width="15"/>
 
-                            </p:column> 
-                        </p:dataTable>
+                                </p:column> 
+                                
+                            </p:dataTable>
 
-                        <h:panelGrid columns="2" cellpadding="10">
-                            <p:commandButton action="#{editoraController.openInsertPage()}"  value="Novo"></p:commandButton>
-                            <p:commandButton update="@form" action="#{editoraController.removerEditoraSelecionadas()}" value="Remover Selecionadas"></p:commandButton>
+                            <h:panelGrid columns="2" cellpadding="10">
+
+                                <p:commandButton action="#{editoraController.openInsertPage()}"  value="Novo" ajax="false"></p:commandButton>
+
+                                <p:commandButton update="@form" action="#{editoraController.removerEditoraSelecionadas()}" value="Remover Selecionadas"></p:commandButton>
+
+                            </h:panelGrid>
+
                         </h:panelGrid>
 
                     </h:panelGrid>
 
-                </h:panelGrid>
-                <p:confirmDialog message="Tem certeza que deseja excluir o resgistro?"  
-                                 header="Confirmação" severity="alert" widgetVar="confirmacao">  
-
-                    <p:commandButton value="Sim" update="@form" oncomplete="confirmacao.hide()"  
-                                     action="#{editoraController.removerEditora()}" />  
-                    <p:commandButton value="Não" onclick="confirmacao.hide()" type="button" />   
-
-                </p:confirmDialog>  
+                </p:panel>
 
             </h:form>
 

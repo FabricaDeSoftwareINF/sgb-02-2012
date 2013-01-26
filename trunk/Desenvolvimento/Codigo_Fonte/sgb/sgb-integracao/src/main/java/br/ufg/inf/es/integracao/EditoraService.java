@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author Henrique Hirako
@@ -65,6 +66,7 @@ public class EditoraService extends GenericService<Editora> {
      * @param entidade
      * @throws ValidationException 
      */
+    @RNG007
     @Override
     public void save(Editora entidade) throws ValidationException {
       
@@ -72,7 +74,7 @@ public class EditoraService extends GenericService<Editora> {
       
         editora.setNome(entidade.getNome());
         
-        this.getDAO().save(editora);
+        this.getDAO().update(entidade);
 
     }
     

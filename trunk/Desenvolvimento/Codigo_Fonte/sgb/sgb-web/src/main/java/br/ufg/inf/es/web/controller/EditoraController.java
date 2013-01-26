@@ -4,6 +4,7 @@ import br.ufg.inf.es.base.validation.ValidationException;
 import br.ufg.inf.es.integracao.EditoraService;
 import br.ufg.inf.es.model.Editora;
 import br.ufg.inf.es.web.controller.form.EditoraForm;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,7 @@ public class EditoraController
 
     public static final String KEY_MSG_SUCESSO = "arquitetura.msg.sucesso";
     private String buscaEditora = "";
-    private Collection<Editora> editoraSelecionado = new HashSet<Editora>();
+    private Collection<Editora> editoraSelecionado = new ArrayList<Editora>();
     private Editora editora = new Editora();
     @Autowired
     private EditoraForm form;
@@ -82,12 +83,7 @@ public class EditoraController
     public String editarEditora() {
 
         try {
-           
-            if (this.getForm().getEntity().getNome() == null || this.getForm().getEntity().getNome().equals("")) {
 
-                throw new ValidationException(EditoraService.KEY_RNG007);
-            }
-            
             this.getService().save(this.getForm().getEntity());
 
             addSuccessMessage(EditoraController.KEY_MSG_SUCESSO);
@@ -132,14 +128,23 @@ public class EditoraController
 
     public String removerEditoraSelecionadas() {
 
-        this.service.getDAO().removeAll(editoraSelecionado);
+        if (!editoraSelecionado.isEmpty()) {
 
-        editoraSelecionado = new HashSet<Editora>();
+            this.service.getDAO().removeAll(editoraSelecionado);
 
-        this.form.setCollectionEntities(this.service.getDAO().list());
+            editoraSelecionado = new ArrayList<Editora>();
 
-        return super.openSearchPage();
+            this.form.setCollectionEntities(this.service.getDAO().list());
 
+         
+
+        } else {
+            
+            this.addWarningMessage("label.nenhumRegistroSelecionado");
+            
+        }
+
+           return super.openSearchPage();
     }
 
     public String getBuscaEditora() {

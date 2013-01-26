@@ -17,8 +17,8 @@
                         <h:panelGrid columns="2">
                             <h:outputLabel value="#{msg['cadastro.editora.label.nome']}:" ></h:outputLabel>
                             <p:inputText value="#{editoraController.form.entity.nome}"></p:inputText>
-                            <p:commandButton action="#{editoraController.editarEditora()}" value="Editar"></p:commandButton>
-                            <p:commandButton value="Voltar"></p:commandButton>
+                            <p:commandButton action="#{editoraController.editarEditora()}" value="Editar" ajax="false"></p:commandButton>
+                            <p:commandButton value="Voltar" action="#{editoraController.openInitialPage()}" ajax="false"></p:commandButton>
                         </h:panelGrid>
 
                     </h:panelGrid>

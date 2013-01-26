@@ -72,12 +72,12 @@
 
                     </p:submenu>
 
-                    <p:menuitem value="#{msg['cadastro.editora.label.editora']}" action="#{editoraController.openInitialPage()}" />
+                    <p:menuitem value="#{msg['cadastro.editora.label.editora']}" action="#{editoraController.openInitialPage()}"  ajax="false"/>
 
                     <p:menuitem value="#{msg['cadastro.livro.label.livro']}" 
                                     action="#{livroController.openInitialPage()}" />
 
-                    <p:menuitem value="#{msg['cadastro.autor.label.autor']}" action="#{autorController.openInitialPage()}">
+                    <p:menuitem value="#{msg['cadastro.autor.label.autor']}" action="#{autorController.openInitialPage()}" ajax="false">
 
                     </p:menuitem>
 
