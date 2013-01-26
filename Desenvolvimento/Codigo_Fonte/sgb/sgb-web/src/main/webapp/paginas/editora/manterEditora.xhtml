@@ -17,6 +17,8 @@
 
                     <h:panelGrid width="100%" columns="1">
 
+                        <p:messages id="messages" autoUpdate="true"></p:messages>
+
                         <p:dataTable id="associationTable" var="assTab" 
                                      value="#{editoraController.form.collectionEntities}">
                             <p:column>  
@@ -67,7 +69,7 @@
                     <p:commandButton value="Não" onclick="confirmacao.hide()" type="button" />   
 
                 </p:confirmDialog>  
-                
+
             </h:form>
 
         </ui:define>
