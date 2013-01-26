@@ -18,6 +18,7 @@ import org.springframework.stereotype.Component;
 public class EditoraController
         extends SGBController<Editora, EditoraForm, EditoraService> {
 
+    public static final String KEY_MSG_SUCESSO = "arquitetura.msg.sucesso";
     private String buscaEditora = "";
     private Collection<Editora> editoraSelecionado = new HashSet<Editora>();
     private Editora editora = new Editora();
@@ -48,17 +49,54 @@ public class EditoraController
         this.service = service;
     }
 
-    public String salvarEditora() throws ValidationException {
+    /**
+     * Método responsável por salvar uma nova Editora no banco de dados
+     *
+     * @return String de navegação para página Inicial
+     * @throws ValidationException
+     */
+    public String salvarEditora() {
 
-        super.insert();
+        try {
+
+            this.getService().insert(this.getForm().getEntity());
+
+            this.addSuccessMessage(EditoraController.KEY_MSG_SUCESSO);
+
+        } catch (ValidationException ve) {
+
+            addWarningMessage(ve.getKeyMessage());
+
+        }
 
         return super.openSearchPage();
 
+
     }
 
-    public String editarEditora() throws ValidationException {
+    /**
+     * Método responsável por editar uma Editora no banco de dados
+     *
+     * @return String de navegação para página inicial de Editora
+     */
+    public String editarEditora() {
 
-        super.edit();
+        try {
+           
+            if (this.getForm().getEntity().getNome() == null || this.getForm().getEntity().getNome().equals("")) {
+
+                throw new ValidationException(EditoraService.KEY_RNG007);
+            }
+            
+            this.getService().save(this.getForm().getEntity());
+
+            addSuccessMessage(EditoraController.KEY_MSG_SUCESSO);
+
+        } catch (ValidationException ve) {
+
+            addWarningMessage(ve.getKeyMessage());
+
+        }
 
         return super.openSearchPage();
 

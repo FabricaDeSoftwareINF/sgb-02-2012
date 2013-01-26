@@ -6,19 +6,21 @@ package br.ufg.inf.es.integracao.annotations;
 
 import br.ufg.inf.es.base.validation.annotations.Validator;
 import br.ufg.inf.es.integracao.rng.AutorValidator;
+import br.ufg.inf.es.integracao.rng.EditoraValidator;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Interface de regra de negócio para validar inserção e alteração de Autor.
+ * Interface de Regra de negócio de inserção e alteração de Editora.
  * 
- * @author Cassio Augusto Silva de Freitas
+ * @author Cássio Augusto Silva de Freitas
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
-@Validator(validatorClass = AutorValidator.class)
-public @interface RNG012 {
+@Validator(validatorClass = EditoraValidator.class)
+public @interface RNG007 {
     
 }
+    

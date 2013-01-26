@@ -24,7 +24,9 @@ public abstract class GenericHibernateDAO<E extends Entity<Long>> implements DAO
     private Session session;
 
     protected abstract SessionFactory getSessionFactory();
+    
     protected abstract void setSessionFactory(SessionFactory sessionFactory);
+    
     protected Session getSession() {
 
         if (this.session == null || !this.session.isOpen()) {
@@ -59,7 +61,7 @@ public abstract class GenericHibernateDAO<E extends Entity<Long>> implements DAO
         
         } finally {
         
-            this.getSessionFactory().close();
+            this.getSession().close();
         
         }
         return objeto;
@@ -76,7 +78,7 @@ public abstract class GenericHibernateDAO<E extends Entity<Long>> implements DAO
             this.getSession().flush();
             
         } finally {
-            this.getSessionFactory().close();
+            this.getSession().close();
         }
         return id;
     }
@@ -88,10 +90,10 @@ public abstract class GenericHibernateDAO<E extends Entity<Long>> implements DAO
             this.getSession().merge(entidade);
 
             this.getSession().flush();
-            
+                      
         } finally {
             
-            this.getSessionFactory().close();
+            this.getSession().close();
         }
     }
 
@@ -103,7 +105,7 @@ public abstract class GenericHibernateDAO<E extends Entity<Long>> implements DAO
 
             this.getSession().flush();
         } finally {
-            this.getSessionFactory().close();
+            this.getSession().close();
         }
     }
 
@@ -115,7 +117,7 @@ public abstract class GenericHibernateDAO<E extends Entity<Long>> implements DAO
 
             this.getSession().flush();
         } finally {
-            this.getSessionFactory().close();
+            this.getSession().close();
         }
     }
 
@@ -132,7 +134,7 @@ public abstract class GenericHibernateDAO<E extends Entity<Long>> implements DAO
             this.getSession().flush();
             
         } finally {
-            this.getSessionFactory().close();
+            this.getSession().close();
         }
     }
 
@@ -176,7 +178,7 @@ public abstract class GenericHibernateDAO<E extends Entity<Long>> implements DAO
             
             this.getSession().flush();
         
-            this.getSessionFactory().close();
+            this.getSession().close();
         }
         
         return lista;
@@ -191,7 +193,7 @@ public abstract class GenericHibernateDAO<E extends Entity<Long>> implements DAO
         
         } finally {
         
-            this.getSessionFactory().close();
+            this.getSession().close();
         
         }
     }
