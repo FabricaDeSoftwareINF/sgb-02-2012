@@ -1,0 +1,53 @@
+<ui:component xmlns="http://www.w3.org/1999/xhtml"
+              xmlns:h="http://java.sun.com/jsf/html"
+              xmlns:p="http://primefaces.org/ui"
+              xmlns:f="http://java.sun.com/jsf/core"
+              xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <ui:composition template="/template/template.xhtml">
+
+        <ui:define name="content">
+
+            <h:form id="formCadastroAutor" >
+
+                <p:panel>
+
+                    <p:panelGrid styleClass="semborda">
+
+                        <p:row>
+                            <p:column>
+                                <h:outputLabel value="#{msg['cadastro.autor.label.nome']}:" style="float: right;"></h:outputLabel>
+                            </p:column><p:column>
+                                <p:inputText value="#{autorController.form.entity.nome}"></p:inputText>
+                            </p:column>
+                        </p:row>
+
+                        <p:row>
+                            <p:column>
+                                <h:outputLabel value="#{msg['cadastro.autor.label.sobrenome']}:" style="float: right;" ></h:outputLabel>
+                            </p:column>
+                            <p:column>
+                                <p:inputText value="#{autorController.form.entity.sobrenome}"></p:inputText>
+                            </p:column>
+                        </p:row>
+
+                    </p:panelGrid>
+
+                    <h:panelGrid columns="2" style="float: right;"> 
+
+                        <p:commandButton actionListener="#{autorController.insereAutor()}" value="#{msg['cadastro.autor.label.cadastrar']}"  
+                                         ajax="false" action="#{autorController.openInitialPage()}"/>
+
+                        <p:commandButton action="#{autorController.openInitialPage()}" value="#{msg['cadastro.autor.label.cancelar']}" ajax="false"/>
+
+                    </h:panelGrid>
+
+                </p:panel>
+                
+            </h:form>
+            
+        </ui:define>
+
+    </ui:composition>
+
+</ui:component>

@@ -1,0 +1,48 @@
+<mockup version="1.0" skin="sketch" fontFace="Balsamiq Sans" measuredW="658" measuredH="438" mockupW="636" mockupH="352">
+  <controls>
+    <control controlID="42" controlTypeID="com.balsamiq.mockups::Canvas" x="22" y="86" w="636" h="352" measuredW="100" measuredH="70" zOrder="0" locked="false" isInGroup="-1"/>
+    <control controlID="47" controlTypeID="com.balsamiq.mockups::DataGrid" x="50" y="222" w="557" h="115" measuredW="370" measuredH="113" zOrder="1" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>%5B%20%5D%2CCota%E7%E3o%2C%20Pre%E7o%20%28R%24%29%2C%20Criado%20em%0A%5Bx%5D%2C%20Cota%E7%E3o1%2C%201500%2C%2018/12/2012%2C%20%5BEditar%5D%20%5BDetalhe%5D%0A%5B%20%5D%2C%20Cota%E7%E3o2%2C%202100%2C%2024/12/2012%2C%20%5BEditar%5D%20%5BDetalhe%5D%0A%5B%20%5D%2C%20Cota%E7%E3o3%2C%202700%2C%2030/12/2012%2C%20%5BEditar%5D%20%5BDetalhe%5D</text>
+      </controlProperties>
+    </control>
+    <control controlID="48" controlTypeID="com.balsamiq.mockups::Label" x="50" y="118" w="-1" h="-1" measuredW="208" measuredH="33" zOrder="2" locked="false" isInGroup="-1">
+      <controlProperties>
+        <bold>true</bold>
+        <size>24</size>
+        <text>Lista%20de%20Cota%E7%F5es</text>
+      </controlProperties>
+    </control>
+    <control controlID="49" controlTypeID="com.balsamiq.mockups::Button" x="454" y="364" w="-1" h="-1" measuredW="53" measuredH="27" zOrder="3" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Novo</text>
+      </controlProperties>
+    </control>
+    <control controlID="50" controlTypeID="com.balsamiq.mockups::Button" x="530" y="364" w="-1" h="-1" measuredW="77" measuredH="27" zOrder="4" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Remover</text>
+      </controlProperties>
+    </control>
+    <control controlID="51" controlTypeID="com.balsamiq.mockups::SearchBox" x="91" y="197" w="111" h="-1" measuredW="120" measuredH="25" zOrder="5" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="52" controlTypeID="com.balsamiq.mockups::SearchBox" x="202" y="197" w="124" h="-1" measuredW="120" measuredH="25" zOrder="6" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="53" controlTypeID="com.balsamiq.mockups::SearchBox" x="326" y="197" w="128" h="-1" measuredW="120" measuredH="25" zOrder="7" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="54" controlTypeID="com.balsamiq.mockups::Button" x="50" y="364" w="-1" h="-1" measuredW="125" measuredH="27" zOrder="8" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Exportar%20Cota%E7%E3o</text>
+      </controlProperties>
+    </control>
+    <control controlID="55" controlTypeID="com.balsamiq.mockups::VerticalScrollBar" x="607" y="222" w="-1" h="114" measuredW="16" measuredH="100" zOrder="9" locked="false" isInGroup="-1"/>
+  </controls>
+</mockup>
