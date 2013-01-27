@@ -1,0 +1,79 @@
+<mockup version="1.0" skin="sketch" fontFace="Balsamiq Sans" measuredW="1066" measuredH="514" mockupW="1046" mockupH="420">
+  <controls>
+    <control controlID="103" controlTypeID="com.balsamiq.mockups::Canvas" x="20" y="94" w="1046" h="308" measuredW="100" measuredH="70" zOrder="0" locked="false" isInGroup="-1"/>
+    <control controlID="108" controlTypeID="com.balsamiq.mockups::DataGrid" x="50" y="207" w="986" h="83" measuredW="656" measuredH="53" zOrder="1" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>%2CC%F3digo%2C%20Nome%2C%20Curso%2C%20Livro%2C%20A%E7%F5es%0A%5Bx%5D%2C%20ESINT%2C%20Introdu%E7%E3o%20a%20programa%E7%E3o%2C%20Engenharia%20de%20Software%2C%20Java%20como%20programar%2C%20%5BEditar%5D%20%5BDetalhe%5D%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="109" controlTypeID="com.balsamiq.mockups::Label" x="50" y="118" w="-1" h="-1" measuredW="189" measuredH="33" zOrder="2" locked="false" isInGroup="-1">
+      <controlProperties>
+        <bold>true</bold>
+        <size>24</size>
+        <text>Manter%20Disciplina</text>
+      </controlProperties>
+    </control>
+    <control controlID="110" controlTypeID="com.balsamiq.mockups::Button" x="867" y="310" w="-1" h="-1" measuredW="53" measuredH="27" zOrder="3" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Novo</text>
+      </controlProperties>
+    </control>
+    <control controlID="111" controlTypeID="com.balsamiq.mockups::Button" x="959" y="310" w="-1" h="-1" measuredW="77" measuredH="27" zOrder="4" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Remover</text>
+      </controlProperties>
+    </control>
+    <control controlID="112" controlTypeID="com.balsamiq.mockups::SearchBox" x="85" y="182" w="84" h="-1" measuredW="120" measuredH="25" zOrder="5" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="113" controlTypeID="com.balsamiq.mockups::SearchBox" x="169" y="182" w="258" h="-1" measuredW="120" measuredH="25" zOrder="6" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="114" controlTypeID="com.balsamiq.mockups::SearchBox" x="427" y="182" w="239" h="-1" measuredW="120" measuredH="25" zOrder="7" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="115" controlTypeID="com.balsamiq.mockups::ModalScreen" x="20" y="94" w="1046" h="308" measuredW="320" measuredH="240" zOrder="8" locked="false" isInGroup="-1"/>
+    <control controlID="116" controlTypeID="com.balsamiq.mockups::TitleWindow" x="350" y="114" w="-1" h="-1" measuredW="450" measuredH="400" zOrder="9" locked="false" isInGroup="-1">
+      <controlProperties>
+        <close>true</close>
+        <text>Detalhe%20da%20Disciplina</text>
+      </controlProperties>
+    </control>
+    <control controlID="117" controlTypeID="com.balsamiq.mockups::Label" x="379" y="165" w="-1" h="-1" measuredW="91" measuredH="21" zOrder="10" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>C%F3digo%3A%20ESINT</text>
+      </controlProperties>
+    </control>
+    <control controlID="118" controlTypeID="com.balsamiq.mockups::Label" x="379" y="202" w="-1" h="-1" measuredW="201" measuredH="21" zOrder="11" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Nome%3A%20Introdu%E7%E3o%20a%20programa%E7%E3o</text>
+      </controlProperties>
+    </control>
+    <control controlID="119" controlTypeID="com.balsamiq.mockups::Label" x="379" y="238" w="-1" h="-1" measuredW="185" measuredH="21" zOrder="12" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Curso%3A%20Engenharia%20de%20Software</text>
+      </controlProperties>
+    </control>
+    <control controlID="120" controlTypeID="com.balsamiq.mockups::Label" x="379" y="274" w="-1" h="-1" measuredW="168" measuredH="21" zOrder="13" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Livro%3A%20Java%20como%20programar</text>
+      </controlProperties>
+    </control>
+    <control controlID="121" controlTypeID="com.balsamiq.mockups::Button" x="534" y="443" w="-1" h="-1" measuredW="58" measuredH="27" zOrder="14" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Voltar</text>
+      </controlProperties>
+    </control>
+    <control controlID="122" controlTypeID="com.balsamiq.mockups::Label" x="417" y="292" w="-1" h="-1" measuredW="120" measuredH="21" zOrder="15" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Use%20a%20cabe%E7a%20Java</text>
+      </controlProperties>
+    </control>
+  </controls>
+</mockup>

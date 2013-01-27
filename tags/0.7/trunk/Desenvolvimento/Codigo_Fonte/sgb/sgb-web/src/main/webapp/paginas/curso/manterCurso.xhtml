@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--@autor: Diogo Goncalves Teodoro-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"  
+      xmlns:h="http://java.sun.com/jsf/html"  
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <h:outputStylesheet name="default.css" library="css"/>
+        <title>Manter Curso</title>
+    </h:head>
+    <h:body>
+        <h:form id="busca">
+             <!--<h1>"#{msg['curso.manter']}"</h1>-->
+            <h:panelGrid width="100%" columns="2">
+               
+                <h:panelGrid width="100%" columns="1">
+                    <h:panelGrid style="float: left" columns="6" >
+                        <h:panelGrid columns="2">
+                            <p:inputText id="pesquisaCurso" size="65"/> 
+                            <p:commandButton icon="ui-icon-search"/>
+                        </h:panelGrid>
+                        <p:watermark for="pesquisaCurso" value="#{msg['curso.pesquisar']}"/>
+
+                    </h:panelGrid>
+                    <p:dataTable id="associationTable" var="assTab" 
+                                 value="#{cursoController.form.collectionEntities}">
+                        <p:column>  
+                            <f:facet name="header">  
+                                <h:outputText value="#{msg['cadastro.curso.label.nome']}" />  
+                            </f:facet>  
+                            <h:outputText value="#{assTab.nome}" />  
+                        </p:column> 
+                        <p:column>  
+                            <f:facet name="header">  
+                                <h:outputText value="#{msg['cadastro.curso.label.vagas']}" />  
+                            </f:facet>  
+                            <h:outputText value="#{assTab.vagas}" />  
+                        </p:column>
+                        <p:column>  
+                            <f:facet name="header">  
+                                <h:outputText value="#{msg['cadastro.acao']}" />  
+                            </f:facet>  
+                            <h:commandLink id="linkAcaoEditar" 
+                                           value="#{msg['acao.editar']}" 
+                                           action="/cadastro/curso/inclusaoCurso.xhtml"/>
+                            <p:spacer width="5" height="0"/>
+                            <h:commandLink id="linkAcaoDetalhe" 
+                                           value="#{msg['acao.detalhes']}" 
+                                           action="/cadastro/curso/inclusaoCurso.xhtml"/>  
+                        </p:column> 
+
+                    </p:dataTable>
+                </h:panelGrid>
+            </h:panelGrid>
+
+        </h:form>
+        
+    </h:body>
+</html>
