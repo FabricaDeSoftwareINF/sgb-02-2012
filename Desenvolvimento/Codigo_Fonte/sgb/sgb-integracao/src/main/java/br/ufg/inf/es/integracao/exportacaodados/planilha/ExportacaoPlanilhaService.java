@@ -1,16 +1,8 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package br.ufg.inf.es.integracao.exportacaodados.planilha;
 
 import br.ufg.inf.es.model.ItemPlanilha;
-import java.io.BufferedWriter;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.io.UnsupportedEncodingException;
+import java.io.*;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -22,17 +14,45 @@ import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Component;
 
 /**
- *
+ * Classe de serviços de exportação da planilha de cotação.
  * @author Bruno Marquete da Silva
  */
 @Component
 @Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class ExportacaoPlanilhaService {
 
-    HSSFWorkbook wb;
-    HSSFSheet planilhaNacionais;
-    HSSFSheet planilhaEstrangeiros;
+    private HSSFWorkbook geradorPlanilha;
+    private HSSFSheet planilhaNacionais;
+    private HSSFSheet planilhaEstrangeiros;
+    private short coluna0 = 0;
+    private short coluna1 = 1;
+    private short coluna2 = 2;
+    private short coluna3 = 3;
+    private short coluna4 = 4;
+    private short coluna5 = 5;
+    private short coluna6 = 6;
+    private short coluna7 = 7;
+    private short coluna8 = 8;
+    private short coluna9 = 9;
+    private short coluna10 = 10;
+    private short coluna11 = 11;
+    private short coluna12 = 12;
+    private short coluna13 = 13;
+    private short coluna14 = 14;
+    private short coluna15 = 15;
+    private short coluna16 = 16;
+    private short coluna17 = 17;
+    private short coluna18 = 18;
 
+    /**
+     * Gera planilha em formato XLS com base numa lista de itens de planilha dos 
+     * livros nacionais e outra dos títulos estrangeiros. Cada ItemPlanilha é
+     * uma linha da planilha com suas devidas colunas.
+     * @param linhasPlanilhaNacionais
+     * Lista de itens da planilha de livros nacionais.
+     * @param linhasPlanilhaEstrangeiros 
+     * Lista de itens da planilha de livros nacionais.
+     */
     public void gerarPlanilhaXLS(List<ItemPlanilha> linhasPlanilhaNacionais,
             List<ItemPlanilha> linhasPlanilhaEstrangeiros) {
 
@@ -40,13 +60,13 @@ public class ExportacaoPlanilhaService {
 
         try {
 
-            wb = new HSSFWorkbook();
-            planilhaNacionais = wb.createSheet("Títulos Nacionais");
-            planilhaEstrangeiros = wb.createSheet("Títulos Estrangeiros");
+            geradorPlanilha = new HSSFWorkbook();
+            planilhaNacionais = geradorPlanilha.createSheet("Títulos Nacionais");
+            planilhaEstrangeiros = geradorPlanilha.createSheet("Títulos Estrangeiros");
             planilhaNacionais = popularPlanilha(planilhaNacionais, linhasPlanilhaNacionais);
             planilhaEstrangeiros = popularPlanilha(planilhaEstrangeiros, linhasPlanilhaEstrangeiros);
             stream = new FileOutputStream("planilha.xls");
-            wb.write(stream);
+            geradorPlanilha.write(stream);
 
         } catch (FileNotFoundException ex) {
             Logger.getLogger(ExportacaoPlanilhaService.class.getName()).log(Level.SEVERE, null, ex);
@@ -55,34 +75,44 @@ public class ExportacaoPlanilhaService {
         }
     }
 
+    /**
+     * Popula objeto planilha com base numa lista de itens de planilha.
+     * @param planilha
+     * Objeto de planilha a ser populado.
+     * @param linhasPlanilha
+     * Lista de itens de planilha.
+     * @return 
+     * Objeto de planilha devidamente populado.
+     */
     private HSSFSheet popularPlanilha(HSSFSheet planilha, List<ItemPlanilha> linhasPlanilha) {
-
-        gerarCabecalho(planilha, linhasPlanilha);
+        
+        String strSimboloReal = "R$ ";
+        gerarCabecalho(planilha);
 
         int i;
         for (i = 0; i < linhasPlanilha.size(); i++) {
 
             HSSFRow linha = planilhaNacionais.createRow(i + 1);
-            linha.createCell((short) 0).setCellValue(String.valueOf(linhasPlanilha.get(i).getNumItem()));
-            linha.createCell((short) 1).setCellValue(linhasPlanilha.get(i).getNomeAutor());
-            linha.createCell((short) 2).setCellValue(linhasPlanilha.get(i).getTituloObra());
-            linha.createCell((short) 3).setCellValue(linhasPlanilha.get(i).getEdicao());
-            linha.createCell((short) 4).setCellValue(linhasPlanilha.get(i).getEditora());
-            linha.createCell((short) 5).setCellValue(linhasPlanilha.get(i).getLocal());
-            linha.createCell((short) 6).setCellValue(linhasPlanilha.get(i).getAno());
-            linha.createCell((short) 7).setCellValue(linhasPlanilha.get(i).getColecao());
-            linha.createCell((short) 8).setCellValue(linhasPlanilha.get(i).getVolume());
-            linha.createCell((short) 9).setCellValue(linhasPlanilha.get(i).getMatriculaSophiaConselheiro());
-            linha.createCell((short) 10).setCellValue(linhasPlanilha.get(i).getCursoDestino().toString());
-            linha.createCell((short) 11).setCellValue(linhasPlanilha.get(i).getUnidadeMedida());
-            linha.createCell((short) 12).setCellValue("R$ ".concat(String.valueOf(linhasPlanilha.get(i).getValorMedioUnitario())));
-            linha.createCell((short) 13).setCellValue("R$ ".concat(String.valueOf(linhasPlanilha.get(i).getValorMedioUnitario())));
-            linha.createCell((short) 14).setCellValue("R$ ".concat(String.valueOf(linhasPlanilha.get(i).getValorMedioUnitario())));
-            linha.createCell((short) 15).setCellValue("R$ ".concat(String.valueOf(linhasPlanilha.get(i).getValorMedioUnitario())));
+            linha.createCell(coluna0).setCellValue(String.valueOf(linhasPlanilha.get(i).getNumItem()));
+            linha.createCell(coluna1).setCellValue(linhasPlanilha.get(i).getNomeAutor());
+            linha.createCell(coluna2).setCellValue(linhasPlanilha.get(i).getTituloObra());
+            linha.createCell(coluna3).setCellValue(linhasPlanilha.get(i).getEdicao());
+            linha.createCell(coluna4).setCellValue(linhasPlanilha.get(i).getEditora());
+            linha.createCell(coluna5).setCellValue(linhasPlanilha.get(i).getLocal());
+            linha.createCell(coluna6).setCellValue(linhasPlanilha.get(i).getAno());
+            linha.createCell(coluna7).setCellValue(linhasPlanilha.get(i).getColecao());
+            linha.createCell(coluna8).setCellValue(linhasPlanilha.get(i).getVolume());
+            linha.createCell(coluna9).setCellValue(linhasPlanilha.get(i).getMatriculaSophiaConselheiro());
+            linha.createCell(coluna10).setCellValue(linhasPlanilha.get(i).getCursoDestino().toString());
+            linha.createCell(coluna11).setCellValue(linhasPlanilha.get(i).getUnidadeMedida());
+            linha.createCell(coluna12).setCellValue(strSimboloReal.concat(String.valueOf(linhasPlanilha.get(i).getValorMedioUnitario())));
+            linha.createCell(coluna13).setCellValue(strSimboloReal.concat(String.valueOf(linhasPlanilha.get(i).getValorMedioUnitario())));
+            linha.createCell(coluna14).setCellValue(strSimboloReal.concat(String.valueOf(linhasPlanilha.get(i).getValorMedioUnitario())));
+            linha.createCell(coluna15).setCellValue(strSimboloReal.concat(String.valueOf(linhasPlanilha.get(i).getValorMedioUnitario())));
             double valorTotal = linhasPlanilha.get(i).getValorMedioUnitario() * linhasPlanilha.get(i).getQuantExemplares();
-            linha.createCell((short) 16).setCellValue("R$ ".concat(String.valueOf(valorTotal)));
-            linha.createCell((short) 17).setCellValue(linhasPlanilha.get(i).getAreaConhecimento());
-            linha.createCell((short) 18).setCellValue(linhasPlanilha.get(i).getCursoDestino());
+            linha.createCell(coluna16).setCellValue(strSimboloReal.concat(String.valueOf(valorTotal)));
+            linha.createCell(coluna17).setCellValue(linhasPlanilha.get(i).getAreaConhecimento());
+            linha.createCell(coluna18).setCellValue(linhasPlanilha.get(i).getCursoDestino());
 
         }
 
@@ -91,60 +121,85 @@ public class ExportacaoPlanilhaService {
         return planilhaNacionais;
     }
 
-    private HSSFSheet gerarCabecalho(HSSFSheet planilha, List<ItemPlanilha> linhasPlanilha) {
+    /**
+     * Gera o cabeçalho de um objeto de planilha com os devidos nomes das colunas.
+     * @param planilha
+     * Objeto planilha a ter o cabeçalho gerado.
+     * @return 
+     * Objeto planiha com o cabeçalho devidamente gerado.
+     */
+    private HSSFSheet gerarCabecalho(HSSFSheet planilha) {
 
         HSSFRow linha = planilha.createRow(0);
-        linha.createCell((short) 0).setCellValue("Itens");
-        linha.createCell((short) 1).setCellValue("Nome do Autor");
-        linha.createCell((short) 2).setCellValue("Título da Obra");
-        linha.createCell((short) 3).setCellValue("Edição");
-        linha.createCell((short) 4).setCellValue("Editora");
-        linha.createCell((short) 5).setCellValue("Local");
-        linha.createCell((short) 6).setCellValue("Ano");
-        linha.createCell((short) 7).setCellValue("Coleção (S/N)");
-        linha.createCell((short) 8).setCellValue("Volume");
-        linha.createCell((short) 9).setCellValue("Matrícula Sophia do Solicitante (conselheiro)");
-        linha.createCell((short) 10).setCellValue("Curso de Destino");
-        linha.createCell((short) 11).setCellValue("Unidade de Medida (l, m, Kg, pct, cx, ...)");
-        linha.createCell((short) 12).setCellValue("Valor Unitário Orçamento 1 em Real R$");
-        linha.createCell((short) 13).setCellValue("Valor Unitário Orçamento 2 em Real R$");
-        linha.createCell((short) 14).setCellValue("Valor Unitário Orçamento 3 em Real R$");
-        linha.createCell((short) 15).setCellValue("Valor Médio Uniário em Real R$");
-        linha.createCell((short) 16).setCellValue("Valor Total em Real R$");
-        linha.createCell((short) 17).setCellValue("Quantidade de Exemplares");
-        linha.createCell((short) 18).setCellValue("Área do Conhecimento");
+        linha.createCell(coluna0).setCellValue("Itens");
+        linha.createCell(coluna1).setCellValue("Nome do Autor");
+        linha.createCell(coluna2).setCellValue("Título da Obra");
+        linha.createCell(coluna3).setCellValue("Edição");
+        linha.createCell(coluna4).setCellValue("Editora");
+        linha.createCell(coluna5).setCellValue("Local");
+        linha.createCell(coluna6).setCellValue("Ano");
+        linha.createCell(coluna7).setCellValue("Coleção (S/N)");
+        linha.createCell(coluna8).setCellValue("Volume");
+        linha.createCell(coluna9).setCellValue("Matrícula Sophia do Solicitante (conselheiro)");
+        linha.createCell(coluna10).setCellValue("Curso de Destino");
+        linha.createCell(coluna11).setCellValue("Unidade de Medida (l, m, Kg, pct, cx, ...)");
+        linha.createCell(coluna12).setCellValue("Valor Unitário Orçamento 1 em Real R$");
+        linha.createCell(coluna13).setCellValue("Valor Unitário Orçamento 2 em Real R$");
+        linha.createCell(coluna14).setCellValue("Valor Unitário Orçamento 3 em Real R$");
+        linha.createCell(coluna15).setCellValue("Valor Médio Uniário em Real R$");
+        linha.createCell(coluna16).setCellValue("Valor Total em Real R$");
+        linha.createCell(coluna17).setCellValue("Quantidade de Exemplares");
+        linha.createCell(coluna18).setCellValue("Área do Conhecimento");
 
         return planilha;
     }
 
+    /**
+     * Gera o rodapé de um objeto de planilha com os devidos subtotais calculados.
+     * @param planilha
+     * Objeto de planilha a ter o rodapé gerado.
+     * @param linhasPlanilha
+     * Lista de itens da planilha a ter o rodapé calculado.
+     * @return 
+     * Objeto planilha com o rodapé devidamente gerado.
+     */
     private HSSFSheet gerarRodape(HSSFSheet planilha, List<ItemPlanilha> linhasPlanilha) {
 
         HSSFRow linha = planilha.createRow(linhasPlanilha.size() + 1);
-        linha.createCell((short) 0).setCellValue("TOTAL");
-        linha.createCell((short) 1).setCellValue(" ");
-        linha.createCell((short) 2).setCellValue(" ");
-        linha.createCell((short) 3).setCellValue(" ");
-        linha.createCell((short) 4).setCellValue(" ");
-        linha.createCell((short) 5).setCellValue(" ");
-        linha.createCell((short) 6).setCellValue(" ");
-        linha.createCell((short) 7).setCellValue(" ");
-        linha.createCell((short) 8).setCellValue(" ");
-        linha.createCell((short) 9).setCellValue(" ");
-        linha.createCell((short) 10).setCellValue(" ");
-        linha.createCell((short) 11).setCellValue(" ");
+        linha.createCell(coluna0).setCellValue("TOTAL");
+        linha.createCell(coluna1).setCellValue(" ");
+        linha.createCell(coluna2).setCellValue(" ");
+        linha.createCell(coluna3).setCellValue(" ");
+        linha.createCell(coluna4).setCellValue(" ");
+        linha.createCell(coluna5).setCellValue(" ");
+        linha.createCell(coluna6).setCellValue(" ");
+        linha.createCell(coluna7).setCellValue(" ");
+        linha.createCell(coluna8).setCellValue(" ");
+        linha.createCell(coluna9).setCellValue(" ");
+        linha.createCell(coluna10).setCellValue(" ");
+        linha.createCell(coluna11).setCellValue(" ");
         double valorMedioUnitarioTotal = obterValorMedioUnitarioGeral(linhasPlanilha);
-        linha.createCell((short) 12).setCellValue(String.valueOf(valorMedioUnitarioTotal));
-        linha.createCell((short) 13).setCellValue(String.valueOf(valorMedioUnitarioTotal));
-        linha.createCell((short) 14).setCellValue(String.valueOf(valorMedioUnitarioTotal));
-        linha.createCell((short) 15).setCellValue(String.valueOf(valorMedioUnitarioTotal));
-        linha.createCell((short) 16).setCellValue(String.valueOf(obterValorTotalGeral(linhasPlanilha)));
-        linha.createCell((short) 17).setCellValue(" ");
-        linha.createCell((short) 18).setCellValue(" ");
+        linha.createCell(coluna12).setCellValue(String.valueOf(valorMedioUnitarioTotal));
+        linha.createCell(coluna13).setCellValue(String.valueOf(valorMedioUnitarioTotal));
+        linha.createCell(coluna14).setCellValue(String.valueOf(valorMedioUnitarioTotal));
+        linha.createCell(coluna15).setCellValue(String.valueOf(valorMedioUnitarioTotal));
+        linha.createCell(coluna16).setCellValue(String.valueOf(obterValorTotalGeral(linhasPlanilha)));
+        linha.createCell(coluna17).setCellValue(" ");
+        linha.createCell(coluna18).setCellValue(" ");
 
         return planilha;
 
     }
 
+    /**
+     * Retorna o valor médio unitário geral de uma lista de itens de planilha.
+     * O valor médio unitário geral é a soma dos valores médios de todos os
+     * livros contidos na planilha.
+     * @param linhasPlanilha
+     * Lista de itens da planilha a ter o valor médio unitário geral calculado.
+     * @return 
+     * Valor médio unitário geral da planilha.
+     */
     private double obterValorMedioUnitarioGeral(List<ItemPlanilha> linhasPlanilha) {
 
         double valorMedioUnitarioGeral = 0.0;
@@ -158,6 +213,15 @@ public class ExportacaoPlanilhaService {
 
     }
 
+    /**
+     * Retorna o valor total geral de uma lista de itens de planilha. O valor
+     * total geral é o valor da compra com base no preço médio de cada livro e
+     * quantidade de cada livro.
+     * @param linhasPlanilha
+     * Lista de itens da planilha a ter o valor total geral calculado.
+     * @return 
+     * Valor total geral da planilha.
+     */
     private double obterValorTotalGeral(List<ItemPlanilha> linhasPlanilha) {
 
         double valorTotalGeral = 0.0;
@@ -172,19 +236,25 @@ public class ExportacaoPlanilhaService {
 
     }
 
+    /**
+     * Gera planilha em formato CSV com base numa lista de itens de planilha.
+     * Cada ItemPlanilha é uma linha da planilha com suas devidas colunas.
+     * @param linhasPlanilha 
+     * Lista de itens da planilha.
+     */
     public void gerarPlanilhaCSV(List<ItemPlanilha> linhasPlanilha) {
 
         List<Map> planilhaListMap = obterListMap(linhasPlanilha);
         String separadorCSV = ",";
-        
+
         try {
-            
-            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(
+
+            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(
                     new FileOutputStream("planilha.csv"), "UTF-8"));
-           
+
             for (Map itemListMap : planilhaListMap) {
-              
-                StringBuffer linha = new StringBuffer();
+
+                StringBuilder linha = new StringBuilder();
                 Iterator iterador = itemListMap.values().iterator();
 
                 while (iterador.hasNext()) {
@@ -198,49 +268,61 @@ public class ExportacaoPlanilhaService {
                         linha.append(separadorCSV);
                     }
                 }
-                
-                bw.write(linha.toString());
-                bw.newLine();
+
+                writer.write(linha.toString());
+                writer.newLine();
             }
-            
-            bw.flush();
-            bw.close();
-            
+
+            writer.flush();
+            writer.close();
+
         } catch (UnsupportedEncodingException e) {
+            Logger.getLogger(ExportacaoPlanilhaService.class.getName()).log(Level.SEVERE, null, e);
         } catch (FileNotFoundException e) {
+            Logger.getLogger(ExportacaoPlanilhaService.class.getName()).log(Level.SEVERE, null, e);
         } catch (IOException e) {
+            Logger.getLogger(ExportacaoPlanilhaService.class.getName()).log(Level.SEVERE, null, e);
         }
 
     }
-    
+
+    /**
+     * Converte uma lista de itens de planilha em um objeto do tipo ListMap,
+     * devidamente preenchido.
+     * @param linhasPlanilha
+     * Lista de itens de planilha.
+     * @return 
+     * Objeto do tipo ListMap preenchido com os dados da lista de itens de 
+     * planilha.
+     */
     private List<Map> obterListMap(List<ItemPlanilha> linhasPlanilha) {
-        
+
         List<Map> planilhaListMap = new ArrayList<Map>();
-        
-        int k;
-        for (k = 0; k < linhasPlanilha.size(); k++) {
-           
+
+        int i;
+        for (i = 0; i < linhasPlanilha.size(); i++) {
+
             Map item = new HashMap();
-           
-            item.put(0, linhasPlanilha.get(k).getNumItem());
-            item.put(1, linhasPlanilha.get(k).getNomeAutor());
-            item.put(2, linhasPlanilha.get(k).getTituloObra());
-            item.put(3, linhasPlanilha.get(k).getEdicao());
-            item.put(4, linhasPlanilha.get(k).getEditora());
-            item.put(5, linhasPlanilha.get(k).getLocal());
-            item.put(6, linhasPlanilha.get(k).getAno());
-            item.put(7, linhasPlanilha.get(k).getColecao());
-            item.put(8, linhasPlanilha.get(k).getVolume());
-            item.put(9, linhasPlanilha.get(k).getMatriculaSophiaConselheiro());
-            item.put(10, linhasPlanilha.get(k).getCursoDestino());
-            item.put(11, linhasPlanilha.get(k).getUnidadeMedida());
-            item.put(12, linhasPlanilha.get(k).getValorMedioUnitario());
-            item.put(13, linhasPlanilha.get(k).getQuantExemplares());
-            item.put(14, linhasPlanilha.get(k).getAreaConhecimento());
-            
-           planilhaListMap.add(item);
+
+            item.put(coluna0, linhasPlanilha.get(i).getNumItem());
+            item.put(coluna1, linhasPlanilha.get(i).getNomeAutor());
+            item.put(coluna2, linhasPlanilha.get(i).getTituloObra());
+            item.put(coluna3, linhasPlanilha.get(i).getEdicao());
+            item.put(coluna4, linhasPlanilha.get(i).getEditora());
+            item.put(coluna5, linhasPlanilha.get(i).getLocal());
+            item.put(coluna6, linhasPlanilha.get(i).getAno());
+            item.put(coluna7, linhasPlanilha.get(i).getColecao());
+            item.put(coluna8, linhasPlanilha.get(i).getVolume());
+            item.put(coluna9, linhasPlanilha.get(i).getMatriculaSophiaConselheiro());
+            item.put(coluna10, linhasPlanilha.get(i).getCursoDestino());
+            item.put(coluna11, linhasPlanilha.get(i).getUnidadeMedida());
+            item.put(coluna12, linhasPlanilha.get(i).getValorMedioUnitario());
+            item.put(coluna13, linhasPlanilha.get(i).getQuantExemplares());
+            item.put(coluna14, linhasPlanilha.get(i).getAreaConhecimento());
+
+            planilhaListMap.add(item);
         }
-        
+
         return planilhaListMap;
     }
 }
