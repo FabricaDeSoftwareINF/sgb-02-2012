@@ -1,4 +1,3 @@
-
 package br.ufg.inf.es.integracao.exportacaodados.planilha;
 
 import br.ufg.inf.es.model.ItemPlanilha;
@@ -7,19 +6,19 @@ import java.util.List;
 
 /**
  * Classe executável para geração de arquivos de exportação do tipo XLS e CSV.
+ *
  * @author Bruno Marquete
  */
 public class TesteExportacaoPlanilhaService {
-    
+
     private static ExportacaoPlanilhaService exportador = new ExportacaoPlanilhaService();
+    private static List<ItemPlanilha> planilha = new ArrayList<ItemPlanilha>();
 
     public static void main(String args[]) {
 
-        List<ItemPlanilha> planilhaXLS = new ArrayList<ItemPlanilha>();
-
         int i;
-        int numItens = 10;
-        for (i = 1; i <= numItens; i++) {
+        final int NUM_ITENS = 10;
+        for (i = 1; i <= NUM_ITENS; i++) {
 
             ItemPlanilha item = new ItemPlanilha();
 
@@ -30,19 +29,18 @@ public class TesteExportacaoPlanilhaService {
             item.setEditora("Editora " + i);
             item.setAno("2010");
             item.setCursoDestino("Engenharia de Software");
-            double valorMedioUnitario = 30.0;
-            item.setValorMedioUnitario(valorMedioUnitario);
-            int quantExemplares = 5;
-            item.setQuantExemplares(quantExemplares);
+            final double VALOR_MEDIO_UNITARIO = 30.0;
+            item.setValorMedioUnitario(VALOR_MEDIO_UNITARIO);
+            final int QUANT_EXEMPLARES = 5;
+            item.setQuantExemplares(QUANT_EXEMPLARES);
             item.setAreaConhecimento("Ciências Extatas e da Terra");
 
-            planilhaXLS.add(item);
+            planilha.add(item);
 
         }
 
-        exportador.gerarPlanilhaXLS(planilhaXLS, planilhaXLS);
-        exportador.gerarPlanilhaCSV(planilhaXLS);
+        exportador.gerarPlanilhaXLS(planilha, planilha);
+        exportador.gerarPlanilhaCSV(planilha);
 
     }
-
 }
