@@ -99,9 +99,9 @@ public class CursoController extends SGBController<Curso, CursoForm, CursoServic
      */
     public void removeDisciplina() {
         
-        this.getForm().getListaDisciplinaComboBox().add(this.getForm().getDisciplinaSelecionada());
+        this.getForm().getListaDisciplinaComboBox().add(this.getForm().getDisciplinaToRemove());
         
-        this.getForm().getListaDisciplinaAssociacao().remove(this.getForm().getDisciplinaSelecionada());
+        this.getForm().getListaDisciplinaAssociacao().remove(this.getForm().getDisciplinaToRemove());
     }
     
     /**
