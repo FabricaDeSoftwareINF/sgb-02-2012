@@ -11,8 +11,10 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 /**
+ *  Classe controlodara para a entidade curso.
+ * 
  * @author Diogo Gon&ccedil;alves Teodoro
- *
+ * @author Alan Vieira Ribeiro
  */
 @Component
 @Scope("session")
@@ -20,68 +22,111 @@ public class CursoController extends SGBController<Curso, CursoForm, CursoServic
 
     @Autowired
     private CursoForm form;
+    
     @Autowired
     private CursoService service;
-    @Autowired
-    private DisciplinaService disciplinaService;
+         
+    /**
+     * Método responsável por salvar um curso.
+     * 
+     * @author Allan Vieira Ribeiro
+     * @author Diogo Gonçalves Teodoro
+     */
+    @Override
+    public void insert() {
+        
+        try {
+            
+            this.getService().insert(this.getForm().getEntity(), this.getForm().getListaDisciplinaAssociacao());
+            
+        } catch (ValidationException ve) {
+            
+            addErrorMessage("arquitetura.msg.erro");            
+            
+        } finally {
+
+            this.clearData();
+        }       
+        
+        addSuccessMessage("arquitetura.msg.sucesso");
+    }
+
+    /**
+     * Método responsável por iniciar os dados de inicialização da página inclusão
+     * @return String com o caminho da página de inclusão
+     */
+    @Override
+    public String openInsertPage() {
+     
+        this.getForm().setListaDisciplinaComboBox(this.getService().listarDisciplinasNaoVinculadasACurso());
+        
+        this.clearData();
+        
+        return super.openInsertPage();
+    }   
     
-    public void salvarCurso() throws ValidationException{
+    /**
+     * Método responsável por iniciar os dados de inicialização da página edição
+     * @return String com o caminho da página de edição.
+     */
+    @Override
+    public String openEditPage() {
+     
+        this.getForm().setListaDisciplinaComboBox(this.getService().listarDisciplinasNaoVinculadasACurso());
         
-        Curso curso;
+        this.getService().getDAO().refresh(this.getForm().getEntity());
         
-        curso = this.getForm().getEntity();
-            
-        long id = service.insert(curso);
+        this.clearData();
         
-        curso = this.getService().find(id);
-        
-        for (Disciplina disc : this.getForm().getListaDisc())  {
-            
-            disc.setCurso(curso);
-            
-            disciplinaService.update(disc);
-        }      
+        return super.openEditPage();
+    }   
 
-        service.update(curso);
-           
+    /**
+     * Método responsável por adicionar uma disciplina na lista temporária de 
+     * associação com um curso.
+     * 
+     */
+    public void addDisciplinaAssociacao() {
+
+        this.getForm().getListaDisciplinaAssociacao().add(this.getForm().getDisciplinaSelecionada());
+        
+        this.getForm().getListaDisciplinaComboBox().remove(this.getForm().getDisciplinaSelecionada());
     }
 
-    public void addDisciplina() {
-
-        long id = this.getForm().getDisciplinaSelecionada().getId();
-        Disciplina disciplina = disciplinaService.find(id);
-        disciplina.setCurso(this.getForm().getEntity());
-        this.getForm().addDisc(disciplina);
-
-    }
-
+    /**
+     * Método responsável por remover uma disciplina da lista temporária de 
+     * associação com um curso.
+     */
     public void removeDisciplina() {
-        this.getForm().getEntity().getDisciplinas().remove(this.getForm().getDisciplinaToRemove());
+        
+        this.getForm().getListaDisciplinaComboBox().add(this.getForm().getDisciplinaSelecionada());
+        
+        this.getForm().getListaDisciplinaAssociacao().remove(this.getForm().getDisciplinaSelecionada());
+    }
+    
+    /**
+     * Método responsável por limpar os campos da tela retornando para os valores padrões.
+     * 
+     * @author Allan Vieira Ribeiro
+     */
+    public void clearData() {
+        
+        this.getForm().setEntity(new Curso());
+        
+        this.getForm().setDisciplinaSelecionada(new Disciplina());
+        
+        this.getForm().setListaDisciplinaComboBox(this.getService().listarDisciplinasNaoVinculadasACurso());
     }
 
     @Override
     public CursoForm getForm() {
+        
         return form;
-    }
-
-    public void setForm(CursoForm form) {
-        this.form = form;
     }
 
     @Override
     public CursoService getService() {
+        
         return service;
-    }
-
-    public void setService(CursoService service) {
-        this.service = service;
-    }
-
-    public DisciplinaService getDisciplinaService() {
-        return disciplinaService;
-    }
-
-    public void setDisciplinaService(DisciplinaService disciplinaService) {
-        this.disciplinaService = disciplinaService;
     }
 }
