@@ -67,12 +67,12 @@
 
                     <p:spacer/>
 
-                    <p:commandButton value="#{msg['cadastro.associar.disciplina']}" 
+                    <p:commandButton value="#{msg['cadastro.associar.disciplina']}" ajax="false"
                                      action="#{cursoController.addDisciplinaAssociacao}" 
                                      update="fieldsetAssociacao"/>
                 </h:panelGrid>
 
-                <p:dataTable id="associationTable" var="assTab" 
+                <p:dataTable id="associationTable" var="assTab" emptyMessage="#{msg['arquitetura.msg.nenhumregistroencontrado']}"
                              value="#{cursoController.form.listaDisciplinaAssociacao}">
 
                     <p:column headerText="#{msg['cadastro.disciplina']}">  
@@ -83,7 +83,7 @@
 
                     <p:column headerText="#{msg['cadastro.acao']}">  
 
-                        <h:commandLink id="linkAcao" value="Remover" 
+                        <h:commandLink id="linkAcao" value="Remover"
                                        action="#{cursoController.removeDisciplina()}">
 
                             <f:setPropertyActionListener value="#{assTab}" target="#{cursoController.form.disciplinaToRemove}"/>

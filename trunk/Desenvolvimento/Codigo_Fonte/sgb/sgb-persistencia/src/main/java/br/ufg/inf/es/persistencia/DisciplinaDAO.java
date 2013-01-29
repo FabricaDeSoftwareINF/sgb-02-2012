@@ -65,7 +65,11 @@ public class DisciplinaDAO extends GenericHibernateDAO<Disciplina> {
 
     /**
      * Método responsável por realizar a busca pelos atributos preenchidos.
+     *
+     * @author Allan Vieira Ribeiro
+     * 
      * @param entidade Entidade utilizada para a busca.
+     * 
      * @return  As entidades encontradas.
      */
     @Override
