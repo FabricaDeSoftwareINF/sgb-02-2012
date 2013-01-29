@@ -1,25 +1,25 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package br.ufg.inf.es.integracao.exportacaodados.planilha;
 
 import br.ufg.inf.es.model.ItemPlanilha;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
- *
- * @author MarqueteHome
+ * Classe executável para geração de arquivos de exportação do tipo XLS e CSV.
+ * @author Bruno Marquete
  */
 public class TesteExportacaoPlanilhaService {
+    
+    private static ExportacaoPlanilhaService exportador = new ExportacaoPlanilhaService();
 
     public static void main(String args[]) {
 
-        ExportacaoPlanilhaService exportador = new ExportacaoPlanilhaService();
         List<ItemPlanilha> planilhaXLS = new ArrayList<ItemPlanilha>();
 
         int i;
-        for (i = 1; i <= 3; i++) {
+        int numItens = 10;
+        for (i = 1; i <= numItens; i++) {
 
             ItemPlanilha item = new ItemPlanilha();
 
@@ -30,8 +30,10 @@ public class TesteExportacaoPlanilhaService {
             item.setEditora("Editora " + i);
             item.setAno("2010");
             item.setCursoDestino("Engenharia de Software");
-            item.setValorMedioUnitario(30.0);
-            item.setQuantExemplares(5);
+            double valorMedioUnitario = 30.0;
+            item.setValorMedioUnitario(valorMedioUnitario);
+            int quantExemplares = 5;
+            item.setQuantExemplares(quantExemplares);
             item.setAreaConhecimento("Ciências Extatas e da Terra");
 
             planilhaXLS.add(item);
