@@ -5,8 +5,8 @@ import org.springframework.stereotype.Component;
 
 import br.ufg.inf.es.model.Curso;
 import br.ufg.inf.es.model.Disciplina;
+import java.util.Collection;
 import java.util.LinkedList;
-import java.util.List;
 
 /**
  * @author Diogo Gon&ccedil;alves Teodoro
@@ -17,53 +17,60 @@ import java.util.List;
 public class CursoForm extends GenericForm<Curso> {
 
     private Disciplina disciplinaSelecionada;
+    
     private Disciplina disciplinaToRemove;
     
-    private List<Disciplina> listaDisc;
-    private List<Disciplina> listaBanco;
-
-  
+    private Collection<Disciplina> listaDisciplinaAssociacao;
     
-     public List<Disciplina> getListaDisc() {
-        if (listaDisc == null) {
-            listaDisc = new LinkedList<Disciplina>();
+    private Collection<Disciplina> listaDisciplinaComboBox;
+
+    public Collection<Disciplina> getListaDisciplinaAssociacao() {
+        
+        if (listaDisciplinaAssociacao == null) {
+            
+            listaDisciplinaAssociacao = new LinkedList<Disciplina>();
         }
-        return listaDisc;
-
+        
+        return listaDisciplinaAssociacao;
     }
-    
-     public void addDisc(Disciplina disciplina){
-         getListaDisc().add(disciplina);
-     }
 
-    public void setListaDisc(List<Disciplina> listaDisc) {
-        this.listaDisc = listaDisc;
+    public void setListaDisciplinaAssociacao(Collection<Disciplina> listaDisciplinaAssociacao) {
+        
+        this.listaDisciplinaAssociacao = listaDisciplinaAssociacao;
     }
 
     public Disciplina getDisciplinaSelecionada() {
-        if(this.disciplinaSelecionada == null){
-           disciplinaSelecionada = new Disciplina();
+        
+        if (this.disciplinaSelecionada == null) {
+            
+            disciplinaSelecionada = new Disciplina();
         }
+        
         return disciplinaSelecionada;
     }
 
     public void setDisciplinaSelecionada(Disciplina disciplinaSelecionada) {
+        
         this.disciplinaSelecionada = disciplinaSelecionada;
     }
 
     public Disciplina getDisciplinaToRemove() {
+        
         return disciplinaToRemove;
     }
 
     public void setDisciplinaToRemove(Disciplina disciplinaToRemove) {
+        
         this.disciplinaToRemove = disciplinaToRemove;
     }
-      public List<Disciplina> getListaBanco() {
-        return listaBanco;
+
+    public Collection<Disciplina> getListaDisciplinaComboBox() {
+
+        return listaDisciplinaComboBox;
     }
 
-    public void setListaBanco(List<Disciplina> listaBanco) {
-        this.listaBanco = listaBanco;
+    public void setListaDisciplinaComboBox(Collection<Disciplina> listaDisciplinaComboBox) {
+        
+        this.listaDisciplinaComboBox = listaDisciplinaComboBox;
     }
 }
-

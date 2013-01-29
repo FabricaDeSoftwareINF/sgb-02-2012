@@ -11,3 +11,8 @@
     height: 15px;
     z-index: 2;
 }
+
+body {
+    
+    font-family: sans-serif;
+}

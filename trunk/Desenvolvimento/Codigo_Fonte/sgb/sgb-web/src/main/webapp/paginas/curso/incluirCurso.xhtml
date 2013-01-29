@@ -1,0 +1,115 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html >
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core">
+
+<ui:composition template="/template/template.xhtml">
+
+    <ui:define name="content">
+          
+        <h:form id="formCadastroAutor" style="font-size: 14px;">
+                
+            <h:panelGrid width="100%" style="float: left" columns="1" >
+
+                <h:outputLabel value="#{msg['cadastro.curso.panel.cadastrar']}" style="font-size:24px;"/>
+                
+                <p:messages/>
+
+                <p:spacer width="10" height="15"/>
+
+                <h:panelGrid columns="5">
+
+                    <h:panelGrid columns="2">
+                        
+                        <h:outputLabel value="#{msg['cadastro.curso.label.nome']}:" for="nomeCurso" />
+
+                        <h:outputLabel style="color: red;" value="*"/>
+                        
+                    </h:panelGrid>    
+                        
+                    <p:inputText value="#{cursoController.form.entity.nome}" id="nomeCurso" size="45"/>
+
+                    <p:spacer width="25"/>
+                    
+                    <h:panelGrid columns="2">
+                    
+                        <h:outputLabel value="#{msg['cadastro.curso.label.vagas']}:" for="qtdVagas" />
+                    
+                        <h:outputLabel style="color: red;" value="*"/>
+                        
+                    </h:panelGrid>    
+
+                    <p:inputText value="#{cursoController.form.entity.vagas}" id="qtdVagas" size="15"/>
+
+                </h:panelGrid>
+
+            </h:panelGrid>
+
+            <p:spacer width="10" height="15"/>
+
+            <p:fieldset id="fieldsetAssociacao" legend="#{msg['cadastro.curso.associacao']}">
+
+                <h:panelGrid columns="2" style="text-align: right;" cellspacing="20">
+
+                    <h:outputLabel value="#{msg['cadastro.disciplina']}:" for="disciplina" />
+
+                    <p:selectOneMenu id="disciplina" value="#{cursoController.form.disciplinaSelecionada}"  
+                                     style="width: 500px" converter="disciplinaConverter">
+
+                        <f:selectItem itemLabel="Selecione"/>
+
+                        <f:selectItems value="#{cursoController.form.listaDisciplinaComboBox}" var="disciplina"
+                                       itemLabel="#{disciplina.nome}" itemValue="#{disciplina}"/>
+
+                    </p:selectOneMenu>
+
+                    <p:spacer/>
+
+                    <p:commandButton value="#{msg['cadastro.associar.disciplina']}" 
+                                     action="#{cursoController.addDisciplinaAssociacao}" 
+                                     update="fieldsetAssociacao"/>
+                </h:panelGrid>
+
+                <p:dataTable id="associationTable" var="assTab" 
+                             value="#{cursoController.form.listaDisciplinaAssociacao}">
+
+                    <p:column headerText="#{msg['cadastro.disciplina']}">  
+
+                        <h:outputText value="#{assTab.nome}" />  
+
+                    </p:column>
+
+                    <p:column headerText="#{msg['cadastro.acao']}">  
+
+                        <h:commandLink id="linkAcao" value="Remover" 
+                                       action="#{cursoController.removeDisciplina()}">
+
+                            <f:setPropertyActionListener value="#{assTab}" target="#{cursoController.form.disciplinaToRemove}"/>
+
+                        </h:commandLink>
+
+                    </p:column> 
+
+                </p:dataTable>
+
+            </p:fieldset>
+                
+            <h:panelGrid style="margin-left: 60%;text-align: right;" columns="2" >
+                    
+                <p:commandButton value="#{msg['cadastro.curso.button.insert']}" 
+                                 action="#{cursoController.insert()}" ajax="false" />
+
+                <p:commandButton value="#{msg['acao.voltar']}"  ajax="false" 
+                                 action="#{cursoController.openSearchPage()}"/>
+                
+             </h:panelGrid>    
+                                
+        </h:form>
+   
+    </ui:define>
+    
+</ui:composition>
+    
+</html>

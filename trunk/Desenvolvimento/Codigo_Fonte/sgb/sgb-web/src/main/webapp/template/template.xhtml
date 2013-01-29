@@ -64,13 +64,7 @@
 
                 <p:submenu label="Cadastros">
 
-                    <p:submenu label="Curso">
-
-                        <p:menuitem value="Manter" action="/cadastro/curso/manterCurso.xhtml" />
-
-                        <p:menuitem value="Cadastrar" action="#{cursoController.openInsertPage}" />
-
-                    </p:submenu>
+                    <p:menuitem value="#{msg['cadastro.curso']}" action="#{cursoController.openSearchPage()}" ajax="false"/>
 
                     <p:menuitem value="#{msg['cadastro.editora.label.editora']}" action="#{editoraController.openInitialPage()}"  ajax="false"/>
 

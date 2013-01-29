@@ -7,8 +7,9 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * @author Diogo Gon&ccedil;alves Teodoro
+ * Classe responsável por realizar as funções de persistência da entidade <code>Curso</code>
  *
+ * @author Diogo Gon&ccedil;alves Teodoro * 
  */
 @Repository
 @Transactional

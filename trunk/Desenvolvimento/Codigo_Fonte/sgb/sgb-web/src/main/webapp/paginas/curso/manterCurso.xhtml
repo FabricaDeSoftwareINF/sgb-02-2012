@@ -1,62 +1,116 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--@autor: Diogo Goncalves Teodoro-->
-<!DOCTYPE html>
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html >
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets"  
-      xmlns:h="http://java.sun.com/jsf/html"  
+      xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://java.sun.com/jsf/core">
-    <h:head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <h:outputStylesheet name="default.css" library="css"/>
-        <title>Manter Curso</title>
-    </h:head>
-    <h:body>
-        <h:form id="busca">
-             <!--<h1>"#{msg['curso.manter']}"</h1>-->
-            <h:panelGrid width="100%" columns="2">
-               
-                <h:panelGrid width="100%" columns="1">
-                    <h:panelGrid style="float: left" columns="6" >
-                        <h:panelGrid columns="2">
-                            <p:inputText id="pesquisaCurso" size="65"/> 
-                            <p:commandButton icon="ui-icon-search"/>
-                        </h:panelGrid>
-                        <p:watermark for="pesquisaCurso" value="#{msg['curso.pesquisar']}"/>
+      xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core">
 
-                    </h:panelGrid>
-                    <p:dataTable id="associationTable" var="assTab" 
-                                 value="#{cursoController.form.collectionEntities}">
-                        <p:column>  
-                            <f:facet name="header">  
-                                <h:outputText value="#{msg['cadastro.curso.label.nome']}" />  
-                            </f:facet>  
-                            <h:outputText value="#{assTab.nome}" />  
+    <ui:composition template="/template/template.xhtml">
+
+        <ui:define name="content">
+    
+            <h:form id="formbusca" style="font-size: 14px;">
+                
+                <p:spacer width="10" height="15"/>
+
+                <h:outputLabel value="#{msg['curso.manter']}" style="font-size:24px;"/>
+                
+                <p:messages/>
+                
+                <p:spacer width="10" height="15"/>
+
+                <h:panelGrid width="100%" columns="1">
+                       
+                    <p:dataTable id="associationTable" var="curso" 
+                            value="#{cursoController.form.collectionEntities}"
+                            emptyMessage="#{msg['cadastro.curso.registrosnaoencontrado']}">
+                        
+                        <!--<p:column selectionMode="multiple" style="width:18px" />  -->
+                        
+                        <p:column headerText="#{msg['cadastro.curso.label.nome']}"
+                                  filterBy="#{curso.nome}">  
+
+                            <h:outputText value="#{curso.nome}" />  
+                            
                         </p:column> 
-                        <p:column>  
-                            <f:facet name="header">  
-                                <h:outputText value="#{msg['cadastro.curso.label.vagas']}" />  
-                            </f:facet>  
-                            <h:outputText value="#{assTab.vagas}" />  
+                        
+                        <p:column headerText="#{msg['cadastro.curso.label.vagas']}"
+                                  filterBy="#{curso.vagas}" style="text-align: center;">  
+
+                            <h:outputText value="#{curso.vagas}" />  
+                            
                         </p:column>
-                        <p:column>  
-                            <f:facet name="header">  
-                                <h:outputText value="#{msg['cadastro.acao']}" />  
-                            </f:facet>  
-                            <h:commandLink id="linkAcaoEditar" 
-                                           value="#{msg['acao.editar']}" 
-                                           action="/cadastro/curso/inclusaoCurso.xhtml"/>
-                            <p:spacer width="5" height="0"/>
-                            <h:commandLink id="linkAcaoDetalhe" 
-                                           value="#{msg['acao.detalhes']}" 
-                                           action="/cadastro/curso/inclusaoCurso.xhtml"/>  
+                        
+                        <p:column headerText="#{msg['cadastro.acao']}" style="text-align: center;">  
+                            
+                            <h:panelGrid columns="2" class="semborda">
+                            
+                                <h:commandLink id="linkAcaoEditar" value="#{msg['acao.editar']}" 
+                                               action="#{cursoController.openEditPage()}">
+                                
+                                    <f:setPropertyActionListener target="#{cursoController.form.entity}"
+                                                                 value="#{curso}"/>
+                                    
+                                </h:commandLink>
+
+
+                                <h:commandLink id="linkAcaoDetalhe" value="#{msg['acao.detalhes']}" 
+                                                oncomplete="dialogDetalhe.show();">
+                                    
+                                    <f:setPropertyActionListener target="#{cursoController.form.entity}"
+                                                                 value="#{curso}"/>
+                            
+                                </h:commandLink>
+                                    
+                            </h:panelGrid>    
+                                
                         </p:column> 
 
                     </p:dataTable>
+                    
+                    <p:spacer height="15" width="5"/>
+                    
+                    <h:panelGrid columns="3" style="margin-left: 80%;">
+                        
+                        <p:commandButton value="#{msg['usuario.label.novo']}" ajax="false"
+                                action="#{cursoController.openInsertPage()}"/>
+                        
+                        <p:spacer width="15"/>
+                        
+                        <p:commandButton value="#{msg['usuario.label.remover']}"
+                                onclick="dlgRemocao.show();"/>
+                        
+                    </h:panelGrid>
+                    
                 </h:panelGrid>
-            </h:panelGrid>
+                
+                <p:dialog id="dialogRemocao" widgetVar="dlgRemocao" modal="true"
+                          resizable="false" closable="false">
+                    
+                    <h:panelGrid columns="1" style="text-align: center;">
+                        
+                        <h:outputText value="#{msg['cadastro.autor.label.remocao']}"/>
+                        
+                        <p:spacer height="10"/>
+                        
+                        <h:panelGrid columns="2" style="margin-left: 30%;">
+                            
+                            <p:commandButton value="#{msg['cadastro.autor.label.sim']}"
+                                action="#{cursoController.remove()}" update="@form"/>
+                        
+                            <p:commandButton value="#{msg['cadastro.autor.label.nao']}"
+                                onclick="dlgRemocao.hide();"/>
+                            
+                        </h:panelGrid>
+                        
+                    </h:panelGrid>
+                    
+                </p:dialog>
 
-        </h:form>
+            </h:form>
+          
+        </ui:define>
         
-    </h:body>
+    </ui:composition>
+
 </html>

@@ -112,11 +112,28 @@
             
         </navigation-case>
         
+        <!-- ESTÓRIA DE USUÁRIO 03-->
         <navigation-case>
             
             <from-outcome>CursoController/insertPage</from-outcome>
             
-            <to-view-id>/paginas/curso/inclusaoCurso.xhtml</to-view-id>
+            <to-view-id>/paginas/curso/incluirCurso.xhtml</to-view-id>
+            
+        </navigation-case>
+        
+        <navigation-case>
+            
+            <from-outcome>CursoController/searchPage</from-outcome>
+            
+            <to-view-id>/paginas/curso/manterCurso.xhtml</to-view-id>
+            
+        </navigation-case>
+        
+        <navigation-case>
+            
+            <from-outcome>CursoController/editPage</from-outcome>
+            
+            <to-view-id>/paginas/curso/editarCurso.xhtml</to-view-id>
             
         </navigation-case>
         
@@ -127,15 +144,6 @@
             <to-view-id>/paginas/livro/inclusao.xhtml</to-view-id>
             
         </navigation-case>
-        
-        <navigation-case>
-            
-            <from-outcome>CursoController/openSearchPage</from-outcome>
-            
-            <to-view-id>/paginas/curso/manterCurso.xhtml</to-view-id>
-            
-        </navigation-case>
-
 
         <navigation-case>
             

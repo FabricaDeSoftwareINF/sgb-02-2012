@@ -20,11 +20,13 @@ public class Disciplina extends AbstractEntityModel {
 
     @Column(name = "nome")
     private String nome;
+    
     @Column(name = "codigo")
     private String codigo;
+    
     @ManyToOne
-    @JoinColumn(name = "id_curso")
     private Curso curso;
+    
     @OneToMany(targetEntity = Bibliografia.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Collection<Bibliografia> bibliografias;
 

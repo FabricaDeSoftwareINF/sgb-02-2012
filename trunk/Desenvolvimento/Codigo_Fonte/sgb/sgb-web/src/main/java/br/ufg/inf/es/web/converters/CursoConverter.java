@@ -16,12 +16,19 @@ import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
 /**
- *
+ * Classe responsável por realizar a conversão da entidade Curso.
  * @author Henrique
  */
 @FacesConverter("cursoConverter")
 public class CursoConverter implements Converter {
-    
+   
+    /**
+     * Método responsável por converter uma <code>String</code> em um objeto.
+     * @param facesContext
+     * @param component
+     * @param value
+     * @return Objeto gerado a partir da <code>String</code>
+     */
     @Override
     public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
        
@@ -52,6 +59,13 @@ public class CursoConverter implements Converter {
         }  
     }
 
+    /**
+     * Método responsável por converter um <code>Object</code> em uma <code>String</code>.
+     * @param context
+     * @param component
+     * @param value
+     * @return A <code>String</code> convertida
+     */
     @Override
     public String getAsString(FacesContext context, UIComponent component, Object value) {
         
