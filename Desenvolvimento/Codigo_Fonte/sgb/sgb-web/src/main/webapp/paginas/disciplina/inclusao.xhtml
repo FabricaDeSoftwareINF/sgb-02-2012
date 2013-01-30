@@ -29,12 +29,12 @@
 
                             <h:outputLabel value="Curso: " for="curso_selectone" />
 
-                            <h:selectOneMenu id="curso_selectone" value="#{disciplinaController.form.entity.curso}"
+                            <p:selectOneMenu id="curso_selectone" value="#{disciplinaController.form.entity.curso}"
                                              style=" width : 300px;" required="true" requiredMessage="#{msg['cadastro.disciplina.msg.RNG006.curso']}"
                                              converter="cursoConverter">
                                 <f:selectItem itemLabel="Curso" />
-                                <f:selectItems value="#{cursoController.form.collectionEntities}" var="curso" itemLabel="#{curso.nome}" itemValue="#{curso}"/>
-                            </h:selectOneMenu>
+                                <f:selectItems value="#{disciplinaController.form.cursos}" var="curso" itemLabel="#{curso.nome}" itemValue="#{curso}"/>
+                            </p:selectOneMenu>
 
                         </div>
                     </h:panelGrid>
