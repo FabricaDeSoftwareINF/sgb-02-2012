@@ -26,18 +26,27 @@ public class DisciplinaService extends GenericService<Disciplina> {
 
     @Autowired
     private DisciplinaDAO dao;
-
+    @Autowired
+    private Curso cursoSelecionado;
+    
     @Override
     public DisciplinaDAO getDAO() {
         return this.dao;
     }
-    
-    private Curso cursoSelecionado = new Curso();
 
     public void setDao(DisciplinaDAO dao) {
 
         this.dao = dao;
     }
+    
+         public Curso getCursoSelecionado() {
+        return cursoSelecionado;
+    }
+
+    public void setCursoSelecionado(Curso cursoSelecionado) {
+        this.cursoSelecionado = cursoSelecionado;
+    }
+    
 
     @Override
     @RNG006
@@ -45,13 +54,7 @@ public class DisciplinaService extends GenericService<Disciplina> {
         
         return this.getDAO().insert(entidade);
     }
-     public Curso getCursoSelecionado() {
-        return cursoSelecionado;
-    }
 
-    public void setCursoSelecionado(Curso cursoSelecionado) {
-        this.cursoSelecionado = cursoSelecionado;
-    }
     public Collection<Disciplina> complete(String query) {  
         Collection<Disciplina> results = new ArrayList<Disciplina>();
         Disciplina d = new Disciplina();

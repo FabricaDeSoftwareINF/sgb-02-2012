@@ -21,9 +21,7 @@ public class DisciplinaValidator implements Validation<Disciplina> {
             } else if (object.getCodigo() == null) {
                 throw new ValidationException("cadastro.disciplina.msg.RNG006.codigo");
                 } else if (object.getCurso() == null) { 
-                    throw new ValidationException("cadastro.disciplina.msg.RNG006.curso");
-   
+                    throw new ValidationException("cadastro.disciplina.msg.RNG006.curso");   
             }
-
         }
 }

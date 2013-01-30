@@ -37,10 +37,17 @@ public class DisciplinaController extends SGBController<Disciplina, DisciplinaFo
     @Autowired
     private LivroForm livroForm;
 
+    /**
+     * @author Marco Aurélio
+     */
     @Override
     public void initData() {
+        
         super.initData();
+     
         this.form.getEntity().setCurso(new Curso());
+        
+        this.getForm().setCursos(this.getCursoService().list());
    
     }
 

@@ -67,7 +67,7 @@ public class CursoService extends GenericService<Curso> {
 
         this.getDAO().update(cursoPersistido);            
         
-        return super.insert(cursoPersistido);
+        return id;
     }
     
     /**
