@@ -95,10 +95,10 @@
             
         </navigation-case>
         
-        <!-- ESTÓRIA DE USUÁRIO XX-->
+        <!-- ESTÓRIA DE USUÁRIO 05-->
         <navigation-case>
             
-            <from-outcome>DisciplinaController/insertPage</from-outcome>
+            <from-outcome>DisciplinaController/initialPage</from-outcome>
             
             <to-view-id>/paginas/disciplina/inclusao.xhtml</to-view-id>
             
@@ -190,6 +190,12 @@
 
         
     </navigation-rule>
+    
+    <converter>
+        <converter-class>br.ufg.inf.es.web.converters.CursoConverter</converter-class>
+            <converter-id>cursoConverter</converter-id>
+        
+        </converter>
 
     <application>
         <el-resolver>org.springframework.web.jsf.el.SpringBeanFacesELResolver</el-resolver>

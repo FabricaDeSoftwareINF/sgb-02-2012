@@ -4,6 +4,7 @@
  */
 package br.ufg.inf.es.web.converters;
 
+import br.ufg.inf.es.base.util.UtilObjeto;
 import br.ufg.inf.es.model.Curso;
 import br.ufg.inf.es.persistencia.CursoDAO;
 import java.util.Collection;
@@ -17,7 +18,7 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
 
 /**
  * Classe responsável por realizar a conversão da entidade Curso.
- * @author Henrique
+ * @author Henrique, Cássio Augusto, Marco Aurélio
  */
 @FacesConverter("cursoConverter")
 public class CursoConverter implements Converter {
@@ -32,7 +33,7 @@ public class CursoConverter implements Converter {
     @Override
     public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
        
-        if (value.trim().equals("")) {  
+        if (Long.parseLong(value) == 0 || value == null) {  
             
             return null;  
             
@@ -44,18 +45,14 @@ public class CursoConverter implements Converter {
             
             CursoDAO dao = context.getBean(CursoDAO.class);
             
-            Curso c = new Curso();
+            Curso c = dao.find(Long.parseLong(value));
             
-            c.setNome(value);
-            
-            Collection<Curso> lista = dao.search(c);
-            
-            if(lista.isEmpty()) {
+            if(!UtilObjeto.isReferencia(c)) {
              
                 return null;
             }
             
-            return lista.toArray()[0];
+            return c;
         }  
     }
 
@@ -75,7 +72,7 @@ public class CursoConverter implements Converter {
         
         } else {  
          
-            return String.valueOf(((Curso) value).getNome());  
+            return String.valueOf(((Curso) value).getId());  
         }  
     }
     
