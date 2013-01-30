@@ -5,9 +5,7 @@ import java.io.*;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.apache.poi.hssf.usermodel.HSSFRow;
-import org.apache.poi.hssf.usermodel.HSSFSheet;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.hssf.usermodel.*;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Component;
@@ -21,6 +19,7 @@ import org.springframework.stereotype.Component;
 @Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class ExportacaoPlanilhaService {
 
+    private HSSFWorkbook geradorPlanilha;
     private final short COLUNA0 = 0;
     private final short COLUNA1 = 1;
     private final short COLUNA2 = 2;
@@ -29,7 +28,7 @@ public class ExportacaoPlanilhaService {
     private final short COLUNA5 = 5;
     private final short COLUNA6 = 6;
     private final short COLUNA7 = 7;
-    private short COLUNA8 = 8;
+    private final short COLUNA8 = 8;
     private final short COLUNA9 = 9;
     private final short COLUNA10 = 10;
     private final short COLUNA11 = 11;
@@ -58,15 +57,19 @@ public class ExportacaoPlanilhaService {
 
         try {
 
-            HSSFWorkbook geradorPlanilha;
             HSSFSheet planilhaNacionais;
             HSSFSheet planilhaEstrangeiros;
-
             geradorPlanilha = new HSSFWorkbook();
+
             planilhaNacionais = geradorPlanilha.createSheet("Títulos Nacionais");
             planilhaEstrangeiros = geradorPlanilha.createSheet("Títulos Estrangeiros");
+
             popularPlanilha(planilhaNacionais, linhasPlanilhaNacionais);
             popularPlanilha(planilhaEstrangeiros, linhasPlanilhaEstrangeiros);
+
+            ajustarTamanhoCelulas(planilhaNacionais);
+            ajustarTamanhoCelulas(planilhaEstrangeiros);
+
             stream = new FileOutputStream("planilha.xls");
             geradorPlanilha.write(stream);
 
@@ -93,27 +96,26 @@ public class ExportacaoPlanilhaService {
         for (i = 0; i < linhasPlanilha.size(); i++) {
 
             HSSFRow linha = planilha.createRow(i + 1);
-            linha.createCell(COLUNA0).setCellValue(String.valueOf(linhasPlanilha.get(i).getNumItem()));
-            linha.createCell(COLUNA1).setCellValue(linhasPlanilha.get(i).getNomeAutor());
-            linha.createCell(COLUNA2).setCellValue(linhasPlanilha.get(i).getTituloObra());
-            linha.createCell(COLUNA3).setCellValue(linhasPlanilha.get(i).getEdicao());
-            linha.createCell(COLUNA4).setCellValue(linhasPlanilha.get(i).getEditora());
-            linha.createCell(COLUNA5).setCellValue(linhasPlanilha.get(i).getLocal());
-            linha.createCell(COLUNA6).setCellValue(linhasPlanilha.get(i).getAno());
-            linha.createCell(COLUNA7).setCellValue(linhasPlanilha.get(i).getColecao());
-            linha.createCell(COLUNA8).setCellValue(linhasPlanilha.get(i).getVolume());
-            linha.createCell(COLUNA9).setCellValue(linhasPlanilha.get(i).getMatriculaSophiaConselheiro());
-            linha.createCell(COLUNA10).setCellValue(linhasPlanilha.get(i).getCursoDestino().toString());
-            linha.createCell(COLUNA11).setCellValue(linhasPlanilha.get(i).getUnidadeMedida());
-            linha.createCell(COLUNA12).setCellValue(strSimboloReal.concat(String.valueOf(linhasPlanilha.get(i).getValorMedioUnitario())));
-            linha.createCell(COLUNA13).setCellValue(strSimboloReal.concat(String.valueOf(linhasPlanilha.get(i).getValorMedioUnitario())));
-            linha.createCell(COLUNA14).setCellValue(strSimboloReal.concat(String.valueOf(linhasPlanilha.get(i).getValorMedioUnitario())));
-            linha.createCell(COLUNA15).setCellValue(strSimboloReal.concat(String.valueOf(linhasPlanilha.get(i).getValorMedioUnitario())));
+            linha.createCell(COLUNA0).setCellValue(new HSSFRichTextString(String.valueOf(linhasPlanilha.get(i).getNumItem())));
+            linha.createCell(COLUNA1).setCellValue(new HSSFRichTextString(linhasPlanilha.get(i).getNomeAutor()));
+            linha.createCell(COLUNA2).setCellValue(new HSSFRichTextString(linhasPlanilha.get(i).getTituloObra()));
+            linha.createCell(COLUNA3).setCellValue(new HSSFRichTextString(linhasPlanilha.get(i).getEdicao()));
+            linha.createCell(COLUNA4).setCellValue(new HSSFRichTextString(linhasPlanilha.get(i).getEditora()));
+            linha.createCell(COLUNA5).setCellValue(new HSSFRichTextString(linhasPlanilha.get(i).getLocal()));
+            linha.createCell(COLUNA6).setCellValue(new HSSFRichTextString(linhasPlanilha.get(i).getAno()));
+            linha.createCell(COLUNA7).setCellValue(new HSSFRichTextString(linhasPlanilha.get(i).getColecao()));
+            linha.createCell(COLUNA8).setCellValue(new HSSFRichTextString(linhasPlanilha.get(i).getVolume()));
+            linha.createCell(COLUNA9).setCellValue(new HSSFRichTextString(linhasPlanilha.get(i).getMatriculaSophiaConselheiro()));
+            linha.createCell(COLUNA10).setCellValue(new HSSFRichTextString(linhasPlanilha.get(i).getCursoDestino().toString()));
+            linha.createCell(COLUNA11).setCellValue(new HSSFRichTextString(linhasPlanilha.get(i).getUnidadeMedida()));
+            linha.createCell(COLUNA12).setCellValue(new HSSFRichTextString(strSimboloReal.concat(String.valueOf(linhasPlanilha.get(i).getValorMedioUnitario()))));
+            linha.createCell(COLUNA13).setCellValue(new HSSFRichTextString(strSimboloReal.concat(String.valueOf(linhasPlanilha.get(i).getValorMedioUnitario()))));
+            linha.createCell(COLUNA14).setCellValue(new HSSFRichTextString(strSimboloReal.concat(String.valueOf(linhasPlanilha.get(i).getValorMedioUnitario()))));
+            linha.createCell(COLUNA15).setCellValue(new HSSFRichTextString(strSimboloReal.concat(String.valueOf(linhasPlanilha.get(i).getValorMedioUnitario()))));
             double valorTotal = linhasPlanilha.get(i).getValorMedioUnitario() * linhasPlanilha.get(i).getQuantExemplares();
-            linha.createCell(COLUNA16).setCellValue(strSimboloReal.concat(String.valueOf(valorTotal)));
-            linha.createCell(COLUNA17).setCellValue(linhasPlanilha.get(i).getQuantExemplares());
-            linha.createCell(COLUNA18).setCellValue(linhasPlanilha.get(i).getAreaConhecimento());
-            
+            linha.createCell(COLUNA16).setCellValue(new HSSFRichTextString(strSimboloReal.concat(String.valueOf(valorTotal))));
+            linha.createCell(COLUNA17).setCellValue(new HSSFRichTextString(String.valueOf(linhasPlanilha.get(i).getQuantExemplares())));
+            linha.createCell(COLUNA18).setCellValue(new HSSFRichTextString(linhasPlanilha.get(i).getAreaConhecimento()));
 
         }
 
@@ -131,26 +133,95 @@ public class ExportacaoPlanilhaService {
      */
     private HSSFSheet gerarCabecalho(HSSFSheet planilha) {
 
+        //Cria o estilo a ser aplicado nas células do cabeçalho
+        HSSFCellStyle estilo = geradorPlanilha.createCellStyle();
+        estilo.setBorderTop(HSSFCellStyle.BORDER_MEDIUM);
+        estilo.setBorderLeft(HSSFCellStyle.BORDER_MEDIUM);
+        estilo.setBorderRight(HSSFCellStyle.BORDER_MEDIUM);
+        estilo.setBorderBottom(HSSFCellStyle.BORDER_MEDIUM);
+        HSSFFont fonte = geradorPlanilha.createFont();
+        fonte.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);
+        estilo.setFont(fonte);
+
+        //Cria a linha do cabeçalho
         HSSFRow linha = planilha.createRow(0);
-        linha.createCell(COLUNA0).setCellValue("Itens");
-        linha.createCell(COLUNA1).setCellValue("Nome do Autor");
-        linha.createCell(COLUNA2).setCellValue("Título da Obra");
-        linha.createCell(COLUNA3).setCellValue("Edição");
-        linha.createCell(COLUNA4).setCellValue("Editora");
-        linha.createCell(COLUNA5).setCellValue("Local");
-        linha.createCell(COLUNA6).setCellValue("Ano");
-        linha.createCell(COLUNA7).setCellValue("Coleção (S/N)");
-        linha.createCell(COLUNA8).setCellValue("Volume");
-        linha.createCell(COLUNA9).setCellValue("Matrícula Sophia do Solicitante (conselheiro)");
-        linha.createCell(COLUNA10).setCellValue("Curso de Destino");
-        linha.createCell(COLUNA11).setCellValue("Unidade de Medida (l, m, Kg, pct, cx, ...)");
-        linha.createCell(COLUNA12).setCellValue("Valor Unitário Orçamento 1 em Real R$");
-        linha.createCell(COLUNA13).setCellValue("Valor Unitário Orçamento 2 em Real R$");
-        linha.createCell(COLUNA14).setCellValue("Valor Unitário Orçamento 3 em Real R$");
-        linha.createCell(COLUNA15).setCellValue("Valor Médio Uniário em Real R$");
-        linha.createCell(COLUNA16).setCellValue("Valor Total em Real R$");
-        linha.createCell(COLUNA17).setCellValue("Quantidade de Exemplares");
-        linha.createCell(COLUNA18).setCellValue("Área do Conhecimento");
+
+        //Cria as células da linha do cabeçalho, aplicando o estilo
+        HSSFCell celula0 = linha.createCell(COLUNA0);
+        celula0.setCellValue(new HSSFRichTextString("Item"));
+        celula0.setCellStyle(estilo);
+
+        HSSFCell celula1 = linha.createCell(COLUNA1);
+        celula1.setCellValue(new HSSFRichTextString("Nome do Autor"));
+        celula1.setCellStyle(estilo);
+
+        HSSFCell celula2 = linha.createCell(COLUNA2);
+        celula2.setCellValue(new HSSFRichTextString("Título da Obra"));
+        celula2.setCellStyle(estilo);
+
+        HSSFCell celula3 = linha.createCell(COLUNA3);
+        celula3.setCellValue(new HSSFRichTextString("Edição"));
+        celula3.setCellStyle(estilo);
+
+        HSSFCell celula4 = linha.createCell(COLUNA4);
+        celula4.setCellValue(new HSSFRichTextString("Editora"));
+        celula4.setCellStyle(estilo);
+
+        HSSFCell celula5 = linha.createCell(COLUNA5);
+        celula5.setCellValue(new HSSFRichTextString("Local"));
+        celula5.setCellStyle(estilo);
+
+        HSSFCell celula6 = linha.createCell(COLUNA6);
+        celula6.setCellValue(new HSSFRichTextString("Ano"));
+        celula6.setCellStyle(estilo);
+
+        HSSFCell celula7 = linha.createCell(COLUNA7);
+        celula7.setCellValue(new HSSFRichTextString("Coleção (S/N)"));
+        celula7.setCellStyle(estilo);
+
+        HSSFCell celula8 = linha.createCell(COLUNA8);
+        celula8.setCellValue(new HSSFRichTextString("Volume"));
+        celula8.setCellStyle(estilo);
+
+        HSSFCell celula9 = linha.createCell(COLUNA9);
+        celula9.setCellValue(new HSSFRichTextString("Matrícula Sophia do Solicitante (conselheiro)"));
+        celula9.setCellStyle(estilo);
+
+        HSSFCell celula10 = linha.createCell(COLUNA10);
+        celula10.setCellValue(new HSSFRichTextString("Curso de Destino"));
+        celula10.setCellStyle(estilo);
+
+        HSSFCell celula11 = linha.createCell(COLUNA11);
+        celula11.setCellValue(new HSSFRichTextString("Unidade de Medida (l, m, Kg, pct, cx, ...)"));
+        celula11.setCellStyle(estilo);
+
+        HSSFCell celula12 = linha.createCell(COLUNA12);
+        celula12.setCellValue(new HSSFRichTextString("Valor Unitário Orçamento 1 em Real R$"));
+        celula12.setCellStyle(estilo);
+
+        HSSFCell celula13 = linha.createCell(COLUNA13);
+        celula13.setCellValue(new HSSFRichTextString("Valor Unitário Orçamento 2 em Real R$"));
+        celula13.setCellStyle(estilo);
+
+        HSSFCell celula14 = linha.createCell(COLUNA14);
+        celula14.setCellValue(new HSSFRichTextString("Valor Unitário Orçamento 3 em Real R$"));
+        celula14.setCellStyle(estilo);
+
+        HSSFCell celula15 = linha.createCell(COLUNA15);
+        celula15.setCellValue(new HSSFRichTextString("Valor Médio Uniário em Real R$"));
+        celula15.setCellStyle(estilo);
+
+        HSSFCell celula16 = linha.createCell(COLUNA16);
+        celula16.setCellValue(new HSSFRichTextString("Valor Total em Real R$"));
+        celula16.setCellStyle(estilo);
+
+        HSSFCell celula17 = linha.createCell(COLUNA17);
+        celula17.setCellValue(new HSSFRichTextString("Quantidade de Exemplares"));
+        celula17.setCellStyle(estilo);
+
+        HSSFCell celula18 = linha.createCell(COLUNA18);
+        celula18.setCellValue(new HSSFRichTextString("Área do Conhecimento"));
+        celula18.setCellStyle(estilo);
 
         return planilha;
     }
@@ -166,27 +237,55 @@ public class ExportacaoPlanilhaService {
      */
     private HSSFSheet gerarRodape(HSSFSheet planilha, List<ItemPlanilha> linhasPlanilha) {
 
+        //Cria o estilo a ser aplicado nas células do rodapé
+        HSSFCellStyle estilo = geradorPlanilha.createCellStyle();
+        HSSFFont fonte = geradorPlanilha.createFont();
+        fonte.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);
+        estilo.setFont(fonte);
+
+        //Cria a linha do rodapé
         HSSFRow linha = planilha.createRow(linhasPlanilha.size() + 1);
-        linha.createCell(COLUNA0).setCellValue("TOTAL");
-        linha.createCell(COLUNA1).setCellValue(" ");
-        linha.createCell(COLUNA2).setCellValue(" ");
-        linha.createCell(COLUNA3).setCellValue(" ");
-        linha.createCell(COLUNA4).setCellValue(" ");
-        linha.createCell(COLUNA5).setCellValue(" ");
-        linha.createCell(COLUNA6).setCellValue(" ");
-        linha.createCell(COLUNA7).setCellValue(" ");
-        linha.createCell(COLUNA8).setCellValue(" ");
-        linha.createCell(COLUNA9).setCellValue(" ");
-        linha.createCell(COLUNA10).setCellValue(" ");
-        linha.createCell(COLUNA11).setCellValue(" ");
+
+        //Cria as células da linha do rodapé, aplicando o estilo
+        HSSFCell celula0 = linha.createCell(COLUNA0);
+        celula0.setCellValue("TOTAL");
+
+        linha.createCell(COLUNA1).setCellValue(new HSSFRichTextString(""));
+        linha.createCell(COLUNA2).setCellValue(new HSSFRichTextString(""));
+        linha.createCell(COLUNA3).setCellValue(new HSSFRichTextString(""));
+        linha.createCell(COLUNA4).setCellValue(new HSSFRichTextString(""));
+        linha.createCell(COLUNA5).setCellValue(new HSSFRichTextString(""));
+        linha.createCell(COLUNA6).setCellValue(new HSSFRichTextString(""));
+        linha.createCell(COLUNA7).setCellValue(new HSSFRichTextString(""));
+        linha.createCell(COLUNA8).setCellValue(new HSSFRichTextString(""));
+        linha.createCell(COLUNA9).setCellValue(new HSSFRichTextString(""));
+        linha.createCell(COLUNA10).setCellValue(new HSSFRichTextString(""));
+        linha.createCell(COLUNA11).setCellValue(new HSSFRichTextString(""));
+
         double valorMedioUnitarioTotal = obterValorMedioUnitarioGeral(linhasPlanilha);
-        linha.createCell(COLUNA12).setCellValue(String.valueOf(valorMedioUnitarioTotal));
-        linha.createCell(COLUNA13).setCellValue(String.valueOf(valorMedioUnitarioTotal));
-        linha.createCell(COLUNA14).setCellValue(String.valueOf(valorMedioUnitarioTotal));
-        linha.createCell(COLUNA15).setCellValue(String.valueOf(valorMedioUnitarioTotal));
-        linha.createCell(COLUNA16).setCellValue(String.valueOf(obterValorTotalGeral(linhasPlanilha)));
-        linha.createCell(COLUNA17).setCellValue(" ");
-        linha.createCell(COLUNA18).setCellValue(" ");
+
+        HSSFCell celula12 = linha.createCell(COLUNA12);
+        celula12.setCellValue(new HSSFRichTextString(String.valueOf(valorMedioUnitarioTotal)));
+        celula12.setCellStyle(estilo);
+
+        HSSFCell celula13 = linha.createCell(COLUNA13);
+        celula13.setCellValue(new HSSFRichTextString(String.valueOf(valorMedioUnitarioTotal)));
+        celula13.setCellStyle(estilo);
+
+        HSSFCell celula14 = linha.createCell(COLUNA14);
+        celula14.setCellValue(new HSSFRichTextString(String.valueOf(valorMedioUnitarioTotal)));
+        celula14.setCellStyle(estilo);
+
+        HSSFCell celula15 = linha.createCell(COLUNA15);
+        celula15.setCellValue(new HSSFRichTextString(String.valueOf(valorMedioUnitarioTotal)));
+        celula15.setCellStyle(estilo);
+
+        HSSFCell celula16 = linha.createCell(COLUNA16);
+        celula16.setCellValue(new HSSFRichTextString(String.valueOf(obterValorTotalGeral(linhasPlanilha))));
+        celula16.setCellStyle(estilo);
+
+        linha.createCell(COLUNA17).setCellValue(new HSSFRichTextString(""));
+        linha.createCell(COLUNA18).setCellValue(new HSSFRichTextString(""));
 
         return planilha;
 
@@ -234,6 +333,25 @@ public class ExportacaoPlanilhaService {
         }
 
         return valorTotalGeral;
+
+    }
+
+    /**
+     * Ajusta o a tamanho das células de uma planilha para caber o conteúdo que
+     * possuem.
+     *
+     * @param planilha Objeto planilha que terá suas células ajustadas.
+     * @return Objeto planilha com tamanho de células devidamente ajustadas.
+     */
+    private HSSFSheet ajustarTamanhoCelulas(HSSFSheet planilha) {
+
+        final short NUM_COLUNAS = 19;
+        short i;
+        for (i = 0; i <= NUM_COLUNAS; i++) {
+            planilha.autoSizeColumn(i);
+        }
+
+        return planilha;
 
     }
 
