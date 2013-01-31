@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.ufg.inf.es.web.bootstrap;
 
 import br.ufg.inf.es.base.util.SgbCryptography;
@@ -48,6 +44,8 @@ public class Bootstrap implements ServletContextListener {
 
             return;
         }
+        
+        BibliografiaBootstrap.crieBibliografias(sessionFactory);
 
         Collection usuarios = list(sessionFactory, Usuario.class);
         if (usuarios == null || usuarios.isEmpty()) {
@@ -86,7 +84,7 @@ public class Bootstrap implements ServletContextListener {
         return criteria.list();
     }
 
-    public Long insert(SessionFactory sessionFactory, Object entidade) {
+    private Long insert(SessionFactory sessionFactory, Object entidade) {
         Session session = sessionFactory.openSession();
         Long id = (Long) session.save(entidade);
         session.flush();
@@ -95,14 +93,14 @@ public class Bootstrap implements ServletContextListener {
         return id;
     }
     
-    public void update(SessionFactory sessionFactory, Object entidade){
+    private void update(SessionFactory sessionFactory, Object entidade){
         Session session = sessionFactory.openSession();
         session.merge(entidade);
         session.flush();
         session.close();
     }
 
-    public SessionFactory getSessionFactory() {
+    private SessionFactory getSessionFactory() {
         return sessionFactory;
     }
 }

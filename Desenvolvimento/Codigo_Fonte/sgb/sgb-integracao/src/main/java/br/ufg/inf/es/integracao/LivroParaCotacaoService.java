@@ -4,13 +4,15 @@ import br.ufg.inf.es.base.excptions.LivroParaCotacaoException;
 import br.ufg.inf.es.base.persistence.DAO;
 import br.ufg.inf.es.base.validation.ValidationException;
 import br.ufg.inf.es.integracao.biblioteca.BibliotecaServiceMock;
-import br.ufg.inf.es.model.Bibliografia;
-import br.ufg.inf.es.model.Disciplina;
-import br.ufg.inf.es.model.Livro;
-import br.ufg.inf.es.model.LivroParaCotacao;
+import br.ufg.inf.es.model.*;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,9 +22,9 @@ import org.springframework.stereotype.Component;
 
 /**
  * Service responsavel por buscar os livros que deverão ser cotados, de acordo
- * com a quantidade de vagas ofertadas e com a quantidade de exemplares disponiveis
- * na biblioteca
- * 
+ * com a quantidade de vagas ofertadas e com a quantidade de exemplares
+ * disponiveis na biblioteca
+ *
  * @author Victor Carvalho
  */
 @Component
@@ -31,13 +33,14 @@ public class LivroParaCotacaoService extends GenericService<LivroParaCotacao> {
 
     // TODO Remover o mock pelo serviço real da biblioteca
     @Autowired
-    private BibliotecaServiceMock bibliotecaService; 
-    
+    private BibliotecaServiceMock bibliotecaService;
     @Autowired
     private ParametrosService parametrosService;
-    
     @Autowired
     private LivroService livroService;
+    @Autowired
+    private BibliografiaService bibliografiaService;
+    private Map<Livro, List<Curso>> livroCursos = new HashMap<Livro, List<Curso>>();
 
     /**
      * Obtem uma listagem dos livros necessários para cotação
@@ -45,15 +48,22 @@ public class LivroParaCotacaoService extends GenericService<LivroParaCotacao> {
      * @return lista de livros para cotacao
      */
     public Collection<LivroParaCotacao> obtenhaLivrosParaCotacao() {
-        Collection<Livro> livros = livroService.list();
+        Collection<Bibliografia> bibliografias = bibliografiaService.list();
+        adicioneCursosELivros(bibliografias);
         Collection<LivroParaCotacao> dtos = new ArrayList<LivroParaCotacao>();
 
-        for (Livro l : livros) {
-            Integer quantidadeVagas = obtenhaQuantidadeDeVagas(l);
+        for (Entry<Livro, List<Curso>> entry : livroCursos.entrySet()) {
+            Livro livro = entry.getKey();
+            List<Curso> cursos = entry.getValue();
+            Integer quantidadeVagas = 0;
+
+            for (Curso curso : cursos) {
+                quantidadeVagas += curso.getVagas();
+            }
 
             if (quantidadeVagas > 0) {
                 try {
-                    dtos.add(obtenhaLivroParaCotacao(l, quantidadeVagas));
+                    dtos.add(obtenhaLivroParaCotacao(livro, quantidadeVagas));
                 } catch (LivroParaCotacaoException lpce) {
                     Logger.getLogger(LivroParaCotacaoService.class.getName()).log(Level.WARNING, null, lpce);
                 } catch (ValidationException ve) {
@@ -61,8 +71,39 @@ public class LivroParaCotacaoService extends GenericService<LivroParaCotacao> {
                 }
             }
         }
-         
+
         return dtos;
+    }
+
+    private void adicioneCursosELivros(Collection<Bibliografia> bibliografias) {
+        for (Bibliografia b : bibliografias) {
+            Livro livro = b.getLivro();
+            Disciplina disciplina = b.getDisciplina();
+
+            adicioneLivro(livro, disciplina.getCurso());
+        }
+    }
+
+    /**
+     *
+     * @param livro
+     * @param curso
+     */
+    private void adicioneLivro(Livro livro, Curso curso) {
+        List<Curso> cursos = new ArrayList<Curso>();
+        if (livroCursos.containsValue(livro)) {
+            cursos = livroCursos.get(livro);
+
+            if (!cursos.contains(curso)) {
+                livroCursos.remove(livro);
+                cursos.add(curso);
+                livroCursos.put(livro, cursos);
+            }
+
+        } else {
+            cursos.add(curso);
+            livroCursos.put(livro, cursos);
+        }
     }
 
     /**
@@ -86,11 +127,12 @@ public class LivroParaCotacaoService extends GenericService<LivroParaCotacao> {
             Integer quantidadeVagas) throws ValidationException, LivroParaCotacaoException {
         Integer parametroMec = parametrosService.obtenhaParametroMEC();
 
-        Integer qtdeLivrosNecessarios = quantidadeVagas / parametroMec;
+        Integer qtdeLivrosNecessarios = dividaComRoundUp(quantidadeVagas, parametroMec);
+
         Integer qtdeLivrosDisponiveis = bibliotecaService.obtenhaQuantidadeExistente(livro.getIsbn11());
 
         if (qtdeLivrosDisponiveis < qtdeLivrosNecessarios) {
-            Integer qtdeParaCotacao = qtdeLivrosDisponiveis - qtdeLivrosNecessarios;
+            Integer qtdeParaCotacao = qtdeLivrosNecessarios - qtdeLivrosDisponiveis;
 
             return new LivroParaCotacao(quantidadeVagas, parametroMec,
                     qtdeLivrosDisponiveis, qtdeParaCotacao, livro.getTitulo(), livro.getIsbn11());
@@ -100,41 +142,14 @@ public class LivroParaCotacaoService extends GenericService<LivroParaCotacao> {
         }
     }
 
-    private Integer obtenhaQuantidadeDeVagas(Livro livro) {
-        List<Disciplina> disciplinas = obtenhaDisciplinasVinculadas(livro);
-        Integer quantidadeVagas = 0;
-
-        for (Disciplina d : disciplinas) {
-            quantidadeVagas += d.getCurso().getVagas();
-        }
-        return quantidadeVagas;
+    private Integer dividaComRoundUp(Integer valor, Integer divisor) {
+        BigDecimal valorBigDecimal = new BigDecimal(valor);
+        BigDecimal divisorBigDecimal = new BigDecimal(divisor);
+        return valorBigDecimal.divide(divisorBigDecimal, RoundingMode.UP).intValue();
     }
 
-    private List<Disciplina> obtenhaDisciplinasVinculadas(Livro livro) {
-        Collection<Bibliografia> bibliografias = livro.getBibliografia();
-        List<Disciplina> disciplinas = new ArrayList<Disciplina>();
-
-        for (Bibliografia b : bibliografias) {
-            disciplinas.add(b.getDisciplina());
-        }
-
-        return disciplinas;
-    }
-    
     @Override
     public DAO getDAO() {
         return livroService.getDAO();
-    }
-
-    public BibliotecaServiceMock getBibliotecaService() {
-        return bibliotecaService;
-    }
-
-    public LivroService getLivroService() {
-        return livroService;
-    }
-
-    public ParametrosService getParametrosService() {
-        return parametrosService;
     }
 }
