@@ -13,11 +13,13 @@ public class TesteExportacaoPlanilhaService {
 
     private static ExportacaoPlanilhaService exportador = new ExportacaoPlanilhaService();
     private static List<ItemPlanilha> planilha = new ArrayList<ItemPlanilha>();
+    private static final int NUM_ITENS = 10;
+    private static final double VALOR_MEDIO_UNITARIO = 30.0;
+    private static final int QUANT_EXEMPLARES = 5;
 
     public static void main(String args[]) {
 
         int i;
-        final int NUM_ITENS = 10;
         for (i = 1; i <= NUM_ITENS; i++) {
 
             ItemPlanilha item = new ItemPlanilha();
@@ -29,9 +31,7 @@ public class TesteExportacaoPlanilhaService {
             item.setEditora("Editora " + i);
             item.setAno("2010");
             item.setCursoDestino("Engenharia de Software");
-            final double VALOR_MEDIO_UNITARIO = 30.0;
             item.setValorMedioUnitario(VALOR_MEDIO_UNITARIO);
-            final int QUANT_EXEMPLARES = 5;
             item.setQuantExemplares(QUANT_EXEMPLARES);
             item.setAreaConhecimento("Ciências Extatas e da Terra");
 
