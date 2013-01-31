@@ -53,7 +53,7 @@
 
                     <p:spacer width="45" height="0"/>
 
-                    <h:outputLink icon="ui-icon-close" value="j_spring_security_logout">Sair</h:outputLink>
+                    <h:outputLink value="j_spring_security_logout">Sair</h:outputLink>
 
                 </h:panelGrid>
 
@@ -80,7 +80,7 @@
 
                         <p:menuitem value="Busca" url="/paginas/disciplina/busca.jsf" />
 
-                        <p:menuitem value="Cadastrar" action="#{disciplinaController.openInitialPage()}" />
+                        <p:menuitem value="Cadastrar" action="#{disciplinaController.openInitialPage()}" ajax="false"/>
 
                     </p:submenu>
 
@@ -90,7 +90,7 @@
 
                 <p:submenu label="Cotação">
 
-                    <p:menuitem value="Livros para cotação" action="#{livroParaCotacaoController.openInitialPage()}" />
+                    <p:menuitem value="Livros para cotação" action="#{livroParaCotacaoController.openInitialPage()}" ajax="false"/>
 
                 </p:submenu>
 
