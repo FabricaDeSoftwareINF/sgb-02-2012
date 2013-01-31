@@ -9,7 +9,7 @@ package br.ufg.inf.es.model;
  * @author Bruno Marquete da Silva
  */
 public class ItemPlanilha {
-    
+
     private int numItem = 0;
     private String nomeAutor = "";
     private String tituloObra = "";
@@ -20,11 +20,12 @@ public class ItemPlanilha {
     private String colecao = "";
     private String volume = "";
     private String matriculaSophiaConselheiro = "";
-    private String cursoDestino = ""; 
+    private String cursoDestino = "";
     private String unidadeMedida = "";
     private double valorMedioUnitario = 0.0;
     private int quantExemplares = 0;
     private String areaConhecimento = "";
+    private static final short NUM_COLUNAS = 19;
 
     public String getAno() {
         return ano;
@@ -146,4 +147,7 @@ public class ItemPlanilha {
         this.volume = volume;
     }
 
+    public static short getNUM_COLUNAS() {
+        return NUM_COLUNAS;
+    }
 }
