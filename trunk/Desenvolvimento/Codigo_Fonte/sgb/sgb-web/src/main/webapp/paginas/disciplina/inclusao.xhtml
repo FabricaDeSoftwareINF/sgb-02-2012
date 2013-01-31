@@ -14,23 +14,23 @@
 
                 <h:form prependId="false">
 
-                    <p:messages />
+                    <p:messages autoUpdate="true"/>
 
                     <h:panelGrid>
 
                         <div class="linha">
                             <h:outputLabel value="Nome " for="disciplinaNome" />
 
-                            <h:inputText value="#{disciplinaController.form.entity.nome}" id="disciplinaNome" required="true" requiredMessage="Nome da disciplina deve ser informado"/>
+                            <h:inputText value="#{disciplinaController.form.entity.nome}" id="disciplinaNome"/>
 
                             <h:outputLabel value="Código: " for="disciplinaCodigo" />
 
-                            <h:inputText value="#{disciplinaController.form.entity.codigo}" id="disciplinaCodigo" required="true" requiredMessage="Código da disciplina deve ser informado" />
+                            <h:inputText value="#{disciplinaController.form.entity.codigo}" id="disciplinaCodigo" />
 
                             <h:outputLabel value="Curso: " for="curso_selectone" />
 
                             <p:selectOneMenu id="curso_selectone" value="#{disciplinaController.form.entity.curso}"
-                                             style=" width : 300px;" required="true" requiredMessage="#{msg['cadastro.disciplina.msg.RNG006.curso']}"
+                                             style=" width : 300px;"
                                              converter="cursoConverter">
                                 <f:selectItem itemLabel="Curso" />
                                 <f:selectItems value="#{disciplinaController.form.cursos}" var="curso" itemLabel="#{curso.nome}" itemValue="#{curso}"/>

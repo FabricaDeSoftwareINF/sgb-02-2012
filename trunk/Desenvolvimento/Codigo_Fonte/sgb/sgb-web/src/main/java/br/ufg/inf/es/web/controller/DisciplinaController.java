@@ -11,7 +11,6 @@ import br.ufg.inf.es.model.Curso;
 import br.ufg.inf.es.model.Disciplina;
 import br.ufg.inf.es.web.controller.form.CursoForm;
 import br.ufg.inf.es.web.controller.form.DisciplinaForm;
-import br.ufg.inf.es.web.controller.form.LivroForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -23,20 +22,21 @@ import org.springframework.stereotype.Component;
 @Component
 @Scope("session")
 public class DisciplinaController extends SGBController<Disciplina, DisciplinaForm, DisciplinaService> {
+    
+    private static final String KEY_SUCESSO = "arquitetura.msg.sucesso";
 
     @Autowired
     private DisciplinaForm form;
+    
     @Autowired
     private DisciplinaService service;
+    
     @Autowired
     private CursoService cursoService;
     
     @Autowired
     private CursoForm cursoForm;
     
-    @Autowired
-    private LivroForm livroForm;
-
     /**
      * @author Marco Aurélio
      */
@@ -59,7 +59,7 @@ public class DisciplinaController extends SGBController<Disciplina, DisciplinaFo
 
     @Override
     public DisciplinaService getService() {
-        return service;
+        return this.service;
     }
 
     public void setService(DisciplinaService service) {
@@ -86,21 +86,23 @@ public class DisciplinaController extends SGBController<Disciplina, DisciplinaFo
         this.cursoForm = cursoForm;
     }
 
-    public LivroForm getLivroForm() {
-        return livroForm;
-    }
-
-    public void setLivroForm(LivroForm livroForm) {
-        this.livroForm = livroForm;
-    }
-
+    /**
+     * 
+     */
     @Override
     public void insert() {
+        
         try {
+         
             this.service.insert(this.form.getEntity());
             
+            this.addSuccessMessage(DisciplinaController.KEY_SUCESSO);
+            
         } catch (ValidationException ex) {
+      
             this.addWarningMessage(ex.getKeyMessage());
+      
         }
-    }    
+    }
+
 }
