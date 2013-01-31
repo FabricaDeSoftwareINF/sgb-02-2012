@@ -31,7 +31,7 @@ public class ParametrosService extends GenericService<Parametros> {
         Parametros parametros = this.find();
         return parametros.getValorFrete();
     }
-    
+
     public Integer obtenhaParametroMEC() throws ValidationException {
         Parametros parametros = this.find();
         return parametros.getParametroMEC();
@@ -59,5 +59,11 @@ public class ParametrosService extends GenericService<Parametros> {
     public void save(Parametros entity) throws ValidationException {
         super.save(entity);
 
+    }
+
+    @Override
+    @RN006Parametros
+    public void update(Parametros entity) throws ValidationException {
+        super.update(entity);
     }
 }

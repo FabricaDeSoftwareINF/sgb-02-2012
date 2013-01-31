@@ -25,14 +25,6 @@ public class ParametrosController
         return this.form;
     }
 
-    public void setForm(ParametrosForm form) {
-        this.form = form;
-    }
-
-    public void setService(ParametrosService service) {
-        this.service = service;
-    }
-
     @Override
     public ParametrosService getService() {
         return this.service;
@@ -51,7 +43,7 @@ public class ParametrosController
         try {
             Parametros parametro = this.getForm().getEntity();
             Hibernate.initialize(parametro);
-            getService().save(parametro);
+            getService().update(parametro);
             addSuccessMessage("Valor atualizado com sucesso!");
         } catch (ValidationException ex) {
             addWarningMessage(ex.getKeyMessage());

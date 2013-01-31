@@ -3,7 +3,8 @@
 <!--@autor: Wilker de Jesus Machado, Cássio Augusto Silva de Freitas-->
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"  
-      xmlns:h="http://java.sun.com/jsf/html"  
+      xmlns:h="http://java.sun.com/jsf/html" 
+      xmlns:f="http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.org/ui">
 
     <h:head>  
@@ -17,7 +18,7 @@
                 SGB - Sistema de Gestão Bibliográfica
             </ui:insert>
         </title>
-        
+
         <h:outputScript name="functions.js" library="javascript"/>
 
         <h:outputStylesheet library="css" name="default.css"/>
@@ -69,7 +70,7 @@
                     <p:menuitem value="#{msg['cadastro.editora.label.editora']}" action="#{editoraController.openInitialPage()}"  ajax="false"/>
 
                     <p:menuitem value="#{msg['cadastro.livro.label.livro']}" 
-                                    action="#{livroController.openInitialPage()}" />
+                                action="#{livroController.openInitialPage()}" />
 
                     <p:menuitem value="#{msg['cadastro.autor.label.autor']}" action="#{autorController.openInitialPage()}" ajax="false">
 
@@ -89,7 +90,7 @@
 
                 <p:submenu label="Cotação">
 
-                    <p:menuitem value="Livros para cotação" action="#{livroParaCotacaoController.openSearchPage()}" />
+                    <p:menuitem value="Livros para cotação" action="#{livroParaCotacaoController.openInitialPage()}" />
 
                 </p:submenu>
 
@@ -119,6 +120,16 @@
             <h:outputText value="Universidade Federal de Goiás -"/>
 
         </div>
+
+        <p:ajaxStatus style="width:64px;height:64px;position:fixed;right:5px;bottom:5px">  
+            <f:facet name="start">  
+                <p:graphicImage value="/resources/images/loading.gif" />  
+            </f:facet>  
+
+            <f:facet name="complete">  
+                <h:outputText value="" />  
+            </f:facet>  
+        </p:ajaxStatus> 
 
     </h:body>
 

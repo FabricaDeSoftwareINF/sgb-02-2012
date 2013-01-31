@@ -11,6 +11,8 @@ public class LivroParaCotacao extends AbstractEntityModel {
     private Integer quantidadeLivrosFaltando;
     private String nomeLivro;
     private String isbn;
+    
+    public LivroParaCotacao() {}
 
     public LivroParaCotacao(Integer quantidadeVagas, Integer parametroMec,
             Integer quantidadeLivrosDisponiveis, Integer quantidadeLivrosFaltando,

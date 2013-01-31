@@ -179,23 +179,11 @@
         </navigation-case>
         
         <navigation-case>
-            <from-outcome>LivroParaCotacaoController/openSearchPage</from-outcome>
+            <from-outcome>LivroParaCotacaoController/initialPage</from-outcome>
             <to-view-id>/paginas/cotacao/busca.xhtml</to-view-id>
         </navigation-case>
-        
-        <navigation-case>
-            <from-outcome>LivroParaCotacaoController/openSearchPage</from-outcome>
-            <to-view-id>/paginas/cotacao/busca.xhtml</to-view-id>
-        </navigation-case>
-
         
     </navigation-rule>
-    
-    <converter>
-        <converter-class>br.ufg.inf.es.web.converters.CursoConverter</converter-class>
-            <converter-id>cursoConverter</converter-id>
-        
-        </converter>
 
     <application>
         <el-resolver>org.springframework.web.jsf.el.SpringBeanFacesELResolver</el-resolver>
