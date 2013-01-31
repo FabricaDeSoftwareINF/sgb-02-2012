@@ -16,6 +16,10 @@ public class TesteExportacaoPlanilhaService {
     private static final int NUM_ITENS = 10;
     private static final double VALOR_MEDIO_UNITARIO = 30.0;
     private static final int QUANT_EXEMPLARES = 5;
+    
+    private TesteExportacaoPlanilhaService(){
+        
+    }
 
     public static void main(String args[]) {
 
