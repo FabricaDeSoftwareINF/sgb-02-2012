@@ -20,25 +20,25 @@ import org.springframework.stereotype.Component;
 public class ExportacaoPlanilhaService {
 
     private HSSFWorkbook geradorPlanilha;
-    private final short COLUNA0 = 0;
-    private final short COLUNA1 = 1;
-    private final short COLUNA2 = 2;
-    private final short COLUNA3 = 3;
-    private final short COLUNA4 = 4;
-    private final short COLUNA5 = 5;
-    private final short COLUNA6 = 6;
-    private final short COLUNA7 = 7;
-    private final short COLUNA8 = 8;
-    private final short COLUNA9 = 9;
-    private final short COLUNA10 = 10;
-    private final short COLUNA11 = 11;
-    private final short COLUNA12 = 12;
-    private final short COLUNA13 = 13;
-    private final short COLUNA14 = 14;
-    private final short COLUNA15 = 15;
-    private final short COLUNA16 = 16;
-    private final short COLUNA17 = 17;
-    private final short COLUNA18 = 18;
+    private static final short COLUNA0 = 0;
+    private static final short COLUNA1 = 1;
+    private static final short COLUNA2 = 2;
+    private static final short COLUNA3 = 3;
+    private static final short COLUNA4 = 4;
+    private static final short COLUNA5 = 5;
+    private static final short COLUNA6 = 6;
+    private static final short COLUNA7 = 7;
+    private static final short COLUNA8 = 8;
+    private static final short COLUNA9 = 9;
+    private static final short COLUNA10 = 10;
+    private static final short COLUNA11 = 11;
+    private static final short COLUNA12 = 12;
+    private static final short COLUNA13 = 13;
+    private static final short COLUNA14 = 14;
+    private static final short COLUNA15 = 15;
+    private static final short COLUNA16 = 16;
+    private static final short COLUNA17 = 17;
+    private static final short COLUNA18 = 18;
 
     /**
      * Gera planilha em formato XLS com base numa lista de itens de planilha dos
@@ -133,97 +133,63 @@ public class ExportacaoPlanilhaService {
      */
     private HSSFSheet gerarCabecalho(HSSFSheet planilha) {
 
-        //Cria o estilo a ser aplicado nas células do cabeçalho
-        HSSFCellStyle estilo = geradorPlanilha.createCellStyle();
-        estilo.setBorderTop(HSSFCellStyle.BORDER_MEDIUM);
-        estilo.setBorderLeft(HSSFCellStyle.BORDER_MEDIUM);
-        estilo.setBorderRight(HSSFCellStyle.BORDER_MEDIUM);
-        estilo.setBorderBottom(HSSFCellStyle.BORDER_MEDIUM);
+        //Cria o estiloCabecalho a ser aplicado nas células do cabeçalho
+        HSSFCellStyle estiloCabecalho = geradorPlanilha.createCellStyle();
+        estiloCabecalho.setBorderTop(HSSFCellStyle.BORDER_MEDIUM);
+        estiloCabecalho.setBorderLeft(HSSFCellStyle.BORDER_MEDIUM);
+        estiloCabecalho.setBorderRight(HSSFCellStyle.BORDER_MEDIUM);
+        estiloCabecalho.setBorderBottom(HSSFCellStyle.BORDER_MEDIUM);
         HSSFFont fonte = geradorPlanilha.createFont();
         fonte.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);
-        estilo.setFont(fonte);
+        estiloCabecalho.setFont(fonte);
 
         //Cria a linha do cabeçalho
         HSSFRow linha = planilha.createRow(0);
 
-        //Cria as células da linha do cabeçalho, aplicando o estilo
-        HSSFCell celula0 = linha.createCell(COLUNA0);
-        celula0.setCellValue(new HSSFRichTextString("Item"));
-        celula0.setCellStyle(estilo);
-
-        HSSFCell celula1 = linha.createCell(COLUNA1);
-        celula1.setCellValue(new HSSFRichTextString("Nome do Autor"));
-        celula1.setCellStyle(estilo);
-
-        HSSFCell celula2 = linha.createCell(COLUNA2);
-        celula2.setCellValue(new HSSFRichTextString("Título da Obra"));
-        celula2.setCellStyle(estilo);
-
-        HSSFCell celula3 = linha.createCell(COLUNA3);
-        celula3.setCellValue(new HSSFRichTextString("Edição"));
-        celula3.setCellStyle(estilo);
-
-        HSSFCell celula4 = linha.createCell(COLUNA4);
-        celula4.setCellValue(new HSSFRichTextString("Editora"));
-        celula4.setCellStyle(estilo);
-
-        HSSFCell celula5 = linha.createCell(COLUNA5);
-        celula5.setCellValue(new HSSFRichTextString("Local"));
-        celula5.setCellStyle(estilo);
-
-        HSSFCell celula6 = linha.createCell(COLUNA6);
-        celula6.setCellValue(new HSSFRichTextString("Ano"));
-        celula6.setCellStyle(estilo);
-
-        HSSFCell celula7 = linha.createCell(COLUNA7);
-        celula7.setCellValue(new HSSFRichTextString("Coleção (S/N)"));
-        celula7.setCellStyle(estilo);
-
-        HSSFCell celula8 = linha.createCell(COLUNA8);
-        celula8.setCellValue(new HSSFRichTextString("Volume"));
-        celula8.setCellStyle(estilo);
-
-        HSSFCell celula9 = linha.createCell(COLUNA9);
-        celula9.setCellValue(new HSSFRichTextString("Matrícula Sophia do Solicitante (conselheiro)"));
-        celula9.setCellStyle(estilo);
-
-        HSSFCell celula10 = linha.createCell(COLUNA10);
-        celula10.setCellValue(new HSSFRichTextString("Curso de Destino"));
-        celula10.setCellStyle(estilo);
-
-        HSSFCell celula11 = linha.createCell(COLUNA11);
-        celula11.setCellValue(new HSSFRichTextString("Unidade de Medida (l, m, Kg, pct, cx, ...)"));
-        celula11.setCellStyle(estilo);
-
-        HSSFCell celula12 = linha.createCell(COLUNA12);
-        celula12.setCellValue(new HSSFRichTextString("Valor Unitário Orçamento 1 em Real R$"));
-        celula12.setCellStyle(estilo);
-
-        HSSFCell celula13 = linha.createCell(COLUNA13);
-        celula13.setCellValue(new HSSFRichTextString("Valor Unitário Orçamento 2 em Real R$"));
-        celula13.setCellStyle(estilo);
-
-        HSSFCell celula14 = linha.createCell(COLUNA14);
-        celula14.setCellValue(new HSSFRichTextString("Valor Unitário Orçamento 3 em Real R$"));
-        celula14.setCellStyle(estilo);
-
-        HSSFCell celula15 = linha.createCell(COLUNA15);
-        celula15.setCellValue(new HSSFRichTextString("Valor Médio Uniário em Real R$"));
-        celula15.setCellStyle(estilo);
-
-        HSSFCell celula16 = linha.createCell(COLUNA16);
-        celula16.setCellValue(new HSSFRichTextString("Valor Total em Real R$"));
-        celula16.setCellStyle(estilo);
-
-        HSSFCell celula17 = linha.createCell(COLUNA17);
-        celula17.setCellValue(new HSSFRichTextString("Quantidade de Exemplares"));
-        celula17.setCellStyle(estilo);
-
-        HSSFCell celula18 = linha.createCell(COLUNA18);
-        celula18.setCellValue(new HSSFRichTextString("Área do Conhecimento"));
-        celula18.setCellStyle(estilo);
+        //Cria as células da linha do cabeçalho, aplicando o estiloCabecalho
+        montarCelula(linha, estiloCabecalho, COLUNA0, "Item");
+        montarCelula(linha, estiloCabecalho, COLUNA1, "Nome do Autor");
+        montarCelula(linha, estiloCabecalho, COLUNA2, "Título da Obra");
+        montarCelula(linha, estiloCabecalho, COLUNA3, "Edição");
+        montarCelula(linha, estiloCabecalho, COLUNA4, "Editora");
+        montarCelula(linha, estiloCabecalho, COLUNA5, "Local");
+        montarCelula(linha, estiloCabecalho, COLUNA6, "Ano");
+        montarCelula(linha, estiloCabecalho, COLUNA7, "Coleção (S/N)");
+        montarCelula(linha, estiloCabecalho, COLUNA8, "Volume");
+        montarCelula(linha, estiloCabecalho, COLUNA9, "Matrícula Sophia do Solicitante (conselheiro)");
+        montarCelula(linha, estiloCabecalho, COLUNA10, "Curso de Destino");
+        montarCelula(linha, estiloCabecalho, COLUNA11, "Unidade de Medida (l, m, Kg, pct, cx, ...)");
+        montarCelula(linha, estiloCabecalho, COLUNA12, "Valor Unitário Orçamento 1 em Real R$");
+        montarCelula(linha, estiloCabecalho, COLUNA13, "Valor Unitário Orçamento 2 em Real R$");
+        montarCelula(linha, estiloCabecalho, COLUNA14, "Valor Unitário Orçamento 3 em Real R$");
+        montarCelula(linha, estiloCabecalho, COLUNA15, "Valor Médio Uniário em Real R$");
+        montarCelula(linha, estiloCabecalho, COLUNA16, "Valor Total em Real R$");
+        montarCelula(linha, estiloCabecalho, COLUNA17, "Quantidade de Exemplares");
+        montarCelula(linha, estiloCabecalho, COLUNA18, "Área do Conhecimento");
 
         return planilha;
+    }
+    
+    /**
+     * Monta e retorna um objeto do tipo célula de planilha.
+     * @param linha
+     * Linha na qual a célula será criada e vinculada.
+     * @param estiloCabecalho
+     * Estilo a ser aplicado na célula.
+     * @param numColuna
+     * Número da coluna da célula na linha repassada.
+     * @param valorCelula
+     * Valor a ser adicionado na célula.
+     * @return 
+     * Objeto célula montado de acordo com os atributos repassados.
+     */
+    private HSSFCell montarCelula(HSSFRow linha, HSSFCellStyle estilo,  short numColuna, String valorCelula) {
+        
+        HSSFCell celula = linha.createCell(numColuna);
+        celula.setCellValue(new HSSFRichTextString(valorCelula));
+        celula.setCellStyle(estilo);
+        
+        return celula;
     }
 
     /**
@@ -237,19 +203,17 @@ public class ExportacaoPlanilhaService {
      */
     private HSSFSheet gerarRodape(HSSFSheet planilha, List<ItemPlanilha> linhasPlanilha) {
 
-        //Cria o estilo a ser aplicado nas células do rodapé
-        HSSFCellStyle estilo = geradorPlanilha.createCellStyle();
+        //Cria o estiloCabecalho a ser aplicado nas células do rodapé
+        HSSFCellStyle estiloRodape = geradorPlanilha.createCellStyle();
         HSSFFont fonte = geradorPlanilha.createFont();
         fonte.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);
-        estilo.setFont(fonte);
+        estiloRodape.setFont(fonte);
 
         //Cria a linha do rodapé
         HSSFRow linha = planilha.createRow(linhasPlanilha.size() + 1);
 
-        //Cria as células da linha do rodapé, aplicando o estilo
-        HSSFCell celula0 = linha.createCell(COLUNA0);
-        celula0.setCellValue("TOTAL");
-
+        //Cria as células da linha do rodapé, aplicando o estiloCabecalho
+        montarCelula(linha, estiloRodape, COLUNA0, "TOTAL");
         linha.createCell(COLUNA1).setCellValue(new HSSFRichTextString(""));
         linha.createCell(COLUNA2).setCellValue(new HSSFRichTextString(""));
         linha.createCell(COLUNA3).setCellValue(new HSSFRichTextString(""));
@@ -261,29 +225,12 @@ public class ExportacaoPlanilhaService {
         linha.createCell(COLUNA9).setCellValue(new HSSFRichTextString(""));
         linha.createCell(COLUNA10).setCellValue(new HSSFRichTextString(""));
         linha.createCell(COLUNA11).setCellValue(new HSSFRichTextString(""));
-
         double valorMedioUnitarioTotal = obterValorMedioUnitarioGeral(linhasPlanilha);
-
-        HSSFCell celula12 = linha.createCell(COLUNA12);
-        celula12.setCellValue(new HSSFRichTextString(String.valueOf(valorMedioUnitarioTotal)));
-        celula12.setCellStyle(estilo);
-
-        HSSFCell celula13 = linha.createCell(COLUNA13);
-        celula13.setCellValue(new HSSFRichTextString(String.valueOf(valorMedioUnitarioTotal)));
-        celula13.setCellStyle(estilo);
-
-        HSSFCell celula14 = linha.createCell(COLUNA14);
-        celula14.setCellValue(new HSSFRichTextString(String.valueOf(valorMedioUnitarioTotal)));
-        celula14.setCellStyle(estilo);
-
-        HSSFCell celula15 = linha.createCell(COLUNA15);
-        celula15.setCellValue(new HSSFRichTextString(String.valueOf(valorMedioUnitarioTotal)));
-        celula15.setCellStyle(estilo);
-
-        HSSFCell celula16 = linha.createCell(COLUNA16);
-        celula16.setCellValue(new HSSFRichTextString(String.valueOf(obterValorTotalGeral(linhasPlanilha))));
-        celula16.setCellStyle(estilo);
-
+        montarCelula(linha, estiloRodape, COLUNA12, String.valueOf(valorMedioUnitarioTotal));
+        montarCelula(linha, estiloRodape, COLUNA13, String.valueOf(valorMedioUnitarioTotal));
+        montarCelula(linha, estiloRodape, COLUNA14, String.valueOf(valorMedioUnitarioTotal));
+        montarCelula(linha, estiloRodape, COLUNA15, String.valueOf(valorMedioUnitarioTotal));
+        montarCelula(linha, estiloRodape, COLUNA16, String.valueOf(obterValorTotalGeral(linhasPlanilha)));
         linha.createCell(COLUNA17).setCellValue(new HSSFRichTextString(""));
         linha.createCell(COLUNA18).setCellValue(new HSSFRichTextString(""));
 
