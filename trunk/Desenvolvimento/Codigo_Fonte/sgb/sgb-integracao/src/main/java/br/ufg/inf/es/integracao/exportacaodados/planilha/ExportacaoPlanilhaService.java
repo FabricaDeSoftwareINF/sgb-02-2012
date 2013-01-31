@@ -67,8 +67,8 @@ public class ExportacaoPlanilhaService {
             popularPlanilha(planilhaNacionais, linhasPlanilhaNacionais);
             popularPlanilha(planilhaEstrangeiros, linhasPlanilhaEstrangeiros);
 
-            ajustarTamanhoCelulas(planilhaNacionais);
-            ajustarTamanhoCelulas(planilhaEstrangeiros);
+            ajustarTamanhoCelulas(planilhaNacionais, ItemPlanilha.getNUM_COLUNAS());
+            ajustarTamanhoCelulas(planilhaEstrangeiros, ItemPlanilha.getNUM_COLUNAS());
 
             stream = new FileOutputStream("planilha.xls");
             geradorPlanilha.write(stream);
@@ -290,11 +290,10 @@ public class ExportacaoPlanilhaService {
      * @param planilha Objeto planilha que terá suas células ajustadas.
      * @return Objeto planilha com tamanho de células devidamente ajustadas.
      */
-    private HSSFSheet ajustarTamanhoCelulas(HSSFSheet planilha) {
+    private HSSFSheet ajustarTamanhoCelulas(HSSFSheet planilha, short numColunas) {
 
-        final short NUM_COLUNAS = 19;
         short i;
-        for (i = 0; i <= NUM_COLUNAS; i++) {
+        for (i = 0; i <= numColunas; i++) {
             planilha.autoSizeColumn(i);
         }
 
