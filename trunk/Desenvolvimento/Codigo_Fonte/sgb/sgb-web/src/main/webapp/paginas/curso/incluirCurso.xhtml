@@ -15,7 +15,7 @@
 
                 <h:outputLabel value="#{msg['cadastro.curso.panel.cadastrar']}" style="font-size:24px;"/>
                 
-                <p:messages/>
+                <p:message/>
 
                 <p:spacer width="10" height="15"/>
 
@@ -83,12 +83,11 @@
 
                     <p:column headerText="#{msg['cadastro.acao']}">  
 
-                        <h:commandLink id="linkAcao" value="Remover"
-                                       action="#{cursoController.removeDisciplina()}">
+                        <p:commandLink id="linkAcao" value="Remover" update=":formCadastroAutor:fieldsetAssociacao" action="#{cursoController.removeDisciplina()}">
 
                             <f:setPropertyActionListener value="#{assTab}" target="#{cursoController.form.disciplinaToRemove}"/>
 
-                        </h:commandLink>
+                        </p:commandLink>
 
                     </p:column> 
 
