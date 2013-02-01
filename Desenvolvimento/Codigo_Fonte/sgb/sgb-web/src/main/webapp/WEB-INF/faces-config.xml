@@ -100,15 +100,15 @@
             
             <from-outcome>DisciplinaController/initialPage</from-outcome>
             
-            <to-view-id>/paginas/disciplina/inclusao.xhtml</to-view-id>
+            <to-view-id>/paginas/disciplina/inicial.xhtml</to-view-id>
             
         </navigation-case>
         
         <navigation-case>
             
-            <from-outcome>DisciplinaController/searchPage</from-outcome>
+            <from-outcome>DisciplinaController/insertPage</from-outcome>
             
-            <to-view-id>/paginas/disciplina/busca.xhtml</to-view-id>
+            <to-view-id>/paginas/disciplina/inclusao.xhtml</to-view-id>
             
         </navigation-case>
         

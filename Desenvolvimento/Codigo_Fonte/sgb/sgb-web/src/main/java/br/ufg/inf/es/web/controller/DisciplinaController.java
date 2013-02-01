@@ -1,7 +1,4 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package br.ufg.inf.es.web.controller;
 
 import br.ufg.inf.es.base.validation.ValidationException;
@@ -17,7 +14,7 @@ import org.springframework.stereotype.Component;
 
 /**
  *
- * @author Diogo
+ * @author Diogo, Marco Aurélio
  */
 @Component
 @Scope("session")
@@ -37,9 +34,6 @@ public class DisciplinaController extends SGBController<Disciplina, DisciplinaFo
     @Autowired
     private CursoForm cursoForm;
     
-    /**
-     * @author Marco Aurélio
-     */
     @Override
     public void initData() {
         
@@ -86,9 +80,6 @@ public class DisciplinaController extends SGBController<Disciplina, DisciplinaFo
         this.cursoForm = cursoForm;
     }
 
-    /**
-     * 
-     */
     @Override
     public void insert() {
         
