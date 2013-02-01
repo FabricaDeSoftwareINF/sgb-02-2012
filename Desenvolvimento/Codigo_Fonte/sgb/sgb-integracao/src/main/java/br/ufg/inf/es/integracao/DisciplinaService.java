@@ -44,7 +44,7 @@ public class DisciplinaService extends GenericService<Disciplina> {
      */
     @Override
     @RNG006
-    public Long insert(Disciplina entidade) { 
+    public Long insert(Disciplina entidade) throws ValidationException { 
         
         return this.getDAO().insert(entidade);
     
