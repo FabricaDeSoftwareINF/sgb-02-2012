@@ -1,8 +1,8 @@
 package br.ufg.inf.es.web.controller;
 
+import br.ufg.inf.es.base.util.UtilObjeto;
 import br.ufg.inf.es.base.validation.ValidationException;
 import br.ufg.inf.es.integracao.CursoService;
-import br.ufg.inf.es.integracao.DisciplinaService;
 import br.ufg.inf.es.model.Curso;
 import br.ufg.inf.es.model.Disciplina;
 import br.ufg.inf.es.web.controller.form.CursoForm;
@@ -88,9 +88,12 @@ public class CursoController extends SGBController<Curso, CursoForm, CursoServic
      */
     public void addDisciplinaAssociacao() {
 
-        this.getForm().getListaDisciplinaAssociacao().add(this.getForm().getDisciplinaSelecionada());
+        if(this.getForm().getDisciplinaSelecionada().getNome() != null && !this.getForm().getDisciplinaSelecionada().getNome().isEmpty()){
         
-        this.getForm().getListaDisciplinaComboBox().remove(this.getForm().getDisciplinaSelecionada());
+            this.getForm().getListaDisciplinaAssociacao().add(this.getForm().getDisciplinaSelecionada());
+
+            this.getForm().getListaDisciplinaComboBox().remove(this.getForm().getDisciplinaSelecionada());
+        }
     }
 
     /**

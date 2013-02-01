@@ -58,7 +58,7 @@
                     <p:selectOneMenu id="disciplina" value="#{cursoController.form.disciplinaSelecionada}"  
                                      style="width: 500px" converter="disciplinaConverter">
 
-                        <f:selectItem itemLabel="Selecione"/>
+                        <f:selectItem itemLabel="Selecione" itemValue="null"/>
 
                         <f:selectItems value="#{cursoController.form.listaDisciplinaComboBox}" var="disciplina"
                                        itemLabel="#{disciplina.nome}" itemValue="#{disciplina}"/>
