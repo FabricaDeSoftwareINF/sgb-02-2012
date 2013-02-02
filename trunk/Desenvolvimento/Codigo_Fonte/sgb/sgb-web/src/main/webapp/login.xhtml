@@ -26,10 +26,7 @@
                         <h:outputLabel value="Login:" for="j_username" />
 
                         <p:inputText id="j_username" styleClass="form-login-input" />
-                        
-                        <h:outputLabel value="" />
-                        <h:link outcome="UsuarioController/recuperarSenha">Esqueceu a senha?</h:link>
-
+                       
                         <h:outputLabel value="Senha:" for="j_password" />
 
                         <p:password id="j_password" styleClass="form-login-input"/>
@@ -37,6 +34,9 @@
                         
                         <h:selectBooleanCheckbox id="_spring_security_remember_me"/>
                         <h:outputLabel value="Lembrar de mim" for="_spring_security_remember_me"/>
+                        
+                        <h:outputLabel value="" />
+                        <h:link outcome="UsuarioController/recuperarSenha">Esqueceu a senha?</h:link>
 
                     </h:panelGrid>
                     
