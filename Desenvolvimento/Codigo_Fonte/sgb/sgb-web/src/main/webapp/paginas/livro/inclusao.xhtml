@@ -66,7 +66,7 @@
                         <p:commandButton value="Associar disciplina" action="#{livroController.associarDisciplina}" 
                                          update="table_disciplinas"></p:commandButton>
                     </h:panelGrid>
-                    <p:dataTable id="table_disciplinas" value="#{livroController.form.entity.bibliografia}" var="item">
+                    <p:dataTable id="table_disciplinas" value="#{livroController.form.entity.bibliografias}" var="item">
                         <p:column headerText="Tipo">
                             <h:outputText value="#{item.tipo}"/>
                         </p:column>
