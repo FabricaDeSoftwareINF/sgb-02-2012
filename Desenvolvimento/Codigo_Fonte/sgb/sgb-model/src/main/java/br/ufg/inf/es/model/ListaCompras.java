@@ -17,10 +17,21 @@ public class ListaCompras extends AbstractEntityModel {
     @Column(name = "data_criacao")
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date dataCriacao;
-    
-    @ManyToMany(targetEntity=Livro.class)
-    @JoinTable(name="TB_LISTACOMPRAS_LIVRO", joinColumns=@JoinColumn(name="id_listaCompras"), inverseJoinColumns=@JoinColumn(name="id_livro"))
+    @OneToOne(optional = false)
+    private Usuario user;
+    @ManyToMany(targetEntity = Livro.class)
+    @JoinTable(name = "TB_LISTACOMPRAS_LIVRO", joinColumns =
+    @JoinColumn(name = "id_listaCompras"), inverseJoinColumns =
+    @JoinColumn(name = "id_livro"))
     private Collection<Livro> livrosDaListaCompras;
+
+    public Usuario getUser() {
+        return user;
+    }
+
+    public void setUser(Usuario user) {
+        this.user = user;
+    }
 
     public Collection<Livro> getLivrosDaListaCompras() {
         return livrosDaListaCompras;
@@ -44,6 +55,5 @@ public class ListaCompras extends AbstractEntityModel {
 
     public void setNome(String nome) {
         this.nome = nome;
-    }    
-    
+    }
 }
