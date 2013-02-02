@@ -73,7 +73,7 @@ public class LivroDataModel extends LazyDataModel<Livro> {
 
         //sort  
         if (sortField != null) {
-            Collections.sort(data, new CarLazySorter(sortField, sortOrder));
+            Collections.sort(data, new LivroLazySorter(sortField, sortOrder));
         }
 
         //rowCount  
