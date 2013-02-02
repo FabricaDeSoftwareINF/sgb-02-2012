@@ -50,11 +50,11 @@
                 <h:form prependId="false">
 
                     <fieldset style="width: 600px">
-                        <legend>Bibliografia ---- EM CONSTRUÇÃO ----</legend>
+                        <legend>Bibliografia</legend>
                         <h:selectOneMenu    id="tipo" value="#{disciplinaController.form.entity.id}"
                                             style=" width : 300px;" >
-                            <f:selectItem itemLabel="~~TIPO~~" />
-                            <f:selectItems value="#{disciplinaController.form.collectionEntities}" />
+                            <f:selectItem itemLabel="Tipo" />
+                            <f:selectItems value="#{disciplinaController.form.tiposBibliografia}" />
                         </h:selectOneMenu>
 
                         <br/>

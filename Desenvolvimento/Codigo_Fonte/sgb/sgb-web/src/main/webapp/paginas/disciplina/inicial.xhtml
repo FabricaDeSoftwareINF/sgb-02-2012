@@ -39,21 +39,19 @@
 
                         <p:column headerText="Ações">
 
-                            <h:panelGrid columns="2" width="100%">
+                            <h:panelGrid columns="2" width="100%" class="semborda">
 
-                                <p:commandButton value="#{msg['acao.detalhes']}">
-
-                                   
-                                    
-                                </p:commandButton>
-
-                                <p:commandButton value="#{msg['acao.editar']}" action="#{disciplinaController.openInsertPage}" update="@all">
+                                <p:commandLink value="#{msg['acao.editar']}" action="#{disciplinaController.openInsertPage}" update="@all">
 
                                     <f:setPropertyActionListener value="#{disciplina}" target="#{disciplinaController.form.entity}" />
 
                                     <f:param name="entityID" value="#{disciplina.id}" />
 
-                                </p:commandButton>
+                                </p:commandLink>
+
+                                <p:commandLink value="#{msg['acao.detalhes']}">
+
+                                </p:commandLink>
 
                             </h:panelGrid>
 
@@ -65,7 +63,7 @@
                     <h:panelGrid columns="2">
 
                         <p:commandButton value="#{msg['cadastro.acao.novo']}" action="#{disciplinaController.openInsertPage()}"/>
-                        
+
                         <p:commandButton value="#{msg['cadastro.acao.remover']}"/>
 
                     </h:panelGrid>

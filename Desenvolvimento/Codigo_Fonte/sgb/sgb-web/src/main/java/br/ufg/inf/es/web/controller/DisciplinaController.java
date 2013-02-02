@@ -1,4 +1,3 @@
-
 package br.ufg.inf.es.web.controller;
 
 import br.ufg.inf.es.base.validation.ValidationException;
@@ -8,6 +7,7 @@ import br.ufg.inf.es.model.Curso;
 import br.ufg.inf.es.model.Disciplina;
 import br.ufg.inf.es.web.controller.form.CursoForm;
 import br.ufg.inf.es.web.controller.form.DisciplinaForm;
+import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -19,33 +19,32 @@ import org.springframework.stereotype.Component;
 @Component
 @Scope("session")
 public class DisciplinaController extends SGBController<Disciplina, DisciplinaForm, DisciplinaService> {
-    
-    private static final String KEY_SUCESSO = "arquitetura.msg.sucesso";
 
+    private static final String KEY_SUCESSO = "arquitetura.msg.sucesso";
     @Autowired
     private DisciplinaForm form;
-    
     @Autowired
     private DisciplinaService service;
-    
     @Autowired
     private CursoService cursoService;
-    
     @Autowired
     private CursoForm cursoForm;
-    
+
     @Override
     public void initData() {
-        
+
         super.initData();
-     
+
         this.form.getEntity().setCurso(new Curso());
-        
+
         this.getForm().setCursos(this.getCursoService().list());
-   
+
+        this.getForm().setTiposBibliografia("Básica");
+        this.getForm().setTiposBibliografia("Complementar");
+        this.getForm().setTiposBibliografia("Sugerida");
+
     }
 
-    
     @Override
     public DisciplinaForm getForm() {
         return form;
@@ -82,18 +81,17 @@ public class DisciplinaController extends SGBController<Disciplina, DisciplinaFo
 
     @Override
     public void insert() {
-        
+
         try {
-         
+
             this.service.insert(this.form.getEntity());
-            
+
             this.addSuccessMessage(DisciplinaController.KEY_SUCESSO);
-            
+
         } catch (ValidationException ex) {
-      
+
             this.addWarningMessage(ex.getKeyMessage());
-      
+
         }
     }
-
 }
