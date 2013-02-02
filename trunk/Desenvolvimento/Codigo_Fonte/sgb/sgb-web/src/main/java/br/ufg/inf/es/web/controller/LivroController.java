@@ -7,19 +7,23 @@ import br.ufg.inf.es.integracao.DisciplinaService;
 import br.ufg.inf.es.integracao.EditoraService;
 import br.ufg.inf.es.integracao.LivroService;
 import br.ufg.inf.es.integracao.exportacaodados.MarcParser;
-import br.ufg.inf.es.model.AutorDTO;
+import br.ufg.inf.es.model.Autor;
+import br.ufg.inf.es.model.Bibliografia;
 import br.ufg.inf.es.model.Curso;
 import br.ufg.inf.es.model.Disciplina;
+import br.ufg.inf.es.model.Editora;
 import br.ufg.inf.es.model.Livro;
 import br.ufg.inf.es.web.controller.form.LivroForm;
 import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
 import java.util.Collection;
 import org.primefaces.model.DefaultStreamedContent;
+import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.StreamedContent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
+import br.ufg.inf.es.web.datamodel.LivroDataModel;
 
 /**
  *
@@ -42,20 +46,32 @@ public class LivroController extends SGBController<Livro, LivroForm, LivroServic
     @Autowired
     private AutorService autorService;
     
+    private Autor autor;
+    private Editora editora;
+    private String tipoBibliografia;
     private Curso cursoSelecionado;
     private String formatoSelecionado;
     private StreamedContent fileExportado;
     
+    private LazyDataModel<Livro> lazyModel;
+
     /**
-     * Método responsável por retornar a string de navegação para a pagina incial da Estória de usuário
-     * buscar todos os livros.
-     * @return  string de navegação
+     * Método responsável por retornar a string de navegação para a pagina
+     * incial da Estória de usuário buscar todos os livros.
+     *
+     * @return string de navegação
      */
     @Override
     public String openInitialPage() {
-        this.getForm().setCollectionEntities(service.list());
+        lazyModel = new LivroDataModel(service);
+        this.autor = new Autor();
+        this.editora = new Editora();
 
         return super.openInitialPage();
+    }
+    
+    public LazyDataModel<Livro> getLivros() {
+        return lazyModel;
     }
 
     public Curso getCursoSelecionado() {
@@ -78,7 +94,6 @@ public class LivroController extends SGBController<Livro, LivroForm, LivroServic
     public void setFileExportado(StreamedContent fileExportado) {
         this.fileExportado = fileExportado;
     }
-
 
     public LivroService getService() {
         return service;
@@ -106,6 +121,30 @@ public class LivroController extends SGBController<Livro, LivroForm, LivroServic
 
     public void setCursoService(CursoService cursoService) {
         this.cursoService = cursoService;
+    }
+
+    public String getTipoBibliografia() {
+        return tipoBibliografia;
+    }
+
+    public void setTipoBibliografia(String tipoBibliografia) {
+        this.tipoBibliografia = tipoBibliografia;
+    }
+
+    public Autor getAutor() {
+        return autor;
+    }
+
+    public void setAutor(Autor autor) {
+        this.autor = autor;
+    }
+
+    public Editora getEditora() {
+        return editora;
+    }
+
+    public void setEditora(Editora editora) {
+        this.editora = editora;
     }
 
     public Collection<Curso> getCursos() {
@@ -141,7 +180,12 @@ public class LivroController extends SGBController<Livro, LivroForm, LivroServic
     }
 
     public void associarDisciplina() {
-        this.form.getEntity().getBibliografia().add(this.form.getBibliografiaTemp());
+        Livro livro = this.form.getEntity();
+        Bibliografia bibliografia = this.form.getBibliografiaTemp();
+        bibliografia.setTipo(tipoBibliografia);
+        bibliografia.setLivro(livro);
+        Collection<Bibliografia> listaBibliografias = livro.getBibliografias();
+        listaBibliografias.add(bibliografia);
     }
 
     public Collection<Livro> complete(String query) {
@@ -172,16 +216,25 @@ public class LivroController extends SGBController<Livro, LivroForm, LivroServic
         return super.openSearchPage();
     }
 
+    public void salvarEditora() throws ValidationException {
+        editoraService.insert(editora);
+        editora = new Editora();
+    }
+    
+    public void salvarAutor() throws ValidationException {
+        autorService.insert(autor);
+        autor = new Autor();
+    }
+
     public String voltar() {
         return "/index.jsf";
-
     }
 
     public void exportarLivro() {
         Livro livroSelecionado = this.getForm().getEntity();
         String livroMarc = MarcParser.livroToMarc(this.getForm().getEntity());
         ByteArrayInputStream bais = new ByteArrayInputStream(livroMarc.getBytes());
-        
+
         this.fileExportado = new DefaultStreamedContent(bais, "application/marc",
                 livroSelecionado.getTitulo() + ".mrc");
     }

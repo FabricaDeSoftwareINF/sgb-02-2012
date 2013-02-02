@@ -10,7 +10,7 @@
     <ui:composition template="/template/template.xhtml">
 
         <ui:define name="title">
-            Gerênciamento de Livros - SGB
+            Gerenciamento de Livros - SGB
         </ui:define>
 
         <ui:define name="content">
@@ -21,7 +21,7 @@
 
                 <h:form>
 
-                    <p:dataTable value="#{livroController.form.collectionEntities}" var="livro"
+                    <p:dataTable value="#{livroController.livros}" var="livro"
                                  rows="10" paginator="true">
 
                         <p:column headerText="#{msg['cadastro.livro.label.titulo']}">
@@ -52,6 +52,12 @@
                             <h:outputText value="#{livro.isbn13}" />
                         </p:column>
 
+                        <p:column headerText="#{msg['cadastro.livro.label.disciplinas']}">
+                            <p:dataList value="#{livro.bibliografias}" var="bibliografia">
+                                <h:outputText value="#{bibliografia.tipo} - #{bibliografia.disciplina.nome}/#{bibliografia.disciplina.curso.nome}" />
+                            </p:dataList>
+                        </p:column>
+
                         <p:column headerText="#{msg['cadastro.livro.label.acoes']}">
 
                             <p:panelGrid columns="3" width="100%">
@@ -79,12 +85,13 @@
 
                     </p:dataTable>
 
+                    <h:panelGrid columns="2" style="float: right;">
 
-                    <p:panelGrid id="buttons" columns="2" styleClass="semborda">
-                        <p:commandButton value="Novo"></p:commandButton>
-                        <p:commandButton value="Excluir"></p:commandButton>
-                    </p:panelGrid>
+                        <p:commandButton value="#{msg['cadastro.livro.button.novo']}"  action="#{livroController.openInsertPage()}" ajax="false" style="margin-right: 1em" />
 
+                        <p:commandButton value="#{msg['cadastro.livro.button.remover']}" update="@form"></p:commandButton>
+
+                    </h:panelGrid>
 
                 </h:form>
 

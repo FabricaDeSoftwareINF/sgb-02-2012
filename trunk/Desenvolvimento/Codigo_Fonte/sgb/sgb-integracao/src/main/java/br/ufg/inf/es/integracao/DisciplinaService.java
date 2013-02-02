@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.ufg.inf.es.integracao;
 
 import br.ufg.inf.es.base.validation.ValidationException;
@@ -27,6 +23,8 @@ public class DisciplinaService extends GenericService<Disciplina> {
     @Autowired
     private DisciplinaDAO dao;
     
+    private Curso cursoSelecionado;
+    
     @Override
     public DisciplinaDAO getDAO() {
         return this.dao;
@@ -35,19 +33,34 @@ public class DisciplinaService extends GenericService<Disciplina> {
     public void setDao(DisciplinaDAO dao) {
 
         this.dao = dao;
-    }    
+    }
+    
+         public Curso getCursoSelecionado() {
+        return cursoSelecionado;
+    }
 
-    /**
-     * 
-     * @param entidade
-     * @return 
-     */
+    public void setCursoSelecionado(Curso cursoSelecionado) {
+        this.cursoSelecionado = cursoSelecionado;
+    }
+    
+
     @Override
     @RNG006
     public Long insert(Disciplina entidade) throws ValidationException { 
         
         return this.getDAO().insert(entidade);
-    
     }
+
+    public Collection<Disciplina> complete(String query) {  
+        Collection<Disciplina> results = new ArrayList<Disciplina>();
+          
+        for(Disciplina disciplina : this.dao.list()){
+            if(disciplina.getNome().contains(query)){
+                results.add(disciplina);
+            }
+        }
+          
+        return results;  
+    } 
     
 }

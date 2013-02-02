@@ -256,10 +256,10 @@ public class LivroControllerTest {
         // this.form.getEntity().getBibliografia().add(this.form.getBibliografiaTemp());
         Livro livroMock = Mockito.mock(Livro.class);
         Mockito.when(livroFormMock.getEntity()).thenReturn(livroMock);
-        Mockito.when(livroMock.getBibliografia()).thenReturn(new ArrayList<Bibliografia>());
+        Mockito.when(livroMock.getBibliografias()).thenReturn(new ArrayList<Bibliografia>());
         livroController.associarDisciplina();
         Mockito.verify(livroFormMock).getEntity();
-        Mockito.verify(livroMock).getBibliografia();
+        Mockito.verify(livroMock).getBibliografias();
        
     }
 
