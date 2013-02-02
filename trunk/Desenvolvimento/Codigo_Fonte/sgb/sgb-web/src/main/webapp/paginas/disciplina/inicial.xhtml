@@ -11,65 +11,45 @@
         </ui:define>
 
         <ui:define name="content">
-            <p:panel>
-
-                <h:form>
-
+            <h:form>
+                <p:panel>
                     <p:dataTable value="#{disciplinaController.form.collectionEntities}" var="disciplina" >
 
                         <p:column headerText="Código" sortBy="#{disciplina.codigo}">
-
                             <h:outputText value="#{disciplina.codigo}" />
-
                         </p:column>
 
                         <p:column headerText="Nome" sortBy="#{disciplina.nome}">
-
                             <h:outputText value="#{disciplina.nome}" />
-
                         </p:column>
 
                         <p:column headerText="Curso" sortBy="#{disciplina.curso.nome}">
-
                             <h:outputText value="#{disciplina.curso.nome}" />
-
                         </p:column>
 
-
-
                         <p:column headerText="Ações">
-
-                            <h:panelGrid columns="2" width="100%" class="semborda">
-
+                            <h:panelGrid columns="2" width="100%" styleClass="semborda">
                                 <p:commandLink value="#{msg['acao.editar']}" action="#{disciplinaController.openInsertPage}" update="@all">
-
                                     <f:setPropertyActionListener value="#{disciplina}" target="#{disciplinaController.form.entity}" />
-
                                     <f:param name="entityID" value="#{disciplina.id}" />
-
                                 </p:commandLink>
 
                                 <p:commandLink value="#{msg['acao.detalhes']}">
-
                                 </p:commandLink>
-
                             </h:panelGrid>
-
-
                         </p:column>
 
                     </p:dataTable>
 
-                    <h:panelGrid columns="2">
+                    <h:panelGrid columns="2" style="float: right">
 
                         <p:commandButton value="#{msg['cadastro.acao.novo']}" action="#{disciplinaController.openInsertPage()}"/>
 
                         <p:commandButton value="#{msg['cadastro.acao.remover']}"/>
 
                     </h:panelGrid>
-                </h:form>
-
-            </p:panel>
+                </p:panel>
+            </h:form>
         </ui:define>
     </ui:composition>
 </html>
