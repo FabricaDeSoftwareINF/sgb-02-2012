@@ -96,4 +96,19 @@ public class DisciplinaDAO extends GenericHibernateDAO<Disciplina> {
         
         return criteria.list();
     }   
+    
+    /**
+     * Método responsável por obter a lista de disciplinas de um determinado curso
+     * @param id Identificador do curso
+     * @return Lista de disciplinas
+     * 
+     */
+     public Collection<Disciplina> listarDisciplinasDeUmCurso(Long id) {
+      
+         Criteria criteria = this.createCriteria();
+         
+         criteria.add(Restrictions.eq("curso.id", id));
+         
+         return criteria.list();
+     }
 }

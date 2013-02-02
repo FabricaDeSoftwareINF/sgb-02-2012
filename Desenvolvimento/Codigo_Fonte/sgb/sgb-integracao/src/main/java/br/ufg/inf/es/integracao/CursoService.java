@@ -87,6 +87,17 @@ public class CursoService extends GenericService<Curso> {
         return this.getDisciplinaDao().listarDisciplinasNaoVinculadasACurso();
     }
     
+    /**
+     * Método responsável por obter a lista de disciplinas de um determinado curso
+     * @param id Identificador do curso
+     * @return Lista de disciplinas
+     * 
+     */
+    public Collection<Disciplina> listarDisciplinasDeUmCurso(Long id) {
+        
+        return this.getDisciplinaDao().listarDisciplinasDeUmCurso(id);
+    }
+    
     @Override
     public CursoDAO getDAO() {
 
