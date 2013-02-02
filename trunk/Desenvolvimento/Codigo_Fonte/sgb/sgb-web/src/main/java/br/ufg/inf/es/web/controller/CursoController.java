@@ -1,11 +1,11 @@
 package br.ufg.inf.es.web.controller;
 
-import br.ufg.inf.es.base.util.UtilObjeto;
 import br.ufg.inf.es.base.validation.ValidationException;
 import br.ufg.inf.es.integracao.CursoService;
 import br.ufg.inf.es.model.Curso;
 import br.ufg.inf.es.model.Disciplina;
 import br.ufg.inf.es.web.controller.form.CursoForm;
+import java.util.LinkedList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -39,16 +39,16 @@ public class CursoController extends SGBController<Curso, CursoForm, CursoServic
             
             this.getService().insert(this.getForm().getEntity(), this.getForm().getListaDisciplinaAssociacao());
             
+            addSuccessMessage("arquitetura.msg.sucesso");
+            
         } catch (ValidationException ve) {
             
-            addErrorMessage("arquitetura.msg.erro");            
+            addErrorMessage(ve.getKeyMessage());            
             
         } finally {
 
             this.clearData();
         }       
-        
-        addSuccessMessage("arquitetura.msg.sucesso");
     }
 
     /**
@@ -117,6 +117,8 @@ public class CursoController extends SGBController<Curso, CursoForm, CursoServic
         this.getForm().setEntity(new Curso());
         
         this.getForm().setDisciplinaSelecionada(new Disciplina());
+        
+        this.getForm().setListaDisciplinaAssociacao(new LinkedList<Disciplina>());
         
         this.getForm().setListaDisciplinaComboBox(this.getService().listarDisciplinasNaoVinculadasACurso());
     }
