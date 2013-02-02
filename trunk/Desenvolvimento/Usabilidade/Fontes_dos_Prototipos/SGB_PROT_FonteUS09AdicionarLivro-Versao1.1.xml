@@ -1,45 +1,75 @@
-﻿<mockup version="1.0" skin="sketch" fontFace="Balsamiq Sans" measuredW="1062" measuredH="777" mockupW="1038" mockupH="685">
+<mockup version="1.0" skin="sketch" fontFace="Balsamiq Sans" measuredW="1062" measuredH="777" mockupW="1038" mockupH="685">
   <controls>
-    <control controlID="201" controlTypeID="com.balsamiq.mockups::Canvas" x="24" y="92" w="1038" h="685" measuredW="100" measuredH="70" zOrder="0" locked="false" isInGroup="-1"/>
-    <control controlID="202" controlTypeID="com.balsamiq.mockups::DataGrid" x="50" y="207" w="986" h="513" measuredW="1018" measuredH="172" zOrder="1" locked="false" isInGroup="-1">
+    <control controlID="157" controlTypeID="com.balsamiq.mockups::Canvas" x="24" y="92" w="1038" h="685" measuredW="100" measuredH="70" zOrder="0" locked="false" isInGroup="-1"/>
+    <control controlID="158" controlTypeID="com.balsamiq.mockups::DataGrid" x="50" y="207" w="986" h="513" measuredW="962" measuredH="172" zOrder="1" locked="false" isInGroup="-1">
       <controlProperties>
-        <text>%5Bx%5D%2CT%EDtulo%20%u25B2%u25BC%2C%20Autor%20%u25B2%u25BC%2C%20Edi%E7%E3o%2C%20Ano%2C%20Editora%2C%20ISBN13%2C%20Disciplinas%u25B2%u25BC%2C%20Extrangeiro%2C%20A%E7%F5es%0A%5Bx%5D%2C%20Como%20programar%20Java%2C%20Deitel%2C%206%2C%202005%2C%20Pearson%2C%20123.3456.687.41.2%2C%20Introdu%E7%E3o%20a%20programa%E7%E3o%2C%20N%E3o%2C%20%5BEditar%5D%20%5BDetalhe%5D%20%0A%5Bx%5D%2C%20Engenharia%20de%20Software%2C%20Pressman%2C%207%2C%20%202008%2C%20McGraw%2C%20123.3456.678.41.2%2C%20Engenharia%20de%20Software%2C%20N%E3o%2C%20%5BEditar%5D%20%5BDetalhe%5D%0A%5B%5D%2C%20SWEBoK%2C%20N/A%2C%205%2C%202005%2C%20%20IEEE%2C%20123.3456.678.41.2%2C%20Introdu%E7%E3o%20a%20Eng%20de%20Software%2C%20Sim%2C%20%5BEditar%5D%20%5BDetalhe%5D%0A%5B%5D%2C%20Cr%F4nicas%20de%20N%E1rnia%2C%20Lewis%2C%202%2C2009%2C%20Martins%20Fontes%2C%20123.3456.678.41.2%2C%20Filosofia%20de%20Software%2C%20N%E3o%2C%20%5BEditar%5D%20%5BDetalhe%5D%20%0A%5Bx%5D%2C%20Clean%20Code%2C%20Uncle%20Bob%2C%201%2C%202011%2C%20Prentice%20Hall%20%2C123.3456.678.41.2%2C%20T%F3picos%20Avan%E7ados%20de%20Const.%20de%20Softw.%2C%20Sim%2C%20%5BEditar%5D%20%5BDetalhe%5D</text>
+        <text>%5Bx%5D%2CT%EDtulo%20%u25B2%u25BC%2C%20Autor%20%u25B2%u25BC%2C%20Edi%E7%E3o%2C%20Ano%2C%20Editora%2C%20ISBN13%2C%20Disciplinas%u25B2%u25BC%2C%20Extrangeiro%2C%20Detalhe%0A%5Bx%5D%2C%20Como%20programar%20Java%2C%20Deitel%2C%206%2C%202005%2C%20Pearson%2C%20123.3456.687.41.2%2C%20Introdu%E7%E3o%20a%20programa%E7%E3o%2C%20N%E3o%2C%20%20%0A%5Bx%5D%2C%20Engenharia%20de%20Software%2C%20Pressman%2C%207%2C%20%202008%2C%20McGraw%2C%20123.3456.678.41.2%2C%20Engenharia%20de%20Software%2C%20N%E3o%2C%20%0A%5B%5D%2C%20SWEBoK%2C%20N/A%2C%205%2C%202005%2C%20%20IEEE%2C%20123.3456.678.41.2%2C%20Introdu%E7%E3o%20a%20Eng%20de%20Software%2C%20Sim%2C%20%0A%5B%5D%2C%20Cr%F4nicas%20de%20N%E1rnia%2C%20Lewis%2C%202%2C2009%2C%20Martins%20Fontes%2C%20123.3456.678.41.2%2C%20Filosofia%20de%20Software%2C%20N%E3o%2C%20%0A%5Bx%5D%2C%20Clean%20Code%2C%20Uncle%20Bob%2C%201%2C%202011%2C%20Prentice%20Hall%20%2C123.3456.678.41.2%2C%20T%F3picos%20Avan%E7ados%20de%20Const.%20de%20Softw.%2C%20Sim%2C%20</text>
         <verticalScrollbar>true</verticalScrollbar>
       </controlProperties>
     </control>
-    <control controlID="203" controlTypeID="com.balsamiq.mockups::Label" x="50" y="118" w="-1" h="-1" measuredW="415" measuredH="32" zOrder="2" locked="false" isInGroup="-1">
+    <control controlID="159" controlTypeID="com.balsamiq.mockups::Label" x="50" y="118" w="-1" h="-1" measuredW="415" measuredH="32" zOrder="2" locked="false" isInGroup="-1">
       <controlProperties>
         <bold>true</bold>
         <size>24</size>
         <text>Adicionar%20Livro%20na%20Lista%20de%20Compras</text>
       </controlProperties>
     </control>
-    <control controlID="204" controlTypeID="com.balsamiq.mockups::Button" x="921" y="735" w="-1" h="-1" measuredW="117" measuredH="27" zOrder="3" locked="false" isInGroup="-1">
+    <control controlID="160" controlTypeID="com.balsamiq.mockups::Button" x="841" y="735" w="-1" h="-1" measuredW="117" measuredH="27" zOrder="3" locked="false" isInGroup="-1">
       <controlProperties>
         <text>Adicionar%20Livros</text>
       </controlProperties>
     </control>
-    <control controlID="206" controlTypeID="com.balsamiq.mockups::SearchBox" x="78" y="182" w="170" h="-1" measuredW="120" measuredH="24" zOrder="4" locked="false" isInGroup="-1">
+    <control controlID="161" controlTypeID="com.balsamiq.mockups::SearchBox" x="78" y="182" w="170" h="-1" measuredW="120" measuredH="24" zOrder="4" locked="false" isInGroup="-1">
       <controlProperties>
         <text/>
       </controlProperties>
     </control>
-    <control controlID="207" controlTypeID="com.balsamiq.mockups::SearchBox" x="248" y="182" w="56" h="-1" measuredW="120" measuredH="24" zOrder="5" locked="false" isInGroup="-1">
+    <control controlID="162" controlTypeID="com.balsamiq.mockups::SearchBox" x="248" y="182" w="56" h="-1" measuredW="120" measuredH="24" zOrder="5" locked="false" isInGroup="-1">
       <controlProperties>
         <text/>
       </controlProperties>
     </control>
-    <control controlID="208" controlTypeID="com.balsamiq.mockups::SearchBox" x="632" y="182" w="225" h="-1" measuredW="120" measuredH="24" zOrder="6" locked="false" isInGroup="-1">
+    <control controlID="163" controlTypeID="com.balsamiq.mockups::SearchBox" x="632" y="182" w="225" h="-1" measuredW="120" measuredH="24" zOrder="6" locked="false" isInGroup="-1">
       <controlProperties>
         <text/>
       </controlProperties>
     </control>
-    <control controlID="211" controlTypeID="com.balsamiq.mockups::Label" x="471" y="118" w="-1" h="-1" measuredW="192" measuredH="32" zOrder="7" locked="false" isInGroup="-1">
+    <control controlID="164" controlTypeID="com.balsamiq.mockups::Label" x="471" y="118" w="-1" h="-1" measuredW="192" measuredH="32" zOrder="7" locked="false" isInGroup="-1">
       <controlProperties>
         <bold>false</bold>
         <italic>true</italic>
         <size>24</size>
         <text>%3CNome%20da%20Lista%3E</text>
+      </controlProperties>
+    </control>
+    <control controlID="165" controlTypeID="com.balsamiq.mockups::Button" x="973" y="735" w="-1" h="-1" measuredW="77" measuredH="27" zOrder="8" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Cancelar</text>
+      </controlProperties>
+    </control>
+    <control controlID="166" controlTypeID="com.balsamiq.mockups::Icon" x="983" y="234" w="-1" h="-1" measuredW="16" measuredH="16" zOrder="9" locked="false" isInGroup="-1">
+      <controlProperties>
+        <icon>CircledPlusIcon%7Cxsmall</icon>
+      </controlProperties>
+    </control>
+    <control controlID="167" controlTypeID="com.balsamiq.mockups::Icon" x="983" y="265" w="-1" h="-1" measuredW="16" measuredH="16" zOrder="10" locked="false" isInGroup="-1">
+      <controlProperties>
+        <icon>CircledPlusIcon%7Cxsmall</icon>
+      </controlProperties>
+    </control>
+    <control controlID="168" controlTypeID="com.balsamiq.mockups::Icon" x="983" y="294" w="-1" h="-1" measuredW="16" measuredH="16" zOrder="11" locked="false" isInGroup="-1">
+      <controlProperties>
+        <icon>CircledPlusIcon%7Cxsmall</icon>
+      </controlProperties>
+    </control>
+    <control controlID="169" controlTypeID="com.balsamiq.mockups::Icon" x="983" y="325" w="-1" h="-1" measuredW="16" measuredH="16" zOrder="12" locked="false" isInGroup="-1">
+      <controlProperties>
+        <icon>CircledPlusIcon%7Cxsmall</icon>
+      </controlProperties>
+    </control>
+    <control controlID="170" controlTypeID="com.balsamiq.mockups::Icon" x="983" y="352" w="-1" h="-1" measuredW="16" measuredH="16" zOrder="13" locked="false" isInGroup="-1">
+      <controlProperties>
+        <icon>CircledPlusIcon%7Cxsmall</icon>
       </controlProperties>
     </control>
   </controls>
