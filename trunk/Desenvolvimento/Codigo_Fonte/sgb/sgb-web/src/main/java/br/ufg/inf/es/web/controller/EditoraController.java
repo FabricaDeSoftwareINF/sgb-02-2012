@@ -84,7 +84,7 @@ public class EditoraController
 
         try {
 
-            this.getService().save(this.getForm().getEntity());
+            this.getService().editar(this.getForm().getEntity());
 
             addSuccessMessage(EditoraController.KEY_MSG_SUCESSO);
 

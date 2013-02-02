@@ -48,14 +48,16 @@
 
                     </h:panelGrid>
 
-                    <h:commandButton action="#{usuarioController.editarUsuario()}" value="#{msg['cadastro.usuario.button.edit']}" />
+                    <h:panelGrid columns="2">
+                        
+                        <p:commandButton action="#{usuarioController.editarUsuario()}" value="#{msg['cadastro.usuario.button.edit']}" ajax="false"/>
 
+                        <p:commandButton action="#{usuarioController.openSearchPage()}" value="#{msg['cadastro.usuario.button.voltar']}" ajax="false"/>
+                
+                    </h:panelGrid>
+            
                 </h:form>
-                <h:form>
-
-                    <h:commandButton action="#{usuarioController.openSearchPage()}" value="#{msg['cadastro.usuario.button.voltar']}" />
-
-                </h:form>
+            
             </p:panel>        
 
         </ui:define>

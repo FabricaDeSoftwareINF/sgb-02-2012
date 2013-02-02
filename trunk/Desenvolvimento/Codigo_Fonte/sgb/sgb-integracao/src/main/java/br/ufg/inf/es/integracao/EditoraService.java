@@ -66,13 +66,8 @@ public class EditoraService extends GenericService<Editora> {
      * @throws ValidationException 
      */
     @RNG007
-    @Override
-    public void save(Editora entidade) throws ValidationException {
-      
-        Editora editora = this.getDAO().find(entidade.getId());
-      
-        editora.setNome(entidade.getNome());
-        
+    public void editar(Editora entidade) throws ValidationException {
+     
         this.getDAO().update(entidade);
 
     }

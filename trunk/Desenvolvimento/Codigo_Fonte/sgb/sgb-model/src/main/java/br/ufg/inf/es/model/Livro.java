@@ -38,7 +38,8 @@ public class Livro extends AbstractEntityModel {
     @JoinColumn(name = "id_livro"), inverseJoinColumns =
     @JoinColumn(name = "id_autor"))
     private Collection<Autor> autores;
-    @OneToMany(targetEntity = Bibliografia.class)
+    
+    @OneToMany(targetEntity = Bibliografia.class,cascade= CascadeType.ALL, mappedBy="livro")
     private Collection<Bibliografia> bibliografia;
 
     public String getTitulo() {

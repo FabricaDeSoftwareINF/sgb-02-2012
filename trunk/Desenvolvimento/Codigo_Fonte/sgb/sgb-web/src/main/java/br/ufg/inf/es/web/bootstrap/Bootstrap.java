@@ -45,7 +45,7 @@ public class Bootstrap implements ServletContextListener {
             return;
         }
         
-        BibliografiaBootstrap.crieBibliografias(sessionFactory);
+       //BibliografiaBootstrap.crieBibliografias(sessionFactory);
 
         Collection usuarios = list(sessionFactory, Usuario.class);
         if (usuarios == null || usuarios.isEmpty()) {

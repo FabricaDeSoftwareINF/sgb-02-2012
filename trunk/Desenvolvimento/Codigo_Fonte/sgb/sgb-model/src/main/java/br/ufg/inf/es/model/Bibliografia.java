@@ -18,7 +18,7 @@ import javax.persistence.Table;
 @Table(name = "BIBLIOGRAFIA")
 public class Bibliografia extends AbstractEntityModel {
 
-    @Column(name = "tipo")
+    @Column(name = "tipo", unique=false)
     private String tipo;
     @ManyToOne
     @JoinColumn(name = "id_livro")

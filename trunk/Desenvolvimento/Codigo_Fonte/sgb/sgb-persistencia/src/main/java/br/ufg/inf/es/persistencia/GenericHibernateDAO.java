@@ -9,7 +9,10 @@ import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.apache.commons.beanutils.PropertyUtils;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -164,8 +167,27 @@ public abstract class GenericHibernateDAO<E extends Entity<Long>> implements DAO
 
         return this.getSession().createCriteria(this.getClassEntity());
     }
+    
+    public <T> Collection<T> getCollection(Long id, String property) {
+        
+        try {
+         
+            return (Collection<T>) PropertyUtils.getProperty(this.getSession().get(this.getClassEntity(), id), property);
+            
+        } catch (Exception ex) {
+            
+            Logger.getLogger(GenericHibernateDAO.class.getName()).log(Level.SEVERE, null, ex);
+            
+            return Collections.EMPTY_LIST;
+            
+        } finally {
+            
+            this.getSession().close();
+        }
+    }
 
     public Collection<E> list() {
+        
         Collection<E> lista;
         try {
 
@@ -178,8 +200,9 @@ public abstract class GenericHibernateDAO<E extends Entity<Long>> implements DAO
         } finally {
             
             this.getSession().flush();
-        
+            
             this.getSession().close();
+            
         }
         
         return lista;
