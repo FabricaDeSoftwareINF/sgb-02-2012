@@ -1,5 +1,6 @@
 package br.ufg.inf.es.integracao;
 
+import br.ufg.inf.es.base.util.UtilObjeto;
 import br.ufg.inf.es.base.validation.ValidationException;
 import br.ufg.inf.es.integracao.annotations.RNG004;
 import br.ufg.inf.es.model.Curso;
@@ -7,6 +8,7 @@ import br.ufg.inf.es.model.Disciplina;
 import br.ufg.inf.es.persistencia.CursoDAO;
 import br.ufg.inf.es.persistencia.DisciplinaDAO;
 import java.util.Collection;
+import java.util.LinkedList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
@@ -60,6 +62,11 @@ public class CursoService extends GenericService<Curso> {
 
             disc.setCurso(cursoPersistido);
 
+            if(!UtilObjeto.isReferencia(curso.getDisciplinas())){
+                
+                curso.setDisciplinas(new LinkedList<Disciplina>());
+            }
+            
             curso.getDisciplinas().add(disc);
 
             this.getDisciplinaDao().update(disc);

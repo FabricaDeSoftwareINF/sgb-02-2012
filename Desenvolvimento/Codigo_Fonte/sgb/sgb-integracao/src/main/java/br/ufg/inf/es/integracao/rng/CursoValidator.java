@@ -16,13 +16,15 @@ import org.springframework.stereotype.Component;
 @Component
 public class CursoValidator implements Validation<Curso> {
 
-	public void validate(Curso object) throws ValidationException {
+    public void validate(Curso curso) throws ValidationException {     
+        
+        if (curso.getNome() == null || curso.getNome().isEmpty()) {
 
-		if (object.getNome() == null) {
-			throw new ValidationException("cadastro.curso.msg.RNG004.nome");
-		} else if (object.getVagas() <= 0) {
-			throw new ValidationException("cadastro.curso.msg.RNG004.vagas");
-		}
-	}
+            throw new ValidationException("cadastro.curso.msg.RNG004.nome");
 
+        } else if (curso.getVagas() <= 0) {
+
+            throw new ValidationException("cadastro.curso.msg.RNG004.vagas");
+        }
+    }
 }
