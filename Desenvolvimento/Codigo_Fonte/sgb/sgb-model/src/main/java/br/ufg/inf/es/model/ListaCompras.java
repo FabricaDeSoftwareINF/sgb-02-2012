@@ -17,6 +17,18 @@ public class ListaCompras extends AbstractEntityModel {
     @Column(name = "data_criacao")
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date dataCriacao;
+    
+    @ManyToMany(targetEntity=Livro.class)
+    @JoinTable(name="TB_LISTACOMPRAS_LIVRO", joinColumns=@JoinColumn(name="id_listaCompras"), inverseJoinColumns=@JoinColumn(name="id_livro"))
+    private Collection<Livro> livrosDaListaCompras;
+
+    public Collection<Livro> getLivrosDaListaCompras() {
+        return livrosDaListaCompras;
+    }
+
+    public void setLivrosDaListaCompras(Collection<Livro> livrosDaListaCompras) {
+        this.livrosDaListaCompras = livrosDaListaCompras;
+    }
 
     public Date getDataCriacao() {
         return dataCriacao;
@@ -32,9 +44,6 @@ public class ListaCompras extends AbstractEntityModel {
 
     public void setNome(String nome) {
         this.nome = nome;
-    }
-    
-    
-    
+    }    
     
 }

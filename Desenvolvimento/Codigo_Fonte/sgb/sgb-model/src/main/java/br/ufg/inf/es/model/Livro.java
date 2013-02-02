@@ -32,7 +32,21 @@ public class Livro extends AbstractEntityModel {
     private Collection<Autor> autores;
     @OneToMany(mappedBy = "livro")
     private Collection<Bibliografia> bibliografias = new ArrayList<Bibliografia>();
+    
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE},
+        mappedBy = "livrosDaListaCompras",
+        targetEntity = ListaCompras.class
+    )
+    private Collection<ListaCompras> ListaCompras;
 
+    public Collection<br.ufg.inf.es.model.ListaCompras> getListaCompras() {
+        return ListaCompras;
+    }
+
+    public void setListaCompras(Collection<br.ufg.inf.es.model.ListaCompras> ListaCompras) {
+        this.ListaCompras = ListaCompras;
+    }
+    
     public String getTitulo() {
         return titulo;
     }
