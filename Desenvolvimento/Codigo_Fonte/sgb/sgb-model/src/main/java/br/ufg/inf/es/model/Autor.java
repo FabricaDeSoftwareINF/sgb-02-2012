@@ -5,6 +5,7 @@ import javax.persistence.*;
 
 /**
  * Entidade Autor
+ *
  * @author Henrique, Cássio Augusto
  */
 @Entity
@@ -13,11 +14,9 @@ public class Autor extends AbstractEntityModel {
 
     @Column(name = "nome")
     private String nome;
-    
     @Column(name = "sobrenome")
     private String sobrenome;
-    
-    @ManyToMany(mappedBy="autores", cascade= CascadeType.ALL)
+    @ManyToMany(mappedBy = "autores", cascade = CascadeType.ALL)
     private Collection<Livro> livros;
 
     public String getSobrenome() {
@@ -48,5 +47,4 @@ public class Autor extends AbstractEntityModel {
     public String toString() {
         return nome + " " + sobrenome;
     }
-    
 }
