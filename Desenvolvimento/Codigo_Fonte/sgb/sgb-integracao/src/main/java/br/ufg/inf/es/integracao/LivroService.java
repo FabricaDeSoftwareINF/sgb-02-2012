@@ -4,6 +4,7 @@ import br.ufg.inf.es.base.validation.ValidationException;
 import br.ufg.inf.es.integracao.annotations.RNG000;
 import br.ufg.inf.es.model.Livro;
 import br.ufg.inf.es.persistencia.LivroDAO;
+import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
@@ -35,5 +36,27 @@ public class LivroService extends GenericService<Livro>{
     public Long insert(Livro entity) throws ValidationException {
 
         return super.insert(entity);
-    }   
+    }
+
+    /**
+     * 
+     * @return 
+     */
+    @Override
+    public Collection<Livro> list() {
+        
+        Collection<Livro> list = this.getDAO().list();
+        
+        for (Livro livro : list) {
+            
+            livro.setAutores(this.getDAO().getAutores(livro.getId()));
+            
+            livro.setBibliografia(this.getDAO().getBibliografia(livro.getId()));
+     
+        }
+        
+        return super.list();
+    }
+    
+    
 }

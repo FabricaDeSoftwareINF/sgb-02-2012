@@ -13,31 +13,25 @@
 
             <p:panel header="#{msg['usuario.label.usuario']}">
 
-                <h:form>
-                    
+                <h:form prependId="false">
+
                     <p:messages />
                     
-                    <h:panelGrid columns="2">
-                        
-                        <p:dataTable id="listaUsuarios" value="#{usuarioController.form.tabelaUsuarios}" var="usuario">
-                         
-                            <p:column headerText="">
+                    <h:panelGrid columns="2" style="width: 100%;">
 
-                                <p:selectBooleanCheckbox >
-                             
-                                    <p:ajax event="click" listener="#{usuarioController.selecionaUsuario(usuario)}" />
-                                    
-                                </p:selectBooleanCheckbox>
+                        <p:dataTable id="listaUsuarios" value="#{usuarioController.form.userDataModel}" var="usuario" paginator="true" rows="10" style="width: 100%" selection="#{usuarioController.form.usuariosSelecionados}">
 
+                            <p:column style="width: 18px;" selectionMode="multiple">
+                                
                             </p:column>
-                           
-                            <p:column headerText="#{msg['cadastro.usuario.label.nome']}" sortBy="#{usuario.nome}" filterBy="#{usuario.nome}" filterMatchMode="contains">
+
+                            <p:column headerText="#{msg['cadastro.usuario.label.nome']}" filterBy="#{usuario.nome}" filterMatchMode="contains">
 
                                 <h:outputText value="#{usuario.nome} #{usuario.sobrenome}" />
 
                             </p:column>
-                           
-                            <p:column headerText="#{msg['cadastro.usuario.label.email']}" sortBy="#{usuario.email}" filterBy="#{usuario.email}" filterMatchMode="contains">
+
+                            <p:column headerText="#{msg['cadastro.usuario.label.email']}" filterBy="#{usuario.email}" filterMatchMode="contains">
 
                                 <h:outputText value="#{usuario.email}" />
 
@@ -49,28 +43,30 @@
 
                             </p:column>
 
-                            <p:column headerText="#{msg['usuario.label.acoes']}">
-                          
+                            <p:column headerText="#{msg['usuario.label.acoes']}" style="width: 250px;">
+
                                 <p:commandButton value="#{msg['cadastro.usuario.button.edit']}" action="#{usuarioController.openEditPage(usuario)}"/>
-                           
+
+                                <p:spacer width="20"/>
+
                                 <p:commandButton value="#{msg['usuario.label.detalhe']}" action="#{usuarioController.openViewPage(usuario)}"/>
-                       
+
                             </p:column>
-                       
+
                         </p:dataTable>
-                      
+
                         <p:spacer height="15"/>
-                   
+
                     </h:panelGrid>
-                  
+
                     <h:panelGrid columns="2">
-                   
+
                         <p:commandButton value="#{msg['usuario.label.novo']}" action="#{usuarioController.openInsertPage()}"/>
-                 
+
                         <p:commandButton value="#{msg['usuario.label.remover']}" update="listaUsuarios" actionListener="#{usuarioController.removerUsuarioSelecionados()}" />
-               
+
                     </h:panelGrid>
-              
+
                 </h:form>
 
             </p:panel>        
