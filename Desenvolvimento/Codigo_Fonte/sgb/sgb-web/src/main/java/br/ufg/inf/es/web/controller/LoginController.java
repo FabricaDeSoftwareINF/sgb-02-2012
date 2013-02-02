@@ -4,6 +4,8 @@ import br.ufg.inf.es.base.service.Auth;
 import br.ufg.inf.es.base.util.SgbCryptography;
 import java.util.ArrayList;
 import java.util.Collection;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletRequest;
 import org.springframework.context.annotation.Scope;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -68,4 +70,10 @@ public class LoginController extends JSFController implements AuthenticationProv
         
         return type.equals(UsernamePasswordAuthenticationToken.class);
     }
+    
+    public String getUsuarioLogado() {
+        return ((HttpServletRequest) FacesContext.getCurrentInstance().
+                getExternalContext().getRequest()).getUserPrincipal().getName(); 
+    }
+    
 }

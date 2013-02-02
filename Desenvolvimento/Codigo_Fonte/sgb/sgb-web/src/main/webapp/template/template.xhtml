@@ -49,11 +49,11 @@
 
                     <p:spacer width="45" height="0"/>
 
-                    <h2>Nome do Usuário Logado</h2>
+                    <h2>#{loginController.usuarioLogado}</h2>
 
                     <p:spacer width="45" height="0"/>
 
-                    <h:outputLink value="j_spring_security_logout">Sair</h:outputLink>
+                    <h:outputLink value="#{request.contextPath}/j_spring_security_logout">Sair</h:outputLink>
 
                 </h:panelGrid>
 
@@ -69,13 +69,13 @@
 
                     <p:menuitem value="#{msg['cadastro.editora.label.editora']}" action="#{editoraController.openInitialPage()}"  ajax="false"/>
 
-                    <p:menuitem value="#{msg['cadastro.livro.label.livro']}" action="#{livroController.openInitialPage()}" />
+                    <p:menuitem value="#{msg['cadastro.livro.label.livro']}" action="#{livroController.openInitialPage()}" ajax="false"/>
 
                     <p:menuitem value="#{msg['cadastro.autor.label.autor']}" action="#{autorController.openInitialPage()}" ajax="false"/>
 
-                    <p:menuitem value="#{msg['disciplina.label.disciplina']}" action="#{disciplinaController.openInitialPage()}" ajax="false"/>
+                    <p:menuitem value="#{msg['cadastro.disciplina.label.disciplina']}" action="#{disciplinaController.openInitialPage()}" ajax="false"/>
 
-                    <p:menuitem value="#{msg['usuario.label.usuarios']}" action="#{usuarioController.openInitialPage()}" />
+                    <p:menuitem value="#{msg['usuario.label.usuarios']}" action="#{usuarioController.openInitialPage()}" ajax="false" />
 
                 </p:submenu>
 
@@ -102,15 +102,6 @@
             </ui:insert>  
 
         </div>  
-
-
-        <div id="footer">
-
-            <h:outputText value="- SGB - Sistema de Gestão Bibliográfica | "/>
-
-            <h:outputText value="Universidade Federal de Goiás -"/>
-
-        </div>
 
         <p:ajaxStatus style="width:64px;height:64px;position:fixed;right:5px;bottom:5px">  
             <f:facet name="start">  
