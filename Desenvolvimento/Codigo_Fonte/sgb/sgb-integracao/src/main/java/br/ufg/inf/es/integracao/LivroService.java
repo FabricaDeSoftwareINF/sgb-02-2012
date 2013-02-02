@@ -47,14 +47,6 @@ public class LivroService extends GenericService<Livro>{
         
         Collection<Livro> list = this.getDAO().list();
         
-        for (Livro livro : list) {
-            
-            livro.setAutores(this.getDAO().getAutores(livro.getId()));
-            
-            livro.setBibliografia(this.getDAO().getBibliografia(livro.getId()));
-     
-        }
-        
         return super.list();
     }
     

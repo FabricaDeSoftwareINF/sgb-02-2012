@@ -20,10 +20,12 @@ public class Bibliografia extends AbstractEntityModel {
 
     @Column(name = "tipo", unique=false)
     private String tipo;
-    @ManyToOne
+    
+    @ManyToOne(optional=false)
     @JoinColumn(name = "id_livro")
     private Livro livro;
-    @ManyToOne(targetEntity = Disciplina.class)
+    
+    @ManyToOne(optional=false)
     @JoinColumn(name = "id_disciplina")
     private Disciplina disciplina;
 
@@ -50,4 +52,11 @@ public class Bibliografia extends AbstractEntityModel {
     public void setTipo(String tipo) {
         this.tipo = tipo;
     }
+
+    @Override
+    public String toString() {
+        return "Bibliografia{" + "tipo=" + tipo + ", livro=" + livro + ", disciplina=" + disciplina + '}';
+    }
+    
+    
 }

@@ -13,6 +13,9 @@
 
 
         <ui:define name="content">
+            
+            <ui:include src="cadastro_autor_dialog.xhtml"/>
+            <ui:include src="cadastro_editora_dialog.xhtml"/>
 
             <h:form id="formLivro">
                 <p:messages  autoUpdate="true"/>
@@ -27,13 +30,13 @@
                     <h:panelGrid columns="2" >
                         <p:autoComplete id="autorCompleteAutor" value="#{livroController.form.entity.autores}" completeMethod="#{livroController.autorService.complete}"  
                                         var="autor" itemLabel="#{autor.toString()}" itemValue="#{autor}" converter="autorConverter" multiple="true"></p:autoComplete>  
-                        <p:commandButton onclick="autorModal.show()" immediate="true" value="+"></p:commandButton>
+                        <p:commandButton onclick="cadastroAutorDialog.show()" immediate="true" value="+"></p:commandButton>
                     </h:panelGrid>
                     <h:outputLabel value="#{msg['cadastro.livro.label.editora']}" ></h:outputLabel>
                     <h:panelGrid columns="2">
                         <p:autoComplete id="autoCompleteEditora" value="#{livroController.form.entity.editora}" completeMethod="#{livroController.editoraService.complete}"  
                                         var="editora" itemLabel="#{editora.nome}" itemValue="#{editora}" converter="editoraConverter" ></p:autoComplete>  
-                        <p:commandButton onclick="editoraModal.show()" immediate="true" value="+"></p:commandButton>
+                        <p:commandButton oncomplete="cadastroEditoraDialog.show()" immediate="true" value="+"></p:commandButton>
                     </h:panelGrid>
                     <h:outputLabel value="#{msg['cadastro.livro.label.isbn13']}" ></h:outputLabel>
                     <p:inputText required="true" value="#{livroController.form.entity.isbn13}" requiredMessage="Por favor Informe o ISBN correto."/>
@@ -42,19 +45,28 @@
                 </h:panelGrid>
                 <p:fieldset legend="#{msg['cadastro.livro.legend.associarDisciplina']}">
                     <h:panelGrid columns="2">
-
+                        <h:outputLabel value="Tipo:"></h:outputLabel>
+                        <p:selectOneMenu value="#{livroController.tipoBibliografia}">
+                            <f:selectItem itemValue="" itemLabel="#{msg['cadastro.livro.input.selecione']}"/>
+                            <f:selectItem itemValue="basica" itemLabel="#{msg['cadastro.livro.input.bibliografiabasica']}"/>
+                            <f:selectItem itemValue="complementar" itemLabel="#{msg['cadastro.livro.input.bibliografiacomplementar']}"/>
+                            <f:selectItem itemValue="sugerida" itemLabel="#{msg['cadastro.livro.input.bibliografiasugerida']}"/>
+                        </p:selectOneMenu>
                         <h:outputLabel value="Curso:"></h:outputLabel>
                         <p:selectOneMenu value="#{livroController.cursoSelecionado}"  converter="cursoConverter">
                             <p:ajax event="change" process="@this" update="disciplina" listener="#{livroController.limparDisciplina}" />
+                            <f:selectItem itemValue="" itemLabel="#{msg['cadastro.livro.input.selecione']}"/>
                             <f:selectItems  var="curso" value="#{livroController.cursoService.list()}" itemLabel="#{curso.nome}" itemValue="#{curso}"/>
                         </p:selectOneMenu>
                         <h:outputLabel value="Disciplina"></h:outputLabel>
-                        <p:autoComplete id="disciplina" value="#{livroController.form.bibliografiaTemp.disciplina}" completeMethod="#{livroController.disciplinaService.complete}"  
+                        <p:autoComplete id="disciplina" value="#{livroController.form.bibliografiaTemp.disciplina}" 
+                                        completeMethod="#{livroController.disciplinaService.complete}"  
                                         var="disciplina" itemLabel="#{disciplina.nome}" itemValue="#{disciplina}" converter="disciplinaConverter" ></p:autoComplete>  
                         <div></div>
-                        <p:commandButton value="Associar disciplina" action="#{livroController.associarDisciplina}" ></p:commandButton>
+                        <p:commandButton value="Associar disciplina" action="#{livroController.associarDisciplina}" 
+                                         update="table_disciplinas"></p:commandButton>
                     </h:panelGrid>
-                    <p:dataTable value="#{livroController.form.entity.bibliografia}" var="item">
+                    <p:dataTable id="table_disciplinas" value="#{livroController.form.entity.bibliografia}" var="item">
                         <p:column headerText="Tipo">
                             <h:outputText value="#{item.tipo}"/>
                         </p:column>
@@ -79,13 +91,6 @@
                     <p:commandButton  update="@form"  actionListener="#{livroController.voltar}" value="#{msg['cadastro.livro.button.back']}" />
                 </div>
             </h:form>
-
-            <!--<ui:include src="/cadastro/autor/cadastroAutor.xhtml"></ui:include>-->
-            <p:fieldset legend="#{msg['cadastro.livro.legend.CadastroEditoraLivro']}">
-                <h:panelGrid columns="2">
-                    <!--<ui:include src="/paginas/editora/inclusaoEditora.xhtml"></ui:include>-->
-                </h:panelGrid>
-            </p:fieldset>
 
         </ui:define>
     </ui:composition>

@@ -21,7 +21,7 @@ public class Disciplina extends AbstractEntityModel {
     @JoinColumn(name = "id_curso")
     private Curso curso;
     
-    @OneToMany(targetEntity = Bibliografia.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy="disciplina", cascade = CascadeType.ALL)
     private Collection<Bibliografia> bibliografias;
 
     public String getNome() {
@@ -55,4 +55,10 @@ public class Disciplina extends AbstractEntityModel {
     public void setBibliografias(Collection<Bibliografia> bibliografias) {
         this.bibliografias = bibliografias;
     }
+
+    @Override
+    public String toString() {
+        return "Disciplina{" + "nome=" + nome + ", codigo=" + codigo + '}';
+    }
+    
 }

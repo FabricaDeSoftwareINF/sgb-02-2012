@@ -1,9 +1,11 @@
 package br.ufg.inf.es.model;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
@@ -33,14 +35,15 @@ public class Livro extends AbstractEntityModel {
     @JoinColumn(name = "id_editora")
     private Editora editora;
     
-    @ManyToMany(cascade= CascadeType.ALL)
+    @ManyToMany(cascade= CascadeType.ALL, fetch= FetchType.EAGER)
     @JoinTable(name = "LIVRO_AUTOR", joinColumns =
     @JoinColumn(name = "id_livro"), inverseJoinColumns =
     @JoinColumn(name = "id_autor"))
     private Collection<Autor> autores;
     
-    @OneToMany(targetEntity = Bibliografia.class,cascade= CascadeType.ALL, mappedBy="livro")
-    private Collection<Bibliografia> bibliografia;
+    @OneToMany(mappedBy="livro")
+    private Collection<Bibliografia> bibliografias = new ArrayList<Bibliografia>();
+
 
     public String getTitulo() {
         return titulo;
@@ -98,11 +101,11 @@ public class Livro extends AbstractEntityModel {
         this.autores = autores;
     }
 
-    public Collection<Bibliografia> getBibliografia() {
-        return bibliografia;
+    public Collection<Bibliografia> getBibliografias() {
+        return bibliografias;
     }
 
-    public void setBibliografia(Collection<Bibliografia> bibliografia) {
-        this.bibliografia = bibliografia;
+    public void setBibliografias(Collection<Bibliografia> bibliografia) {
+        this.bibliografias = bibliografia;
     }
 }

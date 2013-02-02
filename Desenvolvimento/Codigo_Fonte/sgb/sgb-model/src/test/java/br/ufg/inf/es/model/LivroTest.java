@@ -247,8 +247,8 @@ public class LivroTest {
         Bibliografia b = new Bibliografia();
         b.setLivro(instance);
         expResult.add(b);
-        instance.setBibliografia(expResult);
-        Collection result = instance.getBibliografia();
+        instance.setBibliografias(expResult);
+        Collection result = instance.getBibliografias();
         assertEquals(expResult, result);
         
     }
@@ -264,8 +264,8 @@ public class LivroTest {
         Bibliografia b = new Bibliografia();
         b.setLivro(instance);
         expResult.add(b);
-        instance.setBibliografia(expResult);
-        Collection result = instance.getBibliografia();
+        instance.setBibliografias(expResult);
+        Collection result = instance.getBibliografias();
         assertEquals(expResult, result);
     }
 }
