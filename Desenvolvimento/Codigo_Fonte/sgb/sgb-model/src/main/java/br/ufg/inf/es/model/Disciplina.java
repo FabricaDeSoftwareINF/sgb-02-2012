@@ -17,7 +17,7 @@ public class Disciplina extends AbstractEntityModel {
     @Column(name = "codigo")
     private String codigo;
     
-    @OneToOne(mappedBy="disciplinas")
+    @ManyToOne
     @JoinColumn(name = "id_curso")
     private Curso curso;
     
