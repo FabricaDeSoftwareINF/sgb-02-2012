@@ -10,9 +10,8 @@
         </ui:define>
 
         <ui:define name="content">
-            <p:panel header="Cadastrar Disciplina">
-
-                <h:form prependId="false">
+            <h:form prependId="false">
+                <p:panel header="Cadastrar Disciplina">
 
                     <p:messages autoUpdate="true"/>
 
@@ -38,78 +37,90 @@
                         </p:column>
 
                     </h:panelGrid>
-                </h:form>
-            </p:panel>
-            <p:panel>
 
-                <h:form prependId="false">
+                </p:panel>
+                <p:panel>
 
-                    <fieldset style="width: 600px">
+
+
+                    <fieldset style="width: 800px">
                         <legend>Bibliografia</legend>
 
-                        <p:selectOneMenu    id="tipo" value="#{disciplinaController.form.entity.id}"
-                                            style=" width : 300px;" >
-                            <f:selectItem itemLabel="Tipo" />
-                            <f:selectItems value="#{disciplinaController.form.tiposBibliografia}" />
-                        </p:selectOneMenu> 
-
-                        <h:outputLabel value="Título do livros: " for="autoCompleteLivro" />
-
-                        <p:autoComplete id="autoCompleteLivro"  value="#{disciplinaController.form.entity.bibliografias.livro}" completeMethod="#{livroController.complete}"  
-                                        var="livro" itemLabel="#{livro.titulo}" itemValue="#{livro}" converter="livroConverter"  multiple="true"/>
-
-
-                        <p:commandButton action="#{disciplinaController.insert}" value="Vincular Bibliografia"/>
-
                         <p:panel>
+                            <p:panelGrid styleClass="semborda">
 
-                            <h:form>
-
-                                <p:dataTable value="#{disciplinaController.form.entity.bibliografias}" var="bibliografia" emptyMessage="Sem bibliografias cadastradas">
-
-                                    <p:column headerText="Tipo de Bibliografia">
-
-                                        <h:outputText value="#{bibliografia.tipo}" />
-
+                                <p:row>
+                                    <p:column>
+                                        <h:outputLabel value="Tipo da Bibliografia: " style="float: right;"/>
                                     </p:column>
-
-                                    <p:column headerText="Título do livro">
-                                        <h:outputText value="#{bibliografia.livro.titulo}" />
+                                    <p:column>
+                                        <p:selectOneMenu    id="tipo" value="#{disciplinaController.form.entity.id}"
+                                                            style=" width : 300px;" >
+                                            <f:selectItem itemLabel="Selecione" />
+                                            <f:selectItems value="#{disciplinaController.form.tiposBibliografia}" />
+                                        </p:selectOneMenu> 
                                     </p:column>
+                                </p:row>
 
-                                    <p:column headerText="Ações">
-
-                                        <h:panelGrid columns="3" width="100%">
-
-                                            <p:commandButton value="Remover" action="#{usuarioController.remove}" update="@all">
-
-                                                <f:setPropertyActionListener value="#{usuario}" target="#{usuarioController.form.entity}" />
-
-                                                <f:param name="entityID" value="#{usuario.id}" />
-
-                                            </p:commandButton>
-
-                                        </h:panelGrid>
-
+                                <p:row>
+                                    <p:column>
+                                        <h:outputLabel value="Título do livros: " for="autoCompleteLivro"/>
                                     </p:column>
-
-                                </p:dataTable>
-
-                            </h:form>
-
+                                    <p:column>
+                                        <p:autoComplete id="autoCompleteLivro" 
+                                                        value="#{disciplinaController.form.entity.bibliografias.livro}"
+                                                        completeMethod="#{livroController.complete}"  
+                                                        var="livro" itemLabel="#{livro.titulo}" 
+                                                        itemValue="#{livro}" 
+                                                        converter="livroConverter"  
+                                                        multiple="true"/>
+                                    </p:column>
+                                </p:row>
+                            </p:panelGrid>
                         </p:panel>
 
-                        <br/>
+                        <p:commandButton action="#{disciplinaController.insert}" 
+                                         value="Vincular Bibliografia"/>
+                        
+                        <p:panel>
 
+                            <p:dataTable value="#{disciplinaController.form.entity.bibliografias}" var="bibliografia" emptyMessage="Sem bibliografias cadastradas">
+
+                                <p:column headerText="Tipo de Bibliografia">
+                                    <h:outputText value="#{bibliografia.tipo}" />
+                                </p:column>
+
+                                <p:column headerText="Título do livro">
+                                    <h:outputText value="#{bibliografia.livro.titulo}" />
+                                </p:column>
+
+                                <p:column headerText="Ações">
+                                    <h:panelGrid columns="3" width="100%">
+                                        <p:commandButton value="Remover" action="#{usuarioController.remove}" update="@all">
+                                            <f:setPropertyActionListener value="#{usuario}" target="#{usuarioController.form.entity}" />
+                                            <f:param name="entityID" value="#{usuario.id}" />
+                                        </p:commandButton>
+                                    </h:panelGrid>
+                                </p:column>
+
+                            </p:dataTable>
+
+                        </p:panel>
                     </fieldset>
+                    
+                    <h:panelGrid columns="2" style="float: right;">
+                        <p:commandButton actionListener="#{disciplinaController.insert}" 
+                                         value="#{msg['cadastro.usuario.button.insert']}"
+                                         ajax="false"
+                                         action="#{disciplinaController.openInitialPage()}"/>
+                        
+                        <p:commandButton action="#{disciplinaController.openInitialPage()}"
+                                         value="#{msg['acao.voltar']}"  
+                                         ajax="false"/>
+                    </h:panelGrid>
 
-                </h:form>
-
-                <h:commandButton action="#{disciplinaController.insert}" value="#{msg['cadastro.usuario.button.insert']}"/>
-
-            </p:panel>
+                </p:panel>
+            </h:form>
         </ui:define>
-
     </ui:composition>
-
 </html>
