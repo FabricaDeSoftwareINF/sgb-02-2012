@@ -76,7 +76,7 @@ public class CursoController extends SGBController<Curso, CursoForm, CursoServic
         
         this.getService().getDAO().refresh(this.getForm().getEntity());
         
-        this.clearData();
+        this.getForm().setListaDisciplinaAssociacao(this.getService().listarDisciplinasDeUmCurso(this.getForm().getEntity().getId()));
         
         return super.openEditPage();
     }   

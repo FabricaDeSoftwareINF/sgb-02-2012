@@ -33,7 +33,7 @@ public class Disciplina extends AbstractEntityModel {
     }
 
     public String getCodigo() {
-        return codigo;
+        return this.codigo;
     }
 
     public void setCodigo(String codigo) {
@@ -49,7 +49,7 @@ public class Disciplina extends AbstractEntityModel {
     }
 
     public Collection<Bibliografia> getBibliografias() {
-        return bibliografias;
+        return this.bibliografias;
     }
 
     public void setBibliografias(Collection<Bibliografia> bibliografias) {
