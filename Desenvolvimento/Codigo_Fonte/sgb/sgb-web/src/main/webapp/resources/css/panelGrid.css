@@ -6,7 +6,7 @@
         Purpose of the stylesheet follows.
 */
 
-.semborda  tr, .semborda td{
+.semborda  tr, .semborda td, .semborda{
     border: none !important;
 }
 
