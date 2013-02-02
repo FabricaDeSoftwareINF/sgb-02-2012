@@ -1,0 +1,93 @@
+<mockup version="1.0" skin="sketch" fontFace="Balsamiq Sans" measuredW="1075" measuredH="526" mockupW="1037" mockupH="443">
+  <controls>
+    <control controlID="144" controlTypeID="com.balsamiq.mockups::Canvas" x="38" y="83" w="1037" h="443" measuredW="100" measuredH="70" zOrder="0" locked="false" isInGroup="-1"/>
+    <control controlID="145" controlTypeID="com.balsamiq.mockups::Button" x="878" y="277" w="-1" h="-1" measuredW="51" measuredH="27" zOrder="1" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Novo</text>
+      </controlProperties>
+    </control>
+    <control controlID="146" controlTypeID="com.balsamiq.mockups::Button" x="970" y="277" w="-1" h="-1" measuredW="75" measuredH="27" zOrder="2" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Remover</text>
+      </controlProperties>
+    </control>
+    <control controlID="147" controlTypeID="com.balsamiq.mockups::Label" x="379" y="200" w="41" h="-1" measuredW="35" measuredH="21" zOrder="3" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Titulo%3A</text>
+      </controlProperties>
+    </control>
+    <control controlID="148" controlTypeID="com.balsamiq.mockups::Label" x="379" y="238" w="50" h="-1" measuredW="44" measuredH="21" zOrder="4" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Editora%3A</text>
+      </controlProperties>
+    </control>
+    <control controlID="149" controlTypeID="com.balsamiq.mockups::Label" x="379" y="259" w="40" h="-1" measuredW="35" measuredH="21" zOrder="5" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Autor%3A</text>
+      </controlProperties>
+    </control>
+    <control controlID="150" controlTypeID="com.balsamiq.mockups::Button" x="878" y="415" w="53" h="27" measuredW="51" measuredH="27" zOrder="6" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Novo</text>
+      </controlProperties>
+    </control>
+    <control controlID="151" controlTypeID="com.balsamiq.mockups::Button" x="970" y="415" w="77" h="27" measuredW="75" measuredH="27" zOrder="7" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Remover</text>
+      </controlProperties>
+    </control>
+    <control controlID="152" controlTypeID="com.balsamiq.mockups::TextInput" x="379" y="245" w="300" h="-1" measuredW="79" measuredH="26" zOrder="8" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="153" controlTypeID="com.balsamiq.mockups::Button" x="878" y="277" w="-1" h="-1" measuredW="51" measuredH="27" zOrder="9" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Novo</text>
+      </controlProperties>
+    </control>
+    <control controlID="154" controlTypeID="com.balsamiq.mockups::Canvas" x="96" y="177" w="810" h="201" measuredW="100" measuredH="70" zOrder="10" locked="false" isInGroup="-1"/>
+    <control controlID="155" controlTypeID="com.balsamiq.mockups::Button" x="970" y="277" w="-1" h="-1" measuredW="75" measuredH="27" zOrder="11" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Remover</text>
+      </controlProperties>
+    </control>
+    <control controlID="156" controlTypeID="com.balsamiq.mockups::DataGrid" x="61" y="202" w="986" h="176" measuredW="644" measuredH="171" zOrder="12" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>%2CNome%2C%20E-mail%2C%20Privil%E9gios%2C%20A%E7%F5es%0A%5Bx%5D%2C%20Luis%20Eduardo%20Rocha%2C%20luisedrocha@gmail.com%2C%20Admnistrador%20%7C%20Docente%2C%20%5BEditar%5D%20%5BDetalhe%5D%20%0A%5Bx%5D%2C%20Allan%20Vieira%20Ribeiro%2C%20allan123134@gmail.com%2C%20Auxiliar%2C%20%5BEditar%5D%20%5BDetalhe%5D%20%0A%5Bx%5D%2C%20C%E1ssio%20Augusto%2C%20luisedrocha@gmail.com%2C%20Docente%2C%20%5BEditar%5D%20%5BDetalhe%5D%20%0A%5Bx%5D%2C%20Jackeline%20Neves%2C%20luisedrocha@gmail.com%2C%20Coordenador%20%7C%20Docente%20%7C%20Conselheiro%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%2C%20%5BEditar%5D%20%5BDetalhe%5D%20%0A%5Bx%5D%2C%20Juliano%20Lopes%2C%20luisedrocha@gmail.com%2C%20Conselheiro%2C%20%5BEditar%5D%20%5BDetalhe%5D%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="157" controlTypeID="com.balsamiq.mockups::Label" x="61" y="98" w="-1" h="-1" measuredW="53" measuredH="21" zOrder="13" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Usuarios</text>
+      </controlProperties>
+    </control>
+    <control controlID="158" controlTypeID="com.balsamiq.mockups::SearchBox" x="96" y="177" w="178" h="-1" measuredW="120" measuredH="25" zOrder="14" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>search</text>
+      </controlProperties>
+    </control>
+    <control controlID="159" controlTypeID="com.balsamiq.mockups::SearchBox" x="274" y="177" w="219" h="-1" measuredW="120" measuredH="25" zOrder="15" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>search</text>
+      </controlProperties>
+    </control>
+    <control controlID="160" controlTypeID="com.balsamiq.mockups::SearchBox" x="493" y="177" w="413" h="-1" measuredW="120" measuredH="25" zOrder="16" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>search</text>
+      </controlProperties>
+    </control>
+    <control controlID="161" controlTypeID="com.balsamiq.mockups::TitleWindow" x="364" y="104" w="450" h="264" measuredW="450" measuredH="400" zOrder="18" locked="false" isInGroup="-1">
+      <controlProperties>
+        <close>true</close>
+        <text>Detalhe</text>
+      </controlProperties>
+    </control>
+    <control controlID="162" controlTypeID="com.balsamiq.mockups::List" x="365" y="125" w="448" h="223" measuredW="100" measuredH="216" zOrder="19" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Nome%3A%20Luis%20Eduardo%0A%20%0ASobrenome%3A%20Rocha%0A%20%0AEmail%3A%20luisedrocha@gmail.com%0A%20%0APrivilegios%3A%0A%20%0A-Administrador%0A-Docente</text>
+      </controlProperties>
+    </control>
+    <control controlID="163" controlTypeID="com.balsamiq.mockups::ModalScreen" x="38" y="84" w="1036" h="440" measuredW="320" measuredH="240" zOrder="17" locked="false" isInGroup="-1"/>
+  </controls>
+</mockup>
