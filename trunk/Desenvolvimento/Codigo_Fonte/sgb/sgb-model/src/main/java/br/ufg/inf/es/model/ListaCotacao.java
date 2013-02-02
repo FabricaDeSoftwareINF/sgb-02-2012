@@ -19,6 +19,7 @@ public class ListaCotacao extends AbstractEntityModel {
     private Date dataRealizada;
     @OneToMany(cascade = CascadeType.ALL)
     private List<Cotacao> cotacoes;
+    private double preco;
 
     public List<Cotacao> getCotacoes() {
         return cotacoes;
@@ -43,4 +44,14 @@ public class ListaCotacao extends AbstractEntityModel {
     public void setNome(String nome) {
         this.nome = nome;
     }
+
+    public double getPreco() {
+        return preco;
+    }
+
+    public void setPreco(double preco) {
+        this.preco = preco;
+    }
+    
+    
 }
