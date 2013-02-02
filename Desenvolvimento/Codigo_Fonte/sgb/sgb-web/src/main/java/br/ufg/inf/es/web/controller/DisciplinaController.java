@@ -39,10 +39,11 @@ public class DisciplinaController extends SGBController<Disciplina, DisciplinaFo
 
         this.getForm().setCursos(this.getCursoService().list());
 
-        this.getForm().setTiposBibliografia("Básica");
-        this.getForm().setTiposBibliografia("Complementar");
-        this.getForm().setTiposBibliografia("Sugerida");
-
+        if (getForm().getTiposBibliografia().isEmpty()) {
+            this.getForm().setTiposBibliografia("Básica");
+            this.getForm().setTiposBibliografia("Complementar");
+            this.getForm().setTiposBibliografia("Sugerida");
+        }
     }
 
     @Override
