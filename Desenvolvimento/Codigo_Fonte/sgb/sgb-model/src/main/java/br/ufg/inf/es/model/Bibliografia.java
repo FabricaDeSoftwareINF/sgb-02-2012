@@ -1,20 +1,30 @@
 package br.ufg.inf.es.model;
 
-import javax.persistence.*;
+import br.ufg.inf.es.enuns.EnumTipoBibliografia;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.persistence.Transient;
 
 /**
  *
- * @author Henrique, Marco Aurélio
+ * @author Henrique, Marco Aurélio, Cássio Augusto
  */
 @Entity
 @Table(name = "BIBLIOGRAFIA")
 public class Bibliografia extends AbstractEntityModel {
 
     @Column(name = "tipo", unique = false)
-    private String tipo;
+    @Enumerated(EnumType.STRING)
+    private EnumTipoBibliografia tipo;
     @ManyToOne(optional = false)
     @JoinColumn(name = "id_livro")
     private Livro livro;
+    
     @ManyToOne(optional = false)
     @JoinColumn(name = "id_disciplina")
     private Disciplina disciplina;
@@ -35,11 +45,11 @@ public class Bibliografia extends AbstractEntityModel {
         this.livro = livro;
     }
 
-    public String getTipo() {
+    public EnumTipoBibliografia getTipo() {
         return tipo;
     }
 
-    public void setTipo(String tipo) {
+    public void setTipo(EnumTipoBibliografia tipo) {
         this.tipo = tipo;
     }
 

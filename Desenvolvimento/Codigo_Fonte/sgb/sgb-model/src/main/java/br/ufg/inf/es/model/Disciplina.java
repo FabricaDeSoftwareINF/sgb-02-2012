@@ -5,7 +5,7 @@ import javax.persistence.*;
 
 /**
  * 
- * @author 
+ * @author Marco Camargo
  */
 @Entity
 @Table(name = "DISCIPLINA")
