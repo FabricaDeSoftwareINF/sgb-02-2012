@@ -13,7 +13,7 @@
 
 
         <ui:define name="content">
-            
+
             <ui:include src="cadastro_autor_dialog.xhtml"/>
             <ui:include src="cadastro_editora_dialog.xhtml"/>
 
@@ -43,7 +43,7 @@
                     <h:outputLabel value="#{msg['cadastro.livro.label.ano']}" ></h:outputLabel>
                     <p:inputText value="#{livroController.form.entity.ano}"/>
                 </h:panelGrid>
-                <p:fieldset legend="#{msg['cadastro.livro.legend.associarDisciplina']}">
+                <p:fieldset id="associar_disciplina_panel" legend="#{msg['cadastro.livro.legend.associarDisciplina']}">
                     <h:panelGrid columns="2">
                         <h:outputLabel value="Tipo:"></h:outputLabel>
                         <p:selectOneMenu value="#{livroController.tipoBibliografia}">
@@ -55,17 +55,18 @@
                         <h:outputLabel value="Curso:"></h:outputLabel>
                         <p:selectOneMenu value="#{livroController.cursoSelecionado}"  converter="cursoConverter">
                             <p:ajax event="change" process="@this" update="disciplina" listener="#{livroController.limparDisciplina}" />
-                            <f:selectItem itemValue="" itemLabel="#{msg['cadastro.livro.input.selecione']}"/>
+                            <f:selectItem itemLabel="#{msg['cadastro.livro.input.selecione']}"/>
                             <f:selectItems  var="curso" value="#{livroController.cursoService.list()}" itemLabel="#{curso.nome}" itemValue="#{curso}"/>
                         </p:selectOneMenu>
-                        <h:outputLabel value="Disciplina"></h:outputLabel>
+                        <h:outputLabel value="Disciplina:"></h:outputLabel>
                         <p:autoComplete id="disciplina" value="#{livroController.form.bibliografiaTemp.disciplina}" 
                                         completeMethod="#{livroController.disciplinaService.complete}"  
                                         var="disciplina" itemLabel="#{disciplina.nome}" itemValue="#{disciplina}" converter="disciplinaConverter" ></p:autoComplete>  
                         <div></div>
-                        <p:commandButton value="Associar disciplina" action="#{livroController.associarDisciplina}" 
-                                         update="table_disciplinas"></p:commandButton>
+                        <p:commandButton value="Associar disciplina" actionListener="#{livroController.associarDisciplina}" 
+                                         update="table_disciplinas" process="associar_disciplina_panel"></p:commandButton>
                     </h:panelGrid>
+
                     <p:dataTable id="table_disciplinas" value="#{livroController.form.entity.bibliografias}" var="item">
                         <p:column headerText="Tipo">
                             <h:outputText value="#{item.tipo}"/>
@@ -80,7 +81,6 @@
                             <p:commandLink value="Remover"/>
                         </p:column>
                     </p:dataTable>
-
                 </p:fieldset>
                 <div align="right">
                     <p:commandButton update="@form" actionListener="#{livroController.salvarLivro()}" value="#{msg['cadastro.livro.button.cadastrar']}" />

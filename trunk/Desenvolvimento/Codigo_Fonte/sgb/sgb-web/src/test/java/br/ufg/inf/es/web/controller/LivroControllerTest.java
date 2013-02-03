@@ -262,7 +262,6 @@ public class LivroControllerTest {
         livroController.associarDisciplina();
         Mockito.verify(livroFormMock).getEntity();
         Mockito.verify(livroMock).getBibliografias();
-       
     }
 
     /**
