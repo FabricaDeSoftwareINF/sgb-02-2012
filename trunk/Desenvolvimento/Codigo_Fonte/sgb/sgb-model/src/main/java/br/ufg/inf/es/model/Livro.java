@@ -25,18 +25,19 @@ public class Livro extends AbstractEntityModel {
     @ManyToOne(optional = false)
     @JoinColumn(name = "id_editora")
     private Editora editora;
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    
+    @ManyToMany
     @JoinTable(name = "LIVRO_AUTOR", joinColumns =
     @JoinColumn(name = "id_livro"), inverseJoinColumns =
     @JoinColumn(name = "id_autor"))
     private Collection<Autor> autores;
-    @OneToMany(mappedBy = "livro", fetch= FetchType.LAZY)
+    
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "livro")
     private Collection<Bibliografia> bibliografias = new ArrayList<Bibliografia>();
     
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE},
-        mappedBy = "livrosDaListaCompras",
-        targetEntity = ListaCompras.class
-    )
+    mappedBy = "livrosDaListaCompras",
+    targetEntity = ListaCompras.class)
     private Collection<ListaCompras> ListaCompras;
 
     public Collection<br.ufg.inf.es.model.ListaCompras> getListaCompras() {
@@ -46,7 +47,7 @@ public class Livro extends AbstractEntityModel {
     public void setListaCompras(Collection<br.ufg.inf.es.model.ListaCompras> ListaCompras) {
         this.ListaCompras = ListaCompras;
     }
-    
+
     public String getTitulo() {
         return titulo;
     }
@@ -105,7 +106,7 @@ public class Livro extends AbstractEntityModel {
 
     public Collection<Bibliografia> getBibliografias() {
         return bibliografias;
-}
+    }
 
     public void setBibliografias(Collection<Bibliografia> bibliografia) {
         this.bibliografias = bibliografia;
