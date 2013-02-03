@@ -4,6 +4,7 @@ import br.ufg.inf.es.base.validation.ValidationException;
 import br.ufg.inf.es.integracao.annotations.RNG000;
 import br.ufg.inf.es.model.Livro;
 import br.ufg.inf.es.persistencia.LivroDAO;
+import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
@@ -37,4 +38,15 @@ public class LivroService extends GenericService<Livro> {
         return super.insert(entity);
     }
 
+    /**
+     * 
+     * @param filtroTitulo
+     * @return 
+     * @author Jackeline
+     */
+    public Collection<Livro> buscaTodosLivros(String filtroTitulo) {
+
+        return this.getDAO().listarLivros(filtroTitulo);
+
+    }
 }
