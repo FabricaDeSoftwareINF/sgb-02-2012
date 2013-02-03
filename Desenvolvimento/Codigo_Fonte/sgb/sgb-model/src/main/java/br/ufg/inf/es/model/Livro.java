@@ -25,12 +25,12 @@ public class Livro extends AbstractEntityModel {
     @ManyToOne(optional = false)
     @JoinColumn(name = "id_editora")
     private Editora editora;
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinTable(name = "LIVRO_AUTOR", joinColumns =
     @JoinColumn(name = "id_livro"), inverseJoinColumns =
     @JoinColumn(name = "id_autor"))
     private Collection<Autor> autores;
-    @OneToMany(mappedBy = "livro")
+    @OneToMany(mappedBy = "livro", fetch= FetchType.LAZY)
     private Collection<Bibliografia> bibliografias = new ArrayList<Bibliografia>();
     
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE},

@@ -83,6 +83,7 @@ public class LivroController extends SGBController<Livro, LivroForm, LivroServic
     }
     private Collection<Curso> cursos;
 
+    @Override
     public LivroForm getForm() {
         return form;
     }
@@ -95,6 +96,7 @@ public class LivroController extends SGBController<Livro, LivroForm, LivroServic
         this.fileExportado = fileExportado;
     }
 
+    @Override
     public LivroService getService() {
         return service;
     }
