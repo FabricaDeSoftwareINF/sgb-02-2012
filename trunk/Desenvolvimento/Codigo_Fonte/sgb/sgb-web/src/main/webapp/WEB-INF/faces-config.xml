@@ -150,7 +150,7 @@
             <to-view-id>/paginas/parametros/show.xhtml</to-view-id>
         </navigation-case>
         
-         <navigation-case>
+        <navigation-case>
             
             <from-outcome>ListaCotacaoController/viewPage</from-outcome>
             
@@ -165,6 +165,17 @@
             <to-view-id>/paginas/cotacao/show.xhtml</to-view-id>
             
         </navigation-case>
+        
+        <!-- Estória 09: Manter Lista de Compras -->
+        <navigation-case>
+            
+            <from-outcome>ListaComprasController/initialPage</from-outcome>
+            
+            <to-view-id>/paginas/listaCompras/inicial.xhtml</to-view-id>
+        
+        </navigation-case>
+
+   
         
         
         
