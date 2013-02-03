@@ -188,14 +188,15 @@ public class LivroController extends SGBController<Livro, LivroForm, LivroServic
         bibliografia.setLivro(livro);
         Collection<Bibliografia> listaBibliografias = livro.getBibliografias();
         listaBibliografias.add(bibliografia);
+        this.form.setBibliografiaTemp(new Bibliografia());
     }
 
     public Collection<Livro> complete(String query) {
         Collection<Livro> results = new ArrayList<Livro>();
 
-        for (Livro autor : form.getCollectionEntities()) {
-            if (autor.getTitulo().contains(query)) {
-                results.add(autor);
+        for (Livro livro : form.getCollectionEntities()) {
+            if (livro.getTitulo().toUpperCase().contains(query.toUpperCase())) {
+                results.add(livro);
             }
         }
 
