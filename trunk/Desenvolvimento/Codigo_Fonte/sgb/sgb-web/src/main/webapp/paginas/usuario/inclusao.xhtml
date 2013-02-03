@@ -42,9 +42,9 @@
 
                         <h:outputLabel value="#{msg['cadastro.usuario.label.perfil']}:" />
 
-                        <p:selectManyCheckbox value="#{usuarioController.form.entity.perfil}" layout="pageDirection" converter="perfilConverter">  
-                            <f:selectItems value="#{usuarioController.perfil}" var="perfil" itemLabel="#{perfil.tipo}" itemValue="#{perfil}" /> 
-                        </p:selectManyCheckbox>  
+                        <p:selectOneRadio value="#{usuarioController.form.entity.perfil}" layout="pageDirection" converter="perfilConverter">  
+                            <f:selectItems value="#{usuarioController.perfil}" var="perfil" itemLabel="#{perfil.name}" itemValue="#{perfil}" /> 
+                        </p:selectOneRadio>  
 
 
                     </h:panelGrid>

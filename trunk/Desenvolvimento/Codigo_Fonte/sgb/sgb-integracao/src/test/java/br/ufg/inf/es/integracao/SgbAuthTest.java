@@ -4,13 +4,12 @@
  */
 package br.ufg.inf.es.integracao;
 
-import br.ufg.inf.es.model.Perfil;
 import br.ufg.inf.es.model.Usuario;
 import br.ufg.inf.es.model.UsuarioPerfil;
 import java.util.ArrayList;
 import java.util.Collection;
+import static org.junit.Assert.assertEquals;
 import org.junit.*;
-import static org.junit.Assert.*;
 import org.mockito.Mockito;
 
 /**

@@ -1,13 +1,12 @@
 package br.ufg.inf.es.web.controller;
 
-import br.ufg.inf.es.integracao.PerfilService;
 import br.ufg.inf.es.integracao.UsuarioService;
-import br.ufg.inf.es.model.Perfil;
 import br.ufg.inf.es.model.Usuario;
+import br.ufg.inf.es.model.UsuarioPerfil;
 import br.ufg.inf.es.web.controller.form.UsuarioForm;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -35,11 +34,6 @@ public class UsuarioController
      */
     @Autowired
     private UsuarioService service;
-    /**
-     * Atributo perfilService
-     */
-    @Autowired
-    private PerfilService perfilService;
     /**
      * Atributo coleção de usuários selecionados
      */
@@ -75,10 +69,8 @@ public class UsuarioController
      * @return
      * <code>Lista de Perfil</code>
      */
-    public List<Perfil> getPerfil() {
-
-        return new ArrayList<Perfil>(this.perfilService.getDAO().list());
-
+    public List<UsuarioPerfil> getPerfil() {
+        return new ArrayList<UsuarioPerfil>(Arrays.asList(UsuarioPerfil.values()));
     }
 
     /**
@@ -118,7 +110,7 @@ public class UsuarioController
         } else {
 
             this.usuarioSelecionado.add(usuario);
-        
+
         }
     }
 
@@ -138,6 +130,8 @@ public class UsuarioController
     public void initData() {
 
         this.getForm().setTabelaUsuarios(new ArrayList<Usuario>());
+        
+        this.getForm().setPerfis(Arrays.asList(UsuarioPerfil.values()));
 
         this.getForm().getTabelaUsuarios().addAll(this.getService().list());
     }
@@ -193,19 +187,19 @@ public class UsuarioController
      *
      */
     public void selecionaTodos() {
-        
-        if(this.usuarioSelecionado.size() == this.getForm().getTabelaUsuarios().size()) {
-        
+
+        if (this.usuarioSelecionado.size() == this.getForm().getTabelaUsuarios().size()) {
+
             this.usuarioSelecionado.clear();
-        
+
         }
-        
-        if(!this.usuarioSelecionado.isEmpty()) {
-         
+
+        if (!this.usuarioSelecionado.isEmpty()) {
+
             this.usuarioSelecionado.clear();
-        
+
             this.usuarioSelecionado.addAll(this.getForm().getTabelaUsuarios());
-        }else {
+        } else {
             this.usuarioSelecionado.addAll(this.getForm().getTabelaUsuarios());
         }
 

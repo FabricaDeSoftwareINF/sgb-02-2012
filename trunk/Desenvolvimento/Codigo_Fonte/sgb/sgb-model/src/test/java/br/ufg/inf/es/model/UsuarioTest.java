@@ -4,8 +4,6 @@
  */
 package br.ufg.inf.es.model;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Date;
 import static org.junit.Assert.assertEquals;
 import org.junit.Test;
@@ -169,20 +167,6 @@ public class UsuarioTest {
         instance.setStatus(status);
 
         assertEquals(status, instance.getStatus());
-    }
-
-    /**
-     * Test of getStringPerfil method, of class Usuario.
-     */
-    @Test
-    public void testGetStringPerfil() {
-
-        Usuario instance = new Usuario();
-        Collection<Perfil> perfil = new ArrayList<Perfil>();
-        perfil.add(new Perfil("A"));
-        perfil.add(new Perfil("B"));
-        instance.setPerfil(UsuarioPerfil.ADM);
-        assertEquals(UsuarioPerfil.ADM, instance.getPerfil());
     }
 
     /**
