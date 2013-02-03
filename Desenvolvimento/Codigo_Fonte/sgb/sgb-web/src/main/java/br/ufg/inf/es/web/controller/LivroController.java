@@ -24,6 +24,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import br.ufg.inf.es.web.datamodel.LivroDataModel;
+import org.hibernate.Hibernate;
 
 /**
  *
@@ -53,7 +54,7 @@ public class LivroController extends SGBController<Livro, LivroForm, LivroServic
     private String formatoSelecionado;
     private StreamedContent fileExportado;
     
-    private LazyDataModel<Livro> lazyModel;
+    private Collection<Livro> lazyModel;
 
     /**
      * Método responsável por retornar a string de navegação para a pagina
@@ -63,14 +64,14 @@ public class LivroController extends SGBController<Livro, LivroForm, LivroServic
      */
     @Override
     public String openInitialPage() {
-        lazyModel = new LivroDataModel(service);
+        lazyModel = service.list();
         this.autor = new Autor();
         this.editora = new Editora();
 
         return super.openInitialPage();
     }
     
-    public LazyDataModel<Livro> getLivros() {
+    public Collection<Livro> getLivros() {
         return lazyModel;
     }
 
@@ -202,6 +203,20 @@ public class LivroController extends SGBController<Livro, LivroForm, LivroServic
 
         return results;
     }
+    
+    public Collection<Disciplina> completeDisciplina(String query) {  
+        Collection<Disciplina> results = new ArrayList<Disciplina>();
+          
+        Collection<Disciplina> disciplinas = disciplinaService.getDAO().
+                listarDisciplinasDeUmCurso(this.cursoSelecionado.getId());
+        
+        for(Disciplina disciplina : disciplinas){
+            if(disciplina.getNome().toUpperCase().contains(query.toUpperCase())){
+                results.add(disciplina);
+            }
+        }          
+        return results;  
+    } 
 
     @Override
     public String openInsertPage() {
@@ -217,6 +232,25 @@ public class LivroController extends SGBController<Livro, LivroForm, LivroServic
         super.insert();
 
         return super.openSearchPage();
+    }
+    
+    public String editarLivro() throws ValidationException {
+
+        try {
+                Hibernate.isInitialized(this.getForm().getEntity());
+                
+                Hibernate.initialize(this.getForm().getEntity());
+                this.getService().save(this.getForm().getEntity());
+                this.getForm().clearInsertData();
+                this.addSuccessMessage("arquitetura.msg.sucesso");
+            
+        } catch (ValidationException ex) {
+
+            this.addWarningMessage(ex.getKeyMessage());
+
+        }
+        
+        return this.openInitialPage();
     }
 
     public void salvarEditora() throws ValidationException {

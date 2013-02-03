@@ -62,6 +62,12 @@
 
                             <p:panelGrid columns="3" width="100%">
 
+                                <h:commandLink id="acao_editar_livro" value="#{msg['acao.editar']}" 
+                                               action="#{livroController.openEditPage()}">
+                                    <f:setPropertyActionListener target="#{livroController.form.entity}"
+                                                                 value="#{livro}"/>
+                                </h:commandLink>                               
+
                                 <p:commandLink value="#{msg['cadastro.livro.button.remover']}" action="#{livroController.remove}" update="@all">
 
                                     <f:setPropertyActionListener value="#{livro}" target="#{livroController.form.entity}" />
