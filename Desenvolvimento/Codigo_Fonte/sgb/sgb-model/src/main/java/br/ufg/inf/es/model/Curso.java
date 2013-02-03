@@ -7,7 +7,7 @@ import javax.persistence.*;
 
 /**
  * Classe que representa a entidade Curso.
- * 
+ *
  * @author Diogo Gon&ccedil;alves Teodoro
  *
  */
@@ -16,13 +16,11 @@ import javax.persistence.*;
 public class Curso extends AbstractEntityModel {
 
     @OrderingProperty(sortOrder = SortOrder.ASC)
-    @Column(name="nome")
+    @Column(name = "nome")
     private String nome;
-    
-    @Column(name="vagas")
+    @Column(name = "vagas")
     private Integer vagas;
-    
-    @OneToMany(targetEntity=Disciplina.class, fetch= FetchType.LAZY, cascade= CascadeType.ALL)
+    @OneToMany(targetEntity = Disciplina.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Collection<Disciplina> disciplinas;
 
     public Collection<Disciplina> getDisciplinas() {

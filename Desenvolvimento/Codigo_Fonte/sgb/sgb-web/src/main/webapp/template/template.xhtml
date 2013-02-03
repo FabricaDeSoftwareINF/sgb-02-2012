@@ -7,112 +7,91 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.org/ui">
 
-    <h:head>  
+    <f:view contentType="text/html">
+        <h:head>  
+            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+            <link rel="shortcut icon" href="resources/images/sgb.png"/>
 
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+            <title>
+                <ui:insert name="title">
+                    SGB - Sistema de Gestão Bibliográfica
+                </ui:insert>
+            </title>
 
-        <link rel="shortcut icon" href="resources/images/sgb.png"/>
+            <h:outputScript name="functions.js" library="javascript"/>
+            <h:outputStylesheet library="css" name="default.css"/>
+            <h:outputStylesheet library="css" name="panelGrid.css"/>
 
-        <title>
-            <ui:insert name="title">
-                SGB - Sistema de Gestão Bibliográfica
-            </ui:insert>
-        </title>
+        </h:head>  
 
-        <h:outputScript name="functions.js" library="javascript"/>
+        <h:body>   
+            <p:layout fullPage="true">
 
-        <h:outputStylesheet library="css" name="default.css"/>
+                <p:layoutUnit id="top" position="north" size="auto" resizable="false">
+                    <h:form id="header">
+                        <h:panelGrid width="100%" columns="2">
+                            <p:graphicImage value="/resources/images/sgb.png" width="80" height="60"/>
 
-        <h:outputStylesheet library="css" name="panelGrid.css"/>
+                            <h:panelGrid style="float: right" columns="6" >
 
-    </h:head>  
+                                <h:panelGrid columns="2">
+                                    <p:inputText id="pesquisaLivro" size="40"/> 
+                                    <p:commandButton icon="ui-icon-search"/>
+                                </h:panelGrid>
 
-    <h:body>   
+                                <p:watermark for="pesquisaLivro" value="Pesquisar Livro"/>
+                                <p:spacer width="45" height="0"/>
+                                <h4>#{loginController.usuarioLogado}</h4>                                
+                                <h:outputLink style="font-size: 16px;" value="#{request.contextPath}/j_spring_security_logout">(Sair)</h:outputLink>
 
-        <h:form id="header">
-            
-            <h:panelGrid width="100%" columns="2">
+                            </h:panelGrid>
+                        </h:panelGrid>
 
-                <p:graphicImage value="/resources/images/sgb.png" width="80" height="60"/>
+                        <p:menubar > 
+                            <p:menuitem value="Início" action="/index.xhtml"/>
 
-                <h:panelGrid style="float: right" columns="6" >
+                            <p:submenu label="Cadastros" autoSubmenuDisplay="true">
+                                <p:menuitem value="#{msg['cadastro.curso']}" action="#{cursoController.openSearchPage()}" ajax="false"/>
+                                <p:menuitem value="#{msg['cadastro.editora.label.editora']}" action="#{editoraController.openInitialPage()}"  ajax="false"/>
+                                <p:menuitem value="#{msg['cadastro.livro.label.livro']}" action="#{livroController.openInitialPage()}" ajax="false"/>
+                                <p:menuitem value="#{msg['cadastro.autor.label.autor']}" action="#{autorController.openInitialPage()}" ajax="false"/>
+                                <p:menuitem value="#{msg['cadastro.disciplina.label.disciplina']}" action="#{disciplinaController.openInitialPage()}" ajax="false"/>
+                                <p:menuitem value="#{msg['usuario.label.usuarios']}" action="#{usuarioController.openInitialPage()}" ajax="false" />
+                            </p:submenu>
 
-                    <h:panelGrid columns="2">
+                            <p:submenu label="Cotação" autoSubmenuDisplay="true">
+                                <p:menuitem value="Livros para cotação" action="#{livroParaCotacaoController.openInitialPage()}" ajax="false"/>
+                            </p:submenu>
 
-                        <p:inputText id="pesquisaLivro" size="65"/> 
-
-                        <p:commandButton icon="ui-icon-search"/>
-
-                    </h:panelGrid>
-
-                    <p:watermark for="pesquisaLivro" value="Pesquisar Livro"/>
-
-                    <p:spacer width="45" height="0"/>
-
-                    <h2>#{loginController.usuarioLogado}</h2>
-
-                    <p:spacer width="45" height="0"/>
-
-                    <h:outputLink value="#{request.contextPath}/j_spring_security_logout">Sair</h:outputLink>
-
-                </h:panelGrid>
-
-            </h:panelGrid>
-
-            <p:menubar > 
-
-                <p:menuitem value="Início" action="/template.xhtml"/>
-
-                <p:submenu label="Cadastros">
-
-                    <p:menuitem value="#{msg['cadastro.curso']}" action="#{cursoController.openSearchPage()}" ajax="false"/>
-
-                    <p:menuitem value="#{msg['cadastro.editora.label.editora']}" action="#{editoraController.openInitialPage()}"  ajax="false"/>
-
-                    <p:menuitem value="#{msg['cadastro.livro.label.livro']}" action="#{livroController.openInitialPage()}" ajax="false"/>
-
-                    <p:menuitem value="#{msg['cadastro.autor.label.autor']}" action="#{autorController.openInitialPage()}" ajax="false"/>
-
-                    <p:menuitem value="#{msg['cadastro.disciplina.label.disciplina']}" action="#{disciplinaController.openInitialPage()}" ajax="false"/>
-
-                    <p:menuitem value="#{msg['usuario.label.usuarios']}" action="#{usuarioController.openInitialPage()}" ajax="false" />
-
-                </p:submenu>
-
-                <p:submenu label="Cotação">
-
-                    <p:menuitem value="Livros para cotação" action="#{livroParaCotacaoController.openInitialPage()}" ajax="false"/>
-
-                </p:submenu>
-
-                <p:menuitem value="Configurações" action="#{parametrosController.openViewPage()}"/>
-
-                <p:menuitem value="Ajuda"/> 
-
-            </p:menubar>
+                            <p:menuitem value="Configurações" action="#{parametrosController.openViewPage()}" ajax="false"/>
+                            <p:menuitem value="Ajuda" ajax="false"/> 
 
 
-        </h:form>
+                            <p:menuitem value="" action="#" style="float: right">
 
+                            </p:menuitem>
+                        </p:menubar>
+                    </h:form>
+                </p:layoutUnit>
 
-        <div id="content">  
+                <p:layoutUnit id="center" position="center" resizable="false">
+                    <div id="content" style="font-size: 14px;">  
+                        <ui:insert name="content">
+                        </ui:insert>  
+                    </div>  
 
-            <ui:insert name="content">
+                    <p:ajaxStatus style="width:64px;height:64px;position:fixed;right:5px;bottom:5px">  
+                        <f:facet name="start">  
+                            <p:graphicImage value="/resources/images/loading.gif" />  
+                        </f:facet>  
 
-            </ui:insert>  
+                        <f:facet name="complete">  
+                            <h:outputText value="" />  
+                        </f:facet>  
+                    </p:ajaxStatus> 
+                </p:layoutUnit>
 
-        </div>  
-
-        <p:ajaxStatus style="width:64px;height:64px;position:fixed;right:5px;bottom:5px">  
-            <f:facet name="start">  
-                <p:graphicImage value="/resources/images/loading.gif" />  
-            </f:facet>  
-
-            <f:facet name="complete">  
-                <h:outputText value="" />  
-            </f:facet>  
-        </p:ajaxStatus> 
-
-    </h:body>
-
-</html>  
+            </p:layout>
+        </h:body>
+    </f:view>
+</html>

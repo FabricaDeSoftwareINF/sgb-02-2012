@@ -1,17 +1,22 @@
 package br.ufg.inf.es.web.bootstrap;
 
 import br.ufg.inf.es.model.*;
-import java.util.ArrayList;
-import java.util.List;
-import org.hibernate.Criteria;
+import java.util.Arrays;
+import java.util.Collection;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 /**
+ * Insere alguns dados no banco para agilizar os testes de aceitacao
  *
  * @author victor
  */
 public class BibliografiaBootstrap {
+
+    private static SessionFactory sessionFactory;
+    private static Autor autor;
+    private static Editora editora;
+    private static Curso curso;
 
     /**
      * Cria alguns dados para a verificação da lista de livros necessários para
@@ -20,120 +25,98 @@ public class BibliografiaBootstrap {
      * @param sessionFactory Session factory inicializada no bootstrap
      * @see Bootstrap
      */
-    public static void crieBibliografias(SessionFactory sessionFactory) {
-        if (existeBibliografiaCadastrada(sessionFactory)) {
-            return;
-        }
-        Curso curso = crieCurso(sessionFactory);
+    public static void crieBibliografias(SessionFactory _sessionFactory) {
+        sessionFactory = _sessionFactory;
+        crieAutorEditoraECurso();
 
-        Disciplina disciplina1 = crieDisciplina(sessionFactory, "int", "integracao", curso);
-        Disciplina disciplina2 = crieDisciplina(sessionFactory, "int2", "integracao2", curso);
+        Disciplina disciplina1 = crieDisciplina("int", "integracao");
+        Disciplina disciplina2 = crieDisciplina("int2", "integracao2");
 
-        Editora editora = crieEditora(sessionFactory);
-        Autor autor = crieAutor(sessionFactory);
+        Livro livro1 = crieLivro("12345671");
+        Livro livro2 = crieLivro("12345672");
+        Livro livro3 = crieLivro("12345673");
+        Livro livro4 = crieLivro("12345674");
 
-        Livro livro1 = crieLivro(sessionFactory, "12345671", editora, autor);
-        Livro livro2 = crieLivro(sessionFactory, "12345672", editora, autor);
-        Livro livro3 = crieLivro(sessionFactory, "12345673", editora, autor);
-        Livro livro4 = crieLivro(sessionFactory, "12345674", editora, autor);
-
-        Bibliografia bibliografia1 = obtenhaBibliografia(sessionFactory, disciplina1, livro1);
-        Bibliografia bibliografia2 = obtenhaBibliografia(sessionFactory, disciplina1, livro2);
-        Bibliografia bibliografia3 = obtenhaBibliografia(sessionFactory, disciplina2, livro3);
-        Bibliografia bibliografia4 = obtenhaBibliografia(sessionFactory, disciplina2, livro4);
-
-        List bibliografiasDisciplina1 = new ArrayList();
-        bibliografiasDisciplina1.add(bibliografia1);
-        bibliografiasDisciplina1.add(bibliografia2);
-        disciplina1.setBibliografias(bibliografiasDisciplina1);
-        salve(sessionFactory, disciplina1);
-
-        List bibliografiasDisciplina2 = new ArrayList();
-        bibliografiasDisciplina2.add(bibliografia3);
-        bibliografiasDisciplina2.add(bibliografia4);
-        disciplina1.setBibliografias(bibliografiasDisciplina2);
-        salve(sessionFactory, disciplina2);
+        crieBibliografia(disciplina1, livro1);
+        crieBibliografia(disciplina1, livro2);
+        crieBibliografia(disciplina2, livro3);
+        crieBibliografia(disciplina2, livro4);
     }
 
-    private static boolean existeBibliografiaCadastrada(SessionFactory sessionFactory) {
-        Criteria criteria = sessionFactory.openSession().createCriteria(Bibliografia.class);
-        List<Bibliografia> bibliografias = criteria.list();
-
-        for (Bibliografia b : bibliografias) {
-            if (b.getLivro().getIsbn11() == "12345678" || b.getLivro().getIsbn11() == "87654321") {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private static Autor crieAutor(SessionFactory sessionFactory) {
-        Autor autor = new Autor();
+    private static void crieAutorEditoraECurso() {
+        autor = new Autor();
         autor.setNome("Joao");
         autor.setSobrenome("Silva");
-        salve(sessionFactory, autor);
-        return autor;
-    }
+        autor.setId(salve(autor));
 
-    private static Editora crieEditora(SessionFactory sessionFactory) {
-        Editora editora = new Editora();
+        editora = new Editora();
         editora.setNome("UFG");
-        salve(sessionFactory, editora);
-        return editora;
+        editora.setId(salve(editora));
+
+        curso = new Curso();
+        curso.setNome("Engenharia de software");
+        curso.setVagas(60);
+        curso.setId(salve(curso));
     }
 
-    private static Bibliografia obtenhaBibliografia(SessionFactory sessionFactory, Disciplina disciplina, Livro livro) {
+    private static Bibliografia crieBibliografia(Disciplina disciplina, Livro livro) {
         Bibliografia bibliografia = new Bibliografia();
         bibliografia.setTipo("basica");
         bibliografia.setLivro(livro);
         bibliografia.setDisciplina(disciplina);
-        salve(sessionFactory, bibliografia);
+        bibliografia.setId(salve(bibliografia));
+
+        Collection<Bibliografia> bibliografias = disciplina.getBibliografias();
+        if (bibliografias != null && !bibliografias.isEmpty()) {
+            bibliografias.add(bibliografia);
+        }
+        disciplina.setBibliografias(bibliografias);
+        update(disciplina);
 
         return bibliografia;
-
     }
 
-    private static Livro crieLivro(SessionFactory sessionFactory, String isbn,
-            Editora editora, Autor autor) {
+    private static Livro crieLivro(String isbn) {
         Livro livro = new Livro();
         livro.setIsbn11(isbn);
+        livro.setIsbn13(isbn);
         livro.setTitulo("Livro " + isbn);
-        List<Autor> autores = new ArrayList<Autor>();
-        autores.add(autor);
-        livro.setAutores(autores);
-
+        livro.setAutores(Arrays.asList(autor));
         livro.setEdicao("primeira edicao");
         livro.setEditora(editora);
-
-        salve(sessionFactory, livro);
+        livro.setId(salve(livro));
         return livro;
     }
 
-    private static Curso crieCurso(SessionFactory sessionFactory) {
-        Curso curso = new Curso();
-        curso.setNome("Engenharia de software");
-        curso.setVagas(60);
-
-        salve(sessionFactory, curso);
-        return curso;
-    }
-
-    private static Disciplina crieDisciplina(SessionFactory sessionFactory,
-            String codigo, String nome, Curso curso) {
+    private static Disciplina crieDisciplina(String codigo, String nome) {
         Disciplina disciplina = new Disciplina();
         disciplina.setCodigo(codigo);
         disciplina.setNome(nome);
         disciplina.setCurso(curso);
+        disciplina.setId(salve(disciplina));
 
-        salve(sessionFactory, disciplina);
+        curso.setDisciplinas(Arrays.asList(disciplina));
+        update(curso);
 
         return disciplina;
     }
 
-    private static void salve(SessionFactory sessionFactory, Object objeto) {
-        Session session = sessionFactory.openSession();
-        session.save(objeto);
+    private static Long salve(Object entidade) {
+        Session session = getSession();
+        Long id = (Long) session.save(entidade);
         session.flush();
         session.close();
+        return id;
+    }
+
+    private static void update(Object entidade) {
+        Session session = getSession();
+        session.merge(entidade);
+        session.flush();
+        session.close();
+    }
+
+    private static Session getSession() {
+        return sessionFactory.openSession();
     }
 }

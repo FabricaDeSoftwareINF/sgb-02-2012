@@ -1,4 +1,3 @@
-
 package br.ufg.inf.es.model;
 
 import javax.persistence.*;
@@ -11,14 +10,12 @@ import javax.persistence.*;
 @Table(name = "BIBLIOGRAFIA")
 public class Bibliografia extends AbstractEntityModel {
 
-    @Column(name = "tipo", unique=false)
+    @Column(name = "tipo", unique = false)
     private String tipo;
-    
-    @ManyToOne(optional=false)
+    @ManyToOne(optional = false)
     @JoinColumn(name = "id_livro")
     private Livro livro;
-    
-    @ManyToOne(optional=false)
+    @ManyToOne(optional = false)
     @JoinColumn(name = "id_disciplina")
     private Disciplina disciplina;
 
@@ -50,6 +47,4 @@ public class Bibliografia extends AbstractEntityModel {
     public String toString() {
         return "Bibliografia{" + "tipo=" + tipo + ", livro=" + livro + ", disciplina=" + disciplina + '}';
     }
-    
-    
 }
