@@ -2,7 +2,6 @@ package br.ufg.inf.es.web.controller;
 
 import br.ufg.inf.es.base.validation.ValidationException;
 import br.ufg.inf.es.integracao.CursoService;
-import br.ufg.inf.es.model.Autor;
 import br.ufg.inf.es.model.Curso;
 import br.ufg.inf.es.model.Disciplina;
 import br.ufg.inf.es.web.controller.form.CursoForm;
@@ -204,6 +203,21 @@ public class CursoController extends SGBController<Curso, CursoForm, CursoServic
         this.getForm().setListaDisciplinaAssociacao(new LinkedList<Disciplina>());
         
         this.getForm().setListaDisciplinaComboBox(this.getService().listarDisciplinasNaoVinculadasACurso());
+    }
+    
+    /**
+     * Método responsável por carregar as disciplinas de um curso.
+     * 
+     * @author Allan Vieira Ribeiro
+     */
+    public void preparaCursoParaDetalhe(){
+        
+        if(this.getForm().getCursoParaDetalhe().getDisciplinas() == null) {
+            
+            Collection<Disciplina> disciplinas = this.getService().listarDisciplinasDeUmCurso(this.getForm().getCursoParaDetalhe().getId());
+            
+            this.getForm().getCursoParaDetalhe().setDisciplinas(disciplinas);
+        }
     }
 
     @Override

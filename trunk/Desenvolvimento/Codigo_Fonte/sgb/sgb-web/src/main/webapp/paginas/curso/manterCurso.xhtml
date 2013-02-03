@@ -47,22 +47,22 @@
                             
                             <h:panelGrid columns="2" class="semborda">
                             
-                                <h:commandLink id="linkAcaoEditar" value="#{msg['acao.editar']}" 
+                                <p:commandLink id="linkAcaoEditar" value="#{msg['acao.editar']}" 
                                                action="#{cursoController.openEditPage()}">
                                 
                                     <f:setPropertyActionListener target="#{cursoController.form.entity}"
                                                                  value="#{curso}"/>
                                     
-                                </h:commandLink>
+                                </p:commandLink>
 
 
-                                <h:commandLink id="linkAcaoDetalhe" value="#{msg['acao.detalhes']}" 
-                                                oncomplete="dialogDetalhe.show();">
+                                <p:commandLink id="linkAcaoDetalhe" value="#{msg['acao.detalhes']}" 
+                                                onclick="dlgDetalhe.show();" action="#{cursoController.preparaCursoParaDetalhe}">
                                     
-                                    <f:setPropertyActionListener target="#{cursoController.form.entity}"
+                                    <f:setPropertyActionListener target="#{cursoController.form.cursoParaDetalhe}"
                                                                  value="#{curso}"/>
                             
-                                </h:commandLink>
+                                </p:commandLink>
                                     
                             </h:panelGrid>    
                                 
@@ -103,6 +103,56 @@
                             <p:commandButton value="#{msg['cadastro.autor.label.nao']}"
                                              onclick="dlgRemocao.hide();"/>
                             
+                        </h:panelGrid>
+                        
+                    </h:panelGrid>
+                    
+                </p:dialog>
+                
+                <p:dialog id="dialogDetalhes" widgetVar="dlgDetalhe" modal="true"
+                          resizable="false" header="#{msg['acao.detalhes']}">
+                    
+                    <h:panelGrid columns="1" style="text-align: center;">
+                        
+                        <h:panelGrid columns="2">
+                            
+                            <p:outputLabel value="#{msg['cadastro.curso']}:" />
+                            
+                            <p:outputLabel value="#{cursoController.form.cursoParaDetalhe.nome}"/>
+                            
+                            <p:outputLabel value="#{msg['cadastro.curso.label.vagas']}:" />
+                            
+                            <p:outputLabel value="#{cursoController.form.cursoParaDetalhe.vagas}"/>
+                            
+                            <p:dataTable value="#{cursoController.form.cursoParaDetalhe.disciplinas}" rows="5"
+                                         paginator="true" paginatorAlwaysVisible="false" var="disciplina">
+                        
+                                <p:column>
+                                    
+                                   <f:facet name="header">  
+                                       
+                                       <h:outputText value="#{msg['label.disciplina.codigo']}"/>
+                                                     
+                                   </f:facet> 
+                                    
+                                   <p:outputLabel value="#{disciplina.codigo}"/>
+                                    
+                                </p:column>
+                                
+                                <p:column>
+                                    
+                                    <f:facet name="header">  
+                                       
+                                       <h:outputText value="#{msg['label.disciplina.nome']}"/>
+                                                     
+                                   </f:facet> 
+                                    
+                                    <p:outputLabel value="#{disciplina.nome}"/>
+                                    
+                                </p:column>
+                                
+                            </p:dataTable>
+                        
                         </h:panelGrid>
                         
                     </h:panelGrid>

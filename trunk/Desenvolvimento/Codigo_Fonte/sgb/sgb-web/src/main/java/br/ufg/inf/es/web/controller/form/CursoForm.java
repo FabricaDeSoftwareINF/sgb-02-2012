@@ -31,6 +31,8 @@ public class CursoForm extends GenericForm<Curso> {
     private CursoDataModel cursoDataTableModel;
     
     private Curso[] cursosParaRemocao;
+    
+    private Curso cursoParaDetalhe;
 
     public Collection<Disciplina> getListaDisciplinaAssociacao() {
         
@@ -110,5 +112,15 @@ public class CursoForm extends GenericForm<Curso> {
     public void setCursosParaRemocao(final Curso[] cursosParaRemocao) {
      
         this.cursosParaRemocao = cursosParaRemocao;
+    }
+
+    public Curso getCursoParaDetalhe() {
+        
+        return cursoParaDetalhe;
+    }
+
+    public void setCursoParaDetalhe(Curso cursoParaDetalhe) {
+        
+        this.cursoParaDetalhe = cursoParaDetalhe;
     }
 }
