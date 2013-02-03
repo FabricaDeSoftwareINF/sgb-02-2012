@@ -60,7 +60,7 @@
                         </p:selectOneMenu>
                         <h:outputLabel value="Disciplina:"></h:outputLabel>
                         <p:autoComplete id="disciplina" value="#{livroController.form.bibliografiaTemp.disciplina}" 
-                                        completeMethod="#{livroController.disciplinaService.complete}"  
+                                        completeMethod="#{livroController.completeDisciplina}"  
                                         var="disciplina" itemLabel="#{disciplina.nome}" itemValue="#{disciplina}" converter="disciplinaConverter" ></p:autoComplete>  
                         <div></div>
                         <p:commandButton value="Associar disciplina" actionListener="#{livroController.associarDisciplina}" 

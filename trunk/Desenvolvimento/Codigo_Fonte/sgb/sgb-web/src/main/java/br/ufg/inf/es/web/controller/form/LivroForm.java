@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 @Component
 @Scope("session")
 public class LivroForm extends GenericForm<Livro> {
+    
     private Bibliografia bibliografiaTemp = new Bibliografia();
     
     public Bibliografia getBibliografiaTemp() {
