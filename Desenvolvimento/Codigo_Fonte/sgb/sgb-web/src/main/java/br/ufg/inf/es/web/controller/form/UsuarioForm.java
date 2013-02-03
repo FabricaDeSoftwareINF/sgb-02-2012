@@ -1,6 +1,7 @@
 package br.ufg.inf.es.web.controller.form;
 
 import br.ufg.inf.es.model.Usuario;
+import br.ufg.inf.es.model.UsuarioPerfil;
 import br.ufg.inf.es.web.datamodel.UsuarioDataModel;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -23,11 +24,11 @@ public class UsuarioForm extends GenericForm<Usuario> {
      * @author Cássio Augusto Silva de Freitas
      */
     private Collection<Usuario> tabelaUsuarios;
+    private Collection<UsuarioPerfil> perfis;
     /**
      * atributo userDataModel
      */
     private UsuarioDataModel userDataModel;
-    
     /**
      * atributo usuariosSlecionados
      */
@@ -43,6 +44,14 @@ public class UsuarioForm extends GenericForm<Usuario> {
         return tabelaUsuarios;
     }
 
+    public Collection<UsuarioPerfil> getPerfis() {
+        return perfis;
+    }
+
+    public void setPerfis(Collection<UsuarioPerfil> perfis) {
+        this.perfis = perfis;
+    }
+
     /**
      * Método setgetTabelaUsuarios()
      *
@@ -54,7 +63,7 @@ public class UsuarioForm extends GenericForm<Usuario> {
     }
 
     public UsuarioDataModel getUserDataModel() {
-        
+
         List<Usuario> usuarios = new ArrayList<Usuario>(this.getTabelaUsuarios());
 
         userDataModel = new UsuarioDataModel(usuarios);
@@ -73,5 +82,4 @@ public class UsuarioForm extends GenericForm<Usuario> {
     public void setUsuariosSelecionados(Usuario[] usuariosSelecionados) {
         this.usuariosSelecionados = usuariosSelecionados;
     }
-    
 }
