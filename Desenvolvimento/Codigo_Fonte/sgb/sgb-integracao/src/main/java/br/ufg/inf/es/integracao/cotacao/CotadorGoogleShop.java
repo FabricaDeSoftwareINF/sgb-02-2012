@@ -70,6 +70,7 @@ public class CotadorGoogleShop extends Cotador {
                 
             }
             
+                    
             String nomeLivraria = (String) ((StringMap) produto.get("author")).get("name");
             oferta.put("paisLivraria", (String) produto.get("country"));
             oferta.put("nomeLivro", (String) produto.get("title"));

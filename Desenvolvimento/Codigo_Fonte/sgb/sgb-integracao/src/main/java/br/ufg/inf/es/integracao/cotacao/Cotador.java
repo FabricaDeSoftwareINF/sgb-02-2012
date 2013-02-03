@@ -60,7 +60,17 @@ public abstract class Cotador {
      * Converte o resultado da busca em json para um dicionário de dados. 
      * A chave do dicionário é a identificação da livraria. O valor associado
      * à uma chave é um  Map com as propriedades do livro como preço, link, imagem
-     * , etc.
+     * , etc. AS chaves do Map são
+     *      paisLivraria
+            nomeLivro
+            nomeLivro
+            descricaoLivro
+            linkLivroNaLivraria
+            linkLivroNaLivraria
+            linkImagemDoLivro 
+            precoLivro
+            moeda
+                  
      * @param json String retornada na consulta do livro. Ess json será convertido
      * um dicionário de propriedades. 
      * @return  Um dicionário, sendo que as chaves são as identificaçãos das 
