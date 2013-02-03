@@ -9,12 +9,12 @@
 
     <ui:define name="content">
           
-        <h:form id="formCadastroAutor" style="font-size: 14px;">
+        <h:form id="formEditarAutor" style="font-size: 14px;">
                 
             <h:panelGrid width="100%" style="float: left" columns="1" >
 
-                <h:outputLabel value="#{msg['cadastro.curso.panel.cadastrar']}" style="font-size:24px;"/>
-                
+                <h:outputLabel value="#{msg['cadastro.curso.panel.cadastrar']}" style="font-size:24px;"/>   
+
                 <p:messages/>
 
                 <p:spacer width="10" height="15"/>
@@ -72,20 +72,20 @@
                                      update="fieldsetAssociacao"/>
                 </h:panelGrid>
 
-                <p:dataTable id="associationTable" var="assTab" emptyMessage="#{msg['arquitetura.msg.nenhumregistroencontrado']}"
+                <p:dataTable id="associationTable" var="disciplinaAssociada" emptyMessage="#{msg['arquitetura.msg.nenhumregistroencontrado']}"
                              value="#{cursoController.form.listaDisciplinaAssociacao}">
 
                     <p:column headerText="#{msg['cadastro.disciplina']}">  
 
-                        <h:outputText value="#{assTab.nome}" />  
+                        <h:outputText value="#{disciplinaAssociada.nome}" />  
 
                     </p:column>
 
                     <p:column headerText="#{msg['cadastro.acao']}">  
 
-                        <p:commandLink id="linkAcao" value="Remover" update=":formCadastroAutor:fieldsetAssociacao" action="#{cursoController.removeDisciplina()}">
+                        <p:commandLink id="linkAcao" value="Remover" update=":formEditarAutor:fieldsetAssociacao" action="#{cursoController.removeDisciplina()}">
 
-                            <f:setPropertyActionListener value="#{assTab}" target="#{cursoController.form.disciplinaToRemove}"/>
+                            <f:setPropertyActionListener value="#{disciplinaAssociada}" target="#{cursoController.form.disciplinaToRemove}"/>
 
                         </p:commandLink>
 
@@ -95,7 +95,7 @@
 
             </p:fieldset>
                 
-            <h:panelGrid style="margin-left: 60%;text-align: right;" columns="2" >
+            <h:panelGrid style="margin-left: 80%;text-align: right;" columns="2" >
                     
                 <p:commandButton value="#{msg['cadastro.curso.button.insert']}" 
                                  action="#{cursoController.insert()}" ajax="false" />
@@ -103,7 +103,28 @@
                 <p:commandButton value="#{msg['acao.voltar']}"  ajax="false" 
                                  action="#{cursoController.openSearchPage()}"/>
                 
-             </h:panelGrid>    
+             </h:panelGrid>   
+            
+            <p:dialog modal="true" width="405" height="140" resizable="false" closable="false"
+                      header="#{msg['arquitetura.msg.atencao']}" visible="#{cursoController.form.exibirDialog}">
+                
+                <h:panelGrid style="text-align: center;">
+                    
+                    <p:spacer width="5" height="25"/> 
+                    
+                    <h:outputLabel value="#{msg['arquitetura.msg.camposobrigatorios']}"/>
+
+                    <p:spacer width="5" height="25"/> 
+                    
+                    <p:commandButton value="#{msg['arquitetura.msg.ok']}" update="@form">
+
+                        <f:setPropertyActionListener value="false" target="#{cursoController.form.exibirDialog}"/>
+
+                    </p:commandButton>
+               
+                </h:panelGrid>
+                
+            </p:dialog>
                                 
         </h:form>
    

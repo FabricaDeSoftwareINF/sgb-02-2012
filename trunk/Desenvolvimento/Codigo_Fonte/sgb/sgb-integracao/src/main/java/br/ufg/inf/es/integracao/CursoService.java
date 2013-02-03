@@ -32,14 +32,23 @@ public class CursoService extends GenericService<Curso> {
     /**
      * Método responsável pela inserção de um <code>Curso</code>
      * @param entity
-     * @return Id do curso salvo
      * @throws ValidationException 
      */
     @Override
     @RNG004
-    public Long insert(final Curso entity) throws ValidationException {
+    public void update(final Curso entity) throws ValidationException {
 
-        return super.insert(entity);
+        this.getDAO().update(entity);
+        
+        if(!entity.getDisciplinas().isEmpty()){
+        
+            for(Disciplina disciplina: entity.getDisciplinas()){
+                
+                disciplina.setCurso(entity);
+                
+                this.getDisciplinaDao().update(disciplina);
+            }
+        }        
     }
     
     /**
@@ -93,7 +102,7 @@ public class CursoService extends GenericService<Curso> {
      * @return Lista de disciplinas
      * 
      */
-    public Collection<Disciplina> listarDisciplinasDeUmCurso(Long id) {
+    public Collection<Disciplina> listarDisciplinasDeUmCurso(final Long id) {
         
         return this.getDisciplinaDao().listarDisciplinasDeUmCurso(id);
     }
