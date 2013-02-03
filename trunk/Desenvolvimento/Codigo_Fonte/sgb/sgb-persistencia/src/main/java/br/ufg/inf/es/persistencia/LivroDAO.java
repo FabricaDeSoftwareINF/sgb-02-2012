@@ -7,8 +7,8 @@ import br.ufg.inf.es.model.Livro;
 import java.util.Collection;
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
-import org.hibernate.criterion.MatchMode;
-import org.hibernate.criterion.Restrictions;
+import org.hibernate.criterion.*;
+import org.hibernate.transform.Transformers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -65,4 +65,30 @@ public class LivroDAO extends GenericHibernateDAO<Livro> {
         
         return criteria.list();
     }
+    
+    /**
+     * 
+     * @param filtroTitulo
+     * @return
+     * @author Jackeline
+     */
+    public Collection<Livro> listarLivros(String filtroTitulo) {
+
+        Criteria criteria = this.getSession().createCriteria(Livro.class, "livro");
+
+        if (!(filtroTitulo == null || filtroTitulo.equals(""))) {
+
+            criteria.add(Restrictions.ilike("livro.titulo", filtroTitulo, MatchMode.ANYWHERE));
+
+        }
+
+        criteria.setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY);
+
+        criteria.setProjection(Projections.projectionList().add(Projections.property("livro.id"), "id").add(Projections.property("livro.titulo"), "titulo")).setResultTransformer(Transformers.aliasToBean(Livro.class));
+
+        criteria.addOrder(Order.asc("titulo"));
+
+        return criteria.list();
+    }
+    
 }
