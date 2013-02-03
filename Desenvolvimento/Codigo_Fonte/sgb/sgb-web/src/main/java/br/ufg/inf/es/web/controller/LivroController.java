@@ -1,6 +1,7 @@
 package br.ufg.inf.es.web.controller;
 
 import br.ufg.inf.es.base.validation.ValidationException;
+import br.ufg.inf.es.enuns.EnumTipoBibliografia;
 import br.ufg.inf.es.integracao.AutorService;
 import br.ufg.inf.es.integracao.CursoService;
 import br.ufg.inf.es.integracao.DisciplinaService;
@@ -49,7 +50,7 @@ public class LivroController extends SGBController<Livro, LivroForm, LivroServic
     
     private Autor autor;
     private Editora editora;
-    private String tipoBibliografia;
+    private EnumTipoBibliografia tipoBibliografia;
     private Curso cursoSelecionado;
     private Collection<Curso> cursos;
     private String formatoSelecionado;
@@ -124,14 +125,6 @@ public class LivroController extends SGBController<Livro, LivroForm, LivroServic
 
     public void setCursoService(CursoService cursoService) {
         this.cursoService = cursoService;
-    }
-
-    public String getTipoBibliografia() {
-        return tipoBibliografia;
-    }
-
-    public void setTipoBibliografia(String tipoBibliografia) {
-        this.tipoBibliografia = tipoBibliografia;
     }
 
     public Autor getAutor() {
