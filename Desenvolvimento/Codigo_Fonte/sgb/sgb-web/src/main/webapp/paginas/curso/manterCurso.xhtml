@@ -11,6 +11,8 @@
     
             <h:form id="formbusca" style="font-size: 14px;">
                 
+                <p:remoteCommand name="recarregaPagina" action="#{cursoController.openSearchPage()}"/>
+                
                 <p:spacer width="10" height="15"/>
 
                 <h:outputLabel value="#{msg['curso.manter']}" style="font-size:24px;"/>
@@ -21,11 +23,11 @@
 
                 <h:panelGrid width="100%" columns="1">
                        
-                    <p:dataTable id="associationTable" var="curso" 
-                            value="#{cursoController.form.collectionEntities}"
-                            emptyMessage="#{msg['cadastro.curso.registrosnaoencontrado']}">
+                    <p:dataTable id="tabelaCursos" var="curso" paginator="true" rows="10"
+                                 value="#{cursoController.form.cursoDataTableModel}" selection="#{cursoController.form.cursosParaRemocao}"
+                                 emptyMessage="#{msg['cadastro.curso.registrosnaoencontrado']}">
                         
-                        <!--<p:column selectionMode="multiple" style="width:18px" />  -->
+                        <p:column selectionMode="multiple" style="width:18px" />
                         
                         <p:column headerText="#{msg['cadastro.curso.label.nome']}"
                                   filterBy="#{curso.nome}">  
@@ -95,11 +97,11 @@
                         
                         <h:panelGrid columns="2" style="margin-left: 30%;">
                             
-                            <p:commandButton value="#{msg['cadastro.autor.label.sim']}"
-                                action="#{cursoController.remove()}" update="@form"/>
+                            <p:commandButton value="#{msg['cadastro.autor.label.sim']}" ajax="false"
+                                             action="#{cursoController.remove()}" oncomplete="dlgRemocao.hide();"/>
                         
                             <p:commandButton value="#{msg['cadastro.autor.label.nao']}"
-                                onclick="dlgRemocao.hide();"/>
+                                             onclick="dlgRemocao.hide();"/>
                             
                         </h:panelGrid>
                         
