@@ -6,6 +6,7 @@ package br.ufg.inf.es.integracao;
 
 import br.ufg.inf.es.model.Perfil;
 import br.ufg.inf.es.model.Usuario;
+import br.ufg.inf.es.model.UsuarioPerfil;
 import java.util.ArrayList;
 import java.util.Collection;
 import org.junit.*;
@@ -17,7 +18,7 @@ import org.mockito.Mockito;
  * @author Alunoinf_2
  */
 public class SgbAuthTest {
-    
+
     public SgbAuthTest() {
     }
 
@@ -28,11 +29,11 @@ public class SgbAuthTest {
     @AfterClass
     public static void tearDownClass() throws Exception {
     }
-    
+
     @Before
     public void setUp() {
     }
-    
+
     @After
     public void tearDown() {
     }
@@ -42,23 +43,21 @@ public class SgbAuthTest {
      */
     @Test
     public void testLogin() {
-        
+
         String user = "professor";
         String password = "123";
         SgbAuth instance = new SgbAuth();
         UsuarioService us = Mockito.mock(UsuarioService.class);
         Usuario usuario = new Usuario();
-        Mockito.when(us.authUser(user,password)).thenReturn(usuario);
-        Collection<Perfil> perfis = new ArrayList();
-        perfis.add(new Perfil("ROLE_PROFESSOR"));
-        Mockito.when(us.carreguePerfis(usuario)).thenReturn(perfis);
-        
+        usuario.setPerfil(UsuarioPerfil.ADM);
+        Mockito.when(us.authUser(user, password)).thenReturn(usuario);
+
         instance.SetUsuariioService(us);
         Collection<String> expResult = new ArrayList();
-        expResult.add("ROLE_PROFESSOR");
+        expResult.add(UsuarioPerfil.ADM.name());
         Collection result = instance.login(user, password);
         assertEquals(expResult, result);
-        
+
     }
 
     /**
@@ -66,13 +65,13 @@ public class SgbAuthTest {
      */
     @Test
     public void testGetUsuarioService() {
-      
+
         SgbAuth instance = new SgbAuth();
         UsuarioService us = Mockito.mock(UsuarioService.class);
         instance.SetUsuariioService(us);
-        
+
         UsuarioService result = instance.getUsuarioService();
         assertEquals(us, result);
-        
+
     }
 }

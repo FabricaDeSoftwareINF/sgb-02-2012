@@ -7,25 +7,24 @@ package br.ufg.inf.es.model;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
-import org.junit.*;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import org.junit.Test;
 
 /**
  *
  * @author alunoufg
  */
 public class UsuarioTest {
-    
-  
+
     @Test
     public void testGetSenha() {
-       
+
         Usuario instance = new Usuario();
         instance.setSenha("123");
         String expResult = "123";
         String result = instance.getSenha();
         assertEquals(expResult, result);
-        
+
     }
 
     /**
@@ -33,7 +32,7 @@ public class UsuarioTest {
      */
     @Test
     public void testSetSenha() {
-       
+
         String senha = "123";
         Usuario instance = new Usuario();
         instance.setSenha(senha);
@@ -45,13 +44,13 @@ public class UsuarioTest {
      */
     @Test
     public void testGetEmail() {
-       
+
         Usuario instance = new Usuario();
         instance.setEmail("usuario@email.com");
         String expResult = "usuario@email.com";
         String result = instance.getEmail();
         assertEquals(expResult, result);
-       
+
     }
 
     /**
@@ -70,13 +69,13 @@ public class UsuarioTest {
      */
     @Test
     public void testGetNome() {
-      
+
         Usuario instance = new Usuario();
         String expResult = "nome";
         instance.setNome(expResult);
         String result = instance.getNome();
         assertEquals(expResult, result);
-       
+
     }
 
     /**
@@ -84,11 +83,11 @@ public class UsuarioTest {
      */
     @Test
     public void testSetNome() {
-       
+
         String nome = "usuario";
         Usuario instance = new Usuario();
         instance.setNome(nome);
-         assertEquals(nome, instance.getNome());
+        assertEquals(nome, instance.getNome());
     }
 
     /**
@@ -96,13 +95,13 @@ public class UsuarioTest {
      */
     @Test
     public void testGetSobrenome() {
-      
+
         Usuario instance = new Usuario();
         String expResult = "usuario";
         instance.setSobrenome(expResult);
         String result = instance.getSobrenome();
         assertEquals(expResult, result);
-       
+
     }
 
     /**
@@ -110,11 +109,11 @@ public class UsuarioTest {
      */
     @Test
     public void testSetSobrenome() {
-       
+
         String sobrenome = "usuario";
         Usuario instance = new Usuario();
         instance.setSobrenome(sobrenome);
-         String result = instance.getSobrenome();
+        String result = instance.getSobrenome();
         assertEquals(sobrenome, result);
     }
 
@@ -123,13 +122,13 @@ public class UsuarioTest {
      */
     @Test
     public void testGetDataCadastro() {
-       
+
         Usuario instance = new Usuario();
         Date expResult = new Date();
         instance.setDataCadastro(expResult);
         Date result = instance.getDataCadastro();
         assertEquals(expResult, result);
-        
+
     }
 
     /**
@@ -137,7 +136,7 @@ public class UsuarioTest {
      */
     @Test
     public void testSetDataCadastro() {
-        
+
         Date dataCadastro = new Date();
         Usuario instance = new Usuario();
         instance.setDataCadastro(dataCadastro);
@@ -150,13 +149,13 @@ public class UsuarioTest {
      */
     @Test
     public void testGetStatus() {
-        
+
         Usuario instance = new Usuario();
         boolean expResult = false;
         instance.setStatus(expResult);
         boolean result = instance.getStatus();
         assertEquals(expResult, result);
-        
+
     }
 
     /**
@@ -164,40 +163,12 @@ public class UsuarioTest {
      */
     @Test
     public void testSetStatus() {
-       
+
         boolean status = false;
         Usuario instance = new Usuario();
         instance.setStatus(status);
-         
+
         assertEquals(status, instance.getStatus());
-    }
-
-    /**
-     * Test of getPerfil method, of class Usuario.
-     */
-    @Test
-    public void testGetPerfil() {
-        Usuario instance = new Usuario();
-        Collection<Perfil> expResult  = new ArrayList();
-        expResult.add(new Perfil("A"));
-        instance.setPerfil(expResult);
-        Collection<Perfil> result = instance.getPerfil(); 
-        assertEquals(expResult, result);
-       
-    }
-
-    /**
-     * Test of setPerfil method, of class Usuario.
-     */
-    @Test
-    public void testSetPerfil() {
-        
-        Collection<Perfil> perfil = new ArrayList<Perfil>();
-        perfil.add(new Perfil("A"));
-        Usuario instance = new Usuario();
-        instance.setPerfil(perfil);
-        Collection<Perfil> result = instance.getPerfil(); 
-        assertEquals(perfil, result);
     }
 
     /**
@@ -205,15 +176,13 @@ public class UsuarioTest {
      */
     @Test
     public void testGetStringPerfil() {
-       
+
         Usuario instance = new Usuario();
         Collection<Perfil> perfil = new ArrayList<Perfil>();
         perfil.add(new Perfil("A"));
         perfil.add(new Perfil("B"));
-        instance.setPerfil(perfil);
-        String expResult = "A;B;";
-        String result = instance.getStringPerfil();
-        assertEquals(expResult, result);
+        instance.setPerfil(UsuarioPerfil.ADM);
+        assertEquals(UsuarioPerfil.ADM, instance.getPerfil());
     }
 
     /**
@@ -221,13 +190,13 @@ public class UsuarioTest {
      */
     @Test
     public void testGetConfirmacaoEmail() {
-       
+
         Usuario instance = new Usuario();
         String expResult = "usuario@mail.com";
         instance.setConfirmacaoEmail(expResult);
         String result = instance.getConfirmacaoEmail();
         assertEquals(expResult, result);
-        
+
     }
 
     /**
@@ -235,11 +204,11 @@ public class UsuarioTest {
      */
     @Test
     public void testSetConfirmacaoEmail() {
-        
+
         String confirmacaoEmail = "usuario@email.com";
         Usuario instance = new Usuario();
         instance.setConfirmacaoEmail(confirmacaoEmail);
-        
+
         assertEquals(confirmacaoEmail, instance.getConfirmacaoEmail());
     }
 }

@@ -1,8 +1,10 @@
 package br.ufg.inf.es.web.bootstrap;
 
 import br.ufg.inf.es.base.util.SgbCryptography;
-import br.ufg.inf.es.model.*;
-import java.util.Arrays;
+import br.ufg.inf.es.model.Livro;
+import br.ufg.inf.es.model.Perfil;
+import br.ufg.inf.es.model.Usuario;
+import br.ufg.inf.es.model.UsuarioPerfil;
 import java.util.Collection;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -57,27 +59,14 @@ public class Bootstrap implements ServletContextListener {
         if (usuarios == null || usuarios.isEmpty()) {
             try {
 
-                Perfil perfil = new Perfil("ROLE_ADMIN");
-                Long idPerfil = insert(sessionFactory, perfil);
-                perfil.setId(idPerfil);
-
-                if (idPerfil == null) {
-                    return;
-                }
-
                 Usuario user = new Usuario();
                 user.setEmail("admin@email.com");
                 user.setSenha(new SgbCryptography().encrypt("123456"));
                 user.setStatus(true);
-                user.setPerfil(Arrays.asList(perfil));
+                user.setPerfil(UsuarioPerfil.ADM);
 
                 Long idUser = insert(sessionFactory, user);
                 user.setId(idUser);
-
-                UsuarioPerfil usuarioPerfil = new UsuarioPerfil();
-                usuarioPerfil.setIdPerfil(idPerfil);
-                usuarioPerfil.setIdUsuario(idUser);
-                insert(sessionFactory, usuarioPerfil);
             } catch (Exception ex) {
                 Logger.getLogger(Bootstrap.class.getName()).log(Level.SEVERE, null, ex);
             }

@@ -7,10 +7,10 @@ package br.ufg.inf.es.integracao;
 import br.ufg.inf.es.model.Usuario;
 import br.ufg.inf.es.model.UsuarioPerfil;
 import br.ufg.inf.es.persistencia.UsuarioDAO;
-import br.ufg.inf.es.persistencia.UsuarioPerfilDAO;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import static org.junit.Assert.assertEquals;
 import org.junit.*;
-import static org.junit.Assert.*;
 import org.mockito.Mockito;
 
 /**
@@ -37,13 +37,9 @@ public class UsuarioServiceTest {
     public void setUp() {
         entity.setSenha("123456");
         entity.setId(Long.MIN_VALUE);
-        UsuarioPerfilDAO perfilDao = Mockito.mock(UsuarioPerfilDAO.class);
-        Mockito.when(perfilDao.list(0)).thenReturn(new ArrayList<UsuarioPerfil>());
-        instance.setUsuarioPerfilDao(perfilDao);
 
         UsuarioDAO ususarioDAO = Mockito.mock(UsuarioDAO.class);
         instance.setDao(ususarioDAO);
-        instance.setUsuarioPerfilDao(perfilDao);
     }
 
     @After
@@ -75,28 +71,6 @@ public class UsuarioServiceTest {
     }
 
     /**
-     * Test of getUsuario_perfilDao method, of class UsuarioService.
-     */
-    @Test
-    public void testGetUsuario_perfilDao() {
-        UsuarioService instance = new UsuarioService();
-        UsuarioPerfilDAO perfil = new UsuarioPerfilDAO();
-        instance.setUsuarioPerfilDao(perfil);
-        assertEquals(perfil, instance.getUsuarioPerfilDao());
-
-    }
-
-    /**
-     * Test of setUsuario_perfilDao method, of class UsuarioService.
-     */
-    @Test
-    public void testSetUsuario_perfilDao() {
-        UsuarioPerfilDAO usuario_perfilDao = null;
-        UsuarioService instance = new UsuarioService();
-        instance.setUsuarioPerfilDao(usuario_perfilDao);
-    }
-
-    /**
      * Test of insert method, of class UsuarioService.
      */
     @Test
@@ -125,19 +99,15 @@ public class UsuarioServiceTest {
     @Test
     public void testUpdate() throws Exception {
 
-        Usuario entity = new Usuario();
-        entity.setSenha("123456");
-        entity.setId(Long.MIN_VALUE);
+        Usuario en = new Usuario();
+        en.setSenha("123456");
+        en.setId(Long.MIN_VALUE);
 
-        UsuarioService instance = new UsuarioService();
-        UsuarioPerfilDAO perfilDao = Mockito.mock(UsuarioPerfilDAO.class);
-        Mockito.when(perfilDao.list(0)).thenReturn(new ArrayList<UsuarioPerfil>());
-        instance.setUsuarioPerfilDao(perfilDao);
+        UsuarioService ins = new UsuarioService();
 
         UsuarioDAO ususarioDAO = Mockito.mock(UsuarioDAO.class);
-        instance.setDao(ususarioDAO);
-        instance.setUsuarioPerfilDao(perfilDao);
-        instance.update(entity);
+        ins.setDao(ususarioDAO);
+        ins.update(en);
 
     }
 
@@ -154,36 +124,33 @@ public class UsuarioServiceTest {
      */
     @Test
     public void testRemoveAll() throws Exception {
-       
+
         Collection<Usuario> collectionEntities = new ArrayList<Usuario>();
-      
+
         instance.removeAll(collectionEntities);
-     
+
     }
 
     /**
      * Test of search method, of class UsuarioService.
      */
     @Test
-   
     public void testSearch() {
-        
-        
+
+
         Collection expResult = new ArrayList<Usuario>();
         Collection result = instance.search(entity);
         assertEquals(expResult, result);
-       
+
     }
 
-   
     @Test
-   
     public void testList() {
-       
-         Collection expResult = new ArrayList<Usuario>();
+
+        Collection expResult = new ArrayList<Usuario>();
         Collection result = instance.list();
         assertEquals(expResult, result);
-       
+
     }
 
     /**
@@ -191,22 +158,9 @@ public class UsuarioServiceTest {
      */
     @Test
     public void testRefresh() {
-      
-        instance.refresh(entity);
-        
-    }
 
-    /**
-     * Test of carreguePerfis method, of class UsuarioService.
-     */
-    @Test
-    @Ignore
-    public void testCarreguePerfis() {
-       
-        Usuario usuario = new Usuario();
-        Collection expResult = new ArrayList<Usuario>();
-        Collection result = instance.carreguePerfis(usuario);
-        assertEquals(expResult, result);
+        instance.refresh(entity);
+
     }
 
     /**
@@ -215,7 +169,7 @@ public class UsuarioServiceTest {
     @Test
     @Ignore
     public void testAuthUser() {
-        
+
         String user = "a";
         String password = "123";
         UsuarioService instance = new UsuarioService();
@@ -224,6 +178,6 @@ public class UsuarioServiceTest {
         expResult.setSenha(password);
         Usuario result = instance.authUser(user, password);
         assertEquals(expResult, result);
-       
+
     }
 }
