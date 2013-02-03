@@ -18,13 +18,13 @@ import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
 import java.util.Collection;
 import org.primefaces.model.DefaultStreamedContent;
-import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.StreamedContent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
-import br.ufg.inf.es.web.datamodel.LivroDataModel;
 import org.hibernate.Hibernate;
+import br.ufg.inf.es.web.datamodel.LivroDataModel;
+import java.util.List;
 
 /**
  *
@@ -51,10 +51,11 @@ public class LivroController extends SGBController<Livro, LivroForm, LivroServic
     private Editora editora;
     private String tipoBibliografia;
     private Curso cursoSelecionado;
+    private Collection<Curso> cursos;
     private String formatoSelecionado;
     private StreamedContent fileExportado;
-    
-    private Collection<Livro> lazyModel;
+    private LivroDataModel livroModel;    
+    private Livro[] livrosSelecionados;
 
     /**
      * Método responsável por retornar a string de navegação para a pagina
@@ -64,15 +65,15 @@ public class LivroController extends SGBController<Livro, LivroForm, LivroServic
      */
     @Override
     public String openInitialPage() {
-        lazyModel = service.list();
+        this.livroModel = new LivroDataModel((List) service.list());
         this.autor = new Autor();
         this.editora = new Editora();
 
         return super.openInitialPage();
     }
     
-    public Collection<Livro> getLivros() {
-        return lazyModel;
+    public LivroDataModel getLivroModel() {
+        return this.livroModel;
     }
 
     public Curso getCursoSelecionado() {
@@ -82,7 +83,6 @@ public class LivroController extends SGBController<Livro, LivroForm, LivroServic
     public void setCursoSelecionado(Curso cursoSelecionado) {
         this.cursoSelecionado = cursoSelecionado;
     }
-    private Collection<Curso> cursos;
 
     @Override
     public LivroForm getForm() {
@@ -182,6 +182,14 @@ public class LivroController extends SGBController<Livro, LivroForm, LivroServic
         this.formatoSelecionado = formatoSelecionado;
     }
 
+    public Livro[] getLivrosSelecionados() {
+        return livrosSelecionados;
+    }
+
+    public void setLivrosSelecionados(Livro[] livrosSelecionados) {
+        this.livrosSelecionados = livrosSelecionados;
+    }
+    
     public void associarDisciplina() {
         Livro livro = this.form.getEntity();
         Bibliografia bibliografia = this.form.getBibliografiaTemp();
@@ -249,7 +257,6 @@ public class LivroController extends SGBController<Livro, LivroForm, LivroServic
             this.addWarningMessage(ex.getKeyMessage());
 
         }
-        
         return this.openInitialPage();
     }
 
@@ -279,4 +286,5 @@ public class LivroController extends SGBController<Livro, LivroForm, LivroServic
     public StreamedContent getFile() {
         return this.fileExportado;
     }
+ 
 }
