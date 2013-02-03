@@ -38,14 +38,14 @@ public class Livro extends AbstractEntityModel {
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE},
     mappedBy = "livrosDaListaCompras",
     targetEntity = ListaCompras.class)
-    private Collection<ListaCompras> ListaCompras;
+    private Collection<ListaCompras> listaCompras;
 
-    public Collection<br.ufg.inf.es.model.ListaCompras> getListaCompras() {
-        return ListaCompras;
+    public Collection<ListaCompras> getListaCompras() {
+        return listaCompras;
     }
 
-    public void setListaCompras(Collection<br.ufg.inf.es.model.ListaCompras> ListaCompras) {
-        this.ListaCompras = ListaCompras;
+    public void setListaCompras(Collection<ListaCompras> listaCompras) {
+        this.listaCompras = listaCompras;
     }
 
     public String getTitulo() {
