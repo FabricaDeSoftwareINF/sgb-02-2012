@@ -4,6 +4,7 @@ import br.ufg.inf.es.integracao.LivroParaCotacaoService;
 import br.ufg.inf.es.model.LivroParaCotacao;
 import br.ufg.inf.es.web.controller.form.LivroParaCotacaoForm;
 import java.util.Collection;
+import java.util.Iterator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -20,7 +21,6 @@ public class LivroParaCotacaoController extends SGBController<LivroParaCotacao, 
     private LivroParaCotacaoService livroParaCotacaoService;
     @Autowired
     private LivroParaCotacaoForm form;
-    
     private String parametroMec;
 
     public String getParametroMec() {
@@ -42,8 +42,11 @@ public class LivroParaCotacaoController extends SGBController<LivroParaCotacao, 
         super.initData();
         Collection<LivroParaCotacao> entidades = this.getService().obtenhaLivrosParaCotacao();
         this.getForm().setCollectionEntities(entidades);
-        
-        LivroParaCotacao primeiro = entidades.iterator().next();
-        parametroMec = primeiro.getParametroMec() + "";
+
+        Iterator it = entidades.iterator();
+        if (it.hasNext()) {
+            LivroParaCotacao primeiro = entidades.iterator().next();
+            parametroMec = primeiro.getParametroMec() + "";
+        }
     }
 }
