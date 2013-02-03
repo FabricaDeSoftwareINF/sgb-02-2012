@@ -24,74 +24,68 @@
 
         </h:head>  
 
-        <h:body>   
-            <p:layout fullPage="true">
+        <h:body> 
+            
+            <h:form id="header">
+                <h:panelGrid width="100%" columns="2">
+                    <p:graphicImage value="/resources/images/sgb.png" width="80" height="60"/>
 
-                <p:layoutUnit id="top" position="north" size="auto" resizable="false">
-                    <h:form id="header">
-                        <h:panelGrid width="100%" columns="2">
-                            <p:graphicImage value="/resources/images/sgb.png" width="80" height="60"/>
+                    <h:panelGrid style="float: right" columns="6" >
 
-                            <h:panelGrid style="float: right" columns="6" >
-
-                                <h:panelGrid columns="2">
-                                    <p:inputText id="pesquisaLivro" size="40"/> 
-                                    <p:commandButton icon="ui-icon-search"/>
-                                </h:panelGrid>
-
-                                <p:watermark for="pesquisaLivro" value="Pesquisar Livro"/>
-                                <p:spacer width="45" height="0"/>
-                                <h4>#{loginController.usuarioLogado}</h4>                                
-                                <h:outputLink style="font-size: 16px;" value="#{request.contextPath}/j_spring_security_logout">(Sair)</h:outputLink>
-
-                            </h:panelGrid>
+                        <h:panelGrid columns="2">
+                            <p:inputText id="pesquisaLivro" size="40"/> 
+                            <p:commandButton icon="ui-icon-search"/>
                         </h:panelGrid>
 
-                        <p:menubar > 
-                            <p:menuitem value="Início" action="/index.xhtml"/>
+                        <p:watermark for="pesquisaLivro" value="Pesquisar Livro"/>
+                        <p:spacer width="45" height="0"/>
+                        <h4>#{loginController.usuarioLogado}</h4>                                
+                        <h:outputLink style="font-size: 16px;" value="#{request.contextPath}/j_spring_security_logout">(Sair)</h:outputLink>
 
-                            <p:submenu label="Cadastros" autoSubmenuDisplay="true">
-                                <p:menuitem value="#{msg['cadastro.curso']}" action="#{cursoController.openSearchPage()}" ajax="false"/>
-                                <p:menuitem value="#{msg['cadastro.editora.label.editora']}" action="#{editoraController.openInitialPage()}"  ajax="false"/>
-                                <p:menuitem value="#{msg['cadastro.livro.label.livro']}" action="#{livroController.openInitialPage()}" ajax="false"/>
-                                <p:menuitem value="#{msg['cadastro.autor.label.autor']}" action="#{autorController.openInitialPage()}" ajax="false"/>
-                                <p:menuitem value="#{msg['cadastro.disciplina.label.disciplina']}" action="#{disciplinaController.openInitialPage()}" ajax="false"/>
-                                <p:menuitem value="#{msg['usuario.label.usuarios']}" action="#{usuarioController.openInitialPage()}" ajax="false" />
-                            </p:submenu>
+                    </h:panelGrid>
+                </h:panelGrid>
 
-                            <p:submenu label="Cotação" autoSubmenuDisplay="true">
-                                <p:menuitem value="Livros para cotação" action="#{livroParaCotacaoController.openInitialPage()}" ajax="false"/>
-                            </p:submenu>
+                <p:menubar > 
+                    <p:menuitem value="Início" action="/index.xhtml"/>
 
-                            <p:menuitem value="Configurações" action="#{parametrosController.openViewPage()}" ajax="false"/>
-                            <p:menuitem value="Ajuda" ajax="false"/> 
+                    <p:submenu label="Cadastros" autoSubmenuDisplay="true">
+                        <p:menuitem value="#{msg['cadastro.curso']}" action="#{cursoController.openSearchPage()}" ajax="false"/>
+                        <p:menuitem value="#{msg['cadastro.editora.label.editora']}" action="#{editoraController.openInitialPage()}"  ajax="false"/>
+                        <p:menuitem value="#{msg['cadastro.livro.label.livro']}" action="#{livroController.openInitialPage()}" ajax="false"/>
+                        <p:menuitem value="#{msg['cadastro.autor.label.autor']}" action="#{autorController.openInitialPage()}" ajax="false"/>
+                        <p:menuitem value="#{msg['cadastro.disciplina.label.disciplina']}" action="#{disciplinaController.openInitialPage()}" ajax="false"/>
+                        <p:menuitem value="#{msg['usuario.label.usuarios']}" action="#{usuarioController.openInitialPage()}" ajax="false" />
+                    </p:submenu>
+
+                    <p:submenu label="Cotação" autoSubmenuDisplay="true">
+                        <p:menuitem value="Livros para cotação" action="#{livroParaCotacaoController.openInitialPage()}" ajax="false"/>
+                    </p:submenu>
+
+                    <p:menuitem value="Configurações" action="#{parametrosController.openViewPage()}" ajax="false"/>
+                    <p:menuitem value="Ajuda" ajax="false"/> 
 
 
-                            <p:menuitem value="" action="#" style="float: right">
+                    <p:menuitem value="" action="#" style="float: right">
 
-                            </p:menuitem>
-                        </p:menubar>
-                    </h:form>
-                </p:layoutUnit>
+                    </p:menuitem>
+                </p:menubar>
+            </h:form>
 
-                <p:layoutUnit id="center" position="center" resizable="false">
-                    <div id="content" style="font-size: 14px;">  
-                        <ui:insert name="content">
-                        </ui:insert>  
-                    </div>  
+            <div id="content" style="font-size: 14px;">  
+                <ui:insert name="content">
+                </ui:insert>  
+            </div>  
 
-                    <p:ajaxStatus style="width:64px;height:64px;position:fixed;right:5px;bottom:5px">  
-                        <f:facet name="start">  
-                            <p:graphicImage value="/resources/images/loading.gif" />  
-                        </f:facet>  
+            <p:ajaxStatus style="width:64px;height:64px;position:fixed;right:5px;bottom:5px">  
+                <f:facet name="start">  
+                    <p:graphicImage value="/resources/images/loading.gif" />  
+                </f:facet>  
 
-                        <f:facet name="complete">  
-                            <h:outputText value="" />  
-                        </f:facet>  
-                    </p:ajaxStatus> 
-                </p:layoutUnit>
+                <f:facet name="complete">  
+                    <h:outputText value="" />  
+                </f:facet>  
+            </p:ajaxStatus> 
 
-            </p:layout>
         </h:body>
     </f:view>
 </html>
