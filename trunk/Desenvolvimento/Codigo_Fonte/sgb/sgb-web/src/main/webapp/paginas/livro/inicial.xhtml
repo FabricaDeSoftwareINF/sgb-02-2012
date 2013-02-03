@@ -21,9 +21,11 @@
 
                 <h:form>
 
-                    <p:dataTable value="#{livroController.livros}" var="livro"
-                                 rows="10" paginator="true">
+                    <p:dataTable id="livros_datatable" value="#{livroController.livroModel}" var="livro"
+                                 rows="10" paginator="true" selection="#{livroController.livrosSelecionados}">
 
+                        <p:column selectionMode="multiple" style="width:18px" /> 
+                        
                         <p:column headerText="#{msg['cadastro.livro.label.titulo']}">
 
                             <h:outputText value="#{livro.titulo}" />
