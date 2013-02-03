@@ -19,78 +19,67 @@
                     <h:outputLabel value="#{msg['parametros.bc.tipo']}"  ></h:outputLabel>
 
                     <p:selectOneMenu label="SGBD" value="#{bibliotecaConfigController.form.entity.driver}"  
-                                     converter="enumTypeConverter" required="true" 
-                                     requiredMessage="Por favor selecione uma 
-                                        das opções de SGBD">
+                                     converter="enumTypeConverter">
                         <f:selectItem itemLabel="Selecione"/> 
                         <f:selectItems  var="driver" value="#{bibliotecaConfigController.form.drivers}"
                                         itemLabel="#{driver.name}" itemValue="#{driver}"/>
                     </p:selectOneMenu>
-                    
+
                     <h:outputLabel value="#{msg['parametros.bc.url']}"  ></h:outputLabel>
-                    <p:inputText label="URL " required="true" 
+                    <p:inputText label="URL "  
                                  value="#{bibliotecaConfigController.form.entity.url}" 
-                                 requiredMessage="Por favor Informe a URL de 
-                                    conexão." />
-                    
+                                 />
+
                     <h:outputLabel value="#{msg['parametros.bc.porta']}" ></h:outputLabel>
-                    <p:inputText label="Porta" required="true" 
+                    <p:inputText label="Porta"  
                                  value="#{bibliotecaConfigController.form.entity.porta}" 
-                                 equeredMessage="Por favor Informe a Porta de 
-                                    conexão" />
-                    
+                                  />
+
                     <h:outputLabel value="#{msg['parametros.bc.schema']}"  ></h:outputLabel>
-                    <p:inputText label="Schema" required="true" 
+                    <p:inputText label="Schema" 
                                  value="#{bibliotecaConfigController.form.entity.nameDataBase}" 
-                                 requiredMessage="Por favor Informe o Nome da 
-                                    Base de Dados (Schema)." />
-                    
+                                  />
+
                     <h:outputLabel value="#{msg['parametros.bc.usuario']}"  ></h:outputLabel>
                     <p:inputText label="Usuário" required="true" 
                                  value="#{bibliotecaConfigController.form.entity.userDataBase}" 
                                  requiredMessage="Por favor Informe o Usuário de 
-                                    conexão." />
-                    
+                                 conexão." />
+
                     <h:outputLabel value="#{msg['parametros.bc.senha']}"  ></h:outputLabel>
-                    <p:password label="Senha" required="true" 
+                    <p:password label="Senha" 
                                 value="#{bibliotecaConfigController.form.entity.passwordDataBase}" 
-                                requiredMessage="Por favor Informe a Senha do 
-                                    Usuário de conexão." />
-                    
+                                 />
+
                     <h:outputLabel value="#{msg['parametros.bc.tabela']}"  ></h:outputLabel>
-                    <p:inputText label="Tabela" required="true" 
+                    <p:inputText label="Tabela" 
                                  value="#{bibliotecaConfigController.form.entity.tabela}" 
-                                 requiredMessage="Por favor Informe a Tabela." />
-                    
+                                  />
+
                     <h:outputLabel value="#{msg['parametros.bc.colunatitulo']}"  ></h:outputLabel>
-                    <p:inputText label="Coluna Título" required="true" 
+                    <p:inputText label="Coluna Título"  
                                  value="#{bibliotecaConfigController.form.entity.campoTituloLivro}" 
-                                 requiredMessage="Por favor Informe a Coluna 
-                                    Livro da Tabela do Banco de Dados da Bilioteca." />
-                    
+                                  />
+
                     <h:outputLabel value="#{msg['parametros.bc.colunaquantidade']}"  ></h:outputLabel>
-                    <p:inputText label="Coluna Quantidade" required="true" 
+                    <p:inputText label="Coluna Quantidade"
                                  value="#{bibliotecaConfigController.form.entity.campoQuantidadeLivro}" 
-                                 requiredMessage="Por favor Informe a Coluna 
-                                    Quantidade de Livros da Tabela do Banco de 
-                                    Dados da Bilioteca." />
-                    
+                                 />
+
                     <div align="left">
                         <h:panelGrid columns="2">
                             <p:commandButton update="@form" 
-                                             actionListener="#{bibliotecaConfigController.insert()}" 
+                                             actionListener="#{bibliotecaConfigController.salvarDBBibliotecaConfig()}" 
                                              value="#{msg['parametros.bc.salvar']}" />
-                            <p:commandButton update="@form" 
-                                             actionListener="#{bibliotecaConfigController.remove()}" 
-                                             value="#{msg['parametros.bc.excluir']}" />
                         </h:panelGrid>
-                    </div>
+                    </div>                    
                 </h:panelGrid>
-            </h:form>
+            </h:form> 
+
             <h:form>
                 <div align="left">
                     <p:commandButton  update="@form"  
-                                      ctionListener="#{dBBibliotecaConfigController.voltar()}" 
+                                      actionListener="#{dBBibliotecaConfigController.voltar()}" 
                                       value="#{msg['parametros.bc.voltar']}" />
                 </div>
             </h:form>
