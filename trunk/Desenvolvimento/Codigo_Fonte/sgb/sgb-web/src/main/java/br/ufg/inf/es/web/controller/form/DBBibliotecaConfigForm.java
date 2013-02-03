@@ -13,7 +13,17 @@ import org.springframework.stereotype.Component;
 @Scope("session")
 public class DBBibliotecaConfigForm extends GenericForm<DBBibliotecaConfig>{
     
+    private Boolean exibirDialogExclusao;
+    
     public DBDriver[] getDrivers(){        
         return DBDriver.values();
+    }
+    
+    public Boolean getExibirDialogExclusao() {
+        return exibirDialogExclusao;
+    }
+    
+     public void setExibirDialogExclusao(Boolean exibirDialogExclusao) {
+        this.exibirDialogExclusao = exibirDialogExclusao;
     }
 }

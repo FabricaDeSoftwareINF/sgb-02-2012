@@ -22,76 +22,91 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @Scope("session")
-public class BibliotecaConfigController extends 
-        SGBController<DBBibliotecaConfig, DBBibliotecaConfigForm, DBBibliotecaConfigService>{
-    
+public class BibliotecaConfigController extends SGBController<DBBibliotecaConfig, DBBibliotecaConfigForm, DBBibliotecaConfigService> {
+
     @Autowired
     private DBBibliotecaConfigForm form;
-    
     @Autowired
     private DBBibliotecaConfigService service;
-    
+
     @Override
     public String openInitialPage() {
         DBBibliotecaConfig config = service.getBibliotecaCfg();
-        if (config != null){
+        if (config != null) {
+
             form.setEntity(config);
+
         }
-        super.edit();
-        return super.openInitialPage();
+        return "BibliotecaConfigController/initialPage";
     }
-        
-    public void setForm(DBBibliotecaConfigForm form){
+
+    public void setForm(DBBibliotecaConfigForm form) {
         this.form = form;
     }
-    
+
     @Override
     public DBBibliotecaConfigForm getForm() {
         return form;
     }
-    
-    public void setService(DBBibliotecaConfigService service){
+
+    public void setService(DBBibliotecaConfigService service) {
         this.service = service;
     }
-    
+
     @Override
     public DBBibliotecaConfigService getService() {
         return service;
     }
-    
-    public void limpar(){
+
+    public void limpar() {
         this.form = new DBBibliotecaConfigForm();
     }
-    
-    public String salvarDBBibliotecaConfig(){
-        
-        try{
-            this.service.insert(this.form.getEntity());
-            this.addSuccessMessage("arquitetura.msg.sucesso");
+
+    public String salvarDBBibliotecaConfig() {
+
+        try {
+            if (this.getForm().getEntity() == null || 
+                    this.getForm().getEntity().getDriver() == null) {
+                this.service.insert(this.form.getEntity());
+                this.addSuccessMessage("arquitetura.msg.sucesso");
+            } else {
+                this.service.editar(this.form.getEntity());
+                this.addSuccessMessage("arquitetura.msg.sucesso");
+            }
         } catch (ValidationException ex) {
 
             this.addWarningMessage(ex.getKeyMessage());
 
-        }   
+        }
         return super.openSearchPage();
-        
+
     }
-    
+
     public String editarDBBibliotecaConfig() {
 
         super.edit();
 
         return super.openInitialPage();
     }
-    
+
+    public void prepararExclusao() {
+
+        if (this.getForm().getEntity() != null && 
+                this.getForm().getEntity().getDriver() != null) {
+            this.getForm().setExibirDialogExclusao(Boolean.TRUE);
+        } else {
+            this.getForm().setExibirDialogExclusao(Boolean.FALSE);
+            this.addWarningMessage("arquitetura.msg.nenhumregistroencontrado");
+        }
+    }
+
     public void remover() {
-
         this.service.getDAO().remove(form.getEntity());
+        this.addSuccessMessage("arquitetura.msg.sucesso");
+    }
 
-    }    
-    
     public String voltar() {
         return "/index.jsf";
 
-    }    
+    }
 }
