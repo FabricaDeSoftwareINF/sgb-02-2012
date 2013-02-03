@@ -13,6 +13,18 @@
 }
 
 body {
-    
     font-family: sans-serif;
+}
+
+.ui-layout-north {
+    z-index:20 !important;
+    overflow:visible !important;;
+}
+
+.ui-layout, .ui-layout-doc, .ui-layout-unit, .ui-layout-wrap, .ui-layout-bd, .ui-layout-hd{
+    border: none;
+}
+
+.ui-layout-north .ui-layout-unit-content {
+    overflow:visible !important;
 }
