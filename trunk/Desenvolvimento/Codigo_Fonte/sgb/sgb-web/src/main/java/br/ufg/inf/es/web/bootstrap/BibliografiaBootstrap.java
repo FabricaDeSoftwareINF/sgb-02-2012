@@ -1,5 +1,6 @@
 package br.ufg.inf.es.web.bootstrap;
 
+import br.ufg.inf.es.enuns.EnumTipoBibliografia;
 import br.ufg.inf.es.model.*;
 import java.util.Arrays;
 import java.util.Collection;
@@ -61,7 +62,7 @@ public class BibliografiaBootstrap {
 
     private static Bibliografia crieBibliografia(Disciplina disciplina, Livro livro) {
         Bibliografia bibliografia = new Bibliografia();
-        bibliografia.setTipo("basica");
+        bibliografia.setTipo(EnumTipoBibliografia.BASICA);
         bibliografia.setLivro(livro);
         bibliografia.setDisciplina(disciplina);
         bibliografia.setId(salve(bibliografia));
