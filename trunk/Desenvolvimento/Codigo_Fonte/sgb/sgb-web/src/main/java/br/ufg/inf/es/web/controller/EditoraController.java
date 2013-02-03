@@ -83,13 +83,17 @@ public class EditoraController
     public String editarEditora() {
 
         try {
+            
+            this.getForm().getCollectionEntities().remove(this.getForm().getEntity());
 
             this.getService().editar(this.getForm().getEntity());
 
             addSuccessMessage(EditoraController.KEY_MSG_SUCESSO);
 
         } catch (ValidationException ve) {
-
+            
+            this.getService().getDAO().closeSession();
+           
             addWarningMessage(ve.getKeyMessage());
 
         }

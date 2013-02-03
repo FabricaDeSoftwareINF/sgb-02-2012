@@ -14,6 +14,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.hibernate.Criteria;
+import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Example;
@@ -27,9 +28,9 @@ public abstract class GenericHibernateDAO<E extends Entity<Long>> implements DAO
     private Session session;
 
     protected abstract SessionFactory getSessionFactory();
-    
+
     protected abstract void setSessionFactory(SessionFactory sessionFactory);
-    
+
     protected Session getSession() {
 
         if (this.session == null || !this.session.isOpen()) {
@@ -42,8 +43,7 @@ public abstract class GenericHibernateDAO<E extends Entity<Long>> implements DAO
 
     protected Class<E> getClassEntity() {
 
-        final Type type[] = ((ParameterizedType) this.getClass()
-                .getGenericSuperclass()).getActualTypeArguments();
+        final Type type[] = ((ParameterizedType) this.getClass().getGenericSuperclass()).getActualTypeArguments();
 
         return (Class<E>) type[0];
     }
@@ -59,13 +59,13 @@ public abstract class GenericHibernateDAO<E extends Entity<Long>> implements DAO
     public E find(Long id) {
         E objeto;
         try {
-            
+
             objeto = (E) this.getSession().get(this.getClassEntity(), id);
-        
+
         } finally {
-        
+
             this.getSession().close();
-        
+
         }
         return objeto;
     }
@@ -73,13 +73,13 @@ public abstract class GenericHibernateDAO<E extends Entity<Long>> implements DAO
     public Long insert(E entidade) {
         Long id;
         try {
-           
+
             isReferencia(entidade);
-            
+
             id = (Long) this.getSession().save(entidade);
-                  
+
             this.getSession().flush();
-            
+
         } finally {
             this.getSession().close();
         }
@@ -93,9 +93,9 @@ public abstract class GenericHibernateDAO<E extends Entity<Long>> implements DAO
             this.getSession().merge(entidade);
 
             this.getSession().flush();
-                      
+
         } finally {
-            
+
             this.getSession().close();
         }
     }
@@ -126,18 +126,20 @@ public abstract class GenericHibernateDAO<E extends Entity<Long>> implements DAO
 
     public void removeAll(Collection<E> entidades) {
         try {
-            
+
             isReferencia(entidades);
 
             for (E entidade : entidades) {
 
                 this.remove(entidade);
             }
-            
+
             this.getSession().flush();
-            
+
         } finally {
+
             this.getSession().close();
+
         }
     }
 
@@ -151,13 +153,13 @@ public abstract class GenericHibernateDAO<E extends Entity<Long>> implements DAO
             example.excludeZeroes();
 
             example.excludeNone();
-            
+
             lista = this.createCriteria().add(example).list();
-      
+
         } finally {
- 
+
             this.getSession().close();
-            
+
         }
 
         return lista;
@@ -167,58 +169,62 @@ public abstract class GenericHibernateDAO<E extends Entity<Long>> implements DAO
 
         return this.getSession().createCriteria(this.getClassEntity());
     }
-    
-    public <T> Collection<T> getCollection(Long id, String property) {
-        
+
+    /**
+     * Método responsável por iniciaalizar uma coleção da Entidade
+     *
+     * @param <T>
+     * @param id
+     * @param property
+     * @return
+     */
+    public Collection<?> getCollection(Long id, String property) {
+
         try {
-         
-            return (Collection<T>) PropertyUtils.getProperty(this.getSession().get(this.getClassEntity(), id), property);
-            
+
+            final Collection<?> result = (Collection) PropertyUtils.getProperty(this.getSession().get(this.getClassEntity(), id), property);
+
+            Hibernate.initialize(result);
+
+            return result;
+
         } catch (Exception ex) {
-            
+
             Logger.getLogger(GenericHibernateDAO.class.getName()).log(Level.SEVERE, null, ex);
-            
+
             return Collections.EMPTY_LIST;
-            
+
         } finally {
-            
+
             this.getSession().close();
         }
     }
 
     public Collection<E> list() {
-        
+
         Collection<E> lista;
-        try {
 
-            Criteria criteria = this.createCriteria();
+        Criteria criteria = this.createCriteria();
 
-            this.addOrder(criteria);
-        
-            lista = criteria.list();
-        
-        } finally {
-            
-            this.getSession().flush();
-            
-            this.getSession().close();
-            
-        }
-        
+        this.addOrder(criteria);
+
+        lista = criteria.list();
+
         return lista;
+        
     }
 
     public void refresh(E entidade) {
         try {
-            
+
             isReferencia(entidade);
 
             this.getSession().refresh(entidade);
-        
+
         } finally {
-        
+
             this.getSession().close();
-        
+
         }
     }
 
@@ -256,6 +262,19 @@ public abstract class GenericHibernateDAO<E extends Entity<Long>> implements DAO
             criteria.addOrder(order);
         }
     }
+    
+    public void closeSession() {
+        
+        try {
+
+            this.session.close();
+
+        } catch (Exception e) {
+
+            Logger.getLogger(this.getClass().getSimpleName()).info(e.getMessage());
+        }
+    }
+    
 
     @Override
     protected void finalize() throws Throwable {
@@ -270,5 +289,5 @@ public abstract class GenericHibernateDAO<E extends Entity<Long>> implements DAO
         }
 
         super.finalize();
-    } 
+    }
 }

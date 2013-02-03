@@ -30,18 +30,17 @@ public class LivroDAO extends GenericHibernateDAO<Livro> {
         return this.sessionFactory;
     }
 
-    public Collection<Autor> getAutores(Long id) {
+    public Collection<?> getAutores(Long id) {
 
         return this.getCollection(id, "autores");
     }
     
-    public Collection<Bibliografia> getBibliografia(Long id) {
+    public Collection<?> getBibliografia(Long id) {
         
-       Criteria criteria = this.getSession().createCriteria(Bibliografia.class);
+       //Criteria criteria = this.getSession().createCriteria(Bibliografia.class);
        
-       criteria.add(Restrictions.eq("livro.id", id));
+       //criteria.add(Restrictions.eq("livro.id", id));
                
-       return criteria.list();
-  
+       return this.getCollection(id, "bibliografias"); 
     }
 }

@@ -1,15 +1,12 @@
 package br.ufg.inf.es.web.datamodel;
 
+import br.ufg.inf.es.integracao.LivroService;
+import br.ufg.inf.es.model.Autor;
+import br.ufg.inf.es.model.Bibliografia;
 import br.ufg.inf.es.model.Livro;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortOrder;
-import br.ufg.inf.es.integracao.LivroService;
-import java.util.Collection;
 
 /**
  *
@@ -87,10 +84,6 @@ public class LivroDataModel extends LazyDataModel<Livro> {
             } catch (IndexOutOfBoundsException e) {
                 data = data.subList(first, first + (dataSize % pageSize));
             }
-        }
-        
-        for (Livro livro : data) {
-            livro.setBibliografias(service.getDAO().getBibliografia(livro.getId()));
         }
         
         return data;

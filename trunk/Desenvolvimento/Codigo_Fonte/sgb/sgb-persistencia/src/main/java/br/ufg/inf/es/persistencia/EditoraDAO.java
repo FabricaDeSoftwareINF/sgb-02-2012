@@ -26,4 +26,11 @@ public class EditoraDAO extends GenericHibernateDAO<Editora> {
         
         return this.sessionFactory;
     }
+
+    @Override
+    protected void finalize() throws Throwable {
+        super.finalize();
+    }
+    
+    
 }
