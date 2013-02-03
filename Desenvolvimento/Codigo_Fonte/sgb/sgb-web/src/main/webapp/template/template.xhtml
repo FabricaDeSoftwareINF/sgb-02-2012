@@ -25,7 +25,7 @@
         </h:head>  
 
         <h:body> 
-            
+
             <h:form id="header">
                 <h:panelGrid width="100%" columns="2">
                     <p:graphicImage value="/resources/images/sgb.png" width="80" height="60"/>
@@ -57,6 +57,10 @@
                         <p:menuitem value="#{msg['usuario.label.usuarios']}" action="#{usuarioController.openInitialPage()}" ajax="false" />
                     </p:submenu>
 
+                    <p:menuitem value="#{msg['listaCompras.inicial']}" action="#{listaComprasController.openInitialPage()}" ajax="false">
+
+                    </p:menuitem>
+
                     <p:submenu label="Cotação" autoSubmenuDisplay="true">
                         <p:menuitem value="Livros para cotação" action="#{livroParaCotacaoController.openInitialPage()}" ajax="false"/>
                     </p:submenu>
@@ -64,6 +68,13 @@
                     <p:menuitem value="Configurações" action="#{parametrosController.openViewPage()}" ajax="false"/>
                     <p:menuitem value="Ajuda" ajax="false"/> 
 
+                    <div id="content">  
+
+                        <ui:insert name="content">
+
+                        </ui:insert>  
+
+                    </div>  
 
                     <p:menuitem value="" action="#" style="float: right">
 
@@ -85,47 +96,6 @@
                     <h:outputText value="" />  
                 </f:facet>  
             </p:ajaxStatus> 
-
-                </p:submenu>
-                
-                <p:menuitem value="#{msg['listaCompras.inicial']}" action="#{listaComprasController.openInitialPage()}" ajax="false">
-                    
-                </p:menuitem>
-
-                <p:submenu label="Cotação">
-
-                    <p:menuitem value="Livros para cotação" action="#{livroParaCotacaoController.openInitialPage()}" ajax="false"/>
-
-                </p:submenu>
-
-                <p:menuitem value="Configurações" action="#{parametrosController.openViewPage()}"/>
-
-                <p:menuitem value="Ajuda"/> 
-
-            </p:menubar>
-
-
-        </h:form>
-
-
-        <div id="content">  
-
-            <ui:insert name="content">
-
-            </ui:insert>  
-
-        </div>  
-
-        <p:ajaxStatus style="width:64px;height:64px;position:fixed;right:5px;bottom:5px">  
-            <f:facet name="start">  
-                <p:graphicImage value="/resources/images/loading.gif" />  
-            </f:facet>  
-
-            <f:facet name="complete">  
-                <h:outputText value="" />  
-            </f:facet>  
-        </p:ajaxStatus> 
-
-    </h:body>
+        </h:body>
     </f:view>
 </html>  
