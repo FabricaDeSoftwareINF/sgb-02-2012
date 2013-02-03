@@ -1,0 +1,101 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+    <ui:composition template="/template/template.xhtml">
+
+
+        <ui:define name="title">
+            Parâmetros Integração Biblioteca - SGB
+        </ui:define>
+        <ui:define name="content">
+
+            <h:form id="formParamBC">
+                <p:messages  autoUpdate="true"/>
+                <h:panelGrid columns="2">                          
+                    <h:outputLabel value="#{msg['parametros.bc.tipo']}"  ></h:outputLabel>
+
+                    <p:selectOneMenu label="SGBD" value="#{bibliotecaConfigController.form.entity.driver}"  
+                                     converter="enumTypeConverter" required="true" 
+                                     requiredMessage="Por favor selecione uma 
+                                        das opções de SGBD">
+                        <f:selectItem itemLabel="Selecione"/> 
+                        <f:selectItems  var="driver" value="#{bibliotecaConfigController.form.drivers}"
+                                        itemLabel="#{driver.name}" itemValue="#{driver}"/>
+                    </p:selectOneMenu>
+                    
+                    <h:outputLabel value="#{msg['parametros.bc.url']}"  ></h:outputLabel>
+                    <p:inputText label="URL " required="true" 
+                                 value="#{bibliotecaConfigController.form.entity.url}" 
+                                 requiredMessage="Por favor Informe a URL de 
+                                    conexão." />
+                    
+                    <h:outputLabel value="#{msg['parametros.bc.porta']}" ></h:outputLabel>
+                    <p:inputText label="Porta" required="true" 
+                                 value="#{bibliotecaConfigController.form.entity.porta}" 
+                                 equeredMessage="Por favor Informe a Porta de 
+                                    conexão" />
+                    
+                    <h:outputLabel value="#{msg['parametros.bc.schema']}"  ></h:outputLabel>
+                    <p:inputText label="Schema" required="true" 
+                                 value="#{bibliotecaConfigController.form.entity.nameDataBase}" 
+                                 requiredMessage="Por favor Informe o Nome da 
+                                    Base de Dados (Schema)." />
+                    
+                    <h:outputLabel value="#{msg['parametros.bc.usuario']}"  ></h:outputLabel>
+                    <p:inputText label="Usuário" required="true" 
+                                 value="#{bibliotecaConfigController.form.entity.userDataBase}" 
+                                 requiredMessage="Por favor Informe o Usuário de 
+                                    conexão." />
+                    
+                    <h:outputLabel value="#{msg['parametros.bc.senha']}"  ></h:outputLabel>
+                    <p:password label="Senha" required="true" 
+                                value="#{bibliotecaConfigController.form.entity.passwordDataBase}" 
+                                requiredMessage="Por favor Informe a Senha do 
+                                    Usuário de conexão." />
+                    
+                    <h:outputLabel value="#{msg['parametros.bc.tabela']}"  ></h:outputLabel>
+                    <p:inputText label="Tabela" required="true" 
+                                 value="#{bibliotecaConfigController.form.entity.tabela}" 
+                                 requiredMessage="Por favor Informe a Tabela." />
+                    
+                    <h:outputLabel value="#{msg['parametros.bc.colunatitulo']}"  ></h:outputLabel>
+                    <p:inputText label="Coluna Título" required="true" 
+                                 value="#{bibliotecaConfigController.form.entity.campoTituloLivro}" 
+                                 requiredMessage="Por favor Informe a Coluna 
+                                    Livro da Tabela do Banco de Dados da Bilioteca." />
+                    
+                    <h:outputLabel value="#{msg['parametros.bc.colunaquantidade']}"  ></h:outputLabel>
+                    <p:inputText label="Coluna Quantidade" required="true" 
+                                 value="#{bibliotecaConfigController.form.entity.campoQuantidadeLivro}" 
+                                 requiredMessage="Por favor Informe a Coluna 
+                                    Quantidade de Livros da Tabela do Banco de 
+                                    Dados da Bilioteca." />
+                    
+                    <div align="left">
+                        <h:panelGrid columns="2">
+                            <p:commandButton update="@form" 
+                                             actionListener="#{bibliotecaConfigController.insert()}" 
+                                             value="#{msg['parametros.bc.salvar']}" />
+                            <p:commandButton update="@form" 
+                                             actionListener="#{bibliotecaConfigController.remove()}" 
+                                             value="#{msg['parametros.bc.excluir']}" />
+                        </h:panelGrid>
+                    </div>
+                </h:panelGrid>
+            </h:form>
+            <h:form>
+                <div align="left">
+                    <p:commandButton  update="@form"  
+                                      ctionListener="#{dBBibliotecaConfigController.voltar()}" 
+                                      value="#{msg['parametros.bc.voltar']}" />
+                </div>
+            </h:form>
+
+        </ui:define>
+    </ui:composition>
+
+</html>

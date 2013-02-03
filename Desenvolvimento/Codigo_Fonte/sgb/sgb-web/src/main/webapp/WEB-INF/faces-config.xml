@@ -209,6 +209,15 @@
             <to-view-id>/paginas/cotacao/busca.xhtml</to-view-id>
         </navigation-case>
         
+        <!-- ESTÓRIA 18: Integração com Sophia - BC -->
+         <navigation-case>
+            
+            <from-outcome>BibliotecaConfigController/initialPage</from-outcome>
+            
+            <to-view-id>/paginas/parametros/biblioteca.xhtml</to-view-id>
+            
+        </navigation-case>
+        
     </navigation-rule>
 
     <application>
