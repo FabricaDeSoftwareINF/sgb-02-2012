@@ -2,14 +2,8 @@ package br.ufg.inf.es.model;
 
 import br.ufg.inf.es.base.model.annotations.OrderingProperty;
 import br.ufg.inf.es.base.model.annotations.SortOrder;
-import java.util.Collection;
 import java.util.Date;
-import java.util.HashSet;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.Transient;
+import javax.persistence.*;
 
 /**
  *
@@ -18,10 +12,9 @@ import javax.persistence.Transient;
 @Entity
 @Table(name = "USUARIO")
 public class Usuario extends AbstractEntityModel {
-    
+
     private String senha;
-    
-    @Column(nullable=false, unique=true)
+    @Column(nullable = false, unique = true)
     private String email;
     @Transient
     private String confirmacaoEmail;
@@ -31,8 +24,8 @@ public class Usuario extends AbstractEntityModel {
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date dataCadastro;
     private boolean status;
-    @Transient
-    private Collection<Perfil> perfil = new HashSet<Perfil>();
+    @Enumerated(EnumType.STRING)
+    private UsuarioPerfil perfil;
 
     public String getSenha() {
         return senha;
@@ -67,12 +60,12 @@ public class Usuario extends AbstractEntityModel {
     }
 
     public Date getDataCadastro() {
-        
+
         return (Date) dataCadastro.clone();
     }
 
     public void setDataCadastro(Date dataCadastro) {
-        
+
         this.dataCadastro = (Date) dataCadastro.clone();
     }
 
@@ -84,22 +77,14 @@ public class Usuario extends AbstractEntityModel {
         this.status = status;
     }
 
-    public Collection<Perfil> getPerfil() {
+    public UsuarioPerfil getPerfil() {
         return perfil;
     }
 
-    public void setPerfil(Collection<Perfil> perfil) {
+    public void setPerfil(UsuarioPerfil perfil) {
         this.perfil = perfil;
     }
-    
-    public String getStringPerfil() {
-        StringBuilder retorno = new StringBuilder();
-        for (Perfil p : this.perfil) {
-            retorno.append(p.getTipo()); retorno.append(";");
-        }
-        return retorno.toString();
-    }
-    
+
     public String getConfirmacaoEmail() {
         return confirmacaoEmail;
     }
@@ -107,5 +92,4 @@ public class Usuario extends AbstractEntityModel {
     public void setConfirmacaoEmail(String confirmacaoEmail) {
         this.confirmacaoEmail = confirmacaoEmail;
     }
-
 }

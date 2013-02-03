@@ -4,33 +4,15 @@
  */
 package br.ufg.inf.es.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
-
 /**
  *
- * @author Luã
+ * @author Geovane Pazine Filho
  */
-@Entity
-@Table(name = "PERFIL_USUARIO")
-public class UsuarioPerfil extends AbstractEntityModel {
+public enum UsuarioPerfil {
 
-    private long idUsuario;
-    private long idPerfil;
+    ADM, DOCENTE, CONSELHEIRO, TECNICO, DOCENTE_CONSELHEIRO, DOCENTE_ADM,
+    CONSELHEIRO_ADM, TECNICO_ADM, DOCENTE_CONSELHEIRO_ADM;
 
-    public long getIdUsuario() {
-        return idUsuario;
-    }
-
-    public void setIdUsuario(long idUsuario) {
-        this.idUsuario = idUsuario;
-    }
-
-    public long getIdPerfil() {
-        return idPerfil;
-    }
-
-    public void setIdPerfil(long idPerfil) {
-        this.idPerfil = idPerfil;
+    private UsuarioPerfil() {
     }
 }

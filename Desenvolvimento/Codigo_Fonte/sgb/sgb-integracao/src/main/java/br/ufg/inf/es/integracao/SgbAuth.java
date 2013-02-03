@@ -1,8 +1,8 @@
 package br.ufg.inf.es.integracao;
 
 import br.ufg.inf.es.base.service.Auth;
-import br.ufg.inf.es.model.Perfil;
 import br.ufg.inf.es.model.Usuario;
+import br.ufg.inf.es.model.UsuarioPerfil;
 import java.util.ArrayList;
 import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,9 +20,38 @@ public class SgbAuth implements Auth {
         Usuario usuario = usuarioService.authUser(user, password);
 
         if (usuario != null) {
-            Collection<Perfil> perfis = usuarioService.carreguePerfis(usuario);
-            for (Perfil perfil : perfis) {
-                roles.add(perfil.getTipo());
+            if (usuario.getPerfil().equals(UsuarioPerfil.ADM)) {
+                roles.add(UsuarioPerfil.ADM.name());
+            }
+            if (usuario.getPerfil().equals(UsuarioPerfil.CONSELHEIRO)) {
+                roles.add(UsuarioPerfil.CONSELHEIRO.name());
+            }
+            if (usuario.getPerfil().equals(UsuarioPerfil.CONSELHEIRO_ADM)) {
+                roles.add(UsuarioPerfil.ADM.name());
+                roles.add(UsuarioPerfil.CONSELHEIRO.name());
+            }
+            if (usuario.getPerfil().equals(UsuarioPerfil.DOCENTE)) {
+                roles.add(UsuarioPerfil.DOCENTE.name());
+            }
+            if (usuario.getPerfil().equals(UsuarioPerfil.DOCENTE_ADM)) {
+                roles.add(UsuarioPerfil.ADM.name());
+                roles.add(UsuarioPerfil.DOCENTE.name());
+            }
+            if (usuario.getPerfil().equals(UsuarioPerfil.DOCENTE_CONSELHEIRO)) {
+                roles.add(UsuarioPerfil.DOCENTE.name());
+                roles.add(UsuarioPerfil.CONSELHEIRO.name());
+            }
+            if (usuario.getPerfil().equals(UsuarioPerfil.DOCENTE_CONSELHEIRO_ADM)) {
+                roles.add(UsuarioPerfil.ADM.name());
+                roles.add(UsuarioPerfil.DOCENTE.name());
+                roles.add(UsuarioPerfil.CONSELHEIRO.name());
+            }
+            if (usuario.getPerfil().equals(UsuarioPerfil.TECNICO)) {
+                roles.add(UsuarioPerfil.TECNICO.name());
+            }
+            if (usuario.getPerfil().equals(UsuarioPerfil.TECNICO_ADM)) {
+                roles.add(UsuarioPerfil.ADM.name());
+                roles.add(UsuarioPerfil.TECNICO.name());
             }
         }
 
