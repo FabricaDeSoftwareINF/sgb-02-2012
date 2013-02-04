@@ -25,7 +25,7 @@
                                  rows="10" paginator="true" selection="#{livroController.livrosSelecionados}">
 
                         <p:column selectionMode="multiple" style="width:18px" /> 
-                        
+
                         <p:column headerText="#{msg['cadastro.livro.label.titulo']}">
 
                             <h:outputText value="#{livro.titulo}" />
@@ -56,7 +56,7 @@
 
                         <p:column headerText="#{msg['cadastro.livro.label.disciplinas']}">
                             <p:dataList value="#{livro.bibliografias}" var="bibliografia">
-                                <h:outputText value="#{bibliografia.tipo} - #{bibliografia.disciplina.nome}/#{bibliografia.disciplina.curso.nome}" />
+                                <h:outputText value="#{bibliografia.tipo.value} - #{bibliografia.disciplina.nome}/#{bibliografia.disciplina.curso.nome}" />
                             </p:dataList>
                         </p:column>
 
@@ -68,15 +68,7 @@
                                                action="#{livroController.openEditPage()}">
                                     <f:setPropertyActionListener target="#{livroController.form.entity}"
                                                                  value="#{livro}"/>
-                                </h:commandLink>                               
-
-                                <p:commandLink value="#{msg['cadastro.livro.button.remover']}" action="#{livroController.remove}" update="@all">
-
-                                    <f:setPropertyActionListener value="#{livro}" target="#{livroController.form.entity}" />
-
-                                    <f:param name="entityID" value="#{livro.id}" />
-
-                                </p:commandLink>
+                                </h:commandLink>        
 
                                 <p:commandButton id="exportar_button" value="#{msg['cadastro.livro.button.exportar']}"
                                                  oncomplete="geracaoPlanilhaDialog.show()">
@@ -97,9 +89,33 @@
 
                         <p:commandButton value="#{msg['cadastro.livro.button.novo']}"  action="#{livroController.openInsertPage()}" ajax="false" style="margin-right: 1em" />
 
-                        <p:commandButton value="#{msg['cadastro.livro.button.remover']}" update="@form"></p:commandButton>
+                        <p:commandButton value="#{msg['cadastro.livro.button.remover']}"
+                                         onclick="dlgRemocao.show();"/>
 
                     </h:panelGrid>
+
+                    <p:dialog id="dialogRemocao" widgetVar="dlgRemocao" modal="true"
+                              resizable="false" closable="false">
+
+                        <h:panelGrid columns="1" style="text-align: center;">
+
+                            <h:outputText value="#{msg['cadastro.autor.label.remocao']}"/>
+
+                            <p:spacer height="10"/>
+
+                            <h:panelGrid columns="2" style="margin-left: 30%;">
+
+                                <p:commandButton value="#{msg['cadastro.autor.label.sim']}" update="livros_datatable"
+                                                 actionListener="#{livroController.removerLivros()}" oncomplete="dlgRemocao.hide();"/>
+
+                                <p:commandButton value="#{msg['cadastro.autor.label.nao']}"
+                                                 onclick="dlgRemocao.hide();"/>
+
+                            </h:panelGrid>
+
+                        </h:panelGrid>
+
+                    </p:dialog>
 
                 </h:form>
 

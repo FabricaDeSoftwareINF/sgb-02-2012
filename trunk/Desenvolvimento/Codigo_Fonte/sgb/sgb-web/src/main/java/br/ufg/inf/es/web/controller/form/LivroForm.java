@@ -1,11 +1,15 @@
 package br.ufg.inf.es.web.controller.form;
 
+import br.ufg.inf.es.enuns.EnumTipoBibliografia;
 import br.ufg.inf.es.model.Bibliografia;
 import br.ufg.inf.es.model.Livro;
+
 import br.ufg.inf.es.web.datamodel.LivroDataModel;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
+
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -72,6 +76,19 @@ public class LivroForm extends GenericForm<Livro> {
 
     public void setFiltroTitulo(String filtroTitulo) {
         this.filtroTitulo = filtroTitulo;
+    }
+    
+    
+    public List<EnumTipoBibliografia> getTiposBibliografia() {
+        return Arrays.asList(EnumTipoBibliografia.values());
+    }
+    
+    public void setTipoBibliografia(EnumTipoBibliografia tipoBibliografia) {
+        bibliografiaTemp.setTipo(tipoBibliografia);
+    }
+    
+    public EnumTipoBibliografia getTipoBibliografia() {
+        return bibliografiaTemp.getTipo();
     }
     
 }

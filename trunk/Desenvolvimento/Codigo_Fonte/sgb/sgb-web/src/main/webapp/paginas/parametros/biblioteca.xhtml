@@ -19,7 +19,7 @@
                     <h:outputLabel value="#{msg['parametros.bc.tipo']}"  ></h:outputLabel>
 
                     <p:selectOneMenu label="SGBD" value="#{bibliotecaConfigController.form.entity.driver}"  
-                                     converter="enumTypeConverter">
+                                     converter="dbDriverConverter">
                         <f:selectItem itemLabel="Selecione"/> 
                         <f:selectItems  var="driver" value="#{bibliotecaConfigController.form.drivers}"
                                         itemLabel="#{driver.name}" itemValue="#{driver}"/>
