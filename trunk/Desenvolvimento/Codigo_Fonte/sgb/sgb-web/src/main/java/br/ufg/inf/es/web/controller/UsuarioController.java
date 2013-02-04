@@ -1,5 +1,6 @@
 package br.ufg.inf.es.web.controller;
 
+import br.ufg.inf.es.base.validation.ValidationException;
 import br.ufg.inf.es.integracao.UsuarioService;
 import br.ufg.inf.es.model.Usuario;
 import br.ufg.inf.es.model.UsuarioPerfil;
@@ -8,6 +9,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -179,7 +182,12 @@ public class UsuarioController
      */
     public String recuperarSenha() {
         String email = this.getParameterFromRequest("email");
-        service.recuperarSenha(email);
+        try {
+            service.recuperarSenha(email);
+        } catch (ValidationException ex) {
+           this.addErrorMessage("esqueciasenha.emailnaocadastrado");
+           return null;
+        }
         return "/login.xhtml";
     }
 

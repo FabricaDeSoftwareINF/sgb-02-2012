@@ -82,13 +82,13 @@ public class UsuarioService extends GenericService<Usuario> {
      * Método responsável por recuperar a senha do usuário de acordo com seu email cadastrado
      * @param emailUsuario 
      */
-    public void recuperarSenha(String emailUsuario) {
+    public void recuperarSenha(String emailUsuario) throws ValidationException {
 
         Usuario usuario = dao.findUserByEmail(emailUsuario);
 
         if (usuario == null) {
 
-            return;
+            throw new ValidationException("E-mail não cadastrado");
         }
 
         String letters = "abcdefghjkmnpqrstuvwxyzABCDEFGHJKMNPQRSTUVWXYZ23456789_-";
