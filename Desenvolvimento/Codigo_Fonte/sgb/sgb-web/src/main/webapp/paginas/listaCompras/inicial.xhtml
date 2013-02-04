@@ -9,6 +9,7 @@
 
         <ui:define name="content">
 
+            <ui:include src="novaListaCompra.xhtml"></ui:include>
             <h:form id="form">  
 
                 <p:growl id="growl" showDetail="true"/>  
@@ -41,11 +42,6 @@
 
                         <p:dataTable var="livro" value="#{listaCompras.livrosDaListaCompras}">  
 
-
-                            <p:column headerText="Selecionar">
-                                <p:selectBooleanCheckbox/>  
-                            </p:column>
-
                             <p:column headerText="Título">
                                 <h:outputText value="#{livro.titulo}" />  
                             </p:column>  
@@ -72,9 +68,15 @@
                             </p:column>-->
                         </p:dataTable>    
 
-
                     </p:rowExpansion>  
-                </p:dataTable>  
+                </p:dataTable> 
+
+                <h:panelGrid columns="2" style="float: right">
+
+                    <p:commandButton value="Novo" onclick="novaListaCompra.show();" />
+
+                </h:panelGrid>
+
             </h:form>  
 
 

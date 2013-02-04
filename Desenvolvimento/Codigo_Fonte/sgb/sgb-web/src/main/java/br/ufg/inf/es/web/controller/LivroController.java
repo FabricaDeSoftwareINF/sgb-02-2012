@@ -70,6 +70,9 @@ public class LivroController extends SGBController<Livro, LivroForm, LivroServic
         this.autor = new Autor();
         this.editora = new Editora();
 
+        this.getForm().setTodosLivros(new ArrayList<Livro>());
+        buscaTodosLivros();
+        
         return super.openInitialPage();
     }
     
@@ -279,5 +282,20 @@ public class LivroController extends SGBController<Livro, LivroForm, LivroServic
     public StreamedContent getFile() {
         return this.fileExportado;
     }
- 
+    
+    /**
+     * @author Jackeline
+     */
+    public void buscaTodosLivros(){
+        this.getForm().setTodosLivros(this.getService().buscaTodosLivros(this.getForm().getFiltroTitulo()));
+        this.getForm().setFiltroTitulo("");
+        limpaEntidadeDeCadastro();
+    }
+    /**
+     * @author Jackeline
+     */
+    private void limpaEntidadeDeCadastro(){
+        this.getForm().setEntity(new Livro());
+    }
+    
 }
