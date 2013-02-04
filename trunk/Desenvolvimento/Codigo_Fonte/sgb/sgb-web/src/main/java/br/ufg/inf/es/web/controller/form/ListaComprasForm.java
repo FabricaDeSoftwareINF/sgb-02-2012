@@ -16,6 +16,7 @@ import org.springframework.stereotype.Component;
 public class ListaComprasForm extends GenericForm<ListaCompras> {
 
     private Collection<ListaCompras> listaCompras;
+    private Livro[] selectedLivros;
 
     public Collection<ListaCompras> getListaCompras() {
         return listaCompras;
@@ -24,6 +25,24 @@ public class ListaComprasForm extends GenericForm<ListaCompras> {
     public void setListaCompras(Collection<ListaCompras> listaCompras) {
         this.listaCompras = listaCompras;
     }
+
+    public Livro[] getSelectedLivros() {
+        
+        Livro[] retorno = null;
+        
+        if(this.selectedLivros != null) {
+            
+             retorno = this.selectedLivros.clone();
+        }
+        
+        return retorno;
+    }
+
+    public void setSelectedLivros(Livro[] selectedLivros) {
+        this.selectedLivros = selectedLivros;
+    }
+
+    
     
     
 }

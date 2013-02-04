@@ -3,23 +3,29 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets">
 
-    <ui:composition template="/template/template.xhtml">
+    <f:view>
+        <p:dialog id="selecao_livro_dialog" widgetVar="novaListaCompra" closable="true" 
+                  header="teste">
 
-        <p:dialog id="selecao_livro_dialog" widgetVar="selecaoLivroDialog" closable="true" 
-                  header="#{msg.listaCompras.selecaoLivro}">
+            <h:form id="novo_lista_compra_form">
 
-            <h:form>
+                <p:dataTable id="dtTable" value="#{livroController.form.livroDM}" 
+                             var="livro" style="width: 100%" paginator="true" 
+                             paginatorAlwaysVisible="false" rows="10" 
+                             selection="#{livroController.form.selectedLivros}"
+                             emptyMessage="Nenhum registro">
+                    
+                    <p:column selectionMode="multiple" style="width: 18px"></p:column>
 
-                <p:dataTable value="#{livroController.form.collectionEntities}" var="livro"
-                             rows="10" paginator="true">
-
-                    <p:column headerText="#{msg['cadastro.livro.label.titulo']}">
+                    <p:column headerText="#{msg['cadastro.livro.label.titulo']}" 
+                              filterBy="#{livro.titulo}" filterMatchMode="contains"
+                              styleClass="widthFilterBy">
 
                         <h:outputText value="#{livro.titulo}" />
 
                     </p:column>
 
-                    <p:column headerText="#{msg['cadastro.livro.label.autor']}">
+                   <!-- <p:column headerText="#{msg['cadastro.livro.label.autor']}">
                         <p:dataList value="#{livro.autores}" var="autor">
                             <h:outputText value="#{autor}" />
                         </p:dataList>
@@ -39,7 +45,7 @@
 
                     <p:column headerText="#{msg['cadastro.livro.label.isbn13']}">
                         <h:outputText value="#{livro.isbn13}" />
-                    </p:column>
+                    </p:column>-->
 
                     <p:column headerText="#{msg['cadastro.livro.label.acoes']}">
 
@@ -69,6 +75,5 @@
                 </p:dataTable>
             </h:form>
         </p:dialog>
-    </ui:composition>
-
+    </f:view>    
 </html>
