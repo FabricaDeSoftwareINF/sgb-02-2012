@@ -4,38 +4,77 @@
  */
 package br.ufg.inf.es.web.controller.form;
 
+import br.ufg.inf.es.enuns.EnumTipoBibliografia;
+import br.ufg.inf.es.model.Bibliografia;
 import br.ufg.inf.es.model.Curso;
 import br.ufg.inf.es.model.Disciplina;
-import java.util.ArrayList;
+import br.ufg.inf.es.model.Livro;
 import java.util.Collection;
-import java.util.List;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 /**
- *
- * @author Diogo, Marco Aurélio
+ * Formulário responsável pela Estória de Usuário Manter Disciplina
+ * @author Diogo, Marco Aurélio, Cássio Augusto Silva de Freitas
  */
 @Component
 @Scope("session")
 public class DisciplinaForm extends GenericForm<Disciplina> {
 
     private Curso cursoSelecionado;
+    
     private Collection<Curso> cursos;
-    private Collection<String> tiposBibliografia = new ArrayList<String>();
+    
+    private Collection<EnumTipoBibliografia> tipoBibliografias;
+    
+    private EnumTipoBibliografia tipoBibliografiaSelecionado;
+    
+    private Collection<Livro> livrosSelecionados;
+    
+    private Collection<Bibliografia> bibliografiasAssociadas;
+    
+    private Boolean exibirDialogRemocao;
 
-    public Collection<String> getTiposBibliografia() {
-        return tiposBibliografia;
+    public Boolean getExibirDialogRemocao() {
+        return exibirDialogRemocao;
     }
 
-    public void setTiposBibliografia(Collection<String> tiposBibliografia) {
-        this.tiposBibliografia = tiposBibliografia;
+    public void setExibirDialogRemocao(Boolean exibirDialogRemocao) {
+        this.exibirDialogRemocao = exibirDialogRemocao;
     }
     
-    public void setTiposBibliografia(String tipoBibliografia) {
-        this.tiposBibliografia.add(tipoBibliografia);
+    public Collection<Bibliografia> getBibliografiasAssociadas() {
+        return bibliografiasAssociadas;
     }
 
+    public void setBibliografiasAssociadas(Collection<Bibliografia> bibliografiasAssociadas) {
+        this.bibliografiasAssociadas = bibliografiasAssociadas;
+    }
+
+    public Collection<Livro> getLivrosSelecionados() {
+        return livrosSelecionados;
+    }
+
+    public void setLivrosSelecionados(Collection<Livro> livrosSelecionados) {
+        this.livrosSelecionados = livrosSelecionados;
+    }
+
+    public EnumTipoBibliografia getTipoBibliografiaSelecionado() {
+        return tipoBibliografiaSelecionado;
+    }
+
+    public void setTipoBibliografiaSelecionado(EnumTipoBibliografia tipoBibliografiaSelecionado) {
+        this.tipoBibliografiaSelecionado = tipoBibliografiaSelecionado;
+    }
+
+    public Collection<EnumTipoBibliografia> getTipoBibliografias() {
+        return tipoBibliografias;
+    }
+
+    public void setTipoBibliografias(Collection<EnumTipoBibliografia> tipoBibliografias) {
+        this.tipoBibliografias = tipoBibliografias;
+    }
+    
     public Curso getCursoSelecionado() {
         return cursoSelecionado;
     }

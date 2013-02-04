@@ -10,117 +10,117 @@
         </ui:define>
 
         <ui:define name="content">
-            <h:form prependId="false">
-                <p:panel header="Cadastrar Disciplina">
+
+            <h:form id="formInicial" prependId="false">
+
+                <p:panel header="#{msg['label.disciplina.title.cadastroDisciplina']}">
 
                     <p:messages autoUpdate="true"/>
 
-                    <h:panelGrid columns="3">
-                        <p:column>
-                            <h:outputLabel value="Nome: " for="disciplinaNome" />
-                            <h:inputText value="#{disciplinaController.form.entity.nome}" id="disciplinaNome"/>
-                        </p:column>
+                    <h:panelGrid style="width: 100%;">
 
-                        <p:column>
-                            <h:outputLabel value="Código: " for="disciplinaCodigo" />
-                            <h:inputText value="#{disciplinaController.form.entity.codigo}" id="disciplinaCodigo" />
-                        </p:column>
+                        <h:panelGrid columns="6" style="width: 100%;">
 
-                        <p:column>
-                            <h:outputLabel value="Curso: " for="curso_selectone" style="vertical-align: 40%"/>
-                            <p:selectOneMenu id="curso_selectone" value="#{disciplinaController.form.entity.curso}"
-                                             style=" width : 300px;"
-                                             converter="cursoConverter">
-                                <f:selectItem itemLabel="Curso" />
-                                <f:selectItems value="#{disciplinaController.form.cursos}" var="curso" itemLabel="#{curso.nome}" itemValue="#{curso}"/>
-                            </p:selectOneMenu>   
-                        </p:column>
+                            <h:outputLabel value="#{msg['label.disciplina.codigo']}:"></h:outputLabel>
 
-                    </h:panelGrid>
+                            <p:inputText value="#{disciplinaController.form.entity.codigo}"></p:inputText>
 
-                </p:panel>
-                <p:panel>
+                            <h:outputLabel value="#{msg['label.disciplina.nome']}:"></h:outputLabel>
 
+                            <p:inputText value="#{disciplinaController.form.entity.nome}"></p:inputText>
 
+                            <h:outputLabel value="#{msg['label.disciplina.curso']}:"></h:outputLabel>
 
-                    <fieldset style="width: 800px">
-                        <legend>Bibliografia</legend>
+                            <p:selectOneMenu value="#{disciplinaController.form.entity.curso}" converter="cursoConverter" >
 
-                        <p:panel>
-                            <p:panelGrid styleClass="semborda">
+                                <f:selectItems value="#{disciplinaController.form.cursos}" var="curso" itemLabel="#{curso.nome}"/>
 
-                                <p:row>
-                                    <p:column>
-                                        <h:outputLabel value="Tipo da Bibliografia: " style="float: right;"/>
-                                    </p:column>
-                                    <p:column>
-                                        <p:selectOneMenu    id="tipo" value="#{disciplinaController.form.entity.id}"
-                                                            style=" width : 300px;" >
-                                            <f:selectItem itemLabel="Selecione" />
-                                            <f:selectItems value="#{disciplinaController.form.tiposBibliografia}" />
-                                        </p:selectOneMenu> 
-                                    </p:column>
-                                </p:row>
+                            </p:selectOneMenu>
 
-                                <p:row>
-                                    <p:column>
-                                        <h:outputLabel value="Título do livros: " for="autoCompleteLivro"/>
-                                    </p:column>
-                                    <p:column>
-                                        <p:autoComplete id="autoCompleteLivro" 
-                                                        value="#{disciplinaController.form.entity.bibliografias.livro}"
-                                                        completeMethod="#{livroController.complete}"  
-                                                        var="livro" itemLabel="#{livro.titulo}" 
-                                                        itemValue="#{livro}" 
-                                                        converter="livroConverter"  
-                                                        multiple="true"/>
-                                    </p:column>
-                                </p:row>
-                            </p:panelGrid>
-                        </p:panel>
+                        </h:panelGrid>
 
-                        <p:commandButton action="#{disciplinaController.insert}" 
-                                         value="Vincular Bibliografia"/>
-                        
-                        <p:panel>
+                        <p:fieldset style="width: 97%;" legend="#{msg['label.disciplina.associacaoLivro']}">
 
-                            <p:dataTable value="#{disciplinaController.form.entity.bibliografias}" var="bibliografia" emptyMessage="Sem bibliografias cadastradas">
+                            <h:panelGrid columns="2">
 
-                                <p:column headerText="Tipo de Bibliografia">
-                                    <h:outputText value="#{bibliografia.tipo}" />
+                                <h:outputLabel value="#{msg['label.disciplina.tipoBibliografia']}:"></h:outputLabel>
+
+                                <p:selectOneMenu value="#{disciplinaController.form.tipoBibliografiaSelecionado}">
+
+                                    <f:selectItems value="#{disciplinaController.form.tipoBibliografias}" var="tipo" itemLabel="#{tipo.value}"></f:selectItems>
+
+                                </p:selectOneMenu>
+
+                                <h:outputLabel value="#{msg['label.disciplina.tituloLivro']}:"></h:outputLabel>
+
+                                <p:autoComplete value="#{disciplinaController.form.livrosSelecionados}" converter="livroConverter" 
+                                                completeMethod="#{disciplinaController.buscaLivros}" var="livro" itemLabel="#{livro.titulo}" itemValue="#{livro}" 
+                                                multiple="true" forceSelection="true" immediate="true" >
+                                   
+                                    
+                                </p:autoComplete>
+
+                                <p:spacer width="10"/>
+
+                                <p:commandButton value="#{msg['label.disciplina.associarLivro']}" action="#{disciplinaController.associarLivros}" update="@form"></p:commandButton>
+
+                            </h:panelGrid>
+
+                            <p:dataTable id="dtTable" value="#{disciplinaController.form.bibliografiasAssociadas}" var="bibliografia" paginator="true" rows="10">
+
+                                <p:column headerText="#{msg['label.disciplina.tipoBibliografia']}">
+
+                                    <h:outputText value="#{bibliografia.tipo.value}"></h:outputText>
+
                                 </p:column>
 
-                                <p:column headerText="Título do livro">
-                                    <h:outputText value="#{bibliografia.livro.titulo}" />
+                                <p:column headerText="#{msg['label.disciplina.tituloLivro']}">
+
+                                    <h:outputText value="#{bibliografia.livro.titulo}"></h:outputText>
+
                                 </p:column>
 
-                                <p:column headerText="Ações">
-                                    <h:panelGrid columns="3" width="100%">
-                                        <p:commandButton value="Remover" action="#{usuarioController.remove}" update="@all">
-                                            <f:setPropertyActionListener value="#{usuario}" target="#{usuarioController.form.entity}" />
-                                            <f:param name="entityID" value="#{usuario.id}" />
-                                        </p:commandButton>
-                                    </h:panelGrid>
+                                <p:column headerText="#{msg['label.disciplina.acao']}">
+
+                                    <p:commandLink value="#{msg['cadastro.acao.remover']}" update="@form">
+
+                                    </p:commandLink>
+
                                 </p:column>
 
                             </p:dataTable>
 
-                        </p:panel>
-                    </fieldset>
-                    
-                    <h:panelGrid columns="2" style="float: right;">
-                        <p:commandButton actionListener="#{disciplinaController.insert}" 
-                                         value="#{msg['cadastro.usuario.button.insert']}"
-                                         ajax="false"
-                                         action="#{disciplinaController.openInitialPage()}"/>
-                        
-                        <p:commandButton action="#{disciplinaController.openInitialPage()}"
-                                         value="#{msg['acao.voltar']}"  
-                                         ajax="false"/>
+                        </p:fieldset>
+
+                        <h:panelGrid columns="2" style="float: right">
+
+                            <p:commandButton value="#{msg['label.disciplina.cadastrar']}"></p:commandButton>
+
+                            <p:commandButton value="#{msg['label.disciplina.voltar']}"></p:commandButton>
+
+                        </h:panelGrid>
+
                     </h:panelGrid>
 
+                    <p:confirmDialog id="dialogRemocao" message="#{msg['label.disciplina.mensagem.removerAssociacao']}"
+                                     header="#{msg['label.disciplina.tituloDialog.removerBibliografia']}" severity="alert" 
+                                     widgetVar="alertRemocao" visible="#{disciplinaController.form.exibirDialogRemocao}">
+                        <center>
+
+                            <p:commandButton value="#{msg['label.sim']}" action="#{disciplinaController.inserir}" ajax="false"></p:commandButton>
+
+                            <p:commandButton value="#{msg['label.nao']}" action="#" ajax="false"></p:commandButton>
+
+                        </center>
+
+                    </p:confirmDialog>
+                
                 </p:panel>
+
             </h:form>
+
         </ui:define>
+
     </ui:composition>
+
 </html>

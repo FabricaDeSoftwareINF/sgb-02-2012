@@ -1,20 +1,27 @@
 package br.ufg.inf.es.web.controller;
 
+import br.ufg.inf.es.base.util.UtilObjeto;
 import br.ufg.inf.es.base.validation.ValidationException;
+import br.ufg.inf.es.enuns.EnumTipoBibliografia;
 import br.ufg.inf.es.integracao.CursoService;
 import br.ufg.inf.es.integracao.DisciplinaService;
+import br.ufg.inf.es.model.Bibliografia;
 import br.ufg.inf.es.model.Curso;
 import br.ufg.inf.es.model.Disciplina;
+import br.ufg.inf.es.model.Livro;
 import br.ufg.inf.es.web.controller.form.CursoForm;
 import br.ufg.inf.es.web.controller.form.DisciplinaForm;
-import java.util.Collection;
+import java.util.*;
+import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 /**
  *
- * @author Diogo, Marco Aurélio
+ * @author Marco Aurélio, Cássio Augusto Silva de Freitas
  */
 @Component
 @Scope("session")
@@ -27,23 +34,106 @@ public class DisciplinaController extends SGBController<Disciplina, DisciplinaFo
     private DisciplinaService service;
     @Autowired
     private CursoService cursoService;
-    @Autowired
-    private CursoForm cursoForm;
 
+    /**
+     * Método responsável por iniciar o dados do formulário e preparar para
+     * abrir a tela inicial
+     *
+     * @author Cássio Augusto Silva de Freitas
+     */
     @Override
     public void initData() {
 
         super.initData();
 
-        this.form.getEntity().setCurso(new Curso());
+        this.getForm().setExibirDialogRemocao(Boolean.FALSE);
+
+        this.getForm().getEntity().setCurso(new Curso());
 
         this.getForm().setCursos(this.getCursoService().list());
 
-        if (getForm().getTiposBibliografia().isEmpty()) {
-            this.getForm().setTiposBibliografia("Básica");
-            this.getForm().setTiposBibliografia("Complementar");
-            this.getForm().setTiposBibliografia("Sugerida");
+        this.getForm().setTipoBibliografias(new ArrayList<EnumTipoBibliografia>());
+
+        this.getForm().setBibliografiasAssociadas(new ArrayList<Bibliografia>());
+
+        this.getForm().setTipoBibliografias(Arrays.asList(EnumTipoBibliografia.values()));
+    }
+
+    /**
+     * Método responsável por buscar coleção de Livros de acordo com o titulo
+     * digitado pelo usuário
+     *
+     * @author Cássio Augusto Silva de Freitas
+     * @param query
+     * @return Coleção de Livros
+     */
+    public Collection<Livro> buscaLivros(String query) {
+
+        List<Livro> livros = (List<Livro>) this.getService().buscaLivros(query);
+
+        for (Bibliografia bl : this.getForm().getBibliografiasAssociadas()) {
+
+            if (livros.contains(bl.getLivro())) {
+
+                livros.remove(bl.getLivro());
+            }
+
         }
+        
+        return livros;
+
+    }
+
+    /**
+     * Método responsável por associar os Livros selecionados a Disciplina
+     *
+     * @author Cássio Augusto Silva de Freitas
+     */
+    public void associarLivros() {
+
+        if (UtilObjeto.isReferencia(this.getForm().getLivrosSelecionados()) && !this.getForm().getLivrosSelecionados().isEmpty()) {
+
+            for (Livro livro : this.getForm().getLivrosSelecionados()) {
+
+                Bibliografia bibliografia = new Bibliografia();
+
+                bibliografia.setTipo(this.getForm().getTipoBibliografiaSelecionado());
+
+                bibliografia.setLivro(livro);
+
+                this.getForm().getBibliografiasAssociadas().add(bibliografia);
+            }
+
+            this.getForm().setLivrosSelecionados(new ArrayList<Livro>());
+
+        } else {
+
+            this.addWarningMessage("label.disciplina.nenhumLivroSelecionado");
+
+        }
+
+    }
+
+    /**
+     * Método responsável por inserir uma nova Disciplina
+     *
+     * @return String de navegação
+     */
+    public String inserir() {
+
+        try {
+
+            this.getService().insert(this.form.getEntity());
+
+            this.addSuccessMessage(DisciplinaController.KEY_SUCESSO);
+
+        } catch (ValidationException ex) {
+
+            this.addWarningMessage(ex.getKeyMessage());
+
+        }
+
+        return this.openInitialPage();
     }
 
     @Override
@@ -72,27 +162,7 @@ public class DisciplinaController extends SGBController<Disciplina, DisciplinaFo
         this.cursoService = cursoService;
     }
 
-    public CursoForm getCursoForm() {
-        return cursoForm;
-    }
-
-    public void setCursoForm(CursoForm cursoForm) {
-        this.cursoForm = cursoForm;
-    }
-
-    @Override
-    public void insert() {
-
-        try {
-
-            this.service.insert(this.form.getEntity());
-
-            this.addSuccessMessage(DisciplinaController.KEY_SUCESSO);
-
-        } catch (ValidationException ex) {
-
-            this.addWarningMessage(ex.getKeyMessage());
-
-        }
+    private void verificaSeLivroJaRelacionado(Livro livro) {
+        throw new UnsupportedOperationException("Not yet implemented");
     }
 }

@@ -1,7 +1,9 @@
 package br.ufg.inf.es.integracao;
 
+import br.ufg.inf.es.base.util.UtilObjeto;
 import br.ufg.inf.es.base.validation.ValidationException;
 import br.ufg.inf.es.integracao.annotations.RNG006;
+import br.ufg.inf.es.model.Bibliografia;
 import br.ufg.inf.es.model.Curso;
 import br.ufg.inf.es.model.Disciplina;
 import br.ufg.inf.es.model.Livro;
@@ -24,10 +26,9 @@ public class DisciplinaService extends GenericService<Disciplina> {
 
     @Autowired
     private DisciplinaDAO dao;
-    
     @Autowired
     private LivroDAO livroDao;
-    
+
     @Override
     public DisciplinaDAO getDAO() {
         return this.dao;
@@ -41,37 +42,48 @@ public class DisciplinaService extends GenericService<Disciplina> {
     public LivroDAO getLivroDao() {
         return livroDao;
     }
-    
+
     @Override
     @RNG006
-    public Long insert(Disciplina entidade) throws ValidationException { 
-        
-        return this.getDAO().insert(entidade);
+    public Long insert(Disciplina entidade) throws ValidationException {
+
+        if (UtilObjeto.isReferencia(entidade.getBibliografias())) {
+            for (Bibliografia bl : entidade.getBibliografias()) {
+
+                bl.setDisciplina(entidade);
+
+            }
+
+        }
+
+        this.getDAO().update(entidade);
+
+        return 0L;
     }
 
-    public Collection<Disciplina> complete(String query) {  
+    public Collection<Disciplina> complete(String query) {
         Collection<Disciplina> results = new ArrayList<Disciplina>();
-          
-        for(Disciplina disciplina : this.dao.list()){
-            if(disciplina.getNome().contains(query)){
+
+        for (Disciplina disciplina : this.dao.list()) {
+            if (disciplina.getNome().contains(query)) {
                 results.add(disciplina);
             }
         }
-          
-        return results;  
-    } 
-    
+
+        return results;
+    }
+
     /**
      * Método responsável por buscar Livros de acordo com seu título
+     *
      * @author Cássio Augusto Silva de Freitas
-     * @param query 
+     * @param query
      */
     public Collection<Livro> buscaLivros(String query) {
         return this.getLivroDao().buscaLivroPorTitulo(query);
     }
 
-    public void inserirDisciplina(Disciplina entity) throws ValidationException{
+    public void inserirDisciplina(Disciplina entity) throws ValidationException {
         throw new UnsupportedOperationException("Not yet implemented");
     }
-    
 }

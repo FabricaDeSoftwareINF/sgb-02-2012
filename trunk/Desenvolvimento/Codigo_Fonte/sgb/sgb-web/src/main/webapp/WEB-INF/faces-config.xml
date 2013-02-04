@@ -215,7 +215,7 @@
         </navigation-case>
         
         <!-- ESTÓRIA 18: Integração com Sophia - BC -->
-         <navigation-case>
+        <navigation-case>
             
             <from-outcome>BibliotecaConfigController/initialPage</from-outcome>
             
@@ -224,6 +224,11 @@
         </navigation-case>
         
     </navigation-rule>
+    
+    <converter>
+        <converter-for-class>java.lang.Enum</converter-for-class>
+        <converter-class>javax.faces.convert.EnumConverter</converter-class>
+    </converter>
 
     <application>
         <el-resolver>org.springframework.web.jsf.el.SpringBeanFacesELResolver</el-resolver>
