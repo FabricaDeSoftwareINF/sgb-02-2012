@@ -31,7 +31,7 @@ public final class EmailService {
         
         try {
             
-            properties.load(EmailService.class.getResourceAsStream("/email.properties"));
+            properties.load(EmailService.class.getResourceAsStream("/resources/email.properties"));
             
             String server = properties.getProperty("email.server");
             
