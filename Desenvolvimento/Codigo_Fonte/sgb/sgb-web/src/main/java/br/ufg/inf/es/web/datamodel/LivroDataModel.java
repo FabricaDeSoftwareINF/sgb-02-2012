@@ -1,6 +1,7 @@
 package br.ufg.inf.es.web.datamodel;
 
 import br.ufg.inf.es.model.Livro;
+import java.io.Serializable;
 import java.util.List;
 import javax.faces.model.ListDataModel;
 import org.primefaces.model.SelectableDataModel;
@@ -9,7 +10,7 @@ import org.primefaces.model.SelectableDataModel;
  *
  * @author vinicius
  */
-public class LivroDataModel extends ListDataModel<Livro> implements SelectableDataModel<Livro> {    
+public class LivroDataModel extends ListDataModel<Livro> implements SelectableDataModel<Livro>, Serializable {    
   
     public LivroDataModel() {  
     }  
