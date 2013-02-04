@@ -46,11 +46,10 @@
                 <p:fieldset id="associar_disciplina_panel" legend="#{msg['cadastro.livro.legend.associarDisciplina']}">
                     <h:panelGrid columns="2">
                         <h:outputLabel value="Tipo:"></h:outputLabel>
-                        <p:selectOneMenu value="#{livroController.tipoBibliografia}">
-                            <f:selectItem itemValue="" itemLabel="#{msg['cadastro.livro.input.selecione']}"/>
-                            <f:selectItem itemValue="basica" itemLabel="#{msg['cadastro.livro.input.bibliografiabasica']}"/>
-                            <f:selectItem itemValue="complementar" itemLabel="#{msg['cadastro.livro.input.bibliografiacomplementar']}"/>
-                            <f:selectItem itemValue="sugerida" itemLabel="#{msg['cadastro.livro.input.bibliografiasugerida']}"/>
+                        <p:selectOneMenu value="#{livroController.form.tipoBibliografia}" converter="enumTipoBibliografiaConverter">
+                            <f:selectItem itemLabel="#{msg['cadastro.livro.input.selecione']}"/>
+                            <f:selectItems value="#{livroController.form.tiposBibliografia}" var="tipoBibliografia"
+                                           itemValue="#{tipoBibliografia}" itemLabel="#{tipoBibliografia.value}"/>
                         </p:selectOneMenu>
                         <h:outputLabel value="Curso:"></h:outputLabel>
                         <p:selectOneMenu value="#{livroController.cursoSelecionado}"  converter="cursoConverter">
@@ -69,7 +68,7 @@
 
                     <p:dataTable id="table_disciplinas" value="#{livroController.form.entity.bibliografias}" var="item">
                         <p:column headerText="Tipo">
-                            <h:outputText value="#{item.tipo}"/>
+                            <h:outputText value="#{item.tipo.value}"/>
                         </p:column>
                         <p:column headerText="Curso">
                             <h:outputText value="#{item.disciplina.curso.nome}"/>

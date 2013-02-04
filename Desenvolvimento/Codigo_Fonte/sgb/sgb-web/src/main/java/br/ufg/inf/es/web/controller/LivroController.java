@@ -25,6 +25,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import org.hibernate.Hibernate;
 import br.ufg.inf.es.web.datamodel.LivroDataModel;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -264,6 +265,11 @@ public class LivroController extends SGBController<Livro, LivroForm, LivroServic
     public void salvarAutor() throws ValidationException {
         autorService.insert(autor);
         autor = new Autor();
+    }
+    
+    public void removerLivros() throws ValidationException {
+        List<Livro> livros = Arrays.asList(getLivrosSelecionados());
+        getService().removeAll(livros);
     }
 
     public String voltar() {
