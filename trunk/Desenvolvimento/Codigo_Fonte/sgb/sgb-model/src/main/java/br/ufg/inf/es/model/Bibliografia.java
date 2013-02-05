@@ -24,8 +24,7 @@ public class Bibliografia extends AbstractEntityModel {
     @ManyToOne(optional = false)
     @JoinColumn(name = "id_livro")
     private Livro livro;
-    
-    @ManyToOne(optional = false)
+    @ManyToOne(optional=false)
     @JoinColumn(name = "id_disciplina")
     private Disciplina disciplina;
 
@@ -66,29 +65,14 @@ public class Bibliografia extends AbstractEntityModel {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Bibliografia other = (Bibliografia) obj;
-        if (this.tipo != other.tipo) {
-            return false;
+        if (!isNew()) {
+            return super.equals(obj);
         }
+        final Bibliografia other = (Bibliografia) obj;
         if (this.livro != other.livro && (this.livro == null || !this.livro.equals(other.livro))) {
             return false;
         }
-        if (this.disciplina != other.disciplina && (this.disciplina == null || !this.disciplina.equals(other.disciplina))) {
-            return false;
-        }
         return true;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 3;
-        hash = 83 * hash + (this.tipo != null ? this.tipo.hashCode() : 0);
-        hash = 83 * hash + (this.livro != null ? this.livro.hashCode() : 0);
-        hash = 83 * hash + (this.disciplina != null ? this.disciplina.hashCode() : 0);
-        return hash;
-    }
-
-   
-    
+    }    
     
 }
