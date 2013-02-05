@@ -44,18 +44,27 @@
         <!-- ESTÓRIA DE USUÁRIO 02-->
         
         <navigation-case>
+            
             <from-outcome>LivroController/searchPage</from-outcome>
+            
             <to-view-id>/paginas/livro/visualizacao.xhtml</to-view-id>
+                        
         </navigation-case>
         
         <navigation-case>
+      
             <from-outcome>LivroController/initialPage</from-outcome>
+            
             <to-view-id>/paginas/livro/inicial.xhtml</to-view-id>
+            
         </navigation-case>
         
         <navigation-case>
+            
             <from-outcome>LivroController/editPage</from-outcome>
+            
             <to-view-id>/paginas/livro/edicao.xhtml</to-view-id>
+            
         </navigation-case>
         
         <!-- ESTÓRIA DE USUÁRIO 03-->
@@ -151,21 +160,20 @@
         </navigation-case>
 
         <navigation-case>
+            
             <from-outcome>ParametrosController/viewPage</from-outcome>
+            
             <to-view-id>/paginas/parametros/show.xhtml</to-view-id>
+            
         </navigation-case>
         
-<<<<<<< .mine
-=======
         <navigation-case>
             
             <from-outcome>ListaCotacaoController/viewPage</from-outcome>
             
             <to-view-id>/paginas/cotacao/show_listacotacao.xhtml</to-view-id>
             
-        </navigation-case>
->>>>>>> .r924
-        
+        </navigation-case>        
         
         <!-- ESTÓRIA 15: Lista de Cotação --> 
         <navigation-case>
@@ -175,10 +183,7 @@
             <to-view-id>/paginas/lista_cotacao/visualizacao.xhtml</to-view-id>
             
         </navigation-case> 
-        
-<<<<<<< .mine
-       
-=======
+            
         <!-- Estória 09: Manter Lista de Compras -->
         <navigation-case>
             
@@ -188,10 +193,6 @@
         
         </navigation-case>
 
-   
-        
->>>>>>> .r924
-        
         
         <!-- ESTÓRIA 12: Manter Autor  -->
         <navigation-case>
@@ -219,8 +220,11 @@
         </navigation-case>
         
         <navigation-case>
+            
             <from-outcome>LivroParaCotacaoController/initialPage</from-outcome>
+                
             <to-view-id>/paginas/cotacao/busca.xhtml</to-view-id>
+            
         </navigation-case>
         
         <!-- ESTÓRIA 18: Integração com Sophia - BC -->
@@ -235,19 +239,31 @@
     </navigation-rule>
     
     <converter>
+    
         <converter-for-class>java.lang.Enum</converter-for-class>
+            
         <converter-class>javax.faces.convert.EnumConverter</converter-class>
+        
     </converter>
 
     <application>
+    
         <el-resolver>org.springframework.web.jsf.el.SpringBeanFacesELResolver</el-resolver>
+        
         <locale-config>
+            
             <default-locale>pt_BR</default-locale>
+            
         </locale-config>
     
         <resource-bundle>
+            
             <base-name>resources.messages</base-name>
+            
             <var>msg</var>
+                
         </resource-bundle>
+        
     </application>
+    
 </faces-config>
