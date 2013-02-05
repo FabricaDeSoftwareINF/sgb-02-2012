@@ -1,9 +1,12 @@
-
 package br.ufg.inf.es.web.controller.form;
 
+import br.ufg.inf.es.model.Cotacao;
 import br.ufg.inf.es.model.ListaCotacao;
+import br.ufg.inf.es.model.Livraria;
+import br.ufg.inf.es.model.Livro;
 import br.ufg.inf.es.web.datamodel.ListaCotacaoDataModel;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.List;
 import org.springframework.context.annotation.Scope;
@@ -44,7 +47,4 @@ public class ListaCotacaoForm extends GenericForm<ListaCotacao> {
     public void setTabelaListaCotacoes(Collection<ListaCotacao> tabelaListaCotacoes) {
         this.tabelaListaCotacoes = tabelaListaCotacoes;
     }
-
-
-
 }

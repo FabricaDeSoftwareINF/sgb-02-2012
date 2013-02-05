@@ -1,0 +1,65 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html >
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <ui:composition template="/template/template.xhtml">
+
+        <ui:define name="content">
+
+            <p:panel header="#{msg['cotacao.label.lista']}">
+
+                <h:form prependId="false">
+
+                    <p:messages />
+                    
+                    <h:panelGrid columns="2" style="width: 100%;">
+
+                        <p:dataTable id="listaCotacoes" value="#{listaCotacaoController.form.listaCotacaoDataModel}" var="listaCotacao" 
+                                     paginator="true" rows="10" style="width: 100%" selection="#{listaCotacaoController.form.listasCotacoesSelecionadas}">
+
+                            <p:column headerText="#{msg['cotacao.label.nome']}" 
+                                      filterBy="#{listaCotacao.nome}" filterMatchMode="contains">
+
+                                <h:outputText value="#{listaCotacao.nome}" />
+
+                            </p:column>
+
+                            <p:column headerText="#{msg['cotacao.label.preco']}"  style="text-align: center"
+                                      filterBy="#{listaCotacao.preco}" filterMatchMode="contains">
+
+                                <h:outputText value="#{listaCotacao.preco}" />
+
+                            </p:column>
+
+                            <p:column headerText="#{msg['cotacao.label.cricadoem']}" style="text-align: center">
+
+                                <h:outputText value="#{listaCotacao.dataRealizada}" />
+
+                            </p:column>
+
+                            <p:column headerText="#{msg['cotacao.label.acoes']}" style="width: 250px;text-align: center">
+
+                                <p:commandButton value="#{msg['cotacao.button.visualizar']}" action="#{cotacaoController.openViewPage(listaCotacao)}"/>
+
+                            </p:column>
+
+                        </p:dataTable>
+
+                        <p:spacer height="15"/>
+
+                    </h:panelGrid>
+
+                </h:form> 
+
+            </p:panel>        
+
+        </ui:define>
+
+    </ui:composition>
+
+</html>

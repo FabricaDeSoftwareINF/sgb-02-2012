@@ -1,0 +1,122 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html >
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <ui:composition template="/template/template.xhtml">
+
+        <ui:define name="content">
+
+            <p:panel header="#{msg['cotacao.label.cotacoeslista']}">
+
+                <h:form prependId="false">
+
+                    <p:messages />
+                    
+                    <h:panelGrid columns="2" style="width: 100%;">
+
+                        <p:dataTable id="cotacoes" value="#{cotacaoController.form.cotacaoDataModel}" var="cotacao" 
+                                     paginator="true" rows="10" style="width: 100%" selection="#{cotacaoController.form.cotacoesSelecionadas}">
+
+                            <p:column style="width: 18px;" selectionMode="multiple">
+                                
+                            </p:column>
+
+                            <p:column headerText="#{msg['cotacao.label.autor']}" >
+
+                                <h:outputText value="#{cotacao.livro.autores[0].sobrenome}"/>
+
+                            </p:column>
+
+                            <p:column headerText="#{msg['cotacao.label.titulo']}" filterBy="#{cotacao.livro.titulo}" filterMatchMode="contains">
+
+                                <h:outputText value="#{cotacao.livro.titulo}" />
+
+                            </p:column>
+
+                            <p:column headerText="#{msg['cotacao.label.edicao']}" style="text-align: center">
+
+                                <h:outputText value="#{cotacao.livro.edicao}" />
+
+                            </p:column>
+                            
+                            <p:column headerText="#{msg['cotacao.label.editora']}" filterBy="#{cotacao.livro.editora.nome}" filterMatchMode="contains">
+
+                                <h:outputText value="#{cotacao.livro.editora.nome}" />
+
+                            </p:column>
+                            
+                            <p:column headerText="#{msg['cotacao.label.ano']}" filterBy="#{cotacao.livro.ano}" filterMatchMode="contains">
+
+                                <h:outputText value="#{cotacao.livro.ano}" />
+
+                            </p:column>
+                            
+                            <p:column headerText="#{msg['cotacao.label.curso']}" >
+
+                                <h:outputText value="Teste" />
+
+                            </p:column>
+                            
+                            <p:column headerText="#{msg['cotacao.label.orcamento1']}" style="text-align: center" >
+
+                                <h:outputText value="#{cotacao.valor}" />
+
+                            </p:column>
+                            
+                            <p:column headerText="#{msg['cotacao.label.orcamento1']}" style="text-align: center">
+
+                                <h:outputText value="#{cotacao.valor}" />
+
+                            </p:column>
+                            
+                            <p:column headerText="#{msg['cotacao.label.orcamento1']}" style="text-align: center" >
+
+                                <h:outputText value="#{cotacao.valor}" />
+
+                            </p:column>
+                            
+                            <p:column headerText="#{msg['cotacao.label.valormedio']}" style="text-align: center">
+
+                                <h:outputText value="#{cotacao.valor}" />
+
+                            </p:column>
+                            
+                            <p:column headerText="#{msg['cotacao.label.valortotal']}" style="text-align: center" >
+
+                                <h:outputText value="#{cotacao.valor}" />
+
+                            </p:column>
+                            
+                            <p:column headerText="#{msg['cotacao.label.quantidade']}" style="text-align: center" >
+
+                                <h:outputText value="Teste" />
+
+                            </p:column>
+                            
+                            <p:column headerText="#{msg['cotacao.label.area']}" >
+
+                                <h:outputText value="Ciências Exatas e da Terra" />
+
+                            </p:column>
+                            
+
+                        </p:dataTable>
+
+                        <p:spacer height="15"/>
+
+                    </h:panelGrid>
+
+                </h:form> 
+
+            </p:panel>        
+
+        </ui:define>
+
+    </ui:composition>
+
+</html>
