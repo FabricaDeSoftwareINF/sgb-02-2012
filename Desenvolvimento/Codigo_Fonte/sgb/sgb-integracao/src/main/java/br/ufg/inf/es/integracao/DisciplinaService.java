@@ -7,6 +7,7 @@ import br.ufg.inf.es.model.Bibliografia;
 import br.ufg.inf.es.model.Curso;
 import br.ufg.inf.es.model.Disciplina;
 import br.ufg.inf.es.model.Livro;
+import br.ufg.inf.es.persistencia.BibliografiaDAO;
 import br.ufg.inf.es.persistencia.DisciplinaDAO;
 import br.ufg.inf.es.persistencia.LivroDAO;
 import java.util.ArrayList;
@@ -28,6 +29,12 @@ public class DisciplinaService extends GenericService<Disciplina> {
     private DisciplinaDAO dao;
     @Autowired
     private LivroDAO livroDao;
+    @Autowired
+    private BibliografiaDAO bibliografiaDAO;
+
+    public BibliografiaDAO getBibliografiaDAO() {
+        return bibliografiaDAO;
+    }
 
     @Override
     public DisciplinaDAO getDAO() {

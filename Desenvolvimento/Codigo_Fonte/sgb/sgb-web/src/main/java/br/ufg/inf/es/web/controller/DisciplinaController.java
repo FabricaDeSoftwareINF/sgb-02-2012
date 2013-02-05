@@ -15,6 +15,7 @@ import java.util.*;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.faces.event.ActionEvent;
 import org.primefaces.event.SelectEvent;
 import org.primefaces.event.UnselectEvent;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -130,30 +131,18 @@ public class DisciplinaController extends SGBController<Disciplina, DisciplinaFo
 
         if (UtilObjeto.isReferencia(this.getForm().getLivrosSelecionados()) && !this.getForm().getLivrosSelecionados().isEmpty()) {
 
-            List<Livro> aux = new ArrayList<Livro>(this.getForm().getLivrosSelecionados());
-
             for (Livro livro : this.getForm().getLivrosSelecionados()) {
 
-                while (Collections.frequency(aux, livro) >= 1) {
-
-                    if (Collections.frequency(aux, livro) == 1) {
-
-                        Bibliografia bibliografia = new Bibliografia();
-
-                        bibliografia.setTipo(this.getForm().getTipoBibliografiaSelecionado());
-
-                        bibliografia.setLivro(livro);
-
-                        this.getForm().getBibliografiasAssociadas().add(bibliografia);
-                        
-                    }
-                    
-                    aux.remove(livro);
-                    
-                    break;
-                }
+               Bibliografia bliografia = new Bibliografia();
+               
+               bliografia.setTipo(this.getForm().getTipoBibliografiaSelecionado());
+               
+               bliografia.setLivro(livro);
+               
+               this.getForm().getBibliografiasAssociadas().add(bliografia);
+               
             }
-
+            
             this.getForm().setLivrosSelecionados(new ArrayList<Livro>());
             
             this.getForm().setSelecionadosAux(new ArrayList<Livro>());
@@ -194,11 +183,10 @@ public class DisciplinaController extends SGBController<Disciplina, DisciplinaFo
      * 
      * @author Cássio Augusto Silva de Freitas
      */
-    public void desassociarBibliografia() {
+    public void desassociarBibliografia(Bibliografia event) {
         
-        this.getForm().getBibliografiasAssociadas().remove(this.getForm().getBibliografiaSelecionada());
+        this.getForm().getBibliografiasAssociadas().remove(event);
         
-        this.getForm().setBibliografiaSelecionada(new Bibliografia());
           
     }
 

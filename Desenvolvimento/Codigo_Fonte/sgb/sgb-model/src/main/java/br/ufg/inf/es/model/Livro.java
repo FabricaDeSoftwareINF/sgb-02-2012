@@ -111,4 +111,5 @@ public class Livro extends AbstractEntityModel {
     public void setBibliografias(Collection<Bibliografia> bibliografia) {
         this.bibliografias = bibliografia;
     }
+        
 }

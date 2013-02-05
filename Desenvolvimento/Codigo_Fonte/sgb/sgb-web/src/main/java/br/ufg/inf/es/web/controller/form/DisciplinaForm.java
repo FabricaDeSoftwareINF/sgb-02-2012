@@ -33,19 +33,9 @@ public class DisciplinaForm extends GenericForm<Disciplina> {
     
     private Collection<Bibliografia> bibliografiasAssociadas;
     
-    private Bibliografia bibliografiaSelecionada;
-    
     private Boolean exibirDialogRemocao;
     
     private Collection<Livro> selecionadosAux;
-
-    public Bibliografia getBibliografiaSelecionada() {
-        return bibliografiaSelecionada;
-    }
-
-    public void setBibliografiaSelecionada(Bibliografia bibliografiaSelecionada) {
-        this.bibliografiaSelecionada = bibliografiaSelecionada;
-    }
     
     public Collection<Livro> getSelecionadosAux() {
         return selecionadosAux;
