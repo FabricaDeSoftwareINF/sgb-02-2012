@@ -56,6 +56,8 @@ public abstract class Cotador {
         return HttpUtil.FazerRequisicaoHttpGet(GerarUrlDeBusca(isbn));
     }
     
+    
+    
     /**
      * Converte o resultado da busca em json para um dicionário de dados. 
      * A chave do dicionário é a identificação da livraria. O valor associado
