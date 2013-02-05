@@ -51,13 +51,12 @@ public class DisciplinaConverter implements Converter {
     @Override
     public String getAsString(FacesContext context, UIComponent component, Object value) {
         
-        if (value == null || value.equals("")) {  
-        
+        if (value == null || value.equals("") || value.equals("null")) {  
             return "";  
             
         } else {  
             
-            return String.valueOf(((Disciplina) value).getNome());  
+            return ((Disciplina) value).getNome();  
         }  
     }    
 }

@@ -60,6 +60,7 @@ public class Bootstrap implements ServletContextListener {
             try {
 
                 Usuario user = new Usuario();
+                user.setNome("Administrador");
                 user.setEmail("admin@email.com");
                 user.setSenha(new SgbCryptography().encrypt("123456"));
                 user.setStatus(true);

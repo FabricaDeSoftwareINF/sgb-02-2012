@@ -5,131 +5,130 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core">
 
-<ui:composition template="/template/template.xhtml">
+    <ui:composition template="/template/template.xhtml">
 
-    <ui:define name="content">
-          
-        <h:form id="formEditarAutor" style="font-size: 14px;">
-                
-            <h:panelGrid width="100%" style="float: left" columns="1" >
+        <ui:define name="content">
+            <p:panel header="#{msg['cadastro.curso.panel.cadastrar']}">    
 
-                <h:outputLabel value="#{msg['cadastro.curso.panel.cadastrar']}" style="font-size:24px;"/>   
+                <h:form id="formEditarAutor" style="font-size: 14px;">
 
-                <p:messages/>
+                    <h:panelGrid width="100%" style="float: left" columns="1" >
 
-                <p:spacer width="10" height="15"/>
+                        <p:messages/>
 
-                <h:panelGrid columns="5">
+                        <p:spacer width="10" height="15"/>
 
-                    <h:panelGrid columns="2">
-                        
-                        <h:outputLabel value="#{msg['cadastro.curso.label.nome']}:" for="nomeCurso" />
+                        <h:panelGrid columns="5">
 
-                        <h:outputLabel style="color: red;" value="*"/>
-                        
-                    </h:panelGrid>    
-                        
-                    <p:inputText value="#{cursoController.form.entity.nome}" id="nomeCurso" size="45"/>
+                            <h:panelGrid columns="2">
 
-                    <p:spacer width="25"/>
-                    
-                    <h:panelGrid columns="2">
-                    
-                        <h:outputLabel value="#{msg['cadastro.curso.label.vagas']}:" for="qtdVagas" />
-                    
-                        <h:outputLabel style="color: red;" value="*"/>
-                        
-                    </h:panelGrid>    
+                                <h:outputLabel value="#{msg['cadastro.curso.label.nome']}:" for="nomeCurso" />
 
-                    <p:inputText value="#{cursoController.form.entity.vagas}" id="qtdVagas" size="15"/>
+                                <h:outputLabel style="color: red;" value="*"/>
 
-                </h:panelGrid>
+                            </h:panelGrid>    
 
-            </h:panelGrid>
+                            <p:inputText value="#{cursoController.form.entity.nome}" id="nomeCurso" size="45"/>
 
-            <p:spacer width="10" height="15"/>
+                            <p:spacer width="25"/>
 
-            <p:fieldset id="fieldsetAssociacao" legend="#{msg['cadastro.curso.associacao']}">
+                            <h:panelGrid columns="2">
 
-                <h:panelGrid columns="2" style="text-align: right;" cellspacing="20">
+                                <h:outputLabel value="#{msg['cadastro.curso.label.vagas']}:" for="qtdVagas" />
 
-                    <h:outputLabel value="#{msg['cadastro.disciplina']}:" for="disciplina" />
+                                <h:outputLabel style="color: red;" value="*"/>
 
-                    <p:selectOneMenu id="disciplina" value="#{cursoController.form.disciplinaSelecionada}"  
-                                     style="width: 500px" converter="disciplinaConverter">
+                            </h:panelGrid>    
 
-                        <f:selectItem itemLabel="Selecione" itemValue="null"/>
+                            <p:inputText value="#{cursoController.form.entity.vagas}" id="qtdVagas" size="15"/>
 
-                        <f:selectItems value="#{cursoController.form.listaDisciplinaComboBox}" var="disciplina"
-                                       itemLabel="#{disciplina.nome}" itemValue="#{disciplina}"/>
+                        </h:panelGrid>
 
-                    </p:selectOneMenu>
+                    </h:panelGrid>
 
-                    <p:spacer/>
+                    <p:spacer width="10" height="15"/>
 
-                    <p:commandButton value="#{msg['cadastro.associar.disciplina']}" ajax="false"
-                                     action="#{cursoController.addDisciplinaAssociacao}" 
-                                     update="fieldsetAssociacao"/>
-                </h:panelGrid>
+                    <p:fieldset id="fieldsetAssociacao" legend="#{msg['cadastro.curso.associacao']}">
 
-                <p:dataTable id="associationTable" var="disciplinaAssociada" emptyMessage="#{msg['arquitetura.msg.nenhumregistroencontrado']}"
-                             value="#{cursoController.form.listaDisciplinaAssociacao}">
+                        <h:panelGrid columns="2" style="text-align: right;" cellspacing="20">
 
-                    <p:column headerText="#{msg['cadastro.disciplina']}">  
+                            <h:outputLabel value="#{msg['cadastro.disciplina']}:" for="disciplina" />
 
-                        <h:outputText value="#{disciplinaAssociada.nome}" />  
+                            <p:selectOneMenu id="disciplina" value="#{cursoController.form.disciplinaSelecionada}"  
+                                             style="width: 500px" converter="disciplinaConverter">
 
-                    </p:column>
+                                <f:selectItem itemLabel="Selecione" itemValue="null"/>
 
-                    <p:column headerText="#{msg['cadastro.acao']}">  
+                                <f:selectItems value="#{cursoController.form.listaDisciplinaComboBox}" var="disciplina"
+                                               itemLabel="#{disciplina.nome}" itemValue="#{disciplina}"/>
 
-                        <p:commandLink id="linkAcao" value="Remover" update=":formEditarAutor:fieldsetAssociacao" action="#{cursoController.removeDisciplina()}">
+                            </p:selectOneMenu>
 
-                            <f:setPropertyActionListener value="#{disciplinaAssociada}" target="#{cursoController.form.disciplinaToRemove}"/>
+                            <p:spacer/>
 
-                        </p:commandLink>
+                            <p:commandButton value="#{msg['cadastro.associar.disciplina']}" ajax="false"
+                                             action="#{cursoController.addDisciplinaAssociacao}" 
+                                             update="fieldsetAssociacao"/>
+                        </h:panelGrid>
 
-                    </p:column> 
+                        <p:dataTable id="associationTable" var="disciplinaAssociada" emptyMessage="#{msg['arquitetura.msg.nenhumregistroencontrado']}"
+                                     value="#{cursoController.form.listaDisciplinaAssociacao}">
 
-                </p:dataTable>
+                            <p:column headerText="#{msg['cadastro.disciplina']}">  
 
-            </p:fieldset>
-                
-            <h:panelGrid style="margin-left: 80%;text-align: right;" columns="2" >
-                    
-                <p:commandButton value="#{msg['cadastro.curso.button.insert']}" 
-                                 action="#{cursoController.insert()}" ajax="false" />
+                                <h:outputText value="#{disciplinaAssociada.nome}" />  
 
-                <p:commandButton value="#{msg['acao.voltar']}"  ajax="false" 
-                                 action="#{cursoController.openSearchPage()}"/>
-                
-             </h:panelGrid>   
-            
-            <p:dialog modal="true" width="405" height="140" resizable="false" closable="false"
-                      header="#{msg['arquitetura.msg.atencao']}" visible="#{cursoController.form.exibirDialog}">
-                
-                <h:panelGrid style="text-align: center;">
-                    
-                    <p:spacer width="5" height="25"/> 
-                    
-                    <h:outputLabel value="#{msg['arquitetura.msg.camposobrigatorios']}"/>
+                            </p:column>
 
-                    <p:spacer width="5" height="25"/> 
-                    
-                    <p:commandButton value="#{msg['arquitetura.msg.ok']}" update="@form">
+                            <p:column headerText="#{msg['cadastro.acao']}">  
 
-                        <f:setPropertyActionListener value="false" target="#{cursoController.form.exibirDialog}"/>
+                                <p:commandLink id="linkAcao" value="Remover" update=":formEditarAutor:fieldsetAssociacao" action="#{cursoController.removeDisciplina()}">
 
-                    </p:commandButton>
-               
-                </h:panelGrid>
-                
-            </p:dialog>
-                                
-        </h:form>
-   
-    </ui:define>
-    
-</ui:composition>
-    
+                                    <f:setPropertyActionListener value="#{disciplinaAssociada}" target="#{cursoController.form.disciplinaToRemove}"/>
+
+                                </p:commandLink>
+
+                            </p:column> 
+
+                        </p:dataTable>
+
+                    </p:fieldset>
+
+                    <h:panelGrid style="margin-left: 80%;text-align: right;" columns="2" >
+
+                        <p:commandButton value="#{msg['cadastro.curso.button.insert']}" 
+                                         action="#{cursoController.insert()}" ajax="false" />
+
+                        <p:commandButton value="#{msg['acao.voltar']}"  ajax="false" 
+                                         action="#{cursoController.openSearchPage()}"/>
+
+                    </h:panelGrid>   
+
+                    <p:dialog modal="true" width="405" height="140" resizable="false" closable="false"
+                              header="#{msg['arquitetura.msg.atencao']}" visible="#{cursoController.form.exibirDialog}">
+
+                        <h:panelGrid style="text-align: center;">
+
+                            <p:spacer width="5" height="25"/> 
+
+                            <h:outputLabel value="#{msg['arquitetura.msg.camposobrigatorios']}"/>
+
+                            <p:spacer width="5" height="25"/> 
+
+                            <p:commandButton value="#{msg['arquitetura.msg.ok']}" update="@form">
+
+                                <f:setPropertyActionListener value="false" target="#{cursoController.form.exibirDialog}"/>
+
+                            </p:commandButton>
+
+                        </h:panelGrid>
+
+                    </p:dialog>
+
+                </h:form>
+            </p:panel> 
+        </ui:define>
+
+    </ui:composition>
+
 </html>

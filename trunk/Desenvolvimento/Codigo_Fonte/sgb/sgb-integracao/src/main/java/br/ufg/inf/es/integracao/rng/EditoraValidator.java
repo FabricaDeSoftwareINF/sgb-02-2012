@@ -22,7 +22,7 @@ public class EditoraValidator implements Validation<Editora> {
      */
     public void validate(Editora object) throws ValidationException {
         
-        if(object.getNome() == null || object.getNome().equals("")) {
+        if(object.getNome() == null || object.getNome().trim().equals("")) {
             
             throw new ValidationException(EditoraValidator.KEY_RNG007);
         

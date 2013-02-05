@@ -6,7 +6,6 @@ import br.ufg.inf.es.model.Autor;
 import br.ufg.inf.es.model.AutorDTO;
 import br.ufg.inf.es.web.controller.form.AutorForm;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import org.hibernate.Hibernate;
 import org.hibernate.exception.ConstraintViolationException;
@@ -147,14 +146,12 @@ public class AutorController
             this.addSuccessMessage("arquitetura.msg.sucesso");
 
             buscaTodosAutores();
-
-            this.getForm().setExibirDialogExclusao(Boolean.FALSE);
-
         } catch (ValidationException ex) {
             this.addWarningMessage(ex.getKeyMessage());
         } catch (ConstraintViolationException cve) {
-            this.getForm().setExibirDialogExclusao(Boolean.FALSE);
             this.addWarningMessage("O autor está vinculado a outros registros. Não é possível remove-lo.");
+        } finally {
+            this.getForm().setExibirDialogExclusao(Boolean.FALSE);
         }
 
     }

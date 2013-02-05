@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -144,7 +145,6 @@ public class CursoController extends SGBController<Curso, CursoForm, CursoServic
             Curso curso =  this.getService().find(this.getForm().getCursosParaRemocao()[i].getId());
             
             cursos.add(curso);
-            
         }
 
         try {
@@ -158,6 +158,8 @@ public class CursoController extends SGBController<Curso, CursoForm, CursoServic
         } catch (ValidationException ex) {
 
             this.addErrorMessage("arquitetura.msg.erro");
+        } catch (ConstraintViolationException cve) {
+            this.addWarningMessage("O curso está vinculado a outros registros. Não é possível remove-lo.");
         }
     }   
 
