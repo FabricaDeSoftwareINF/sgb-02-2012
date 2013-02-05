@@ -113,6 +113,16 @@ public class CursoService extends GenericService<Curso> {
         return this.dao;
     }
 
+    public void setDao(CursoDAO dao) {
+        
+        this.dao = dao;
+    }
+
+    public void setDisciplinaDao(DisciplinaDAO disciplinaDao) {
+    
+        this.disciplinaDao = disciplinaDao;
+    }
+    
     public DisciplinaDAO getDisciplinaDao() {
      
         return this.disciplinaDao;
