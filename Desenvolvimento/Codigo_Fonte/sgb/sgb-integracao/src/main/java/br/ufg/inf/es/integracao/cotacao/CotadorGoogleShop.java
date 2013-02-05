@@ -4,26 +4,13 @@
  */
 package br.ufg.inf.es.integracao.cotacao;
 
-import br.ufg.inf.es.model.Livraria;
+
 import com.google.gson.Gson;
 import com.google.gson.internal.StringMap;
-import java.io.*;
-import java.net.URISyntaxException;
-import java.util.AbstractMap;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import org.apache.commons.httpclient.HttpClient;
-import org.apache.commons.httpclient.methods.GetMethod;
-import org.apache.http.HttpException;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
 
-import org.springframework.http.HttpRequest;
-import sun.misc.IOUtils;
 
 /**
  *
@@ -31,18 +18,18 @@ import sun.misc.IOUtils;
  */
 public class CotadorGoogleShop extends Cotador {
     
-    private static String Key = "AIzaSyDzuxDAgvInL9nk7jIlBcs9cPSSnfbJfrw";
-    private static String URL = "https://www.googleapis.com/shopping/search/v1/public/products?key=" + Key + "&country=US&alt=json&currency=USD&restrictBy=condition:new";
-    
+    private static final String KEY = "AIzaSyDzuxDAgvInL9nk7jIlBcs9cPSSnfbJfrw";
+    private static final String URL = "https://www.googleapis.com/shopping/search/v1/public/products?key=" + KEY + "&country=US&alt=json&currency=USD&restrictBy=condition:new";
+    /*
     public static void main(String[] args) throws Exception {
         Gson gson = new Gson();
         CotadorGoogleShop g = new CotadorGoogleShop();
-        String a = g.buscarLivro("9780470447628");
+        String a = g.buscarLivro("9788576055631");
         Map m = gson.fromJson(a, Map.class);
         Map<String, Map<String, String>> map = g.ConverterJsonParaDicionario(a);
         System.out.println(a);
     }
-    
+    */
     @Override
     public Map<String, Map<String, String>> ConverterJsonParaDicionario(String json) {
         Gson gson = new Gson();
@@ -51,6 +38,7 @@ public class CotadorGoogleShop extends Cotador {
         Map<String, Map<String, String>> resultado = new HashMap<String, Map<String, String>>();
         
         List<StringMap> itens = (List<StringMap>) map.get("items");
+        if(itens ==null){return null;}
         for (StringMap item : itens) {
             Map<String, String> oferta = new HashMap<String, String>();
             
