@@ -7,7 +7,6 @@ import br.ufg.inf.es.model.AutorDTO;
 import br.ufg.inf.es.persistencia.AutorDAO;
 import java.util.ArrayList;
 import java.util.Collection;
-import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
@@ -50,7 +49,7 @@ public class AutorService extends GenericService<Autor> {
      * @author Cássio Augusto Silva de Freitas
      * @param autor a ser inserido
      * @return id da nova entidade
-     * @throws ValidationException 
+     * @throws ValidationException
      */
     @Override
     @RNG012
@@ -62,30 +61,30 @@ public class AutorService extends GenericService<Autor> {
 
     /**
      * Método reponsável por realizar a edição de um determinado autor
+     *
      * @author Cássio Augusto Silva de Freitas
      * @param entidade
-     * @throws ValidationException 
+     * @throws ValidationException
      */
     @RNG012
     public void editar(Autor entidade) throws ValidationException {
-     
+
         this.getDAO().update(entidade);
-        
+
     }
-    
+
     /**
-     * 
+     *
      */
-    public Collection<Autor> complete(String query) {  
+    public Collection<Autor> complete(String query) {
         Collection<Autor> results = new ArrayList<Autor>();
-          
+
         for(Autor autor : dao.list()){
             if(autor.getNome().contains(query)){
                 results.add(autor);
             }
         }
-          
-        return results;  
+
+        return results;
     }
-    
 }

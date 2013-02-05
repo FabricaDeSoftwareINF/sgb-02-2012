@@ -23,15 +23,16 @@ public class AutorValidator implements Validation<Autor> {
      */
     public void validate(Autor object) throws ValidationException {
        
-        if ((object.getNome() == null || object.getNome().equals("")) && (object.getSobrenome() == null || object.getSobrenome().equals(""))) {
+        if ((object.getNome() == null || object.getNome().trim().equals("")) && 
+                (object.getSobrenome() == null || object.getSobrenome().trim().equals(""))) {
       
             throw new ValidationException("cadastro.autor.label.RNG012.nomeEsobreNome");
        
-        } else if (object.getNome() == null || object.getNome().equals("")) {
+        } else if (object.getNome() == null || object.getNome().trim().equals("")) {
        
             throw new ValidationException("cadastro.autor.label.RNG012.nome");
       
-        } else if (object.getSobrenome() == null || object.getSobrenome().equals("")) {
+        } else if (object.getSobrenome() == null || object.getSobrenome().trim().equals("")) {
        
             throw new ValidationException("cadastro.autor.label.RNG012.sobrenome");
        

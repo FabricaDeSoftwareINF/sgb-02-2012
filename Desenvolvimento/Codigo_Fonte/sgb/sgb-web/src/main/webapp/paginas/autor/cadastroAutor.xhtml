@@ -10,7 +10,7 @@
 
             <h:form id="formCadastroAutor" >
 
-                <p:panel>
+                <p:panel header="#{msg['cadastro.autor.label.cadastrar']}">
 
                     <p:panelGrid styleClass="semborda">
 
@@ -33,7 +33,7 @@
 
                     </p:panelGrid>
 
-                    <h:panelGrid columns="2" style="float: right;"> 
+                    <h:panelGrid columns="2"> 
 
                         <p:commandButton actionListener="#{autorController.insereAutor()}" value="#{msg['cadastro.autor.label.cadastrar']}"  
                                          ajax="false" action="#{autorController.openInitialPage()}"/>
