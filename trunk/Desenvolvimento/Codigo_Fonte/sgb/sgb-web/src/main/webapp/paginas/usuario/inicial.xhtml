@@ -19,7 +19,9 @@
 
                     <h:panelGrid columns="2" style="width: 100%;">
 
-                        <p:dataTable id="listaUsuarios" value="#{usuarioController.form.userDataModel}" var="usuario" paginator="true" rows="10" style="width: 100%" selection="#{usuarioController.form.usuariosSelecionados}">
+                        <p:dataTable id="listaUsuarios" value="#{usuarioController.form.userDataModel}" 
+                                     var="usuario" paginator="true" rows="10" paginatorAlwaysVisible="false" style="width: 100%" 
+                                     selection="#{usuarioController.form.usuariosSelecionados}">
 
                             <p:column style="width: 18px;" selectionMode="multiple">
 
@@ -59,7 +61,7 @@
 
                     </h:panelGrid>
 
-                    <h:panelGrid columns="2">
+                    <h:panelGrid columns="2" style="float: right">
 
                         <p:commandButton value="#{msg['usuario.label.novo']}" action="#{usuarioController.openInsertPage()}" ajax="false"/>
 

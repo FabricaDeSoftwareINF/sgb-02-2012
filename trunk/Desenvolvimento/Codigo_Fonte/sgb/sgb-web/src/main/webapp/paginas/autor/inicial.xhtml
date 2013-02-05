@@ -15,20 +15,12 @@
 
                     <h:panelGrid width="100%">
 
-
-
                         <p:messages id="messages" autoUpdate="true"></p:messages>
 
-                        <h:panelGrid columns="2">
-
-                            <p:inputText value="#{autorController.form.filtroNome}" size="65" style="margin-left: 38px;"></p:inputText>
-
-                            <p:commandButton icon="ui-icon-search" action="#{autorController.buscaTodosAutores()}" update="@form" ></p:commandButton>
-
-                        </h:panelGrid>
-
-                        <p:dataTable id="dtTable" value="#{autorController.form.model}" style=" width: 100%" paginator="true" paginatorAlwaysVisible="false" rows="10" var="autor" 
-                                     selection="#{autorController.form.autoresSelecionados}" emptyMessage="#{msg['cadastro.autor.label.nenhumRegistro']}" >
+                        <p:dataTable id="dtTable" value="#{autorController.form.model}" 
+                                     style=" width: 100%" paginator="true" paginatorAlwaysVisible="false" rows="10" var="autor" 
+                                     selection="#{autorController.form.autoresSelecionados}" 
+                                     emptyMessage="#{msg['cadastro.autor.label.nenhumRegistro']}" >
 
                             <p:column selectionMode="multiple" style="width: 18px;"></p:column>
 
@@ -36,7 +28,7 @@
                                 <h:outputLabel value="#{autor.nome}"></h:outputLabel>
                             </p:column>
 
-                            <p:column headerText="#{msg['cadastro.autor.label.sobrenome']}" style="width: 50%">
+                            <p:column headerText="#{msg['cadastro.autor.label.sobrenome']}" filterBy="#{autor.sobrenome}" filterMatchMode="contains" style="width: 50%">
                                 <h:outputLabel value="#{autor.sobrenome}"></h:outputLabel>
                             </p:column> O
 
@@ -53,24 +45,25 @@
                         </p:dataTable>
 
                         <h:panelGrid columns="2" style="float: right">
+                            <p:commandButton value="#{msg['cadastro.autor.label.novo']}"  
+                                             action="#{autorController.openInsertPage()}" ajax="false" style="width: 100px;margin-right: 4em" />
 
-                            <p:commandButton value="#{msg['cadastro.autor.label.novo']}"  action="#{autorController.openInsertPage()}" ajax="false" style="width: 100px;margin-right: 4em" />
-
-                            <p:commandButton value="#{msg['cadastro.autor.label.remover']}" action="#{autorController.prepararExclusao}" update="@form"  ></p:commandButton>
-
+                            <p:commandButton value="#{msg['cadastro.autor.label.remover']}" 
+                                             action="#{autorController.prepararExclusao}" update="@form" />
                         </h:panelGrid>
 
                     </h:panelGrid>                        
 
                     <p:confirmDialog id="dialogRemocao" message="#{msg['cadastro.autor.label.remocao']}"
-                                     header="#{msg['cadastro.autor.label.remocaoTitulo']}" severity="alert" widgetVar="confirmation" visible="#{autorController.form.exibirDialogExclusao}">
+                                     header="#{msg['cadastro.autor.label.remocaoTitulo']}" severity="alert" 
+                                     widgetVar="confirmation" visible="#{autorController.form.exibirDialogExclusao}">
 
                         <center>
+                            <p:commandButton value="#{msg['cadastro.autor.label.sim']}" 
+                                             action="#{autorController.removerAutoresSelecionados()}" update="@form" />
 
-                            <p:commandButton value="#{msg['cadastro.autor.label.sim']}" action="#{autorController.removerAutoresSelecionados()}" update="@form" ></p:commandButton>
-
-                            <p:commandButton value="#{msg['cadastro.autor.label.nao']}" action="#{autorController.openInitialPage()}" ajax="false"></p:commandButton>
-
+                            <p:commandButton value="#{msg['cadastro.autor.label.nao']}" 
+                                             action="#{autorController.openInitialPage()}" ajax="false"/>
                         </center>
 
                     </p:confirmDialog>
@@ -83,4 +76,3 @@
 
     </ui:composition>
 </html>
-

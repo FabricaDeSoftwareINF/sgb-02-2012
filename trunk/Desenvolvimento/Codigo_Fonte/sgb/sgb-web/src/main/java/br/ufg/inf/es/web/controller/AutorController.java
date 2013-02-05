@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import org.hibernate.Hibernate;
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -23,21 +24,21 @@ public class AutorController
 
     @Autowired
     private AutorForm form;
-    
     @Autowired
     private AutorService service;
 
     /**
-     * Método responsável por retornar a string de navegação para a pagina incial da Estória de usuário
-     * buscar todos os autores.
+     * Método responsável por retornar a string de navegação para a pagina
+     * incial da Estória de usuário buscar todos os autores.
+     *
      * @author Cássio Augusto Silva de Freitas
-     * @return  string de navegação
+     * @return string de navegação
      */
     @Override
     public String openInitialPage() {
 
-        this.getForm().setExibirDialogExclusao(Boolean.FALSE);   
-        
+        this.getForm().setExibirDialogExclusao(Boolean.FALSE);
+
         this.getForm().setTodosAutores(new ArrayList<AutorDTO>());
 
         buscaTodosAutores();
@@ -47,16 +48,15 @@ public class AutorController
 
     /**
      * Método responsável por navegar para a tela de edição de Autor.
+     *
      * @author Cássio Augusto Silva de Freitas
      * @return String de navegação para a página de edição.
      */
     @Override
     public String openEditPage() {
-             
+
         return this.getRootNavigation() + "editPage";
     }
-    
-    
 
     /**
      * Método responsável por buscar todos os autores do banco de dados e
@@ -75,7 +75,7 @@ public class AutorController
 
     /**
      * Método responsável por limpar a entidade a preparando para uma edição
-     * 
+     *
      * @author Cássio Augusto Silva de Freitas
      */
     public void prepararInsercao() {
@@ -86,6 +86,7 @@ public class AutorController
 
     /**
      * Método responsável por inserir um novo Autor
+     *
      * @author Cássio Augus1to Silva de Freitas
      */
     public void insereAutor() {
@@ -105,8 +106,9 @@ public class AutorController
     }
 
     /**
-     * Método responsável por validar se pode aver uma exclusão ou não, 
-     * verificando se há a necessidade de exibir o dialog de confirmação ou não. 
+     * Método responsável por validar se pode aver uma exclusão ou não,
+     * verificando se há a necessidade de exibir o dialog de confirmação ou não.
+     *
      * @author Cássio Augusto Silva de Freitas
      */
     public void prepararExclusao() {
@@ -124,19 +126,18 @@ public class AutorController
     }
 
     /**
-     * Método responsável por realizar  exclusão de autores selecionados pelo usuário
+     * Método responsável por realizar exclusão de autores selecionados pelo
+     * usuário
+     *
      * @author Cássio Augusto Silva de Freitas
      */
     public void removerAutoresSelecionados() {
 
         Collection<Autor> autores = new ArrayList<Autor>();
-        
-        for(int i= 0; i < this.getForm().getAutoresSelecionados().length; i++ ) {
-          
-            Autor autor =  this.getService().find(this.getForm().getAutoresSelecionados()[i].getId());
-            
+
+        for (int i = 0; i < this.getForm().getAutoresSelecionados().length; i++) {
+            Autor autor = this.getService().find(this.getForm().getAutoresSelecionados()[i].getId());
             autores.add(autor);
-            
         }
 
         try {
@@ -146,44 +147,46 @@ public class AutorController
             this.addSuccessMessage("arquitetura.msg.sucesso");
 
             buscaTodosAutores();
-            
+
             this.getForm().setExibirDialogExclusao(Boolean.FALSE);
 
         } catch (ValidationException ex) {
-
             this.addWarningMessage(ex.getKeyMessage());
-
+        } catch (ConstraintViolationException cve) {
+            this.getForm().setExibirDialogExclusao(Boolean.FALSE);
+            this.addWarningMessage("O autor está vinculado a outros registros. Não é possível remove-lo.");
         }
 
     }
 
     /**
      * Método responsável por editar um Autor e validar os campos do mesmo.
+     *
      * @author Cássio Augusto Silva de Freitas
      */
     public String editarAutor() {
 
         try {
-                Hibernate.isInitialized(this.getForm().getEntity());
-                
-                Hibernate.initialize(this.getForm().getEntity());
-                this.getService().editar(this.getForm().getEntity());
+            Hibernate.isInitialized(this.getForm().getEntity());
 
-                this.addSuccessMessage("arquitetura.msg.sucesso");
-            
+            Hibernate.initialize(this.getForm().getEntity());
+            this.getService().editar(this.getForm().getEntity());
+
+            this.addSuccessMessage("arquitetura.msg.sucesso");
+
         } catch (ValidationException ex) {
 
             this.addWarningMessage(ex.getKeyMessage());
 
         }
-        
+
         return this.openInitialPage();
-        
+
     }
-    
-    
+
     /**
      * Método responsável por inicializar a Entidade
+     *
      * @author Cássio Augusto Silva de Freitas
      */
     private void limpaEntidadeDeCadastro() {
@@ -213,5 +216,4 @@ public class AutorController
 
         this.service = service;
     }
-
 }

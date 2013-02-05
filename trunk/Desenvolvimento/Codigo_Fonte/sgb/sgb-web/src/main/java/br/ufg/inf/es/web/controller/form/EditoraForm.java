@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 @Scope("session")
 public class EditoraForm extends GenericForm<Editora> {
     private Editora editoraSelecionada;
+    private Boolean exibirDialogExclusao;
 
     public Editora getEditoraSelecionada() {
         return editoraSelecionada;
@@ -18,5 +19,14 @@ public class EditoraForm extends GenericForm<Editora> {
 
     public void setEditoraSelecionada(Editora editoraSelecionada) {
         this.editoraSelecionada = editoraSelecionada;
+    }
+    
+    
+    public Boolean getExibirDialogExclusao() {
+        return exibirDialogExclusao;
+    }
+
+    public void setExibirDialogExclusao(Boolean exibirDialogExclusao) {
+        this.exibirDialogExclusao = exibirDialogExclusao;
     }
 }

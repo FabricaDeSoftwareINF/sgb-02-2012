@@ -16,7 +16,7 @@ public class Autor extends AbstractEntityModel {
     private String nome;
     @Column(name = "sobrenome")
     private String sobrenome;
-    @ManyToMany(mappedBy = "autores", cascade = CascadeType.ALL)
+    @ManyToMany(mappedBy = "autores", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Collection<Livro> livros;
 
     public String getSobrenome() {
