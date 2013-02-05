@@ -55,18 +55,21 @@
 
                                 <p:autoComplete value="#{disciplinaController.form.livrosSelecionados}" converter="livroConverter" 
                                                 completeMethod="#{disciplinaController.buscaLivros}" var="livro" itemLabel="#{livro.titulo}" itemValue="#{livro}" 
-                                                multiple="true" forceSelection="true" immediate="true" >
-                                   
+                                                multiple="true" immediate="true" global="true" queryDelay="1000">
                                     
+                                    <p:ajax event="itemSelect"  listener="#{disciplinaController.addLivroOnSelect}" process="@this" immediate="true"></p:ajax>
+                                    
+                                    <p:ajax event="itemUnselect" listener="#{disciplinaController.removeOnUnselect}" process="@this" immediate="true"></p:ajax>
+                                
                                 </p:autoComplete>
 
                                 <p:spacer width="10"/>
 
-                                <p:commandButton value="#{msg['label.disciplina.associarLivro']}" action="#{disciplinaController.associarLivros}" update="@form"></p:commandButton>
+                                <p:commandButton value="#{msg['label.disciplina.associarLivro']}" action="#{disciplinaController.associarLivros}" ajax="false" immediate="true" process="@form"></p:commandButton>
 
                             </h:panelGrid>
 
-                            <p:dataTable id="dtTable" value="#{disciplinaController.form.bibliografiasAssociadas}" var="bibliografia" paginator="true" rows="10">
+                            <p:dataTable id="dtTable" value="#{disciplinaController.form.bibliografiasAssociadas}" var="bibliografia" paginator="true" rows="10" >
 
                                 <p:column headerText="#{msg['label.disciplina.tipoBibliografia']}">
 
@@ -82,9 +85,11 @@
 
                                 <p:column headerText="#{msg['label.disciplina.acao']}">
 
-                                    <p:commandLink value="#{msg['cadastro.acao.remover']}" update="@form">
-
-                                    </p:commandLink>
+                                    <h:commandLink value="#{msg['cadastro.acao.remover']}"  actionListener="#{disciplinaController.desassociarBibliografia}" >
+                                        
+                                        <f:setPropertyActionListener target="#{disciplinaController.form.bibliografiaSelecionada}" value="#{bibliografia}"></f:setPropertyActionListener>
+                                   
+                                    </h:commandLink>
 
                                 </p:column>
 

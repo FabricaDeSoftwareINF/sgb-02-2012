@@ -57,4 +57,38 @@ public class Bibliografia extends AbstractEntityModel {
     public String toString() {
         return "Bibliografia{" + "tipo=" + tipo + ", livro=" + livro + ", disciplina=" + disciplina + '}';
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Bibliografia other = (Bibliografia) obj;
+        if (this.tipo != other.tipo) {
+            return false;
+        }
+        if (this.livro != other.livro && (this.livro == null || !this.livro.equals(other.livro))) {
+            return false;
+        }
+        if (this.disciplina != other.disciplina && (this.disciplina == null || !this.disciplina.equals(other.disciplina))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 83 * hash + (this.tipo != null ? this.tipo.hashCode() : 0);
+        hash = 83 * hash + (this.livro != null ? this.livro.hashCode() : 0);
+        hash = 83 * hash + (this.disciplina != null ? this.disciplina.hashCode() : 0);
+        return hash;
+    }
+
+   
+    
+    
 }
