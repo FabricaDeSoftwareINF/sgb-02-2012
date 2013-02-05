@@ -12,9 +12,11 @@
             <h:form id="formbusca" style="font-size: 14px;">
 
                 <p:remoteCommand name="recarregaPagina" action="#{cursoController.openSearchPage()}"/>
+                
                 <p:messages/>
 
                 <p:panel header="#{msg['curso.manter']}">
+                    
                     <h:panelGrid width="100%" columns="1">
 
                         <p:dataTable id="tabelaCursos" var="curso" paginator="true" rows="10" paginatorAlwaysVisible="false"
@@ -52,7 +54,7 @@
 
 
                                     <p:commandLink id="linkAcaoDetalhe" value="#{msg['acao.detalhes']}" 
-                                                   onclick="dlgDetalhe.show();" action="#{cursoController.preparaCursoParaDetalhe}">
+                                                   oncomplete="dlgDetalhe.show();" update=":formbusca:dialogDetalhes" action="#{cursoController.preparaCursoParaDetalhe}">
 
                                         <f:setPropertyActionListener target="#{cursoController.form.cursoParaDetalhe}"
                                                                      value="#{curso}"/>
@@ -80,6 +82,7 @@
                         </h:panelGrid>
 
                     </h:panelGrid>
+                    
                 </p:panel>
 
                 <p:dialog id="dialogRemocao" widgetVar="dlgRemocao" modal="true"
@@ -93,7 +96,7 @@
 
                         <h:panelGrid columns="2" style="margin-left: 30%;">
 
-                            <p:commandButton value="#{msg['cadastro.autor.label.sim']}" ajax="false"
+                            <p:commandButton value="#{msg['cadastro.autor.label.sim']}" ajax="false" update="@form"
                                              action="#{cursoController.remove()}" oncomplete="dlgRemocao.hide();"/>
 
                             <p:commandButton value="#{msg['cadastro.autor.label.nao']}"
@@ -106,52 +109,63 @@
                 </p:dialog>
 
                 <p:dialog id="dialogDetalhes" widgetVar="dlgDetalhe" modal="true"
-                          resizable="false" header="#{msg['acao.detalhes']}">
+                          resizable="false" header="#{msg['acao.detalhes']}"
+                          width="550" height="450">
 
-                    <h:panelGrid columns="1" style="text-align: center;">
+                    <h:panelGrid columns="1" style="text-align: left;">
 
-                        <h:panelGrid columns="2">
+                        <h:panelGrid columns="3">
 
                             <p:outputLabel value="#{msg['cadastro.curso']}:" />
 
                             <p:outputLabel value="#{cursoController.form.cursoParaDetalhe.nome}"/>
 
+                            <p:spacer height="35" width="5"/>
+                            
                             <p:outputLabel value="#{msg['cadastro.curso.label.vagas']}:" />
 
                             <p:outputLabel value="#{cursoController.form.cursoParaDetalhe.vagas}"/>
 
-                            <p:dataTable value="#{cursoController.form.cursoParaDetalhe.disciplinas}" rows="5"
-                                         paginator="true" paginatorAlwaysVisible="false" var="disciplina">
-
-                                <p:column>
-
-                                    <f:facet name="header">  
-
-                                        <h:outputText value="#{msg['label.disciplina.codigo']}"/>
-
-                                    </f:facet> 
-
-                                    <p:outputLabel value="#{disciplina.codigo}"/>
-
-                                </p:column>
-
-                                <p:column>
-
-                                    <f:facet name="header">  
-
-                                        <h:outputText value="#{msg['label.disciplina.nome']}"/>
-
-                                    </f:facet> 
-
-                                    <p:outputLabel value="#{disciplina.nome}"/>
-
-                                </p:column>
-
-                            </p:dataTable>
-
                         </h:panelGrid>
+                        
+                        <p:spacer height="15" width="5"/>
 
                     </h:panelGrid>
+                    
+                    <p:panel header="#{msg['cadastro.disciplinas']}">
+                        
+                        <p:spacer height="15" width="5"/>
+                        
+                        <p:dataTable value="#{cursoController.form.cursoParaDetalhe.disciplinas}" 
+                                     paginator="true" rows="5" var="disciplina">
+
+                            <p:column>
+
+                                <f:facet name="header">  
+
+                                    <h:outputText value="#{msg['label.disciplina.codigo']}"/>
+
+                                </f:facet> 
+
+                                <p:outputLabel value="#{disciplina.codigo}"/>
+
+                            </p:column>
+
+                            <p:column>
+
+                                <f:facet name="header">  
+
+                                    <h:outputText value="#{msg['label.disciplina.nome']}"/>
+
+                                </f:facet> 
+
+                                <p:outputLabel value="#{disciplina.nome}"/>
+
+                            </p:column>
+
+                        </p:dataTable>
+                   
+                    </p:panel>
 
                 </p:dialog>
 
