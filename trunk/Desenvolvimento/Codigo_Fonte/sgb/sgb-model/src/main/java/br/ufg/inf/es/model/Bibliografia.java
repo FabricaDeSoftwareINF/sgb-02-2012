@@ -24,7 +24,7 @@ public class Bibliografia extends AbstractEntityModel {
     @ManyToOne(optional = false)
     @JoinColumn(name = "id_livro")
     private Livro livro;
-    @ManyToOne(optional=false)
+    @ManyToOne
     @JoinColumn(name = "id_disciplina")
     private Disciplina disciplina;
 

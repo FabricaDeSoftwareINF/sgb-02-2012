@@ -28,15 +28,23 @@
                         </p:column>
 
                         <p:column headerText="Ações">
+                           
                             <h:panelGrid columns="2" width="100%" styleClass="semborda">
-                                <p:commandLink value="#{msg['acao.editar']}" action="#{disciplinaController.openInsertPage}" update="@all">
-                                    <f:setPropertyActionListener value="#{disciplina}" target="#{disciplinaController.form.entity}" />
+                            
+                                <p:commandLink value="#{msg['acao.editar']}" action="#{disciplinaController.openEditPage()}" update="@all">
+                                
+                                    <f:setPropertyActionListener value="#{disciplina}" target="#{disciplinaController.form.disciplinaEdicao}" />
+                                    
                                     <f:param name="entityID" value="#{disciplina.id}" />
+                                
                                 </p:commandLink>
 
                                 <p:commandLink value="#{msg['acao.detalhes']}">
+                                
                                 </p:commandLink>
+
                             </h:panelGrid>
+
                         </p:column>
 
                     </p:dataTable>

@@ -126,6 +126,14 @@
             
         </navigation-case>
         
+        <navigation-case>
+            
+            <from-outcome>DisciplinaController/editPage</from-outcome>
+            
+            <to-view-id>/paginas/disciplina/inclusao.xhtml</to-view-id>
+            
+        </navigation-case>
+        
         <!-- ESTÓRIA DE USUÁRIO 03-->
         <navigation-case>
             

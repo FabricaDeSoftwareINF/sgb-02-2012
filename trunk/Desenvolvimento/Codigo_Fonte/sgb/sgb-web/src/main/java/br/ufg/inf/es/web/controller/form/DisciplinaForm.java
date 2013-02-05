@@ -20,7 +20,13 @@ import org.springframework.stereotype.Component;
 @Component
 @Scope("session")
 public class DisciplinaForm extends GenericForm<Disciplina> {
+    
+    private Disciplina disciplinaEdicao;
+    
+    private Boolean isEditPage;
 
+    private Bibliografia bibliografiaParaRemocao;
+    
     private Curso cursoSelecionado;
     
     private Collection<Curso> cursos;
@@ -36,6 +42,30 @@ public class DisciplinaForm extends GenericForm<Disciplina> {
     private Boolean exibirDialogRemocao;
     
     private Collection<Livro> selecionadosAux;
+
+    public Boolean getIsEditPage() {
+        return isEditPage;
+    }
+
+    public void setIsEditPage(Boolean isEditPage) {
+        this.isEditPage = isEditPage;
+    }
+    
+    public Disciplina getDisciplinaEdicao() {
+        return disciplinaEdicao;
+    }
+
+    public void setDisciplinaEdicao(Disciplina disciplinaEdicao) {
+        this.disciplinaEdicao = disciplinaEdicao;
+    }
+    
+    public Bibliografia getBibliografiaParaRemocao() {
+        return bibliografiaParaRemocao;
+    }
+
+    public void setBibliografiaParaRemocao(Bibliografia bibliografiaParaRemocao) {
+        this.bibliografiaParaRemocao = bibliografiaParaRemocao;
+    }  
     
     public Collection<Livro> getSelecionadosAux() {
         return selecionadosAux;
