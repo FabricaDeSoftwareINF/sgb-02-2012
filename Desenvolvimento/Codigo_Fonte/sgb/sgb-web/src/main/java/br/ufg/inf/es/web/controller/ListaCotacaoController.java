@@ -1,9 +1,9 @@
-
 package br.ufg.inf.es.web.controller;
 
 import br.ufg.inf.es.integracao.ListaCotacaoService;
 import br.ufg.inf.es.model.ListaCotacao;
 import br.ufg.inf.es.web.controller.form.ListaCotacaoForm;
+import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -22,6 +22,12 @@ public class ListaCotacaoController extends SGBController<ListaCotacao, ListaCot
     private ListaCotacaoService service;
 
     @Override
+    public void initData() {
+        this.getForm().setTabelaListaCotacoes(new ArrayList<ListaCotacao>());
+        this.getForm().getTabelaListaCotacoes().addAll(this.getService().list());
+    }
+
+    @Override
     public ListaCotacaoForm getForm() {
         return form;
     }
@@ -31,9 +37,4 @@ public class ListaCotacaoController extends SGBController<ListaCotacao, ListaCot
         return service;
     }
 
-    public void exportarXLS(ListaCotacao cotacao) {
-    }
-
-    public void exportarCSV(ListaCotacao cotacao, boolean nacionais, boolean estrangeiros) {
-    }
 }

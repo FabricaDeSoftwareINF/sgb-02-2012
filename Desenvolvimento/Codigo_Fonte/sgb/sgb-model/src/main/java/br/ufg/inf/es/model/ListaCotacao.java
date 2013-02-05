@@ -1,5 +1,6 @@
 package br.ufg.inf.es.model;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.CascadeType;
@@ -20,6 +21,10 @@ public class ListaCotacao extends AbstractEntityModel {
     @OneToMany(cascade = CascadeType.ALL)
     private List<Cotacao> cotacoes;
     private double preco;
+    
+    public ListaCotacao() {
+        cotacoes = new ArrayList<Cotacao>();
+    }
 
     public List<Cotacao> getCotacoes() {
         return cotacoes;

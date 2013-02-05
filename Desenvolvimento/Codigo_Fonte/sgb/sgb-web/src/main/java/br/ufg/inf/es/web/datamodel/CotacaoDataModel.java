@@ -1,7 +1,4 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package br.ufg.inf.es.web.datamodel;
 
 import br.ufg.inf.es.integracao.CotacaoService;
@@ -14,7 +11,7 @@ import org.primefaces.model.SelectableDataModel;
 
 /**
  *
- * @author Marquete
+ * @author Bruno Marquete
  */
 public class CotacaoDataModel extends ListDataModel<Cotacao> implements SelectableDataModel<Cotacao>, Serializable {
 

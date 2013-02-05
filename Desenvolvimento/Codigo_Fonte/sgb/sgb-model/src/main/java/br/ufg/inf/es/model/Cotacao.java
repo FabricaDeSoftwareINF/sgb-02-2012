@@ -25,6 +25,7 @@ public class Cotacao extends AbstractEntityModel {
     private Livro livro;
     @OneToOne
     private Livraria livraria;
+    private int quantidade;
 
     public Date getDataCadastro() {
         return dataCadastro;
@@ -57,4 +58,13 @@ public class Cotacao extends AbstractEntityModel {
     public void setValor(double valor) {
         this.valor = valor;
     }
+
+    public int getQuantidade() {
+        return quantidade;
+    }
+
+    public void setQuantidade(int quantidade) {
+        this.quantidade = quantidade;
+    }
+    
 }
