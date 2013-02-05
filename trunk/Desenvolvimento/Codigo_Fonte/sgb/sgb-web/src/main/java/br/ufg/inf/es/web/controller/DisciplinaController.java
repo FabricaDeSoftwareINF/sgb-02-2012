@@ -15,6 +15,8 @@ import java.util.*;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.primefaces.event.SelectEvent;
+import org.primefaces.event.UnselectEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -54,9 +56,13 @@ public class DisciplinaController extends SGBController<Disciplina, DisciplinaFo
 
         this.getForm().setTipoBibliografias(new ArrayList<EnumTipoBibliografia>());
 
+        this.getForm().setLivrosSelecionados(new ArrayList<Livro>());
+
         this.getForm().setBibliografiasAssociadas(new ArrayList<Bibliografia>());
 
         this.getForm().setTipoBibliografias(Arrays.asList(EnumTipoBibliografia.values()));
+        
+        this.getForm().setSelecionadosAux(new ArrayList<Livro>());
     }
 
     /**
@@ -80,10 +86,41 @@ public class DisciplinaController extends SGBController<Disciplina, DisciplinaFo
 
         }
         
+        livros.removeAll(this.getForm().getSelecionadosAux());
+
         return livros;
 
     }
+    
+    /**
+     * Método responsável por adicionar um Livro na coleção auxiliar de livros
+     * selecionados
+     * 
+     * @author Cássio Augusto Silva de Freitas
+     * @param livro 
+     */
+    public void addLivroOnSelect(SelectEvent event) {
+      
+        Livro livro = (Livro) event.getObject();
+      
+        this.getForm().getSelecionadosAux().add(livro);
+   
+    }
 
+    /**
+     * Método responsável por remover um LivroSelecionado da coleção auxiliar
+     * quando se tira ele do autocomplete
+     * 
+     * @author Cássio Augusto Silva de Freitas
+     * @param livro 
+     */
+    public void removeOnUnselect(UnselectEvent unEvent) {
+     
+        Livro livro = (Livro) unEvent.getObject();
+       
+        this.getForm().getSelecionadosAux().remove(livro);
+    
+    }
     /**
      * Método responsável por associar os Livros selecionados a Disciplina
      *
@@ -93,18 +130,34 @@ public class DisciplinaController extends SGBController<Disciplina, DisciplinaFo
 
         if (UtilObjeto.isReferencia(this.getForm().getLivrosSelecionados()) && !this.getForm().getLivrosSelecionados().isEmpty()) {
 
+            List<Livro> aux = new ArrayList<Livro>(this.getForm().getLivrosSelecionados());
+
             for (Livro livro : this.getForm().getLivrosSelecionados()) {
 
-                Bibliografia bibliografia = new Bibliografia();
+                while (Collections.frequency(aux, livro) >= 1) {
 
-                bibliografia.setTipo(this.getForm().getTipoBibliografiaSelecionado());
+                    if (Collections.frequency(aux, livro) == 1) {
 
-                bibliografia.setLivro(livro);
+                        Bibliografia bibliografia = new Bibliografia();
 
-                this.getForm().getBibliografiasAssociadas().add(bibliografia);
+                        bibliografia.setTipo(this.getForm().getTipoBibliografiaSelecionado());
+
+                        bibliografia.setLivro(livro);
+
+                        this.getForm().getBibliografiasAssociadas().add(bibliografia);
+                        
+                    }
+                    
+                    aux.remove(livro);
+                    
+                    break;
+                }
             }
 
             this.getForm().setLivrosSelecionados(new ArrayList<Livro>());
+            
+            this.getForm().setSelecionadosAux(new ArrayList<Livro>());
+            
 
         } else {
 
@@ -135,6 +188,19 @@ public class DisciplinaController extends SGBController<Disciplina, DisciplinaFo
 
         return this.openInitialPage();
     }
+    
+    /**
+     * Método responsável por remover uma Bibliografia da associação criada pelo usuário
+     * 
+     * @author Cássio Augusto Silva de Freitas
+     */
+    public void desassociarBibliografia() {
+        
+        this.getForm().getBibliografiasAssociadas().remove(this.getForm().getBibliografiaSelecionada());
+        
+        this.getForm().setBibliografiaSelecionada(new Bibliografia());
+          
+    }
 
     @Override
     public DisciplinaForm getForm() {
@@ -162,7 +228,4 @@ public class DisciplinaController extends SGBController<Disciplina, DisciplinaFo
         this.cursoService = cursoService;
     }
 
-    private void verificaSeLivroJaRelacionado(Livro livro) {
-        throw new UnsupportedOperationException("Not yet implemented");
-    }
 }
