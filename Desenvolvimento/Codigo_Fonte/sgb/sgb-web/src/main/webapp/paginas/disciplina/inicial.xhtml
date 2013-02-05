@@ -12,7 +12,7 @@
 
         <ui:define name="content">
             <h:form>
-                <p:panel>
+                <p:panel header="#{msg['disciplina.manter']}">
                     <p:dataTable value="#{disciplinaController.form.collectionEntities}" var="disciplina" >
 
                         <p:column headerText="Código" sortBy="#{disciplina.codigo}">

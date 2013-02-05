@@ -2,11 +2,12 @@ package br.ufg.inf.es.web.controller;
 
 import br.ufg.inf.es.base.validation.ValidationException;
 import br.ufg.inf.es.integracao.EditoraService;
+import br.ufg.inf.es.model.AutorDTO;
 import br.ufg.inf.es.model.Editora;
 import br.ufg.inf.es.web.controller.form.EditoraForm;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -49,6 +50,12 @@ public class EditoraController
 
         this.service = service;
     }
+    
+        @Override
+    public String openInitialPage() {
+        this.getForm().setExibirDialogExclusao(Boolean.FALSE);
+        return super.openInitialPage();
+    }
 
     /**
      * Método responsável por salvar uma nova Editora no banco de dados
@@ -59,20 +66,14 @@ public class EditoraController
     public String salvarEditora() {
 
         try {
-
             this.getService().insert(this.getForm().getEntity());
-
             this.addSuccessMessage(EditoraController.KEY_MSG_SUCESSO);
 
         } catch (ValidationException ve) {
-
             addWarningMessage(ve.getKeyMessage());
-
         }
 
         return super.openSearchPage();
-
-
     }
 
     /**
@@ -81,39 +82,23 @@ public class EditoraController
      * @return String de navegação para página inicial de Editora
      */
     public String editarEditora() {
-
         try {
-            
             this.getForm().getCollectionEntities().remove(this.getForm().getEntity());
-
             this.getService().editar(this.getForm().getEntity());
-
             addSuccessMessage(EditoraController.KEY_MSG_SUCESSO);
-
         } catch (ValidationException ve) {
-            
             this.getService().getDAO().closeSession();
-           
             addWarningMessage(ve.getKeyMessage());
-
         }
-
         return super.openSearchPage();
-
     }
 
     public void selecionaEditora(Editora assTab) {
-
         if (this.editoraSelecionado.contains(assTab)) {
-
             this.editoraSelecionado.remove(assTab);
-
         } else {
-
             this.editoraSelecionado.add(assTab);
-
         }
-
     }
 
     public void preparaEditora(Editora assTab) {
@@ -133,40 +118,46 @@ public class EditoraController
     public String removerEditoraSelecionadas() {
 
         if (!editoraSelecionado.isEmpty()) {
-
-            this.service.getDAO().removeAll(editoraSelecionado);
+            try {
+                this.service.getDAO().removeAll(editoraSelecionado);
+            } catch (ConstraintViolationException cve) {
+                this.getForm().setExibirDialogExclusao(Boolean.FALSE);
+                this.addWarningMessage("A editora está vinculada a um livro. Não é possível remove-la.");
+            }
 
             editoraSelecionado = new ArrayList<Editora>();
 
             this.form.setCollectionEntities(this.service.getDAO().list());
 
-         
-
         } else {
-            
             this.addWarningMessage("label.nenhumRegistroSelecionado");
-            
         }
 
-           return super.openSearchPage();
+        return super.openSearchPage();
+    }
+    
+    public void prepararExclusao() {
+        if (editoraSelecionado.isEmpty()) {
+            this.getForm().setExibirDialogExclusao(Boolean.FALSE);
+            this.addWarningMessage("Selecione pelo menos um registro!");
+        } else {
+            this.getForm().setExibirDialogExclusao(Boolean.TRUE);
+        }
     }
 
     public String getBuscaEditora() {
 
         return buscaEditora;
-
     }
 
     public void setBuscaEditora(String buscaEditora) {
 
         this.buscaEditora = buscaEditora;
-
     }
 
     public Collection<Editora> getEditoraSelecionado() {
 
         return editoraSelecionado;
-
     }
 
     public void setEditoraSelecionado(Collection<Editora> editoraSelecionado) {
@@ -178,12 +169,10 @@ public class EditoraController
     public Editora getEditora() {
 
         return editora;
-
     }
 
     public void setEditora(Editora editora) {
 
         this.editora = editora;
-
     }
 }
