@@ -11,7 +11,7 @@
 
         <ui:define name="content">
 
-            <h:form id="formInicial" prependId="false">
+            <h:form id="formInicial">
 
                 <p:panel header="#{msg['label.disciplina.title.cadastroDisciplina']}">
 
@@ -56,11 +56,11 @@
                                 <p:autoComplete value="#{disciplinaController.form.livrosSelecionados}" converter="livroConverter" 
                                                 completeMethod="#{disciplinaController.buscaLivros}" var="livro" itemLabel="#{livro.titulo}" itemValue="#{livro}" 
                                                 multiple="true" immediate="true" global="true" queryDelay="1000">
-                                    
+
                                     <p:ajax event="itemSelect"  listener="#{disciplinaController.addLivroOnSelect}"></p:ajax>
-                                    
+
                                     <p:ajax event="itemUnselect" listener="#{disciplinaController.removeOnUnselect}" ></p:ajax>
-                                
+
                                 </p:autoComplete>
 
                                 <p:spacer width="10"/>
@@ -85,10 +85,11 @@
 
                                 <p:column headerText="#{msg['label.disciplina.acao']}">
 
-                                    <h:commandLink value="#{msg['cadastro.acao.remover']}"  actionListener="#{disciplinaController.desassociarBibliografia(bibliografia)}" >                                     
-                                        
-                                   
-                                    </h:commandLink>
+                                    <p:commandLink value="#{msg['cadastro.acao.remover']}"  actionListener="#{disciplinaController.exibirDialogRemocao}" update=":formInicial:dialogRemocao">                                     
+
+                                        <f:setPropertyActionListener target="#{disciplinaController.form.bibliografiaParaRemocao}" value="#{bibliografia}"/>
+
+                                    </p:commandLink>
 
                                 </p:column>
 
@@ -98,28 +99,35 @@
 
                         <h:panelGrid columns="2" style="float: right">
 
-                            <p:commandButton value="#{msg['label.disciplina.cadastrar']}"></p:commandButton>
+                            <p:commandButton value="#{msg['label.disciplina.cadastrar']}" action="#{disciplinaController.inserir}" rendered="#{!disciplinaController.form.isEditPage}"></p:commandButton>
+                            
+                            <p:commandButton value="Editar" action="#" rendered="#{disciplinaController.form.isEditPage}"/>
 
-                            <p:commandButton value="#{msg['label.disciplina.voltar']}"></p:commandButton>
+                            <p:commandButton value="#{msg['label.disciplina.voltar']}" action="#{disciplinaController.openInitialPage()}"></p:commandButton>
 
                         </h:panelGrid>
 
                     </h:panelGrid>
 
-                    <p:confirmDialog id="dialogRemocao" message="#{msg['label.disciplina.mensagem.removerAssociacao']}"
-                                     header="#{msg['label.disciplina.tituloDialog.removerBibliografia']}" severity="alert" 
-                                     widgetVar="alertRemocao" visible="#{disciplinaController.form.exibirDialogRemocao}">
-                        <center>
-
-                            <p:commandButton value="#{msg['label.sim']}" action="#{disciplinaController.inserir}" ajax="false"></p:commandButton>
-
-                            <p:commandButton value="#{msg['label.nao']}" action="#" ajax="false"></p:commandButton>
-
-                        </center>
-
-                    </p:confirmDialog>
-                
                 </p:panel>
+
+
+                <p:confirmDialog id="dialogRemocao" message="#{msg['label.disciplina.mensagem.removerAssociacao']}: #{disciplinaController.form.bibliografiaParaRemocao.livro.titulo} ?"
+                                 header="#{msg['label.disciplina.tituloDialog.removerBibliografia']}" severity="alert" 
+                                 widgetVar="alertRemocao" visible="#{disciplinaController.form.exibirDialogRemocao}">
+                    <center>
+
+                        <p:commandButton value="#{msg['arquitetura.msg.sim']}" action="#{disciplinaController.desassociarBibliografia}" ajax="false"></p:commandButton>
+
+                        <p:commandButton value="#{msg['arquitetura.msg.nao']}"  ajax="false">
+                            
+                            <f:setPropertyActionListener value="#{false}" target="#{disciplinaController.form.exibirDialogRemocao}"/> 
+                       
+                        </p:commandButton>
+
+                    </center>
+
+                </p:confirmDialog>
 
             </h:form>
 

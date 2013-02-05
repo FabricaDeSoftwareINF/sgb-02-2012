@@ -48,6 +48,8 @@ public class DisciplinaController extends SGBController<Disciplina, DisciplinaFo
     public void initData() {
 
         super.initData();
+        
+        this.getForm().setIsEditPage(Boolean.FALSE);
 
         this.getForm().setExibirDialogRemocao(Boolean.FALSE);
 
@@ -62,9 +64,31 @@ public class DisciplinaController extends SGBController<Disciplina, DisciplinaFo
         this.getForm().setBibliografiasAssociadas(new ArrayList<Bibliografia>());
 
         this.getForm().setTipoBibliografias(Arrays.asList(EnumTipoBibliografia.values()));
-        
+
         this.getForm().setSelecionadosAux(new ArrayList<Livro>());
     }
+
+    @Override
+    public String openEditPage() {
+        
+        this.getForm().setIsEditPage(Boolean.TRUE);
+        
+        this.getForm().setEntity(this.getService().find(this.getForm().getDisciplinaEdicao().getId()));
+        
+        this.getForm().getEntity().setBibliografias((Collection<Bibliografia>)this.getService().getDAO().getCollection(this.getForm().getEntity().getId(), "bibliografias"));
+        
+        this.getForm().setBibliografiasAssociadas(this.getForm().getEntity().getBibliografias());
+        
+        for(Bibliografia bl : this.getForm().getBibliografiasAssociadas()) {
+            
+            this.getForm().getLivrosSelecionados().add(bl.getLivro());
+        }
+        
+        return super.openEditPage();
+ 
+    }
+    
+    
 
     /**
      * Método responsável por buscar coleção de Livros de acordo com o titulo
@@ -86,42 +110,43 @@ public class DisciplinaController extends SGBController<Disciplina, DisciplinaFo
             }
 
         }
-        
+
         livros.removeAll(this.getForm().getSelecionadosAux());
 
         return livros;
 
     }
-    
+
     /**
      * Método responsável por adicionar um Livro na coleção auxiliar de livros
      * selecionados
-     * 
+     *
      * @author Cássio Augusto Silva de Freitas
-     * @param livro 
+     * @param livro
      */
     public void addLivroOnSelect(SelectEvent event) {
-      
+
         Livro livro = (Livro) event.getObject();
-      
+
         this.getForm().getSelecionadosAux().add(livro);
-   
+
     }
 
     /**
      * Método responsável por remover um LivroSelecionado da coleção auxiliar
      * quando se tira ele do autocomplete
-     * 
+     *
      * @author Cássio Augusto Silva de Freitas
-     * @param livro 
+     * @param livro
      */
     public void removeOnUnselect(UnselectEvent unEvent) {
-     
+
         Livro livro = (Livro) unEvent.getObject();
-       
+
         this.getForm().getSelecionadosAux().remove(livro);
-    
+
     }
+
     /**
      * Método responsável por associar os Livros selecionados a Disciplina
      *
@@ -133,20 +158,20 @@ public class DisciplinaController extends SGBController<Disciplina, DisciplinaFo
 
             for (Livro livro : this.getForm().getLivrosSelecionados()) {
 
-               Bibliografia bliografia = new Bibliografia();
-               
-               bliografia.setTipo(this.getForm().getTipoBibliografiaSelecionado());
-               
-               bliografia.setLivro(livro);
-               
-               this.getForm().getBibliografiasAssociadas().add(bliografia);
-               
+                Bibliografia bliografia = new Bibliografia();
+
+                bliografia.setTipo(this.getForm().getTipoBibliografiaSelecionado());
+
+                bliografia.setLivro(livro);
+
+                this.getForm().getBibliografiasAssociadas().add(bliografia);
+
             }
-            
+
             this.getForm().setLivrosSelecionados(new ArrayList<Livro>());
-            
+
             this.getForm().setSelecionadosAux(new ArrayList<Livro>());
-            
+
 
         } else {
 
@@ -157,7 +182,7 @@ public class DisciplinaController extends SGBController<Disciplina, DisciplinaFo
     }
 
     /**
-     * Método responsável por inserir uma nova Disciplina
+     * Método responsável por inserir e/ou editar uma disciplina 
      *
      * @return String de navegação
      */
@@ -165,7 +190,7 @@ public class DisciplinaController extends SGBController<Disciplina, DisciplinaFo
 
         try {
 
-            this.getService().insert(this.form.getEntity());
+            this.getService().inserir(this.form.getEntity());
 
             this.addSuccessMessage(DisciplinaController.KEY_SUCESSO);
 
@@ -177,17 +202,31 @@ public class DisciplinaController extends SGBController<Disciplina, DisciplinaFo
 
         return this.openInitialPage();
     }
-    
+
     /**
-     * Método responsável por remover uma Bibliografia da associação criada pelo usuário
+     * Método responsável por exibir o dialog de remoção
      * 
+     * @author Cássio Augusto
+     */
+    public void exibirDialogRemocao() {
+        
+        this.getForm().setExibirDialogRemocao(Boolean.TRUE);
+    
+    }
+
+    /**
+     * Método responsável por remover uma Bibliografia da associação criada pelo
+     * usuário
+     *
      * @author Cássio Augusto Silva de Freitas
      */
-    public void desassociarBibliografia(Bibliografia event) {
-        
-        this.getForm().getBibliografiasAssociadas().remove(event);
-        
-          
+    public void desassociarBibliografia() {
+
+        this.getForm().setExibirDialogRemocao(Boolean.FALSE);
+
+        this.getForm().getBibliografiasAssociadas().remove(this.getForm().getBibliografiaParaRemocao());
+
+
     }
 
     @Override
@@ -215,5 +254,4 @@ public class DisciplinaController extends SGBController<Disciplina, DisciplinaFo
     public void setCursoService(CursoService cursoService) {
         this.cursoService = cursoService;
     }
-
 }

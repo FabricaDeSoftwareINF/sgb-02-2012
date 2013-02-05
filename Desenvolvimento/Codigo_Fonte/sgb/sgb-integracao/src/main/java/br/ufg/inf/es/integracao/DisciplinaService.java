@@ -50,22 +50,27 @@ public class DisciplinaService extends GenericService<Disciplina> {
         return livroDao;
     }
 
-    @Override
     @RNG006
-    public Long insert(Disciplina entidade) throws ValidationException {
+    public void inserir(Disciplina entidade) throws ValidationException {
+
+        Long id =  this.getDAO().insert(entidade);
+        
+        Disciplina persistida = this.getDAO().find(id);
 
         if (UtilObjeto.isReferencia(entidade.getBibliografias())) {
+
             for (Bibliografia bl : entidade.getBibliografias()) {
 
-                bl.setDisciplina(entidade);
+                    bl.setDisciplina(persistida);
 
+                this.getBibliografiaDAO().update(bl);
             }
 
+            persistida.setBibliografias(entidade.getBibliografias());
+            
+            this.getDAO().update(persistida);
         }
 
-        this.getDAO().update(entidade);
-
-        return 0L;
     }
 
     public Collection<Disciplina> complete(String query) {
