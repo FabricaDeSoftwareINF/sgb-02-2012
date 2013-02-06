@@ -57,4 +57,8 @@ public abstract class GenericService<E extends AbstractEntityModel> implements S
 
         this.getDAO().refresh(entidade);
     }
+    
+    public Collection<E> searchByAttributes(String key, String... attributes) {
+        return this.getDAO().search(key, attributes);
+    }
 }

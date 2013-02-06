@@ -80,7 +80,7 @@ public class AutorService extends GenericService<Autor> {
         Collection<Autor> results = new ArrayList<Autor>();
 
         for(Autor autor : dao.list()){
-            if(autor.getNome().contains(query)){
+            if(autor.getNome().toUpperCase().contains(query.toUpperCase())){
                 results.add(autor);
             }
         }

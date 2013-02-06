@@ -27,6 +27,7 @@ import org.hibernate.Hibernate;
 import br.ufg.inf.es.web.datamodel.LivroDataModel;
 import java.util.Arrays;
 import java.util.List;
+import org.primefaces.event.UnselectEvent;
 
 /**
  *
@@ -58,6 +59,8 @@ public class LivroController extends SGBController<Livro, LivroForm, LivroServic
     private StreamedContent fileExportado;
     private LivroDataModel livroModel;    
     private Livro[] livrosSelecionados;
+    
+    private List<Autor> autoresAdicionados = new ArrayList<Autor>();
 
     /**
      * Método responsável por retornar a string de navegação para a pagina
@@ -198,22 +201,24 @@ public class LivroController extends SGBController<Livro, LivroForm, LivroServic
     }
 
     public Collection<Livro> complete(String query) {
-        Collection<Livro> results = new ArrayList<Livro>();
-
-        for (Livro livro : form.getCollectionEntities()) {
-            if (livro.getTitulo().toUpperCase().contains(query.toUpperCase())) {
-                results.add(livro);
-            }
-        }
-
-        return results;
+        Collection<Livro> livros = this.service.searchByAttributes(query, "titulo");
+        livros.removeAll(Arrays.asList(this.livrosSelecionados));
+        return this.service.searchByAttributes(query, "titulo");
+    }
+    
+    public Collection<Autor> completeAutor(String query) {  
+        return this.autorService.searchByAttributes(query, "nome", "sobrenome");
+    }
+    
+    public Collection<Editora> completeEditora(String query) {  
+        return this.editoraService.searchByAttributes(query, "nome");
     }
     
     public Collection<Disciplina> completeDisciplina(String query) {  
         Collection<Disciplina> results = new ArrayList<Disciplina>();
           
         Collection<Disciplina> disciplinas = disciplinaService.getDAO().
-                listarDisciplinasDeUmCurso(this.cursoSelecionado.getId());
+                listarDisciplinasDeUmCurso(this.getForm().getCursoSelecionado().getId());
         
         for(Disciplina disciplina : disciplinas){
             if(disciplina.getNome().toUpperCase().contains(query.toUpperCase())){
@@ -221,8 +226,8 @@ public class LivroController extends SGBController<Livro, LivroForm, LivroServic
             }
         }          
         return results;  
-    } 
-
+    }
+    
     @Override
     public String openInsertPage() {
 
@@ -302,6 +307,10 @@ public class LivroController extends SGBController<Livro, LivroForm, LivroServic
      */
     private void limpaEntidadeDeCadastro(){
         this.getForm().setEntity(new Livro());
+    }
+    
+    public void handleUnselectAutor(UnselectEvent event) {
+        
     }
     
 }

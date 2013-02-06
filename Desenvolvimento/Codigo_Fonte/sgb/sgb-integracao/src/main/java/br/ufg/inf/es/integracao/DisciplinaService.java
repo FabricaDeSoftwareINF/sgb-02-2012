@@ -77,7 +77,7 @@ public class DisciplinaService extends GenericService<Disciplina> {
         Collection<Disciplina> results = new ArrayList<Disciplina>();
 
         for (Disciplina disciplina : this.dao.list()) {
-            if (disciplina.getNome().contains(query)) {
+            if (disciplina.getNome().toUpperCase().contains(query.toUpperCase())) {
                 results.add(disciplina);
             }
         }

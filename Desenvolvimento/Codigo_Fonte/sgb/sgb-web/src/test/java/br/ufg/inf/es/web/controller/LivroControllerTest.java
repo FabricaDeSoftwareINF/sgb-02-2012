@@ -42,7 +42,6 @@ public class LivroControllerTest {
 
     @Before
     public void setUp() {
-        livroController.setCursoSelecionado(cursoMock);
         livroController.setForm(livroFormMock);
         livroController.setService(livroServiceMock);
         livroController.setDisciplinaService(disciplinaServiceMock);
@@ -51,18 +50,7 @@ public class LivroControllerTest {
         livroController.setCursos(cursosMock);
         livroController.setEditoraService(editoraServiceMock);
         livroController.setAutorService(autorServiceMock);
-        livroController.setForm(livroFormMock);
-          Mockito.when(livroFormMock.getEntity()).thenReturn(new Livro());
-    }
-
-    @Test
-    public void testGetCursoSelecionado() {
-
-
-        Curso result = livroController.getCursoSelecionado();
-        assertEquals(cursoMock, result);
-
-
+        Mockito.when(livroFormMock.getEntity()).thenReturn(new Livro());
     }
 
     /**
@@ -70,7 +58,7 @@ public class LivroControllerTest {
      */
     @Test
     public void testSetCursoSelecionado() {
-        livroController.setCursoSelecionado(cursoMock);
+        livroController.getForm().setCursoSelecionado(cursoMock);
     }
 
     @Test
@@ -276,7 +264,7 @@ public class LivroControllerTest {
         Collection<Livro> livros = new ArrayList();
         
         livros.add(livro);
-        Mockito.when(livroFormMock.getCollectionEntities()).thenReturn(livros);
+        Mockito.when(livroServiceMock.searchByAttributes(query, "titulo")).thenReturn(livros);
         Collection result = livroController.complete(query);
         
         assertEquals(livros, result);

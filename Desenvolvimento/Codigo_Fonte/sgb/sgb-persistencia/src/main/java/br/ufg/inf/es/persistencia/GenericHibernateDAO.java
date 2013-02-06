@@ -8,8 +8,10 @@ import br.ufg.inf.es.base.util.UtilObjeto;
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.apache.commons.beanutils.PropertyUtils;
@@ -17,8 +19,11 @@ import org.hibernate.Criteria;
 import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Example;
+import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
 
 /**
  * @author Cézar Augusto Ferreira
@@ -211,7 +216,61 @@ public abstract class GenericHibernateDAO<E extends Entity<Long>> implements DAO
         lista = criteria.list();
 
         return lista;
-        
+
+    }
+
+    public Collection<E> search(String key, String... properties) {
+
+        if (properties == null || properties.length == 0) {
+            throw new IllegalArgumentException("properties must not be null");
+        }
+
+        Collection<E> lista;
+
+        key = key.trim();
+
+        if (key.isEmpty()) {
+            return null;
+        }
+
+        Criteria criteria = this.createCriteria();
+
+        List<Criterion> criterionOrs = new ArrayList<Criterion>();
+
+        Criterion criterion = null;
+
+        for (int i = 0; i < properties.length; i++) {
+            String[] keys = key.split(" ");
+            Criterion criterionOr = Restrictions.ilike(properties[i], keys[0], MatchMode.ANYWHERE);
+            for (int k = 1; k < keys.length; k++) {
+                criterionOr = Restrictions.or(criterionOr,
+                        Restrictions.ilike(properties[i], keys[k].trim(), MatchMode.ANYWHERE));
+            }
+            criterionOrs.add(criterionOr);
+        }
+
+        if (key.split(" ").length > 1) {
+            criterion = Restrictions.isNotNull(properties[0]);
+        } else {
+            criterion = Restrictions.isNull(properties[0]);
+        }
+
+        for (Criterion ors : criterionOrs) {
+            if (key.split(" ").length > 1) {
+                criterion = Restrictions.and(criterion, ors);
+            } else {
+                criterion = Restrictions.or(criterion, ors);
+            }
+        }
+
+        criteria.add(criterion);
+
+        this.addOrder(criteria);
+
+        lista = criteria.list();
+
+        return lista;
+
     }
 
     public void refresh(E entidade) {
@@ -262,9 +321,9 @@ public abstract class GenericHibernateDAO<E extends Entity<Long>> implements DAO
             criteria.addOrder(order);
         }
     }
-    
+
     public void closeSession() {
-        
+
         try {
 
             this.session.close();
@@ -274,7 +333,6 @@ public abstract class GenericHibernateDAO<E extends Entity<Long>> implements DAO
             Logger.getLogger(this.getClass().getSimpleName()).info(e.getMessage());
         }
     }
-    
 
     @Override
     protected void finalize() throws Throwable {

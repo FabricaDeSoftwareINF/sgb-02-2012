@@ -1,7 +1,12 @@
 package br.ufg.inf.es.web.controller.form;
 
 import br.ufg.inf.es.enuns.EnumTipoBibliografia;
+import br.ufg.inf.es.integracao.DisciplinaService;
+import br.ufg.inf.es.integracao.AutorService;
+import br.ufg.inf.es.model.Autor;
 import br.ufg.inf.es.model.Bibliografia;
+import br.ufg.inf.es.model.Curso;
+import br.ufg.inf.es.model.Disciplina;
 import br.ufg.inf.es.model.Livro;
 
 import br.ufg.inf.es.web.datamodel.LivroDataModel;
@@ -9,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -20,12 +26,13 @@ import org.springframework.stereotype.Component;
 @Component
 @Scope("session")
 public class LivroForm extends GenericForm<Livro> {
-    
+
     private Bibliografia bibliografiaTemp = new Bibliografia();
     private Livro[] selectedLivros;
     private LivroDataModel livroDM;
     private Collection<Livro> todosLivros;
     private String filtroTitulo;
+    private Curso cursoSelecionado;   
 
     public Bibliografia getBibliografiaTemp() {
         return bibliografiaTemp;
@@ -50,11 +57,11 @@ public class LivroForm extends GenericForm<Livro> {
     }
 
     public LivroDataModel getLivroDM() {
-        
-        List<Livro> livros =  new ArrayList<Livro>(this.getTodosLivros());
-        
-       livroDM = new LivroDataModel(livros);
-        
+
+        List<Livro> livros = new ArrayList<Livro>(this.getTodosLivros());
+
+        livroDM = new LivroDataModel(livros);
+
         return livroDM;
     }
 
@@ -77,18 +84,25 @@ public class LivroForm extends GenericForm<Livro> {
     public void setFiltroTitulo(String filtroTitulo) {
         this.filtroTitulo = filtroTitulo;
     }
-    
-    
+
     public List<EnumTipoBibliografia> getTiposBibliografia() {
         return Arrays.asList(EnumTipoBibliografia.values());
     }
-    
+
     public void setTipoBibliografia(EnumTipoBibliografia tipoBibliografia) {
         bibliografiaTemp.setTipo(tipoBibliografia);
     }
-    
+
     public EnumTipoBibliografia getTipoBibliografia() {
         return bibliografiaTemp.getTipo();
+    }
+    
+    public Curso getCursoSelecionado() {
+        return this.cursoSelecionado;
+    }
+
+    public void setCursoSelecionado(Curso cursoSelecionado) {
+        this.cursoSelecionado = cursoSelecionado;
     }
     
 }
