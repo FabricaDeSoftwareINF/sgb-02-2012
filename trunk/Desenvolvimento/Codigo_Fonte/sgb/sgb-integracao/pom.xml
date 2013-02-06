@@ -100,7 +100,7 @@
 		<dependency>
 			<groupId>com.buscape</groupId>
 			<artifactId>buscape-java-wrapper</artifactId>
-			<version>1.0-SNAPSHOT</version>
+			<version>1.0-20130206.145219-1</version>
 		</dependency>
             
     </dependencies>
