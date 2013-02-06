@@ -23,6 +23,8 @@ public interface DAO<E extends Entity<ID>, ID extends Serializable> extends Seri
     void removeAll(final Collection<E> entidades);
 
     Collection<E> search(final E entidade);
+    
+    Collection<E> search(final String key, final String... attributes);
 
     Collection<E> list();
 

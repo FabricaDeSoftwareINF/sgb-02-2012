@@ -1,7 +1,7 @@
 package br.ufg.inf.es.integracao;
 
 import br.ufg.inf.es.base.validation.ValidationException;
-import br.ufg.inf.es.integracao.annotations.RNG000;
+import br.ufg.inf.es.integracao.annotations.RNG002Livro;
 import br.ufg.inf.es.model.Livro;
 import br.ufg.inf.es.persistencia.LivroDAO;
 import java.util.Collection;
@@ -32,10 +32,14 @@ public class LivroService extends GenericService<Livro> {
     }
 
     @Override
-    @RNG000
+    @RNG002Livro
     public Long insert(Livro entity) throws ValidationException {
-
         return super.insert(entity);
+    }
+    
+    @RNG002Livro
+    public void update(Livro entity) throws ValidationException {
+        super.update(entity);
     }
 
     /**

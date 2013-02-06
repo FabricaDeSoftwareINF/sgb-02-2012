@@ -28,13 +28,15 @@
                     <p:inputText value="#{livroController.form.entity.isbn11}" />
                     <h:outputLabel value="#{msg['cadastro.livro.label.autor']}" ></h:outputLabel>
                     <h:panelGrid columns="2" >
-                        <p:autoComplete id="autorCompleteAutor" value="#{livroController.form.entity.autores}" completeMethod="#{livroController.autorService.complete}"  
-                                        var="autor" itemLabel="#{autor.toString()}" itemValue="#{autor}" converter="autorConverter" multiple="true"></p:autoComplete>  
+                        <p:autoComplete id="autorCompleteAutor" value="#{livroController.form.entity.autores}" completeMethod="#{livroController.completeAutor}"  
+                                        var="autor" itemLabel="#{autor.toString()}" itemValue="#{autor}" converter="autorConverter" multiple="true">
+                            <p:ajax event="itemUnselect" listener="#{livroController.handleUnselectAutor}" /> 
+                        </p:autoComplete>  
                         <p:commandButton onclick="cadastroAutorDialog.show()" immediate="true" value="+"></p:commandButton>
                     </h:panelGrid>
                     <h:outputLabel value="#{msg['cadastro.livro.label.editora']}" ></h:outputLabel>
                     <h:panelGrid columns="2">
-                        <p:autoComplete id="autoCompleteEditora" value="#{livroController.form.entity.editora}" completeMethod="#{livroController.editoraService.complete}"  
+                        <p:autoComplete id="autoCompleteEditora" value="#{livroController.form.entity.editora}" completeMethod="#{livroController.completeEditora}"  
                                         var="editora" itemLabel="#{editora.nome}" itemValue="#{editora}" converter="editoraConverter" ></p:autoComplete>  
                         <p:commandButton oncomplete="cadastroEditoraDialog.show()" immediate="true" value="+"></p:commandButton>
                     </h:panelGrid>
@@ -52,7 +54,7 @@
                                            itemValue="#{tipoBibliografia}" itemLabel="#{tipoBibliografia.value}"/>
                         </p:selectOneMenu>
                         <h:outputLabel value="Curso:"></h:outputLabel>
-                        <p:selectOneMenu value="#{livroController.cursoSelecionado}"  converter="cursoConverter">
+                        <p:selectOneMenu value="#{livroController.form.cursoSelecionado}"  converter="cursoConverter">
                             <p:ajax event="change" process="@this" update="disciplina" listener="#{livroController.limparDisciplina}" />
                             <f:selectItem itemLabel="#{msg['cadastro.livro.input.selecione']}"/>
                             <f:selectItems  var="curso" value="#{livroController.cursoService.list()}" itemLabel="#{curso.nome}" itemValue="#{curso}"/>
