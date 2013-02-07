@@ -16,8 +16,8 @@ public class Livro extends AbstractEntityModel {
     private String titulo;
     @Column(name = "ano")
     private Long ano;
-    @Column(name = "isbn11")
-    private String isbn11;
+    @Column(name = "isbn10")
+    private String isbn10;
     @Column(name = "isbn13")
     private String isbn13;
     @Column(name = "edicao")
@@ -64,12 +64,12 @@ public class Livro extends AbstractEntityModel {
         this.ano = ano;
     }
 
-    public String getIsbn11() {
-        return isbn11;
+    public String getIsbn10() {
+        return isbn10;
     }
 
-    public void setIsbn11(String isbn11) {
-        this.isbn11 = isbn11;
+    public void setIsbn10(String isbn10) {
+        this.isbn10 = isbn10;
     }
 
     public String getIsbn13() {

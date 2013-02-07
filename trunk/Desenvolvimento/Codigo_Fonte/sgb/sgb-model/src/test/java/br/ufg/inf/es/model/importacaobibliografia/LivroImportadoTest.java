@@ -30,7 +30,7 @@ static  LivroImportado instance = new LivroImportado();
         instance.setAnoPublicacao("2012");
         instance.setAutor("Autor");
         instance.setEdicao("1");
-        instance.setIsbn11("Isnb11");
+        instance.setIsbn10("Isnb11");
         instance.setIsbn13("Isbn13");
         instance.setTitulo("Titulo");
         
@@ -132,26 +132,26 @@ static  LivroImportado instance = new LivroImportado();
     }
 
     /**
-     * Test of getIsbn11 method, of class LivroImportado.
+     * Test of getIsbn10 method, of class LivroImportado.
      */
     @Test
-    public void testGetIsbn11() {
+    public void testgetIsbn10() {
         
         
         String expResult = "Isnb11";
-        String result = instance.getIsbn11();
+        String result = instance.getIsbn10();
         assertEquals(expResult, result);
         
     }
 
     /**
-     * Test of setIsbn11 method, of class LivroImportado.
+     * Test of setIsbn10 method, of class LivroImportado.
      */
     @Test
-    public void testSetIsbn11() {
+    public void testsetIsbn10() {
      
         String expResult = "Isnb11";
-        String result = instance.getIsbn11();
+        String result = instance.getIsbn10();
         assertEquals(expResult, result);
         
     }
@@ -183,7 +183,7 @@ static  LivroImportado instance = new LivroImportado();
     @Test
     public void testToString() {
        
-        String expResult = "LivroImportado{titulo=Titulo, edicao=1, anoPublicacao=2012, autor=Autor, isbn11=Isnb11, isbn13=Isbn13}";
+        String expResult = "LivroImportado{titulo=Titulo, edicao=1, anoPublicacao=2012, autor=Autor, isbn10=Isnb11, isbn13=Isbn13}";
         String result = instance.toString();
         assertEquals(expResult, result);
      

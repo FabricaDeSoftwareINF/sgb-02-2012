@@ -14,7 +14,7 @@ public class LivroImportado {
     private String edicao;
     private String anoPublicacao;
     private String autor;
-    private String isbn11;
+    private String isbn10;
     private String isbn13;
 
     public LivroImportado() {
@@ -52,12 +52,12 @@ public class LivroImportado {
         this.autor = autor;
     }
 
-    public String getIsbn11() {
-        return isbn11;
+    public String getIsbn10() {
+        return isbn10;
     }
 
-    public void setIsbn11(String isbn11) {
-        this.isbn11 = isbn11;
+    public void setIsbn10(String isbn10) {
+        this.isbn10 = isbn10;
     }
 
     public String getIsbn13() {
@@ -72,7 +72,7 @@ public class LivroImportado {
     public String toString() {
         return "LivroImportado{" + "titulo=" + titulo + ", edicao=" 
                 + edicao + ", anoPublicacao=" + anoPublicacao 
-                + ", autor=" + autor + ", isbn11=" + isbn11 
+                + ", autor=" + autor + ", isbn10=" + isbn10 
                 + ", isbn13=" + isbn13 + '}';
     }
     

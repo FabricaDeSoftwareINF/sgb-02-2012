@@ -53,13 +53,6 @@ public class LivroControllerTest {
         Mockito.when(livroFormMock.getEntity()).thenReturn(new Livro());
     }
 
-    /**
-     * Test of setCursoSelecionado method, of class LivroController.
-     */
-    @Test
-    public void testSetCursoSelecionado() {
-        livroController.getForm().setCursoSelecionado(cursoMock);
-    }
 
     @Test
     public void testGetForm() {

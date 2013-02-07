@@ -23,7 +23,7 @@ public class MarcParserTest {
     private static final String autorSobrenome1 = "Jose";
     private static final String autorSobrenome2 = "Silva";
     private static final String edicao = "2";
-    private static final String isbn11 = "12345678901";
+    private static final String isbn10 = "12345678901";
     private static final String isbn13 = "1234567890123";
     private static final String editoraNome = "Moderna";
     private static final List autores = new ArrayList();
@@ -53,7 +53,7 @@ public class MarcParserTest {
         livro.setAutores(autores);
         livro.setEdicao(edicao);
         livro.setEditora(editora);
-        livro.setIsbn11(isbn11);
+        livro.setIsbn10(isbn10);
         livro.setIsbn13(isbn13);        
     }
 
@@ -109,9 +109,9 @@ public class MarcParserTest {
      * Test of livroToMarc method, of class MarcParser.
      */
     @Test
-    public void testLivroToMarcIsbn11() {
+    public void testLivroToMarcIsbn10() {
         String livroMarc = MarcParser.livroToMarc(livro);
-        assertTrue(livroMarc.contains(isbn11));
+        assertTrue(livroMarc.contains(isbn10));
     }
     
     /**

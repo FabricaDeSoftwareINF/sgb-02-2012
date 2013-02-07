@@ -16,6 +16,13 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
         
+    <repositories>
+        <repository>
+            <id>developer.k-int.com</id>
+            <url>http://developer.k-int.com/maven2/</url>
+        </repository>
+    </repositories>
+    
     <dependencies>
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
@@ -90,11 +97,18 @@
             <version>2.3.1</version>
         </dependency>
 		
-		<dependency>
-			<groupId>com.buscape</groupId>
-			<artifactId>buscape-java-wrapper</artifactId>
-			<version>1.0-20130206.145219-1</version>
-		</dependency>
+        <dependency>
+            <groupId>com.buscape</groupId>
+            <artifactId>buscape-java-wrapper</artifactId>
+            <version>1.0-20130206.145219-1</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>commons-validator</groupId>
+            <artifactId>commons-validator</artifactId>
+            <version>1.4.0</version>
+        </dependency>
+            
             
     </dependencies>
 </project>

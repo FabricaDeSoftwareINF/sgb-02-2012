@@ -129,13 +129,13 @@ public class LivroParaCotacaoService extends GenericService<LivroParaCotacao> {
 
         Integer qtdeLivrosNecessarios = dividaComRoundUp(quantidadeVagas, parametroMec);
 
-        Integer qtdeLivrosDisponiveis = bibliotecaService.obtenhaQuantidadeExistente(livro.getIsbn11());
+        Integer qtdeLivrosDisponiveis = bibliotecaService.obtenhaQuantidadeExistente(livro.getIsbn10());
 
         if (qtdeLivrosDisponiveis < qtdeLivrosNecessarios) {
             Integer qtdeParaCotacao = qtdeLivrosNecessarios - qtdeLivrosDisponiveis;
 
             return new LivroParaCotacao(quantidadeVagas, parametroMec,
-                    qtdeLivrosDisponiveis, qtdeParaCotacao, livro.getTitulo(), livro.getIsbn11());
+                    qtdeLivrosDisponiveis, qtdeParaCotacao, livro.getTitulo(), livro.getIsbn10());
         } else {
             throw new LivroParaCotacaoException("Existem livros em quantidade "
                     + "suficiente para atender à todas as vagas");

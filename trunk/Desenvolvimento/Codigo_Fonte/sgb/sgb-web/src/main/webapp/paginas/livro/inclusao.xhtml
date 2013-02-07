@@ -24,11 +24,11 @@
                     <p:inputText required="true" value="#{livroController.form.entity.titulo}" requiredMessage="Por favor Informe o Titulo." />
                     <h:outputLabel value="#{msg['cadastro.livro.label.edicao']}"  ></h:outputLabel>
                     <p:inputText required="true" value="#{livroController.form.entity.edicao}" requiredMessage="Por favor Informe a Edicao." />
-                    <h:outputLabel value="#{msg['cadastro.livro.label.isbn11']}" ></h:outputLabel>
-                    <p:inputText value="#{livroController.form.entity.isbn11}" />
+                    <h:outputLabel value="#{msg['cadastro.livro.label.isbn10']}" ></h:outputLabel>
+                    <p:inputMask required="true" value="#{livroController.form.entity.isbn10}" mask="9999999999"/>
                     <h:outputLabel value="#{msg['cadastro.livro.label.autor']}" ></h:outputLabel>
                     <h:panelGrid columns="2" >
-                        <p:autoComplete id="autorCompleteAutor" value="#{livroController.form.entity.autores}" completeMethod="#{livroController.completeAutor}"  
+                        <p:autoComplete required="true" id="autorCompleteAutor" value="#{livroController.form.entity.autores}" completeMethod="#{livroController.completeAutor}"  
                                         var="autor" itemLabel="#{autor.toString()}" itemValue="#{autor}" converter="autorConverter" multiple="true">
                             <p:ajax event="itemUnselect" listener="#{livroController.handleUnselectAutor}" /> 
                         </p:autoComplete>  
@@ -36,14 +36,15 @@
                     </h:panelGrid>
                     <h:outputLabel value="#{msg['cadastro.livro.label.editora']}" ></h:outputLabel>
                     <h:panelGrid columns="2">
-                        <p:autoComplete id="autoCompleteEditora" value="#{livroController.form.entity.editora}" completeMethod="#{livroController.completeEditora}"  
+                        <p:autoComplete required="ture" id="autoCompleteEditora" value="#{livroController.form.entity.editora}" completeMethod="#{livroController.completeEditora}"  
                                         var="editora" itemLabel="#{editora.nome}" itemValue="#{editora}" converter="editoraConverter" ></p:autoComplete>  
                         <p:commandButton oncomplete="cadastroEditoraDialog.show()" immediate="true" value="+"></p:commandButton>
                     </h:panelGrid>
                     <h:outputLabel value="#{msg['cadastro.livro.label.isbn13']}" ></h:outputLabel>
-                    <p:inputText required="true" value="#{livroController.form.entity.isbn13}" requiredMessage="Por favor Informe o ISBN correto."/>
+                    <p:inputMask required="true" value="#{livroController.form.entity.isbn13}" type="number" 
+                                 requiredMessage="Por favor Informe o ISBN correto." mask="9999999999999"/>
                     <h:outputLabel value="#{msg['cadastro.livro.label.ano']}" ></h:outputLabel>
-                    <p:inputText value="#{livroController.form.entity.ano}"/>
+                    <p:inputMask value="#{livroController.form.entity.ano}" type="number" size="4" maxlength="4" mask="9999"/>
                 </h:panelGrid>
                 <p:fieldset id="associar_disciplina_panel" legend="#{msg['cadastro.livro.legend.associarDisciplina']}">
                     <h:panelGrid columns="2">
@@ -68,15 +69,15 @@
                                          update="table_disciplinas" process="associar_disciplina_panel"></p:commandButton>
                     </h:panelGrid>
 
-                    <p:dataTable id="table_disciplinas" value="#{livroController.form.entity.bibliografias}" var="item">
+                    <p:dataTable id="table_disciplinas" value="#{livroController.form.entity.bibliografias}" var="bibliografia">
                         <p:column headerText="Tipo">
-                            <h:outputText value="#{item.tipo.value}"/>
+                            <h:outputText value="#{bibliografia.tipo.value}"/>
                         </p:column>
                         <p:column headerText="Curso">
-                            <h:outputText value="#{item.disciplina.curso.nome}"/>
+                            <h:outputText value="#{bibliografia.disciplina.curso.nome}"/>
                         </p:column>
                         <p:column headerText="Disciplina">
-                            <h:outputText value="#{item.disciplina.nome}"/>
+                            <h:outputText value="#{bibliografia.disciplina.nome}"/>
                         </p:column>
                         <p:column headerText="Ação">
                             <p:commandLink value="Remover"/>

@@ -89,31 +89,31 @@ public class LivroTest {
     }
 
     /**
-     * Test of getIsbn11 method, of class Livro.
+     * Test of getIsbn10 method, of class Livro.
      */
     @Test
-    public void testGetIsbn11() {
+    public void testgetIsbn10() {
         
         Livro instance = new Livro();
-        instance.setIsbn11("AB");
+        instance.setIsbn10("AB");
         String expResult = "AB";
-        String result = instance.getIsbn11();
+        String result = instance.getIsbn10();
         assertEquals(expResult, result);
         
     }
 
     /**
-     * Test of setIsbn11 method, of class Livro.
+     * Test of setIsbn10 method, of class Livro.
      */
     @Test
-    public void testSetIsbn11() {
+    public void testsetIsbn10() {
        
-        String isbn11 = "AB";
+        String isbn10 = "AB";
         Livro instance = new Livro();
-        instance.setIsbn11("AB");
+        instance.setIsbn10("AB");
         
-        instance.setIsbn11(isbn11);
-        assertEquals(instance.getIsbn11(), isbn11);
+        instance.setIsbn10(isbn10);
+        assertEquals(instance.getIsbn10(), isbn10);
     }
 
     /**
