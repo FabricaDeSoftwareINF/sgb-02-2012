@@ -12,15 +12,15 @@ import javax.persistence.*;
 @Table(name = "LIVRO")
 public class Livro extends AbstractEntityModel {
 
-    @Column(name = "titulo")
+    @Column(name = "titulo", nullable=false)
     private String titulo;
-    @Column(name = "ano")
+    @Column(name = "ano", nullable=false)
     private Long ano;
-    @Column(name = "isbn10")
+    @Column(name = "isbn10", unique=true, nullable=false)
     private String isbn10;
-    @Column(name = "isbn13")
+    @Column(name = "isbn13", unique=true, nullable=false)
     private String isbn13;
-    @Column(name = "edicao")
+    @Column(name = "edicao", nullable=false)
     private String edicao;
     @ManyToOne(optional = false)
     @JoinColumn(name = "id_editora")

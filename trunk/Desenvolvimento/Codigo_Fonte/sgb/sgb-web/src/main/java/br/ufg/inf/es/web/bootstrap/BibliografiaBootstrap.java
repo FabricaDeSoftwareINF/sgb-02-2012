@@ -85,6 +85,7 @@ public class BibliografiaBootstrap {
         livro.setAutores(Arrays.asList(autor));
         livro.setEdicao("primeira edicao");
         livro.setEditora(editora);
+        livro.setAno(2000l);
         livro.setId(salve(livro));
         return livro;
     }

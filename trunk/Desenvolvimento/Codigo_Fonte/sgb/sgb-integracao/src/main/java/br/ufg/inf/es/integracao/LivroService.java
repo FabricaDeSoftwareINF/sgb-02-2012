@@ -34,18 +34,37 @@ public class LivroService extends GenericService<Livro> {
     @Override
     @RNG002Livro
     public Long insert(Livro entity) throws ValidationException {
-        return super.insert(entity);
+        Long id = 0l;
+        try {
+            id = super.insert(entity);
+        } catch (org.hibernate.exception.ConstraintViolationException e) {
+            String message = messageToProperty(e.getCause().getMessage());
+            throw new ValidationException(message);
+        }
+        return id;
     }
-    
+
+    protected String messageToProperty(String message) {
+        String[] msg = message.split(" ");
+        String prefix = msg[0].toLowerCase();
+        String sufix = msg[msg.length - 1].replace("'", "").toLowerCase();
+        return prefix.concat(".").concat(sufix);
+    }
+
     @RNG002Livro
     public void update(Livro entity) throws ValidationException {
-        super.update(entity);
+        try {
+            super.update(entity);
+        } catch (org.hibernate.exception.ConstraintViolationException e) {
+            String message = messageToProperty(e.getCause().getMessage());
+            throw new ValidationException(message);
+        }
     }
 
     /**
-     * 
+     *
      * @param filtroTitulo
-     * @return 
+     * @return
      * @author Jackeline
      */
     public Collection<Livro> buscaTodosLivros(String filtroTitulo) {
