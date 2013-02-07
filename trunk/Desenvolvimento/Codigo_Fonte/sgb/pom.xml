@@ -15,6 +15,13 @@
             
             CLASSES UTILITÁRIAS.
         -->
+        <module>buscape-java-wrapper</module>
+        
+        <!--
+            PROJETO PARA DEFINIÇÃO DE ARTEFATOS REUTILIZÁVEIS, POR EXEMPLO, 
+            
+            CLASSES UTILITÁRIAS.
+        -->
         <module>sgb-base</module>
 
         <!--
