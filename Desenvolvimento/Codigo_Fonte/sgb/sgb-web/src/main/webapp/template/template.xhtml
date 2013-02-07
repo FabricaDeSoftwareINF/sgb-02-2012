@@ -19,8 +19,15 @@
             </title>
 
             <h:outputScript name="functions.js" library="javascript"/>
+            <h:outputScript name="jquery.alphanumeric.js" library="javascript"/>
             <h:outputStylesheet library="css" name="default.css"/>
             <h:outputStylesheet library="css" name="panelGrid.css"/>
+            
+            <script>
+                jQuery(document).ready(function() {
+                    jQuery('.numeric').numeric({ichars:'ç[]=-;*/-+.,()¬¨%$"\'\'@!'}); 
+                });
+            </script>
 
         </h:head>  
 

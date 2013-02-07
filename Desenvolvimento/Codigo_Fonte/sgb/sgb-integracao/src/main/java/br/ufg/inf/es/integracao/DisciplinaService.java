@@ -4,7 +4,6 @@ import br.ufg.inf.es.base.util.UtilObjeto;
 import br.ufg.inf.es.base.validation.ValidationException;
 import br.ufg.inf.es.integracao.annotations.RNG006;
 import br.ufg.inf.es.model.Bibliografia;
-import br.ufg.inf.es.model.Curso;
 import br.ufg.inf.es.model.Disciplina;
 import br.ufg.inf.es.model.Livro;
 import br.ufg.inf.es.persistencia.BibliografiaDAO;
@@ -57,18 +56,14 @@ public class DisciplinaService extends GenericService<Disciplina> {
         
         Disciplina persistida = this.getDAO().find(id);
 
-        if (UtilObjeto.isReferencia(entidade.getBibliografias())) {
+        if (UtilObjeto.isReferencia(entidade.getBibliografias()) && !entidade.getBibliografias().isEmpty()) {
 
             for (Bibliografia bl : entidade.getBibliografias()) {
-
-                    bl.setDisciplina(persistida);
-
-                this.getBibliografiaDAO().update(bl);
+                
+                    bl.setDisciplina(persistida);        
+                    
+                    this.getBibliografiaDAO().update(bl);
             }
-
-            persistida.setBibliografias(entidade.getBibliografias());
-            
-            this.getDAO().update(persistida);
         }
 
     }

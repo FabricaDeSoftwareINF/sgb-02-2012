@@ -31,7 +31,7 @@
 
                             <h:outputLabel value="#{msg['label.disciplina.curso']}:"></h:outputLabel>
 
-                            <p:selectOneMenu value="#{disciplinaController.form.entity.curso}" converter="cursoConverter" >
+                            <p:selectOneMenu value="#{disciplinaController.form.entity.curso}" converter="cursoConverter">
 
                                 <f:selectItems value="#{disciplinaController.form.cursos}" var="curso" itemLabel="#{curso.nome}"/>
 
@@ -100,7 +100,7 @@
                         <h:panelGrid columns="2" style="float: right">
 
                             <p:commandButton value="#{msg['label.disciplina.cadastrar']}" action="#{disciplinaController.inserir}" rendered="#{!disciplinaController.form.isEditPage}"></p:commandButton>
-                            
+
                             <p:commandButton value="Editar" action="#" rendered="#{disciplinaController.form.isEditPage}"/>
 
                             <p:commandButton value="#{msg['label.disciplina.voltar']}" action="#{disciplinaController.openInitialPage()}"></p:commandButton>
@@ -120,9 +120,9 @@
                         <p:commandButton value="#{msg['arquitetura.msg.sim']}" action="#{disciplinaController.desassociarBibliografia}" ajax="false"></p:commandButton>
 
                         <p:commandButton value="#{msg['arquitetura.msg.nao']}"  ajax="false">
-                            
+
                             <f:setPropertyActionListener value="#{false}" target="#{disciplinaController.form.exibirDialogRemocao}"/> 
-                       
+
                         </p:commandButton>
 
                     </center>

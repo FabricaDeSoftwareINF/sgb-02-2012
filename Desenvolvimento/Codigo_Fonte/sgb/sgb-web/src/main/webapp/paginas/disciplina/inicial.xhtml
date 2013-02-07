@@ -13,6 +13,9 @@
         <ui:define name="content">
             <h:form>
                 <p:panel header="#{msg['disciplina.manter']}">
+                    
+                    <p:messages autoUpdate="true"/>
+                    
                     <p:dataTable value="#{disciplinaController.form.collectionEntities}" var="disciplina" >
 
                         <p:column headerText="Código" sortBy="#{disciplina.codigo}">
@@ -28,19 +31,19 @@
                         </p:column>
 
                         <p:column headerText="Ações">
-                           
+
                             <h:panelGrid columns="2" width="100%" styleClass="semborda">
-                            
+
                                 <p:commandLink value="#{msg['acao.editar']}" action="#{disciplinaController.openEditPage()}" update="@all">
-                                
+
                                     <f:setPropertyActionListener value="#{disciplina}" target="#{disciplinaController.form.disciplinaEdicao}" />
-                                    
+
                                     <f:param name="entityID" value="#{disciplina.id}" />
-                                
+
                                 </p:commandLink>
 
                                 <p:commandLink value="#{msg['acao.detalhes']}">
-                                
+
                                 </p:commandLink>
 
                             </h:panelGrid>
@@ -57,6 +60,10 @@
 
                     </h:panelGrid>
                 </p:panel>
+                
+                <p:dialog>
+                    
+                </p:dialog>
             </h:form>
         </ui:define>
     </ui:composition>
