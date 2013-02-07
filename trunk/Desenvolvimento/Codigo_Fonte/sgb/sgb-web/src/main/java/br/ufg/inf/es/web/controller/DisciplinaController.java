@@ -48,7 +48,7 @@ public class DisciplinaController extends SGBController<Disciplina, DisciplinaFo
     public void initData() {
 
         super.initData();
-        
+
         this.getForm().setIsEditPage(Boolean.FALSE);
 
         this.getForm().setExibirDialogRemocao(Boolean.FALSE);
@@ -70,25 +70,18 @@ public class DisciplinaController extends SGBController<Disciplina, DisciplinaFo
 
     @Override
     public String openEditPage() {
-        
+
         this.getForm().setIsEditPage(Boolean.TRUE);
-        
+
         this.getForm().setEntity(this.getService().find(this.getForm().getDisciplinaEdicao().getId()));
-        
-        this.getForm().getEntity().setBibliografias((Collection<Bibliografia>)this.getService().getDAO().getCollection(this.getForm().getEntity().getId(), "bibliografias"));
-        
+
+        this.getForm().getEntity().setBibliografias((Collection<Bibliografia>) this.getService().getDAO().getCollection(this.getForm().getEntity().getId(), "bibliografias"));
+
         this.getForm().setBibliografiasAssociadas(this.getForm().getEntity().getBibliografias());
-        
-        for(Bibliografia bl : this.getForm().getBibliografiasAssociadas()) {
-            
-            this.getForm().getLivrosSelecionados().add(bl.getLivro());
-        }
-        
+
         return super.openEditPage();
- 
+
     }
-    
-    
 
     /**
      * Método responsável por buscar coleção de Livros de acordo com o titulo
@@ -182,17 +175,21 @@ public class DisciplinaController extends SGBController<Disciplina, DisciplinaFo
     }
 
     /**
-     * Método responsável por inserir e/ou editar uma disciplina 
+     * Método responsável por inserir e/ou editar uma disciplina
      *
      * @return String de navegação
      */
-    public String inserir() {
+    public void inserir() {
 
         try {
+
+            this.getForm().getEntity().setBibliografias(this.getForm().getBibliografiasAssociadas());
 
             this.getService().inserir(this.form.getEntity());
 
             this.addSuccessMessage(DisciplinaController.KEY_SUCESSO);
+
+            this.openInitialPage();
 
         } catch (ValidationException ex) {
 
@@ -200,18 +197,18 @@ public class DisciplinaController extends SGBController<Disciplina, DisciplinaFo
 
         }
 
-        return this.openInitialPage();
+
     }
 
     /**
      * Método responsável por exibir o dialog de remoção
-     * 
+     *
      * @author Cássio Augusto
      */
     public void exibirDialogRemocao() {
-        
+
         this.getForm().setExibirDialogRemocao(Boolean.TRUE);
-    
+
     }
 
     /**

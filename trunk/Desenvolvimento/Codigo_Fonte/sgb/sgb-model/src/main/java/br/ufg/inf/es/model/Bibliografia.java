@@ -1,6 +1,7 @@
 package br.ufg.inf.es.model;
 
 import br.ufg.inf.es.enuns.EnumTipoBibliografia;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -21,10 +22,11 @@ public class Bibliografia extends AbstractEntityModel {
     @Column(name = "tipo", unique = false)
     @Enumerated(EnumType.STRING)
     private EnumTipoBibliografia tipo;
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, cascade= {CascadeType.MERGE ,CascadeType.PERSIST})
     @JoinColumn(name = "id_livro")
     private Livro livro;
-    @ManyToOne
+    
+    @ManyToOne(cascade = {CascadeType.MERGE ,CascadeType.PERSIST})
     @JoinColumn(name = "id_disciplina")
     private Disciplina disciplina;
 

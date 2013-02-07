@@ -2,7 +2,6 @@ package br.ufg.inf.es.web.bootstrap;
 
 import br.ufg.inf.es.base.util.SgbCryptography;
 import br.ufg.inf.es.model.Livro;
-import br.ufg.inf.es.model.Perfil;
 import br.ufg.inf.es.model.Usuario;
 import br.ufg.inf.es.model.UsuarioPerfil;
 import java.util.Collection;
