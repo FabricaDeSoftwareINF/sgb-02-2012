@@ -57,7 +57,7 @@
                         <h:outputLabel value="Curso:"></h:outputLabel>
                         <p:selectOneMenu value="#{livroController.form.cursoSelecionado}"  converter="cursoConverter">
                             <p:ajax event="change" process="@this" update="disciplina" listener="#{livroController.limparDisciplina}" />
-                            <f:selectItem itemLabel="#{msg['cadastro.livro.input.selecione']}"/>
+                            <f:selectItem  itemLabel="#{msg['cadastro.livro.input.selecione']}"/>
                             <f:selectItems  var="curso" value="#{livroController.cursoService.list()}" itemLabel="#{curso.nome}" itemValue="#{curso}"/>
                         </p:selectOneMenu>
                         <h:outputLabel value="Disciplina:"></h:outputLabel>

@@ -74,4 +74,12 @@ public class LivroServiceTest {
         Long result = instance.insert(entity);
         assertEquals(expResult, result);
     }
+    
+    @Test
+    public void testMessageToProperty() {
+        LivroService livroService = new LivroService();
+        String hibernateMsg = "Duplicate entry '' for 'isbn10'";
+        String msg = livroService.messageToProperty(hibernateMsg);
+        assertEquals("duplicate.isbn10", msg);
+    }
 }

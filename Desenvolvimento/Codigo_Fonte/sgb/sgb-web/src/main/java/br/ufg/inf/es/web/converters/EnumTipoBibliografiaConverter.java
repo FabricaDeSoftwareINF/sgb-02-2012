@@ -16,16 +16,21 @@ public class EnumTipoBibliografiaConverter implements Converter {
 
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
-        if ((value != null) || (!value.equals(""))) {
-            return EnumTipoBibliografia.valueOf(value);
+        EnumTipoBibliografia tipoBibliografia = null;
+        if (value != null && !value.isEmpty()) {
+            try {
+                tipoBibliografia =  EnumTipoBibliografia.valueOf(value);
+            } catch (IllegalArgumentException iae) {
+                iae.printStackTrace();
+            }
         }
 
-        return null;
+        return tipoBibliografia;
     }
 
     @Override
     public String getAsString(FacesContext context, UIComponent component, Object value) {
-        if (value != null){
+        if (value != null && value instanceof EnumTipoBibliografia){
             return ((EnumTipoBibliografia) value).name();
         }
         return null;

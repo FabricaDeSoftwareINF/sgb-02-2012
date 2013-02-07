@@ -32,11 +32,8 @@ public class CursoConverter implements Converter {
     @Override
     public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
        
-        if (Long.parseLong(value) == 0 || value == null) {  
-            
-            return null;  
-            
-        } else {  
+        Curso curso = new Curso();
+        if (value != null && !value.isEmpty()) { 
             
             ServletContext servletContext = (ServletContext)facesContext.getExternalContext().getContext();
             
@@ -44,35 +41,28 @@ public class CursoConverter implements Converter {
             
             CursoDAO dao = context.getBean(CursoDAO.class);
             
-            Curso c = dao.find(Long.parseLong(value));
-            
-            if(!UtilObjeto.isReferencia(c)) {
-             
-                return null;
+            try {
+                curso = dao.find(Long.parseLong(value));
+            } catch (NumberFormatException nfe) {
+                nfe.printStackTrace();
             }
-            
-            return c;
         }  
+        return curso;
     }
 
     /**
-     * Método responsável por converter um <code>Object</code> em uma <code>String</code>.
+     * Método responsável por converter um Curso em uma String.
      * @param context
      * @param component
      * @param value
-     * @return A <code>String</code> convertida
+     * @return A representação de um curso em formato String
      */
     @Override
     public String getAsString(FacesContext context, UIComponent component, Object value) {
-        
-        if (value == null || value.equals("")) {  
-            
-            return "";  
-        
-        } else {  
-         
+        if (value != null && value instanceof Curso) {
             return String.valueOf(((Curso) value).getId());  
         }  
+        return "";
     }
     
 }
