@@ -73,6 +73,7 @@ public class LivroController extends SGBController<Livro, LivroForm, LivroServic
         this.livroModel = new LivroDataModel((List) service.list());
         this.autor = new Autor();
         this.editora = new Editora();
+        this.getForm().setCursoSelecionado(new Curso());
 
         this.getForm().setTodosLivros(new ArrayList<Livro>());
         buscaTodosLivros();
@@ -189,11 +190,19 @@ public class LivroController extends SGBController<Livro, LivroForm, LivroServic
     public void setLivrosSelecionados(Livro[] livrosSelecionados) {
         this.livrosSelecionados = livrosSelecionados;
     }
+
+    public EnumTipoBibliografia getTipoBibliografia() {
+        return tipoBibliografia;
+    }
+
+    public void setTipoBibliografia(EnumTipoBibliografia tipoBibliografia) {
+        this.tipoBibliografia = tipoBibliografia;
+    }
     
     public void associarDisciplina() {
         Livro livro = this.form.getEntity();
         Bibliografia bibliografia = this.form.getBibliografiaTemp();
-        bibliografia.setTipo(tipoBibliografia);
+        bibliografia.setTipo(this.form.getTipoBibliografia());
         bibliografia.setLivro(livro);
         Collection<Bibliografia> listaBibliografias = livro.getBibliografias();
         listaBibliografias.add(bibliografia);
@@ -202,7 +211,7 @@ public class LivroController extends SGBController<Livro, LivroForm, LivroServic
 
     public Collection<Livro> complete(String query) {
         Collection<Livro> livros = this.service.searchByAttributes(query, "titulo");
-        livros.removeAll(Arrays.asList(this.livrosSelecionados));
+//        livros.removeAll(Arrays.asList(this.livrosSelecionados));
         return this.service.searchByAttributes(query, "titulo");
     }
     
@@ -231,7 +240,9 @@ public class LivroController extends SGBController<Livro, LivroForm, LivroServic
     @Override
     public String openInsertPage() {
 
-        cursos = cursoService.list();
+        this.cursos = this.cursoService.list();
+        this.getForm().setCursoSelecionado(new Curso());
+        
 
         this.openInsertView();
         return "/paginas/livro/inclusao.xhtml";

@@ -117,7 +117,7 @@ public class ImportacaoDadosServiceImpl implements ImportacaoDadosService {
                 jsonParser.fromJson(livrosJson, listaLivroType);
         for (LivroImportado livroImportado : livrosImportado) {
             Livro livro = new Livro();
-            livro.setIsbn11(livroImportado.getIsbn11());
+            livro.setIsbn10(livroImportado.getIsbn10());
             livro.setIsbn13(livroImportado.getIsbn13());
             livro.setEdicao(livroImportado.getEdicao());
             livro.setTitulo(livroImportado.getTitulo());

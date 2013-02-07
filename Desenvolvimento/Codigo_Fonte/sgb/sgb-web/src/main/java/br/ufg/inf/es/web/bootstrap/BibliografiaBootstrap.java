@@ -79,7 +79,7 @@ public class BibliografiaBootstrap {
 
     private static Livro crieLivro(String isbn) {
         Livro livro = new Livro();
-        livro.setIsbn11(isbn);
+        livro.setIsbn10(isbn);
         livro.setIsbn13(isbn);
         livro.setTitulo("Livro " + isbn);
         livro.setAutores(Arrays.asList(autor));
