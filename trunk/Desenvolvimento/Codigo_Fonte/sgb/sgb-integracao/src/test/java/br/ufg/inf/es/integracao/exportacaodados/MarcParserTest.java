@@ -61,7 +61,7 @@ public class MarcParserTest {
      * Test of livroToMarc method, of class MarcParser.
      */
     @Test
-    public void testLivroToMarcTitulo() {
+    public void testLivroToMarcTitulo() throws Exception {
         String livroMarc = MarcParser.livroToMarc(livro);
         assertTrue(livroMarc.contains(titulo));
     }
@@ -70,7 +70,7 @@ public class MarcParserTest {
      * Test of livroToMarc method, of class MarcParser.
      */
     @Test
-    public void testLivroToMarcAno() {
+    public void testLivroToMarcAno() throws Exception {
         String livroMarc = MarcParser.livroToMarc(livro);
         assertTrue(livroMarc.contains(ano.toString()));
     }
@@ -79,7 +79,7 @@ public class MarcParserTest {
      * Test of livroToMarc method, of class MarcParser.
      */
     @Test
-    public void testLivroToMarcAutores() {
+    public void testLivroToMarcAutores() throws Exception  {
         String livroMarc = MarcParser.livroToMarc(livro);
         String autoresString = autores.toString().
                 replace("[", "").replace("]", "");
@@ -90,7 +90,7 @@ public class MarcParserTest {
      * Test of livroToMarc method, of class MarcParser.
      */
     @Test
-    public void testLivroToMarcEdicao() {
+    public void testLivroToMarcEdicao() throws Exception  {
         String livroMarc = MarcParser.livroToMarc(livro);
         assertTrue(livroMarc.contains(edicao));
     }
@@ -99,7 +99,7 @@ public class MarcParserTest {
      * Test of livroToMarc method, of class MarcParser.
      */
     @Test
-    public void testLivroToMarcEditora() {
+    public void testLivroToMarcEditora() throws Exception  {
         String livroMarc = MarcParser.livroToMarc(livro);
         assertTrue(livroMarc.contains(editoraNome));
     }
@@ -109,7 +109,7 @@ public class MarcParserTest {
      * Test of livroToMarc method, of class MarcParser.
      */
     @Test
-    public void testLivroToMarcIsbn10() {
+    public void testLivroToMarcIsbn10() throws Exception  {
         String livroMarc = MarcParser.livroToMarc(livro);
         assertTrue(livroMarc.contains(isbn10));
     }
@@ -118,7 +118,7 @@ public class MarcParserTest {
      * Test of livroToMarc method, of class MarcParser.
      */
     @Test
-    public void testLivroToMarcIsbn13() {
+    public void testLivroToMarcIsbn13() throws Exception  {
         String livroMarc = MarcParser.livroToMarc(livro);
         assertTrue(livroMarc.contains(isbn13));
     }

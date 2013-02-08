@@ -26,7 +26,7 @@ public class MarcParser implements Serializable {
      * @param livro
      * @return 
      */
-    public static String livroToMarc(Livro livro) {
+    public static String livroToMarc(Livro livro) throws Exception {
         Record record = new RecordImpl();
         record.setLeader(new LeaderImpl("00714cam a2200205 a 4500"));
         
