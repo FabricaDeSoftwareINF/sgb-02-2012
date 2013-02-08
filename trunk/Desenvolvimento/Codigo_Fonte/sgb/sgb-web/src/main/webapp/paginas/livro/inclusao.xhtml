@@ -30,6 +30,7 @@
                     <h:panelGrid columns="2" >
                         <p:autoComplete required="true" id="autorCompleteAutor" value="#{livroController.form.entity.autores}" completeMethod="#{livroController.completeAutor}"  
                                         var="autor" itemLabel="#{autor.toString()}" itemValue="#{autor}" converter="autorConverter" multiple="true">
+                            <p:ajax event="itemSelect"  listener="#{livroController.addAutorOnSelect}"/>
                             <p:ajax event="itemUnselect" listener="#{livroController.handleUnselectAutor}" /> 
                         </p:autoComplete>  
                         <p:commandButton onclick="cadastroAutorDialog.show()" immediate="true" value="+"></p:commandButton>
