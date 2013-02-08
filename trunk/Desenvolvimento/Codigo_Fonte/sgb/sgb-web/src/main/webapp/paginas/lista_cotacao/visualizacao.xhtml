@@ -19,16 +19,12 @@
                     
                     <h:panelGrid columns="2" style="width: 100%;">
 
-                        <p:dataTable id="cotacoes" value="#{listaCotacaoController.form.entity}" var="cotacao" 
-                                     paginator="true" rows="10" style="width: 100%" selection="#{cotacaoController.form.cotacoesSelecionadas}">
-
-                            <p:column style="width: 18px;" selectionMode="multiple">
-                                
-                            </p:column>
+                        <p:dataTable id="cotacoes" value="#{listaCotacaoController.form.entity.cotacoes}" var="cotacao" 
+                                     paginator="true" rows="10" style="width: 100%">
 
                             <p:column headerText="#{msg['cotacao.label.autor']}" >
 
-                                <h:outputText value="#{cotacao.livro.autores[0].sobrenome}"/>
+                                <h:outputText value="#{cotacao.livro.autores[0]}"/>
 
                             </p:column>
 
@@ -58,7 +54,7 @@
                             
                             <p:column headerText="#{msg['cotacao.label.curso']}" >
 
-                                <h:outputText value="Teste" />
+                                <h:outputText value="#{cotacao.livro.bibliografias[0].disciplina.curso.nome}" />
 
                             </p:column>
                             
@@ -94,13 +90,19 @@
                             
                             <p:column headerText="#{msg['cotacao.label.quantidade']}" style="text-align: center" >
 
-                                <h:outputText value="Teste" />
+                                <h:outputText value="#{cotacao.quantidade}" />
 
                             </p:column>
                             
                             <p:column headerText="#{msg['cotacao.label.area']}" >
 
                                 <h:outputText value="Ciências Exatas e da Terra" />
+
+                            </p:column>
+                            
+                            <p:column headerText="#{msg['cotacao.label.estrangeiro']}" >
+
+                                <h:outputText value="#{(cotacao.livro.estrangeiro == true ? 'Sim' : 'Não')}" />
 
                             </p:column>
                             
@@ -112,6 +114,14 @@
                     </h:panelGrid>
 
                 </h:form> 
+                
+                <h:form>
+
+                    <p:commandButton action="#{listaCotacaoController.exportarXLS(listaCotacao)}" value="#{msg['cotacao.button.exportarXLS']}" />
+                    <p:commandButton action="#{listaCotacaoController.exportarCSV(listaCotacao, true, false)}" value="#{msg['cotacao.button.exportarCSVNacionais']}" />
+                    <p:commandButton action="#{listaCotacaoController.exportarCSV(listaCotacao, false, true)}" value="#{msg['cotacao.button.exportarCSVEstrangeiros']}" />
+
+                </h:form>
 
             </p:panel>        
 

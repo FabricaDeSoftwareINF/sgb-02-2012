@@ -36,5 +36,11 @@ public class ListaCotacaoController extends SGBController<ListaCotacao, ListaCot
     public ListaCotacaoService getService() {
         return service;
     }
+    
+    public void exportarXLS(ListaCotacao listaCotacao) {
+    }
+
+    public void exportarCSV(ListaCotacao listaCotacao, boolean nacionais, boolean estrangeiros) {
+    }
 
 }
