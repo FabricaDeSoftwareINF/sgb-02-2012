@@ -61,15 +61,4 @@ public class LivroService extends GenericService<Livro> {
         }
     }
 
-    /**
-     *
-     * @param filtroTitulo
-     * @return
-     * @author Jackeline
-     */
-    public Collection<Livro> buscaTodosLivros(String filtroTitulo) {
-
-        return this.getDAO().listarLivros(filtroTitulo);
-
-    }
 }
