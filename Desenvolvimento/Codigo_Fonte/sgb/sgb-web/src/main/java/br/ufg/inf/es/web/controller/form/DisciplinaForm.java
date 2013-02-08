@@ -9,6 +9,7 @@ import br.ufg.inf.es.model.Bibliografia;
 import br.ufg.inf.es.model.Curso;
 import br.ufg.inf.es.model.Disciplina;
 import br.ufg.inf.es.model.Livro;
+import br.ufg.inf.es.web.datamodel.DisciplinaDataModel;
 import java.util.Collection;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -20,6 +21,14 @@ import org.springframework.stereotype.Component;
 @Component
 @Scope("session")
 public class DisciplinaForm extends GenericForm<Disciplina> {
+    
+    private Disciplina[] disciplinasSelecionadas;
+    
+    private DisciplinaDataModel dataModelDisciplina;
+    
+    private Boolean exibirDialogDetalhe;
+    
+    private Disciplina disciplinaDetalhe;
     
     private Disciplina disciplinaEdicao;
     
@@ -43,6 +52,39 @@ public class DisciplinaForm extends GenericForm<Disciplina> {
     
     private Collection<Livro> selecionadosAux;
 
+    public Disciplina[] getDisciplinasSelecionadas() {
+        return disciplinasSelecionadas;
+    }
+
+    public void setDisciplinasSelecionadas(Disciplina[] disciplinasSelecionadas) {
+        this.disciplinasSelecionadas = disciplinasSelecionadas;
+    }
+    
+    public DisciplinaDataModel getDataModelDisciplina() {
+        return dataModelDisciplina;
+    }
+
+    public void setDataModelDisciplina(DisciplinaDataModel dataModelDisciplina) {
+        this.dataModelDisciplina = dataModelDisciplina;
+    }
+    
+    public Boolean getExibirDialogDetalhe() {
+        return exibirDialogDetalhe;
+    }
+
+    public void setExibirDialogDetalhe(Boolean exibirDialogDetalhe) {
+        this.exibirDialogDetalhe = exibirDialogDetalhe;
+    }
+
+    
+    public Disciplina getDisciplinaDetalhe() {
+        return disciplinaDetalhe;
+    }
+
+    public void setDisciplinaDetalhe(Disciplina disciplinaDetalhe) {
+        this.disciplinaDetalhe = disciplinaDetalhe;
+    }
+    
     public Boolean getIsEditPage() {
         return isEditPage;
     }
@@ -74,8 +116,7 @@ public class DisciplinaForm extends GenericForm<Disciplina> {
     public void setSelecionadosAux(Collection<Livro> selecionadosAux) {
         this.selecionadosAux = selecionadosAux;
     }
-  
-
+ 
     public Boolean getExibirDialogRemocao() {
         return exibirDialogRemocao;
     }

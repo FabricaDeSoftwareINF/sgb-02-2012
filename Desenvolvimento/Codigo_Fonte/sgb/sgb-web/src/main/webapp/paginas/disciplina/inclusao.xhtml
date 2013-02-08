@@ -101,7 +101,7 @@
 
                             <p:commandButton value="#{msg['label.disciplina.cadastrar']}" action="#{disciplinaController.inserir}" rendered="#{!disciplinaController.form.isEditPage}"></p:commandButton>
 
-                            <p:commandButton value="Editar" action="#" rendered="#{disciplinaController.form.isEditPage}"/>
+                            <p:commandButton value="Editar" action="#{disciplinaController.editarDisciplina}" rendered="#{disciplinaController.form.isEditPage}"/>
 
                             <p:commandButton value="#{msg['label.disciplina.voltar']}" action="#{disciplinaController.openInitialPage()}"></p:commandButton>
 

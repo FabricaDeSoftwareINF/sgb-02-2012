@@ -13,10 +13,15 @@
         <ui:define name="content">
             <h:form>
                 <p:panel header="#{msg['disciplina.manter']}">
-                    
+
                     <p:messages autoUpdate="true"/>
-                    
-                    <p:dataTable value="#{disciplinaController.form.collectionEntities}" var="disciplina" >
+
+                    <p:dataTable value="#{disciplinaController.form.dataModelDisciplina}" var="disciplina" selection="#{disciplinaController.form.disciplinasSelecionadas}"
+                                 emptyMessage="#{msg['cadastro.autor.label.nenhumRegistro']}">
+
+                        <p:column selectionMode="multiple" style="margin-left: 18px;">
+
+                        </p:column>
 
                         <p:column headerText="Código" sortBy="#{disciplina.codigo}">
                             <h:outputText value="#{disciplina.codigo}" />
@@ -42,7 +47,9 @@
 
                                 </p:commandLink>
 
-                                <p:commandLink value="#{msg['acao.detalhes']}">
+                                <p:commandLink value="#{msg['acao.detalhes']}" oncomplete="detalharDisciplina();">
+
+                                    <f:setPropertyActionListener value="#{disciplina}" target="#{disciplinaController.form.disciplinaDetalhe}"/>
 
                                 </p:commandLink>
 
@@ -56,15 +63,36 @@
 
                         <p:commandButton value="#{msg['cadastro.acao.novo']}" action="#{disciplinaController.openInsertPage()}" ajax="false"/>
 
-                        <p:commandButton value="#{msg['cadastro.acao.remover']}"/>
+                        <p:commandButton value="#{msg['cadastro.acao.remover']}" action="#{disciplinaController.exibirConfirmDialog}" update="@form"/>
 
                     </h:panelGrid>
+
+                    <p:confirmDialog id="dialogRemocao" message="#{msg['disciplina.label.remocao']}"
+                                     header="#{msg['disciplina.label.remocaoTitulo']}" severity="alert" 
+                                     widgetVar="confirmation" visible="#{disciplinaController.form.exibirDialogRemocao}">
+
+                        <center>
+                            <p:commandButton value="#{msg['arquitetura.msg.sim']}" 
+                                             action="#{disciplinaController.removerDisciplinasSelecionadas}" ajax="false"/>
+
+                            <p:commandButton value="#{msg['arquitetura.msg.nao']}" 
+                                             action="#{disciplinaController.fecharDialogRemocao}" ajax="false"/>
+                        </center>
+
+                    </p:confirmDialog>
+
                 </p:panel>
+
+                <p:remoteCommand name="detalharDisciplina" action="#{disciplinaController.exibirDetalhes}" update="@form"/>
                 
-                <p:dialog>
-                    
-                </p:dialog>
+                <p:remoteCommand name="openInitialPage" action="#{disciplinaController.openInitialPage()}" ajax="false"/>
+
+                <ui:include src="/paginas/disciplina/visualizacao.xhtml" />
+
             </h:form>
+
         </ui:define>
+
     </ui:composition>
+
 </html>
