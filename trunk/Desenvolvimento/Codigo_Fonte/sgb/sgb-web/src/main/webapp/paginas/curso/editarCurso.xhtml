@@ -86,23 +86,29 @@
                         </p:fieldset>
 
                     </h:panelGrid>
+                    
+                    <p:remoteCommand name="abrePaginaInicial" action="#{cursoController.openSearchPage()}"/>
 
                     <h:panelGrid style="margin-left: 80%;text-align: right;" columns="2" >
 
-                        <p:commandButton value="#{msg['cadastro.curso.button.edit']}" 
-                                         action="#{cursoController.edit()}" ajax="false"/>
+                        <p:commandButton value="#{msg['cadastro.curso.button.edit']}" action="#{cursoController.openSearchPage()}"
+                                         actionListener="#{cursoController.edit()}" ajax="false" oncomplete="abrePaginaInicial();"/>
 
                         <p:commandButton value="#{msg['acao.voltar']}" ajax="false"
                                          action="#{cursoController.openSearchPage()}"/>
 
                     </h:panelGrid>    
 
-                    <p:dialog modal="true" width="450" height="150" resizable="false" closable="false"
+                    <p:dialog modal="true" width="405" height="140" resizable="false" closable="false"
                               header="#{msg['arquitetura.msg.atencao']}" visible="#{cursoController.form.exibirDialog}">
 
                         <h:panelGrid style="text-align: center;">
 
+                            <p:spacer width="5" height="25"/> 
+
                             <h:outputLabel value="#{msg['arquitetura.msg.camposobrigatorios']}"/>
+
+                            <p:spacer width="5" height="25"/> 
 
                             <p:commandButton value="#{msg['arquitetura.msg.ok']}" update="@form">
 

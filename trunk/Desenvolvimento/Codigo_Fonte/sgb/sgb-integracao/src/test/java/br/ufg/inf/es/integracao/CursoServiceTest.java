@@ -5,12 +5,11 @@ import br.ufg.inf.es.base.validation.ValidationException;
 import br.ufg.inf.es.integracao.aop.RNGExecutor;
 import br.ufg.inf.es.model.Curso;
 import br.ufg.inf.es.model.Disciplina;
-import br.ufg.inf.es.persistencia.AutorDAO;
 import br.ufg.inf.es.persistencia.CursoDAO;
 import br.ufg.inf.es.persistencia.DisciplinaDAO;
-import java.util.Collection;
+import java.util.LinkedList;
+import java.util.List;
 import org.junit.*;
-import static org.junit.Assert.*;
 import org.mockito.Mockito;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
@@ -65,4 +64,31 @@ public class CursoServiceTest {
         Assert.assertEquals(Long.MIN_VALUE, id.longValue());
     }
     
+    @Test
+    public void testInserirCurso002() throws ValidationException {
+        
+        Mockito.when(cursoDAO.insert(curso)).thenReturn(Long.MIN_VALUE);
+               
+        List<Disciplina> disciplinas  = new LinkedList<Disciplina>();
+        
+        Disciplina disciplina = new Disciplina();
+        
+        disciplina.setNome("Disciplina");
+        
+        disciplinas.add(disciplina);
+        
+        curso.setDisciplinas(disciplinas);
+        
+        Long id = cursoService.insert(curso);
+               
+        Mockito.verify(cursoDAO).insert(curso);
+                
+        Assert.assertEquals(Long.MIN_VALUE, id.longValue());
+    }
+    
+    @Test
+    public void testAtualizarCurso001() throws ValidationException {
+        
+        
+    }
 }
