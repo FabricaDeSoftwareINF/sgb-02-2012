@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- *
+ * Classe de percistencia das configurações da integração com sistema da biblioteca
  * @author igor
  */
 @Repository
