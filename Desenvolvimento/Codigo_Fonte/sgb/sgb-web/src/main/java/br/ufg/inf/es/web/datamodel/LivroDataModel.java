@@ -24,12 +24,14 @@ public class LivroDataModel extends ListDataModel<Livro> implements SelectableDa
         //In a real app, a more efficient way like a query by rowKey should be implemented to deal with huge data  
           
         List<Livro> livros = (List<Livro>) getWrappedData();  
+        Livro livroSelecionado = null;
           
         for(Livro livro : livros) {  
-            if(livro.getId().equals(rowKey))  
-                return livro;  
+            if(String.valueOf(livro.getId()).equals(rowKey)) {
+                livroSelecionado = livro;  
+            }
         } 
-        return null;  
+        return livroSelecionado;  
     }  
   
     @Override  

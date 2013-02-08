@@ -60,8 +60,6 @@ public class LivroController extends SGBController<Livro, LivroForm, LivroServic
     private LivroDataModel livroModel;    
     private Livro[] livrosSelecionados;
     
-    private List<Autor> autoresAdicionados = new ArrayList<Autor>();
-
     /**
      * Método responsável por retornar a string de navegação para a pagina
      * incial da Estória de usuário buscar todos os livros.
@@ -74,6 +72,7 @@ public class LivroController extends SGBController<Livro, LivroForm, LivroServic
         this.autor = new Autor();
         this.editora = new Editora();
         this.getForm().setCursoSelecionado(new Curso());
+        this.getForm().setAutoresAdicionados(this.getForm().getEntity().getAutores());
 
         this.getForm().setTodosLivros(new ArrayList<Livro>());
         buscaTodosLivros();
@@ -216,7 +215,13 @@ public class LivroController extends SGBController<Livro, LivroForm, LivroServic
     }
     
     public Collection<Autor> completeAutor(String query) {  
-        return this.autorService.searchByAttributes(query, "nome", "sobrenome");
+        Collection<Autor> autores = this.autorService.
+                searchByAttributes(query, "nome", "sobrenome");
+        Collection<Autor> autoresAdicionados = this.getForm().getAutoresAdicionados();
+        if (autoresAdicionados != null) {
+            autores.removeAll(autoresAdicionados);
+        }
+        return autores;
     }
     
     public Collection<Editora> completeEditora(String query) {  
@@ -283,9 +288,15 @@ public class LivroController extends SGBController<Livro, LivroForm, LivroServic
         autor = new Autor();
     }
     
-    public void removerLivros() throws ValidationException {
+    public void removerLivros() {
         List<Livro> livros = Arrays.asList(getLivrosSelecionados());
-        getService().removeAll(livros);
+        try {
+            getService().removeAll(livros);
+            this.addSuccessMessage("arquitetura.msg.sucesso");
+            this.getLivroModel().setWrappedData(this.getService().list());
+        } catch (ValidationException ve) {
+            this.addSuccessMessage("arquitetura.msg.erro");
+        }
     }
 
     public String voltar() {
@@ -321,7 +332,13 @@ public class LivroController extends SGBController<Livro, LivroForm, LivroServic
     }
     
     public void handleUnselectAutor(UnselectEvent event) {
-        
+        Autor autor = (Autor) event.getObject();
+        this.getForm().getAutoresAdicionados().remove(autor);
+    }
+    
+    public void addAutorOnSelect(UnselectEvent event) {
+        Autor autor = (Autor) event.getObject();
+        this.getForm().getAutoresAdicionados().add(autor);
     }
     
 }

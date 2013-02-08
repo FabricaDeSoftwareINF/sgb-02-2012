@@ -14,10 +14,12 @@
         <ui:define name="content">
 
             <ui:include src="exportacao_dialog.xhtml"/>
+            
+            <p:messages autoUpdate="true" closable="true"/>
 
             <p:panel header="#{msg['cadastro.livro.manter']}">
 
-                <h:form>
+                <h:form id="lista_livros_form">
 
                     <p:dataTable id="livros_datatable" value="#{livroController.livroModel}" var="livro"
                                  rows="10" paginator="true" paginatorAlwaysVisible="false" 
@@ -89,8 +91,7 @@
 
                         <p:commandButton value="#{msg['cadastro.livro.button.novo']}"  action="#{livroController.openInsertPage()}" ajax="false" style="margin-right: 1em" />
 
-                        <p:commandButton value="#{msg['cadastro.livro.button.remover']}"
-                                         onclick="dlgRemocao.show();"/>
+                        <p:commandButton value="#{msg['cadastro.livro.button.remover']}" onclick="dlgRemocao.show()"/>
 
                     </h:panelGrid>
 
@@ -105,8 +106,8 @@
 
                             <h:panelGrid columns="2" style="margin-left: 30%;">
 
-                                <p:commandButton value="#{msg['cadastro.autor.label.sim']}" update="livros_datatable"
-                                                 actionListener="#{livroController.removerLivros()}" oncomplete="dlgRemocao.hide();"/>
+                                <p:commandButton value="#{msg['cadastro.autor.label.sim']}" update="lista_livros_form"
+                                                 action="#{livroController.removerLivros}" oncomplete="dlgRemocao.hide()"/>
 
                                 <p:commandButton value="#{msg['cadastro.autor.label.nao']}"
                                                  onclick="dlgRemocao.hide();"/>
