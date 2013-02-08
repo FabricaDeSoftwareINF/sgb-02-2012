@@ -12,7 +12,8 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- *
+ * Classe que faz interface de regra de validação das regras da Configuração da 
+ * integração do banco de dados da biblioteca
  * @author igor
  */
 @Retention(RetentionPolicy.RUNTIME)

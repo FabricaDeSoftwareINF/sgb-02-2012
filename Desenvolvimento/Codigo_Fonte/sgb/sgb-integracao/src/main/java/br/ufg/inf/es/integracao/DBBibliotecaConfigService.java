@@ -15,7 +15,9 @@ import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Component;
 
 /**
- *
+ * Classe de serviço para as operações de configuração dos parâmetros de 
+ * integração com sistema da Biblioteca
+ * 
  * @author igor
  */
 @Component
@@ -37,9 +39,11 @@ public class DBBibliotecaConfigService extends GenericService<DBBibliotecaConfig
     }
 
     /**
-     * Método responsável por buscar todos os autores do Banco de dados
-     * @author Cássio Augusto
-     * @return Coleção de Autores
+     * Método responsável por buscar a configuração de integração com o banco da
+     * biblioteca.
+     * @author Igor
+     * @return objeto de parâmetros de configuração de integração com o banco da 
+     * biblioteca
      */
     public DBBibliotecaConfig getBibliotecaCfg() {
 
@@ -48,30 +52,32 @@ public class DBBibliotecaConfigService extends GenericService<DBBibliotecaConfig
     }
 
     /**
-     * Método responsável por realizar a inserção de um novo Autor
-     * @author Cássio Augusto Silva de Freitas
-     * @param dbBibliotecaConfig a ser inserido
+     * Método responsável por realizar a inserção das configurações de comunicação
+     * com o banco de dados da biblioteca
+     * @author Igor
+     * @param dbBibliotecaConfig instancia das classe dos parâmetros de conexão 
+     * com banco de dados da biblioteca
      * @return id da nova entidade
-     * @throws ValidationException 
+     * @throws ValidationException validação da instancia do objeto de coinfiguração
+     * de conexão com banco de dados da biblioteca
      */
     @Override
     @RNG018
     public Long insert(DBBibliotecaConfig dbBibliotecaConfig) throws ValidationException {
 
         return this.getDAO().insert(dbBibliotecaConfig);
-
     }
 
     /**
-     * Método reponsável por realizar a edição de um determinado autor
-     * @author Cássio Augusto Silva de Freitas
+     * Método reponsável por realizar a edição das configurações de integração 
+     * com o banco de dados da biblioteca.
+     * @author Igor
      * @param entidade
      * @throws ValidationException 
      */
     @RNG018
     public void editar(DBBibliotecaConfig entidade) throws ValidationException {
      
-        this.getDAO().update(entidade);
-        
+        this.getDAO().update(entidade);        
     }
 }
