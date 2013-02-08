@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 /**
  *
@@ -13,9 +14,10 @@ import javax.persistence.Table;
 @Table(name = "PARAMETROS")
 public class Parametros extends AbstractEntityModel {
 
+    @Transient
     private static final int VALOR_INICIAL_PARAMETRO_MEC = 5;
     
-    @Column(name = "valor_frete", columnDefinition = "Decimal(10,2) default '30.00'")
+    @Column(name = "valor_frete")
     private BigDecimal valorFrete = new BigDecimal("30.00");
     
     @Column(name = "parametro_mec")
