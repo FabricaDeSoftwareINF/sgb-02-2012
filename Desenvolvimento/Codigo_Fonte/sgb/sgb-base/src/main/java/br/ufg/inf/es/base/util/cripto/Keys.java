@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.ufg.inf.es.base.util.cripto;
 
 import java.io.Serializable;
@@ -9,7 +5,8 @@ import java.security.PrivateKey;
 import java.security.PublicKey;
 
 /**
- *
+ * Classe que representa as chaves de encritação e decritação (chave privada e 
+ * chave pública)
  * @author igor
  */
 public class Keys implements Serializable{
