@@ -20,7 +20,8 @@ import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 
 /**
- *
+ * Classe de enncriptação e decripatção utilizando o método de encritação RSA 
+ * (encriptação de chave pública)
  * @author igor
  */
 public class CriptoGeneric implements Serializable{
@@ -43,18 +44,31 @@ public class CriptoGeneric implements Serializable{
         }
     }
 
-
+    /**
+     * Método que gera as chaves de encritação e decriptação, as chaves Privada
+     * e a chave ublica.
+     */
     private void createKey(){
         this.random = new SecureRandom();
 
         KeyPairGenerator generator;
         try {
             generator = KeyPairGenerator.getInstance("RSA");
-            generator.initialize(2048, this.random); //gero uma senha de 2048 bytes.
-            KeyPair pair = generator.generateKeyPair(); //Ele gera as duas senhas, uma publica e a outra privada
-            PublicKey pubKey = pair.getPublic(); //senha publica
+            
+            //gero uma senha de 2048 bytes.
+            generator.initialize(2048, this.random); 
+            
+            //Ele gera as duas senhas, uma publica e a outra privada
+            KeyPair pair = generator.generateKeyPair(); 
+            
+            //senha publica
+            PublicKey pubKey = pair.getPublic(); 
+            
             this.keys.setPubKey(pubKey);
-            PrivateKey privKey = pair.getPrivate(); //senha privada
+            
+            //senha privada
+            PrivateKey privKey = pair.getPrivate(); 
+            
             this.keys.setPrivKey(privKey);
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
@@ -63,6 +77,9 @@ public class CriptoGeneric implements Serializable{
         saveKeys();
     }
 
+    /**
+     * Método que serializa as chaves e salva.
+     */
     private void saveKeys(){
         try{
             FileOutputStream arquivoGrav = new FileOutputStream("sgb.dat");
@@ -81,6 +98,10 @@ public class CriptoGeneric implements Serializable{
         }
     }
 
+   /**
+    * Método que verifica se existe as chaves salvas no sistema
+    * @return <code>true</code> se existir a chave gravada no sistema 
+    */
     private boolean isKeys(){
         boolean recove = false;
         try{
@@ -96,6 +117,9 @@ public class CriptoGeneric implements Serializable{
         return recove;
     }
 
+    /**
+     * Método que recupera as chaves salvas no sistema.
+     */
     private void recoveKeys(){
         try{
             FileInputStream arquivoLeitura = new FileInputStream("sgb.dat");
@@ -108,6 +132,11 @@ public class CriptoGeneric implements Serializable{
         }
     }
 
+    /**
+     * Método de encriptação;
+     * @param texto a ser encriptado pelo método
+     * @return texto encriptado antes passado como parâmetro
+     */
     public byte[] criptografa(String texto){
         Cipher cipher;
 
@@ -131,6 +160,11 @@ public class CriptoGeneric implements Serializable{
         return cipherText;
     }
 
+    /**
+     * Método de decriptação;
+     * @param texto encritado a ser decritado.
+     * @return texto decritado em um array de bytes.
+     */
     public byte[] decriptografa(byte[] texto){
         Cipher cipher;
 
