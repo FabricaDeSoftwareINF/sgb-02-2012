@@ -12,7 +12,7 @@
             <h:form id="geracao_planilha_form">
                 <h:panelGrid columns="3">
                     <h:outputLabel value="Extensão" for="extensao_planilha"/>
-                    <p:selectOneMenu id="extensao_planilha" value="#{livroController.formatoSelecionado}"
+                    <p:selectOneMenu label="Extensão" id="extensao_planilha" value="#{livroController.formatoSelecionado}"
                                      required="true">
                         <f:selectItem itemValue="" itemLabel="Selecione um formato"/>
                         <f:selectItem itemValue="marc" itemLabel="MARC"/>
