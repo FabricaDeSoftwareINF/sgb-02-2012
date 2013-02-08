@@ -49,7 +49,6 @@ public class LivroController extends SGBController<Livro, LivroForm, LivroServic
     private EditoraService editoraService;
     @Autowired
     private AutorService autorService;
-    
     private Autor autor;
     private Editora editora;
     private EnumTipoBibliografia tipoBibliografia;
@@ -57,9 +56,9 @@ public class LivroController extends SGBController<Livro, LivroForm, LivroServic
     private Collection<Curso> cursos;
     private String formatoSelecionado;
     private StreamedContent fileExportado;
-    private LivroDataModel livroModel;    
+    private LivroDataModel livroModel;
     private Livro[] livrosSelecionados;
-    
+
     /**
      * Método responsável por retornar a string de navegação para a pagina
      * incial da Estória de usuário buscar todos os livros.
@@ -76,10 +75,10 @@ public class LivroController extends SGBController<Livro, LivroForm, LivroServic
 
         this.getForm().setTodosLivros(new ArrayList<Livro>());
         buscaTodosLivros();
-        
+
         return super.openInitialPage();
     }
-    
+
     public LivroDataModel getLivroModel() {
         return this.livroModel;
     }
@@ -197,7 +196,7 @@ public class LivroController extends SGBController<Livro, LivroForm, LivroServic
     public void setTipoBibliografia(EnumTipoBibliografia tipoBibliografia) {
         this.tipoBibliografia = tipoBibliografia;
     }
-    
+
     public void associarDisciplina() {
         Livro livro = this.form.getEntity();
         Bibliografia bibliografia = this.form.getBibliografiaTemp();
@@ -213,8 +212,8 @@ public class LivroController extends SGBController<Livro, LivroForm, LivroServic
 //        livros.removeAll(Arrays.asList(this.livrosSelecionados));
         return this.service.searchByAttributes(query, "titulo");
     }
-    
-    public Collection<Autor> completeAutor(String query) {  
+
+    public Collection<Autor> completeAutor(String query) {
         Collection<Autor> autores = this.autorService.
                 searchByAttributes(query, "nome", "sobrenome");
         Collection<Autor> autoresAdicionados = this.getForm().getAutoresAdicionados();
@@ -223,31 +222,31 @@ public class LivroController extends SGBController<Livro, LivroForm, LivroServic
         }
         return autores;
     }
-    
-    public Collection<Editora> completeEditora(String query) {  
+
+    public Collection<Editora> completeEditora(String query) {
         return this.editoraService.searchByAttributes(query, "nome");
     }
-    
-    public Collection<Disciplina> completeDisciplina(String query) {  
+
+    public Collection<Disciplina> completeDisciplina(String query) {
         Collection<Disciplina> results = new ArrayList<Disciplina>();
-          
+
         Collection<Disciplina> disciplinas = disciplinaService.getDAO().
                 listarDisciplinasDeUmCurso(this.getForm().getCursoSelecionado().getId());
-        
-        for(Disciplina disciplina : disciplinas){
-            if(disciplina.getNome().toUpperCase().contains(query.toUpperCase())){
+
+        for (Disciplina disciplina : disciplinas) {
+            if (disciplina.getNome().toUpperCase().contains(query.toUpperCase())) {
                 results.add(disciplina);
             }
-        }          
-        return results;  
+        }
+        return results;
     }
-    
+
     @Override
     public String openInsertPage() {
 
         this.cursos = this.cursoService.list();
         this.getForm().setCursoSelecionado(new Curso());
-        
+
 
         this.openInsertView();
         return "/paginas/livro/inclusao.xhtml";
@@ -259,17 +258,17 @@ public class LivroController extends SGBController<Livro, LivroForm, LivroServic
 
         return super.openSearchPage();
     }
-    
+
     public String editarLivro() throws ValidationException {
 
         try {
-                Hibernate.isInitialized(this.getForm().getEntity());
-                
-                Hibernate.initialize(this.getForm().getEntity());
-                this.getService().save(this.getForm().getEntity());
-                this.getForm().clearInsertData();
-                this.addSuccessMessage("arquitetura.msg.sucesso");
-            
+            Hibernate.isInitialized(this.getForm().getEntity());
+
+            Hibernate.initialize(this.getForm().getEntity());
+            this.getService().save(this.getForm().getEntity());
+            this.getForm().clearInsertData();
+            this.addSuccessMessage("arquitetura.msg.sucesso");
+
         } catch (ValidationException ex) {
 
             this.addWarningMessage(ex.getKeyMessage());
@@ -282,12 +281,12 @@ public class LivroController extends SGBController<Livro, LivroForm, LivroServic
         editoraService.insert(editora);
         editora = new Editora();
     }
-    
+
     public void salvarAutor() throws ValidationException {
         autorService.insert(autor);
         autor = new Autor();
     }
-    
+
     public void removerLivros() {
         List<Livro> livros = Arrays.asList(getLivrosSelecionados());
         try {
@@ -305,40 +304,44 @@ public class LivroController extends SGBController<Livro, LivroForm, LivroServic
 
     public void exportarLivro() {
         Livro livroSelecionado = this.getForm().getEntity();
-        String livroMarc = MarcParser.livroToMarc(this.getForm().getEntity());
-        ByteArrayInputStream bais = new ByteArrayInputStream(livroMarc.getBytes());
+        try {
+            String livroMarc = MarcParser.livroToMarc(this.getForm().getEntity());
+            ByteArrayInputStream bais = new ByteArrayInputStream(livroMarc.getBytes());
 
-        this.fileExportado = new DefaultStreamedContent(bais, "application/marc",
-                livroSelecionado.getTitulo() + ".mrc");
+            this.fileExportado = new DefaultStreamedContent(bais, "application/marc",
+                    livroSelecionado.getTitulo() + ".mrc");
+        } catch (Exception npe) {
+            this.addErrorMessage("exportacaomarc.erro");
+        }
     }
 
     public StreamedContent getFile() {
         return this.fileExportado;
     }
-    
+
     /**
      * @author Jackeline
      */
-    public void buscaTodosLivros(){
+    public void buscaTodosLivros() {
         this.getForm().setTodosLivros(this.getService().buscaTodosLivros(this.getForm().getFiltroTitulo()));
         this.getForm().setFiltroTitulo("");
         limpaEntidadeDeCadastro();
     }
+
     /**
      * @author Jackeline
      */
-    private void limpaEntidadeDeCadastro(){
+    private void limpaEntidadeDeCadastro() {
         this.getForm().setEntity(new Livro());
     }
-    
+
     public void handleUnselectAutor(UnselectEvent event) {
         Autor autor = (Autor) event.getObject();
         this.getForm().getAutoresAdicionados().remove(autor);
     }
-    
+
     public void addAutorOnSelect(UnselectEvent event) {
         Autor autor = (Autor) event.getObject();
         this.getForm().getAutoresAdicionados().add(autor);
     }
-    
 }
