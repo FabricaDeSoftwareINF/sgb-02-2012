@@ -59,4 +59,17 @@ public class ListaComprasService extends GenericService<ListaCompras> {
         
         }
     }
+    
+    /**
+     * 
+     * @param filtroTitulo
+     * @return 
+     * @author Jackeline
+     */
+    public Collection<Livro> buscaTodosLivros(String filtroTitulo) {
+
+        return livroDao.list();
+
+    }
+    
 }
