@@ -57,12 +57,9 @@ public class LivroForm extends GenericForm<Livro> {
         this.selectedLivros = (Livro[]) selectedLivros.clone();
     }
 
-    public LivroDataModel getLivroDM() {
-
-        List<Livro> livros = new ArrayList<Livro>(this.getTodosLivros());
-
+    public LivroDataModel getLivroDM() {        
+        List<Livro> livros =  new ArrayList<Livro>(this.getTodosLivros());        
         livroDM = new LivroDataModel(livros);
-
         return livroDM;
     }
 
