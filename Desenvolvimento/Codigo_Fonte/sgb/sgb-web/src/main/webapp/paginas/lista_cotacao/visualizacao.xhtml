@@ -19,7 +19,7 @@
                     
                     <h:panelGrid columns="2" style="width: 100%;">
 
-                        <p:dataTable id="cotacoes" value="#{cotacaoController.form.cotacaoDataModel}" var="cotacao" 
+                        <p:dataTable id="cotacoes" value="#{listaCotacaoController.form.entity}" var="cotacao" 
                                      paginator="true" rows="10" style="width: 100%" selection="#{cotacaoController.form.cotacoesSelecionadas}">
 
                             <p:column style="width: 18px;" selectionMode="multiple">

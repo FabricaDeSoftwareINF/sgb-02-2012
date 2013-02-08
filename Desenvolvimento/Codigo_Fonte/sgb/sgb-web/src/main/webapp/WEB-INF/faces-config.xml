@@ -173,15 +173,7 @@
             
             <to-view-id>/paginas/parametros/show.xhtml</to-view-id>
             
-        </navigation-case>
-        
-        <navigation-case>
-            
-            <from-outcome>ListaCotacaoController/viewPage</from-outcome>
-            
-            <to-view-id>/paginas/cotacao/show_listacotacao.xhtml</to-view-id>
-            
-        </navigation-case>        
+        </navigation-case>     
         
         <!-- ESTÓRIA 15: Lista de Cotação --> 
         <navigation-case>

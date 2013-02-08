@@ -42,9 +42,9 @@
 
                             </p:column>
 
-                            <p:column headerText="#{msg['cotacao.label.acoes']}" style="width: 250px;text-align: center">
+                            <p:column headerText="#{msg['cotacao.label.acoes']}" style="width: 100px;text-align: center">
 
-                                <p:commandButton value="#{msg['cotacao.button.visualizar']}" action="#{cotacaoController.openViewPage(listaCotacao)}"/>
+                                <p:commandButton value="#{msg['cotacao.button.visualizar']}" action="#{cotacaoController.openViewPage(listaCotacao)}" ajax="false" />
 
                             </p:column>
 
