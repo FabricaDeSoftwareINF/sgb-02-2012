@@ -17,10 +17,10 @@
 
                     <p:messages />
                     
-                    <h:panelGrid columns="2" style="width: 100%;">
+                    <h:panelGrid columns="2" style="width: 100%;" >
 
-                        <p:dataTable id="listaCotacoes" value="#{listaCotacaoController.form.listaCotacaoDataModel}" var="listaCotacao" 
-                                     paginator="true" rows="10" style="width: 100%" selection="#{listaCotacaoController.form.listasCotacoesSelecionadas}">
+                        <p:dataTable id="listaCotacoes" value="#{listaCotacaoController.form.listaCotacaoDataModel}" var="listaCotacao"  
+                                     paginator="true" rows="10" style="width: 100%" >
 
                             <p:column headerText="#{msg['cotacao.label.nome']}" 
                                       filterBy="#{listaCotacao.nome}" filterMatchMode="contains">
@@ -44,7 +44,7 @@
 
                             <p:column headerText="#{msg['cotacao.label.acoes']}" style="width: 100px;text-align: center">
 
-                                <p:commandButton value="#{msg['cotacao.button.visualizar']}" action="#{cotacaoController.openViewPage(listaCotacao)}" ajax="false" />
+                                <p:commandButton value="#{msg['cotacao.button.visualizar']}" action="#{listaCotacaoController.openViewPage(listaCotacao)}" ajax="false" />
 
                             </p:column>
 

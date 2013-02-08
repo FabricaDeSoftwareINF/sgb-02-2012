@@ -38,9 +38,4 @@ public class CotacaoController extends SGBController<Cotacao, CotacaoForm, Cotac
         return service;
     }
 
-    public void exportarXLS(Cotacao cotacao) {
-    }
-
-    public void exportarCSV(Cotacao cotacao, boolean nacionais, boolean estrangeiros) {
-    }
 }
