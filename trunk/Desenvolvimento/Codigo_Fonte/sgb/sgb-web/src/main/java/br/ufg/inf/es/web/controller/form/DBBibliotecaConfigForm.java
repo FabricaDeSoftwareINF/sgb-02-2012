@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 /**
- *
+ * Classe que representa a entidade de parâmetro de Integralção com a Biblioteca
  * @author igor
  */
 @Component

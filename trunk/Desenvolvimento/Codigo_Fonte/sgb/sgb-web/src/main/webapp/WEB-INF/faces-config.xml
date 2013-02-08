@@ -172,8 +172,8 @@
             <from-outcome>ParametrosController/viewPage</from-outcome>
             
             <to-view-id>/paginas/parametros/show.xhtml</to-view-id>
-            
-        </navigation-case>     
+
+        </navigation-case>
         
         <!-- ESTÓRIA 15: Lista de Cotação --> 
         <navigation-case>
@@ -183,7 +183,7 @@
             <to-view-id>/paginas/lista_cotacao/visualizacao.xhtml</to-view-id>
             
         </navigation-case> 
-            
+        
         <!-- Estória 09: Manter Lista de Compras -->
         <navigation-case>
             
@@ -192,7 +192,6 @@
             <to-view-id>/paginas/listaCompras/inicial.xhtml</to-view-id>
         
         </navigation-case>
-
         
         <!-- ESTÓRIA 12: Manter Autor  -->
         <navigation-case>
@@ -233,6 +232,14 @@
             <from-outcome>BibliotecaConfigController/initialPage</from-outcome>
             
             <to-view-id>/paginas/parametros/biblioteca.xhtml</to-view-id>
+            
+        </navigation-case>
+        
+        <navigation-case>
+            
+            <from-outcome>ComunicacaoController/initialPage</from-outcome>
+            
+            <to-view-id>/paginas/parametros/comunicacao.xhtml</to-view-id>
             
         </navigation-case>
         
