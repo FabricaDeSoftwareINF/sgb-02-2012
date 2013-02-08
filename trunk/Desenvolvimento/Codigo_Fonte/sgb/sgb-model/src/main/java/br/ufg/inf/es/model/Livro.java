@@ -22,6 +22,8 @@ public class Livro extends AbstractEntityModel {
     private String isbn13;
     @Column(name = "edicao", nullable=false)
     private String edicao;
+    @Column(name = "estrangeiro", nullable=false)
+    private boolean estrangeiro;
     @ManyToOne(optional = false)
     @JoinColumn(name = "id_editora")
     private Editora editora;
@@ -82,6 +84,14 @@ public class Livro extends AbstractEntityModel {
 
     public String getEdicao() {
         return edicao;
+    }
+
+    public boolean isEstrangeiro() {
+        return estrangeiro;
+    }
+
+    public void setEstrangeiro(boolean estrangeiro) {
+        this.estrangeiro = estrangeiro;
     }
 
     public void setEdicao(String edicao) {
