@@ -19,19 +19,7 @@ public class CotadorGoogleShopTest {
 
    
 
-    /**
-     * Test of ConverterJsonParaDicionario method, of class CotadorGoogleShop.
-     */
-    @Test
-    public void testConverterJsonParaDicionario() {
-        
-        CotadorGoogleShop instance = new CotadorGoogleShop();
-        
-       String json = instance.buscarLivro("9780470447628");
-        Map result = instance.ConverterJsonParaDicionario(json);
-        assertNotNull(result);
-        
-    }
+  
 
     /**
      * Test of GerarUrlDeBusca method, of class CotadorGoogleShop.
@@ -42,7 +30,7 @@ public class CotadorGoogleShopTest {
        
         CotadorGoogleShop instance = new CotadorGoogleShop();
         
-        String result = instance.GerarUrlDeBusca("9780470447628");
+        String result = instance.gerarUrlDeBusca("9780470447628");
         assertNotNull(result);
         
     }

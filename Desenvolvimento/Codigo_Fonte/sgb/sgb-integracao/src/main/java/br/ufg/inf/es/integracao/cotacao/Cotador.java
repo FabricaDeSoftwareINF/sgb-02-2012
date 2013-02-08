@@ -4,6 +4,7 @@
  */
 package br.ufg.inf.es.integracao.cotacao;
 
+import br.ufg.inf.es.model.Livraria;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -24,17 +25,25 @@ import org.apache.http.impl.client.DefaultHttpClient;
 public abstract class Cotador {
 
     private String URL;
-
     private boolean EhBuscadorInternacional;
 
+    /**
+     * Verifica se o buscador realiza cotação internacional;
+     *
+     * @return True se o buscador realizar cotação internacional.
+     */
     public boolean ehBuscadorInternacional() {
         return EhBuscadorInternacional;
     }
 
+    /**
+     * Seta se o buscador reaizará cotação internacional. 
+     * @param EhBuscadorInternacional True caso realize cotação internacional
+     */
     public void setEhBuscadorInternacional(boolean EhBuscadorInternacional) {
         this.EhBuscadorInternacional = EhBuscadorInternacional;
     }
-    
+
     
     public String getURL() {
         return URL;
@@ -44,41 +53,25 @@ public abstract class Cotador {
         this.URL = URL;
     }
 
-    
-    
     /**
      * Busca o livro por meio do isbn
      *
-     * @param isbn identifição do livro
+     * @param isbn identifição do livro, exemplo 9780470447628
      * @return Json com o resultado da busca;
      */
     public String buscarLivro(String isbn) {
-        return HttpUtil.FazerRequisicaoHttpGet(GerarUrlDeBusca(isbn));
+        return HttpUtil.FazerRequisicaoHttpGet(gerarUrlDeBusca(isbn));
     }
-    
-    
-    
+
     /**
-     * Converte o resultado da busca em json para um dicionário de dados. 
-     * A chave do dicionário é a identificação da livraria. O valor associado
-     * à uma chave é um  Map com as propriedades do livro como preço, link, imagem
-     * , etc. AS chaves do Map são
-     *      paisLivraria
-            nomeLivro
-            nomeLivro
-            descricaoLivro
-            linkLivroNaLivraria
-            linkLivroNaLivraria
-            linkImagemDoLivro 
-            precoLivro
-            moeda
-                  
-     * @param json String retornada na consulta do livro. Ess json será convertido
-     * um dicionário de propriedades. 
-     * @return  Um dicionário, sendo que as chaves são as identificaçãos das 
-     * livrarias e os valores associados às chaves são as propriedades da cotação.
+     * Busca as ofertas de um determinado livro identificado pelo isbn.
+     *
+     * @param isbn Identificação do livro
+     * @return Um dicionário cuja chaves são as livrarias que estão ofertando o
+     * livro. Os valores das chaves são Ofertas que possuem os dados como Preço,
+     * Image do Livro, etc.
      */
-    public abstract Map<String,Map<String, String>> ConverterJsonParaDicionario(String json);
+    public abstract Map<Livraria, OfertaLivro> buscarOfertas(String isbn);
 
     /**
      * Gera a url final de busca. Para isso adiciona-se o isbn na url padrão.
@@ -86,8 +79,5 @@ public abstract class Cotador {
      * @param isbn Identificação do livro.
      * @return String com a URL a ser usada em uma busca.
      */
-    public abstract String GerarUrlDeBusca(String isbn);
-
-    
-    
+    public abstract String gerarUrlDeBusca(String isbn);
 }

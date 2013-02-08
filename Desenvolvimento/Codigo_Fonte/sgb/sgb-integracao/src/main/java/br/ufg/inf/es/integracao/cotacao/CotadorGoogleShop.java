@@ -4,12 +4,25 @@
  */
 package br.ufg.inf.es.integracao.cotacao;
 
-
+import br.ufg.inf.es.model.Livraria;
+import com.buscape.developer.result.type.Offer;
+import com.buscape.developer.result.type.PriceOffer;
+import com.buscape.developer.result.type.Result;
+import com.buscape.developer.result.type.Seller;
 import com.google.gson.Gson;
 import com.google.gson.internal.StringMap;
+import java.io.*;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.util.AbstractMap;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Unmarshaller;
 
 
 /**
@@ -17,31 +30,37 @@ import java.util.Map;
  * @author usuario
  */
 public class CotadorGoogleShop extends Cotador {
-    
-    private static final String KEY = "AIzaSyDzuxDAgvInL9nk7jIlBcs9cPSSnfbJfrw";
-    private static final String URL = "https://www.googleapis.com/shopping/search/v1/public/products?key=" + KEY + "&country=US&alt=json&currency=USD&restrictBy=condition:new";
-    /*
+
+    private static String Key = "AIzaSyDzuxDAgvInL9nk7jIlBcs9cPSSnfbJfrw";
+    private static String URL = "https://www.googleapis.com/shopping/search/v1/public/products?key=" + Key + "&country=US&alt=json&currency=USD&restrictBy=condition:new";
+   
+
+   
+
     public static void main(String[] args) throws Exception {
         Gson gson = new Gson();
         CotadorGoogleShop g = new CotadorGoogleShop();
-        String a = g.buscarLivro("9788576055631");
-        Map m = gson.fromJson(a, Map.class);
-        Map<String, Map<String, String>> map = g.ConverterJsonParaDicionario(a);
+        String a = g.buscarLivro("9780470447628");
         System.out.println(a);
     }
-    */
+
     @Override
-    public Map<String, Map<String, String>> ConverterJsonParaDicionario(String json) {
+    public String gerarUrlDeBusca(String isbn) {
+        return URL + "&q=" + isbn;
+    }
+
+    @Override
+    public Map<Livraria, OfertaLivro> buscarOfertas(String isbn) {
         Gson gson = new Gson();
+        String json = this.buscarLivro(isbn);
         Map map = gson.fromJson(json, Map.class);
         //Integer totalOfertas = (Integer) map.get("totalItems");
-        Map<String, Map<String, String>> resultado = new HashMap<String, Map<String, String>>();
+        Map<Livraria, OfertaLivro> resultado = new HashMap();
         
         List<StringMap> itens = (List<StringMap>) map.get("items");
-        if(itens ==null){return null;}
         for (StringMap item : itens) {
-            Map<String, String> oferta = new HashMap<String, String>();
-            
+          
+
             StringMap produto = (StringMap) item.get("product");
             String linkImagemLivro = null;
             String precoLivro = null;
@@ -55,25 +74,19 @@ public class CotadorGoogleShop extends Cotador {
             for (StringMap stringMap : invetories) {
                 precoLivro = (String) stringMap.get("price").toString();
                 moeda = (String) stringMap.get("currency");
-                
+
             }
-            
-                    
             String nomeLivraria = (String) ((StringMap) produto.get("author")).get("name");
-            oferta.put("paisLivraria", (String) produto.get("country"));
-            oferta.put("nomeLivro", (String) produto.get("title"));
-            oferta.put("descricaoLivro", (String) produto.get("description"));
-            oferta.put("linkLivroNaLivraria", (String) produto.get("link"));
-            oferta.put("linkImagemDoLivro", linkImagemLivro);
-            oferta.put("precoLivro", precoLivro);
-            oferta.put("moeda", moeda);
-            resultado.put(nomeLivraria, oferta);
+            String nomeLivro= (String) produto.get("title");
+            String descricaoLivro= (String) produto.get("description");
+            String linkLivroNaLivraria=(String) produto.get("link");
+            Livraria livraria = new Livraria();
+            livraria.setNome(nomeLivraria);
+            livraria.setSite(linkLivroNaLivraria);
+           
+            OfertaLivro oferta = new OfertaLivro(nomeLivro, descricaoLivro, precoLivro, moeda, nomeLivraria, linkLivroNaLivraria, linkImagemLivro, null);
+            resultado.put(livraria, oferta);
         }
         return resultado;
-    }
-    
-    @Override
-    public String GerarUrlDeBusca(String isbn) {
-        return URL + "&q=" + isbn;
     }
 }

@@ -32,5 +32,6 @@ public class CotacaoService extends GenericService<Cotacao> {
     public void setDao(CotacaoDAO dao) {
         this.dao = dao;
     }
+   
     
 }
