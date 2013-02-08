@@ -1,0 +1,74 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+    <ui:composition template="/template/template.xhtml">
+
+        <ui:define name="title">
+            Parâmetros de Comunicação - SGB
+        </ui:define>
+        <ui:define name="content">
+
+            <h:form id="formParamComunicacao">
+                <p:messages  autoUpdate="true"/>
+                <p:panel header="Configuração dos Protocolos"> 
+                    <h:panelGrid columns="4">                           
+
+                        <h:outputLabel value="#{msg['parametros.comunicacao.service']}"  ></h:outputLabel>
+                        <p:inputText label="Service"  
+                                     value="#{comunicacaoController.form.entity.service}" 
+                                     />
+                        <h:outputLabel value="#{msg['parametros.comunicacao.port']}"  ></h:outputLabel>
+                        <p:inputText label="Porta" 
+                                     value="#{comunicacaoController.form.entity.port}" 
+                                     />
+
+                        <h:outputLabel value="#{msg['parametros.comunicacao.ssl']}"  ></h:outputLabel>
+                        <p:selectBooleanCheckbox label="SSL"  
+                                                 value="#{comunicacaoController.sslPage}"/>  
+
+                        <h:outputLabel value="#{msg['parametros.comunicacao.tsl']}" ></h:outputLabel>
+                        <p:selectBooleanCheckbox label="tsl"  
+                                                 value="#{comunicacaoController.tslPage}"/>
+                    </h:panelGrid>                
+                    <p:panel header="Autenticação"> 
+                        <h:panelGrid columns="4">
+
+                            <h:outputLabel value="#{msg['parametros.comunicacao.usuario']}"  ></h:outputLabel>
+                            <p:inputText label="Usuario" 
+                                         value="#{comunicacaoController.form.entity.usuario}" 
+                                         />
+
+                            <h:outputLabel value="#{msg['parametros.comunicacao.senha']}"  ></h:outputLabel>
+                            <p:password label="Senha" 
+                                        value="#{comunicacaoController.password}" 
+                                        />
+
+                        </h:panelGrid>
+                    </p:panel> 
+                </p:panel> 
+
+                <div align="left">
+                    <h:panelGrid columns="2">
+                        <p:commandButton update="@form" 
+                                         actionListener="#{comunicacaoController.salvarComunicacao()}" 
+                                         value="#{msg['parametros.bc.salvar']}" />
+                    </h:panelGrid>
+                </div>       
+            </h:form> 
+
+            <h:form>
+                <div align="left">
+                    <p:commandButton  update="@form"  
+                                      actionListener="#{comunicacaoController.voltar()}" 
+                                      value="#{msg['parametros.bc.voltar']}" />
+                </div>
+            </h:form>   
+
+        </ui:define>
+    </ui:composition>
+
+</html>

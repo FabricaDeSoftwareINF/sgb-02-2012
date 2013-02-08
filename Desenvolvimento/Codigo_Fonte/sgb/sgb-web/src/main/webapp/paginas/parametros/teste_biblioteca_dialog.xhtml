@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    
+    <f:view>
+        <p:dialog id="gera_testebiblioteca_dialog" widgetVar="geraTesteDialog" closable="true"
+                  header="Teste Comunicação DB Biblioteca">
+
+            <h:form id="geracao_testebiblioteca_form">
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{msg['parametros.bc.campoteste']}"  ></h:outputLabel>
+                    <p:inputText label="Titulo de Teste "  
+                                 value="#{bibliotecaConfigController.tituloTeste}" 
+                                 />
+                    <p:commandButton id="gerar_testebiblioteca_btn" value="Exceuta Teste"
+                                     actionListener="#{bibliotecaConfigController.executaTeste()}"
+                                     ajax="false"
+                                     onclick="geraTesteDialog.hide()">
+                        <p:fileDownload value="#{bibliotecaConfigController.file}" />
+                    </p:commandButton>
+                </h:panelGrid>
+            </h:form>
+        </p:dialog>
+    </f:view>
+</html>
+

@@ -1,33 +1,50 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.ufg.inf.es.web.controller;
 
-import br.ufg.inf.es.base.persistence.biblioteca.DBDriver;
+import br.ufg.inf.es.base.util.cripto.CriptoGeneric;
 import br.ufg.inf.es.base.validation.ValidationException;
 import br.ufg.inf.es.integracao.DBBibliotecaConfigService;
 import br.ufg.inf.es.model.biblioteca.DBBibliotecaConfig;
+import br.ufg.inf.es.model.biblioteca.LivroBiblioteca;
+import br.ufg.inf.es.persistencia.biblioteca.LivrosBibliotecaDAO;
 import br.ufg.inf.es.web.controller.form.DBBibliotecaConfigForm;
-import java.util.ArrayList;
-import java.util.Collection;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.ObjectOutputStream;
+import java.sql.SQLException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javassist.NotFoundException;
+import javax.faces.context.FacesContext;
+import javax.servlet.ServletContext;
+import org.primefaces.model.DefaultStreamedContent;
+import org.primefaces.model.StreamedContent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 /**
+ * Controlador da página de parâmetros de Integração com a Biblioteca
  *
  * @author igor
  */
 @Component
 @Scope("session")
-public class BibliotecaConfigController extends SGBController<DBBibliotecaConfig, DBBibliotecaConfigForm, DBBibliotecaConfigService> {
+public class BibliotecaConfigController extends SGBController<DBBibliotecaConfig, 
+        DBBibliotecaConfigForm, DBBibliotecaConfigService> {
 
     @Autowired
     private DBBibliotecaConfigForm form;
     @Autowired
     private DBBibliotecaConfigService service;
+    private StreamedContent file;
+    private String tituloTeste;
+    @Autowired
+    private LivrosBibliotecaDAO livroDAO;
+    
+    private String password;
 
     @Override
     public String openInitialPage() {
@@ -36,6 +53,11 @@ public class BibliotecaConfigController extends SGBController<DBBibliotecaConfig
 
             form.setEntity(config);
 
+        }
+
+        if (this.form.getEntity().getPasswordDataBase() != null){
+            this.password = new String(new CriptoGeneric().decriptografa(
+                    this.form.getEntity().getPasswordDataBase()));
         }
         return "BibliotecaConfigController/initialPage";
     }
@@ -65,11 +87,13 @@ public class BibliotecaConfigController extends SGBController<DBBibliotecaConfig
     public String salvarDBBibliotecaConfig() {
 
         try {
-            if (this.getForm().getEntity() == null || 
-                    this.getForm().getEntity().getDriver() == null) {
+            if (this.getForm().getEntity() == null
+                    || this.getForm().getEntity().getDriver() == null) {
+                this.form.getEntity().setPasswordDataBase(new CriptoGeneric().criptografa(password));
                 this.service.insert(this.form.getEntity());
                 this.addSuccessMessage("arquitetura.msg.sucesso");
             } else {
+                this.form.getEntity().setPasswordDataBase(new CriptoGeneric().criptografa(password));
                 this.service.editar(this.form.getEntity());
                 this.addSuccessMessage("arquitetura.msg.sucesso");
             }
@@ -91,8 +115,8 @@ public class BibliotecaConfigController extends SGBController<DBBibliotecaConfig
 
     public void prepararExclusao() {
 
-        if (this.getForm().getEntity() != null && 
-                this.getForm().getEntity().getDriver() != null) {
+        if (this.getForm().getEntity() != null
+                && this.getForm().getEntity().getDriver() != null) {
             this.getForm().setExibirDialogExclusao(Boolean.TRUE);
         } else {
             this.getForm().setExibirDialogExclusao(Boolean.FALSE);
@@ -108,5 +132,86 @@ public class BibliotecaConfigController extends SGBController<DBBibliotecaConfig
     public String voltar() {
         return "/index.jsf";
 
+    }
+
+    /**
+     * Método que serializa as chaves e salva.
+     */
+    private void geraArquivo(List<LivroBiblioteca> livrosBiblioteca) {
+        try {
+            FileOutputStream arquivoGrav = new FileOutputStream("livros.txt");
+            ObjectOutputStream objGravar = new ObjectOutputStream(arquivoGrav);
+
+            String livros = "<Não foi encontrado nenhum registro>";
+
+            if (livrosBiblioteca != null) {
+                livros = "";
+                for (LivroBiblioteca livroBc : livrosBiblioteca) {
+                    livros += "Livro: " + livroBc.getNome() + ", ISBN: "
+                            + livroBc.getIsbn() + ", Qtda.: " + livroBc.getQuantidade()
+                            + "\n";
+                }
+            }
+
+            //Grava o objeto cliente no arquivo
+            objGravar.writeObject(livros);
+            objGravar.flush();
+            objGravar.close();
+            arquivoGrav.flush();
+            arquivoGrav.close();
+
+        } catch (Exception e) {
+            System.err.println("Mensagem de erro: " + e.getMessage());
+            System.err.println("Causa do erro: " + e.getCause());
+        }
+    }
+
+    public void executaTeste() {
+        if (this.form.getEntity() != null) {
+            try {
+                geraArquivo(livroDAO.getLivrosBibliotecaTitulo(getTituloTeste()));
+            } catch (NotFoundException ex) {
+               this.addWarningMessage("arquitetura.msg.notfound");
+            } catch (SQLException ex) {
+                StringBuilder exception = new StringBuilder();
+                exception.append("arquitetura.msg.connectionexception");
+                exception.append("\n");
+                exception.append(ex.getMessage());
+                this.addWarningMessage("arquitetura.msg.connectionexception");
+            }
+            
+            InputStream stream;
+            try {
+                stream = new FileInputStream("livros.txt"); 
+                file = new DefaultStreamedContent(stream, "text/txt", "livros.txt");
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(BibliotecaConfigController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+        }
+    }
+
+    public String getTituloTeste() {
+        return tituloTeste;
+    }
+
+    public void setTituloTeste(String tituloTeste) {
+        this.tituloTeste = tituloTeste;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public StreamedContent getFile() {
+        return file;
+    }
+
+    public void setFile(StreamedContent file) {
+        this.file = file;
     }
 }
