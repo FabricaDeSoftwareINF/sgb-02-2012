@@ -15,7 +15,10 @@ public class Livraria extends AbstractEntityModel {
 
     private String nome;
     private String site;
+    private String urlLogo;
 
+    public Livraria() {
+    }
     public String getNome() {
         return nome;
     }
@@ -31,4 +34,13 @@ public class Livraria extends AbstractEntityModel {
     public void setSite(String site) {
         this.site = site;
     }
+
+    public String getUrlLogo() {
+        return urlLogo;
+    }
+
+    public void setUrlLogo(String urlLogo) {
+        this.urlLogo = urlLogo;
+    }
+    
 }
