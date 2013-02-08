@@ -52,17 +52,17 @@ public class DisciplinaService extends GenericService<Disciplina> {
     @RNG006
     public void inserir(Disciplina entidade) throws ValidationException {
 
-        Long id =  this.getDAO().insert(entidade);
-        
+        Long id = this.getDAO().insert(entidade);
+
         Disciplina persistida = this.getDAO().find(id);
 
         if (UtilObjeto.isReferencia(entidade.getBibliografias()) && !entidade.getBibliografias().isEmpty()) {
 
             for (Bibliografia bl : entidade.getBibliografias()) {
-                
-                    bl.setDisciplina(persistida);        
-                    
-                    this.getBibliografiaDAO().update(bl);
+
+                bl.setDisciplina(persistida);
+
+                this.getBibliografiaDAO().update(bl);
             }
         }
 
@@ -90,7 +90,14 @@ public class DisciplinaService extends GenericService<Disciplina> {
         return this.getLivroDao().buscaLivroPorTitulo(query);
     }
 
-    public void inserirDisciplina(Disciplina entity) throws ValidationException {
-        throw new UnsupportedOperationException("Not yet implemented");
+    /**
+     * Método responsável por editar uma disciplina
+     *
+     * @author Cássio Augusto, Marco Aurélio
+     */
+    @RNG006
+    public void editarDisciplina(Disciplina entidade) throws ValidationException {
+        
+        this.getDAO().update(entidade);
     }
 }

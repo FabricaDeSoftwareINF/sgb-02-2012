@@ -11,6 +11,7 @@ import br.ufg.inf.es.model.Disciplina;
 import br.ufg.inf.es.model.Livro;
 import br.ufg.inf.es.web.controller.form.CursoForm;
 import br.ufg.inf.es.web.controller.form.DisciplinaForm;
+import br.ufg.inf.es.web.datamodel.DisciplinaDataModel;
 import java.util.*;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.logging.Level;
@@ -31,6 +32,7 @@ import org.springframework.stereotype.Component;
 public class DisciplinaController extends SGBController<Disciplina, DisciplinaForm, DisciplinaService> {
 
     private static final String KEY_SUCESSO = "arquitetura.msg.sucesso";
+    private static final String KEY_NENHUMA_DISCIPLINA_MESSAGE = "label.disciplina.nenhumaSelecionada";
     @Autowired
     private DisciplinaForm form;
     @Autowired
@@ -53,6 +55,8 @@ public class DisciplinaController extends SGBController<Disciplina, DisciplinaFo
 
         this.getForm().setExibirDialogRemocao(Boolean.FALSE);
 
+        this.getForm().setExibirDialogDetalhe(Boolean.FALSE);
+
         this.getForm().getEntity().setCurso(new Curso());
 
         this.getForm().setCursos(this.getCursoService().list());
@@ -66,6 +70,8 @@ public class DisciplinaController extends SGBController<Disciplina, DisciplinaFo
         this.getForm().setTipoBibliografias(Arrays.asList(EnumTipoBibliografia.values()));
 
         this.getForm().setSelecionadosAux(new ArrayList<Livro>());
+
+        this.getForm().setDataModelDisciplina(new DisciplinaDataModel((List) this.getForm().getCollectionEntities()));
     }
 
     @Override
@@ -171,7 +177,6 @@ public class DisciplinaController extends SGBController<Disciplina, DisciplinaFo
             this.addWarningMessage("label.disciplina.nenhumLivroSelecionado");
 
         }
-
     }
 
     /**
@@ -201,6 +206,27 @@ public class DisciplinaController extends SGBController<Disciplina, DisciplinaFo
     }
 
     /**
+     * Método responsável por editar uma disciplina
+     *
+     * @author Cássio Augusto , Marco Aurélio
+     */
+    public void editarDisciplina() {
+
+        try {
+
+            this.getService().editarDisciplina(this.getForm().getEntity());
+
+            this.addSuccessMessage(DisciplinaController.KEY_SUCESSO);
+
+            this.openInitialPage();
+
+        } catch (ValidationException ex) {
+
+            this.addWarningMessage(ex.getKeyMessage());
+        }
+    }
+
+    /**
      * Método responsável por exibir o dialog de remoção
      *
      * @author Cássio Augusto
@@ -224,6 +250,77 @@ public class DisciplinaController extends SGBController<Disciplina, DisciplinaFo
         this.getForm().getBibliografiasAssociadas().remove(this.getForm().getBibliografiaParaRemocao());
 
 
+    }
+
+    /**
+     * Método responsável por exibir detalhes de uma Disciplina.
+     *
+     * @author Cássio Augusto Silva de Freitas, Marco Aurélio Camargo
+     */
+    public void exibirDetalhes() {
+
+        this.getForm().setExibirDialogDetalhe(Boolean.TRUE);
+
+        this.getForm().getDisciplinaDetalhe().setBibliografias((Collection<Bibliografia>) this.getService().getDAO().getCollection(this.getForm().getDisciplinaDetalhe().getId(), "bibliografias"));
+    }
+
+    /**
+     * Método responsável por fechar o dialog de detalhes
+     *
+     * @author Cássio Augusto Silva de Freitas, Marco Aurélio Camargo
+     */
+    public void fecharDialogDetalhe() {
+
+        this.getForm().setExibirDialogDetalhe(Boolean.FALSE);
+    }
+
+    /**
+     * Método responsável por exibir o dialog de confirmação da remoção.
+     * 
+     * @author Cássio Augusto Silva Freitas, Marco Aurélio
+     */
+    public void exibirConfirmDialog() {
+
+        this.getForm().setExibirDialogRemocao(Boolean.TRUE);
+    }
+
+    /**
+     * Método responsável por remover as disciplinas selecionadas pelo usuário.
+     * 
+     * @author Cássio Augusto Silva Freitas, Marco Aurélio
+     */
+    public void removerDisciplinasSelecionadas() {
+
+        if (UtilObjeto.isReferencia(this.getForm().getDisciplinasSelecionadas()) && this.getForm().getDisciplinasSelecionadas().length != 0) {
+
+            Collection<Disciplina> colecao = Arrays.asList(this.getForm().getDisciplinasSelecionadas());
+        
+            try {
+                
+                this.getService().removeAll(colecao);
+                
+                fecharDialogRemocao();
+            
+            } catch (ValidationException ex) {
+            
+                Logger.getLogger(DisciplinaController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        
+        } else {
+
+            this.addWarningMessage(KEY_NENHUMA_DISCIPLINA_MESSAGE);
+
+        }
+    }
+    
+    /**
+     * Método responsável por fechar o dialog de remoção.
+     * 
+     * @author Cássio Augusto Silva de Freitas, Marco Aurélio Camargo
+     */
+    public void fecharDialogRemocao() {
+        
+        this.getForm().setExibirDialogRemocao(Boolean.FALSE);
     }
 
     @Override
