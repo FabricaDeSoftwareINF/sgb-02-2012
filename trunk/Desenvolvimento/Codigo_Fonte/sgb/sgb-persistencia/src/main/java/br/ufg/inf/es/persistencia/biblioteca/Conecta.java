@@ -6,20 +6,20 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 /**
- *
+ * Classe de geração de conexão com banco de dados via JDBC
  * @author igor
  */
 public class Conecta {
 
     /**
-     *
-     * @param driver
-     * @param url
-     * @param port
-     * @param dataBase
-     * @param userName
-     * @param password
-     * @return
+     * Método que recupera uma sessão de conexão dom banco de dados via JDBC
+     * @param driver de conexão com o banco de dados
+     * @param url do servidor do banco de dados
+     * @param port porta de conexão com o banco de dados
+     * @param dataBase nome da base de dados (Schema)
+     * @param userName nome do usuário de conexão com o banco de dados
+     * @param password senha do usuário de conexão com o banco de dados
+     * @return retornar uma instancia de conexão com o banco de dados
      */
     public static Connection getSessionConnection(DBDriver driver, String url,
             String port, String dataBase, String userName, String password) {
