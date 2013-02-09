@@ -22,7 +22,7 @@
 
                         <p:selectOneMenu label="SGBD" value="#{bibliotecaConfigController.form.entity.driver}"  
                                          converter="dbDriverConverter">
-                            <f:selectItem itemLabel="Selecione"/> 
+                            
                             <f:selectItems  var="driver" value="#{bibliotecaConfigController.form.drivers}"
                                             itemLabel="#{driver.name}" itemValue="#{driver}"/>
                         </p:selectOneMenu>
@@ -43,10 +43,8 @@
                                      />
 
                         <h:outputLabel value="#{msg['parametros.bc.usuario']}"  ></h:outputLabel>
-                        <p:inputText label="Usuário" required="true" 
-                                     value="#{bibliotecaConfigController.form.entity.userDataBase}" 
-                                     requiredMessage="Por favor Informe o Usuário de 
-                                     conexão." />
+                        <p:inputText label="Usuário"
+                                     value="#{bibliotecaConfigController.form.entity.userDataBase}"/>
 
                         <h:outputLabel value="#{msg['parametros.bc.senha']}"  ></h:outputLabel>
                         <p:password label="Senha" 
@@ -64,35 +62,35 @@
                         <h:panelGrid columns="2">
 
                             <h:outputLabel value="#{msg['parametros.bc.colunaid']}"  ></h:outputLabel>
-                            <p:inputText label="Coluna ID"  
+                            <p:inputText title="Coluna terá que ser do tipo Inteiro ou Long" label="Coluna ID"  
                                          value="#{bibliotecaConfigController.form.entity.campoIdLivroBiblioteca}"/>
 
                             <h:outputLabel value="#{msg['parametros.bc.colunatitulo']}"  ></h:outputLabel>
-                            <p:inputText label="Coluna Título"  
+                            <p:inputText title="Coluna terá que ser do tipo String" label="Coluna Título"  
                                          value="#{bibliotecaConfigController.form.entity.campoTituloLivro}"/>
 
                             <h:outputLabel value="#{msg['parametros.bc.colunaisbn']}"  ></h:outputLabel>
-                            <p:inputText label="Coluna ISBN"
+                            <p:inputText title="Coluna terá que ser do tipo String" label="Coluna ISBN"
                                          value="#{bibliotecaConfigController.form.entity.campoIsbnLivro}"/>
 
                             <h:outputLabel value="#{msg['parametros.bc.colunaano']}"  ></h:outputLabel>
-                            <p:inputText label="Coluna Ano"
+                            <p:inputText title="Coluna terá que ser do tipo String" label="Coluna Ano"
                                          value="#{bibliotecaConfigController.form.entity.campoAnoLivro}"/>
 
                             <h:outputLabel value="#{msg['parametros.bc.colunaedicao']}"  ></h:outputLabel>
-                            <p:inputText label="Coluna Edição"
+                            <p:inputText title="Coluna terá que ser do tipo Inteiro" label="Coluna Edição"
                                          value="#{bibliotecaConfigController.form.entity.campoEdicao}"/>
 
                             <h:outputLabel value="#{msg['parametros.bc.colunaEditora']}"  ></h:outputLabel>
-                            <p:inputText label="Coluna Editora"
+                            <p:inputText title="Coluna terá que ser do tipo String" label="Coluna Editora"
                                          value="#{bibliotecaConfigController.form.entity.campoEditora}"/>
 
                             <h:outputLabel value="#{msg['parametros.bc.colunaautor']}"  ></h:outputLabel>
-                            <p:inputText label="Coluna Autor"
+                            <p:inputText title="Coluna terá que ser do tipo String" label="Coluna Autor"
                                          value="#{bibliotecaConfigController.form.entity.campoAutor}"/>
 
                             <h:outputLabel value="#{msg['parametros.bc.colunaquantidade']}"  ></h:outputLabel>
-                            <p:inputText label="Coluna Quantidade"
+                            <p:inputText title="Coluna terá que ser do tipo Inteiro" label="Coluna Quantidade"
                                          value="#{bibliotecaConfigController.form.entity.campoQuantidadeLivro}"/>
 
                         </h:panelGrid>
