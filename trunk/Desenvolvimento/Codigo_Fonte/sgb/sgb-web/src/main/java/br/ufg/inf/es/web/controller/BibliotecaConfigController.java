@@ -32,8 +32,7 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @Scope("session")
-public class BibliotecaConfigController extends SGBController<DBBibliotecaConfig, 
-        DBBibliotecaConfigForm, DBBibliotecaConfigService> {
+public class BibliotecaConfigController extends SGBController<DBBibliotecaConfig, DBBibliotecaConfigForm, DBBibliotecaConfigService> {
 
     @Autowired
     private DBBibliotecaConfigForm form;
@@ -43,7 +42,6 @@ public class BibliotecaConfigController extends SGBController<DBBibliotecaConfig
     private String tituloTeste;
     @Autowired
     private LivrosBibliotecaDAO livroDAO;
-    
     private String password;
 
     @Override
@@ -55,7 +53,7 @@ public class BibliotecaConfigController extends SGBController<DBBibliotecaConfig
 
         }
 
-        if (this.form.getEntity().getPasswordDataBase() != null){
+        if (this.form.getEntity().getPasswordDataBase() != null) {
             this.password = new String(new CriptoGeneric().decriptografa(
                     this.form.getEntity().getPasswordDataBase()));
         }
@@ -88,7 +86,8 @@ public class BibliotecaConfigController extends SGBController<DBBibliotecaConfig
 
         try {
             if (this.getForm().getEntity() == null
-                    || this.getForm().getEntity().getDriver() == null) {
+                    && this.getForm().getEntity().getId() == null
+                    && this.getForm().getEntity().getId() == 0) {
                 this.form.getEntity().setPasswordDataBase(new CriptoGeneric().criptografa(password));
                 this.service.insert(this.form.getEntity());
                 this.addSuccessMessage("arquitetura.msg.sucesso");
@@ -166,12 +165,20 @@ public class BibliotecaConfigController extends SGBController<DBBibliotecaConfig
         }
     }
 
-    public void executaTeste() {
+    public String executaTeste() {
         if (this.form.getEntity() != null) {
             try {
                 geraArquivo(livroDAO.getLivrosBibliotecaTitulo(getTituloTeste()));
+
+                InputStream stream;
+                try {
+                    stream = new FileInputStream("livros.txt");
+                    file = new DefaultStreamedContent(stream, "text/txt", "livros.txt");
+                } catch (FileNotFoundException ex) {
+                    Logger.getLogger(BibliotecaConfigController.class.getName()).log(Level.SEVERE, null, ex);
+                }
             } catch (NotFoundException ex) {
-               this.addWarningMessage("arquitetura.msg.notfound");
+                this.addWarningMessage("arquitetura.msg.notfound");
             } catch (SQLException ex) {
                 StringBuilder exception = new StringBuilder();
                 exception.append("arquitetura.msg.connectionexception");
@@ -179,16 +186,8 @@ public class BibliotecaConfigController extends SGBController<DBBibliotecaConfig
                 exception.append(ex.getMessage());
                 this.addWarningMessage("arquitetura.msg.connectionexception");
             }
-            
-            InputStream stream;
-            try {
-                stream = new FileInputStream("livros.txt"); 
-                file = new DefaultStreamedContent(stream, "text/txt", "livros.txt");
-            } catch (FileNotFoundException ex) {
-                Logger.getLogger(BibliotecaConfigController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            
         }
+        return super.openSearchPage();
     }
 
     public String getTituloTeste() {

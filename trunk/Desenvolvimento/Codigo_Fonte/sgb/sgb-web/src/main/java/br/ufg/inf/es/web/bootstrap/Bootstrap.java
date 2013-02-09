@@ -1,6 +1,8 @@
 package br.ufg.inf.es.web.bootstrap;
 
 import br.ufg.inf.es.base.util.SgbCryptography;
+import br.ufg.inf.es.base.util.cripto.CriptoGeneric;
+import br.ufg.inf.es.model.Comunicacao;
 import br.ufg.inf.es.model.Livro;
 import br.ufg.inf.es.model.Usuario;
 import br.ufg.inf.es.model.UsuarioPerfil;
@@ -35,6 +37,7 @@ public class Bootstrap implements ServletContextListener {
         } else {
             initializeDefaulUser();
             crieBibliografias();
+            initializeDefaulComunication();
         }
     }
 
@@ -96,5 +99,25 @@ public class Bootstrap implements ServletContextListener {
 
     private SessionFactory getSessionFactory() {
         return sessionFactory;
+    }
+    
+     private void initializeDefaulComunication() {
+        Collection comunicacaoList = list(sessionFactory, Comunicacao.class);
+        if (comunicacaoList == null || comunicacaoList.isEmpty()) {
+            try {
+
+                Comunicacao comunicacao = new Comunicacao();
+                comunicacao.setService("smtp.gmail.com");
+                comunicacao.setSsl(true);
+                comunicacao.setTsl(true);
+                comunicacao.setPort("465");
+                comunicacao.setUsuario("sapcl.ufg");
+                comunicacao.setSenha(new CriptoGeneric().criptografa("sapcl321"));
+                
+                insert(sessionFactory, comunicacao);
+            } catch (Exception ex) {
+                Logger.getLogger(Bootstrap.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
 }
