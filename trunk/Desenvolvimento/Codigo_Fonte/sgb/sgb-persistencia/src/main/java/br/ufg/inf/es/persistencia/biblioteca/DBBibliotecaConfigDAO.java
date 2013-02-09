@@ -7,6 +7,7 @@ import br.ufg.inf.es.persistencia.GenericHibernateDAO;
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,7 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
  * Classe de percistencia das configurações da integração com sistema da biblioteca
  * @author igor
  */
-@Repository
+@Component
 @Transactional(rollbackFor=ValidationException.class)
 public class DBBibliotecaConfigDAO extends GenericHibernateDAO<DBBibliotecaConfig>{
     

@@ -14,6 +14,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.support.WebApplicationContextUtils;
@@ -23,7 +24,7 @@ import org.springframework.web.jsf.FacesContextUtils;
  *
  * @author igor
  */
-@Repository
+@Component
 @Transactional(rollbackFor = ValidationException.class)
 public class LivrosBibliotecaDAO {
 
