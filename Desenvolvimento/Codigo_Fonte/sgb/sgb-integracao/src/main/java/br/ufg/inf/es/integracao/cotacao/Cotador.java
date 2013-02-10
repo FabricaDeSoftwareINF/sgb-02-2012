@@ -13,8 +13,8 @@ import java.util.Map;
  */
 public abstract class Cotador {
 
-    private String URL;
-    private boolean EhBuscadorInternacional;
+    private String url;
+    private boolean ehBuscadorInternacional;
 
     /**
      * Verifica se o buscador realiza cotação internacional;
@@ -22,24 +22,24 @@ public abstract class Cotador {
      * @return True se o buscador realizar cotação internacional.
      */
     public boolean ehBuscadorInternacional() {
-        return EhBuscadorInternacional;
+        return ehBuscadorInternacional;
     }
 
     /**
      * Seta se o buscador reaizará cotação internacional. 
-     * @param EhBuscadorInternacional True caso realize cotação internacional
+     * @param ehBuscadorInternacional True caso realize cotação internacional
      */
-    public void setEhBuscadorInternacional(boolean EhBuscadorInternacional) {
-        this.EhBuscadorInternacional = EhBuscadorInternacional;
+    public void setEhBuscadorInternacional(boolean ehBuscadorInternacional) {
+        this.ehBuscadorInternacional = ehBuscadorInternacional;
     }
 
     
     public String getURL() {
-        return URL;
+        return url;
     }
 
-    public void setURL(String URL) {
-        this.URL = URL;
+    public void setURL(String url) {
+        this.url = url;
     }
 
     /**
@@ -49,7 +49,7 @@ public abstract class Cotador {
      * @return Json com o resultado da busca;
      */
     public String buscarLivro(String isbn) {
-        return HttpUtil.FazerRequisicaoHttpGet(gerarUrlDeBusca(isbn));
+        return HttpUtil.fazerRequisicaoHttpGet(gerarUrlDeBusca(isbn));
     }
 
     /**

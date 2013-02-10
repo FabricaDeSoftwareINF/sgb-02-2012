@@ -22,7 +22,7 @@ public class ConversorMoedaTest {
     public void testConverterDolarParaReal_String() {
        
         String dolar = "4.5";
-        String result = ConversorMoeda.ConverterDolarParaReal(dolar);
+        String result = ConversorMoeda.converterDolarParaReal(dolar);
         assertNotNull(result);
         
     }
@@ -34,7 +34,7 @@ public class ConversorMoedaTest {
     public void testConverterDolarParaReal_Double() {
         
         Double dolar = 4.5;
-        Double result = ConversorMoeda.ConverterDolarParaReal(dolar);
+        Double result = ConversorMoeda.converterDolarParaReal(dolar);
         assertNotNull(result);
         
     }

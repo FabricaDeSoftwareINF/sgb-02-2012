@@ -17,12 +17,15 @@ import org.springframework.stereotype.Component;
 public class ListaCotacaoForm extends GenericForm<ListaCotacao> {
 
     private Collection<ListaCotacao> tabelaListaCotacoes;
+    
     private ListaCotacaoDataModel listaCotacaoDataModel;
+    
     private ListaCotacao[] listasCotacoesSelecionadas;
 
     public ListaCotacaoDataModel getListaCotacaoDataModel() {
 
         List<ListaCotacao> listasCotacoes = new ArrayList<ListaCotacao>(this.getTabelaListaCotacoes());
+        
         listaCotacaoDataModel = new ListaCotacaoDataModel(listasCotacoes);
 
         return listaCotacaoDataModel;
@@ -34,11 +37,23 @@ public class ListaCotacaoForm extends GenericForm<ListaCotacao> {
     }
 
     public ListaCotacao[] getListasCotacoesSelecionadas() {
-        return listasCotacoesSelecionadas;
+        
+        ListaCotacao[] retorno = null;
+        
+        if(this.listasCotacoesSelecionadas != null) {
+            
+             retorno = this.listasCotacoesSelecionadas.clone();
+        }
+        
+        return retorno;
     }
 
     public void setListasCotacoesSelecionadas(ListaCotacao[] listasCotacoesSelecionadas) {
-        this.listasCotacoesSelecionadas = listasCotacoesSelecionadas;
+        
+        if(listasCotacoesSelecionadas != null){
+        
+            this.listasCotacoesSelecionadas = (ListaCotacao[]) listasCotacoesSelecionadas.clone();
+        }
     }
 
     public Collection<ListaCotacao> getTabelaListaCotacoes() {

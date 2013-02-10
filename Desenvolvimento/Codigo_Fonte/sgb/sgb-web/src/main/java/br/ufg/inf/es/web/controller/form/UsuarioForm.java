@@ -24,7 +24,9 @@ public class UsuarioForm extends GenericForm<Usuario> {
      * @author Cássio Augusto Silva de Freitas
      */
     private Collection<Usuario> tabelaUsuarios;
+    
     private Collection<UsuarioPerfil> perfis;
+    
     /**
      * atributo userDataModel
      */
@@ -76,10 +78,22 @@ public class UsuarioForm extends GenericForm<Usuario> {
     }
 
     public Usuario[] getUsuariosSelecionados() {
-        return usuariosSelecionados;
+        
+        Usuario[] retorno = null;
+        
+        if(this.usuariosSelecionados != null) {
+            
+             retorno = this.usuariosSelecionados.clone();
+        }
+        
+        return retorno;
     }
 
     public void setUsuariosSelecionados(Usuario[] usuariosSelecionados) {
-        this.usuariosSelecionados = usuariosSelecionados;
+        
+        if(usuariosSelecionados != null) {
+        
+            this.usuariosSelecionados = (Usuario[]) usuariosSelecionados.clone();
+        }
     }
 }

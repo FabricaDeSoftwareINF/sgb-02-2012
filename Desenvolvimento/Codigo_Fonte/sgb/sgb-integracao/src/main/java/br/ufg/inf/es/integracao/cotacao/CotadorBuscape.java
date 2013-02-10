@@ -21,8 +21,6 @@ import javax.xml.bind.Unmarshaller;
  */
 public class CotadorBuscape extends Cotador {
 
-    private static final String KEY = "564771466d477a4458664d3d";
-    private static final String URL = "http://sandbox.buscape.com/service/findProductList/564771466d477a4458664d3d/?categoryId=3482&keyword=";
     private Unmarshaller u;
 
     public CotadorBuscape() {

@@ -19,11 +19,16 @@ import org.springframework.stereotype.Component;
 public class ListaComprasForm extends GenericForm<ListaCompras> {
 
     private Collection<ListaCompras> listaCompras;
+    
     private Livro[] selectedLivros;
+    
     private Collection<Livro> todosLivros;
+    
     private LivroDataModel livroDM;
+    
     private ListaComprasDataModel listaComprasDM;
-    String filtroTitulo;
+    
+    private String filtroTitulo;
 
     public Collection<ListaCompras> getListaCompras() {
         return listaCompras;
@@ -46,14 +51,20 @@ public class ListaComprasForm extends GenericForm<ListaCompras> {
     }
 
     public void setSelectedLivros(Livro[] selectedLivros) {
-        this.selectedLivros = selectedLivros;
+        
+        if(selectedLivros != null) {
+        
+            this.selectedLivros = (Livro[]) selectedLivros.clone();
+        }
     }
 
     public Collection<Livro> getTodosLivros() {
+        
         return todosLivros;
     }
 
     public void setTodosLivros(Collection<Livro> todosLivros) {
+        
         this.todosLivros = todosLivros;
     }
     
@@ -71,10 +82,12 @@ public class ListaComprasForm extends GenericForm<ListaCompras> {
     }
     
     public String getFiltroTitulo() {
+        
         return filtroTitulo;
     }
 
     public void setFiltroTitulo(String filtroTitulo) {
+        
         this.filtroTitulo = filtroTitulo;
     }
 

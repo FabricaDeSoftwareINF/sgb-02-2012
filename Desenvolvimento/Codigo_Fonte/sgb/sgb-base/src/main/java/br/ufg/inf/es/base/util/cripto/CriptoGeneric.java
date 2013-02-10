@@ -13,6 +13,8 @@ import java.security.NoSuchAlgorithmException;
 import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.security.SecureRandom;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
 import javax.crypto.IllegalBlockSizeException;
@@ -69,8 +71,10 @@ public class CriptoGeneric implements Serializable{
             PrivateKey privKey = pair.getPrivate(); 
             
             this.keys.setPrivKey(privKey);
+            
         } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
+            
+            Logger.getAnonymousLogger().log(Level.SEVERE, e.getMessage());
         }
 
         saveKeys();
@@ -92,8 +96,8 @@ public class CriptoGeneric implements Serializable{
             arquivoGrav.close();
 
         } catch (Exception e) {
-            System.err.println("Mensagem de erro: " +e.getMessage());
-            System.err.println("Causa do erro: " + e.getCause());
+            
+            Logger.getAnonymousLogger().log(Level.SEVERE, e.getMessage(), e.getCause());
         }
     }
 
@@ -109,8 +113,8 @@ public class CriptoGeneric implements Serializable{
                 recove = true;
             }
         } catch (Exception e) {
-            System.err.println("Mensagem de erro: " +e.getMessage());
-            System.err.println("Causa do erro: " + e.getCause());
+            
+            Logger.getAnonymousLogger().log(Level.SEVERE, e.getMessage(), e.getCause());
         }
 
         return recove;
@@ -122,12 +126,18 @@ public class CriptoGeneric implements Serializable{
     private void recoveKeys(){
         try{
             FileInputStream arquivoLeitura = new FileInputStream("sgb.dat");
+            
             ObjectInputStream objLeitura = new ObjectInputStream(arquivoLeitura);
 
             this.keys = (Keys) objLeitura.readObject();
+
+            arquivoLeitura.close();
+            
+            objLeitura.close();
+            
         } catch (Exception e) {
-            System.err.println("Mensagem de erro: " +e.getMessage());
-            System.err.println("Causa do erro: " + e.getCause());
+            
+            Logger.getAnonymousLogger().log(Level.SEVERE, e.getMessage());
         }
     }
 
@@ -145,16 +155,26 @@ public class CriptoGeneric implements Serializable{
             cipher.init(Cipher.ENCRYPT_MODE, this.keys.getPubKey(), this.random);
             //mensagem codificada
             cipherText = cipher.doFinal(texto.getBytes()); 
+            
         } catch (InvalidKeyException e) {
-            e.printStackTrace();
+            
+            Logger.getAnonymousLogger().log(Level.SEVERE, e.getMessage());
+            
         } catch (NoSuchAlgorithmException e1) {
-            e1.printStackTrace();
+            
+            Logger.getAnonymousLogger().log(Level.SEVERE, e1.getMessage());
+            
         } catch (NoSuchPaddingException e1) {
-            e1.printStackTrace();
+            
+            Logger.getAnonymousLogger().log(Level.SEVERE, e1.getMessage());
+            
         } catch (IllegalBlockSizeException e) {
-            e.printStackTrace();
+            
+            Logger.getAnonymousLogger().log(Level.SEVERE, e.getMessage());
+            
         } catch (BadPaddingException e) {
-            e.printStackTrace();
+            
+            Logger.getAnonymousLogger().log(Level.SEVERE, e.getMessage());
         }
 
         return cipherText;
@@ -175,16 +195,26 @@ public class CriptoGeneric implements Serializable{
             cipher.init(Cipher.DECRYPT_MODE, this.keys.getPrivKey()); 
             //mensagem decodificada
             plainText = cipher.doFinal(texto); 
+            
         } catch (InvalidKeyException e) {
-            e.printStackTrace();
+            
+            Logger.getAnonymousLogger().log(Level.SEVERE, e.getMessage());
+            
         } catch (NoSuchAlgorithmException e1) {
-            e1.printStackTrace();
+            
+            Logger.getAnonymousLogger().log(Level.SEVERE, e1.getMessage());
+            
         } catch (NoSuchPaddingException e1) {
-            e1.printStackTrace();
+            
+           Logger.getAnonymousLogger().log(Level.SEVERE, e1.getMessage());
+            
         } catch (IllegalBlockSizeException e) {
-            e.printStackTrace();
+            
+            Logger.getAnonymousLogger().log(Level.SEVERE, e.getMessage());
+            
         } catch (BadPaddingException e) {
-            e.printStackTrace();
+            
+            Logger.getAnonymousLogger().log(Level.SEVERE, e.getMessage());
         }
 
         return plainText;

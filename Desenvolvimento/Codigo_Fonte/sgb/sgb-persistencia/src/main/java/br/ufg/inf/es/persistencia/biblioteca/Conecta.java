@@ -4,12 +4,14 @@ import br.ufg.inf.es.base.persistence.biblioteca.DBDriver;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Classe de geração de conexão com banco de dados via JDBC
  * @author igor
  */
-public class Conecta {
+class Conecta {
 
     /**
      * Método que recupera uma sessão de conexão dom banco de dados via JDBC
@@ -23,19 +25,23 @@ public class Conecta {
      */
     public static Connection getSessionConnection(DBDriver driver, String url,
             String port, String dataBase, String userName, String password) {
+        
         Connection conecta = null;
         
-        String urlDBService = null;
+        String urlDBService;
 
         try {
             //Inserindo o driver de conexão com o banco de dados
             Class.forName(driver.getDriver());
+            
             //Estabelecendo conexão com o banco de dados
             if (driver.name().equals(DBDriver.Oracle.name())) {
+                
                 urlDBService = driver.getJDBC() + "@" + url + ":" + port + ":" + 
                                 dataBase;
                 
             } else {
+                
                 urlDBService = driver.getJDBC() + "//" + url + ":" + port + "/" + 
                                 dataBase;
             }
@@ -43,12 +49,14 @@ public class Conecta {
             conecta = DriverManager.getConnection(urlDBService, userName, password);
 
         } catch (SQLException ex) {
-            System.err.println("Mensagem de erro: " + ex.getMessage());
+            
+            Logger.getAnonymousLogger().log(Level.SEVERE, ex.getMessage());
+
+            
         } catch (ClassNotFoundException ex) {
-            System.err.println("Class not found exception: " + ex.getMessage());
-        } catch (Throwable e) {
-            System.err.println("Causa do erro: " + e.getCause().getMessage());
-        }
+            
+            Logger.getAnonymousLogger().log(Level.SEVERE, ex.getMessage());
+        } 
 
         return conecta;
     }
