@@ -30,7 +30,7 @@ public interface ImportacaoDadosService {
      * 
      * @param Disciplina 
      */
-    void importarLivros(Disciplina Disciplina) ;
+    void importarLivros(Disciplina disciplina) ;
     
     /**
      * 

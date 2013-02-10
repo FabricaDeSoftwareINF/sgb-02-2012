@@ -77,10 +77,22 @@ public class ListaComprasController extends SGBController<ListaCompras, ListaCom
  
 
       public Livro[] getLivrosSelecionados() {
-        return livrosSelecionados;
+        
+        Livro[] retorno = null;
+        
+        if(this.livrosSelecionados != null) {
+            
+             retorno = this.livrosSelecionados.clone();
+        }
+        
+        return retorno;
     }
 
     public void setLivrosSelecionados(Livro[] livrosSelecionados) {
-        this.livrosSelecionados = livrosSelecionados;
+        
+        if(this.livrosSelecionados != null){
+        
+            this.livrosSelecionados = (Livro[]) livrosSelecionados.clone();
+        }
     }
 }

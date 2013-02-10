@@ -20,6 +20,9 @@ import java.lang.reflect.Type;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.apache.http.HttpException;
 
 /**
  *
@@ -38,30 +41,45 @@ public class ImportacaoDadosServiceImpl implements ImportacaoDadosService {
     private static final int OK_STATUS = 200;
 
     public ImportacaoDadosServiceImpl() {
-        Client client = Client.create();
+        client = Client.create();
         jsonParser = new Gson();
     }
 
-    private String httpGet(Map<String, String> parametros) {
+    private String httpGet(Map<String, String> parametros) throws HttpException {
+        
         String url = urlServico;
+        
+        StringBuilder urlBuilder = new StringBuilder();
+        
+        urlBuilder.append(url);
+        
         if (parametros != null) {
-            url += "?";
+            
+            urlBuilder.append("?");
+            
             for (String parametro : parametros.keySet()) {
-                url += parametro + "=" + parametros.get(parametro) + "&";
+                
+                urlBuilder.append(parametro);
+                
+                urlBuilder.append("=");
+                
+                urlBuilder.append(parametros.get(parametro));
+                
+                urlBuilder.append("&");
             }
         }
-        WebResource webResource = client
-                .resource(urlServico);
+        
+        WebResource webResource = client.resource(urlServico);
 
         ClientResponse response = webResource.accept("application/json")
                 .get(ClientResponse.class);
 
         if (response.getStatus() != ImportacaoDadosServiceImpl.OK_STATUS) {
-            throw new RuntimeException("Failed : HTTP error code : "
+           
+            throw new HttpException("Failed : HTTP error code : "
                     + response.getStatus());
         }
-        String output = response.getEntity(String.class);
-        return output;
+        return response.getEntity(String.class);
     }
 
     public String getUrlServico() {
@@ -69,60 +87,90 @@ public class ImportacaoDadosServiceImpl implements ImportacaoDadosService {
     }
 
     public void setUrlServico(String urlServico) {
-        System.out.println("URL = " + urlServico);
+
         this.urlServico = urlServico;
     }
 
     public void importarBibliografia(Curso curso) {
-        String bibliografiaJson = httpGet(null);
-        Type bibliografiaType = new TypeToken<BibliografiaImportada>() {}.getType();
-        BibliografiaImportada bibliografia =
-                jsonParser.fromJson(bibliografiaJson, bibliografiaType);
-        Collection<Disciplina> disciplinas = curso.getDisciplinas();
-    }
-
-    public void importarCurso(String nome) {
-        String bibliografiaJson = httpGet(null);
-        Type cursoType = new TypeToken<CursoImportado>() {
-        }.getType();
-        CursoImportado cursoImportado =
-                jsonParser.fromJson(bibliografiaJson, cursoType);
-        Curso curso = new Curso();
-        curso.setNome(nome);
-        curso.setVagas(cursoImportado.getVagas());
-        cursoService.getDAO().insert(curso);
-    }
-
-    public void importarCursos() {
-        String bibliografiaJson = httpGet(null);
-        Type listaCursoType = new TypeToken<List<CursoImportado>>() {
-        }.getType();
-        List<CursoImportado> cursosImportado =
-                jsonParser.fromJson(bibliografiaJson, listaCursoType);
-        for (CursoImportado cursoImportado : cursosImportado) {
-            Curso curso = new Curso();
-            curso.setNome(cursoImportado.getNome());
-            curso.setVagas(cursoImportado.getVagas());
-            cursoService.getDAO().insert(curso);
+        
+        try {
+        
+            String bibliografiaJson = httpGet(null);
+            Type bibliografiaType = new TypeToken<BibliografiaImportada>() {}.getType();
+            BibliografiaImportada bibliografia =
+                    jsonParser.fromJson(bibliografiaJson, bibliografiaType);
+            Collection<Disciplina> disciplinas = curso.getDisciplinas();
+            
+        } catch (HttpException he){
+            
+            Logger.getAnonymousLogger().log(Level.SEVERE, he.getMessage());
         }
     }
 
-    public void importarLivros(Disciplina Disciplina) {
+    public void importarCurso(String nome) {
+        
+       try {
+           
+            String bibliografiaJson = httpGet(null);
+            
+            Type cursoType = new TypeToken<CursoImportado>() {}.getType();
+            CursoImportado cursoImportado = jsonParser.fromJson(bibliografiaJson, cursoType);
+            Curso curso = new Curso();
+            curso.setNome(nome);
+            curso.setVagas(cursoImportado.getVagas());
+            cursoService.getDAO().insert(curso);
+            
+        } catch (HttpException he){
+            
+            Logger.getAnonymousLogger().log(Level.SEVERE, he.getMessage());
+        }
+    }
+
+    public void importarCursos() {
+            
+        try {
+            
+            String bibliografiaJson = httpGet(null);
+            Type listaCursoType = new TypeToken<List<CursoImportado>>() {}.getType();
+            List<CursoImportado> cursosImportado =
+                    jsonParser.fromJson(bibliografiaJson, listaCursoType);
+            for (CursoImportado cursoImportado : cursosImportado) {
+                Curso curso = new Curso();
+                curso.setNome(cursoImportado.getNome());
+                curso.setVagas(cursoImportado.getVagas());
+                cursoService.getDAO().insert(curso);
+            }
+            
+        } catch (HttpException he){
+            
+            Logger.getAnonymousLogger().log(Level.SEVERE, he.getMessage());
+        }
+    }
+
+    public void importarLivros(Disciplina disciplina) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
     public void importarLivros() {
-        String livrosJson = httpGet(null);
-        Type listaLivroType = new TypeToken<List<LivroImportado>>() {}.getType();
-        List<LivroImportado> livrosImportado =
-                jsonParser.fromJson(livrosJson, listaLivroType);
-        for (LivroImportado livroImportado : livrosImportado) {
-            Livro livro = new Livro();
-            livro.setIsbn10(livroImportado.getIsbn10());
-            livro.setIsbn13(livroImportado.getIsbn13());
-            livro.setEdicao(livroImportado.getEdicao());
-            livro.setTitulo(livroImportado.getTitulo());
-            livroService.getDAO().insert(livro);
+        
+        try {
+            
+            String livrosJson = httpGet(null);
+            Type listaLivroType = new TypeToken<List<LivroImportado>>() {}.getType();
+            List<LivroImportado> livrosImportado =
+                    jsonParser.fromJson(livrosJson, listaLivroType);
+            for (LivroImportado livroImportado : livrosImportado) {
+                Livro livro = new Livro();
+                livro.setIsbn10(livroImportado.getIsbn10());
+                livro.setIsbn13(livroImportado.getIsbn13());
+                livro.setEdicao(livroImportado.getEdicao());
+                livro.setTitulo(livroImportado.getTitulo());
+                livroService.getDAO().insert(livro);
+            }
+            
+        } catch (HttpException he){
+            
+            Logger.getAnonymousLogger().log(Level.SEVERE, he.getMessage());
         }
     }
 

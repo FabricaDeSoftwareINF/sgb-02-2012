@@ -12,6 +12,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.ObjectOutputStream;
+import java.nio.charset.Charset;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
@@ -34,12 +35,17 @@ public class BibliotecaConfigController extends SGBController<DBBibliotecaConfig
 
     @Autowired
     private DBBibliotecaConfigForm form;
+    
     @Autowired
     private DBBibliotecaConfigService service;
+    
     private StreamedContent file;
+    
     private String tituloTeste;
+    
     @Autowired
     private LivrosBibliotecaDAO livroDAO;
+    
     private String password;
 
     @Override
@@ -53,7 +59,7 @@ public class BibliotecaConfigController extends SGBController<DBBibliotecaConfig
 
         if (this.form.getEntity().getPasswordDataBase() != null) {
             this.password = new String(new CriptoGeneric().decriptografa(
-                    this.form.getEntity().getPasswordDataBase()));
+                    this.form.getEntity().getPasswordDataBase()), Charset.forName("UTF-8"));
         }
         return "BibliotecaConfigController/initialPage";
     }
@@ -143,10 +149,28 @@ public class BibliotecaConfigController extends SGBController<DBBibliotecaConfig
 
             if (livrosBiblioteca != null) {
                 livros = "";
+                
+                StringBuilder livroStrBuilder = new StringBuilder();
+                
                 for (LivroBiblioteca livroBc : livrosBiblioteca) {
-                    livros += "Livro: " + livroBc.getNome() + ", ISBN: "
-                            + livroBc.getIsbn() + ", Qtda.: " + livroBc.getQuantidade()
-                            + "\n";
+                    
+                    livroStrBuilder.append(livros);
+                    
+                    livroStrBuilder.append("Livro: ");
+                    
+                    livroStrBuilder.append(livroBc.getNome());
+                    
+                    livroStrBuilder.append(", ISBN: ");
+                    
+                    livroStrBuilder.append(livroBc.getIsbn());
+                    
+                    livroStrBuilder.append(", Qtda.: ");
+                    
+                    livroStrBuilder.append(livroBc.getQuantidade());
+                    
+                    livroStrBuilder.append("\n");
+                    
+                    livros = livroStrBuilder.toString();
                 }
             }
 
@@ -158,8 +182,8 @@ public class BibliotecaConfigController extends SGBController<DBBibliotecaConfig
             arquivoGrav.close();
 
         } catch (Exception e) {
-            System.err.println("Mensagem de erro: " + e.getMessage());
-            System.err.println("Causa do erro: " + e.getCause());
+            
+            Logger.getAnonymousLogger().log(Level.SEVERE, e.getMessage());
         }
     }
 
