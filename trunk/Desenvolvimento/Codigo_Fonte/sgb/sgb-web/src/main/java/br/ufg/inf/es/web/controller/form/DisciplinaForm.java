@@ -53,11 +53,23 @@ public class DisciplinaForm extends GenericForm<Disciplina> {
     private Collection<Livro> selecionadosAux;
 
     public Disciplina[] getDisciplinasSelecionadas() {
-        return disciplinasSelecionadas;
+        
+        Disciplina[] disciplinas = null;
+        
+        if(this.disciplinasSelecionadas !=  null) {
+            
+            disciplinas = this.disciplinasSelecionadas.clone();
+        }
+        
+        return disciplinas;
     }
 
     public void setDisciplinasSelecionadas(Disciplina[] disciplinasSelecionadas) {
-        this.disciplinasSelecionadas = disciplinasSelecionadas;
+
+        if(disciplinasSelecionadas != null) {
+        
+            this.disciplinasSelecionadas = (Disciplina[]) disciplinasSelecionadas.clone();
+        }
     }
     
     public DisciplinaDataModel getDataModelDisciplina() {

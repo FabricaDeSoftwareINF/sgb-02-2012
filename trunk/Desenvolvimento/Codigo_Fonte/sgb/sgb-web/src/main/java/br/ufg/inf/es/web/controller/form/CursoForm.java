@@ -106,12 +106,22 @@ public class CursoForm extends GenericForm<Curso> {
 
     public Curso[] getCursosParaRemocao() {
         
-        return this.cursosParaRemocao;
+        Curso[] retorno = null;
+        
+        if(this.cursosParaRemocao != null) {
+            
+             retorno = this.cursosParaRemocao.clone();
+        }
+        
+        return retorno;
     }
 
     public void setCursosParaRemocao(final Curso[] cursosParaRemocao) {
      
-        this.cursosParaRemocao = cursosParaRemocao;
+        if(cursosParaRemocao != null){
+        
+            this.cursosParaRemocao = (Curso[]) cursosParaRemocao.clone();
+        }
     }
 
     public Curso getCursoParaDetalhe() {

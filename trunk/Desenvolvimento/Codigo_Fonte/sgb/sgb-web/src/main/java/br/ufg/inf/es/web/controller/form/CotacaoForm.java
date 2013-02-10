@@ -18,12 +18,15 @@ import org.springframework.stereotype.Component;
 public class CotacaoForm extends GenericForm<Cotacao> {
 
     private Collection<Cotacao> tabelaCotacoes;
+    
     private CotacaoDataModel cotacaoDataModel;
+    
     private Cotacao[] cotacoesSelecionadas;
 
     public CotacaoDataModel getCotacaoDataModel() {
 
         List<Cotacao> cotacoes = new ArrayList<Cotacao>(this.getTabelaCotacoes());
+        
         cotacaoDataModel = new CotacaoDataModel(cotacoes);
 
         return cotacaoDataModel;
@@ -35,11 +38,23 @@ public class CotacaoForm extends GenericForm<Cotacao> {
     }
     
     public Cotacao[] getCotacoesSelecionadas() {
-        return cotacoesSelecionadas;
+        
+        Cotacao[] retorno = null;
+        
+        if(this.cotacoesSelecionadas != null) {
+            
+             retorno = this.cotacoesSelecionadas.clone();
+        }
+        
+        return retorno;
     }
 
     public void setCotacoesSelecionadas(Cotacao[] cotacoesSelecionadas) {
-        this.cotacoesSelecionadas = cotacoesSelecionadas;
+        
+        if(cotacoesSelecionadas != null) {
+        
+            this.cotacoesSelecionadas = (Cotacao[]) cotacoesSelecionadas.clone();
+        }
     }
 
     public Collection<Cotacao> getTabelaCotacoes() {
