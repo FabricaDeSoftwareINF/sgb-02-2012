@@ -13,7 +13,6 @@ import java.security.NoSuchAlgorithmException;
 import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.security.SecureRandom;
-
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
 import javax.crypto.IllegalBlockSizeException;
@@ -27,7 +26,7 @@ import javax.crypto.NoSuchPaddingException;
 public class CriptoGeneric implements Serializable{
 
     private static final long serialVersionUID = -2197693393634639351L;
-
+    private static final int TAMANHO_2048_BYTES = 2048;
     private SecureRandom random;
     private Keys keys = new Keys();
 
@@ -36,7 +35,7 @@ public class CriptoGeneric implements Serializable{
     }
 
     private void setUp(){
-        //verifica se existe a chave
+
         if (isKeys()) {
             recoveKeys();
         } else {
@@ -56,7 +55,7 @@ public class CriptoGeneric implements Serializable{
             generator = KeyPairGenerator.getInstance("RSA");
             
             //gero uma senha de 2048 bytes.
-            generator.initialize(2048, this.random); 
+            generator.initialize(CriptoGeneric.TAMANHO_2048_BYTES, this.random); 
             
             //Ele gera as duas senhas, uma publica e a outra privada
             KeyPair pair = generator.generateKeyPair(); 
@@ -144,7 +143,8 @@ public class CriptoGeneric implements Serializable{
         try {
             cipher = Cipher.getInstance("RSA");
             cipher.init(Cipher.ENCRYPT_MODE, this.keys.getPubKey(), this.random);
-            cipherText = cipher.doFinal(texto.getBytes()); //mensagem codificada
+            //mensagem codificada
+            cipherText = cipher.doFinal(texto.getBytes()); 
         } catch (InvalidKeyException e) {
             e.printStackTrace();
         } catch (NoSuchAlgorithmException e1) {
@@ -171,8 +171,10 @@ public class CriptoGeneric implements Serializable{
         byte[] plainText = null;
         try {
             cipher = Cipher.getInstance("RSA");
-            cipher.init(Cipher.DECRYPT_MODE, this.keys.getPrivKey()); //decodifica com a privada
-            plainText = cipher.doFinal(texto); //mensagem decodificada
+            //decodifica com a privada
+            cipher.init(Cipher.DECRYPT_MODE, this.keys.getPrivKey()); 
+            //mensagem decodificada
+            plainText = cipher.doFinal(texto); 
         } catch (InvalidKeyException e) {
             e.printStackTrace();
         } catch (NoSuchAlgorithmException e1) {

@@ -21,14 +21,13 @@ import javax.xml.bind.Unmarshaller;
  */
 public class CotadorBuscape extends Cotador {
 
-    private static final String Key = "564771466d477a4458664d3d";
+    private static final String KEY = "564771466d477a4458664d3d";
     private static final String URL = "http://sandbox.buscape.com/service/findProductList/564771466d477a4458664d3d/?categoryId=3482&keyword=";
-    private JAXBContext jc;
     private Unmarshaller u;
 
     public CotadorBuscape() {
         try {
-            this.jc = JAXBContext.newInstance("com.buscape.developer.result.type");
+            JAXBContext jc = JAXBContext.newInstance("com.buscape.developer.result.type");
             this.u = jc.createUnmarshaller();
         } catch (JAXBException ex) {
             Logger.getLogger(CotadorGoogleShop.class.getName()).log(Level.SEVERE, null, ex);

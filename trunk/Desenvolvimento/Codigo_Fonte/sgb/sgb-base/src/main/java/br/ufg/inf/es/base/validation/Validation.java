@@ -9,7 +9,7 @@ import java.util.Collection;
  */
 public abstract class Validation<T> {
 
-    abstract public void validate(T object) throws ValidationException;
+    public abstract void validate(T object) throws ValidationException;
 
     public boolean isInvalid(String value) {
         return value == null || value.trim().isEmpty();

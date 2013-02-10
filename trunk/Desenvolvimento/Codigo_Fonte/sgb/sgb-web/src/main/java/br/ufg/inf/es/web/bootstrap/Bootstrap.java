@@ -25,11 +25,12 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
 public class Bootstrap implements ServletContextListener {
 
     private SessionFactory sessionFactory;
-    private ApplicationContext applicationContext;
 
     @Override
     public void contextInitialized(ServletContextEvent sce) {
-        applicationContext = WebApplicationContextUtils.getRequiredWebApplicationContext(sce.getServletContext());
+        
+        ApplicationContext applicationContext = WebApplicationContextUtils.getRequiredWebApplicationContext(sce.getServletContext());
+        
         sessionFactory = applicationContext.getBean(SessionFactory.class);
 
         if (sessionFactory == null) {

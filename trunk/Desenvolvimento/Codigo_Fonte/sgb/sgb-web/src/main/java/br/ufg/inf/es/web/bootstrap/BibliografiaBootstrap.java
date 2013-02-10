@@ -14,6 +14,10 @@ import org.hibernate.SessionFactory;
  */
 public class BibliografiaBootstrap {
 
+    private static final int VAGAS = 60;
+    
+    private static final long ANO = 2001;
+    
     private static SessionFactory sessionFactory;
     private static Autor autor;
     private static Editora editora;
@@ -56,7 +60,7 @@ public class BibliografiaBootstrap {
 
         curso = new Curso();
         curso.setNome("Engenharia de software");
-        curso.setVagas(60);
+        curso.setVagas(BibliografiaBootstrap.VAGAS);
         curso.setId(salve(curso));
     }
 
@@ -85,7 +89,7 @@ public class BibliografiaBootstrap {
         livro.setAutores(Arrays.asList(autor));
         livro.setEdicao("primeira edicao");
         livro.setEditora(editora);
-        livro.setAno(2000l);
+        livro.setAno(BibliografiaBootstrap.ANO);
         livro.setId(salve(livro));
         return livro;
     }

@@ -12,6 +12,8 @@ import javax.persistence.Table;
 @Table(name = "COMUNICACAO_PARAMETROS")
 public class Comunicacao extends AbstractEntityModel{
     
+    private static final int TAMANHO = 300;
+    
     @Column(name="service", nullable=false)
     private String service;
     
@@ -27,7 +29,7 @@ public class Comunicacao extends AbstractEntityModel{
     @Column(name="usuario", nullable=false)
     private String usuario;
     
-    @Column(name="senha", length=300,nullable=false)
+    @Column(name="senha", length=Comunicacao.TAMANHO,nullable=false)
     private byte[] senha;
 
     public String getService() {

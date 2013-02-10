@@ -9,6 +9,10 @@ import java.math.BigDecimal;
  */
 public final class DataQuotation implements Quotation<DataQuotation> {
 
+    private static final int HASH = 7;
+    
+    private static final int SALTO = 11;
+    
     /**
      * IDENTIFICADOR DO PRODUTO
      */
@@ -136,16 +140,16 @@ public final class DataQuotation implements Quotation<DataQuotation> {
     @Override
     public int hashCode() {
 
-        int hash = 7;
+        int hash = DataQuotation.HASH;
         /*TODO o ambiente de integração continua depende do java 1.6 e o 
         objeto 'OBjects' é do java 1.7
         */
         
        //hash = 11 * hash + Objects.hashCode(this.productId); 
-         hash = 11 * hash + this.productId.hashCode();
+         hash = DataQuotation.SALTO * hash + this.productId.hashCode();
         
         //hash = 11 * hash + Objects.hashCode(this.price);
-         hash = 11 * hash + this.price.hashCode();
+         hash = DataQuotation.SALTO * hash + this.price.hashCode();
          
         return hash;
     }
