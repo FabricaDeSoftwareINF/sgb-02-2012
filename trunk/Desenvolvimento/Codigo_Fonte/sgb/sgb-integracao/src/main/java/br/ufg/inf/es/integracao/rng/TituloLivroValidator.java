@@ -10,12 +10,11 @@ import org.springframework.stereotype.Component;
  * @author cezar
  */
 @Component
-public class TituloLivroValidator implements Validation<Livro> {
+public class TituloLivroValidator extends Validation<Livro> {
 
     public void validate(Livro object) throws ValidationException {
 
-        if (object.getTitulo() == null || object.getTitulo().isEmpty()) {
-
+        if (isInvalid(object.getTitulo())) {
             throw new ValidationException("cadastro.livro.msg.RNG000");
         }
     }

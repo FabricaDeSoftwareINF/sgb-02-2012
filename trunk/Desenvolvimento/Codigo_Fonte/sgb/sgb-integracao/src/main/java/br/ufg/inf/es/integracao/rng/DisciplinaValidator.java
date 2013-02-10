@@ -1,59 +1,42 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.ufg.inf.es.integracao.rng;
 
 import br.ufg.inf.es.base.validation.Validation;
 import br.ufg.inf.es.base.validation.ValidationException;
-import br.ufg.inf.es.model.*;
+import br.ufg.inf.es.model.Disciplina;
 import org.springframework.stereotype.Component;
 
 /**
  *
- * @author Rodrigo Andrade
+ * @author Rodrigo Andrade, Victor Carvalho
  */
 @Component
-public class DisciplinaValidator implements Validation<Disciplina> {
+public class DisciplinaValidator extends Validation<Disciplina> {
 
     public void validate(Disciplina object) throws ValidationException {
+        boolean nomeInvalido = isInvalid(object.getNome());
+        boolean cursoInvalido = isInvalid(object.getCurso());
+        boolean codigoInvalido = isInvalid(object.getCodigo());
 
-        if ((object.getNome() == null || object.getNome().equals(""))
-                && (object.getCodigo() == null || object.getCodigo().equals(""))
-                && (object.getCurso() == null)) {
-
+        if (nomeInvalido && codigoInvalido && cursoInvalido) {
             throw new ValidationException("cadastro.disciplina.msg.RNG006.nomeCodigoCurso");
 
-        } else if ((object.getNome() == null || object.getNome().equals(""))
-                && (object.getCodigo() == null || object.getCodigo().equals(""))
-                && (object.getCurso() != null)) {
-
+        } else if (nomeInvalido && codigoInvalido && !cursoInvalido) {
             throw new ValidationException("cadastro.disciplina.msg.RNG006.nomeCodigo");
 
-        } else if (object.getCurso() == null
-                && (object.getNome() != null || !object.getNome().equals(""))
-                && (object.getCodigo() == null || object.getCodigo().equals(""))) {
-
+        } else if (cursoInvalido && !nomeInvalido && codigoInvalido) {
             throw new ValidationException("cadastro.disciplina.msg.RNG006.codigoCurso");
 
-        } else if ((object.getNome() == null || object.getNome().equals(""))
-                && (object.getCodigo() != null || !object.getCodigo().equals(""))
-                && object.getCurso() == null) {
-
+        } else if (nomeInvalido && !codigoInvalido && cursoInvalido) {
             throw new ValidationException("cadastro.disciplina.msg.RNG006.nomeCurso");
 
-        } else if (object.getNome() == null || object.getNome().equals("")) {
-
+        } else if (nomeInvalido) {
             throw new ValidationException("cadastro.disciplina.msg.RNG006.nome");
 
-        } else if (object.getCodigo() == null || object.getCodigo().equals("")) {
-
+        } else if (codigoInvalido) {
             throw new ValidationException("cadastro.disciplina.msg.RNG006.codigo");
 
-        } else if (object.getCurso() == null) {
-
+        } else if (cursoInvalido) {
             throw new ValidationException("cadastro.disciplina.msg.RNG006.curso");
-
         }
     }
 }

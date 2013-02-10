@@ -7,11 +7,7 @@ import br.ufg.inf.es.integracao.biblioteca.BibliotecaServiceMock;
 import br.ufg.inf.es.model.*;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.Map.Entry;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -91,7 +87,7 @@ public class LivroParaCotacaoService extends GenericService<LivroParaCotacao> {
      */
     private void adicioneLivro(Livro livro, Curso curso) {
         List<Curso> cursos = new ArrayList<Curso>();
-        if (livroCursos.containsValue(livro)) {
+        if (livroCursos.containsKey(livro)) {
             cursos = livroCursos.get(livro);
 
             if (!cursos.contains(curso)) {

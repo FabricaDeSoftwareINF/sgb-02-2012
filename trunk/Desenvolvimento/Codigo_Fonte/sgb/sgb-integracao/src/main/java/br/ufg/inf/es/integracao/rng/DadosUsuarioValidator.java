@@ -14,14 +14,15 @@ import org.springframework.stereotype.Component;
  * @author Luã
  */
 @Component
-public class DadosUsuarioValidator implements Validation<Usuario> {
-    
+public class DadosUsuarioValidator extends Validation<Usuario> {
+
     public void validate(Usuario object) throws ValidationException {
-        
-        if (object.getSenha() == null || object.getEmail() == null 
-                || object.getNome() == null || object.getSobrenome() == null) {              
+
+        if (isInvalid(object.getSenha())
+                || isInvalid(object.getEmail())
+                || isInvalid(object.getNome())
+                || isInvalid(object.getSobrenome())) {
             throw new ValidationException("cadastro.usuario.msg.RNG001");
         }
     }
-    
 }

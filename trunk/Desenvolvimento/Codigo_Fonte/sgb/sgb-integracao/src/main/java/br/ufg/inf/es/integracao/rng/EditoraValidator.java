@@ -1,4 +1,3 @@
-
 package br.ufg.inf.es.integracao.rng;
 
 import br.ufg.inf.es.base.validation.Validation;
@@ -8,26 +7,25 @@ import org.springframework.stereotype.Component;
 
 /**
  * Classe de validação da Entidade Editora
- * @author Cássio Augusto Silva de Freitas
+ *
+ * @author Cássio Augusto Silva de Freitas, Victor Carvalho
  */
 @Component
-public class EditoraValidator implements Validation<Editora> {
-    
+public class EditoraValidator extends Validation<Editora> {
+
     public static final String KEY_RNG007 = "label.RNG07.nome";
 
     /**
      * Método responsável por validar o estados dos atributos do Objeto Editora
+     *
      * @param object Editora
-     * @throws ValidationException 
+     * @throws ValidationException
      */
     public void validate(Editora object) throws ValidationException {
-        
-        if(object.getNome() == null || object.getNome().trim().equals("")) {
-            
+
+        if (isInvalid(object.getNome())) {
             throw new ValidationException(EditoraValidator.KEY_RNG007);
-        
+
         }
     }
-    
-       
 }
