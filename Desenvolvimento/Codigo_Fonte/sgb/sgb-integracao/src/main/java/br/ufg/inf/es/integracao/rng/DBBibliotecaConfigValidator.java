@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
  * @author igor
  */
 @Component
-public class DBBibliotecaConfigValidator implements Validation<DBBibliotecaConfig> {
+public class DBBibliotecaConfigValidator extends Validation<DBBibliotecaConfig> {
 
     /**
      * Método Responsável por validar os campos da entidade de configuração de
@@ -21,62 +21,47 @@ public class DBBibliotecaConfigValidator implements Validation<DBBibliotecaConfi
      */
     public void validate(DBBibliotecaConfig object) throws ValidationException {
 
-        if (object.getDriver() == null) {
-
+        if (isInvalid(object.getDriver()))  {
             throw new ValidationException("parametros.biblioteca.combobox.RNG018.tipoBanco");
 
-        } else if (object.getUrl() == null || object.getUrl().equals("")) {
-
+        } else if (isInvalid(object.getUrl())) {
             throw new ValidationException("parametros.biblioteca.label.RNG018.urlService");
 
-        } else if (object.getPorta() == null || object.getPorta().equals("")) {
-
+        } else if (isInvalid(object.getPorta())) {
             throw new ValidationException("parametros.biblioteca.label.RNG018.porta");
 
-        } else if (object.getNameDataBase() == null || object.getNameDataBase().equals("")) {
-
+        } else if (isInvalid(object.getNameDataBase())) {
             throw new ValidationException("parametros.biblioteca.label.RNG018.nomeBancoDados");
 
-        } else if (object.getUserDataBase() == null || object.getUserDataBase().equals("")) {
-
+        } else if (isInvalid(object.getUserDataBase())) {
             throw new ValidationException("parametros.biblioteca.label.RNG018.nomeUsuario");
 
-        } else if (object.getPasswordDataBase() == null) {
-
+        } else if (isInvalid(object.getPasswordDataBase())) {
             throw new ValidationException("parametros.biblioteca.label.RNG018.senhaUsuario");
 
-        } else if (object.getTabela() == null || object.getTabela().equals("")) {
-
+        } else if (isInvalid(object.getTabela())) {
             throw new ValidationException("parametros.biblioteca.label.RNG018.tabela");
 
-        } else if (object.getCampoTituloLivro() == null || object.getCampoTituloLivro().equals("")) {
-
+        } else if (isInvalid(object.getCampoTituloLivro())) {
             throw new ValidationException("parametros.biblioteca.label.RNG018.campoTituloLivro");
 
-        } else if (object.getCampoIdLivroBiblioteca() == null || object.getCampoIdLivroBiblioteca().equals("")) {
-
+        } else if (isInvalid(object.getCampoIdLivroBiblioteca())) {
             throw new ValidationException("parametros.biblioteca.label.RNG018.campoISBNLivro");
 
-        } else if (object.getCampoAnoLivro() == null || object.getCampoAnoLivro().equals("")) {
-
+        } else if (isInvalid(object.getCampoAnoLivro())) {
             throw new ValidationException("parametros.biblioteca.label.RNG018.campoAnoLivro");
 
-        } else if (object.getCampoEdicao() == null || object.getCampoEdicao().equals("")) {
-
+        } else if (isInvalid(object.getCampoEdicao())) {
             throw new ValidationException("parametros.biblioteca.label.RNG018.campoEdicaoLivro");
 
-        } else if (object.getCampoEditora() == null || object.getCampoEditora().equals("")) {
-
+        } else if (isInvalid(object.getCampoEditora())) {
             throw new ValidationException("parametros.biblioteca.label.RNG018.campoEditoraLivro");
 
-        } else if (object.getCampoAutor() == null || object.getCampoAutor().equals("")) {
-
+        } else if (isInvalid(object.getCampoAutor())) {
             throw new ValidationException("parametros.biblioteca.label.RNG018.campoAutorLivro");
 
-        } else if (object.getCampoQuantidadeLivro() == null || object.getCampoQuantidadeLivro().equals("")) {
-
+        } else if (isInvalid(object.getCampoQuantidadeLivro())) {
             throw new ValidationException("parametros.biblioteca.label.RNG018.campoQuantidadeLivro");
-
         }
     }
 }

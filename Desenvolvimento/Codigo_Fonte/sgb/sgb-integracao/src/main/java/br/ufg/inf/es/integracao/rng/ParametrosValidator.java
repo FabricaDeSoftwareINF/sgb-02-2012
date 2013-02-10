@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
  * @author Victor Carvalho
  */
 @Component
-public class ParametrosValidator implements Validation<Parametros> {
+public class ParametrosValidator extends Validation<Parametros> {
 
     public void validate(Parametros parametros) throws ValidationException {
         if (parametros.getValorFrete() == null
