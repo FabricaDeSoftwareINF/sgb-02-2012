@@ -4,7 +4,6 @@ import br.ufg.inf.es.base.validation.ValidationException;
 import br.ufg.inf.es.integracao.annotations.RNG002Livro;
 import br.ufg.inf.es.model.Livro;
 import br.ufg.inf.es.persistencia.LivroDAO;
-import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;

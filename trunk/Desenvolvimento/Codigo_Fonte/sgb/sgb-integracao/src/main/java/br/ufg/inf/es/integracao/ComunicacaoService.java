@@ -1,10 +1,8 @@
 package br.ufg.inf.es.integracao;
 
-import br.ufg.inf.es.base.persistence.DAO;
 import br.ufg.inf.es.base.validation.ValidationException;
 import br.ufg.inf.es.integracao.annotations.RNG001Parametros;
 import br.ufg.inf.es.model.Comunicacao;
-import br.ufg.inf.es.model.biblioteca.DBBibliotecaConfig;
 import br.ufg.inf.es.persistencia.ComunicacaoDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;

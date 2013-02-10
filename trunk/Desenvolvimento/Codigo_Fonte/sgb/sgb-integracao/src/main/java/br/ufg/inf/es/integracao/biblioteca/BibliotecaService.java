@@ -1,7 +1,6 @@
 package br.ufg.inf.es.integracao.biblioteca;
 
 import br.ufg.inf.es.base.service.Biblioteca;
-import br.ufg.inf.es.base.util.UtilXML;
 import br.ufg.inf.es.model.biblioteca.LivroBiblioteca;
 import br.ufg.inf.es.persistencia.biblioteca.LivrosBibliotecaDAO;
 import java.sql.SQLException;

@@ -4,8 +4,6 @@
  */
 package br.ufg.inf.es.model.importacaobibliografia;
 
-import java.util.List;
-
 /**
  *
  * @author Vinícius

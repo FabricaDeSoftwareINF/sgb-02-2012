@@ -2,7 +2,6 @@ package br.ufg.inf.es.web.controller;
 
 import br.ufg.inf.es.base.validation.ValidationException;
 import br.ufg.inf.es.integracao.EditoraService;
-import br.ufg.inf.es.model.AutorDTO;
 import br.ufg.inf.es.model.Editora;
 import br.ufg.inf.es.web.controller.form.EditoraForm;
 import java.util.ArrayList;
