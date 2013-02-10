@@ -6,7 +6,6 @@ package br.ufg.inf.es.persistencia;
 
 import br.ufg.inf.es.base.util.UtilObjeto;
 import br.ufg.inf.es.base.validation.ValidationException;
-import br.ufg.inf.es.model.Autor;
 import br.ufg.inf.es.model.Disciplina;
 import java.util.Collection;
 import org.hibernate.Criteria;

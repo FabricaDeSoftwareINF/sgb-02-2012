@@ -5,24 +5,11 @@
 package br.ufg.inf.es.integracao.cotacao;
 
 import br.ufg.inf.es.model.Livraria;
-import com.buscape.developer.result.type.Offer;
-import com.buscape.developer.result.type.PriceOffer;
-import com.buscape.developer.result.type.Result;
-import com.buscape.developer.result.type.Seller;
 import com.google.gson.Gson;
 import com.google.gson.internal.StringMap;
-import java.io.*;
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.util.AbstractMap;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Unmarshaller;
 
 
 /**

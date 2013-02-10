@@ -1,7 +1,6 @@
 package br.ufg.inf.es.web.datamodel;
 
 import br.ufg.inf.es.model.ListaCompras;
-import br.ufg.inf.es.model.Livro;
 import java.io.Serializable;
 import java.util.List;
 import javax.faces.model.ListDataModel;

@@ -1,6 +1,5 @@
 package br.ufg.inf.es.web.controller.form;
 
-import br.ufg.inf.es.model.Bibliografia;
 import br.ufg.inf.es.model.ListaCompras;
 import br.ufg.inf.es.model.Livro;
 import br.ufg.inf.es.web.datamodel.ListaComprasDataModel;

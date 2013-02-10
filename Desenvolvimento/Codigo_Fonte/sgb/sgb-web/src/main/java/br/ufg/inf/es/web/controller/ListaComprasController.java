@@ -1,23 +1,14 @@
 package br.ufg.inf.es.web.controller;
 
-import br.ufg.inf.es.base.validation.ValidationException;
 import br.ufg.inf.es.integracao.*;
-import br.ufg.inf.es.integracao.exportacaodados.MarcParser;
-import br.ufg.inf.es.model.AutorDTO;
-import br.ufg.inf.es.model.Curso;
-import br.ufg.inf.es.model.Disciplina;
 import br.ufg.inf.es.model.ListaCompras;
 import br.ufg.inf.es.model.Livro;
 import br.ufg.inf.es.persistencia.LivroDAO;
 import br.ufg.inf.es.web.controller.form.ListaComprasForm;
-import br.ufg.inf.es.web.controller.form.LivroForm;
 import br.ufg.inf.es.web.datamodel.LivroDataModel;
-import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import org.primefaces.model.DefaultStreamedContent;
-import org.primefaces.model.StreamedContent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;

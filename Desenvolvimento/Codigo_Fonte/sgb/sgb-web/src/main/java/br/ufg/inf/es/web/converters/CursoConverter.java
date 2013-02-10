@@ -4,7 +4,6 @@
  */
 package br.ufg.inf.es.web.converters;
 
-import br.ufg.inf.es.base.util.UtilObjeto;
 import br.ufg.inf.es.model.Curso;
 import br.ufg.inf.es.persistencia.CursoDAO;
 import javax.faces.component.UIComponent;

@@ -1,14 +1,11 @@
 package br.ufg.inf.es.persistencia;
 
 import br.ufg.inf.es.base.util.UtilObjeto;
-import br.ufg.inf.es.model.Autor;
-import br.ufg.inf.es.model.Bibliografia;
 import br.ufg.inf.es.model.Livro;
 import java.util.Collection;
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.*;
-import org.hibernate.transform.Transformers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;

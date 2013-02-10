@@ -4,7 +4,6 @@
  */
 package br.ufg.inf.es.web.datamodel;
 
-import br.ufg.inf.es.model.AutorDTO;
 import br.ufg.inf.es.model.Disciplina;
 import java.io.Serializable;
 import java.util.List;
