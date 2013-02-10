@@ -26,11 +26,7 @@ public class UsuarioService extends GenericService<Usuario> {
      */
     @Autowired
     private UsuarioDAO dao;
-    /**
-     * Atributo PerfilDAO
-     */
-    @Autowired
-    private PerfilDAO perfilDao;
+
     /**
      * Constante GERADOR_RANDOM
      */
@@ -147,12 +143,4 @@ public class UsuarioService extends GenericService<Usuario> {
         this.cryptography = cryptography;
     }
 
-    /**
-     * Método responsável por setar um dao para entidade Perfil
-     *
-     * @param perfilDao
-     */
-    public void setPerfilDao(PerfilDAO perfilDao) {
-        this.perfilDao = perfilDao;
-    }
 }

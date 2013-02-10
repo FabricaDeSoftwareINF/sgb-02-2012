@@ -18,7 +18,9 @@ import javax.persistence.Transient;
 @Table(name = "BIBLIOTECA_PARAMETROS")
 public class DBBibliotecaConfig extends AbstractEntityModel{
     @Transient
-    private final int TAMANHO_KEY = 16;
+    private static final int TAMANHO_KEY = 16;
+    
+    private static final int TAMANHO_SENHA = 300;
    
     @Enumerated(EnumType.STRING)
     @Column(name="tipo", nullable=false)
@@ -36,7 +38,7 @@ public class DBBibliotecaConfig extends AbstractEntityModel{
     @Column(name="user_database", nullable=false)
     private String userDataBase;
     
-    @Column(name="password_database", length=300,nullable=false)
+    @Column(name="password_database", length=DBBibliotecaConfig.TAMANHO_SENHA, nullable=false)
     private byte[] passwordDataBase;
     
     @Column(name="tabela", nullable=false)

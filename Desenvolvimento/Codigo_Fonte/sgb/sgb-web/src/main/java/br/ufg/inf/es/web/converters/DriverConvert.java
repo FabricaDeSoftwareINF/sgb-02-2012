@@ -28,7 +28,7 @@ public class DriverConvert implements Converter {
 
     @Override
     public String getAsString(FacesContext context, UIComponent component, Object value) {
-        if (value != null){// && value instanceof EnumType) {
+        if (value != null){
             return ((DBDriver) value).name();
         }
         return null;

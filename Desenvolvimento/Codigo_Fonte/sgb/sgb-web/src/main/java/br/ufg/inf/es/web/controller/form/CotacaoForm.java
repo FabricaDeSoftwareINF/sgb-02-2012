@@ -29,6 +29,11 @@ public class CotacaoForm extends GenericForm<Cotacao> {
         return cotacaoDataModel;
     }
 
+    public void setCotacaoDataModel(CotacaoDataModel cotacaoDataModel) {
+    
+        this.cotacaoDataModel = cotacaoDataModel;
+    }
+    
     public Cotacao[] getCotacoesSelecionadas() {
         return cotacoesSelecionadas;
     }

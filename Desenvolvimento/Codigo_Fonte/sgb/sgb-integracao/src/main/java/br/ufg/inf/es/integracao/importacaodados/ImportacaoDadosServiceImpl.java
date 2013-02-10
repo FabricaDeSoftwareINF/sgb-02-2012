@@ -35,6 +35,7 @@ public class ImportacaoDadosServiceImpl implements ImportacaoDadosService {
     private Client client;
     private String urlServico;
     private Gson jsonParser;
+    private static final int OK_STATUS = 200;
 
     public ImportacaoDadosServiceImpl() {
         Client client = Client.create();
@@ -55,7 +56,7 @@ public class ImportacaoDadosServiceImpl implements ImportacaoDadosService {
         ClientResponse response = webResource.accept("application/json")
                 .get(ClientResponse.class);
 
-        if (response.getStatus() != 200) {
+        if (response.getStatus() != ImportacaoDadosServiceImpl.OK_STATUS) {
             throw new RuntimeException("Failed : HTTP error code : "
                     + response.getStatus());
         }
