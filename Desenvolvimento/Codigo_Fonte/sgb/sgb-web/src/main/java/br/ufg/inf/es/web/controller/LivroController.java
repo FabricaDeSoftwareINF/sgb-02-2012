@@ -25,6 +25,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import org.hibernate.Hibernate;
 import br.ufg.inf.es.web.datamodel.LivroDataModel;
+import java.nio.charset.Charset;
 import java.util.Arrays;
 import java.util.List;
 import org.primefaces.event.UnselectEvent;
@@ -39,24 +40,38 @@ public class LivroController extends SGBController<Livro, LivroForm, LivroServic
 
     @Autowired
     private LivroForm form;
+    
     @Autowired
     private LivroService service;
+    
     @Autowired
     private DisciplinaService disciplinaService;
+    
     @Autowired
     private CursoService cursoService;
+    
     @Autowired
     private EditoraService editoraService;
+    
     @Autowired
     private AutorService autorService;
+    
     private Autor autor;
+    
     private Editora editora;
+    
     private EnumTipoBibliografia tipoBibliografia;
+    
     private Curso cursoSelecionado;
+    
     private Collection<Curso> cursos;
+    
     private String formatoSelecionado;
+    
     private StreamedContent fileExportado;
+    
     private LivroDataModel livroModel;
+    
     private Livro[] livrosSelecionados;
 
     /**
@@ -182,22 +197,37 @@ public class LivroController extends SGBController<Livro, LivroForm, LivroServic
     }
 
     public Livro[] getLivrosSelecionados() {
-        return livrosSelecionados;
+        
+        Livro[] retorno = null;
+        
+        if(this.livrosSelecionados != null) {
+            
+             retorno = this.livrosSelecionados.clone();
+        }
+        
+        return retorno;
     }
 
     public void setLivrosSelecionados(Livro[] livrosSelecionados) {
-        this.livrosSelecionados = livrosSelecionados;
+        
+        if(this.livrosSelecionados != null){
+        
+            this.livrosSelecionados = livrosSelecionados;
+        }
     }
 
     public EnumTipoBibliografia getTipoBibliografia() {
+        
         return tipoBibliografia;
     }
 
     public void setTipoBibliografia(EnumTipoBibliografia tipoBibliografia) {
+        
         this.tipoBibliografia = tipoBibliografia;
     }
 
     public void associarDisciplina() {
+        
         Livro livro = this.form.getEntity();
         Bibliografia bibliografia = this.form.getBibliografiaTemp();
         bibliografia.setTipo(this.form.getTipoBibliografia());
@@ -208,8 +238,7 @@ public class LivroController extends SGBController<Livro, LivroForm, LivroServic
     }
 
     public Collection<Livro> complete(String query) {
-        Collection<Livro> livros = this.service.searchByAttributes(query, "titulo");
-//        livros.removeAll(Arrays.asList(this.livrosSelecionados));
+
         return this.service.searchByAttributes(query, "titulo");
     }
 
@@ -306,7 +335,8 @@ public class LivroController extends SGBController<Livro, LivroForm, LivroServic
         Livro livroSelecionado = this.getForm().getEntity();
         try {
             String livroMarc = MarcParser.livroToMarc(this.getForm().getEntity());
-            ByteArrayInputStream bais = new ByteArrayInputStream(livroMarc.getBytes());
+            
+            ByteArrayInputStream bais = new ByteArrayInputStream(livroMarc.getBytes(Charset.forName("UTF-8")));
 
             this.fileExportado = new DefaultStreamedContent(bais, "application/marc",
                     livroSelecionado.getTitulo() + ".mrc");
@@ -320,12 +350,16 @@ public class LivroController extends SGBController<Livro, LivroForm, LivroServic
     }
 
     public void handleUnselectAutor(UnselectEvent event) {
-        Autor autor = (Autor) event.getObject();
-        this.getForm().getAutoresAdicionados().remove(autor);
+        
+        Autor autorSelecionado = (Autor) event.getObject();
+        
+        this.getForm().getAutoresAdicionados().remove(autorSelecionado);
     }
 
     public void addAutorOnSelect(UnselectEvent event) {
-        Autor autor = (Autor) event.getObject();
-        this.getForm().getAutoresAdicionados().add(autor);
+        
+        Autor autorSelecionado = (Autor) event.getObject();
+        
+        this.getForm().getAutoresAdicionados().add(autorSelecionado);
     }
 }

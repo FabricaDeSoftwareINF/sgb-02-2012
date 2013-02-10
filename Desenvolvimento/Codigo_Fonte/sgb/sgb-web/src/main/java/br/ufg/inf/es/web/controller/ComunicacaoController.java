@@ -4,7 +4,6 @@ import br.ufg.inf.es.base.util.cripto.CriptoGeneric;
 import br.ufg.inf.es.base.validation.ValidationException;
 import br.ufg.inf.es.integracao.ComunicacaoService;
 import br.ufg.inf.es.model.Comunicacao;
-import br.ufg.inf.es.persistencia.ComunicacaoDAO;
 import br.ufg.inf.es.web.controller.form.ComunicacaoForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -25,10 +24,7 @@ public class ComunicacaoController extends SGBController<Comunicacao,
     
     @Autowired
     private ComunicacaoService service;
-    
-    @Autowired    
-    private ComunicacaoDAO comunicacaoDAO;
-    
+        
     private String password;
     
     private boolean tslPage = false;
