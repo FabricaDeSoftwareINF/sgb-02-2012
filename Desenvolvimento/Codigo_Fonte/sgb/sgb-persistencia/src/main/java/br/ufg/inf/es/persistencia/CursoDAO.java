@@ -15,13 +15,20 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class CursoDAO extends GenericHibernateDAO<Curso> {
 
+    /** Campo sessionFactory*/
     @Autowired
     private SessionFactory sessionFactory;
 
+    /** 
+     * {@inheritDoc} 
+     */
     public void setSessionFactory(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
 
+    /** 
+     * {@inheritDoc} 
+     */
     @Override
     protected SessionFactory getSessionFactory() {
 
