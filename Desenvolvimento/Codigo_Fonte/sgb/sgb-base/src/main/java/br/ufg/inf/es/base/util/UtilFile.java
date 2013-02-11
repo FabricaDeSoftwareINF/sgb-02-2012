@@ -15,6 +15,7 @@ import java.util.logging.Logger;
  */
 public class UtilFile {
 
+    /** Campo CHARSET*/
     private static final String CHARSET = "UTF-8";
 
     /**

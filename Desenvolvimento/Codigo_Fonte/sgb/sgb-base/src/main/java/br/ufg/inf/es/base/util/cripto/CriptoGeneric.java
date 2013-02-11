@@ -27,20 +27,37 @@ import javax.crypto.NoSuchPaddingException;
  */
 public class CriptoGeneric implements Serializable{
 
+    /** Campo serialVersionUID*/
     private static final long serialVersionUID = -2197693393634639351L;
+    
+    /** Campo TAMANHO_2048_BYTES*/
     private static final int TAMANHO_2048_BYTES = 2048;
+    
+    /** Campo random*/
     private SecureRandom random;
+    
+    /** Campo keys*/
     private Keys keys = new Keys();
 
+    /**
+     * Construtor desta classe.
+     */
     public CriptoGeneric(){
         setUp();
     }
 
+    /**
+     * Método que configura os dados das chaves de criptografia.
+     *
+     */
     private void setUp(){
 
         if (isKeys()) {
+        	
             recoveKeys();
+            
         } else {
+        	
             createKey();
         }
     }

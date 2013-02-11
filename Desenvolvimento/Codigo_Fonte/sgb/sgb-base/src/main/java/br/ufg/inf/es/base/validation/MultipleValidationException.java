@@ -7,7 +7,10 @@ package br.ufg.inf.es.base.validation;
  */
 public class MultipleValidationException extends Exception {
     
-    /**
+    /** Campo serialVersionUID*/
+	private static final long serialVersionUID = -3509360139582020312L;
+	
+	/**
      * Atributo keysMessage
      */
     private String[] keysMessage;
