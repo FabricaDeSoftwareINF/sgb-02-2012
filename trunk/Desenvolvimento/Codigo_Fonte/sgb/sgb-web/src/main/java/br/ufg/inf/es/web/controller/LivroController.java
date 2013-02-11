@@ -231,12 +231,8 @@ public class LivroController extends SGBController<Livro, LivroForm, LivroServic
         return retorno;
     }
 
-    public void setLivrosSelecionados(Livro[] livrosSelecionados) {
-        
-        if(this.livrosSelecionados != null){
-        
-            this.livrosSelecionados = livrosSelecionados;
-        }
+    public void setLivrosSelecionados(Livro[] livrosSelecionados) {    
+        this.livrosSelecionados = livrosSelecionados;
     }
 
     public EnumTipoBibliografia getTipoBibliografia() {
