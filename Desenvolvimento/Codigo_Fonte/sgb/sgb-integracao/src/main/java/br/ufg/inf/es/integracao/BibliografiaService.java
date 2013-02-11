@@ -11,7 +11,8 @@ import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Component;
 
 /**
- *
+ * Service da bibliografia
+ * 
  * @author victor
  */
 @Component
@@ -21,11 +22,20 @@ public class BibliografiaService extends GenericService<Bibliografia> {
     @Autowired
     private BibliografiaDAO dao;
 
+    /**
+     * obtem o dao da bibliografia
+     * @return dao da bibliografia
+     */
     @Override
     public DAO<Bibliografia, Long> getDAO() {
         return this.dao;
     }
 
+    /**
+     * Obtem todas as bibliografias vinculadas a um livro
+     * @param livro base das bibliografias
+     * @return lista de bibliografias que possuem o livro
+     */
     public List<Bibliografia> findAllByLivro(Livro livro) {
         return dao.findAllByLivro(livro);
     }

@@ -13,6 +13,11 @@ import org.springframework.stereotype.Component;
 @Component
 public class ParametrosValidator extends Validation<Parametros> {
 
+    /**
+     * Valida a entidade que representa os parametros do sistema
+     * @param parametros
+     * @throws ValidationException 
+     */
     public void validate(Parametros parametros) throws ValidationException {
         if (parametros.getValorFrete() == null
                 || parametros.getValorFrete().compareTo(BigDecimal.ZERO) == -1

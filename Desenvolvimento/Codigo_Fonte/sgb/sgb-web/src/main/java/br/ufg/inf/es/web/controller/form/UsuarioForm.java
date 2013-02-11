@@ -24,9 +24,7 @@ public class UsuarioForm extends GenericForm<Usuario> {
      * @author Cássio Augusto Silva de Freitas
      */
     private Collection<Usuario> tabelaUsuarios;
-    
     private Collection<UsuarioPerfil> perfis;
-    
     /**
      * atributo userDataModel
      */
@@ -35,6 +33,22 @@ public class UsuarioForm extends GenericForm<Usuario> {
      * atributo usuariosSlecionados
      */
     private Usuario[] usuariosSelecionados;
+    private Boolean exibirDialogExclusao;
+
+    /**
+     * obtem a flag para exibir o dialog de remocao
+     */
+    public Boolean getExibirDialogExclusao() {
+        return exibirDialogExclusao;
+    }
+
+    /**
+     * define um valor booleano para a flag do dialog de exclusao
+     * @param exibirDialogExclusao 
+     */
+    public void setExibirDialogExclusao(Boolean exibirDialogExclusao) {
+        this.exibirDialogExclusao = exibirDialogExclusao;
+    }
 
     /**
      * Método getTabelaUsuarios()
@@ -78,22 +92,22 @@ public class UsuarioForm extends GenericForm<Usuario> {
     }
 
     public Usuario[] getUsuariosSelecionados() {
-        
+
         Usuario[] retorno = null;
-        
-        if(this.usuariosSelecionados != null) {
-            
-             retorno = this.usuariosSelecionados.clone();
+
+        if (this.usuariosSelecionados != null) {
+
+            retorno = this.usuariosSelecionados.clone();
         }
-        
+
         return retorno;
     }
 
     public void setUsuariosSelecionados(Usuario[] usuariosSelecionados) {
-        
-        if(usuariosSelecionados != null) {
-        
-            this.usuariosSelecionados = (Usuario[]) usuariosSelecionados.clone();
+
+        if (usuariosSelecionados != null) {
+
+            this.usuariosSelecionados = usuariosSelecionados;
         }
     }
 }

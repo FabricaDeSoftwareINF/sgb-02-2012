@@ -17,6 +17,11 @@ import org.springframework.stereotype.Component;
 @Component
 public class CursoValidator extends Validation<Curso> {
 
+    /**
+     * Valida um objeto Curso
+     * @param curso
+     * @throws ValidationException 
+     */
     public void validate(Curso curso) throws ValidationException {
 
         if (isInvalid(curso.getNome())) {

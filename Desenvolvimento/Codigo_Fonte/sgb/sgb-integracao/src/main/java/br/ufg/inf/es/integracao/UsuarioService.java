@@ -3,7 +3,6 @@ package br.ufg.inf.es.integracao;
 import br.ufg.inf.es.base.util.SgbCryptography;
 import br.ufg.inf.es.base.validation.ValidationException;
 import br.ufg.inf.es.model.Usuario;
-import br.ufg.inf.es.persistencia.PerfilDAO;
 import br.ufg.inf.es.persistencia.UsuarioDAO;
 import java.security.SecureRandom;
 import java.util.Date;
@@ -79,37 +78,25 @@ public class UsuarioService extends GenericService<Usuario> {
      * @param emailUsuario 
      */
     public void recuperarSenha(String emailUsuario) throws ValidationException {
-
         Usuario usuario = dao.findUserByEmail(emailUsuario);
 
         if (usuario == null) {
-
             throw new ValidationException("E-mail não cadastrado");
         }
 
         String letters = "abcdefghjkmnpqrstuvwxyzABCDEFGHJKMNPQRSTUVWXYZ23456789_-";
-
         String newPass;
-
         StringBuilder newPasswordBuilder = new StringBuilder();
 
         for (int i = 0; i < UsuarioService.PASSWORD_LENGHT; i++) {
-
             int index = (int) (UsuarioService.GERADOR_RANDOM.nextDouble() * letters.length());
-
             newPasswordBuilder.append(letters.substring(index, index + 1));
         }
 
         newPass = newPasswordBuilder.toString();
-
         usuario.setSenha(newPass);
-       
         EmailService.enviarNovaSenha(usuario);
-        
         usuario.setSenha(cryptography.encrypt(newPass));
-        
-        dao.update(usuario);
-        
         dao.update(usuario);
     }
 

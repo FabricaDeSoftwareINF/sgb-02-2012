@@ -13,6 +13,8 @@ import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Component;
 
 /**
+ * Service da entidade Autor
+ * 
  * @author Henrique Hirako, Cássio Augusto Silva de Freitas
  */
 @Component
@@ -22,14 +24,20 @@ public class AutorService extends GenericService<Autor> {
     @Autowired
     private AutorDAO dao;
 
+    /**
+     * obtem o dao do autor
+     * @return 
+     */
     @Override
     public AutorDAO getDAO() {
-
         return this.dao;
     }
 
+    /**
+     * Define o dao do autor
+     * @param dao 
+     */
     public void setDao(AutorDAO dao) {
-
         this.dao = dao;
     }
 
@@ -39,9 +47,7 @@ public class AutorService extends GenericService<Autor> {
      * @return Coleção de Autores
      */
     public Collection<AutorDTO> buscaTodosAutores(String filtroNome) {
-
         return this.getDAO().listarAutores(filtroNome);
-
     }
 
     /**
@@ -54,9 +60,7 @@ public class AutorService extends GenericService<Autor> {
     @Override
     @RNG012
     public Long insert(Autor autor) throws ValidationException {
-
         return this.getDAO().insert(autor);
-
     }
 
     /**
@@ -68,13 +72,14 @@ public class AutorService extends GenericService<Autor> {
      */
     @RNG012
     public void editar(Autor entidade) throws ValidationException {
-
         this.getDAO().update(entidade);
-
     }
 
+
     /**
-     *
+     * Obtem os autores que possuem os caracteres da query no nome
+     * @param query 
+     * @return lista de autores com nome equivalente à query
      */
     public Collection<Autor> complete(String query) {
         Collection<Autor> results = new ArrayList<Autor>();

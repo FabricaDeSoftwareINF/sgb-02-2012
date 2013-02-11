@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.ufg.inf.es.integracao.rng;
 
 import br.ufg.inf.es.base.validation.Validation;
@@ -18,6 +14,11 @@ public class VerificaQtdeMinimaDeCaracteresDeSenhaDeUsuario extends Validation<U
 
     private static final int QTD_CARACTERES_MIN = 6;
 
+    /**
+     * valida a senha do usuario
+     * @param object
+     * @throws ValidationException 
+     */
     public void validate(Usuario object) throws ValidationException {
 
         if (isInvalid(object.getSenha())

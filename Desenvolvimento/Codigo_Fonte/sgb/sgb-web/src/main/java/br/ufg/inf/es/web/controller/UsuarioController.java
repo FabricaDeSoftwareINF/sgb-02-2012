@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -18,7 +19,7 @@ import org.springframework.stereotype.Component;
  * usuário.
  *
  * @author Cézar Augusto Ferreira, Cássio Augusto Silva de Freitas, Luã
- * Silvério, Diogo Ribeiro
+ * Silvério, Diogo Ribeiro, Victor
  */
 @Component
 @Scope("session")
@@ -48,7 +49,6 @@ public class UsuarioController
      */
     @Override
     public UsuarioForm getForm() {
-
         return this.form;
     }
 
@@ -60,7 +60,6 @@ public class UsuarioController
      */
     @Override
     public UsuarioService getService() {
-
         return this.service;
     }
 
@@ -80,9 +79,7 @@ public class UsuarioController
      * @return
      */
     public Collection<Usuario> getUsuarioSelecionado() {
-
         return usuarioSelecionado;
-
     }
 
     /**
@@ -91,9 +88,7 @@ public class UsuarioController
      * @param usuarioSelecionado
      */
     public void setUsuarioSelecionado(Collection<Usuario> usuarioSelecionado) {
-
         this.usuarioSelecionado = usuarioSelecionado;
-
     }
 
     /**
@@ -103,15 +98,26 @@ public class UsuarioController
      * @param usuario
      */
     public void selecionaUsuario(Usuario usuario) {
-
         if (usuarioSelecionado.contains(usuario)) {
-
             usuarioSelecionado.remove(usuario);
 
         } else {
-
             this.usuarioSelecionado.add(usuario);
+        }
+    }
 
+    /**
+     * Método responsável por validar se pode haver uma exclusão ou não,
+     * verificando se há a necessidade de exibir o dialog de confirmação.
+     */
+    public void prepararExclusao() {
+
+        if (this.getForm().getUsuariosSelecionados().length == 0) {
+            this.getForm().setExibirDialogExclusao(Boolean.FALSE);
+            this.addWarningMessage("Nenhum usuário foi selecionado!");
+
+        } else {
+            this.getForm().setExibirDialogExclusao(Boolean.TRUE);
         }
     }
 
@@ -119,9 +125,27 @@ public class UsuarioController
      * Método responsável por remover os usuários selecionados.
      */
     public void removerUsuarioSelecionados() {
+        this.usuarioSelecionado.clear();
+        this.usuarioSelecionado.addAll(Arrays.asList(this.getForm().getUsuariosSelecionados()));
 
-        this.service.getDAO().removeAll(usuarioSelecionado);
+        for (Usuario u : this.usuarioSelecionado) {
+            if (u.getNome().equalsIgnoreCase("administrador")) {
+                this.addWarningMessage("Não é possível remover o usuário administrador");
+                this.getForm().setExibirDialogExclusao(Boolean.FALSE);
+                return;
+            }
+        }
 
+        try {
+            this.service.getDAO().removeAll(usuarioSelecionado);
+            this.addSuccessMessage("arquitetura.msg.sucesso");
+
+            openInitialView();
+        } catch (ConstraintViolationException cve) {
+            this.addWarningMessage("O usuário está vinculado a outros registros. Não é possível remove-lo.");
+        } finally {
+            this.getForm().setExibirDialogExclusao(Boolean.FALSE);
+        }
     }
 
     /**
@@ -129,11 +153,9 @@ public class UsuarioController
      */
     @Override
     public void initData() {
-
+        this.getForm().setExibirDialogExclusao(Boolean.FALSE);
         this.getForm().setTabelaUsuarios(new ArrayList<Usuario>());
-        
         this.getForm().setPerfis(Arrays.asList(UsuarioPerfil.values()));
-
         this.getForm().getTabelaUsuarios().addAll(this.getService().list());
     }
 
@@ -183,32 +205,26 @@ public class UsuarioController
         try {
             service.recuperarSenha(email);
         } catch (ValidationException ex) {
-           this.addErrorMessage("esqueciasenha.emailnaocadastrado");
-           return null;
+            this.addErrorMessage("esqueciasenha.emailnaocadastrado");
+            return null;
         }
         return "/login.xhtml";
     }
 
     /**
-     *
+     * Seleciona todos os usuários da grid
      */
     public void selecionaTodos() {
-
         if (this.usuarioSelecionado.size() == this.getForm().getTabelaUsuarios().size()) {
-
             this.usuarioSelecionado.clear();
 
         }
-
         if (!this.usuarioSelecionado.isEmpty()) {
-
             this.usuarioSelecionado.clear();
-
             this.usuarioSelecionado.addAll(this.getForm().getTabelaUsuarios());
+            
         } else {
             this.usuarioSelecionado.addAll(this.getForm().getTabelaUsuarios());
         }
-
-
     }
 }
