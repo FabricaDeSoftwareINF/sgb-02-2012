@@ -11,53 +11,99 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
- *
+ * Entidade Bibliografia
  * @author Henrique, Marco Aurélio, Cássio Augusto
  */
 @Entity
 @Table(name = "BIBLIOGRAFIA")
 public class Bibliografia extends AbstractEntityModel {
 
+    /** Campo tipo*/
     @Column(name = "tipo", unique = false)
     @Enumerated(EnumType.STRING)
     private EnumTipoBibliografia tipo;
+    
+    /** Campo livro*/
     @ManyToOne(optional = false, cascade= {CascadeType.MERGE ,CascadeType.PERSIST})
     @JoinColumn(name = "id_livro")
     private Livro livro;
     
+    /** Campo disciplina*/
     @ManyToOne(optional = false, cascade = {CascadeType.MERGE ,CascadeType.PERSIST})
     @JoinColumn(name = "id_disciplina")
     private Disciplina disciplina;
 
-    public Disciplina getDisciplina() {
-        return disciplina;
-    }
+	/**
+	 * Obtém o valor do campo <code>tipo</code>
+	 *
+	 * @return {@link EnumTipoBibliografia}
+	 */
+	public EnumTipoBibliografia getTipo() {
+		
+		return this.tipo;
+	}
 
-    public void setDisciplina(Disciplina disciplina) {
-        this.disciplina = disciplina;
-    }
+	/**
+	 * Define o campo <code>tipo</code>.
+	 *
+	 * @param tipo 
+	 */
+	public void setTipo(EnumTipoBibliografia tipo) {
+		
+		this.tipo = tipo;
+	}
 
-    public Livro getLivro() {
-        return livro;
-    }
+	/**
+	 * Obtém o valor do campo <code>livro</code>
+	 *
+	 * @return {@link Livro}
+	 */
+	public Livro getLivro() {
+		
+		return this.livro;
+	}
 
-    public void setLivro(Livro livro) {
-        this.livro = livro;
-    }
+	/**
+	 * Define o campo <code>livro</code>.
+	 *
+	 * @param livro 
+	 */
+	public void setLivro(Livro livro) {
+		
+		this.livro = livro;
+	}
 
-    public EnumTipoBibliografia getTipo() {
-        return tipo;
-    }
+	/**
+	 * Obtém o valor do campo <code>disciplina</code>
+	 *
+	 * @return {@link Disciplina}
+	 */
+	public Disciplina getDisciplina() {
+		
+		return this.disciplina;
+	}
 
-    public void setTipo(EnumTipoBibliografia tipo) {
-        this.tipo = tipo;
-    }
+	/**
+	 * Define o campo <code>disciplina</code>.
+	 *
+	 * @param disciplina 
+	 */
+	public void setDisciplina(Disciplina disciplina) {
+		
+		this.disciplina = disciplina;
+	}
 
-    @Override
+	/** 
+	 * {@inheritDoc} 
+	 */
+	@Override
     public String toString() {
         return "Bibliografia{" + "tipo=" + tipo + ", livro=" + livro + ", disciplina=" + disciplina + '}';
     }
 
+    /** 
+     * {@inheritDoc} 
+     */
     @Override
     public boolean equals(Object obj) {
         if (obj == null) {

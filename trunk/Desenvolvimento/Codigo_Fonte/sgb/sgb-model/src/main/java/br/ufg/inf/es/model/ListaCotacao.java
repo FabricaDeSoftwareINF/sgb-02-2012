@@ -9,54 +9,96 @@ import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 
 /**
- *
+ * Entidade ListaCotacao
  * @author GeovaneFilho
  */
 @Entity
 public class ListaCotacao extends AbstractEntityModel {
 
+    /** Campo nome*/
     private String nome;
+    
+    /** Campo dataRealizada*/
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date dataRealizada;
+    
+    /** Campo cotacoes*/
     @OneToMany(cascade = CascadeType.ALL)
     private List<Cotacao> cotacoes;
+    
+    /** Campo preco*/
     private double preco;
-    
-    public ListaCotacao() {
-        cotacoes = new ArrayList<Cotacao>();
-    }
 
-    public List<Cotacao> getCotacoes() {
-        return cotacoes;
-    }
+	/**
+	 * Obtém o valor do campo <code>nome</code>
+	 *
+	 * @return {@link String}
+	 */
+	public String getNome() {
+		return this.nome;
+	}
 
-    public void setCotacoes(List<Cotacao> cotacoes) {
-        this.cotacoes = cotacoes;
-    }
+	/**
+	 * Define o campo <code>nome</code>.
+	 *
+	 * @param nome 
+	 */
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
 
-    public Date getDataRealizada() {
-        return dataRealizada;
-    }
+	/**
+	 * Obtém o valor do campo <code>dataRealizada</code>
+	 *
+	 * @return {@link Date}
+	 */
+	public Date getDataRealizada() {
+		return this.dataRealizada;
+	}
 
-    public void setDataRealizada(Date dataRealizada) {
-        this.dataRealizada = dataRealizada;
-    }
+	/**
+	 * Define o campo <code>dataRealizada</code>.
+	 *
+	 * @param dataRealizada 
+	 */
+	public void setDataRealizada(Date dataRealizada) {
+		this.dataRealizada = dataRealizada;
+	}
 
-    public String getNome() {
-        return nome;
-    }
+	/**
+	 * Obtém o valor do campo <code>cotacoes</code>
+	 *
+	 * @return {@link List<Cotacao>}
+	 */
+	public List<Cotacao> getCotacoes() {
+		return this.cotacoes;
+	}
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
+	/**
+	 * Define o campo <code>cotacoes</code>.
+	 *
+	 * @param cotacoes 
+	 */
+	public void setCotacoes(List<Cotacao> cotacoes) {
+		this.cotacoes = cotacoes;
+	}
 
-    public double getPreco() {
-        return preco;
-    }
+	/**
+	 * Obtém o valor do campo <code>preco</code>
+	 *
+	 * @return {@link double}
+	 */
+	public double getPreco() {
+		return this.preco;
+	}
 
-    public void setPreco(double preco) {
-        this.preco = preco;
-    }
-    
+	/**
+	 * Define o campo <code>preco</code>.
+	 *
+	 * @param preco 
+	 */
+	public void setPreco(double preco) {
+		this.preco = preco;
+	}
     
 }

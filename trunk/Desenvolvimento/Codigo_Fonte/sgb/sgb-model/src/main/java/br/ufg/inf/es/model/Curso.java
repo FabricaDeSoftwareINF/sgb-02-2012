@@ -15,36 +15,76 @@ import javax.persistence.*;
 @Table(name = "CURSO")
 public class Curso extends AbstractEntityModel {
 
+    /** Campo nome*/
     @OrderingProperty(sortOrder = SortOrder.ASC)
     @Column(name = "nome")
     private String nome;
+    
+    /** Campo vagas*/
     @Column(name = "vagas")
     private Integer vagas;
     
+    /** Campo disciplinas*/
     @OneToMany(mappedBy="curso", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Collection<Disciplina> disciplinas;
 
-    public Collection<Disciplina> getDisciplinas() {
-        return disciplinas;
-    }
+	/**
+	 * Obtém o valor do campo <code>nome</code>
+	 *
+	 * @return {@link String}
+	 */
+	public String getNome() {
+		
+		return this.nome;
+	}
 
-    public void setDisciplinas(Collection<Disciplina> disciplinas) {
-        this.disciplinas = disciplinas;
-    }
+	/**
+	 * Define o campo <code>nome</code>.
+	 *
+	 * @param nome 
+	 */
+	public void setNome(String nome) {
+		
+		this.nome = nome;
+	}
 
-    public String getNome() {
-        return nome;
-    }
+	/**
+	 * Obtém o valor do campo <code>vagas</code>
+	 *
+	 * @return {@link Integer}
+	 */
+	public Integer getVagas() {
+		
+		return this.vagas;
+	}
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
+	/**
+	 * Define o campo <code>vagas</code>.
+	 *
+	 * @param vagas 
+	 */
+	public void setVagas(Integer vagas) {
+		
+		this.vagas = vagas;
+	}
 
-    public Integer getVagas() {
-        return vagas;
-    }
+	/**
+	 * Obtém o valor do campo <code>disciplinas</code>
+	 *
+	 * @return {@link Collection<Disciplina>}
+	 */
+	public Collection<Disciplina> getDisciplinas() {
+		
+		return this.disciplinas;
+	}
 
-    public void setVagas(Integer vagas) {
-        this.vagas = vagas;
-    }
+	/**
+	 * Define o campo <code>disciplinas</code>.
+	 *
+	 * @param disciplinas 
+	 */
+	public void setDisciplinas(Collection<Disciplina> disciplinas) {
+		
+		this.disciplinas = disciplinas;
+	}    
 }
