@@ -1,6 +1,8 @@
 package br.ufg.inf.es.web.converters;
 
 import br.ufg.inf.es.enuns.EnumTipoBibliografia;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
@@ -20,7 +22,8 @@ public class EnumTipoBibliografiaConverter implements Converter {
             try {
                 tipoBibliografia =  EnumTipoBibliografia.valueOf(value);
             } catch (IllegalArgumentException iae) {
-                iae.printStackTrace();
+                Logger.getLogger(this.getClass().getName()).
+                        log(Level.OFF, iae.getMessage());
             }
         }
 

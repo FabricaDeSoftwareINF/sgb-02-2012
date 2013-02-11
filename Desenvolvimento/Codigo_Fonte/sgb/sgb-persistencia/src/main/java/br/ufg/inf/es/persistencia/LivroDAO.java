@@ -1,6 +1,8 @@
 package br.ufg.inf.es.persistencia;
 
 import br.ufg.inf.es.base.util.UtilObjeto;
+import br.ufg.inf.es.model.Bibliografia;
+import br.ufg.inf.es.model.Disciplina;
 import br.ufg.inf.es.model.Livro;
 import java.util.Collection;
 import org.hibernate.Criteria;
@@ -53,13 +55,42 @@ public class LivroDAO extends GenericHibernateDAO<Livro> {
     public Collection<Livro> buscaLivroPorTitulo(String query) {
 
         Criteria criteria = this.createCriteria();
-        
+
         if (UtilObjeto.isReferencia(query) && !query.equals("")) {
-        
+
             criteria.add(Restrictions.ilike("titulo", query, MatchMode.ANYWHERE));
-        
+
         }
-        
+
         return criteria.list();
+    }
+
+    @Override
+    public void update(Livro livro) {
+        try {
+            isReferencia(livro);
+
+            if (livro.getBibliografias() != null) {
+                for (Bibliografia bibliografia : livro.getBibliografias()) {
+                    if (bibliografia.isNew()) {
+                        Disciplina disciplina = bibliografia.getDisciplina();
+                        Collection<Bibliografia> bibliografias = disciplina.getBibliografias();
+                        if (bibliografias != null) {
+                            bibliografias.add(bibliografia);
+                        }
+                        //this.getSession().merge(disciplina);
+                        //this.getSession().persist(bibliografia);
+                    }
+                }
+            }
+
+            this.getSession().merge(livro);
+
+            this.getSession().flush();
+
+        } finally {
+
+            this.getSession().close();
+        }
     }
 }

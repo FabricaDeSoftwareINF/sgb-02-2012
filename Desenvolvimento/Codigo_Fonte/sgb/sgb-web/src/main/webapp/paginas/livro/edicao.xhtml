@@ -5,7 +5,7 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://java.sun.com/jsf/core">
-    
+
     <ui:composition template="/template/template.xhtml">
 
 
@@ -19,8 +19,8 @@
             <ui:include src="cadastro_autor_dialog.xhtml"/>
             <ui:include src="cadastro_editora_dialog.xhtml"/>
 
-            <h:form id="formLivro">
-               <p:messages  autoUpdate="true"/>
+            <h:form id="form_livro">
+                <p:messages  autoUpdate="true"/>
                 <h:panelGrid columns="6">
                     <h:outputLabel value="#{msg['cadastro.livro.label.titulo']}"  ></h:outputLabel>
                     <p:inputText required="true" value="#{livroController.form.entity.titulo}" requiredMessage="Por favor Informe o Titulo." />
@@ -68,7 +68,7 @@
                                         var="disciplina" itemLabel="#{disciplina.nome}" itemValue="#{disciplina}" converter="disciplinaConverter" ></p:autoComplete>  
                         <div></div>
                         <p:commandButton value="Associar disciplina" actionListener="#{livroController.associarDisciplina}" 
-                                         update="table_disciplinas" process="associar_disciplina_panel"></p:commandButton>
+                                         update="table_disciplinas, associar_disciplina_panel" process="associar_disciplina_panel"></p:commandButton>
                     </h:panelGrid>
 
                     <p:dataTable id="table_disciplinas" value="#{livroController.form.entity.bibliografias}" var="bibliografia">
@@ -82,19 +82,43 @@
                             <h:outputText value="#{bibliografia.disciplina.nome}"/>
                         </p:column>
                         <p:column headerText="Ação">
-                            <p:commandLink value="Remover"/>
+                            <p:commandLink value="Remover" action="#{livroController.form.setBibliografiaRemocao(bibliografia)}"
+                                           oncomplete="dlgRemocao.show()"/>
                         </p:column>
                     </p:dataTable>
                 </p:fieldset>
-                <div align="right">
-                    <p:commandButton update="@form" action="#{livroController.editarLivro()}" value="#{msg['cadastro.livro.button.cadastrar']}"
-                                     />
-                </div>
-            </h:form>
-            <h:form>
-                <div align="right">
-                    <p:commandButton ajax="false" action="#{livroController.voltar()}" value="#{msg['cadastro.livro.button.back']}" />
-                </div>
+
+                <h:panelGrid columns="2" style="float: right;">
+
+                    <p:commandButton update="@form" action="#{livroController.editarLivro()}" value="#{msg['cadastro.livro.button.cadastrar']}"/>
+
+                    <p:commandButton ajax="false" immediate="true"  action="#{livroController.openInitialPage()}" value="#{msg['cadastro.livro.button.back']}" />
+
+                </h:panelGrid>
+                
+                <p:dialog id="dialog_remocao_disciplina" widgetVar="dlgRemocao" modal="true"
+                          resizable="false" closable="false">
+
+                    <h:panelGrid columns="1" style="text-align: center;">
+
+                        <h:outputText value="#{msg['cadastro.autor.label.remocao']}"/>
+
+                        <p:spacer height="10"/>
+
+                        <h:panelGrid columns="2" style="margin-left: 30%;">
+
+                            <p:commandButton value="#{msg['cadastro.autor.label.sim']}" update="table_disciplinas"
+                                             action="#{livroController.removerBibliografia}" oncomplete="dlgRemocao.hide()"/>
+
+                            <p:commandButton value="#{msg['cadastro.autor.label.nao']}"
+                                             onclick="dlgRemocao.hide();"/>
+
+                        </h:panelGrid>
+
+                    </h:panelGrid>
+
+                </p:dialog>
+                
             </h:form>
 
         </ui:define>

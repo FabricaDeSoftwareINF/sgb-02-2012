@@ -19,9 +19,9 @@
 
                     <p:commandButton action="#{livroController.salvarAutor()}" 
                                      value="#{msg['cadastro.autor.label.cadastrar']}" 
-                                     onclick="cadastroAutorDialog.close()"/>
+                                     onclick="cadastroAutorDialog.hide()" update=":form_livro:autorCompleteAutor"/>
 
-                    <p:commandButton onclick="cadastroAutorDialog.close()" 
+                    <p:commandButton onclick="cadastroAutorDialog.hide()"
                                      value="#{msg['cadastro.autor.label.cancelar']}"/>
                 </h:panelGrid>
             </h:form>

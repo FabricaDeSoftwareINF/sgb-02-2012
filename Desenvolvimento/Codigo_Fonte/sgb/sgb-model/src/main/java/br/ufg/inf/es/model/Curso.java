@@ -20,7 +20,8 @@ public class Curso extends AbstractEntityModel {
     private String nome;
     @Column(name = "vagas")
     private Integer vagas;
-    @OneToMany(targetEntity = Disciplina.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    
+    @OneToMany(mappedBy="curso", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Collection<Disciplina> disciplinas;
 
     public Collection<Disciplina> getDisciplinas() {
