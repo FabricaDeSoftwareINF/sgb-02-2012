@@ -67,8 +67,8 @@ public class ExportacaoPlanilhaService {
             popularPlanilha(planilhaNacionais, linhasPlanilhaNacionais);
             popularPlanilha(planilhaEstrangeiros, linhasPlanilhaEstrangeiros);
 
-            ajustarTamanhoCelulas(planilhaNacionais, ItemPlanilha.getNUM_COLUNAS());
-            ajustarTamanhoCelulas(planilhaEstrangeiros, ItemPlanilha.getNUM_COLUNAS());
+            ajustarTamanhoCelulas(planilhaNacionais, ItemPlanilha.getNumColunas());
+            ajustarTamanhoCelulas(planilhaEstrangeiros, ItemPlanilha.getNumColunas());
 
             stream = new FileOutputStream("planilha.xls");
             geradorPlanilha.write(stream);

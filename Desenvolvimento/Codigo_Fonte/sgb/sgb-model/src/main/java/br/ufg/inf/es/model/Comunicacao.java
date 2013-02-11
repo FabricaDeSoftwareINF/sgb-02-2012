@@ -40,127 +40,123 @@ public class Comunicacao extends AbstractEntityModel{
     @Column(name="senha", length=Comunicacao.TAMANHO,nullable=false)
     private byte[] senha;
 
-	/**
-	 * Obtém o valor do campo <code>service</code>
-	 *
-	 * @return {@link String}
-	 */
-	public String getService() {
-		
-		return this.service;
-	}
+    /**
+     * Obtém o valor do campo <code>service</code>
+     *
+     * @return {@link String}
+     */
+    public String getService() {
 
-	/**
-	 * Define o campo <code>service</code>.
-	 *
-	 * @param service 
-	 */
-	public void setService(String service) {
-		
-		this.service = service;
-	}
+            return this.service;
+    }
 
-	/**
-	 * Obtém o valor do campo <code>ssl</code>
-	 *
-	 * @return {@link boolean}
-	 */
-	public boolean isSsl() {
-		
-		return this.ssl;
-	}
+    /**
+     * Define o campo <code>service</code>.
+     *
+     * @param service 
+     */
+    public void setService(String service) {
 
-	/**
-	 * Define o campo <code>ssl</code>.
-	 *
-	 * @param ssl 
-	 */
-	public void setSsl(boolean ssl) {
-		
-		this.ssl = ssl;
-	}
+            this.service = service;
+    }
 
-	/**
-	 * Obtém o valor do campo <code>tsl</code>
-	 *
-	 * @return {@link boolean}
-	 */
-	public boolean isTsl() {
-		
-		return this.tsl;
-	}
+    /**
+     * Obtém o valor do campo <code>ssl</code>
+     *
+     * @return {@link boolean}
+     */
+    public boolean isSsl() {
 
-	/**
-	 * Define o campo <code>tsl</code>.
-	 *
-	 * @param tsl 
-	 */
-	public void setTsl(boolean tsl) {
-		
-		this.tsl = tsl;
-	}
+            return this.ssl;
+    }
 
-	/**
-	 * Obtém o valor do campo <code>port</code>
-	 *
-	 * @return {@link String}
-	 */
-	public String getPort() {
-		
-		return this.port;
-	}
+    /**
+     * Define o campo <code>ssl</code>.
+     *
+     * @param ssl 
+     */
+    public void setSsl(boolean ssl) {
 
-	/**
-	 * Define o campo <code>port</code>.
-	 *
-	 * @param port 
-	 */
-	public void setPort(String port) {
-		
-		this.port = port;
-	}
+            this.ssl = ssl;
+    }
 
-	/**
-	 * Obtém o valor do campo <code>usuario</code>
-	 *
-	 * @return {@link String}
-	 */
-	public String getUsuario() {
-		
-		return this.usuario;
-	}
+    /**
+     * Obtém o valor do campo <code>tsl</code>
+     *
+     * @return {@link boolean}
+     */
+    public boolean isTsl() {
 
-	/**
-	 * Define o campo <code>usuario</code>.
-	 *
-	 * @param usuario 
-	 */
-	public void setUsuario(String usuario) {
-		
-		this.usuario = usuario;
-	}
+            return this.tsl;
+    }
 
-	/**
-	 * Obtém o valor do campo <code>senha</code>
-	 *
-	 * @return {@link byte[]}
-	 */
-	public byte[] getSenha() {
-		
-		return this.senha;
-	}
+    /**
+     * Define o campo <code>tsl</code>.
+     *
+     * @param tsl 
+     */
+    public void setTsl(boolean tsl) {
 
-	/**
-	 * Define o campo <code>senha</code>.
-	 *
-	 * @param senha 
-	 */
-	public void setSenha(byte[] senha) {
-		
-            if(senha != null) {
-                
-		this.senha = (byte[]) senha.clone();
-            }
-	}
+            this.tsl = tsl;
+    }
 
+    /**
+     * Obtém o valor do campo <code>port</code>
+     *
+     * @return {@link String}
+     */
+    public String getPort() {
+
+            return this.port;
+    }
+
+    /**
+     * Define o campo <code>port</code>.
+     *
+     * @param port 
+     */
+    public void setPort(String port) {
+
+            this.port = port;
+    }
+
+    /**
+     * Obtém o valor do campo <code>usuario</code>
+     *
+     * @return {@link String}
+     */
+    public String getUsuario() {
+
+            return this.usuario;
+    }
+
+    /**
+     * Define o campo <code>usuario</code>.
+     *
+     * @param usuario 
+     */
+    public void setUsuario(String usuario) {
+
+            this.usuario = usuario;
+    }
+
+    /**
+     * Obtém o valor do campo <code>senha</code>
+     *
+     * @return {@link byte[]}
+     */
+    public byte[] getSenha() {
+
+            return this.senha;
+    }
+
+    /**
+     * Define o campo <code>senha</code>.
+     *
+     * @param senha 
+     */
+    public void setSenha(byte[] senha) {
+
+        this.senha = senha != null ? (byte[]) senha.clone() : senha;
+    }
 }
