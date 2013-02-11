@@ -14,6 +14,7 @@
         <ui:define name="content">
 
             <ui:include src="exportacao_dialog.xhtml"/>
+            <ui:include src="detalhes_dialog.xhtml"/>
             
             <p:messages autoUpdate="true" closable="true"/>
 
@@ -70,16 +71,22 @@
                                                action="#{livroController.openEditPage()}">
                                     <f:setPropertyActionListener target="#{livroController.form.entity}"
                                                                  value="#{livro}"/>
-                                </h:commandLink>        
+                                </h:commandLink>   
+                                
+                                <p:commandLink id="acao_detalhes_livro" value="#{msg['acao.detalhes']}" 
+                                               oncomplete="dialogDetalhes.show()" 
+                                               actionListener="#{livroController.form.setEntity(livro)}"
+                                               update=":dialog_detalhes">
+                                </p:commandLink>
 
-                                <p:commandButton id="exportar_button" value="#{msg['cadastro.livro.button.exportar']}"
+                                <p:commandLink id="exportar_button" value="#{msg['cadastro.livro.button.exportar']}"
                                                  oncomplete="geracaoPlanilhaDialog.show()">
 
                                     <f:setPropertyActionListener value="#{livro}" target="#{livroController.form.entity}" />
 
                                     <f:param name="entityID" value="#{livro.id}" />
 
-                                </p:commandButton>
+                                </p:commandLink>
 
                             </p:panelGrid>
 

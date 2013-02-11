@@ -420,8 +420,10 @@ public abstract class GenericHibernateDAO<E extends Entity<Long>> implements DAO
     public void closeSession() {
 
         try {
-
-            this.session.close();
+            
+            if (this.session.isOpen()) {
+                this.session.close();
+            }
 
         } catch (Exception e) {
 
