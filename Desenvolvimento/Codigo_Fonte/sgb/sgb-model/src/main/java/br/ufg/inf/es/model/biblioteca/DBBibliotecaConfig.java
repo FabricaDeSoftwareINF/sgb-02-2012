@@ -2,6 +2,7 @@ package br.ufg.inf.es.model.biblioteca;
 
 import br.ufg.inf.es.base.persistence.biblioteca.DBDriver;
 import br.ufg.inf.es.model.AbstractEntityModel;
+import java.util.Arrays;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -197,7 +198,11 @@ public class DBBibliotecaConfig extends AbstractEntityModel{
 	 * @param passwordDataBase 
 	 */
 	public void setPasswordDataBase(byte[] passwordDataBase) {
-		this.passwordDataBase = passwordDataBase;
+	
+            if(passwordDataBase != null) {
+                
+                this.passwordDataBase = (byte[]) passwordDataBase.clone();
+            }
 	}
 
 	/**
@@ -370,7 +375,7 @@ public class DBBibliotecaConfig extends AbstractEntityModel{
         return "DBBibliotecaConfig{" + "driver=" + driver + ", url=" + url + 
                 ", porta=" + porta + ", nameDataBase=" + nameDataBase + 
                 ", userDataBase=" + userDataBase + ", passwordDataBase=" + 
-                passwordDataBase + ", tabela=" + tabela + ", campoIdLivroBiblioteca=" + 
+                Arrays.toString(passwordDataBase) + ", tabela=" + tabela + ", campoIdLivroBiblioteca=" + 
                 campoIdLivroBiblioteca + ", campoTituloLivro=" + campoTituloLivro + 
                 ", campoIsbnLivro=" + campoIsbnLivro + ", campoAnoLivro=" + 
                 campoAnoLivro + ", campoEdicao=" + campoEdicao + ", campoEditora=" + 

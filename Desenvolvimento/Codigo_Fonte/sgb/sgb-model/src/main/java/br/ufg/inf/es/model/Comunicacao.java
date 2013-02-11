@@ -157,7 +157,10 @@ public class Comunicacao extends AbstractEntityModel{
 	 */
 	public void setSenha(byte[] senha) {
 		
-		this.senha = senha;
+            if(senha != null) {
+                
+		this.senha = (byte[]) senha.clone();
+            }
 	}
 
 }

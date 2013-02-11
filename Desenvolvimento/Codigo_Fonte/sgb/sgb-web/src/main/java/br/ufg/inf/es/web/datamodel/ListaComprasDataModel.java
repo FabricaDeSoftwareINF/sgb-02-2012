@@ -28,9 +28,11 @@ public class ListaComprasDataModel extends ListDataModel<ListaCompras> implement
     public ListaCompras getRowData(String rowKey) {
         List<ListaCompras> lcs = (List<ListaCompras>) getWrappedData();  
           
-        for(ListaCompras lc : lcs) {  
-            if(lc.getId().equals(rowKey))  
+        for(ListaCompras lc : lcs) { 
+            
+            if(lc.getId().toString().equals(rowKey)){  
                 return lc;  
+            }
         } 
         return null;  
     }

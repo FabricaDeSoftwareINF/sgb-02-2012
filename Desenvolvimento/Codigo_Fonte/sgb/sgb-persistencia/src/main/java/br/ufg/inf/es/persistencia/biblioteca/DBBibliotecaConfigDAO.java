@@ -18,15 +18,22 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional(rollbackFor=ValidationException.class)
 public class DBBibliotecaConfigDAO extends GenericHibernateDAO<DBBibliotecaConfig>{
     
+    /** Campo sessionFactory*/
     @Autowired
     private SessionFactory sessionFactory;
 
+    /** 
+     * {@inheritDoc} 
+     */
     @Override
     protected SessionFactory getSessionFactory() {
 
         return this.sessionFactory;
     }
 
+    /** 
+     * {@inheritDoc} 
+     */
     @Override
     protected void setSessionFactory(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
