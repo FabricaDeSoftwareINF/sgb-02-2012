@@ -26,16 +26,33 @@ import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 
 /**
+ * Classe que define um DAO genérico para ser utilizado com o framework Hibernate.
  * @author Cézar Augusto Ferreira
  */
 public abstract class GenericHibernateDAO<E extends Entity<Long>> implements DAO<E, Long> {
 
+    /** Campo session*/
     private Session session;
 
+    /**
+     * Método que obtém a fábrica de sessões do Hibernate.
+     *
+     * @return SessionFactory
+     */
     protected abstract SessionFactory getSessionFactory();
 
+    /**
+     * Método que define a fábrica de sessões do Hibernate.
+     *
+     * @param sessionFactory
+     */
     protected abstract void setSessionFactory(SessionFactory sessionFactory);
 
+    /**
+     * Método que obtém a sessão do Hibernate.
+     *
+     * @return A sessão obtida.
+     */
     protected Session getSession() {
 
         if (this.session == null || !this.session.isOpen()) {
@@ -46,6 +63,11 @@ public abstract class GenericHibernateDAO<E extends Entity<Long>> implements DAO
         return this.session;
     }
 
+    /**
+     * Método que retorna a classe da Entidade.
+     *
+     * @return A classe da Entidade.
+     */
     protected Class<E> getClassEntity() {
 
         final Type type[] = ((ParameterizedType) this.getClass().getGenericSuperclass()).getActualTypeArguments();
@@ -53,6 +75,11 @@ public abstract class GenericHibernateDAO<E extends Entity<Long>> implements DAO
         return (Class<E>) type[0];
     }
 
+    /**
+     * Método que verifica se o argumento é uma referência.
+     *
+     * @param o
+     */
     protected void isReferencia(Object o) {
 
         if (!UtilObjeto.isReferencia(o)) {
@@ -61,8 +88,13 @@ public abstract class GenericHibernateDAO<E extends Entity<Long>> implements DAO
         }
     }
 
+    /** 
+     * {@inheritDoc} 
+     */
     public E find(Long id) {
+    	
         E objeto;
+        
         try {
 
             objeto = (E) this.getSession().get(this.getClassEntity(), id);
@@ -75,8 +107,13 @@ public abstract class GenericHibernateDAO<E extends Entity<Long>> implements DAO
         return objeto;
     }
 
+    /** 
+     * {@inheritDoc} 
+     */
     public Long insert(E entidade) {
+    	
         Long id;
+        
         try {
 
             isReferencia(entidade);
@@ -91,8 +128,13 @@ public abstract class GenericHibernateDAO<E extends Entity<Long>> implements DAO
         return id;
     }
 
+    /** 
+     * {@inheritDoc} 
+     */
     public void update(E entidade) {
+    	
         try {
+        	
             isReferencia(entidade);
 
             this.getSession().merge(entidade);
@@ -105,7 +147,11 @@ public abstract class GenericHibernateDAO<E extends Entity<Long>> implements DAO
         }
     }
 
+    /** 
+     * {@inheritDoc} 
+     */
     public void save(E entidade) {
+    	
         try {
             isReferencia(entidade);
 
@@ -117,6 +163,9 @@ public abstract class GenericHibernateDAO<E extends Entity<Long>> implements DAO
         }
     }
 
+    /** 
+     * {@inheritDoc} 
+     */
     public void remove(E entidade) {
         try {
             isReferencia(entidade);
@@ -124,13 +173,19 @@ public abstract class GenericHibernateDAO<E extends Entity<Long>> implements DAO
             this.getSession().delete(entidade);
 
             this.getSession().flush();
+            
         } finally {
+        	
             this.getSession().close();
         }
     }
 
+    /** 
+     * {@inheritDoc} 
+     */
     public void removeAll(Collection<E> entidades) {
-        try {
+        
+    	try {
 
             isReferencia(entidades);
 
@@ -148,9 +203,15 @@ public abstract class GenericHibernateDAO<E extends Entity<Long>> implements DAO
         }
     }
 
+    /** 
+     * {@inheritDoc} 
+     */
     public Collection<E> search(E entidade) {
+    	
         Collection<E> lista;
+        
         try {
+        	
             Example example = Example.create(entidade);
 
             example.enableLike();
@@ -170,6 +231,11 @@ public abstract class GenericHibernateDAO<E extends Entity<Long>> implements DAO
         return lista;
     }
 
+    /**
+     * Método que cria uma criteria com a entidade da classe.
+     *
+     * @return A criteria criada.
+     */
     protected Criteria createCriteria() {
 
         return this.getSession().createCriteria(this.getClassEntity());
@@ -203,6 +269,9 @@ public abstract class GenericHibernateDAO<E extends Entity<Long>> implements DAO
         
     }
 
+    /** 
+     * {@inheritDoc} 
+     */
     public Collection<E> list() {
 
         Collection<E> lista;
@@ -217,6 +286,9 @@ public abstract class GenericHibernateDAO<E extends Entity<Long>> implements DAO
 
     }
 
+    /** 
+     * {@inheritDoc} 
+     */
     public Collection<E> search(String key, String... properties) {
 
         if (properties == null || properties.length == 0) {
@@ -271,6 +343,9 @@ public abstract class GenericHibernateDAO<E extends Entity<Long>> implements DAO
 
     }
 
+    /** 
+     * {@inheritDoc} 
+     */
     public void refresh(E entidade) {
         try {
 
@@ -285,11 +360,24 @@ public abstract class GenericHibernateDAO<E extends Entity<Long>> implements DAO
         }
     }
 
+    /**
+     * Método que retornar a ordenação para determinada propriedade.
+     *
+     * @param order
+     * @param property
+     * @return O tipo de ordenação.
+     */
     private Order transformerOrder(OrderingProperty order, String property) {
 
         return (SortOrder.ASC.equals(order.sortOrder())) ? Order.asc(property) : Order.desc(property);
     }
 
+    /**
+     * Método que cria a ordenação para o tipo de classe.
+     *
+     * @param clazzEntity
+     * @return Order
+     */
     private Order buildOrdering(Class<?> clazzEntity) {
 
         Order queryOrdering = null;
@@ -310,6 +398,11 @@ public abstract class GenericHibernateDAO<E extends Entity<Long>> implements DAO
         return ((queryOrdering != null) ? queryOrdering : ((Object.class.equals(clazzEntity)) ? null : this.buildOrdering(clazzEntity.getSuperclass())));
     }
 
+    /**
+     * Método que adiciona um tipo de ordenação para um criteria.
+     *
+     * @param criteria
+     */
     private void addOrder(Criteria criteria) {
 
         Order order = this.buildOrdering(this.getClassEntity());
@@ -320,6 +413,10 @@ public abstract class GenericHibernateDAO<E extends Entity<Long>> implements DAO
         }
     }
 
+    /**
+     * Método que encerra a sessão.
+     *
+     */
     public void closeSession() {
 
         try {
@@ -332,6 +429,9 @@ public abstract class GenericHibernateDAO<E extends Entity<Long>> implements DAO
         }
     }
 
+    /** 
+     * {@inheritDoc} 
+     */
     @Override
     protected void finalize() throws Throwable {
 

@@ -20,21 +20,27 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- *
+ * Classe para o DAO da entidade Disciplina
  * @author cezar
  */
 @Repository
 @Transactional(rollbackFor=ValidationException.class)
 public class DisciplinaDAO extends GenericHibernateDAO<Disciplina> {
 
+    /** Campo sessionFactory*/
     @Autowired
     private SessionFactory sessionFactory;
 
+    /** 
+     * {@inheritDoc} 
+     */
     public void setSessionFactory(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
-
     
+    /** 
+     * {@inheritDoc} 
+     */
     @Override
     protected SessionFactory getSessionFactory() {
 
