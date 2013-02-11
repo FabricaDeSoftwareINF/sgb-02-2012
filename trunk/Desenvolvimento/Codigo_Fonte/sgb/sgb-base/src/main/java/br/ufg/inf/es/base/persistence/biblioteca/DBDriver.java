@@ -49,7 +49,7 @@ public enum DBDriver {
 	 *
 	 * @return {@link String}
 	 */
-	public String getJdbc() {
+	public String getJDBC() {
 		return jdbc;
 	}
 
@@ -58,7 +58,7 @@ public enum DBDriver {
 	 *
 	 * @param jdbc 
 	 */
-	public void setJdbc(String jdbc) {
+	public void setJDBC(String jdbc) {
 		this.jdbc = jdbc;
 	}
 
