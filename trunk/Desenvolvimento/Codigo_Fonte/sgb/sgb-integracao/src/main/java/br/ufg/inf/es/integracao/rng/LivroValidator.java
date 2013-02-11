@@ -26,6 +26,12 @@ public class LivroValidator extends Validation<Livro> {
     public static final String RNG002_ANO = "label.RNG02.ano";
     private SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy");
 
+    /**
+     * Valida um objeto livro
+     *
+     * @param livro
+     * @throws ValidationException
+     */
     public void validate(Livro livro) throws ValidationException {
         verifiqueAno(livro.getAno());
         verifyCollection(livro.getAutores(), RNG002_AUTOR);

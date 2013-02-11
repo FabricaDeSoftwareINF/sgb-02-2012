@@ -12,7 +12,8 @@ import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Component;
 
 /**
- *
+ * Service que trata os parâmetros do sistema
+ * 
  * @author Victor Carvalho
  */
 @Component
@@ -27,16 +28,36 @@ public class ParametrosService extends GenericService<Parametros> {
         return this.dao;
     }
 
+    /**
+     * Obtem o valor do frete
+     * 
+     * @return valor do frete
+     * @throws ValidationException 
+     */
     public BigDecimal obtenhaValorFrete() throws ValidationException {
         Parametros parametros = this.find();
         return parametros.getValorFrete();
     }
 
+    /**
+     * Obtem o parametro do mec
+     * 
+     * @return parametro do mec
+     * @throws ValidationException 
+     */
     public Integer obtenhaParametroMEC() throws ValidationException {
         Parametros parametros = this.find();
         return parametros.getParametroMEC();
     }
 
+    /**
+     * Obtem uma instancia da entidade Parametros.
+     * Caso já exista uma no banco ela é retornada, caso contrário é criada
+     * uma nova com os dados default
+     * 
+     * @return parametros
+     * @throws ValidationException 
+     */
     public Parametros find() throws ValidationException {
         Parametros parametros;
         Collection<Parametros> listaDeParametros = this.list();
@@ -54,6 +75,11 @@ public class ParametrosService extends GenericService<Parametros> {
         return new Parametros();
     }
 
+    /**
+     * Salva a entidade parametros fazendo a validação antes do save
+     * @param entity
+     * @throws ValidationException 
+     */
     @Override
     @RN006Parametros
     public void save(Parametros entity) throws ValidationException {
@@ -61,6 +87,11 @@ public class ParametrosService extends GenericService<Parametros> {
 
     }
 
+    /**
+     * atualiza a entidade parametro fazendo a validacao antes do update
+     * @param entity
+     * @throws ValidationException 
+     */
     @Override
     @RN006Parametros
     public void update(Parametros entity) throws ValidationException {

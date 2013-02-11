@@ -12,6 +12,11 @@ import org.springframework.stereotype.Component;
 @Component
 public class DisciplinaValidator extends Validation<Disciplina> {
 
+    /**
+     * Valida um objeto Disciplina
+     * @param object
+     * @throws ValidationException 
+     */
     public void validate(Disciplina object) throws ValidationException {
         boolean nomeInvalido = isInvalid(object.getNome());
         boolean cursoInvalido = isInvalid(object.getCurso());

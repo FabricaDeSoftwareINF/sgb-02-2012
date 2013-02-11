@@ -144,6 +144,10 @@ public class LivroParaCotacaoService extends GenericService<LivroParaCotacao> {
         return valorBigDecimal.divide(divisorBigDecimal, RoundingMode.UP).intValue();
     }
 
+    /**
+     * obtem o dao do livroService
+     * @return dao do livroService
+     */
     @Override
     public DAO getDAO() {
         return livroService.getDAO();

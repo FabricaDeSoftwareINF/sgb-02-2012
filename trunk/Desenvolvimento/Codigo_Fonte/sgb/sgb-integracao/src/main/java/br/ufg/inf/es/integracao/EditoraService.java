@@ -12,25 +12,35 @@ import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Component;
 
 /**
+ * Service da entidade enditora
+ *
  * @author Henrique Hirako
  */
 @Component
 @Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class EditoraService extends GenericService<Editora> {
-    
-     public static final String KEY_RNG007 = "label.RNG07.nome";
 
+    //mensagem da regra de negocio
+    public static final String KEY_RNG007 = "label.RNG07.nome";
     @Autowired
     private EditoraDAO dao;
 
+    /**
+     * obtem o dao da editora
+     *
+     * @return
+     */
     @Override
     public EditoraDAO getDAO() {
-
         return this.dao;
     }
 
+    /**
+     * Define o dao da editora
+     *
+     * @param dao
+     */
     public void setDao(EditoraDAO dao) {
-
         this.dao = dao;
     }
 
@@ -47,10 +57,11 @@ public class EditoraService extends GenericService<Editora> {
     }
 
     /**
-     * 
+     * Insere uma nova editora validando-a antes
+     *
      * @param entidade
-     * @return
-     * @throws ValidationException 
+     * @return id da editora inserida
+     * @throws ValidationException
      */
     @Override
     @RNG007
@@ -61,15 +72,15 @@ public class EditoraService extends GenericService<Editora> {
     }
 
     /**
-     * 
+     * Edita uma editora existente
+     *
      * @param entidade
-     * @throws ValidationException 
+     * @throws ValidationException
      */
     @RNG007
     public void editar(Editora entidade) throws ValidationException {
-     
+
         this.getDAO().update(entidade);
 
     }
-    
 }

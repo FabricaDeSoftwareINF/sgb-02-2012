@@ -12,6 +12,11 @@ import org.springframework.stereotype.Component;
 @Component
 public class TituloLivroValidator extends Validation<Livro> {
 
+    /**
+     * valida o titulo do livro
+     * @param object
+     * @throws ValidationException 
+     */
     public void validate(Livro object) throws ValidationException {
 
         if (isInvalid(object.getTitulo())) {

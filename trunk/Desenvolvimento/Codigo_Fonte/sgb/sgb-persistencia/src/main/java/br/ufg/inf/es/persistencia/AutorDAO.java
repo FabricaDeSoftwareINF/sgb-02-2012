@@ -59,4 +59,4 @@ public class AutorDAO extends GenericHibernateDAO<Autor> {
 
         return criteria.list();
     }
-}
+        }
