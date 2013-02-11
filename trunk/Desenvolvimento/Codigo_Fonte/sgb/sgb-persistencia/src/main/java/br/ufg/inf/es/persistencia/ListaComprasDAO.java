@@ -15,20 +15,28 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- *
+ * Classe para o DAO da entidade ListaCompras
  * @author Jackeline Neves
  */
 @Repository
 @Transactional
 public class ListaComprasDAO extends GenericHibernateDAO<ListaCompras> {
 
+    /** Campo sessionFactory*/
     @Autowired
     private SessionFactory sessionFactory;
 
+    /** 
+     * {@inheritDoc} 
+     */
     public void setSessionFactory(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
+        
+    	this.sessionFactory = sessionFactory;
     }
 
+    /** 
+     * {@inheritDoc} 
+     */
     @Override
     protected SessionFactory getSessionFactory() {
         return this.sessionFactory;
@@ -36,6 +44,12 @@ public class ListaComprasDAO extends GenericHibernateDAO<ListaCompras> {
     }
 
     
+    /**
+     * Método que retorna os livros de uma lista de compras.
+     *
+     * @param id
+     * @return Collection<Livro>
+     */
     public Collection<Livro> getLivros(Long id) {
         
         Criteria criteria = this.getSession().createCriteria(Livro.class);

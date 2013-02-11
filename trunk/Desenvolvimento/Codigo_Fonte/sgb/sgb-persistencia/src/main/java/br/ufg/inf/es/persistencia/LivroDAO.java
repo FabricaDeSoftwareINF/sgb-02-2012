@@ -13,30 +13,52 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- *
+ * Classe para o DAO da entidade Livro
  * @author cezar
  */
 @Repository
 @Transactional
 public class LivroDAO extends GenericHibernateDAO<Livro> {
 
+    /** Campo sessionFactory*/
     @Autowired
     private SessionFactory sessionFactory;
 
+    /** 
+     * {@inheritDoc} 
+     */
     public void setSessionFactory(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
+        
+    	this.sessionFactory = sessionFactory;
     }
 
+    /** 
+     * {@inheritDoc} 
+     */
     @Override
     protected SessionFactory getSessionFactory() {
-        return this.sessionFactory;
+        
+    	return this.sessionFactory;
     }
 
+    /**
+     * Método que  obtem os autores da entidade.
+     *
+     * @param id
+     * @return Colecao de Atoures
+     */
     public Collection<?> getAutores(Long id) {
 
         return this.getCollection(id, "autores");
     }
 
+    
+    /**
+     * Método que obtém as bibliografias de um livro
+     *
+     * @param id
+     * @return Collection<Bibliografia>
+     */
     public Collection<?> getBibliografia(Long id) {
 
         //Criteria criteria = this.getSession().createCriteria(Bibliografia.class);
@@ -65,6 +87,9 @@ public class LivroDAO extends GenericHibernateDAO<Livro> {
         return criteria.list();
     }
 
+    /** 
+     * {@inheritDoc} 
+     */
     @Override
     public void update(Livro livro) {
         try {
