@@ -95,20 +95,6 @@ public class LivroDAO extends GenericHibernateDAO<Livro> {
         try {
             isReferencia(livro);
 
-            if (livro.getBibliografias() != null) {
-                for (Bibliografia bibliografia : livro.getBibliografias()) {
-                    if (bibliografia.isNew()) {
-                        Disciplina disciplina = bibliografia.getDisciplina();
-                        Collection<Bibliografia> bibliografias = disciplina.getBibliografias();
-                        if (bibliografias != null) {
-                            bibliografias.add(bibliografia);
-                        }
-                        //this.getSession().merge(disciplina);
-                        //this.getSession().persist(bibliografia);
-                    }
-                }
-            }
-
             this.getSession().merge(livro);
 
             this.getSession().flush();

@@ -41,40 +41,26 @@ public class LivroController extends SGBController<Livro, LivroForm, LivroServic
 
     @Autowired
     private LivroForm form;
-    
     @Autowired
     private LivroService service;
-    
     @Autowired
     private DisciplinaService disciplinaService;
-    
     @Autowired
     private CursoService cursoService;
-    
     @Autowired
     private EditoraService editoraService;
-    
     @Autowired
     private AutorService autorService;
-    
     private Autor autor;
-    
     private Editora editora;
-    
     private EnumTipoBibliografia tipoBibliografia;
-    
     private Curso cursoSelecionado;
-    
     private Collection<Curso> cursos;
-    
     private String formatoSelecionado;
-    
     private StreamedContent fileExportado;
-    
     private LivroDataModel livroModel;
-    
     private Livro[] livrosSelecionados;
-
+    
     /**
      * Método responsável por retornar a string de navegação para a pagina
      * incial da Estória de usuário buscar todos os livros.
@@ -88,11 +74,11 @@ public class LivroController extends SGBController<Livro, LivroForm, LivroServic
         this.editora = new Editora();
 
         this.getForm().setTodosLivros(new ArrayList<Livro>());
-        
+
 
         return super.openInitialPage();
     }
-    
+
     @Override
     public void openInsertView() {
         super.openInsertView();
@@ -105,17 +91,20 @@ public class LivroController extends SGBController<Livro, LivroForm, LivroServic
         this.getForm().setBibliografiaRemocao(new Bibliografia());
         this.getForm().setBibliografiaTemp(new Bibliografia());
     }
-    
+
     @Override
     public void openEditView() {
         super.openEditView();
         this.getForm().setCursoSelecionado(new Curso());
+        this.getForm().setTipoBibliografia(null);
+        this.getForm().setAutoresAdicionados(new ArrayList<Autor>());
+        this.getForm().setBibliografiaRemocao(new Bibliografia());
+        this.getForm().setBibliografiaTemp(new Bibliografia());
         Collection<Autor> autoresAdicionados = this.getForm().getEntity().getAutores();
         if (autoresAdicionados != null) {
             this.getForm().setAutoresAdicionados(autoresAdicionados);
         }
     }
-    
 
     public LivroDataModel getLivroModel() {
         return this.livroModel;
@@ -220,18 +209,18 @@ public class LivroController extends SGBController<Livro, LivroForm, LivroServic
     }
 
     public Livro[] getLivrosSelecionados() {
-        
+
         Livro[] retorno = null;
-        
-        if(this.livrosSelecionados != null) {
-            
-             retorno = this.livrosSelecionados.clone();
+
+        if (this.livrosSelecionados != null) {
+
+            retorno = this.livrosSelecionados.clone();
         }
-        
+
         return retorno;
     }
 
-    public void setLivrosSelecionados(Livro[] livrosSelecionados) {    
+    public void setLivrosSelecionados(Livro[] livrosSelecionados) {
         
         if(livrosSelecionados != null){
         
@@ -240,17 +229,17 @@ public class LivroController extends SGBController<Livro, LivroForm, LivroServic
     }
 
     public EnumTipoBibliografia getTipoBibliografia() {
-        
+
         return tipoBibliografia;
     }
 
     public void setTipoBibliografia(EnumTipoBibliografia tipoBibliografia) {
-        
+
         this.tipoBibliografia = tipoBibliografia;
     }
 
     public void associarDisciplina() {
-        
+
         Livro livro = this.form.getEntity();
         Bibliografia bibliografia = this.form.getBibliografiaTemp();
         bibliografia.setTipo(this.form.getTipoBibliografia());
@@ -295,12 +284,12 @@ public class LivroController extends SGBController<Livro, LivroForm, LivroServic
         }
         return results;
     }
-    
+
     private Collection<Disciplina> buscaDisciplinasAssociadas() {
-        Collection<Bibliografia> bibliografias = 
+        Collection<Bibliografia> bibliografias =
                 this.getForm().getEntity().getBibliografias();
         Collection<Disciplina> disciplinasAdicionadas = new ArrayList<Disciplina>();
-        
+
         for (Bibliografia bibliografia : bibliografias) {
             disciplinasAdicionadas.add(bibliografia.getDisciplina());
         }
@@ -331,11 +320,7 @@ public class LivroController extends SGBController<Livro, LivroForm, LivroServic
             Hibernate.isInitialized(this.getForm().getEntity());
 
             Hibernate.initialize(this.getForm().getEntity());
-            Livro livro = this.getForm().getEntity();
-            for (Bibliografia bibliografia : livro.getBibliografias()) {
-                bibliografia.getDisciplina().getBibliografias().remove(form);
-            }
-            this.getService().update(this.getForm().getEntity());
+            this.getService().insert(this.getForm().getEntity());
             this.getForm().clearInsertData();
             this.addSuccessMessage("arquitetura.msg.sucesso");
 
@@ -377,10 +362,11 @@ public class LivroController extends SGBController<Livro, LivroForm, LivroServic
             this.addSuccessMessage("arquitetura.msg.erro");
         }
     }
-    
+
     public void removerBibliografia() {
         Bibliografia bibliografia = this.getForm().getBibliografiaRemocao();
         this.getForm().getEntity().getBibliografias().remove(bibliografia);
+        bibliografia.getLivro().getBibliografias().remove(bibliografia);
         bibliografia.getDisciplina().getBibliografias().remove(bibliografia);
     }
 
@@ -392,7 +378,7 @@ public class LivroController extends SGBController<Livro, LivroForm, LivroServic
         Livro livroSelecionado = this.getForm().getEntity();
         try {
             String livroMarc = MarcParser.livroToMarc(this.getForm().getEntity());
-            
+
             ByteArrayInputStream bais = new ByteArrayInputStream(livroMarc.getBytes(Charset.forName("UTF-8")));
 
             this.fileExportado = new DefaultStreamedContent(bais, "application/marc",
@@ -407,16 +393,16 @@ public class LivroController extends SGBController<Livro, LivroForm, LivroServic
     }
 
     public void handleUnselectAutor(UnselectEvent event) {
-        
+
         Autor autorSelecionado = (Autor) event.getObject();
-        
+
         this.getForm().getAutoresAdicionados().remove(autorSelecionado);
     }
 
     public void addAutorOnSelect(SelectEvent event) {
-        
+
         Autor autorSelecionado = (Autor) event.getObject();
-        
+
         this.getForm().getAutoresAdicionados().add(autorSelecionado);
     }
 }
