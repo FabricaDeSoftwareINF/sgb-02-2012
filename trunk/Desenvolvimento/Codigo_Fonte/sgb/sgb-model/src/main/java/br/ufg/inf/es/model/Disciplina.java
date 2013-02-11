@@ -2,6 +2,7 @@ package br.ufg.inf.es.model;
 
 import java.util.Collection;
 import javax.persistence.*;
+import org.hibernate.annotations.Cascade;
 
 /**
  * 
@@ -22,6 +23,7 @@ public class Disciplina extends AbstractEntityModel {
     private Curso curso;
     
     @OneToMany(mappedBy="disciplina", cascade = CascadeType.ALL)
+    @Cascade(org.hibernate.annotations.CascadeType.DELETE_ORPHAN)
     private Collection<Bibliografia> bibliografias;
 
     public String getNome() {

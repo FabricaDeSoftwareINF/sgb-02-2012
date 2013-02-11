@@ -18,9 +18,10 @@
 
                     <p:commandButton action="#{livroController.salvarEditora()}" 
                                      value="#{msg['cadastro.livro.button.cadastrar']}"
-                                     onclick="cadastroEditoraDialog.close()"/>
+                                     onclick="cadastroEditoraDialog.hide()"
+                                     update=":form_livro:autoCompleteEditora"/>
 
-                    <p:commandButton value="#{msg['cadastro.livro.button.cancelar']}" onclick="cadastroEditoraDialog.close()"/>
+                    <p:commandButton value="#{msg['cadastro.livro.button.cancelar']}" onclick="cadastroEditoraDialog.hide()"/>
 
                 </h:panelGrid>
             </h:form>

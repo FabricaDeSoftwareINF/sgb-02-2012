@@ -3,6 +3,7 @@ package br.ufg.inf.es.model;
 import java.util.ArrayList;
 import java.util.Collection;
 import javax.persistence.*;
+import org.hibernate.annotations.Cascade;
 
 /**
  *
@@ -35,6 +36,7 @@ public class Livro extends AbstractEntityModel {
     private Collection<Autor> autores;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "livro")
+    @Cascade(org.hibernate.annotations.CascadeType.DELETE_ORPHAN)
     private Collection<Bibliografia> bibliografias = new ArrayList<Bibliografia>();
     
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE},

@@ -28,6 +28,7 @@ import br.ufg.inf.es.web.datamodel.LivroDataModel;
 import java.nio.charset.Charset;
 import java.util.Arrays;
 import java.util.List;
+import org.primefaces.event.SelectEvent;
 import org.primefaces.event.UnselectEvent;
 
 /**
@@ -85,14 +86,36 @@ public class LivroController extends SGBController<Livro, LivroForm, LivroServic
         this.livroModel = new LivroDataModel((List) service.list());
         this.autor = new Autor();
         this.editora = new Editora();
-        this.getForm().setCursoSelecionado(new Curso());
-        this.getForm().setAutoresAdicionados(this.getForm().getEntity().getAutores());
 
         this.getForm().setTodosLivros(new ArrayList<Livro>());
         
 
         return super.openInitialPage();
     }
+    
+    @Override
+    public void openInsertView() {
+        super.openInsertView();
+        this.getForm().setCursoSelecionado(new Curso());
+        this.getForm().clearCollectionData();
+        this.getForm().clearInsertData();
+        this.getForm().clearSearchData();
+        this.getForm().setTipoBibliografia(null);
+        this.getForm().setAutoresAdicionados(new ArrayList<Autor>());
+        this.getForm().setBibliografiaRemocao(new Bibliografia());
+        this.getForm().setBibliografiaTemp(new Bibliografia());
+    }
+    
+    @Override
+    public void openEditView() {
+        super.openEditView();
+        this.getForm().setCursoSelecionado(new Curso());
+        Collection<Autor> autoresAdicionados = this.getForm().getEntity().getAutores();
+        if (autoresAdicionados != null) {
+            this.getForm().setAutoresAdicionados(autoresAdicionados);
+        }
+    }
+    
 
     public LivroDataModel getLivroModel() {
         return this.livroModel;
@@ -235,6 +258,8 @@ public class LivroController extends SGBController<Livro, LivroForm, LivroServic
         Collection<Bibliografia> listaBibliografias = livro.getBibliografias();
         listaBibliografias.add(bibliografia);
         this.form.setBibliografiaTemp(new Bibliografia());
+        this.form.setTipoBibliografia(null);
+        this.form.setCursoSelecionado(null);
     }
 
     public Collection<Livro> complete(String query) {
@@ -265,9 +290,21 @@ public class LivroController extends SGBController<Livro, LivroForm, LivroServic
         for (Disciplina disciplina : disciplinas) {
             if (disciplina.getNome().toUpperCase().contains(query.toUpperCase())) {
                 results.add(disciplina);
+                results.removeAll(buscaDisciplinasAssociadas());
             }
         }
         return results;
+    }
+    
+    private Collection<Disciplina> buscaDisciplinasAssociadas() {
+        Collection<Bibliografia> bibliografias = 
+                this.getForm().getEntity().getBibliografias();
+        Collection<Disciplina> disciplinasAdicionadas = new ArrayList<Disciplina>();
+        
+        for (Bibliografia bibliografia : bibliografias) {
+            disciplinasAdicionadas.add(bibliografia.getDisciplina());
+        }
+        return disciplinasAdicionadas;
     }
 
     @Override
@@ -294,7 +331,11 @@ public class LivroController extends SGBController<Livro, LivroForm, LivroServic
             Hibernate.isInitialized(this.getForm().getEntity());
 
             Hibernate.initialize(this.getForm().getEntity());
-            this.getService().save(this.getForm().getEntity());
+            Livro livro = this.getForm().getEntity();
+            for (Bibliografia bibliografia : livro.getBibliografias()) {
+                bibliografia.getDisciplina().getBibliografias().remove(form);
+            }
+            this.getService().update(this.getForm().getEntity());
             this.getForm().clearInsertData();
             this.addSuccessMessage("arquitetura.msg.sucesso");
 
@@ -308,11 +349,21 @@ public class LivroController extends SGBController<Livro, LivroForm, LivroServic
 
     public void salvarEditora() throws ValidationException {
         editoraService.insert(editora);
+        this.getForm().getEntity().setEditora(editora);
         editora = new Editora();
     }
 
     public void salvarAutor() throws ValidationException {
         autorService.insert(autor);
+        Collection<Autor> listAutores = this.getForm().getEntity().getAutores();
+        if (listAutores != null) {
+            listAutores.add(autor);
+        } else {
+            listAutores = new ArrayList<Autor>();
+            listAutores.add(autor);
+            this.getForm().getEntity().setAutores(listAutores);
+        }
+        this.getForm().getAutoresAdicionados().add(autor);
         autor = new Autor();
     }
 
@@ -325,6 +376,12 @@ public class LivroController extends SGBController<Livro, LivroForm, LivroServic
         } catch (ValidationException ve) {
             this.addSuccessMessage("arquitetura.msg.erro");
         }
+    }
+    
+    public void removerBibliografia() {
+        Bibliografia bibliografia = this.getForm().getBibliografiaRemocao();
+        this.getForm().getEntity().getBibliografias().remove(bibliografia);
+        bibliografia.getDisciplina().getBibliografias().remove(bibliografia);
     }
 
     public String voltar() {
@@ -356,7 +413,7 @@ public class LivroController extends SGBController<Livro, LivroForm, LivroServic
         this.getForm().getAutoresAdicionados().remove(autorSelecionado);
     }
 
-    public void addAutorOnSelect(UnselectEvent event) {
+    public void addAutorOnSelect(SelectEvent event) {
         
         Autor autorSelecionado = (Autor) event.getObject();
         

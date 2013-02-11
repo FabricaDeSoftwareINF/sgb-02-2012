@@ -37,10 +37,10 @@ public class BibliografiaBootstrap {
         Disciplina disciplina1 = crieDisciplina("int", "integracao");
         Disciplina disciplina2 = crieDisciplina("int2", "integracao2");
 
-        Livro livro1 = crieLivro("12345671");
-        Livro livro2 = crieLivro("12345672");
-        Livro livro3 = crieLivro("12345673");
-        Livro livro4 = crieLivro("12345674");
+        Livro livro1 = crieLivro("1402044062", "9781402044069");
+        Livro livro2 = crieLivro("1118508734", "9781118508732");
+        Livro livro3 = crieLivro("1118097599", "9781118097595");
+        Livro livro4 = crieLivro("1118130812", "9781118130810");
 
         crieBibliografia(disciplina1, livro1);
         crieBibliografia(disciplina1, livro2);
@@ -81,11 +81,11 @@ public class BibliografiaBootstrap {
         return bibliografia;
     }
 
-    private static Livro crieLivro(String isbn) {
+    private static Livro crieLivro(String isbn10, String isbn13) {
         Livro livro = new Livro();
-        livro.setIsbn10(isbn);
-        livro.setIsbn13(isbn);
-        livro.setTitulo("Livro " + isbn);
+        livro.setIsbn10(isbn10);
+        livro.setIsbn13(isbn13);
+        livro.setTitulo("Livro " + isbn10);
         livro.setAutores(Arrays.asList(autor));
         livro.setEdicao("primeira edicao");
         livro.setEditora(editora);

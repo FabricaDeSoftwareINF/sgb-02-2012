@@ -19,7 +19,7 @@ public class LivroService extends GenericService<Livro> {
 
     @Autowired
     private LivroDAO dao;
-
+    
     @Override
     public LivroDAO getDAO() {
         return this.dao;

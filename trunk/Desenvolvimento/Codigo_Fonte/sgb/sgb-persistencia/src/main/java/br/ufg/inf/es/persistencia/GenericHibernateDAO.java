@@ -53,7 +53,7 @@ public abstract class GenericHibernateDAO<E extends Entity<Long>> implements DAO
         return (Class<E>) type[0];
     }
 
-    private void isReferencia(Object o) {
+    protected void isReferencia(Object o) {
 
         if (!UtilObjeto.isReferencia(o)) {
 
@@ -199,7 +199,7 @@ public abstract class GenericHibernateDAO<E extends Entity<Long>> implements DAO
 
             return Collections.EMPTY_LIST;
 
-        } 
+        }
         
     }
 
