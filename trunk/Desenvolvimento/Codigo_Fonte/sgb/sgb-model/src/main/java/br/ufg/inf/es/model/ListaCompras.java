@@ -32,84 +32,84 @@ public class ListaCompras extends AbstractEntityModel {
     @JoinColumn(name = "id_livro"))
     private Collection<Livro> livrosDaListaCompras;
 
-	/**
-	 * Obtém o valor do campo <code>nome</code>
-	 *
-	 * @return {@link String}
-	 */
-	public String getNome() {
-		
-		return this.nome;
-	}
+    /**
+     * Obtém o valor do campo <code>nome</code>
+     *
+     * @return {@link String}
+     */
+    public String getNome() {
 
-	/**
-	 * Define o campo <code>nome</code>.
-	 *
-	 * @param nome 
-	 */
-	public void setNome(String nome) {
-		
-		this.nome = nome;
-	}
+            return this.nome;
+    }
 
-	/**
-	 * Obtém o valor do campo <code>dataCriacao</code>
-	 *
-	 * @return {@link Date}
-	 */
-	public Date getDataCriacao() {
-		
-		return this.dataCriacao;
-	}
+    /**
+     * Define o campo <code>nome</code>.
+     *
+     * @param nome 
+     */
+    public void setNome(String nome) {
 
-	/**
-	 * Define o campo <code>dataCriacao</code>.
-	 *
-	 * @param dataCriacao 
-	 */
-	public void setDataCriacao(Date dataCriacao) {
-		
-		this.dataCriacao = dataCriacao;
-	}
+            this.nome = nome;
+    }
 
-	/**
-	 * Obtém o valor do campo <code>user</code>
-	 *
-	 * @return {@link Usuario}
-	 */
-	public Usuario getUser() {
-		
-		return this.user;
-	}
+    /**
+     * Obtém o valor do campo <code>dataCriacao</code>
+     *
+     * @return {@link Date}
+     */
+    public Date getDataCriacao() {
 
-	/**
-	 * Define o campo <code>user</code>.
-	 *
-	 * @param user 
-	 */
-	public void setUser(Usuario user) {
-		
-		this.user = user;
-	}
+        return this.dataCriacao != null ? (Date) dataCriacao.clone() : dataCriacao;
+    }
 
-	/**
-	 * Obtém o valor do campo <code>livrosDaListaCompras</code>
-	 *
-	 * @return {@link Collection<Livro>}
-	 */
-	public Collection<Livro> getLivrosDaListaCompras() {
-		
-		return this.livrosDaListaCompras;
-	}
+    /**
+     * Define o campo <code>dataCriacao</code>.
+     *
+     * @param dataCriacao 
+     */
+    public void setDataCriacao(Date dataCriacao) {
 
-	/**
-	 * Define o campo <code>livrosDaListaCompras</code>.
-	 *
-	 * @param livrosDaListaCompras 
-	 */
-	public void setLivrosDaListaCompras(Collection<Livro> livrosDaListaCompras) {
+            this.dataCriacao = this.dataCriacao != null ? (Date) dataCriacao.clone() : dataCriacao;
+    }
 
-		this.livrosDaListaCompras = livrosDaListaCompras;
-	}
+    /**
+     * Obtém o valor do campo <code>user</code>
+     *
+     * @return {@link Usuario}
+     */
+    public Usuario getUser() {
+
+            return this.user;
+    }
+
+    /**
+     * Define o campo <code>user</code>.
+     *
+     * @param user 
+     */
+    public void setUser(Usuario user) {
+
+            this.user = user;
+    }
+
+    /**
+     * Obtém o valor do campo <code>livrosDaListaCompras</code>
+     *
+     * @return {@link Collection<Livro>}
+     */
+    public Collection<Livro> getLivrosDaListaCompras() {
+
+            return this.livrosDaListaCompras;
+    }
+
+    /**
+     * Define o campo <code>livrosDaListaCompras</code>.
+     *
+     * @param livrosDaListaCompras 
+     */
+    public void setLivrosDaListaCompras(Collection<Livro> livrosDaListaCompras) {
+
+            this.livrosDaListaCompras = livrosDaListaCompras;
+    }
 
 }

@@ -1,5 +1,6 @@
 package br.ufg.inf.es.persistencia.biblioteca;
 
+import br.ufg.inf.es.base.util.UtilObjeto;
 import br.ufg.inf.es.base.util.cripto.CriptoGeneric;
 import br.ufg.inf.es.base.validation.ValidationException;
 import br.ufg.inf.es.model.biblioteca.DBBibliotecaConfig;
@@ -143,9 +144,15 @@ public class LivrosBibliotecaDAO implements Serializable {
             
         } finally {
             
-            result.close();
+            if(UtilObjeto.isReferencia(result)){
+                
+                result.close();
+            }
             
-            stant.close();
+            if(UtilObjeto.isReferencia(stant)) {
+                
+                stant.close();
+            }
             
             this.connection.close();        
         }
@@ -228,9 +235,15 @@ public class LivrosBibliotecaDAO implements Serializable {
             Logger.getAnonymousLogger().log(Level.SEVERE, sql.getMessage(), sql);
         } finally {
         
-            result.close();
+            if(UtilObjeto.isReferencia(result)){
+                
+                result.close();
+            }
             
-            stant.close();
+            if(UtilObjeto.isReferencia(stant)) {
+                
+                stant.close();
+            }
             
             this.connection.close();
 
@@ -308,9 +321,15 @@ public class LivrosBibliotecaDAO implements Serializable {
             
         } finally {
        
-            result.close();
+            if(UtilObjeto.isReferencia(result)){
+                
+                result.close();
+            }
             
-            stant.close();
+            if(UtilObjeto.isReferencia(stant)) {
+                
+                stant.close();
+            }
             
             this.connection.close();
         }

@@ -63,7 +63,7 @@ public class Cotacao extends AbstractEntityModel {
 	 */
 	public Date getDataCadastro() {
 		
-		return this.dataCadastro;
+		return dataCadastro != null ? (Date)dataCadastro.clone() : dataCadastro;
 	}
 
 	/**
@@ -73,7 +73,7 @@ public class Cotacao extends AbstractEntityModel {
 	 */
 	public void setDataCadastro(Date dataCadastro) {
 		
-		this.dataCadastro = dataCadastro;
+            this.dataCadastro = dataCadastro != null ? (Date)dataCadastro.clone() : dataCadastro;
 	}
 
 	/**

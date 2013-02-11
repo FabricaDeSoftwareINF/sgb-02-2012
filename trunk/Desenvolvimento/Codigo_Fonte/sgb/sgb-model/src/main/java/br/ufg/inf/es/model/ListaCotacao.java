@@ -1,6 +1,5 @@
 package br.ufg.inf.es.model;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.CascadeType;
@@ -29,76 +28,78 @@ public class ListaCotacao extends AbstractEntityModel {
     /** Campo preco*/
     private double preco;
 
-	/**
-	 * Obtém o valor do campo <code>nome</code>
-	 *
-	 * @return {@link String}
-	 */
-	public String getNome() {
-		return this.nome;
-	}
+    /**
+     * Obtém o valor do campo <code>nome</code>
+     *
+     * @return {@link String}
+     */
+    public String getNome() {
+            return this.nome;
+    }
 
-	/**
-	 * Define o campo <code>nome</code>.
-	 *
-	 * @param nome 
-	 */
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
+    /**
+     * Define o campo <code>nome</code>.
+     *
+     * @param nome 
+     */
+    public void setNome(String nome) {
+            this.nome = nome;
+    }
 
-	/**
-	 * Obtém o valor do campo <code>dataRealizada</code>
-	 *
-	 * @return {@link Date}
-	 */
-	public Date getDataRealizada() {
-		return this.dataRealizada;
-	}
+    /**
+     * Obtém o valor do campo <code>dataRealizada</code>
+     *
+     * @return {@link Date}
+     */
+    public Date getDataRealizada() {
+        
+            return dataRealizada != null ? (Date) dataRealizada.clone() : dataRealizada;
+    }
 
-	/**
-	 * Define o campo <code>dataRealizada</code>.
-	 *
-	 * @param dataRealizada 
-	 */
-	public void setDataRealizada(Date dataRealizada) {
-		this.dataRealizada = dataRealizada;
-	}
+    /**
+     * Define o campo <code>dataRealizada</code>.
+     *
+     * @param dataRealizada 
+     */
+    public void setDataRealizada(Date dataRealizada) {
+        
+            this.dataRealizada = dataRealizada != null ? (Date) dataRealizada.clone() : dataRealizada;
+    }
 
-	/**
-	 * Obtém o valor do campo <code>cotacoes</code>
-	 *
-	 * @return {@link List<Cotacao>}
-	 */
-	public List<Cotacao> getCotacoes() {
-		return this.cotacoes;
-	}
+    /**
+     * Obtém o valor do campo <code>cotacoes</code>
+     *
+     * @return {@link List<Cotacao>}
+     */
+    public List<Cotacao> getCotacoes() {
+            return this.cotacoes;
+    }
 
-	/**
-	 * Define o campo <code>cotacoes</code>.
-	 *
-	 * @param cotacoes 
-	 */
-	public void setCotacoes(List<Cotacao> cotacoes) {
-		this.cotacoes = cotacoes;
-	}
+    /**
+     * Define o campo <code>cotacoes</code>.
+     *
+     * @param cotacoes 
+     */
+    public void setCotacoes(List<Cotacao> cotacoes) {
+            this.cotacoes = cotacoes;
+    }
 
-	/**
-	 * Obtém o valor do campo <code>preco</code>
-	 *
-	 * @return {@link double}
-	 */
-	public double getPreco() {
-		return this.preco;
-	}
+    /**
+     * Obtém o valor do campo <code>preco</code>
+     *
+     * @return {@link double}
+     */
+    public double getPreco() {
+            return this.preco;
+    }
 
-	/**
-	 * Define o campo <code>preco</code>.
-	 *
-	 * @param preco 
-	 */
-	public void setPreco(double preco) {
-		this.preco = preco;
-	}
+    /**
+     * Define o campo <code>preco</code>.
+     *
+     * @param preco 
+     */
+    public void setPreco(double preco) {
+            this.preco = preco;
+    }
     
 }
