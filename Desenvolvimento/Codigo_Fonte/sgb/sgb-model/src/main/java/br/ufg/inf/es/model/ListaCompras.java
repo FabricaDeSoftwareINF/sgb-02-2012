@@ -5,55 +5,111 @@ import java.util.Date;
 import javax.persistence.*;
 
 /**
- *
+ * Entidade ListaCompras
  * @author Jackeline Neves
  */
 @Entity
 @Table(name = "LISTA_COMPRAS")
 public class ListaCompras extends AbstractEntityModel {
 
+    /** Campo nome*/
     @Column(name = "nome")
     private String nome;
+    
+    /** Campo dataCriacao*/
     @Column(name = "data_criacao")
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date dataCriacao;
+    
+    /** Campo user*/
     @OneToOne(optional = false)
     private Usuario user;
+    
+    /** Campo livrosDaListaCompras*/
     @ManyToMany(targetEntity = Livro.class)
     @JoinTable(name = "TB_LISTACOMPRAS_LIVRO", joinColumns =
     @JoinColumn(name = "id_listaCompras"), inverseJoinColumns =
     @JoinColumn(name = "id_livro"))
     private Collection<Livro> livrosDaListaCompras;
 
-    public Usuario getUser() {
-        return user;
-    }
+	/**
+	 * Obtém o valor do campo <code>nome</code>
+	 *
+	 * @return {@link String}
+	 */
+	public String getNome() {
+		
+		return this.nome;
+	}
 
-    public void setUser(Usuario user) {
-        this.user = user;
-    }
+	/**
+	 * Define o campo <code>nome</code>.
+	 *
+	 * @param nome 
+	 */
+	public void setNome(String nome) {
+		
+		this.nome = nome;
+	}
 
-    public Collection<Livro> getLivrosDaListaCompras() {
-        return livrosDaListaCompras;
-    }
+	/**
+	 * Obtém o valor do campo <code>dataCriacao</code>
+	 *
+	 * @return {@link Date}
+	 */
+	public Date getDataCriacao() {
+		
+		return this.dataCriacao;
+	}
 
-    public void setLivrosDaListaCompras(Collection<Livro> livrosDaListaCompras) {
-        this.livrosDaListaCompras = livrosDaListaCompras;
-    }
+	/**
+	 * Define o campo <code>dataCriacao</code>.
+	 *
+	 * @param dataCriacao 
+	 */
+	public void setDataCriacao(Date dataCriacao) {
+		
+		this.dataCriacao = dataCriacao;
+	}
 
-    public Date getDataCriacao() {
-        return dataCriacao;
-    }
+	/**
+	 * Obtém o valor do campo <code>user</code>
+	 *
+	 * @return {@link Usuario}
+	 */
+	public Usuario getUser() {
+		
+		return this.user;
+	}
 
-    public void setDataCriacao(Date dataCriacao) {
-        this.dataCriacao = dataCriacao;
-    }
+	/**
+	 * Define o campo <code>user</code>.
+	 *
+	 * @param user 
+	 */
+	public void setUser(Usuario user) {
+		
+		this.user = user;
+	}
 
-    public String getNome() {
-        return nome;
-    }
+	/**
+	 * Obtém o valor do campo <code>livrosDaListaCompras</code>
+	 *
+	 * @return {@link Collection<Livro>}
+	 */
+	public Collection<Livro> getLivrosDaListaCompras() {
+		
+		return this.livrosDaListaCompras;
+	}
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
+	/**
+	 * Define o campo <code>livrosDaListaCompras</code>.
+	 *
+	 * @param livrosDaListaCompras 
+	 */
+	public void setLivrosDaListaCompras(Collection<Livro> livrosDaListaCompras) {
+
+		this.livrosDaListaCompras = livrosDaListaCompras;
+	}
+
 }

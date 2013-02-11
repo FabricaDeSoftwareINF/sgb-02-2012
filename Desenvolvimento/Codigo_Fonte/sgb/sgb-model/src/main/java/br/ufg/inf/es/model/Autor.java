@@ -12,38 +12,79 @@ import javax.persistence.*;
 @Table(name = "AUTOR")
 public class Autor extends AbstractEntityModel {
 
+    /** Campo nome*/
     @Column(name = "nome")
     private String nome;
+    
+    /** Campo sobrenome*/
     @Column(name = "sobrenome")
     private String sobrenome;
+    
+    /** Campo livros*/
     @ManyToMany(mappedBy = "autores", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private Collection<Livro> livros;
+    private Collection<Livro> livros; 
 
-    public String getSobrenome() {
-        return sobrenome;
-    }
+    /**
+	 * Obtém o valor do campo <code>nome</code>
+	 *
+	 * @return {@link String}
+	 */
+	public String getNome() {
+		
+		return this.nome;
+	}
 
-    public void setSobrenome(String sobrenome) {
-        this.sobrenome = sobrenome;
-    }
+	/**
+	 * Define o campo <code>nome</code>.
+	 *
+	 * @param nome 
+	 */
+	public void setNome(String nome) {
+		
+		this.nome = nome;
+	}
 
-    public String getNome() {
-        return nome;
-    }
+	/**
+	 * Obtém o valor do campo <code>sobrenome</code>
+	 *
+	 * @return {@link String}
+	 */
+	public String getSobrenome() {
+		
+		return this.sobrenome;
+	}
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
+	/**
+	 * Define o campo <code>sobrenome</code>.
+	 *
+	 * @param sobrenome 
+	 */
+	public void setSobrenome(String sobrenome) {
+		
+		this.sobrenome = sobrenome;
+	}
 
-    public Collection<Livro> getLivros() {
-        return livros;
-    }
+	/**
+	 * Obtém o valor do campo <code>livros</code>
+	 *
+	 * @return {@link Collection<Livro>}
+	 */
+	public Collection<Livro> getLivros() {
+		
+		return this.livros;
+	}
 
-    public void setLivros(Collection<Livro> livros) {
-        this.livros = livros;
-    }
+	/**
+	 * Define o campo <code>livros</code>.
+	 *
+	 * @param livros 
+	 */
+	public void setLivros(Collection<Livro> livros) {
+		
+		this.livros = livros;
+	}
 
-    @Override
+	@Override
     public String toString() {
         return nome + " " + sobrenome;
     }

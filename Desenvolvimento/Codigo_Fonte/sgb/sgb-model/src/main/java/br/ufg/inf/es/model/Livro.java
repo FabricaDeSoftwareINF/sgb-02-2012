@@ -6,122 +6,238 @@ import javax.persistence.*;
 import org.hibernate.annotations.Cascade;
 
 /**
- *
+ * Classe que representa a entidade Livro
  * @author Henrique Hirako
  */
 @Entity
 @Table(name = "LIVRO")
 public class Livro extends AbstractEntityModel {
 
+    /** Campo titulo*/
     @Column(name = "titulo", nullable=false)
     private String titulo;
+    
+    /** Campo ano*/
     @Column(name = "ano", nullable=false)
     private Long ano;
+    
+    /** Campo isbn10*/
     @Column(name = "isbn10", unique=true, nullable=false)
     private String isbn10;
+    
+    /** Campo isbn13*/
     @Column(name = "isbn13", unique=true, nullable=false)
     private String isbn13;
+    
+    /** Campo edicao*/
     @Column(name = "edicao", nullable=false)
     private String edicao;
+    
+    /** Campo estrangeiro*/
     @Column(name = "estrangeiro", nullable=false)
     private boolean estrangeiro;
+    
+    /** Campo editora*/
     @ManyToOne(optional = false)
     @JoinColumn(name = "id_editora")
     private Editora editora;
     
+    /** Campo autores*/
     @ManyToMany
     @JoinTable(name = "LIVRO_AUTOR", joinColumns =
     @JoinColumn(name = "id_livro"), inverseJoinColumns =
     @JoinColumn(name = "id_autor"))
     private Collection<Autor> autores;
     
+    /** Campo bibliografias*/
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "livro")
     @Cascade(org.hibernate.annotations.CascadeType.DELETE_ORPHAN)
     private Collection<Bibliografia> bibliografias = new ArrayList<Bibliografia>();
     
+    /** Campo listaCompras*/
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE},
     mappedBy = "livrosDaListaCompras",
     targetEntity = ListaCompras.class)
     private Collection<ListaCompras> listaCompras;
 
-    public Collection<ListaCompras> getListaCompras() {
-        return listaCompras;
-    }
+	/**
+	 * Obtém o valor do campo <code>titulo</code>
+	 *
+	 * @return {@link String}
+	 */
+	public String getTitulo() {
+		return this.titulo;
+	}
 
-    public void setListaCompras(Collection<ListaCompras> listaCompras) {
-        this.listaCompras = listaCompras;
-    }
+	/**
+	 * Define o campo <code>titulo</code>.
+	 *
+	 * @param titulo 
+	 */
+	public void setTitulo(String titulo) {
+		this.titulo = titulo;
+	}
 
-    public String getTitulo() {
-        return titulo;
-    }
+	/**
+	 * Obtém o valor do campo <code>ano</code>
+	 *
+	 * @return {@link Long}
+	 */
+	public Long getAno() {
+		return this.ano;
+	}
 
-    public void setTitulo(String titulo) {
-        this.titulo = titulo;
-    }
+	/**
+	 * Define o campo <code>ano</code>.
+	 *
+	 * @param ano 
+	 */
+	public void setAno(Long ano) {
+		this.ano = ano;
+	}
 
-    public Long getAno() {
-        return ano;
-    }
+	/**
+	 * Obtém o valor do campo <code>isbn10</code>
+	 *
+	 * @return {@link String}
+	 */
+	public String getIsbn10() {
+		return this.isbn10;
+	}
 
-    public void setAno(Long ano) {
-        this.ano = ano;
-    }
+	/**
+	 * Define o campo <code>isbn10</code>.
+	 *
+	 * @param isbn10 
+	 */
+	public void setIsbn10(String isbn10) {
+		this.isbn10 = isbn10;
+	}
 
-    public String getIsbn10() {
-        return isbn10;
-    }
+	/**
+	 * Obtém o valor do campo <code>isbn13</code>
+	 *
+	 * @return {@link String}
+	 */
+	public String getIsbn13() {
+		return this.isbn13;
+	}
 
-    public void setIsbn10(String isbn10) {
-        this.isbn10 = isbn10;
-    }
+	/**
+	 * Define o campo <code>isbn13</code>.
+	 *
+	 * @param isbn13 
+	 */
+	public void setIsbn13(String isbn13) {
+		this.isbn13 = isbn13;
+	}
 
-    public String getIsbn13() {
-        return isbn13;
-    }
+	/**
+	 * Obtém o valor do campo <code>edicao</code>
+	 *
+	 * @return {@link String}
+	 */
+	public String getEdicao() {
+		return this.edicao;
+	}
 
-    public void setIsbn13(String isbn13) {
-        this.isbn13 = isbn13;
-    }
+	/**
+	 * Define o campo <code>edicao</code>.
+	 *
+	 * @param edicao 
+	 */
+	public void setEdicao(String edicao) {
+		this.edicao = edicao;
+	}
 
-    public String getEdicao() {
-        return edicao;
-    }
+	/**
+	 * Obtém o valor do campo <code>estrangeiro</code>
+	 *
+	 * @return {@link boolean}
+	 */
+	public boolean isEstrangeiro() {
+		return this.estrangeiro;
+	}
 
-    public boolean isEstrangeiro() {
-        return estrangeiro;
-    }
+	/**
+	 * Define o campo <code>estrangeiro</code>.
+	 *
+	 * @param estrangeiro 
+	 */
+	public void setEstrangeiro(boolean estrangeiro) {
+		this.estrangeiro = estrangeiro;
+	}
 
-    public void setEstrangeiro(boolean estrangeiro) {
-        this.estrangeiro = estrangeiro;
-    }
+	/**
+	 * Obtém o valor do campo <code>editora</code>
+	 *
+	 * @return {@link Editora}
+	 */
+	public Editora getEditora() {
+		return this.editora;
+	}
 
-    public void setEdicao(String edicao) {
-        this.edicao = edicao;
-    }
+	/**
+	 * Define o campo <code>editora</code>.
+	 *
+	 * @param editora 
+	 */
+	public void setEditora(Editora editora) {
+		this.editora = editora;
+	}
 
-    public Editora getEditora() {
-        return editora;
-    }
+	/**
+	 * Obtém o valor do campo <code>autores</code>
+	 *
+	 * @return {@link Collection<Autor>}
+	 */
+	public Collection<Autor> getAutores() {
+		return this.autores;
+	}
 
-    public void setEditora(Editora editora) {
-        this.editora = editora;
-    }
+	/**
+	 * Define o campo <code>autores</code>.
+	 *
+	 * @param autores 
+	 */
+	public void setAutores(Collection<Autor> autores) {
+		this.autores = autores;
+	}
 
-    public Collection<Autor> getAutores() {
-        return autores;
-    }
+	/**
+	 * Obtém o valor do campo <code>bibliografias</code>
+	 *
+	 * @return {@link Collection<Bibliografia>}
+	 */
+	public Collection<Bibliografia> getBibliografias() {
+		return this.bibliografias;
+	}
 
-    public void setAutores(Collection<Autor> autores) {
-        this.autores = autores;
-    }
+	/**
+	 * Define o campo <code>bibliografias</code>.
+	 *
+	 * @param bibliografias 
+	 */
+	public void setBibliografias(Collection<Bibliografia> bibliografias) {
+		this.bibliografias = bibliografias;
+	}
 
-    public Collection<Bibliografia> getBibliografias() {
-        return bibliografias;
-    }
+	/**
+	 * Obtém o valor do campo <code>listaCompras</code>
+	 *
+	 * @return {@link Collection<ListaCompras>}
+	 */
+	public Collection<ListaCompras> getListaCompras() {
+		return this.listaCompras;
+	}
 
-    public void setBibliografias(Collection<Bibliografia> bibliografia) {
-        this.bibliografias = bibliografia;
-    }
-        
+	/**
+	 * Define o campo <code>listaCompras</code>.
+	 *
+	 * @param listaCompras 
+	 */
+	public void setListaCompras(Collection<ListaCompras> listaCompras) {
+		this.listaCompras = listaCompras;
+	}
+
 }

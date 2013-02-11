@@ -12,25 +12,50 @@ package br.ufg.inf.es.model;
  */
 public class AutorDTO extends AbstractEntityModel {
     
+    /** Campo nome*/
     private String nome;
     
+    /** Campo sobrenome*/
     private String sobrenome;
 
-    public String getNome() {
-        return nome;
-    }
+	/**
+	 * Obtém o valor do campo <code>nome</code>
+	 *
+	 * @return {@link String}
+	 */
+	public String getNome() {
+		
+		return this.nome;
+	}
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
+	/**
+	 * Define o campo <code>nome</code>.
+	 *
+	 * @param nome 
+	 */
+	public void setNome(String nome) {
+		
+		this.nome = nome;
+	}
 
-    public String getSobrenome() {
-        return sobrenome;
-    }
+	/**
+	 * Obtém o valor do campo <code>sobrenome</code>
+	 *
+	 * @return {@link String}
+	 */
+	public String getSobrenome() {
+		
+		return this.sobrenome;
+	}
 
-    public void setSobrenome(String sobrenome) {
-        this.sobrenome = sobrenome;
-    }
-    
-    
+	/**
+	 * Define o campo <code>sobrenome</code>.
+	 *
+	 * @param sobrenome 
+	 */
+	public void setSobrenome(String sobrenome) {
+		
+		this.sobrenome = sobrenome;
+	}
+
 }
