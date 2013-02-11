@@ -69,6 +69,7 @@ public class LivroController extends SGBController<Livro, LivroForm, LivroServic
      */
     @Override
     public String openInitialPage() {
+        service.getDAO().closeSession();
         this.livroModel = new LivroDataModel((List) service.list());
         this.autor = new Autor();
         this.editora = new Editora();

@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <f:view>
+        <p:dialog id="dialog_detalhes" widgetVar="dialogDetalhes"
+                  modal="true" header="#{msg['label.disciplina.detalheDisciplina']}" resizable="false" showEffect="fade" width="400">
+
+            <h:panelGrid columns="2" cellspacing="5" style="width: 100%; margin-left: auto; margin-right: auto">
+
+                <h:outputLabel value="Título:" style="font-weight: bold"/>
+
+                <h:outputText value="#{livroController.form.entity.titulo}" style="margin-left: 10px;"/>
+
+            </h:panelGrid>
+
+        </p:dialog>
+    </f:view>
+</html>
+

@@ -25,6 +25,7 @@ public class LivroForm extends GenericForm<Livro> {
 
     private Bibliografia bibliografiaTemp = new Bibliografia();
     private Livro[] selectedLivros;
+    private Livro livroSelecionado;
     private LivroDataModel livroDM;
     private Collection<Livro> todosLivros;
     private String filtroTitulo;
@@ -54,6 +55,14 @@ public class LivroForm extends GenericForm<Livro> {
         this.selectedLivros = (Livro[]) selectedLivros.clone();
     }
 
+    public Livro getLivroSelecionado() {
+        return livroSelecionado;
+    }
+
+    public void setLivroSelecionado(Livro livroSelecionado) {
+        this.livroSelecionado = livroSelecionado;
+    }
+    
     public LivroDataModel getLivroDM() {        
         List<Livro> livros =  new ArrayList<Livro>(this.getTodosLivros());        
         livroDM = new LivroDataModel(livros);
