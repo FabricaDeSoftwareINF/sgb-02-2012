@@ -27,7 +27,6 @@ public class Disciplina extends AbstractEntityModel {
     
     /** Campo bibliografias*/
     @OneToMany(mappedBy="disciplina", cascade = CascadeType.ALL)
-    @Cascade(org.hibernate.annotations.CascadeType.DELETE_ORPHAN)
     private Collection<Bibliografia> bibliografias;
 
     /**

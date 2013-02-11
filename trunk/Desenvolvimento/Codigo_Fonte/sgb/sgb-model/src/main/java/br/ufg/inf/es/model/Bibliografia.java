@@ -120,9 +120,6 @@ public class Bibliografia extends AbstractEntityModel {
         return "Bibliografia{" + "tipo=" + tipo + ", livro=" + livro + ", disciplina=" + disciplina + '}';
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public boolean equals(Object obj) {
         if (obj == null) {
@@ -131,11 +128,11 @@ public class Bibliografia extends AbstractEntityModel {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        if (!isNew()) {
-            return super.equals(obj);
-        }
         final Bibliografia other = (Bibliografia) obj;
         if (this.livro != other.livro && (this.livro == null || !this.livro.equals(other.livro))) {
+            return false;
+        }
+        if (this.disciplina != other.disciplina && (this.disciplina == null || !this.disciplina.equals(other.disciplina))) {
             return false;
         }
         return true;
@@ -150,6 +147,7 @@ public class Bibliografia extends AbstractEntityModel {
         int hash = Bibliografia.HASH;
 
         hash = Bibliografia.SALTO * hash + (this.livro != null ? this.livro.hashCode() : 0);
+        hash = Bibliografia.SALTO * hash + (this.disciplina != null ? this.disciplina.hashCode() : 0);
 
         return hash;
     }
