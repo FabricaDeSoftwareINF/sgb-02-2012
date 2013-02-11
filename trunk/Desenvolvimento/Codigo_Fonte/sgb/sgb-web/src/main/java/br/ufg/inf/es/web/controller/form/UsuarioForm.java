@@ -107,7 +107,8 @@ public class UsuarioForm extends GenericForm<Usuario> {
 
         if (usuariosSelecionados != null) {
 
-            this.usuariosSelecionados = usuariosSelecionados;
-        }
+            this.usuariosSelecionados = (Usuario[]) usuariosSelecionados.clone();
+            
+        } 
     }
 }

@@ -40,4 +40,19 @@ public interface Quotation<C> extends Serializable, Comparable<C> {
      * @return custo total da cotação
      */
     BigDecimal getTotalCost();
+    
+    /**
+     * Compara dois objetos.
+     * @param obj
+     * @return boolean
+     */
+    @Override
+    boolean equals(Object obj);
+    
+    /**
+     * Método que gera o hash code do objeto
+     * @return Hash Code
+     */
+    @Override
+    int hashCode();
 }

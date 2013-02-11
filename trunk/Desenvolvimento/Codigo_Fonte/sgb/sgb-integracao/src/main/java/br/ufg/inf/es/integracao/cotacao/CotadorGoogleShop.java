@@ -22,14 +22,6 @@ public class CotadorGoogleShop extends Cotador {
     
     private static final String URL = "https://www.googleapis.com/shopping/search/v1/public/products?key=" + KEY + "&country=US&alt=json&currency=USD&restrictBy=condition:new";  
 
-    public static void main(String[] args) {
-
-        CotadorGoogleShop g = new CotadorGoogleShop();
-        
-        String a = g.buscarLivro("9780470447628");
-        
-    }
-
     @Override
     public String gerarUrlDeBusca(String isbn) {
         return URL + "&q=" + isbn;

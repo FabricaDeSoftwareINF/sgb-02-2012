@@ -232,7 +232,11 @@ public class LivroController extends SGBController<Livro, LivroForm, LivroServic
     }
 
     public void setLivrosSelecionados(Livro[] livrosSelecionados) {    
-        this.livrosSelecionados = livrosSelecionados;
+        
+        if(livrosSelecionados != null){
+        
+            this.livrosSelecionados = (Livro[]) livrosSelecionados.clone();
+        }
     }
 
     public EnumTipoBibliografia getTipoBibliografia() {
