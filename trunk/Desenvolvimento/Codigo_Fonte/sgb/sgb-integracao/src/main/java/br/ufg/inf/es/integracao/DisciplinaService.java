@@ -18,42 +18,54 @@ import org.springframework.stereotype.Component;
 
 /**
  * Classe que define o Service da Disciplina
+ *
  * @author cezar
  */
 @Component
 @Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class DisciplinaService extends GenericService<Disciplina> {
 
-    /** Campo dao*/
+    /**
+     * Campo dao
+     */
     @Autowired
     private DisciplinaDAO dao;
-    
-    /** Campo livroDao*/
+    /**
+     * Campo livroDao
+     */
     @Autowired
     private LivroDAO livroDao;
-    
-    /** Campo bibliografiaDAO*/
+    /**
+     * Campo bibliografiaDAO
+     */
     @Autowired
     private BibliografiaDAO bibliografiaDAO;
 
     /**
      * Método que obtém o DAO da Bibliografia.
      *
-     * @author User
-     *
      * @return
      */
     public BibliografiaDAO getBibliografiaDAO() {
-    	
+
         return bibliografiaDAO;
     }
 
-    /** 
-     * {@inheritDoc} 
+    /**
+     * Método que define o DAO da Bibliografia.
+     *
+     */
+    public void setBibliografiaDAO(BibliografiaDAO bibliografiaDAO) {
+
+        this.bibliografiaDAO = bibliografiaDAO;
+    }
+
+    /**
+     * {@inheritDoc}
      */
     @Override
     public DisciplinaDAO getDAO() {
-    	
+
         return this.dao;
     }
 
@@ -73,33 +85,40 @@ public class DisciplinaService extends GenericService<Disciplina> {
      * @return
      */
     public LivroDAO getLivroDao() {
-    	
+
         return livroDao;
+    }
+
+    /**
+     * Método que define o DAO do Livro.
+     *
+     */
+    public void setLivroDao(LivroDAO livroDAO) {
+        this.livroDao = livroDAO;
     }
 
     /**
      * Método que insere uma entidade no banco de dados.
      *
-     * @param entidade
+     * @param disciplina
      * @throws ValidationException
      */
     @RNG006
-    public void inserir(Disciplina entidade) throws ValidationException {
+    public Long inserir(Disciplina disciplina) throws ValidationException {
+        Long id = this.getDAO().insert(disciplina);
+        disciplina.setId(id);
 
-        Long id = this.getDAO().insert(entidade);
+        if (UtilObjeto.isReferencia(disciplina.getBibliografias()) && !disciplina.getBibliografias().isEmpty()) {
 
-        Disciplina persistida = this.getDAO().find(id);
+            for (Bibliografia bl : disciplina.getBibliografias()) {
 
-        if (UtilObjeto.isReferencia(entidade.getBibliografias()) && !entidade.getBibliografias().isEmpty()) {
-
-            for (Bibliografia bl : entidade.getBibliografias()) {
-
-                bl.setDisciplina(persistida);
+                bl.setDisciplina(disciplina);
 
                 this.getBibliografiaDAO().update(bl);
             }
         }
-
+        
+        return id;
     }
 
     /**
@@ -137,7 +156,7 @@ public class DisciplinaService extends GenericService<Disciplina> {
      */
     @RNG006
     public void editarDisciplina(Disciplina entidade) throws ValidationException {
-        
+
         this.getDAO().update(entidade);
     }
 }

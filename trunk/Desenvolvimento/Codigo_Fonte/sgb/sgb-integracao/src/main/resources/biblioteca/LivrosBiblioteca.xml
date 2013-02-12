@@ -13,7 +13,7 @@
     <livro>
         <id>1</id>
         <nome>Livro 1</nome>
-        <isbn>12345671</isbn>
+        <isbn>1402044062</isbn>
         <ano>2012</ano>
         <edicao>1</edicao>
         <editora>Editora UFG</editora>
@@ -23,7 +23,7 @@
     <livro>
         <id>2</id>
         <nome>Livro 2</nome>
-        <isbn>12345672</isbn>
+        <isbn>1118508734</isbn>
         <ano>2012</ano>
         <edicao>1</edicao>
         <editora>Editora UFG</editora>
@@ -33,7 +33,7 @@
     <livro>
         <id>3</id>
         <nome>Livro 3</nome>
-        <isbn>12345673</isbn>
+        <isbn>1118097599</isbn>
         <ano>2012</ano>
         <edicao>1</edicao>
         <editora>Editora UFG</editora>
@@ -43,7 +43,7 @@
     <livro>
         <id>4</id>
         <nome>Livro 4</nome>
-        <isbn>12345674</isbn>
+        <isbn>1118130812</isbn>
         <ano>2012</ano>
         <edicao>1</edicao>
         <editora>Editora UFG</editora>

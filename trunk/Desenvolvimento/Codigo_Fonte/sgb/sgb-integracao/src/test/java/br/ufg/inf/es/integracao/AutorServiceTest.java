@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.ufg.inf.es.integracao;
 
 import br.ufg.inf.es.base.validation.ValidationException;
@@ -12,7 +8,7 @@ import junit.framework.Assert;
 import junit.framework.TestCase;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.*;
+import org.mockito.Mockito;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 
@@ -34,9 +30,9 @@ public class AutorServiceTest extends TestCase {
         ApplicationContext springContext = new FileSystemXmlApplicationContext("/src/main/resources/appContext-AutorServiceTest.xml");
 
         autorService = springContext.getBean(AutorService.class);
-        
+
         RNGExecutor rngExecutor = springContext.getBean(RNGExecutor.class);
-        
+
         rngExecutor.setApplicationContext(springContext);
 
         autorDAO = Mockito.mock(AutorDAO.class);
@@ -45,12 +41,11 @@ public class AutorServiceTest extends TestCase {
     }
 
     /**
-     * Teste insere autor válido 
-     * throws ValidationException
+     * Teste insere autor válido throws ValidationException
      */
     @Test
     public void testInserirAutor001() throws ValidationException {
-        
+
         Autor autor = new Autor();
         autor.setNome("Autor 1");
         autor.setSobrenome("Sobrenome 1");
@@ -71,19 +66,19 @@ public class AutorServiceTest extends TestCase {
      */
     @Test
     public void testInserirAutor002() throws ValidationException {
-        
+
         Autor autor = new Autor();
-        
+
         autor.setNome("joaquina");
-        
+
         autor.setSobrenome("Sobrenome 1");
-        
+
         Mockito.when(autorDAO.insert(autor)).thenReturn(Long.MIN_VALUE);
 
-        Long id = autorService.insert(autor);
+        autorService.insert(autor);
 
         Mockito.verify(autorDAO).insert(autor);
-       
+
     }
 
     /**
@@ -93,19 +88,18 @@ public class AutorServiceTest extends TestCase {
      */
     @Test
     public void testInserirAutor003() throws ValidationException {
-        
+
         Autor autor = new Autor();
         autor.setNome("");
         autor.setSobrenome("Sobrenome 1");
-        
+
         try {
-            Long id = autorService.insert(autor);         
+            autorService.insert(autor);
         } catch (ValidationException ex) {
-            System.out.println("Teste passou, mensagem: O nome do autor não pode ser vazio, keyMessage: " + ex.getKeyMessage());
             Assert.assertTrue("O nome do autor não pode ser vazio, keyMessage: " + ex.getKeyMessage(), true);
         }
     }
-    
+
     /**
      * Teste inserir Autor com sobrenome Vazio
      *
@@ -113,19 +107,18 @@ public class AutorServiceTest extends TestCase {
      */
     @Test
     public void testInserirAutor004() throws ValidationException {
-        
+
         Autor autor = new Autor();
         autor.setNome("Autor 1");
         autor.setSobrenome("");
-        
+
         try {
-            Long id = autorService.insert(autor);
+            autorService.insert(autor);
         } catch (ValidationException ex) {
-            System.out.println("O Teste passou, mensagem: O sobrenome do autor não pode ser vazio, keyMessage: " + ex.getKeyMessage());
             Assert.assertTrue("O sobrenome do autor não pode ser vazio, keyMessage: " + ex.getKeyMessage(), true);
         }
     }
-    
+
     /**
      * Teste inserir Autor com nome e sobrenome Vazio
      *
@@ -133,19 +126,17 @@ public class AutorServiceTest extends TestCase {
      */
     @Test
     public void testInserirAutor005() throws ValidationException {
-        
         Autor autor = new Autor();
         autor.setNome("");
         autor.setSobrenome("");
-        
+
         try {
-            Long id = autorService.insert(autor);
+            autorService.insert(autor);
         } catch (ValidationException ex) {
-            System.out.println("O Teste passou, mensagem: O nome e sobrenome do autor não pode ser vazio, keyMessage: " + ex.getKeyMessage());
             Assert.assertTrue("O nome e sobrenome do autor não pode ser vazio, keyMessage: " + ex.getKeyMessage(), true);
         }
     }
-    
+
     /**
      * Teste inserir Autor com nome e sobrenome Nullos
      *
@@ -153,16 +144,40 @@ public class AutorServiceTest extends TestCase {
      */
     @Test
     public void testInserirAutor006() throws ValidationException {
-        
+
         Autor autor = new Autor();
         autor.setNome(null);
         autor.setSobrenome(null);
-        
+
         try {
-            Long id = autorService.insert(autor);
+            autorService.insert(autor);
         } catch (ValidationException ex) {
-            System.out.println("O Teste passou, mensagem: O nome e sobrenome do autor não pode ser null, keyMessage: " + ex.getKeyMessage());
             Assert.assertTrue("O nome e sobrenome do autor não pode ser null, keyMessage: " + ex.getKeyMessage(), true);
         }
+    }
+
+    /**
+     * Test of getDAO method, of class AutorService.
+     */
+    @Test
+    public void testGetDAO() {
+        AutorService instance = new AutorService();
+        AutorDAO result = instance.getDAO();
+        assertNull(result);
+    }
+
+    /**
+     * Test of setDao method, of class AutorService.
+     */
+    @Test
+    public void testSetDao() {
+        AutorDAO dao = new AutorDAO();
+        AutorService instance = new AutorService();
+
+        assertNull(instance.getDAO());
+
+        instance.setDao(dao);
+
+        assertNotNull(instance.getDAO());
     }
 }

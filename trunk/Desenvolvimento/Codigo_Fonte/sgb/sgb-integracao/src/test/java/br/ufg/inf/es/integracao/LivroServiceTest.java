@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.ufg.inf.es.integracao;
 
 import br.ufg.inf.es.model.Livro;
@@ -15,38 +11,19 @@ import org.mockito.Mockito;
  * @author Alunoinf_2
  */
 public class LivroServiceTest {
-    
-    public LivroServiceTest() {
-    }
-
-    @BeforeClass
-    public static void setUpClass() throws Exception {
-    }
-
-    @AfterClass
-    public static void tearDownClass() throws Exception {
-    }
-    
-    @Before
-    public void setUp() {
-    }
-    
-    @After
-    public void tearDown() {
-    }
 
     /**
      * Test of getDAO method, of class LivroService.
      */
     @Test
     public void testGetDAO() {
-       
+
         LivroService instance = new LivroService();
         LivroDAO expResult = new LivroDAO();
         instance.setDao(expResult);
         LivroDAO result = instance.getDAO();
         assertEquals(expResult, result);
-        
+
     }
 
     /**
@@ -64,7 +41,7 @@ public class LivroServiceTest {
      */
     @Test
     public void testInsert() throws Exception {
-      
+
         Livro entity = new Livro();
         LivroService instance = new LivroService();
         LivroDAO livroDao = Mockito.mock(LivroDAO.class);
@@ -74,7 +51,7 @@ public class LivroServiceTest {
         Long result = instance.insert(entity);
         assertEquals(expResult, result);
     }
-    
+
     @Test
     public void testMessageToProperty() {
         LivroService livroService = new LivroService();
