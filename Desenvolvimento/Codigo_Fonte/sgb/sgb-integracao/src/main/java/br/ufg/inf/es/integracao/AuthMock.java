@@ -8,42 +8,79 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * Classe que define um mock para autenticação.
  * @author Cézar Augusto Ferreira
  */
 public class AuthMock implements Auth {
 
+    /**
+     * Classe responsável por definir um Usuário.
+     *
+     */
     private static class User {
 
+        /** Campo VALOR_HASH*/
         private static final int VALOR_HASH = 5;
     
+        /** Campo SALTO*/
         private static final int SALTO = 71;
         
+        /** Campo login*/
         private String login;
         
+        /** Campo password*/
         private String password;
 
+        /**
+         * Construtor desta classe.
+         * @param login
+         * @param password
+         */
         public User(String login, String password) {
             this.login = login;
             this.password = password;
         }
-
-        public String getLogin() {
-            return login;
-        }
-
-        public void setLogin(String login) {
-            this.login = login;
-        }
-
-        public String getPassword() {
-            return password;
-        }
-
-        public void setPassword(String password) {
-            this.password = password;
-        }
         
-        @Override
+        /**
+		 * Obtém o valor do campo <code>login</code>
+		 *
+		 * @return {@link String}
+		 */
+		public String getLogin() {
+			return this.login;
+		}
+
+		/**
+		 * Define o campo <code>login</code>.
+		 *
+		 * @param login 
+		 */
+		public void setLogin(String login) {
+			this.login = login;
+		}
+
+		/**
+		 * Obtém o valor do campo <code>password</code>
+		 *
+		 * @return {@link String}
+		 */
+		public String getPassword() {
+			return this.password;
+		}
+
+		/**
+		 * Define o campo <code>password</code>.
+		 *
+		 * @param password 
+		 */
+		public void setPassword(String password) {
+			this.password = password;
+		}
+
+		/** 
+		 * {@inheritDoc} 
+		 */
+		@Override
         public int hashCode() {
             int hash = User.VALOR_HASH;
             
@@ -54,6 +91,9 @@ public class AuthMock implements Auth {
             return hash;
         }
 
+        /** 
+         * {@inheritDoc} 
+         */
         @Override
         public boolean equals(Object obj) {
             if (obj == null) {
@@ -73,10 +113,18 @@ public class AuthMock implements Auth {
         }
     }
     
+    /** Campo SENHA_PADRAO*/
     private static final String SENHA_PADRAO = "123";
     
+    /** Campo USERS*/
     private static final Map<User, Collection<String>> USERS;
 
+    /**
+     * Método que adiciona um usuário e suas permissões.
+     *
+     * @param user
+     * @param roles
+     */
     private static void addUser(User user, String... roles) {
 
         USERS.put(user, Arrays.asList(roles));
@@ -85,8 +133,11 @@ public class AuthMock implements Auth {
     static {
 
         USERS = new HashMap<User, Collection<String>>();
+        
         SgbCryptography cryptography = new SgbCryptography();
+        
         String passEncrypt =  cryptography.encrypt(AuthMock.SENHA_PADRAO);
+        
         addUser(new User("professor",passEncrypt), "ROLE_PROFESSOR");
 
         addUser(new User("conselheiro", passEncrypt), "ROLE_CONSELHEIRO");
@@ -96,6 +147,9 @@ public class AuthMock implements Auth {
         addUser(new User("all",passEncrypt), "ROLE_ADMIN", "ROLE_PROFESSOR", "ROLE_CONSELHEIRO");
     }
 
+    /** 
+     * {@inheritDoc} 
+     */
     public Collection<String> login(String user, String password) {
 
         return USERS.get(new User(user, password));

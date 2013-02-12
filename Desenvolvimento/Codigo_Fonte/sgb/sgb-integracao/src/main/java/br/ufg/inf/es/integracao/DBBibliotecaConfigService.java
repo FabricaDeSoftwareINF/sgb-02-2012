@@ -23,15 +23,24 @@ import org.springframework.stereotype.Component;
 @Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class DBBibliotecaConfigService extends GenericService<DBBibliotecaConfig>{
     
+    /** Campo dao*/
     @Autowired
     private DBBibliotecaConfigDAO dao;
 
+    /** 
+     * {@inheritDoc} 
+     */
     @Override
     public DBBibliotecaConfigDAO getDAO() {
 
         return this.dao;
     }
 
+    /**
+     * Método que define o DAO do DBBibliotecaConfig
+     *
+     * @param dao
+     */
     public void setDao(DBBibliotecaConfigDAO dao) {
 
         this.dao = dao;

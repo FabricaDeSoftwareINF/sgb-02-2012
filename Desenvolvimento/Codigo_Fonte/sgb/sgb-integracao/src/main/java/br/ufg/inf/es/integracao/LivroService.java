@@ -10,26 +10,38 @@ import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Component;
 
 /**
- *
+ * Classe Service para a classe Livro.
  * @author cezar
  */
 @Component
 @Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class LivroService extends GenericService<Livro> {
 
+    /** Campo dao*/
     @Autowired
     private LivroDAO dao;
     
+    /** 
+     * {@inheritDoc} 
+     */
     @Override
     public LivroDAO getDAO() {
         return this.dao;
     }
 
+    /**
+     * Método que define o DAO do Livro.
+     *
+     * @param dao
+     */
     public void setDao(LivroDAO dao) {
 
         this.dao = dao;
     }
 
+    /** 
+     * {@inheritDoc} 
+     */
     @Override
     @RNG002Livro
     public Long insert(Livro entity) throws ValidationException {
@@ -43,6 +55,12 @@ public class LivroService extends GenericService<Livro> {
         return id;
     }
 
+    /**
+     * Método que realiza a formatação de uma string para uma chave do properties. 
+     *
+     * @param message
+     * @return 
+     */
     protected String messageToProperty(String message) {
         String[] msg = message.split(" ");
         String prefix = msg[0].toLowerCase();
@@ -50,6 +68,9 @@ public class LivroService extends GenericService<Livro> {
         return prefix.concat(".").concat(sufix);
     }
 
+    /** 
+     * {@inheritDoc} 
+     */
     @RNG002Livro
     public void update(Livro entity) throws ValidationException {
         try {

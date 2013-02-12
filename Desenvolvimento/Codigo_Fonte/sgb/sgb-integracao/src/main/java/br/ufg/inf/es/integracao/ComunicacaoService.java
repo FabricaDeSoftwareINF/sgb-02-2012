@@ -10,16 +10,20 @@ import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Component;
 
 /**
- *
+ * Classe Service para a entidade Comunicacao
  * @author igor
  */
 @Component
 @Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class ComunicacaoService extends GenericService<Comunicacao> {
  
+    /** Campo dao*/
     @Autowired
     private ComunicacaoDAO dao;
 
+    /** 
+     * {@inheritDoc} 
+     */
     @Override
     public ComunicacaoDAO getDAO() {
 

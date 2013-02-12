@@ -1,10 +1,11 @@
 package br.ufg.inf.es.integracao.rng;
 
+import org.springframework.stereotype.Component;
+
 import br.ufg.inf.es.base.validation.Validation;
 import br.ufg.inf.es.base.validation.ValidationException;
 import br.ufg.inf.es.integracao.annotations.RNG004;
 import br.ufg.inf.es.model.Curso;
-import org.springframework.stereotype.Component;
 
 /**
  * @author Diogo Gon&ccedil;alves Teodoro

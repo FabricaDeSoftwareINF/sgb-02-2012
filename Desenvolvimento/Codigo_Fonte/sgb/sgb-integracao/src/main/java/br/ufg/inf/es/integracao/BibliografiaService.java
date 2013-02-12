@@ -19,6 +19,7 @@ import org.springframework.stereotype.Component;
 @Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class BibliografiaService extends GenericService<Bibliografia> {
 
+    /** Campo dao*/
     @Autowired
     private BibliografiaDAO dao;
 

@@ -51,7 +51,7 @@ public class SgbAuthTest {
         usuario.setPerfil(UsuarioPerfil.ADM);
         Mockito.when(us.authUser(user, password)).thenReturn(usuario);
 
-        instance.SetUsuariioService(us);
+        instance.setUsuarioService(us);
         Collection<String> expResult = new ArrayList();
         expResult.add(UsuarioPerfil.ADM.name());
         Collection result = instance.login(user, password);
@@ -67,7 +67,7 @@ public class SgbAuthTest {
 
         SgbAuth instance = new SgbAuth();
         UsuarioService us = Mockito.mock(UsuarioService.class);
-        instance.SetUsuariioService(us);
+        instance.setUsuarioService(us);
 
         UsuarioService result = instance.getUsuarioService();
         assertEquals(us, result);
