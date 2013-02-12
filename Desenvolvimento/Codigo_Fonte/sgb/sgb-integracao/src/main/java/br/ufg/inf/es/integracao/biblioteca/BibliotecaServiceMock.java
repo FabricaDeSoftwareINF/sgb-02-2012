@@ -18,12 +18,24 @@ import org.springframework.stereotype.Component;
 @Scope(BeanDefinition.SCOPE_SINGLETON)
 public class BibliotecaServiceMock implements Biblioteca {
 
+    /**
+     * Obtem os livros da biblioteca.
+     *
+     * @return Retorna todos os livros da biblioteca
+     */
     public Collection<LivroBiblioteca> obtenhaLivros() {
 
         return (Collection<LivroBiblioteca>) UtilXML.convertaXMLEmObjeto(
                 obtenhaPathLivrosXML(), obtenhaMapaAliasXML());
     }
 
+    /**
+     * Obtem os livros da biblioteca que possuem o nome informado.
+     *
+     * @param nomeLivro
+     * @return Retorna todos os livros da biblioteca que possuem o nome ou parte
+     * dele igual ao parametro informado
+     */
     public Collection<LivroBiblioteca> obtenhaLivros(String nomeLivro) {
         Collection<LivroBiblioteca> livros = this.obtenhaLivros();
         Collection<LivroBiblioteca> matches = new ArrayList<LivroBiblioteca>();
@@ -37,6 +49,14 @@ public class BibliotecaServiceMock implements Biblioteca {
         return matches;
     }
 
+    /**
+     * Obtem a quantidade existente dos livros da biblioteca que possuem o isbn
+     * informado.
+     *
+     * @param isbn
+     * @return Quantidade de livros existentes na biblioteca que possuem o isbn
+     * informado.
+     */
     public int obtenhaQuantidadeExistente(String isbn) {
         Collection<LivroBiblioteca> livros = this.obtenhaLivros();
         int quantidade = 0;

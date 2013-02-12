@@ -27,24 +27,30 @@ import org.springframework.stereotype.Component;
 @Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class LivroParaCotacaoService extends GenericService<LivroParaCotacao> {
 
-    // TODO Remover o mock pelo serviço real da biblioteca
-    /** Campo bibliotecaService*/
+    /**
+     * TODO Remover o mock pelo serviço real da biblioteca Campo
+     * bibliotecaService
+     */
     @Autowired
     private BibliotecaServiceMock bibliotecaService;
-    
-    /** Campo parametrosService*/
+    /**
+     * Campo parametrosService
+     */
     @Autowired
     private ParametrosService parametrosService;
-    
-    /** Campo livroService*/
+    /**
+     * Campo livroService
+     */
     @Autowired
     private LivroService livroService;
-    
-    /** Campo bibliografiaService*/
+    /**
+     * Campo bibliografiaService
+     */
     @Autowired
     private BibliografiaService bibliografiaService;
-    
-    /** Campo livroCursos*/
+    /**
+     * Campo livroCursos
+     */
     private Map<Livro, List<Curso>> livroCursos = new HashMap<Livro, List<Curso>>();
 
     /**
@@ -70,7 +76,7 @@ public class LivroParaCotacaoService extends GenericService<LivroParaCotacao> {
                 try {
                     dtos.add(obtenhaLivroParaCotacao(livro, quantidadeVagas));
                 } catch (LivroParaCotacaoException lpce) {
-                    Logger.getLogger(LivroParaCotacaoService.class.getName()).log(Level.WARNING, null, lpce);
+                    Logger.getLogger(LivroParaCotacaoService.class.getName()).log(Level.INFO, null, lpce);
                 } catch (ValidationException ve) {
                     Logger.getLogger(LivroParaCotacaoService.class.getName()).log(Level.WARNING, null, ve);
                 }
@@ -81,7 +87,8 @@ public class LivroParaCotacaoService extends GenericService<LivroParaCotacao> {
     }
 
     /**
-     * Método que adiciona os livros e cursos para a lista a ser enviada para a cotação.
+     * Método que adiciona os livros e cursos para a lista a ser enviada para a
+     * cotação.
      *
      * @param bibliografias
      */
@@ -96,6 +103,7 @@ public class LivroParaCotacaoService extends GenericService<LivroParaCotacao> {
 
     /**
      * Adiciona os livros e cursos para a lista de cursos da classe.
+     *
      * @param livro
      * @param curso
      */
@@ -167,10 +175,92 @@ public class LivroParaCotacaoService extends GenericService<LivroParaCotacao> {
 
     /**
      * obtem o dao do livroService
+     *
      * @return dao do livroService
      */
     @Override
     public DAO getDAO() {
         return livroService.getDAO();
+    }
+
+    public BibliografiaService getBibliografiaService() {
+        return bibliografiaService;
+    }
+
+    /**
+     * Define o service da bibliografia
+     *
+     * @param bibliografiaService
+     */
+    public void setBibliografiaService(BibliografiaService bibliografiaService) {
+        this.bibliografiaService = bibliografiaService;
+    }
+
+    /**
+     * obtem o service da biblioteca
+     *
+     * @return service da biblioteca
+     */
+    public BibliotecaServiceMock getBibliotecaService() {
+        return bibliotecaService;
+    }
+
+    /**
+     * define o service da biblioteca
+     *
+     * @param bibliotecaService
+     */
+    public void setBibliotecaService(BibliotecaServiceMock bibliotecaService) {
+        this.bibliotecaService = bibliotecaService;
+    }
+
+    /**
+     * Obtem o mapa de cursos por livro
+     *
+     * @return mapa de cursos por livro
+     */
+    public Map<Livro, List<Curso>> getLivroCursos() {
+        return livroCursos;
+    }
+
+    /**
+     * Define o mapa de cursos por livro
+     *
+     * @param livroCursos
+     */
+    public void setLivroCursos(Map<Livro, List<Curso>> livroCursos) {
+        this.livroCursos = livroCursos;
+    }
+
+    /**
+     * obtem o service do livro
+     * @return
+     */
+    public LivroService getLivroService() {
+        return livroService;
+    }
+
+    /**
+     * Define um novo service para o livro
+     * @param livroService 
+     */
+    public void setLivroService(LivroService livroService) {
+        this.livroService = livroService;
+    }
+
+    /**
+     * obtem o service dos parametros
+     * @return 
+     */
+    public ParametrosService getParametrosService() {
+        return parametrosService;
+    }
+
+    /**
+     * Define um novo service dos parametros
+     * @param parametrosService 
+     */
+    public void setParametrosService(ParametrosService parametrosService) {
+        this.parametrosService = parametrosService;
     }
 }
