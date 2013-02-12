@@ -16,10 +16,10 @@
 
                 <h:outputText value="#{livroController.form.entity.titulo}" style="margin-left: 10px;"/>
 
-                <c:forEach items="#{livroController.form.entity.autores}" var="autor">
-                    <h:outputLabel value="#{msg['cadastro.livro.label.autor']}:" style="font-weight: bold"/>
+                <h:outputLabel value="#{msg['cadastro.livro.label.autor']}:" style="font-weight: bold"/>
+                <p:dataList value="#{livroController.form.entity.autores}" var="autor">
                     <h:outputText value="#{autor}" style="margin-left: 10px;"/>
-                </c:forEach>
+                </p:dataList>
 
                 <h:outputLabel value="#{msg['cadastro.livro.label.edicao']}:" style="font-weight: bold"/>
 
