@@ -3,19 +3,70 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://java.sun.com/jsf/core">
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
 
     <f:view>
         <p:dialog id="dialog_detalhes" widgetVar="dialogDetalhes"
-                  modal="true" header="#{msg['label.disciplina.detalheDisciplina']}" resizable="false" showEffect="fade" width="400">
+                  modal="true" header="#{msg['label.disciplina.detalheDisciplina']}" resizable="false" showEffect="fade">
 
             <h:panelGrid columns="2" cellspacing="5" style="width: 100%; margin-left: auto; margin-right: auto">
 
-                <h:outputLabel value="Título:" style="font-weight: bold"/>
+                <h:outputLabel value="#{msg['cadastro.livro.label.titulo']}:" style="font-weight: bold"/>
 
                 <h:outputText value="#{livroController.form.entity.titulo}" style="margin-left: 10px;"/>
 
+                <c:forEach items="#{livroController.form.entity.autores}" var="autor">
+                    <h:outputLabel value="#{msg['cadastro.livro.label.autor']}:" style="font-weight: bold"/>
+                    <h:outputText value="#{autor}" style="margin-left: 10px;"/>
+                </c:forEach>
+
+                <h:outputLabel value="#{msg['cadastro.livro.label.edicao']}:" style="font-weight: bold"/>
+
+                <h:outputText value="#{livroController.form.entity.edicao}" style="margin-left: 10px;"/>
+
+                <h:outputLabel value="#{msg['cadastro.livro.label.ano']}:" style="font-weight: bold"/>
+
+                <h:outputText value="#{livroController.form.entity.ano}" style="margin-left: 10px;"/>
+
+                <h:outputLabel value="#{msg['cadastro.livro.label.editora']}:" style="font-weight: bold"/>
+
+                <h:outputText value="#{livroController.form.entity.editora.nome}" style="margin-left: 10px;"/>
+
+                <h:outputLabel value="#{msg['cadastro.livro.label.isbn10']}:" style="font-weight: bold"/>
+
+                <h:outputText value="#{livroController.form.entity.isbn10}" style="margin-left: 10px;"/>
+
+                <h:outputLabel value="#{msg['cadastro.livro.label.isbn13']}:" style="font-weight: bold"/>
+
+                <h:outputText value="#{livroController.form.entity.isbn13}" style="margin-left: 10px;"/>
+
+                <h:outputLabel value="#{msg['cadastro.livro.label.estrangeiro']}:" style="font-weight: bold"/>
+
+                <h:outputText value="#{livroController.form.entity.estrangeiro ? msg['arquitetura.msg.sim']
+                                       : msg['arquitetura.msg.nao']}" style="margin-left: 10px;"/>
+                
+                <h:outputLabel value="#{msg['cadastro.livro.label.disciplinas']}:" style="font-weight: bold"/>
             </h:panelGrid>
+            
+            <p:dataTable value="#{livroController.form.entity.bibliografias}" var="bibliografia" type="ordered"
+                        style="border: none !important; margin-left: 10px;">
+                
+                <p:column headerText="#{msg['cadastro.livro.label.nome']}">
+                    #{bibliografia.disciplina.nome}
+                </p:column>
+                
+                <p:column headerText="#{msg['cadastro.curso']}">
+                    #{bibliografia.disciplina.curso.nome}
+                </p:column>
+                
+                <p:column headerText="#{msg['label.disciplina.tipoBibliografia']}">
+                    #{bibliografia.tipo.value}
+                </p:column>
+                
+                
+                
+            </p:dataTable>
 
         </p:dialog>
     </f:view>
