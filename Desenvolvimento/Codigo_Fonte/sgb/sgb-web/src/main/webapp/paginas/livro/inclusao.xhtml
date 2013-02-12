@@ -45,6 +45,9 @@
                                  requiredMessage="Por favor Informe o ISBN correto." mask="9999999999999"/>
                     <h:outputLabel value="#{msg['cadastro.livro.label.ano']}" ></h:outputLabel>
                     <p:inputMask value="#{livroController.form.entity.ano}" type="number" size="4" maxlength="4" mask="9999"/>
+                    
+                    <h:outputLabel value="#{msg['cadastro.livro.label.estrangeiro']}" ></h:outputLabel>
+                    <p:selectBooleanCheckbox value="#{livroController.form.entity.estrangeiro}"/>
                 </h:panelGrid>
                 <p:fieldset id="associar_disciplina_panel" legend="#{msg['cadastro.livro.legend.associarDisciplina']}">
                     <h:panelGrid columns="2">
