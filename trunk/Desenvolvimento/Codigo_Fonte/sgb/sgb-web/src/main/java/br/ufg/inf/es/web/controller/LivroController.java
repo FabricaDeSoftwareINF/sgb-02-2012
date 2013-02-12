@@ -28,6 +28,7 @@ import br.ufg.inf.es.web.datamodel.LivroDataModel;
 import java.nio.charset.Charset;
 import java.util.Arrays;
 import java.util.List;
+import javax.faces.model.SelectItem;
 import org.primefaces.event.SelectEvent;
 import org.primefaces.event.UnselectEvent;
 
@@ -406,4 +407,20 @@ public class LivroController extends SGBController<Livro, LivroForm, LivroServic
 
         this.getForm().getAutoresAdicionados().add(autorSelecionado);
     }
+    
+    /**
+     * Cria opções para filtragem dos livros, no datatable, entre 
+     * estrangeiros ou não.
+     * @return Opções para filtragem dos livros, no datatable, entre 
+     * estrangeiros ou não.
+     */
+    public SelectItem[] getEstrangeiroOptions() {
+        String simLabel = getBundle().getString("arquitetura.msg.sim");
+        String naoLabel = getBundle().getString("arquitetura.msg.nao");
+        SelectItem vazio = new SelectItem("");
+        SelectItem sim = new SelectItem("true", simLabel);
+        SelectItem nao = new SelectItem("false", naoLabel);
+        return new SelectItem[] {vazio, sim, nao};
+    }
+    
 }
