@@ -22,6 +22,8 @@ public class EditoraService extends GenericService<Editora> {
 
     //mensagem da regra de negocio
     public static final String KEY_RNG007 = "label.RNG07.nome";
+    
+    /** Campo dao*/
     @Autowired
     private EditoraDAO dao;
 
@@ -44,6 +46,12 @@ public class EditoraService extends GenericService<Editora> {
         this.dao = dao;
     }
 
+    /**
+     * Método que realiza a busca do autocomplete.
+     *
+     * @param query
+     * @return Collection<Editora>
+     */
     public Collection<Editora> complete(String query) {
         Collection<Editora> results = new ArrayList<Editora>();
 

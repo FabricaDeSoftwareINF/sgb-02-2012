@@ -17,38 +17,72 @@ import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Component;
 
 /**
- *
+ * Classe que define o Service da Disciplina
  * @author cezar
  */
 @Component
 @Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class DisciplinaService extends GenericService<Disciplina> {
 
+    /** Campo dao*/
     @Autowired
     private DisciplinaDAO dao;
+    
+    /** Campo livroDao*/
     @Autowired
     private LivroDAO livroDao;
+    
+    /** Campo bibliografiaDAO*/
     @Autowired
     private BibliografiaDAO bibliografiaDAO;
 
+    /**
+     * Método que obtém o DAO da Bibliografia.
+     *
+     * @author User
+     *
+     * @return
+     */
     public BibliografiaDAO getBibliografiaDAO() {
+    	
         return bibliografiaDAO;
     }
 
+    /** 
+     * {@inheritDoc} 
+     */
     @Override
     public DisciplinaDAO getDAO() {
+    	
         return this.dao;
     }
 
+    /**
+     * Método que define o DAO da disciplina.
+     *
+     * @param dao
+     */
     public void setDao(DisciplinaDAO dao) {
 
         this.dao = dao;
     }
 
+    /**
+     * Método que obtém o DAO do Livro.
+     *
+     * @return
+     */
     public LivroDAO getLivroDao() {
+    	
         return livroDao;
     }
 
+    /**
+     * Método que insere uma entidade no banco de dados.
+     *
+     * @param entidade
+     * @throws ValidationException
+     */
     @RNG006
     public void inserir(Disciplina entidade) throws ValidationException {
 
@@ -68,6 +102,12 @@ public class DisciplinaService extends GenericService<Disciplina> {
 
     }
 
+    /**
+     * Método que lista as disciplinas para o autocomplete.
+     *
+     * @param query
+     * @return Collection<Disciplina>
+     */
     public Collection<Disciplina> complete(String query) {
         Collection<Disciplina> results = new ArrayList<Disciplina>();
 

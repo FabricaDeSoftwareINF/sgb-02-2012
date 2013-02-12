@@ -23,9 +23,11 @@ import org.springframework.stereotype.Component;
 @Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class CursoService extends GenericService<Curso> {
 
+    /** Campo dao*/
     @Autowired
     private CursoDAO dao;
     
+    /** Campo disciplinaDao*/
     @Autowired
     private DisciplinaDAO disciplinaDao;
 
@@ -107,22 +109,40 @@ public class CursoService extends GenericService<Curso> {
         return this.getDisciplinaDao().listarDisciplinasDeUmCurso(id);
     }
     
+    /** 
+     * {@inheritDoc} 
+     */
     @Override
     public CursoDAO getDAO() {
 
         return this.dao;
     }
 
+    /**
+     * Método que define o DAO do curso.
+     *
+     * @param dao
+     */
     public void setDao(CursoDAO dao) {
         
         this.dao = dao;
     }
 
+    /**
+     * Método que define o DAO da Disciplina.
+     *
+     * @param disciplinaDao
+     */
     public void setDisciplinaDao(DisciplinaDAO disciplinaDao) {
     
         this.disciplinaDao = disciplinaDao;
     }
     
+    /**
+     * Método que obtém o DAO da Disciplina
+     *
+     * @return DisciplinaDAO
+     */
     public DisciplinaDAO getDisciplinaDao() {
      
         return this.disciplinaDao;

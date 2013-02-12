@@ -8,14 +8,20 @@ import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
+ * Classe para Autenticação.
  * @author Diogo Ribeiro
  */
 public class SgbAuth implements Auth {
 
+    /** Campo usuarioService*/
     @Autowired
     private UsuarioService usuarioService;
 
+    /** 
+     * {@inheritDoc} 
+     */
     public Collection<String> login(String user, String password) {
+    	
         Collection<String> roles = new ArrayList<String>();
         Usuario usuario = usuarioService.authUser(user, password);
 
@@ -58,11 +64,21 @@ public class SgbAuth implements Auth {
         return roles;
     }
 
+    /**
+     * Método que obtém o Service do usuário.
+     *
+     * @return UsuarioService
+     */
     public UsuarioService getUsuarioService() {
         return usuarioService;
     }
 
-    public void SetUsuariioService(UsuarioService us) {
+    /**
+     * Método que define o Service do usuário. 
+     *
+     * @param us
+     */
+    public void setUsuarioService(UsuarioService us) {
         this.usuarioService = us;
     }
 }

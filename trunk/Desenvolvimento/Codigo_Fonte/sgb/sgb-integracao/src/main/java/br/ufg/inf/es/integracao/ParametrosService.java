@@ -20,9 +20,13 @@ import org.springframework.stereotype.Component;
 @Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class ParametrosService extends GenericService<Parametros> {
 
+    /** Campo dao*/
     @Autowired
     private ParametrosDAO dao;
 
+    /** 
+     * {@inheritDoc} 
+     */
     @Override
     public ParametrosDAO getDAO() {
         return this.dao;
@@ -71,6 +75,11 @@ public class ParametrosService extends GenericService<Parametros> {
         return parametros;
     }
 
+    /**
+     * Método que retorna um objeto válido.
+     *
+     * @return Parametros
+     */
     private Parametros obtenhaParametroValido() {
         return new Parametros();
     }

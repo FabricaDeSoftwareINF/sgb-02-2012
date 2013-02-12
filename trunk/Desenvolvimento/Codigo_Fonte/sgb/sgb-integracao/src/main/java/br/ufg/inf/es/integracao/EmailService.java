@@ -11,7 +11,7 @@ import java.util.logging.Logger;
 import org.apache.commons.mail.HtmlEmail;
 
 /**
- *
+ * Classe Service da entidade Email.
  * @author diogo
  */
 public final class EmailService {
@@ -23,6 +23,11 @@ public final class EmailService {
         
     }
     
+    /**
+     * Método que envia uma nova senha para o usuário.
+     *
+     * @param usuario
+     */
     public static void enviarNovaSenha(Usuario usuario){
         
         HtmlEmail email = new HtmlEmail();

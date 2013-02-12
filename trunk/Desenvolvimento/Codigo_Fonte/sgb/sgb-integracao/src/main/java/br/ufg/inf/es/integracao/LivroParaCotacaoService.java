@@ -28,14 +28,23 @@ import org.springframework.stereotype.Component;
 public class LivroParaCotacaoService extends GenericService<LivroParaCotacao> {
 
     // TODO Remover o mock pelo serviço real da biblioteca
+    /** Campo bibliotecaService*/
     @Autowired
     private BibliotecaServiceMock bibliotecaService;
+    
+    /** Campo parametrosService*/
     @Autowired
     private ParametrosService parametrosService;
+    
+    /** Campo livroService*/
     @Autowired
     private LivroService livroService;
+    
+    /** Campo bibliografiaService*/
     @Autowired
     private BibliografiaService bibliografiaService;
+    
+    /** Campo livroCursos*/
     private Map<Livro, List<Curso>> livroCursos = new HashMap<Livro, List<Curso>>();
 
     /**
@@ -71,6 +80,11 @@ public class LivroParaCotacaoService extends GenericService<LivroParaCotacao> {
         return dtos;
     }
 
+    /**
+     * Método que adiciona os livros e cursos para a lista a ser enviada para a cotação.
+     *
+     * @param bibliografias
+     */
     private void adicioneCursosELivros(Collection<Bibliografia> bibliografias) {
         for (Bibliografia b : bibliografias) {
             Livro livro = b.getLivro();
@@ -81,7 +95,7 @@ public class LivroParaCotacaoService extends GenericService<LivroParaCotacao> {
     }
 
     /**
-     *
+     * Adiciona os livros e cursos para a lista de cursos da classe.
      * @param livro
      * @param curso
      */
@@ -138,6 +152,13 @@ public class LivroParaCotacaoService extends GenericService<LivroParaCotacao> {
         }
     }
 
+    /**
+     * Método que realiza a divisão com arrendondamento para cima.
+     *
+     * @param valor
+     * @param divisor
+     * @return
+     */
     private Integer dividaComRoundUp(Integer valor, Integer divisor) {
         BigDecimal valorBigDecimal = new BigDecimal(valor);
         BigDecimal divisorBigDecimal = new BigDecimal(divisor);

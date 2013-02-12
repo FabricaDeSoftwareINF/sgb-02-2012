@@ -11,33 +11,49 @@ import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Component;
 
 /**
- *
+ * Classe Service para a ListaCompras.
  * @author Jackeline Neves
  */
 @Component
 @Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class ListaComprasService extends GenericService<ListaCompras> {
 
+    /** Campo dao*/
     @Autowired
     private ListaComprasDAO dao;
     
+    /** Campo livroDao*/
     @Autowired
     private LivroDAO livroDao;
 
+    /**
+     * Método que obtém o DAO do Livro.
+     *
+     * @return
+     */
     public LivroDAO getLivroDao() {
         return livroDao;
     }
 
+    /** 
+     * {@inheritDoc} 
+     */
     @Override
     public ListaComprasDAO getDAO() {
         return this.dao;
     }
 
+    /**
+     * Método que define o DAO da Lista de Compras
+     *
+     * @param dao
+     */
     public void setDao(ListaComprasDAO dao) {
         this.dao = dao;
     }
 
     /**
+     * Método que obtém os livros das listas de compras.
      * 
      * @param listaCompras 
      */
@@ -59,6 +75,7 @@ public class ListaComprasService extends GenericService<ListaCompras> {
     }
     
     /**
+     * Método que busca todos os livros.
      * 
      * @param filtroTitulo
      * @return 

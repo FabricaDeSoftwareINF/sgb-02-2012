@@ -21,6 +21,7 @@ import org.springframework.stereotype.Component;
 @Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class AutorService extends GenericService<Autor> {
 
+    /** Campo dao*/
     @Autowired
     private AutorDAO dao;
 
