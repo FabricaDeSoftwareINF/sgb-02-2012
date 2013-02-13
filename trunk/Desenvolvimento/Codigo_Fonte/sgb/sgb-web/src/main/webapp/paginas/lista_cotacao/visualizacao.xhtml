@@ -16,111 +16,121 @@
                 <h:form prependId="false">
 
                     <p:messages />
-                    
-                    <h:panelGrid columns="2" style="width: 100%;">
 
-                        <p:dataTable id="cotacoes" value="#{listaCotacaoController.form.entity.cotacoes}" var="cotacao" 
-                                     paginator="true" rows="10" style="width: 100%">
+                    <p:dataTable id="cotacoes" value="#{listaCotacaoController.form.entity.cotacoes}" var="cotacao" 
+                                 paginator="true" rows="10" style="width: 100%" >
 
-                            <p:column headerText="#{msg['cotacao.label.autor']}" >
+                        <p:column headerText="#{msg['cotacao.label.autor']}" >
 
-                                <h:outputText value="#{cotacao.livro.autores[0]}"/>
+                            <h:outputText value="#{cotacao.livro.autores[0]}"/>
 
-                            </p:column>
+                        </p:column>
 
-                            <p:column headerText="#{msg['cotacao.label.titulo']}" filterBy="#{cotacao.livro.titulo}" filterMatchMode="contains">
+                        <p:column headerText="#{msg['cotacao.label.titulo']}" filterBy="#{cotacao.livro.titulo}" 
+                                  filterMatchMode="contains" sortBy="#{cotacao.livro.titulo}">
 
-                                <h:outputText value="#{cotacao.livro.titulo}" />
+                            <h:outputText value="#{cotacao.livro.titulo}" />
 
-                            </p:column>
+                        </p:column>
 
-                            <p:column headerText="#{msg['cotacao.label.edicao']}" style="text-align: center">
+                        <p:column headerText="#{msg['cotacao.label.edicao']}" style="text-align: center"
+                                  sortBy="#{cotacao.livro.edicao}" >
 
-                                <h:outputText value="#{cotacao.livro.edicao}" />
+                            <h:outputText value="#{cotacao.livro.edicao}" />
 
-                            </p:column>
-                            
-                            <p:column headerText="#{msg['cotacao.label.editora']}" filterBy="#{cotacao.livro.editora.nome}" filterMatchMode="contains">
+                        </p:column>
 
-                                <h:outputText value="#{cotacao.livro.editora.nome}" />
+                        <p:column headerText="#{msg['cotacao.label.editora']}" filterBy="#{cotacao.livro.editora.nome}" 
+                                  filterMatchMode="contains" sortBy="#{cotacao.livro.editora.nome}">
 
-                            </p:column>
-                            
-                            <p:column headerText="#{msg['cotacao.label.ano']}" filterBy="#{cotacao.livro.ano}" filterMatchMode="contains">
+                            <h:outputText value="#{cotacao.livro.editora.nome}" />
 
-                                <h:outputText value="#{cotacao.livro.ano}" />
+                        </p:column>
 
-                            </p:column>
-                            
-                            <p:column headerText="#{msg['cotacao.label.curso']}" >
+                        <p:column headerText="#{msg['cotacao.label.ano']}" filterBy="#{cotacao.livro.ano}" 
+                                  filterMatchMode="contains" sortBy="#{cotacao.livro.ano}">
 
-                                <h:outputText value="#{cotacao.livro.bibliografias[0].disciplina.curso.nome}" />
+                            <h:outputText value="#{cotacao.livro.ano}" />
 
-                            </p:column>
-                            
-                            <p:column headerText="#{msg['cotacao.label.orcamento1']}" style="text-align: center" >
+                        </p:column>
 
-                                <h:outputText value="#{cotacao.valor}" />
+                        <p:column headerText="#{msg['cotacao.label.curso']}" >
 
-                            </p:column>
-                            
-                            <p:column headerText="#{msg['cotacao.label.orcamento1']}" style="text-align: center">
+                            <h:outputText value="#{cotacao.livro.bibliografias[0].disciplina.curso.nome}" />
 
-                                <h:outputText value="#{cotacao.valor}" />
+                        </p:column>
 
-                            </p:column>
-                            
-                            <p:column headerText="#{msg['cotacao.label.orcamento1']}" style="text-align: center" >
+<!-- <p:column headerText="#{msg['cotacao.label.orcamento1']}" style="text-align: center" >
 
-                                <h:outputText value="#{cotacao.valor}" />
+    <h:outputText value="#{cotacao.valor}" />
 
-                            </p:column>
-                            
-                            <p:column headerText="#{msg['cotacao.label.valormedio']}" style="text-align: center">
+</p:column>
 
-                                <h:outputText value="#{cotacao.valor}" />
+<p:column headerText="#{msg['cotacao.label.orcamento1']}" style="text-align: center">
 
-                            </p:column>
-                            
-                            <p:column headerText="#{msg['cotacao.label.valortotal']}" style="text-align: center" >
+    <h:outputText value="#{cotacao.valor}" />
 
-                                <h:outputText value="#{cotacao.valor}" />
+</p:column>
 
-                            </p:column>
-                            
-                            <p:column headerText="#{msg['cotacao.label.quantidade']}" style="text-align: center" >
+<p:column headerText="#{msg['cotacao.label.orcamento1']}" style="text-align: center" >
 
-                                <h:outputText value="#{cotacao.quantidade}" />
+    <h:outputText value="#{cotacao.valor}" />
 
-                            </p:column>
-                            
-                            <p:column headerText="#{msg['cotacao.label.area']}" >
+</p:column> -->
 
-                                <h:outputText value="Ciências Exatas e da Terra" />
+                        <p:column headerText="#{msg['cotacao.label.valormedio']}" style="text-align: center"
+                                  sortBy="#{cotacao.valor}">
 
-                            </p:column>
-                            
-                            <p:column headerText="#{msg['cotacao.label.estrangeiro']}" >
+                            <h:outputText value="#{cotacao.valor}" />
 
-                                <h:outputText value="#{(cotacao.livro.estrangeiro == true ? 'Sim' : 'Não')}" />
+                        </p:column>
 
-                            </p:column>
-                            
+                        <p:column headerText="#{msg['cotacao.label.valortotal']}" style="text-align: center" >
 
-                        </p:dataTable>
+                            <h:outputText value="#{cotacao.valor * cotacao.quantidade}" />
 
-                        <p:spacer height="15"/>
+                        </p:column>
 
-                    </h:panelGrid>
+                        <p:column headerText="#{msg['cotacao.label.quantidade']}" style="text-align: center"
+                                  sortBy="#{cotacao.quantidade}" >
+
+                            <h:outputText value="#{cotacao.quantidade}" />
+
+                        </p:column>
+
+                        <p:column headerText="#{msg['cotacao.label.area']}" >
+
+                            <h:outputText value="Ciências Exatas e da Terra" />
+
+                        </p:column>
+
+                       <!-- <p:column headerText="#{msg['cotacao.label.estrangeiro']}" >
+
+                            <h:outputText value="#{(cotacao.livro.estrangeiro == true ? 'Sim' : 'Não')}" />
+
+                        </p:column> -->
+
+
+                    </p:dataTable>
+
+                    <p:spacer height="15"/>
 
                 </h:form> 
-                
+
                 <h:form>
 
-                    <p:commandButton action="#{listaCotacaoController.exportarXLS(listaCotacao)}" value="#{msg['cotacao.button.exportarXLS']}" />
-                    <p:commandButton action="#{listaCotacaoController.exportarCSV(listaCotacao, true, false)}" value="#{msg['cotacao.button.exportarCSVNacionais']}" />
-                    <p:commandButton action="#{listaCotacaoController.exportarCSV(listaCotacao, false, true)}" value="#{msg['cotacao.button.exportarCSVEstrangeiros']}" />
-
+                    <p:commandButton value="#{msg['cotacao.button.exportarXLS']}" ajax="false">
+                        <p:fileDownload value="#{listaCotacaoController.arquivoXLS}" />  
+                    </p:commandButton>
+                    
+                    <p:commandButton value="#{msg['cotacao.button.exportarCSVNacionais']}" ajax="false">
+                        <p:fileDownload value="#{listaCotacaoController.arquivoCSV(true, false)}" />  
+                    </p:commandButton>
+                    
+                    <p:commandButton value="#{msg['cotacao.button.exportarCSVEstrangeiros']}" ajax="false">
+                        <p:fileDownload value="#{listaCotacaoController.arquivoCSV(false, true)}" />  
+                    </p:commandButton>
+                    
                 </h:form>
 
             </p:panel>        
