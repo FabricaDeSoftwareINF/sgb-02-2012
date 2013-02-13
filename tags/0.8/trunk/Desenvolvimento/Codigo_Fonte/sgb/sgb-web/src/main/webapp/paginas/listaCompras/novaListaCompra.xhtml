@@ -1,0 +1,58 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <f:view>
+        <p:dialog id="selecao_livro_dialog" widgetVar="novaListaCompra" closable="true" 
+                  header="teste">
+
+            <h:form id="novo_lista_compra_form">
+
+                <p:dataTable id="dtTable" value="#{listaComprasController.livroDataModel}" 
+                             var="livro" style="width: 100%" paginator="true" 
+                             paginatorAlwaysVisible="false" rows="10" 
+                             selection="#{listaComprasController.form.selectedLivros}"
+                             emptyMessage="Nenhum registro">
+                    
+                    <p:column selectionMode="multiple" style="width: 18px"></p:column>
+
+                    <p:column headerText="#{msg['cadastro.livro.label.titulo']}" 
+                              filterBy="#{livro.titulo}" filterMatchMode="contains"
+                              styleClass="widthFilterBy">
+
+                        <h:outputText value="#{livro.titulo}" />
+
+                    </p:column>
+
+                   <!-- <p:column headerText="#{msg['cadastro.livro.label.autor']}">
+                        <p:dataList value="#{livro.autores}" var="autor">
+                            <h:outputText value="#{autor}" />
+                        </p:dataList>
+                    </p:column>
+
+                    <p:column headerText="#{msg['cadastro.livro.label.edicao']}">
+                        <h:outputText value="#{livro.edicao}" />
+                    </p:column>
+
+                    <p:column headerText="#{msg['cadastro.livro.label.ano']}">
+                        <h:outputText value="#{livro.ano}" />
+                    </p:column>
+
+                    <p:column headerText="#{msg['cadastro.livro.label.editora']}">
+                        <h:outputText value="#{livro.editora.nome}" />
+                    </p:column>
+
+                    <p:column headerText="#{msg['cadastro.livro.label.isbn13']}">
+                        <h:outputText value="#{livro.isbn13}" />
+                    </p:column>-->
+
+                   
+
+                </p:dataTable>
+                
+                
+            </h:form>
+        </p:dialog>
+    </f:view>    
+</html>

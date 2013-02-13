@@ -1,0 +1,87 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html >
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template/template.xhtml">
+
+        <ui:define name="content">
+
+           <ui:include src="novaListaCompra.xhtml"></ui:include>
+            <h:form id="form">  
+
+                <p:growl id="growl" showDetail="true"/>  
+
+                <p:dataTable id="listaComprasTable" var="listaCompras" value="#{listaComprasController.form.listaCompras}">  
+
+                    <f:facet name="header">  
+                        Expanda uma linha para ver detalhes  
+                    </f:facet>  
+
+                    <p:column style="width:4%">  
+                        <p:rowToggler />  
+                    </p:column>  
+
+                    <p:column style="width:48%">  
+                        <f:facet name="header">  
+                            Nome da lista  
+                        </f:facet>  
+                        <h:outputText value="#{listaCompras.nome}" />  
+                    </p:column>  
+
+                    <p:column style="width:48%">  
+                        <f:facet name="header">  
+                            Data de gravação  
+                        </f:facet>  
+                        <h:outputText value="#{listaCompras.dataCriacao}" />  
+                    </p:column>  
+
+                    <p:rowExpansion>  
+
+                        <p:dataTable var="livro" value="#{listaCompras.livrosDaListaCompras}">  
+
+                            <p:column headerText="Título">
+                                <h:outputText value="#{livro.titulo}" />  
+                            </p:column>  
+
+                            <p:column headerText="Edição">  
+                                <h:outputText value="#{livro.edicao}" />  
+                            </p:column>  
+
+                            <p:column headerText="Editora">  
+                                <h:outputText value="#{livro.editora.nome}" />  
+                            </p:column>  
+
+                            <p:column headerText="Ano">  
+                                <h:outputText value="#{livro.ano}" />  
+                            </p:column>
+
+
+                            <!--<p:column headerText="Isbn10">  
+                                <h:outputText value="#{livro.isbn}" />  
+                            </p:column>
+
+                            <p:column headerText="Isbn13">  
+                                <h:outputText value="#{livro.isbn13}" />  
+                            </p:column>-->
+                        </p:dataTable>    
+
+                    </p:rowExpansion>  
+                </p:dataTable> 
+
+                <h:panelGrid columns="2" style="float: right">
+
+                    <p:commandButton value="Novo" onclick="novaListaCompra.show();" />
+
+                </h:panelGrid>
+
+            </h:form>  
+
+
+        </ui:define>
+
+    </ui:composition>
+</html>
+

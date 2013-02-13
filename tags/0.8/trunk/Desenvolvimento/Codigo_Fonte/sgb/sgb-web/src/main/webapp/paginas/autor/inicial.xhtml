@@ -1,0 +1,78 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html >
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template/template.xhtml">
+
+        <ui:define name="content">
+
+            <h:form id="formManterAutor">
+
+                <p:panel header="#{msg['cadastro.autor.label.manterAutor']}">
+
+                    <h:panelGrid width="100%">
+
+                        <p:messages id="messages" autoUpdate="true"></p:messages>
+
+                        <p:dataTable id="dtTable" value="#{autorController.form.model}" 
+                                     style=" width: 100%" paginator="true" paginatorAlwaysVisible="false" rows="10" var="autor" 
+                                     selection="#{autorController.form.autoresSelecionados}" 
+                                     emptyMessage="#{msg['cadastro.autor.label.nenhumRegistro']}" >
+
+                            <p:column selectionMode="multiple" style="width: 18px;"></p:column>
+
+                            <p:column headerText="#{msg['cadastro.autor.label.nome']}" filterBy="#{autor.nome}" filterMatchMode="contains" styleClass="widthFilterBy">
+                                <h:outputLabel value="#{autor.nome}"></h:outputLabel>
+                            </p:column>
+
+                            <p:column headerText="#{msg['cadastro.autor.label.sobrenome']}" filterBy="#{autor.sobrenome}" filterMatchMode="contains" style="width: 50%">
+                                <h:outputLabel value="#{autor.sobrenome}"></h:outputLabel>
+                            </p:column> O
+
+                            <p:column headerText="#{msg['cadastro.autor.label.acoes']}" style="width: 10%; " >             
+
+                                <h:commandLink value="#{msg['cadastro.autor.label.editar']}" action="#{autorController.openEditPage}">
+
+                                    <f:setPropertyActionListener value="#{autor}" target="#{autorController.form.autorEdicao}"/>
+
+                                </h:commandLink>
+
+                            </p:column>
+
+                        </p:dataTable>
+
+                        <h:panelGrid columns="2" style="float: right">
+                            <p:commandButton value="#{msg['cadastro.autor.label.novo']}"  
+                                             action="#{autorController.openInsertPage()}" ajax="false" style="width: 100px;margin-right: 1em" />
+
+                            <p:commandButton value="#{msg['cadastro.autor.label.remover']}" 
+                                             action="#{autorController.prepararExclusao}" update="@form" />
+                        </h:panelGrid>
+
+                    </h:panelGrid>                        
+
+                    <p:confirmDialog id="dialogRemocao" message="#{msg['cadastro.autor.label.remocao']}"
+                                     header="#{msg['cadastro.autor.label.remocaoTitulo']}" severity="alert" 
+                                     widgetVar="confirmation" visible="#{autorController.form.exibirDialogExclusao}">
+
+                        <center>
+                            <p:commandButton value="#{msg['cadastro.autor.label.sim']}" 
+                                             action="#{autorController.removerAutoresSelecionados()}" update="@form" />
+
+                            <p:commandButton value="#{msg['cadastro.autor.label.nao']}" 
+                                             action="#{autorController.openInitialPage()}" ajax="false"/>
+                        </center>
+
+                    </p:confirmDialog>
+
+                </p:panel>
+
+            </h:form>      
+
+        </ui:define>
+
+    </ui:composition>
+</html>

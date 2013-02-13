@@ -1,0 +1,178 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html >
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template/template.xhtml">
+
+        <ui:define name="content">
+
+            <h:form id="formbusca" style="font-size: 14px;">
+
+                <p:remoteCommand name="recarregaPagina" action="#{cursoController.openSearchPage()}"/>
+                
+                <p:messages/>
+
+                <p:panel header="#{msg['curso.manter']}">
+                    
+                    <h:panelGrid width="100%" columns="1">
+
+                        <p:dataTable id="tabelaCursos" var="curso" paginator="true" rows="10" paginatorAlwaysVisible="false"
+                                     value="#{cursoController.form.cursoDataTableModel}" selection="#{cursoController.form.cursosParaRemocao}"
+                                     emptyMessage="#{msg['cadastro.curso.registrosnaoencontrado']}">
+
+
+                            <p:column selectionMode="multiple" style="width:18px" />
+
+                            <p:column headerText="#{msg['cadastro.curso.label.nome']}"
+                                      filterBy="#{curso.nome}">  
+
+                                <h:outputText value="#{curso.nome}" />  
+
+                            </p:column> 
+
+                            <p:column headerText="#{msg['cadastro.curso.label.vagas']}"
+                                      filterBy="#{curso.vagas}" style="text-align: center;">  
+
+                                <h:outputText value="#{curso.vagas}" />  
+
+                            </p:column>
+
+                            <p:column headerText="#{msg['cadastro.acao']}" style="text-align: center;">  
+
+                                <h:panelGrid columns="2" class="semborda">
+
+                                    <p:commandLink id="linkAcaoEditar" value="#{msg['acao.editar']}" 
+                                                   action="#{cursoController.openEditPage()}">
+
+                                        <f:setPropertyActionListener target="#{cursoController.form.entity}"
+                                                                     value="#{curso}"/>
+
+                                    </p:commandLink>
+
+
+                                    <p:commandLink id="linkAcaoDetalhe" value="#{msg['acao.detalhes']}" 
+                                                   oncomplete="dlgDetalhe.show();" update=":formbusca:dialogDetalhes" action="#{cursoController.preparaCursoParaDetalhe}">
+
+                                        <f:setPropertyActionListener target="#{cursoController.form.cursoParaDetalhe}"
+                                                                     value="#{curso}"/>
+
+                                    </p:commandLink>
+
+                                </h:panelGrid>    
+
+                            </p:column> 
+
+                        </p:dataTable>
+
+                        <p:spacer height="15" width="5"/>
+
+                        <h:panelGrid columns="3" style="margin-left: 80%;">
+
+                            <p:commandButton value="#{msg['usuario.label.novo']}" ajax="false"
+                                             action="#{cursoController.openInsertPage()}"/>
+
+                            <p:spacer width="15"/>
+
+                            <p:commandButton value="#{msg['usuario.label.remover']}"
+                                             onclick="dlgRemocao.show();"/>
+
+                        </h:panelGrid>
+
+                    </h:panelGrid>
+                    
+                </p:panel>
+
+                <p:dialog id="dialogRemocao" widgetVar="dlgRemocao" modal="true"
+                          resizable="false" closable="false">
+
+                    <h:panelGrid columns="1" style="text-align: center;">
+
+                        <h:outputText value="#{msg['cadastro.autor.label.remocao']}"/>
+
+                        <p:spacer height="10"/>
+
+                        <h:panelGrid columns="2" style="margin-left: 30%;">
+
+                            <p:commandButton value="#{msg['cadastro.autor.label.sim']}" ajax="false" update="@form"
+                                             action="#{cursoController.remove()}" oncomplete="dlgRemocao.hide();"/>
+
+                            <p:commandButton value="#{msg['cadastro.autor.label.nao']}"
+                                             onclick="dlgRemocao.hide();"/>
+
+                        </h:panelGrid>
+
+                    </h:panelGrid>
+
+                </p:dialog>
+
+                <p:dialog id="dialogDetalhes" widgetVar="dlgDetalhe" modal="true"
+                          resizable="false" header="#{msg['acao.detalhes']}"
+                          width="550" height="450">
+
+                    <h:panelGrid columns="1" style="text-align: left;">
+
+                        <h:panelGrid columns="3">
+
+                            <p:outputLabel value="#{msg['cadastro.curso']}:" />
+
+                            <p:outputLabel value="#{cursoController.form.cursoParaDetalhe.nome}"/>
+
+                            <p:spacer height="35" width="5"/>
+                            
+                            <p:outputLabel value="#{msg['cadastro.curso.label.vagas']}:" />
+
+                            <p:outputLabel value="#{cursoController.form.cursoParaDetalhe.vagas}"/>
+
+                        </h:panelGrid>
+                        
+                        <p:spacer height="15" width="5"/>
+
+                    </h:panelGrid>
+                    
+                    <p:panel header="#{msg['cadastro.disciplinas']}">
+                        
+                        <p:spacer height="15" width="5"/>
+                        
+                        <p:dataTable value="#{cursoController.form.cursoParaDetalhe.disciplinas}" 
+                                     paginator="true" rows="5" var="disciplina">
+
+                            <p:column>
+
+                                <f:facet name="header">  
+
+                                    <h:outputText value="#{msg['label.disciplina.codigo']}"/>
+
+                                </f:facet> 
+
+                                <p:outputLabel value="#{disciplina.codigo}"/>
+
+                            </p:column>
+
+                            <p:column>
+
+                                <f:facet name="header">  
+
+                                    <h:outputText value="#{msg['label.disciplina.nome']}"/>
+
+                                </f:facet> 
+
+                                <p:outputLabel value="#{disciplina.nome}"/>
+
+                            </p:column>
+
+                        </p:dataTable>
+                   
+                    </p:panel>
+
+                </p:dialog>
+
+            </h:form>
+
+        </ui:define>
+
+    </ui:composition>
+
+</html>

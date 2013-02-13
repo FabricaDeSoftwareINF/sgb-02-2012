@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--@autor: wilker de jesus machado-->
+<!DOCTYPE html>
+<ui:component xmlns="http://www.w3.org/1999/xhtml"
+              xmlns:ui="http://java.sun.com/jsf/facelets"  
+              xmlns:h="http://java.sun.com/jsf/html"  
+              xmlns:p="http://primefaces.org/ui"
+              xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template/template.xhtml">
+        <ui:define name="content">
+            <h:body>   
+                <p:panel header="#{msg['cadastro.editora.label.cadastrar']}">
+                    <h:form >
+                        <h:panelGrid width="100%">
+                            <h:panelGrid columns="2" cellpadding="5">
+                                <h:outputLabel value="#{msg['cadastro.editora.label.nome']}:" />
+                                <p:inputText value="#{editoraController.form.entity.nome}"/>
+                            </h:panelGrid>
+                            
+                            <h:panelGrid columns="2" cellpadding="1" style="margin-left: 25px;">
+                                <p:commandButton action="#{editoraController.salvarEditora()}" 
+                                                 value="#{msg['arquitetura.label.salvar']}" ajax="false"/>
+                                <p:commandButton value="#{msg['arquitetura.label.cancelar']}" 
+                                                 action="#{editoraController.openInitialPage()}" ajax="false"/>
+                            </h:panelGrid>
+                        </h:panelGrid>
+                    </h:form>
+                </p:panel>
+            </h:body>  
+        </ui:define>
+    </ui:composition>
+</ui:component>

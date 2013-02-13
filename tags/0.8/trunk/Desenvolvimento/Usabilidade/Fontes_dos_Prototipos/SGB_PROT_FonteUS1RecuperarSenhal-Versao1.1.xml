@@ -1,0 +1,100 @@
+<mockup version="1.0" skin="sketch" fontFace="Balsamiq Sans" measuredW="1086" measuredH="677" mockupW="779" mockupH="653">
+  <controls>
+    <control controlID="327" controlTypeID="com.balsamiq.mockups::Canvas" x="307" y="24" w="779" h="653" measuredW="100" measuredH="70" zOrder="0" locked="false" isInGroup="-1"/>
+    <control controlID="328" controlTypeID="com.balsamiq.mockups::FieldSet" x="493" y="118" w="407" h="465" measuredW="200" measuredH="170" zOrder="1" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="329" controlTypeID="com.balsamiq.mockups::Button" x="615" y="511" w="162" h="27" measuredW="59" measuredH="27" zOrder="2" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Entrar</text>
+      </controlProperties>
+    </control>
+    <control controlID="330" controlTypeID="com.balsamiq.mockups::TextInput" x="588" y="307" w="271" h="-1" measuredW="79" measuredH="26" zOrder="3" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="331" controlTypeID="com.balsamiq.mockups::TextInput" x="588" y="350" w="271" h="-1" measuredW="79" measuredH="26" zOrder="4" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="332" controlTypeID="com.balsamiq.mockups::CheckBox" x="527" y="388" w="126" h="22" measuredW="116" measuredH="22" zOrder="5" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Lembrar%20de%20Mim</text>
+      </controlProperties>
+    </control>
+    <control controlID="333" controlTypeID="com.balsamiq.mockups::Label" x="527" y="313" w="-1" h="-1" measuredW="34" measuredH="21" zOrder="6" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Login%3A</text>
+      </controlProperties>
+    </control>
+    <control controlID="334" controlTypeID="com.balsamiq.mockups::Label" x="527" y="353" w="-1" h="-1" measuredW="40" measuredH="21" zOrder="7" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Senha%3A</text>
+      </controlProperties>
+    </control>
+    <control controlID="335" controlTypeID="com.balsamiq.mockups::Label" x="527" y="245" w="338" h="53" measuredW="685" measuredH="21" zOrder="8" locked="false" isInGroup="-1">
+      <controlProperties>
+        <align>left</align>
+        <text>Seja-bem%20vindo%20ao%20Sistema%20de%20Gest%E3o%20Bibliogr%E1fica%2C%20entre%20com%20suas%20informa%E7%F5es%20abaixo%20para%20ter%20acesso%20ao%20sistema</text>
+      </controlProperties>
+    </control>
+    <control controlID="336" controlTypeID="com.balsamiq.mockups::Link" x="527" y="416" w="-1" h="-1" measuredW="118" measuredH="19" zOrder="9" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Esqueceu%20a%20senha%3F</text>
+      </controlProperties>
+    </control>
+    <control controlID="337" controlTypeID="com.balsamiq.mockups::Title" x="629" y="180" w="-1" h="-1" measuredW="81" measuredH="43" zOrder="10" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>SGB</text>
+      </controlProperties>
+    </control>
+    <control controlID="338" controlTypeID="com.balsamiq.mockups::Image" x="527" y="151" w="-1" h="-1" measuredW="77" measuredH="79" zOrder="11" locked="false" isInGroup="-1">
+      <controlProperties>
+        <filter>true</filter>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="339" controlTypeID="com.balsamiq.mockups::Label" x="527" y="450" w="-1" h="-1" measuredW="114" measuredH="21" zOrder="12" locked="false" isInGroup="-1">
+      <controlProperties>
+        <color>13369344</color>
+        <text>Mensagem%20de%20Erro.</text>
+      </controlProperties>
+    </control>
+    <control controlID="340" controlTypeID="com.balsamiq.mockups::Canvas" x="471" y="162" w="467" h="266" measuredW="100" measuredH="70" zOrder="13" locked="false" isInGroup="-1"/>
+    <control controlID="341" controlTypeID="com.balsamiq.mockups::Canvas" x="471" y="186" w="467" h="219" measuredW="100" measuredH="70" zOrder="14" locked="false" isInGroup="-1"/>
+    <control controlID="342" controlTypeID="com.balsamiq.mockups::Label" x="477" y="165" w="-1" h="-1" measuredW="134" measuredH="21" zOrder="15" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Recupera%E7%E3o%20de%20senha</text>
+      </controlProperties>
+    </control>
+    <control controlID="343" controlTypeID="com.balsamiq.mockups::Label" x="508" y="224" w="-1" h="-1" measuredW="40" measuredH="21" zOrder="16" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>E-mail%3A</text>
+      </controlProperties>
+    </control>
+    <control controlID="344" controlTypeID="com.balsamiq.mockups::Label" x="510" y="282" w="396" h="-1" measuredW="579" measuredH="21" zOrder="17" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Um%20e-mail%20ser%E1%20enviado%20para%20sua%20conta%20cadastrada%20com%20as%20instru%E7%F5es%20para%20recupera%E7%E3o%20de%20senha.</text>
+      </controlProperties>
+    </control>
+    <control controlID="345" controlTypeID="com.balsamiq.mockups::TextInput" x="561" y="221" w="337" h="-1" measuredW="79" measuredH="26" zOrder="18" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="346" controlTypeID="com.balsamiq.mockups::Button" x="548" y="350" w="111" h="27" measuredW="85" measuredH="27" zOrder="19" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Recuperar</text>
+      </controlProperties>
+    </control>
+    <control controlID="347" controlTypeID="com.balsamiq.mockups::Button" x="764" y="351" w="111" h="27" measuredW="77" measuredH="27" zOrder="20" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Cancelar</text>
+      </controlProperties>
+    </control>
+  </controls>
+</mockup>

@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" 
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context" 
+       xmlns:jee="http://www.springframework.org/schema/jee" 
+       xmlns:lang="http://www.springframework.org/schema/lang"
+       xmlns:p="http://www.springframework.org/schema/p" 
+       xmlns:tx="http://www.springframework.org/schema/tx" 
+       xmlns:util="http://www.springframework.org/schema/util" 
+       xmlns:sa="http://sannotations.sourceforge.net/context"
+       xmlns:sec="http://www.springframework.org/schema/security"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee.xsd
+       http://www.springframework.org/schema/lang http://www.springframework.org/schema/lang/spring-lang.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.1.xsd
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+       http://sannotations.sourceforge.net/context http://sannotations.sourceforge.net/context.xsd
+       http://www.springframework.org/schema/context/spring-context-3.1.xsd
+       http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+       http://www.springframework.org/schema/jdbc 
+       http://www.springframework.org/schema/jdbc/spring-jdbc-3.1.xsd 
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+       http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.1.xsd"
+       default-lazy-init="true" default-autowire="byName">
+    
+    <context:annotation-config/>
+    
+    <context:component-scan base-package="br.ufg.inf.es"/>
+    
+    <sec:http auto-config="true" use-expressions="true">
+		
+        <sec:form-login login-page="/login.jsf" login-processing-url="/j_spring_security_check" authentication-failure-url="/login.jsf?error=true" default-target-url="/paginas/index.jsf" />
+        
+        <sec:logout logout-success-url="/login.jsf" invalidate-session="true"/>
+
+        <sec:intercept-url pattern="/paginas/**" access="hasAnyRole('ADM', 'CONSELHEIRO', 'DOCENTE')" />
+
+        <sec:access-denied-handler error-page="/login.jsf" />
+
+        <sec:session-management invalid-session-url="/login.jsf" session-authentication-error-url="/login.jsf" />
+        
+    </sec:http>
+	
+    <sec:authentication-manager>
+
+        <sec:authentication-provider ref="sgbAuth" />
+
+    </sec:authentication-manager>
+    
+    <tx:annotation-driven proxy-target-class="true" />
+    
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+        <property name="dataSource">
+            <ref bean="dataSource" />
+        </property>
+        <property name="packagesToScan" value="br.ufg.inf.es.model" />
+        <property name="hibernateProperties">
+            <!--<props>
+                <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+                <prop key="hibernate.hbm2ddl.auto">update</prop>
+                <prop key="hibernate.show_sql">true</prop>
+                <prop key="hibernate.current_session_context_class">thread</prop>
+            </props>-->
+            <!-- Para rodar no laboratorio da universidade com banco do derby do netbeans -->
+            <props> 
+                <prop key="hibernate.dialect">org.hibernate.dialect.DerbyDialect</prop>
+                <prop key="hibernate.hbm2ddl.auto">create</prop>
+                <prop key="hibernate.show_sql">true</prop>
+                <prop key="hibernate.current_session_context_class">thread</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory">
+        </property>
+    </bean>
+
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <!--<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+        <property name="url" value="jdbc:mysql://fs.inf.ufg.br:3306/sgb" />
+        <property name="username" value="sgb022012" />
+        <property name="password" value="sgb022012" />-->
+        <!-- Para rodar no laboratorio da universidade com banco do derby do netbeans -->
+        <property name="driverClassName" value="org.apache.derby.jdbc.ClientDriver" />
+        <property name="url" value="jdbc:derby://localhost:1527/sgb" />
+        <property name="username" value="app" />
+        <property name="password" value="app" />
+    </bean>
+    
+    <bean id="sgbAuth" class="br.ufg.inf.es.web.controller.LoginController">
+		
+        <property name="auth" ref="authSgb" />
+		
+    </bean>
+    
+    <bean id="authSgb" class="br.ufg.inf.es.integracao.SgbAuth" />
+    
+    <bean class="org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator">
+        
+        <property name="beanNames">
+            
+            <value>*Service</value>
+            
+        </property>
+        
+        <property name="interceptorNames">
+            
+            <list>
+                
+                <value>RNGExecutor</value>
+                
+            </list>
+            
+        </property>
+        
+    </bean>
+    
+    <bean id="methodBeforeAdvice" class="br.ufg.inf.es.integracao.aop.RNGExecutor"/>
+    
+    <bean id="RNGExecutor" class="org.springframework.aop.support.RegexpMethodPointcutAdvisor">
+        <property name="patterns">
+            <list>
+                <value>.*</value>
+            </list>
+        </property>
+        <property name="advice" ref="methodBeforeAdvice"/>
+    </bean>
+    
+</beans>

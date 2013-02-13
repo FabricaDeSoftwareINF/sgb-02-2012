@@ -1,0 +1,98 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets">
+
+
+    <ui:composition template="/template/template.xhtml">
+
+        <ui:define name="title">
+            Busca de Disciplina - SGB
+        </ui:define>
+
+        <ui:define name="content">
+            <h:form>
+                <p:panel header="#{msg['disciplina.manter']}">
+
+                    <p:messages autoUpdate="true"/>
+
+                    <p:dataTable value="#{disciplinaController.form.dataModelDisciplina}" var="disciplina" selection="#{disciplinaController.form.disciplinasSelecionadas}"
+                                 emptyMessage="#{msg['cadastro.autor.label.nenhumRegistro']}">
+
+                        <p:column selectionMode="multiple" style="margin-left: 18px;">
+
+                        </p:column>
+
+                        <p:column headerText="Código" sortBy="#{disciplina.codigo}">
+                            <h:outputText value="#{disciplina.codigo}" />
+                        </p:column>
+
+                        <p:column headerText="Nome" sortBy="#{disciplina.nome}">
+                            <h:outputText value="#{disciplina.nome}" />
+                        </p:column>
+
+                        <p:column headerText="Curso" sortBy="#{disciplina.curso.nome}">
+                            <h:outputText value="#{disciplina.curso.nome}" />
+                        </p:column>
+
+                        <p:column headerText="Ações">
+
+                            <h:panelGrid columns="2" width="100%" styleClass="semborda">
+
+                                <p:commandLink value="#{msg['acao.editar']}" action="#{disciplinaController.openEditPage()}" update="@all">
+
+                                    <f:setPropertyActionListener value="#{disciplina}" target="#{disciplinaController.form.disciplinaEdicao}" />
+
+                                    <f:param name="entityID" value="#{disciplina.id}" />
+
+                                </p:commandLink>
+
+                                <p:commandLink value="#{msg['acao.detalhes']}" oncomplete="detalharDisciplina();">
+
+                                    <f:setPropertyActionListener value="#{disciplina}" target="#{disciplinaController.form.disciplinaDetalhe}"/>
+
+                                </p:commandLink>
+
+                            </h:panelGrid>
+
+                        </p:column>
+
+                    </p:dataTable>
+
+                    <h:panelGrid columns="2" style="float: right">
+
+                        <p:commandButton value="#{msg['cadastro.acao.novo']}" action="#{disciplinaController.openInsertPage()}" ajax="false"/>
+
+                        <p:commandButton value="#{msg['cadastro.acao.remover']}" action="#{disciplinaController.exibirConfirmDialog}" update="@form"/>
+
+                    </h:panelGrid>
+
+                    <p:confirmDialog id="dialogRemocao" message="#{msg['disciplina.label.remocao']}"
+                                     header="#{msg['disciplina.label.remocaoTitulo']}" severity="alert" 
+                                     widgetVar="confirmation" visible="#{disciplinaController.form.exibirDialogRemocao}">
+
+                        <center>
+                            <p:commandButton value="#{msg['arquitetura.msg.sim']}" 
+                                             action="#{disciplinaController.removerDisciplinasSelecionadas}" ajax="false"/>
+
+                            <p:commandButton value="#{msg['arquitetura.msg.nao']}" 
+                                             action="#{disciplinaController.fecharDialogRemocao}" ajax="false"/>
+                        </center>
+
+                    </p:confirmDialog>
+
+                </p:panel>
+
+                <p:remoteCommand name="detalharDisciplina" action="#{disciplinaController.exibirDetalhes}" update="@form"/>
+                
+                <p:remoteCommand name="openInitialPage" action="#{disciplinaController.openInitialPage()}" ajax="false"/>
+
+                <ui:include src="/paginas/disciplina/visualizacao.xhtml" />
+
+            </h:form>
+
+        </ui:define>
+
+    </ui:composition>
+
+</html>

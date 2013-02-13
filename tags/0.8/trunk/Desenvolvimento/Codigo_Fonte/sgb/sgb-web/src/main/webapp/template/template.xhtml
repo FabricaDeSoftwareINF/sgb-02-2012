@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<!--@autor: Wilker de Jesus Machado, Cássio Augusto Silva de Freitas-->
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"  
+      xmlns:h="http://java.sun.com/jsf/html" 
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <f:view contentType="text/html">
+        <h:head>  
+            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+            <link rel="shortcut icon" href="resources/images/sgb.png"/>
+
+            <title>
+                <ui:insert name="title">
+                    SGB - Sistema de Gestão Bibliográfica
+                </ui:insert>
+            </title>
+
+            <h:outputScript name="functions.js" library="javascript"/>
+            <h:outputScript name="jquery.alphanumeric.js" library="javascript"/>
+            <h:outputStylesheet library="css" name="default.css"/>
+            <h:outputStylesheet library="css" name="panelGrid.css"/>
+            
+            <script>
+                jQuery(document).ready(function() {
+                    jQuery('.numeric').numeric({ichars:'ç[]=-;*/-+.,()¬¨%$"\'\'@!|?°º}]{[´`~^\\'}); 
+                });
+            </script>
+
+        </h:head>  
+
+        <h:body> 
+
+            <h:form id="header">
+                <h:panelGrid width="100%" columns="2">
+                    <p:graphicImage value="/resources/images/sgb.png" width="80" height="60"/>
+
+                    <h:panelGrid style="float: right" columns="6" >
+
+                        <h:panelGrid columns="2">
+                            <p:inputText id="pesquisaLivro" size="40"/> 
+                            <p:commandButton icon="ui-icon-search"/>
+                        </h:panelGrid>
+
+                        <p:watermark for="pesquisaLivro" value="Pesquisar Livro"/>
+                        <p:spacer width="45" height="0"/>
+                        <h4>#{loginController.usuarioLogado}</h4>                                
+                        <h:outputLink style="font-size: 16px;" value="#{request.contextPath}/j_spring_security_logout">(Sair)</h:outputLink>
+
+                    </h:panelGrid>
+                </h:panelGrid>
+
+                <p:menubar > 
+                    <p:menuitem value="Início" action="/index.xhtml"/>
+
+                    <p:submenu label="Cadastros">
+                        <p:menuitem value="#{msg['cadastro.curso']}" action="#{cursoController.openSearchPage()}" ajax="false"/>
+                        <p:menuitem value="#{msg['cadastro.editora.label.editora']}" action="#{editoraController.openInitialPage()}"  ajax="false"/>
+                        <p:menuitem value="#{msg['cadastro.livro.label.livro']}" action="#{livroController.openInitialPage()}" ajax="false"/>
+                        <p:menuitem value="#{msg['cadastro.autor.label.autor']}" action="#{autorController.openInitialPage()}" ajax="false"/>
+                        <p:menuitem value="#{msg['cadastro.disciplina.label.disciplina']}" action="#{disciplinaController.openInitialPage()}" ajax="false"/>
+                        <p:menuitem value="#{msg['usuario.label.usuarios']}" action="#{usuarioController.openInitialPage()}" ajax="false" />
+                    </p:submenu>
+
+                    <p:menuitem value="#{msg['listaCompras.inicial']}" action="#{listaComprasController.openInitialPage()}" ajax="false">
+
+                    </p:menuitem>
+                    
+                    <p:submenu label="Cotação" autoSubmenuDisplay="true">
+                        <p:menuitem value="Livros para cotação" action="#{livroParaCotacaoController.openInitialPage()}" ajax="false"/>
+                        <p:menuitem value="Listas de cotações" action="#{listaCotacaoController.openInitialPage()}" ajax="false"/>
+                    </p:submenu>
+
+                    <p:submenu label="Configurações">                    
+                        <p:menuitem value="#{msg['configuracao.geral']}" action="#{parametrosController.openViewPage()}"/>
+                    
+                        <p:menuitem value="#{msg['configuracao.biblioteca']}" action="#{bibliotecaConfigController.openInitialPage()}" ajax="false"/>
+                        
+                        <p:menuitem value="#{msg['configuracao.comunicacao']}" action="#{comunicacaoController.openInitialPage()}" ajax="false"/>
+                    </p:submenu>
+                    <p:menuitem value="Ajuda" ajax="false"/> 
+
+                    <div id="content">  
+
+                        <ui:insert name="content">
+
+                        </ui:insert>  
+
+                    </div>  
+
+                    <p:menuitem value="" action="#" style="float: right">
+
+                    </p:menuitem>
+                </p:menubar>
+            </h:form>
+
+            <div id="content" style="font-size: 14px;">  
+                <ui:insert name="content">
+                </ui:insert>  
+            </div>  
+
+            <p:ajaxStatus style="width:64px;height:64px;position:fixed;right:5px;bottom:5px">  
+                <f:facet name="start">  
+                    <p:graphicImage value="/resources/images/loading.gif" />  
+                </f:facet>  
+
+                <f:facet name="complete">  
+                    <h:outputText value="" />  
+                </f:facet>  
+            </p:ajaxStatus> 
+        </h:body>
+    </f:view>
+</html>  
