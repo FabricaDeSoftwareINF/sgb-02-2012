@@ -17,7 +17,7 @@
 
                     <p:messages />
                     
-                    <h:panelGrid columns="2" style="width: 100%;" >
+                    <h:panelGrid columns="2" style="width: 100%" >
 
                         <p:dataTable id="listaCotacoes" value="#{listaCotacaoController.form.listaCotacaoDataModel}" var="listaCotacao"  
                                      paginator="true" rows="10" style="width: 100%" >
@@ -32,13 +32,13 @@
                             <p:column headerText="#{msg['cotacao.label.preco']}"  style="text-align: center"
                                       filterBy="#{listaCotacao.preco}" filterMatchMode="contains">
 
-                                <h:outputText value="#{listaCotacao.preco}" />
+                                <h:outputText value="#{listaCotacao.preco}"/>
 
                             </p:column>
 
                             <p:column headerText="#{msg['cotacao.label.cricadoem']}" style="text-align: center">
 
-                                <h:outputText value="#{listaCotacao.dataRealizada}" />
+                                <h:outputText value="#{listaCotacao.dataRealizada}"/>
 
                             </p:column>
 
