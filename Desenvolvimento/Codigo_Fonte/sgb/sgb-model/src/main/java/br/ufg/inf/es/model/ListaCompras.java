@@ -21,7 +21,7 @@ public class ListaCompras extends AbstractEntityModel {
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date dataCriacao;
     
-    @JoinColumn(name="id")
+    @JoinColumn(name="id_usuario")
     @OneToOne(optional = false)
     private Usuario user;
     
