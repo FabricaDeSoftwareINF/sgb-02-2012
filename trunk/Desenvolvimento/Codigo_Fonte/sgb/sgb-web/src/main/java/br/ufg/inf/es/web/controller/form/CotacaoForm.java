@@ -2,6 +2,7 @@
 package br.ufg.inf.es.web.controller.form;
 
 import br.ufg.inf.es.model.Cotacao;
+import br.ufg.inf.es.model.Livro;
 import br.ufg.inf.es.web.datamodel.CotacaoDataModel;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -18,6 +19,10 @@ import org.springframework.stereotype.Component;
 public class CotacaoForm extends GenericForm<Cotacao> {
 
     private Collection<Cotacao> tabelaCotacoes;
+    
+    private Collection<Livro> livrosCotacao;
+    
+    private Livro[] livrosParaCotacao;
     
     private CotacaoDataModel cotacaoDataModel;
     
@@ -65,4 +70,22 @@ public class CotacaoForm extends GenericForm<Cotacao> {
         this.tabelaCotacoes = tabelaCotacoes;
     }
 
+    public Collection<Livro> getLivrosCotacao() {
+        
+        return livrosCotacao;
+    }
+
+    public void setLivrosCotacao(Collection<Livro> livrosCotacao) {
+     
+        this.livrosCotacao = livrosCotacao;
+    }
+
+    public Livro[] getLivrosParaCotacao() {
+        return livrosParaCotacao;
+    }
+
+    public void setLivrosParaCotacao(Livro[] livrosParaCotacao) {
+        this.livrosParaCotacao = livrosParaCotacao;
+    }
+    
 }
