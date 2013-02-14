@@ -8,25 +8,22 @@ import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javassist.NotFoundException;
-import org.springframework.beans.factory.config.BeanDefinition;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
 
 /**
- * 
+ *
  * @author Igor
  */
-@Component
-@Scope(BeanDefinition.SCOPE_SINGLETON)
+//@Component
+//@Scope(BeanDefinition.SCOPE_SINGLETON)
 public class BibliotecaService implements Biblioteca {
 
     public Collection<LivroBiblioteca> obtenhaLivros() {
-        LivrosBibliotecaDAO livrosBibliotecaDAO = new LivrosBibliotecaDAO(); 
+        LivrosBibliotecaDAO livrosBibliotecaDAO = new LivrosBibliotecaDAO();
         try {
             return (Collection<LivroBiblioteca>) livrosBibliotecaDAO.getLivroBibliotecaAll();
         } catch (NotFoundException ex) {
             Logger.getLogger(BibliotecaService.class.getName()).log(Level.SEVERE, null, ex);
-            return (Collection<LivroBiblioteca>) new ArrayList<LivroBiblioteca>(); 
+            return (Collection<LivroBiblioteca>) new ArrayList<LivroBiblioteca>();
         } catch (SQLException ex) {
             Logger.getLogger(BibliotecaService.class.getName()).log(Level.SEVERE, null, ex);
             return (Collection<LivroBiblioteca>) new ArrayList<LivroBiblioteca>();
@@ -34,7 +31,7 @@ public class BibliotecaService implements Biblioteca {
     }
 
     public Collection<LivroBiblioteca> obtenhaLivros(String nomeLivro) {
-        LivrosBibliotecaDAO livrosBibliotecaDAO = new LivrosBibliotecaDAO(); 
+        LivrosBibliotecaDAO livrosBibliotecaDAO = new LivrosBibliotecaDAO();
         try {
             return (Collection<LivroBiblioteca>) livrosBibliotecaDAO.getLivrosBibliotecaTitulo(nomeLivro);
         } catch (NotFoundException ex) {
@@ -45,12 +42,12 @@ public class BibliotecaService implements Biblioteca {
             return (Collection<LivroBiblioteca>) new ArrayList<LivroBiblioteca>();
         }
     }
-    
+
     public Collection<LivroBiblioteca> obtenhaLivros(String nomeLivro, String isbn) throws NotFoundException {
-        LivrosBibliotecaDAO livrosBibliotecaDAO = new LivrosBibliotecaDAO(); 
+        LivrosBibliotecaDAO livrosBibliotecaDAO = new LivrosBibliotecaDAO();
         try {
             return (Collection<LivroBiblioteca>) livrosBibliotecaDAO.getLivrosBibliotecaTitulo(nomeLivro, isbn);
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(BibliotecaService.class.getName()).log(Level.SEVERE, null, ex);
             return (Collection<LivroBiblioteca>) new ArrayList<LivroBiblioteca>();

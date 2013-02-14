@@ -4,7 +4,6 @@ import br.ufg.inf.es.base.service.Biblioteca;
 import br.ufg.inf.es.base.util.UtilXML;
 import br.ufg.inf.es.model.biblioteca.LivroBiblioteca;
 import java.util.*;
-import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -14,8 +13,8 @@ import org.springframework.stereotype.Component;
  *
  * @author Victor Ribeiro de Carvalho
  */
-@Component
-@Scope(BeanDefinition.SCOPE_SINGLETON)
+@Component("bibliotecaServiceMock")
+@Scope
 public class BibliotecaServiceMock implements Biblioteca {
 
     /**
