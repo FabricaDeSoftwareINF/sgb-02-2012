@@ -5,7 +5,7 @@
 
     <f:view>
         <p:dialog id="selecao_livro_dialog" widgetVar="novaListaCompra" closable="true" 
-                  header="teste">
+                  header="#{msg['listaCompras.nova']}">
 
             <h:form id="novo_lista_compra_form">
 
@@ -13,7 +13,7 @@
                              var="livro" style="width: 100%" paginator="true" 
                              paginatorAlwaysVisible="false" rows="10" 
                              selection="#{listaComprasController.form.selectedLivros}"
-                             emptyMessage="Nenhum registro">
+                             emptyMessage="#{msg['arquitetura.msg.nenhumregistroencontrado']}">
                     
                     <p:column selectionMode="multiple" style="width: 18px"></p:column>
 
