@@ -17,7 +17,7 @@
                 <p:dataTable id="listaComprasTable" var="listaCompras" value="#{listaComprasController.form.listaCompras}">  
 
                     <f:facet name="header">  
-                        Expanda uma linha para ver detalhes  
+                        #{msg['listaCompras.conteudo']}
                     </f:facet>  
 
                     <p:column style="width:4%">  
@@ -26,14 +26,14 @@
 
                     <p:column style="width:48%">  
                         <f:facet name="header">  
-                            Nome da lista  
+                            #{msg['listaCompras.nome']} 
                         </f:facet>  
                         <h:outputText value="#{listaCompras.nome}" />  
                     </p:column>  
 
                     <p:column style="width:48%">  
                         <f:facet name="header">  
-                            Data de gravação  
+                            #{msg['listaCompras.gravacao']} 
                         </f:facet>  
                         <h:outputText value="#{listaCompras.dataCriacao}" />  
                     </p:column>  
