@@ -6,11 +6,11 @@ import br.ufg.inf.es.model.Cotacao;
 import br.ufg.inf.es.model.ItemPlanilha;
 import br.ufg.inf.es.model.ListaCotacao;
 import br.ufg.inf.es.web.controller.form.ListaCotacaoForm;
-import java.io.InputStream;
+import java.io.ByteArrayInputStream;
+import java.io.FileOutputStream;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
-import javax.faces.context.FacesContext;
-import javax.servlet.ServletContext;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,15 +32,6 @@ public class ListaCotacaoController extends SGBController<ListaCotacao, ListaCot
     private ListaCotacaoService service;
     private StreamedContent arquivoXLS;
     private StreamedContent arquivoCSV;
-    private InputStream stream;
-
-    public ListaCotacaoController() {
-        ServletContext contexto = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
-        stream = contexto.getResourceAsStream("planilha.xls");
-        arquivoXLS = new DefaultStreamedContent(stream, "application/vnd.ms-excel", "planilha.xls");
-        stream = contexto.getResourceAsStream("planilha.csv");
-        arquivoCSV = new DefaultStreamedContent(stream, "text/csv", "planilha.csv");
-    }
 
     @Override
     public void initData() {
@@ -58,13 +49,11 @@ public class ListaCotacaoController extends SGBController<ListaCotacao, ListaCot
         return service;
     }
 
-    public StreamedContent getArquivoCSV(boolean nacionais, boolean estrangeiros) {
-        exportarCSV(this.form.getEntity(), nacionais, estrangeiros);
+    public StreamedContent getArquivoCSV() {
         return arquivoCSV;
     }
 
     public StreamedContent getArquivoXLS() {
-        exportarXLS(this.form.getEntity());
         return arquivoXLS;
     }
 
@@ -84,7 +73,10 @@ public class ListaCotacaoController extends SGBController<ListaCotacao, ListaCot
                 linhasPlanilhaEstrangeiros.add(itemPlanilha);
             }
 
-            exportador.gerarPlanilhaXLS(linhasPlanilhaNacionais, linhasPlanilhaEstrangeiros);
+            FileOutputStream out = exportador.gerarPlanilhaXLS(linhasPlanilhaNacionais, linhasPlanilhaEstrangeiros);
+            ByteArrayInputStream stream = new ByteArrayInputStream(out.toString().getBytes(Charset.forName("UTF-8")));
+
+            this.arquivoXLS = new DefaultStreamedContent(stream, "application/vnd.ms-excel", "planilha.xls");
 
         }
     }
@@ -92,6 +84,7 @@ public class ListaCotacaoController extends SGBController<ListaCotacao, ListaCot
     public void exportarCSV(ListaCotacao listaCotacao, boolean nacionais, boolean estrangeiros) {
 
         ExportacaoPlanilhaService exportador = new ExportacaoPlanilhaService();
+        String strCSV = "";
 
         if (nacionais == true && estrangeiros == false) {
 
@@ -105,7 +98,7 @@ public class ListaCotacaoController extends SGBController<ListaCotacao, ListaCot
                     linhasPlanilhaNacionais.add(itemPlanilha);
                 }
 
-                exportador.gerarPlanilhaCSV(linhasPlanilhaNacionais);
+                strCSV = exportador.gerarPlanilhaCSV(linhasPlanilhaNacionais);
 
             }
 
@@ -121,10 +114,13 @@ public class ListaCotacaoController extends SGBController<ListaCotacao, ListaCot
                     linhasPlanilhaEstrangeiros.add(itemPlanilha);
                 }
 
-                exportador.gerarPlanilhaCSV(linhasPlanilhaEstrangeiros);
+                strCSV = exportador.gerarPlanilhaCSV(linhasPlanilhaEstrangeiros);
 
             }
         }
+
+        ByteArrayInputStream stream = new ByteArrayInputStream(strCSV.getBytes(Charset.forName("UTF-8")));
+        arquivoCSV = new DefaultStreamedContent(stream, "text/csv", "planilha.csv");
     }
 
     private ItemPlanilha montarItemPlanilha(Cotacao cotacao, int numItem) {

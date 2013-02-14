@@ -60,23 +60,23 @@
 
                         </p:column>
 
-<!-- <p:column headerText="#{msg['cotacao.label.orcamento1']}" style="text-align: center" >
+                        <!-- <p:column headerText="#{msg['cotacao.label.orcamento1']}" style="text-align: center" >
 
-    <h:outputText value="#{cotacao.valor}" />
+                            <h:outputText value="#{cotacao.valor}" />
 
-</p:column>
+                        </p:column>
 
-<p:column headerText="#{msg['cotacao.label.orcamento1']}" style="text-align: center">
+                        <p:column headerText="#{msg['cotacao.label.orcamento1']}" style="text-align: center">
 
-    <h:outputText value="#{cotacao.valor}" />
+                            <h:outputText value="#{cotacao.valor}" />
 
-</p:column>
+                        </p:column>
 
-<p:column headerText="#{msg['cotacao.label.orcamento1']}" style="text-align: center" >
+                        <p:column headerText="#{msg['cotacao.label.orcamento1']}" style="text-align: center" >
 
-    <h:outputText value="#{cotacao.valor}" />
+                            <h:outputText value="#{cotacao.valor}" />
 
-</p:column> -->
+                        </p:column> -->
 
                         <p:column headerText="#{msg['cotacao.label.valormedio']}" style="text-align: center"
                                   sortBy="#{cotacao.valor}">
@@ -119,16 +119,19 @@
 
                 <h:form>
 
-                    <p:commandButton value="#{msg['cotacao.button.exportarXLS']}" ajax="false">
+                    <p:commandButton value="#{msg['cotacao.button.exportarXLS']}" ajax="false"
+                                     actionListener="#{listaCotacaoController.exportarXLS(listaCotacaoController.form.entity)}">
                         <p:fileDownload value="#{listaCotacaoController.arquivoXLS}" />  
                     </p:commandButton>
                     
-                    <p:commandButton value="#{msg['cotacao.button.exportarCSVNacionais']}" ajax="false">
-                        <p:fileDownload value="#{listaCotacaoController.arquivoCSV(true, false)}" />  
+                    <p:commandButton value="#{msg['cotacao.button.exportarCSVNacionais']}" ajax="false"
+                                     actionListener="#{listaCotacaoController.exportarCSV(listaCotacaoController.form.entity, true, false)} ">
+                        <p:fileDownload value="#{listaCotacaoController.arquivoCSV()}" />  
                     </p:commandButton>
                     
-                    <p:commandButton value="#{msg['cotacao.button.exportarCSVEstrangeiros']}" ajax="false">
-                        <p:fileDownload value="#{listaCotacaoController.arquivoCSV(false, true)}" />  
+                    <p:commandButton value="#{msg['cotacao.button.exportarCSVEstrangeiros']}" ajax="false"
+                                     actionListener="#{listaCotacaoController.exportarCSV(listaCotacaoController.form.entity, false, true)} ">
+                        <p:fileDownload value="#{listaCotacaoController.arquivoCSV()}" />  
                     </p:commandButton>
                     
                 </h:form>

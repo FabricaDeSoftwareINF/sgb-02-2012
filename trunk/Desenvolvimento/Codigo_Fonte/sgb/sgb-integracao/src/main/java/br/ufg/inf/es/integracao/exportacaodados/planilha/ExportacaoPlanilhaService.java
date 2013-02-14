@@ -50,7 +50,18 @@ public class ExportacaoPlanilhaService {
      * @param linhasPlanilhaEstrangeiros Lista de itens da planilha de livros
      * nacionais.
      */
-    public void gerarPlanilhaXLS(List<ItemPlanilha> linhasPlanilhaNacionais,
+    /**
+     * Gera planilha em formato XLS com base numa lista de itens de planilha dos
+     * livros nacionais e outra dos títulos estrangeiros. Cada ItemPlanilha é
+     * uma linha da planilha com suas devidas COLUNAs.
+     *
+     * @param linhasPlanilhaNacionais Lista de itens da planilha de livros
+     * nacionais.
+     * @param linhasPlanilhaEstrangeiros Lista de itens da planilha de livros
+     * nacionais.
+     * @return Objeto FileOutpuStream correspondente ao arquivo gerado.
+     */
+    public FileOutputStream gerarPlanilhaXLS(List<ItemPlanilha> linhasPlanilhaNacionais,
             List<ItemPlanilha> linhasPlanilhaEstrangeiros) {
 
         FileOutputStream stream;
@@ -71,12 +82,16 @@ public class ExportacaoPlanilhaService {
             ajustarTamanhoCelulas(planilhaEstrangeiros, ItemPlanilha.getNumColunas());
 
             stream = new FileOutputStream("planilha.xls");
+
             geradorPlanilha.write(stream);
+            return stream;
 
         } catch (FileNotFoundException ex) {
             Logger.getLogger(ExportacaoPlanilhaService.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
         } catch (IOException ex) {
             Logger.getLogger(ExportacaoPlanilhaService.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
         }
     }
 
@@ -169,26 +184,22 @@ public class ExportacaoPlanilhaService {
 
         return planilha;
     }
-    
+
     /**
      * Monta e retorna um objeto do tipo célula de planilha.
-     * @param linha
-     * Linha na qual a célula será criada e vinculada.
-     * @param estiloCabecalho
-     * Estilo a ser aplicado na célula.
-     * @param numColuna
-     * Número da coluna da célula na linha repassada.
-     * @param valorCelula
-     * Valor a ser adicionado na célula.
-     * @return 
-     * Objeto célula montado de acordo com os atributos repassados.
+     *
+     * @param linha Linha na qual a célula será criada e vinculada.
+     * @param estiloCabecalho Estilo a ser aplicado na célula.
+     * @param numColuna Número da coluna da célula na linha repassada.
+     * @param valorCelula Valor a ser adicionado na célula.
+     * @return Objeto célula montado de acordo com os atributos repassados.
      */
-    private HSSFCell montarCelula(HSSFRow linha, HSSFCellStyle estilo,  short numColuna, String valorCelula) {
-        
+    private HSSFCell montarCelula(HSSFRow linha, HSSFCellStyle estilo, short numColuna, String valorCelula) {
+
         HSSFCell celula = linha.createCell(numColuna);
         celula.setCellValue(new HSSFRichTextString(valorCelula));
         celula.setCellStyle(estilo);
-        
+
         return celula;
     }
 
@@ -303,51 +314,36 @@ public class ExportacaoPlanilhaService {
 
     /**
      * Gera planilha em formato CSV com base numa lista de itens de planilha.
-     * Cada ItemPlanilha é uma linha da planilha com suas devidas COLUNAs.
+     * Cada ItemPlanilha é uma linha da planilha com suas devidas COLUNAs
      *
      * @param linhasPlanilha Lista de itens da planilha.
+     * @return String correspondente ao arquivo CSV.
      */
-    public void gerarPlanilhaCSV(List<ItemPlanilha> linhasPlanilha) {
+    public String gerarPlanilhaCSV(List<ItemPlanilha> linhasPlanilha) {
 
         List<Map> planilhaListMap = obterListMap(linhasPlanilha);
         String separadorCSV = ",";
+        StringBuilder linha = new StringBuilder();
 
-        try {
+        for (Map itemListMap : planilhaListMap) {
 
-            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(
-                    new FileOutputStream("planilha.csv"), "UTF-8"));
+            Iterator iterador = itemListMap.values().iterator();
 
-            for (Map itemListMap : planilhaListMap) {
+            while (iterador.hasNext()) {
+                Object value = iterador.next();
 
-                StringBuilder linha = new StringBuilder();
-                Iterator iterador = itemListMap.values().iterator();
-
-                while (iterador.hasNext()) {
-                    Object value = iterador.next();
-
-                    if (value != null) {
-                        linha.append(value.toString());
-                    }
-
-                    if (iterador.hasNext()) {
-                        linha.append(separadorCSV);
-                    }
+                if (value != null) {
+                    linha.append(value.toString());
                 }
 
-                writer.write(linha.toString());
-                writer.newLine();
+                if (iterador.hasNext()) {
+                    linha.append(separadorCSV);
+                }
             }
 
-            writer.flush();
-            writer.close();
-
-        } catch (UnsupportedEncodingException e) {
-            Logger.getLogger(ExportacaoPlanilhaService.class.getName()).log(Level.SEVERE, null, e);
-        } catch (FileNotFoundException e) {
-            Logger.getLogger(ExportacaoPlanilhaService.class.getName()).log(Level.SEVERE, null, e);
-        } catch (IOException e) {
-            Logger.getLogger(ExportacaoPlanilhaService.class.getName()).log(Level.SEVERE, null, e);
         }
+
+        return linha.toString();
 
     }
 
