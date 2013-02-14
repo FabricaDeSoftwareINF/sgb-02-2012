@@ -16,7 +16,7 @@
 
                     <p:messages autoUpdate="true"/>
 
-                    <p:dataTable value="#{disciplinaController.form.dataModelDisciplina}" var="disciplina" selection="#{disciplinaController.form.disciplinasSelecionadas}"
+                    <p:dataTable id="disciplinas_datatable" value="#{disciplinaController.form.dataModelDisciplina}" var="disciplina" selection="#{disciplinaController.form.disciplinasSelecionadas}"
                                  emptyMessage="#{msg['cadastro.autor.label.nenhumRegistro']}">
 
                         <p:column selectionMode="multiple" style="margin-left: 18px;">
@@ -63,20 +63,22 @@
 
                         <p:commandButton value="#{msg['cadastro.acao.novo']}" action="#{disciplinaController.openInsertPage()}" ajax="false"/>
 
-                        <p:commandButton value="#{msg['cadastro.acao.remover']}" action="#{disciplinaController.exibirConfirmDialog}" update="@form"/>
+                        <p:commandButton value="#{msg['cadastro.acao.remover']}" oncomplete="dialogRemocao.show()"/>
 
                     </h:panelGrid>
 
                     <p:confirmDialog id="dialogRemocao" message="#{msg['disciplina.label.remocao']}"
                                      header="#{msg['disciplina.label.remocaoTitulo']}" severity="alert" 
-                                     widgetVar="confirmation" visible="#{disciplinaController.form.exibirDialogRemocao}">
+                                     widgetVar="confirmation">
 
                         <center>
                             <p:commandButton value="#{msg['arquitetura.msg.sim']}" 
-                                             action="#{disciplinaController.removerDisciplinasSelecionadas}" ajax="false"/>
+                                             actionListener="#{disciplinaController.removerDisciplinasSelecionadas}"
+                                             update="disciplinas_datatable"
+                                             oncomplete="dlgRemocao.hide()"/>
 
-                            <p:commandButton value="#{msg['arquitetura.msg.nao']}" 
-                                             action="#{disciplinaController.fecharDialogRemocao}" ajax="false"/>
+                            <p:commandButton value="#{msg['arquitetura.msg.nao']}"
+                                             onclick="dialogRemocao.hide()"/>
                         </center>
 
                     </p:confirmDialog>

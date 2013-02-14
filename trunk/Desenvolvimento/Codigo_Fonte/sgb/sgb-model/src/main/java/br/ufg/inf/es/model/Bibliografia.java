@@ -34,7 +34,7 @@ public class Bibliografia extends AbstractEntityModel {
     /**
      * Campo disciplina
      */
-    @ManyToOne(optional = false, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "id_disciplina")
     private Disciplina disciplina;
     /**
