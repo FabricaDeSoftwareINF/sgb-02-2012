@@ -20,8 +20,9 @@ public class ListaCompras extends AbstractEntityModel {
     @Column(name = "data_criacao")
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date dataCriacao;
-    @ManyToOne
+    
     @JoinColumn(name="id")
+    @OneToOne(optional = false)
     private Usuario user;
     
     /** Campo livrosDaListaCompras*/
