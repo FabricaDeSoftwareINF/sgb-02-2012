@@ -32,8 +32,9 @@
                             <h:outputLabel value="#{msg['label.disciplina.curso']}:"></h:outputLabel>
 
                             <p:selectOneMenu value="#{disciplinaController.form.entity.curso}" converter="cursoConverter">
-                                
+
                                 <f:selectItem itemLabel="Selecione"/>
+                               
                                 <f:selectItems value="#{disciplinaController.form.cursos}" var="curso" 
                                                itemValue="#{curso}" itemLabel="#{curso.nome}"/>
 
@@ -49,15 +50,18 @@
 
                                 <p:selectOneMenu value="#{disciplinaController.form.tipoBibliografiaSelecionado}" converter="enumTipoBibliografiaConverter">
                                     <f:selectItem itemLabel="Selecione"/>
-                                    <f:selectItems value="#{disciplinaController.form.tipoBibliografias}" var="#{tipo}" itemLabel="#{tipo.value}"></f:selectItems>
+                                    <f:selectItems value="#{disciplinaController.form.tipoBibliografias}" var="tipo" itemLabel="#{tipo.value}"></f:selectItems>
                                 </p:selectOneMenu>
 
                                 <h:outputLabel value="#{msg['label.disciplina.tituloLivro']}:"></h:outputLabel>
 
                                 <p:autoComplete value="#{disciplinaController.form.bibliografiaTmp.livro}" converter="livroConverter" 
-                                                completeMethod="#{disciplinaController.buscaLivros}" var="livro" itemLabel="#{livro.titulo}" 
-                                                itemValue="#{livro}" 
-                                                global="true">
+                                                completeMethod="#{disciplinaController.buscaLivros}" var="livro" itemLabel="#{livro.titulo}" itemValue="#{livro}" 
+                                                global="true" forceSelection="true" size="30">
+                                    
+                                    <p:column>
+                                        #{livro.titulo} - #{livro.getAutoresAsString()}
+                                    </p:column>
                                 </p:autoComplete>
 
                                 <p:spacer width="10"/>
@@ -98,7 +102,7 @@
 
                         <h:panelGrid columns="2" style="float: right">
 
-                            <p:commandButton value="#{msg['label.disciplina.cadastrar']}" action="#{disciplinaController.inserir}" rendered="#{!disciplinaController.form.isEditPage}"></p:commandButton>
+                            <p:commandButton value="#{msg['label.disciplina.cadastrar']}" action="#{disciplinaController.inserir}" rendered="#{!disciplinaController.form.isEditPage}" update="formInicial"></p:commandButton>
 
                             <p:commandButton value="Editar" action="#{disciplinaController.editarDisciplina}" rendered="#{disciplinaController.form.isEditPage}"/>
 

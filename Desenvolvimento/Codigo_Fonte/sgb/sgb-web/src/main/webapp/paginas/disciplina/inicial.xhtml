@@ -11,71 +11,73 @@
         </ui:define>
 
         <ui:define name="content">
-            <h:form>
+
+            <h:form prependId="false">
+
                 <p:panel header="#{msg['disciplina.manter']}">
 
-                    <p:messages autoUpdate="true"/>
+                    <p:messages id="message" autoUpdate="true"/>
 
-                    <p:dataTable id="disciplinas_datatable" value="#{disciplinaController.form.dataModelDisciplina}" var="disciplina" selection="#{disciplinaController.form.disciplinasSelecionadas}"
-                                 emptyMessage="#{msg['cadastro.autor.label.nenhumRegistro']}">
+                    <h:panelGrid style=" width: 100%;">
 
-                        <p:column selectionMode="multiple" style="margin-left: 18px;">
+                        <p:dataTable id="disciplinas_datatable" value="#{disciplinaController.form.dataModelDisciplina}" var="disciplina" selection="#{disciplinaController.form.disciplinasSelecionadas}"
+                                     emptyMessage="#{msg['cadastro.autor.label.nenhumRegistro']}">
 
-                        </p:column>
+                            <p:column selectionMode="multiple" style="width: 18px;">
 
-                        <p:column headerText="Código" sortBy="#{disciplina.codigo}">
-                            <h:outputText value="#{disciplina.codigo}" />
-                        </p:column>
+                            </p:column>
 
-                        <p:column headerText="Nome" sortBy="#{disciplina.nome}">
-                            <h:outputText value="#{disciplina.nome}" />
-                        </p:column>
+                            <p:column headerText="Código" sortBy="#{disciplina.codigo}">
+                                <h:outputText value="#{disciplina.codigo}" />
+                            </p:column>
 
-                        <p:column headerText="Curso" sortBy="#{disciplina.curso.nome}">
-                            <h:outputText value="#{disciplina.curso.nome}" />
-                        </p:column>
+                            <p:column headerText="Nome" sortBy="#{disciplina.nome}">
+                                <h:outputText value="#{disciplina.nome}" />
+                            </p:column>
 
-                        <p:column headerText="Ações">
+                            <p:column headerText="Curso" sortBy="#{disciplina.curso.nome}">
+                                <h:outputText value="#{disciplina.curso.nome}" />
+                            </p:column>
 
-                            <h:panelGrid columns="2" width="100%" styleClass="semborda">
+                            <p:column headerText="Ações">
 
-                                <p:commandLink value="#{msg['acao.editar']}" action="#{disciplinaController.openEditPage()}" update="@all">
+                                <h:panelGrid columns="2" width="100%" styleClass="semborda">
 
-                                    <f:setPropertyActionListener value="#{disciplina}" target="#{disciplinaController.form.disciplinaEdicao}" />
+                                    <p:commandLink value="#{msg['acao.editar']}" action="#{disciplinaController.openEditPage()}" update="@all">
 
-                                    <f:param name="entityID" value="#{disciplina.id}" />
+                                        <f:setPropertyActionListener value="#{disciplina}" target="#{disciplinaController.form.disciplinaEdicao}" />
 
-                                </p:commandLink>
+                                        <f:param name="entityID" value="#{disciplina.id}" />
 
-                                <p:commandLink value="#{msg['acao.detalhes']}" oncomplete="detalharDisciplina();">
+                                    </p:commandLink>
 
-                                    <f:setPropertyActionListener value="#{disciplina}" target="#{disciplinaController.form.disciplinaDetalhe}"/>
+                                    <p:commandLink value="#{msg['acao.detalhes']}" oncomplete="detalharDisciplina();" actionListener="#{disciplinaController.form.setDisciplinaDetalhe(disciplina)}"/>
 
-                                </p:commandLink>
+                                </h:panelGrid>
 
-                            </h:panelGrid>
+                            </p:column>
 
-                        </p:column>
+                        </p:dataTable>
 
-                    </p:dataTable>
+                        <h:panelGrid columns="2" style="float: right">
 
-                    <h:panelGrid columns="2" style="float: right">
+                            <p:commandButton value="#{msg['cadastro.acao.novo']}" action="#{disciplinaController.openInsertPage()}" ajax="false"/>
 
-                        <p:commandButton value="#{msg['cadastro.acao.novo']}" action="#{disciplinaController.openInsertPage()}" ajax="false"/>
+                            <p:commandButton value="#{msg['cadastro.acao.remover']}" onclick="dialogRemocao.show()" />
 
-                        <p:commandButton value="#{msg['cadastro.acao.remover']}" oncomplete="dialogRemocao.show()"/>
+                        </h:panelGrid>
 
                     </h:panelGrid>
 
-                    <p:confirmDialog id="dialogRemocao" message="#{msg['disciplina.label.remocao']}"
+                    <p:confirmDialog id="dialog_remocao" message="#{msg['disciplina.label.remocao']}"
                                      header="#{msg['disciplina.label.remocaoTitulo']}" severity="alert" 
-                                     widgetVar="confirmation">
+                                     widgetVar="dialogRemocao">
 
                         <center>
                             <p:commandButton value="#{msg['arquitetura.msg.sim']}" 
                                              actionListener="#{disciplinaController.removerDisciplinasSelecionadas}"
-                                             update="disciplinas_datatable"
-                                             oncomplete="dlgRemocao.hide()"/>
+                                             update="disciplinas_datatable , message"
+                                             oncomplete="dialogRemocao.hide()"/>
 
                             <p:commandButton value="#{msg['arquitetura.msg.nao']}"
                                              onclick="dialogRemocao.hide()"/>
@@ -86,7 +88,7 @@
                 </p:panel>
 
                 <p:remoteCommand name="detalharDisciplina" action="#{disciplinaController.exibirDetalhes}" update="@form"/>
-                
+
                 <p:remoteCommand name="openInitialPage" action="#{disciplinaController.openInitialPage()}" ajax="false"/>
 
                 <ui:include src="/paginas/disciplina/visualizacao.xhtml" />
