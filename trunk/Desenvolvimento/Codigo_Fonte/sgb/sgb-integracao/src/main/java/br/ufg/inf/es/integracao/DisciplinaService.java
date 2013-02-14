@@ -3,6 +3,7 @@ package br.ufg.inf.es.integracao;
 import br.ufg.inf.es.base.util.UtilObjeto;
 import br.ufg.inf.es.base.validation.ValidationException;
 import br.ufg.inf.es.integracao.annotations.RNG006;
+import br.ufg.inf.es.model.Autor;
 import br.ufg.inf.es.model.Bibliografia;
 import br.ufg.inf.es.model.Disciplina;
 import br.ufg.inf.es.model.Livro;
@@ -158,6 +159,16 @@ public class DisciplinaService extends GenericService<Disciplina> {
     @RNG006
     public void update(Disciplina disciplina) throws ValidationException {
         this.getDAO().update(disciplina);
+    }
+
+    /**
+     * 
+     * @param idLivro
+     * @return 
+     */
+    public Collection<Autor> buscaAutores(Long idLivro) {
+       
+        return (Collection<Autor>) this.getLivroDao().getCollection(idLivro, "autores");
     }
     
 }

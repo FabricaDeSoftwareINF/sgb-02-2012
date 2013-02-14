@@ -265,9 +265,7 @@ public abstract class GenericHibernateDAO<E extends Entity<Long>> implements DAO
 
             return Collections.EMPTY_LIST;
 
-        } finally {
-            this.getSession().close();
-        }
+        } 
         
     }
 

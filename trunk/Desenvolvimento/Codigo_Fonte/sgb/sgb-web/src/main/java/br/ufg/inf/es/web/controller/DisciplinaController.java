@@ -15,8 +15,6 @@ import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.hibernate.Hibernate;
-import org.primefaces.event.SelectEvent;
-import org.primefaces.event.UnselectEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -30,11 +28,19 @@ import org.springframework.stereotype.Component;
 public class DisciplinaController extends SGBController<Disciplina, DisciplinaForm, DisciplinaService> {
 
     private static final String KEY_SUCESSO = "arquitetura.msg.sucesso";
+    
     private static final String KEY_NENHUMA_DISCIPLINA_MESSAGE = "label.disciplina.nenhumaSelecionada";
+    
+    private static final String KEY_NENHUM_LIVRO_SELECIONADO = "label.disciplina.nenhumLivroSelecionado";
+    
+    private static final String KEY_NENHUM_TIPO_SELECIONADO = "label.disciplina.nenhumTipoSelecionado";
+   
     @Autowired
     private DisciplinaForm form;
+    
     @Autowired
     private DisciplinaService service;
+   
     @Autowired
     private CursoService cursoService;
 
@@ -64,18 +70,21 @@ public class DisciplinaController extends SGBController<Disciplina, DisciplinaFo
         this.getForm().setTipoBibliografias(Arrays.asList(EnumTipoBibliografia.values()));
 
         this.getForm().setSelecionadosAux(new ArrayList<Livro>());
+        
+        this.getForm().setDisciplinasSelecionadas(new ArrayList<Disciplina>());
 
         this.getForm().setDataModelDisciplina(new DisciplinaDataModel((List) this.getForm().getCollectionEntities()));
     }
 
-    
     @Override
     public String openInitialPage() {
+
         this.service.getDAO().closeSession();
+
         return super.openInitialPage();
 
     }
-    
+
     @Override
     public String openEditPage() {
 
@@ -86,11 +95,19 @@ public class DisciplinaController extends SGBController<Disciplina, DisciplinaFo
         this.getForm().getEntity().setBibliografias((Collection<Bibliografia>) this.getService().getDAO().getCollection(this.getForm().getEntity().getId(), "bibliografias"));
         
         Collection<Bibliografia> bibliografias = this.getForm().getEntity().getBibliografias();
+
         Collection<Livro> livrosAssociados = new ArrayList<Livro>();
+
         for (Bibliografia bibliografia : bibliografias) {
+
             livrosAssociados.add(bibliografia.getLivro());
+
         }
+
         this.getForm().setSelecionadosAux(livrosAssociados);
+        
+        this.getService().getDAO().closeSession();
+
         return super.openEditPage();
 
     }
@@ -107,6 +124,11 @@ public class DisciplinaController extends SGBController<Disciplina, DisciplinaFo
 
         List<Livro> livros = (List<Livro>) this.getService().buscaLivros(query);
         
+        for(Livro livro : livros) {
+            
+            livro.setAutores(this.getService().buscaAutores(livro.getId()));
+        }
+
         livros.removeAll(this.getForm().getSelecionadosAux());
 
         return livros;
@@ -119,16 +141,37 @@ public class DisciplinaController extends SGBController<Disciplina, DisciplinaFo
      * @author Cássio Augusto Silva de Freitas
      */
     public void associarLivros() {
-        
-        Disciplina disciplina = this.form.getEntity();
-        Bibliografia bibliografia = this.form.getBibliografiaTmp();
-        bibliografia.setTipo(this.form.getTipoBibliografiaSelecionado());
-        bibliografia.setDisciplina(disciplina);
-        Collection<Bibliografia> listaBibliografias = disciplina.getBibliografias();
-        listaBibliografias.add(bibliografia);
-        this.form.setBibliografiaTmp(new Bibliografia());
-        this.form.setTipoBibliografiaSelecionado(null);
-        this.form.getSelecionadosAux().add(bibliografia.getLivro());
+
+
+        if (UtilObjeto.isReferencia(this.getForm().getBibliografiaTmp().getLivro())
+                && UtilObjeto.isReferencia(this.getForm().getTipoBibliografiaSelecionado())) {
+            
+            Disciplina disciplina = getForm().getEntity();
+
+            Bibliografia bibliografia = getForm().getBibliografiaTmp();
+
+            bibliografia.setTipo(getForm().getTipoBibliografiaSelecionado());
+
+            bibliografia.setDisciplina(disciplina);
+
+            Collection<Bibliografia> listaBibliografias = disciplina.getBibliografias();
+
+            listaBibliografias.add(bibliografia);
+
+            this.getForm().setBibliografiaTmp(new Bibliografia());
+
+            this.getForm().setTipoBibliografiaSelecionado(null);
+
+            this.getForm().getSelecionadosAux().add(bibliografia.getLivro());
+
+        } else if(!UtilObjeto.isReferencia(this.getForm().getTipoBibliografiaSelecionado())){
+            
+            this.addWarningMessage(KEY_NENHUM_TIPO_SELECIONADO);
+            
+        } else {
+            
+            this.addWarningMessage(KEY_NENHUM_LIVRO_SELECIONADO);
+        }
     }
 
     /**
@@ -144,7 +187,7 @@ public class DisciplinaController extends SGBController<Disciplina, DisciplinaFo
 
             this.addSuccessMessage(DisciplinaController.KEY_SUCESSO);
 
-            this.openInitialPage();
+            limparCampos();
 
         } catch (ValidationException ex) {
 
@@ -152,6 +195,17 @@ public class DisciplinaController extends SGBController<Disciplina, DisciplinaFo
 
         }
 
+
+    }
+
+    /**
+     * Método responsável por limpar os campos após o cadastro.
+     */
+    private void limparCampos() {
+
+        this.getForm().setEntity(new Disciplina());
+        
+        this.getForm().setSelecionadosAux(new ArrayList<Livro>());
 
     }
 
@@ -163,7 +217,7 @@ public class DisciplinaController extends SGBController<Disciplina, DisciplinaFo
     public String editarDisciplina() {
 
         try {
-            
+
             Hibernate.isInitialized(this.getForm().getEntity());
 
             Hibernate.initialize(this.getForm().getEntity());
@@ -172,11 +226,12 @@ public class DisciplinaController extends SGBController<Disciplina, DisciplinaFo
 
             this.addSuccessMessage(DisciplinaController.KEY_SUCESSO);
 
-            this.openInitialPage();
-
         } catch (ValidationException ex) {
+            
+            this.getService().getDAO().closeSession();
 
             this.addWarningMessage(ex.getKeyMessage());
+            
         }
         return this.openInitialPage();
     }
@@ -188,9 +243,15 @@ public class DisciplinaController extends SGBController<Disciplina, DisciplinaFo
      * @author Cássio Augusto Silva de Freitas
      */
     public void desassociarBibliografia() {
+        
         Bibliografia bibliografia = this.getForm().getBibliografiaParaRemocao();
+        
         this.getForm().getEntity().getBibliografias().remove(bibliografia);
+       
         bibliografia.getDisciplina().getBibliografias().remove(bibliografia);
+        
+        this.getForm().getSelecionadosAux().remove(bibliografia.getLivro());
+              
     }
 
     /**
@@ -215,33 +276,39 @@ public class DisciplinaController extends SGBController<Disciplina, DisciplinaFo
         this.getForm().setExibirDialogDetalhe(Boolean.FALSE);
     }
 
-
     /**
      * Método responsável por remover as disciplinas selecionadas pelo usuário.
-     * 
+     *
      * @author Cássio Augusto Silva Freitas, Marco Aurélio
      */
     public void removerDisciplinasSelecionadas() {
 
-        Collection<Disciplina> disciplinasSeleciondadas = 
+        Collection<Disciplina> disciplinasSeleciondadas =
                 this.getForm().getDisciplinasSelecionadas();
+
         if (UtilObjeto.isReferencia(disciplinasSeleciondadas)) {
             try {
-                
+
                 this.getService().removeAll(disciplinasSeleciondadas);
-            
+
+                this.getForm().setDisciplinasSelecionadas(new ArrayList<Disciplina>());
+
+                initData();
+
+                this.addSuccessMessage(KEY_SUCESSO);
+
             } catch (ValidationException ex) {
-            
+
                 Logger.getLogger(DisciplinaController.class.getName()).log(Level.SEVERE, null, ex);
             }
-        
+
         } else {
 
             this.addWarningMessage(KEY_NENHUMA_DISCIPLINA_MESSAGE);
 
         }
     }
-    
+
     @Override
     public DisciplinaForm getForm() {
         return form;
