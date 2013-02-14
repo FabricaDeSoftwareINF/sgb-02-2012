@@ -51,13 +51,13 @@ public enum UsuarioPerfil implements Serializable {
         this.name = tipo;
     }
 
-	/**
-	 * Obtém o valor do campo <code>name</code>
-	 *
-	 * @return {@link String}
-	 */
-	public String getName() {
-		return this.name;
-	}
+    /**
+        * Obtém o valor do campo <code>name</code>
+        *
+        * @return {@link String}
+        */
+    public String getName() {
+            return this.name;
+    }
     
 }

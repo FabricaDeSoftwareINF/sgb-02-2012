@@ -10,23 +10,31 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 /**
- *
+ * Classe controladora para realização da cotação.
  * @author Bruno Marquete
  */
 @Component
 @Scope("session")
 public class CotacaoController extends SGBController<Cotacao, CotacaoForm, CotacaoService> {
 
+    /** Campo CotacaoForm */
     @Autowired
     private CotacaoForm form;
+    
     @Autowired
     private CotacaoService service;
 
     @Override
-    public void initData() {
+    public void openInitialView() {
+        
         this.getForm().setTabelaCotacoes(new ArrayList<Cotacao>());
+        
         this.getForm().getTabelaCotacoes().addAll(this.getService().list());
+        
+        this.getForm().setLivrosCotacao(this.getService().listarLivros());
     }
+    
+    
     
     @Override
     public CotacaoForm getForm() {
