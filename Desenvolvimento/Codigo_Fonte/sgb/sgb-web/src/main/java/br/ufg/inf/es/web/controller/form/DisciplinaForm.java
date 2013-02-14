@@ -10,6 +10,7 @@ import br.ufg.inf.es.model.Curso;
 import br.ufg.inf.es.model.Disciplina;
 import br.ufg.inf.es.model.Livro;
 import br.ufg.inf.es.web.datamodel.DisciplinaDataModel;
+import java.util.ArrayList;
 import java.util.Collection;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -22,7 +23,7 @@ import org.springframework.stereotype.Component;
 @Scope("session")
 public class DisciplinaForm extends GenericForm<Disciplina> {
     
-    private Disciplina[] disciplinasSelecionadas;
+    private Collection<Disciplina> disciplinasSelecionadas;
     
     private DisciplinaDataModel dataModelDisciplina;
     
@@ -44,32 +45,18 @@ public class DisciplinaForm extends GenericForm<Disciplina> {
     
     private EnumTipoBibliografia tipoBibliografiaSelecionado;
     
-    private Collection<Livro> livrosSelecionados;
+    private Livro livroSelecionado;
     
-    private Collection<Bibliografia> bibliografiasAssociadas;
+    private Collection<Livro> selecionadosAux = new ArrayList<Livro>();
     
-    private Boolean exibirDialogRemocao;
-    
-    private Collection<Livro> selecionadosAux;
+    private Bibliografia bibliografiaTmp = new Bibliografia();
 
-    public Disciplina[] getDisciplinasSelecionadas() {
-        
-        Disciplina[] disciplinas = null;
-        
-        if(this.disciplinasSelecionadas !=  null) {
-            
-            disciplinas = this.disciplinasSelecionadas.clone();
-        }
-        
-        return disciplinas;
+    public Collection<Disciplina> getDisciplinasSelecionadas() {        
+        return this.disciplinasSelecionadas;
     }
 
-    public void setDisciplinasSelecionadas(Disciplina[] disciplinasSelecionadas) {
-
-        if(disciplinasSelecionadas != null) {
-        
-            this.disciplinasSelecionadas = (Disciplina[]) disciplinasSelecionadas.clone();
-        }
+    public void setDisciplinasSelecionadas(Collection<Disciplina> disciplinasSelecionadas) {
+        this.disciplinasSelecionadas = disciplinasSelecionadas;
     }
     
     public DisciplinaDataModel getDataModelDisciplina() {
@@ -128,29 +115,13 @@ public class DisciplinaForm extends GenericForm<Disciplina> {
     public void setSelecionadosAux(Collection<Livro> selecionadosAux) {
         this.selecionadosAux = selecionadosAux;
     }
- 
-    public Boolean getExibirDialogRemocao() {
-        return exibirDialogRemocao;
+
+    public Livro getLivroSelecionado() {
+        return livroSelecionado;
     }
 
-    public void setExibirDialogRemocao(Boolean exibirDialogRemocao) {
-        this.exibirDialogRemocao = exibirDialogRemocao;
-    }
-    
-    public Collection<Bibliografia> getBibliografiasAssociadas() {
-        return bibliografiasAssociadas;
-    }
-
-    public void setBibliografiasAssociadas(Collection<Bibliografia> bibliografiasAssociadas) {
-        this.bibliografiasAssociadas = bibliografiasAssociadas;
-    }
-
-    public Collection<Livro> getLivrosSelecionados() {
-        return livrosSelecionados;
-    }
-
-    public void setLivrosSelecionados(Collection<Livro> livrosSelecionados) {
-        this.livrosSelecionados = livrosSelecionados;
+    public void setLivroSelecionado(Livro livroSelecionado) {
+        this.livroSelecionado = livroSelecionado;
     }
 
     public EnumTipoBibliografia getTipoBibliografiaSelecionado() {
@@ -184,4 +155,13 @@ public class DisciplinaForm extends GenericForm<Disciplina> {
     public void setCursos(Collection<Curso> cursos) {
         this.cursos = cursos;
     }
+
+    public Bibliografia getBibliografiaTmp() {
+        return bibliografiaTmp;
+    }
+
+    public void setBibliografiaTmp(Bibliografia bibliografiaTmp) {
+        this.bibliografiaTmp = bibliografiaTmp;
+    }
+    
 }

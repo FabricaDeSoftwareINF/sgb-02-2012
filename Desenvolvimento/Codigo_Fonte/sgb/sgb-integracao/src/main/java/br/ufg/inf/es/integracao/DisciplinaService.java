@@ -154,9 +154,10 @@ public class DisciplinaService extends GenericService<Disciplina> {
      *
      * @author Cássio Augusto, Marco Aurélio
      */
+    @Override
     @RNG006
-    public void editarDisciplina(Disciplina entidade) throws ValidationException {
-
-        this.getDAO().update(entidade);
+    public void update(Disciplina disciplina) throws ValidationException {
+        this.getDAO().update(disciplina);
     }
+    
 }

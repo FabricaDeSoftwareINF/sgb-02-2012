@@ -32,8 +32,10 @@
                             <h:outputLabel value="#{msg['label.disciplina.curso']}:"></h:outputLabel>
 
                             <p:selectOneMenu value="#{disciplinaController.form.entity.curso}" converter="cursoConverter">
-
-                                <f:selectItems value="#{disciplinaController.form.cursos}" var="curso" itemLabel="#{curso.nome}"/>
+                                
+                                <f:selectItem itemLabel="Selecione"/>
+                                <f:selectItems value="#{disciplinaController.form.cursos}" var="curso" 
+                                               itemValue="#{curso}" itemLabel="#{curso.nome}"/>
 
                             </p:selectOneMenu>
 
@@ -41,35 +43,32 @@
 
                         <p:fieldset style="width: 97%;" legend="#{msg['label.disciplina.associacaoLivro']}">
 
-                            <h:panelGrid columns="2">
+                            <h:panelGrid id="bibliografia_panelgrid" columns="2">
 
                                 <h:outputLabel value="#{msg['label.disciplina.tipoBibliografia']}:"></h:outputLabel>
 
-                                <p:selectOneMenu value="#{disciplinaController.form.tipoBibliografiaSelecionado}">
-
-                                    <f:selectItems value="#{disciplinaController.form.tipoBibliografias}" var="tipo" itemLabel="#{tipo.value}"></f:selectItems>
-
+                                <p:selectOneMenu value="#{disciplinaController.form.tipoBibliografiaSelecionado}" converter="enumTipoBibliografiaConverter">
+                                    <f:selectItem itemLabel="Selecione"/>
+                                    <f:selectItems value="#{disciplinaController.form.tipoBibliografias}" var="#{tipo}" itemLabel="#{tipo.value}"></f:selectItems>
                                 </p:selectOneMenu>
 
                                 <h:outputLabel value="#{msg['label.disciplina.tituloLivro']}:"></h:outputLabel>
 
-                                <p:autoComplete value="#{disciplinaController.form.livrosSelecionados}" converter="livroConverter" 
-                                                completeMethod="#{disciplinaController.buscaLivros}" var="livro" itemLabel="#{livro.titulo}" itemValue="#{livro}" 
-                                                multiple="true" immediate="true" global="true" queryDelay="1000">
-
-                                    <p:ajax event="itemSelect"  listener="#{disciplinaController.addLivroOnSelect}"></p:ajax>
-
-                                    <p:ajax event="itemUnselect" listener="#{disciplinaController.removeOnUnselect}" ></p:ajax>
-
+                                <p:autoComplete value="#{disciplinaController.form.bibliografiaTmp.livro}" converter="livroConverter" 
+                                                completeMethod="#{disciplinaController.buscaLivros}" var="livro" itemLabel="#{livro.titulo}" 
+                                                itemValue="#{livro}" 
+                                                global="true">
                                 </p:autoComplete>
 
                                 <p:spacer width="10"/>
 
-                                <p:commandButton value="#{msg['label.disciplina.associarLivro']}" action="#{disciplinaController.associarLivros}" ajax="false" ></p:commandButton>
+                                <p:commandButton value="#{msg['label.disciplina.associarLivro']}" action="#{disciplinaController.associarLivros}"
+                                                 update="bibliografias_datatable, bibliografia_panelgrid" process="bibliografia_panelgrid">
+                                </p:commandButton>
 
                             </h:panelGrid>
 
-                            <p:dataTable id="dtTable" value="#{disciplinaController.form.bibliografiasAssociadas}" var="bibliografia" paginator="true" rows="10" >
+                            <p:dataTable id="bibliografias_datatable" value="#{disciplinaController.form.entity.bibliografias}" var="bibliografia" paginator="true" rows="10" >
 
                                 <p:column headerText="#{msg['label.disciplina.tipoBibliografia']}">
 
@@ -85,7 +84,7 @@
 
                                 <p:column headerText="#{msg['label.disciplina.acao']}">
 
-                                    <p:commandLink value="#{msg['cadastro.acao.remover']}"  actionListener="#{disciplinaController.exibirDialogRemocao}" update=":formInicial:dialogRemocao">                                     
+                                    <p:commandLink value="#{msg['cadastro.acao.remover']}"  oncomplete="dialogRemocao.show()" update=":formInicial:dialog_remocao">                                     
 
                                         <f:setPropertyActionListener target="#{disciplinaController.form.bibliografiaParaRemocao}" value="#{bibliografia}"/>
 
@@ -112,18 +111,15 @@
                 </p:panel>
 
 
-                <p:confirmDialog id="dialogRemocao" message="#{msg['label.disciplina.mensagem.removerAssociacao']}: #{disciplinaController.form.bibliografiaParaRemocao.livro.titulo} ?"
+                <p:confirmDialog id="dialog_remocao" message="#{msg['label.disciplina.mensagem.removerAssociacao']}: #{disciplinaController.form.bibliografiaParaRemocao.livro.titulo} ?"
                                  header="#{msg['label.disciplina.tituloDialog.removerBibliografia']}" severity="alert" 
-                                 widgetVar="alertRemocao" visible="#{disciplinaController.form.exibirDialogRemocao}">
+                                 widgetVar="dialogRemocao">
                     <center>
 
-                        <p:commandButton value="#{msg['arquitetura.msg.sim']}" action="#{disciplinaController.desassociarBibliografia}" ajax="false"></p:commandButton>
+                        <p:commandButton value="#{msg['arquitetura.msg.sim']}" actionListener="#{disciplinaController.desassociarBibliografia}"
+                                         oncomplete="dialogRemocao.hide()" update="bibliografias_datatable"></p:commandButton>
 
-                        <p:commandButton value="#{msg['arquitetura.msg.nao']}"  ajax="false">
-
-                            <f:setPropertyActionListener value="#{false}" target="#{disciplinaController.form.exibirDialogRemocao}"/> 
-
-                        </p:commandButton>
+                        <p:commandButton value="#{msg['arquitetura.msg.nao']}" onclick="dialogRemocao.hide()"/>
 
                     </center>
 

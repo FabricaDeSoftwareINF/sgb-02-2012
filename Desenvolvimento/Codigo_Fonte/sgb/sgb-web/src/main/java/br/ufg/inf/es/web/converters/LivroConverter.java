@@ -4,7 +4,6 @@
  */
 package br.ufg.inf.es.web.converters;
 
-import br.ufg.inf.es.base.util.UtilObjeto;
 import br.ufg.inf.es.model.Livro;
 import br.ufg.inf.es.persistencia.LivroDAO;
 import javax.faces.component.UIComponent;
@@ -25,11 +24,8 @@ public class LivroConverter implements Converter {
     @Override
     public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
         
-        if (Long.parseLong(value) == 0 || value == null) {  
-            
-            return null;  
-            
-        } else {  
+        Livro livro = new Livro();
+        if (value != null && !value.isEmpty() && !value.equals("null")) {  
             
             ServletContext servletContext = (ServletContext)facesContext.getExternalContext().getContext();
             
@@ -37,28 +33,16 @@ public class LivroConverter implements Converter {
             
             LivroDAO dao = context.getBean(LivroDAO.class);
             
-            Livro c = dao.find(Long.parseLong(value));
-            
-            if(!UtilObjeto.isReferencia(c)) {
-             
-                return null;
-            }
-            
-            return c;
+            livro = dao.find(Long.parseLong(value));
         }  
+        return livro;
     }
 
     @Override
     public String getAsString(FacesContext context, UIComponent component, Object value) {
-     
-        if (value == null || value.equals("")) {
-        
-            return "";
-        
-        } else {
-        
-            return String.valueOf(((Livro) value).getId());
-        
+        if (value != null && value instanceof Livro) {
+            return String.valueOf(((Livro) value).getId());  
         }
+        return "";
     }
 }
