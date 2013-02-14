@@ -32,7 +32,7 @@ public class LivroParaCotacaoService extends GenericService<LivroParaCotacao> {
      * bibliotecaService
      */
     @Autowired
-    private BibliotecaServiceMock bibliotecaService;
+    private BibliotecaServiceMock bibliotecaServiceMock;
     /**
      * Campo parametrosService
      */
@@ -147,7 +147,7 @@ public class LivroParaCotacaoService extends GenericService<LivroParaCotacao> {
 
         Integer qtdeLivrosNecessarios = dividaComRoundUp(quantidadeVagas, parametroMec);
 
-        Integer qtdeLivrosDisponiveis = bibliotecaService.obtenhaQuantidadeExistente(livro.getIsbn10());
+        Integer qtdeLivrosDisponiveis = bibliotecaServiceMock.obtenhaQuantidadeExistente(livro.getIsbn10());
 
         if (qtdeLivrosDisponiveis < qtdeLivrosNecessarios) {
             Integer qtdeParaCotacao = qtdeLivrosNecessarios - qtdeLivrosDisponiveis;
@@ -202,7 +202,7 @@ public class LivroParaCotacaoService extends GenericService<LivroParaCotacao> {
      * @return service da biblioteca
      */
     public BibliotecaServiceMock getBibliotecaService() {
-        return bibliotecaService;
+        return bibliotecaServiceMock;
     }
 
     /**
@@ -211,7 +211,7 @@ public class LivroParaCotacaoService extends GenericService<LivroParaCotacao> {
      * @param bibliotecaService
      */
     public void setBibliotecaService(BibliotecaServiceMock bibliotecaService) {
-        this.bibliotecaService = bibliotecaService;
+        this.bibliotecaServiceMock = bibliotecaService;
     }
 
     /**
