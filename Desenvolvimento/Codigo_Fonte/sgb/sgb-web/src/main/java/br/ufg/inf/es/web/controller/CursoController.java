@@ -90,8 +90,7 @@ public class CursoController extends SGBController<Curso, CursoForm, CursoServic
      * @author Allan Vieira Ribeiro
      * @author Diogo Gonçalves Teodoro
      */
-    @Override
-    public void insert() {
+    public String inserir() {
         
         try {
             
@@ -106,6 +105,8 @@ public class CursoController extends SGBController<Curso, CursoForm, CursoServic
         } finally {
 
             this.clearData();
+            
+            return this.openInsertPage();
         }       
     }
     
@@ -115,8 +116,8 @@ public class CursoController extends SGBController<Curso, CursoForm, CursoServic
      * @author Allan Vieira Ribeiro
      * @author Diogo Gonçalves Teodoro
      */
-    @Override
-    public void edit(){
+
+    public String editar(){
         
         try {
             
@@ -126,9 +127,13 @@ public class CursoController extends SGBController<Curso, CursoForm, CursoServic
             
             addSuccessMessage("arquitetura.msg.sucesso");
             
+            return this.openSearchPage();
+            
         } catch (ValidationException ve) {
             
-            this.getForm().setExibirDialog(true);           
+            this.getForm().setExibirDialog(true);
+            
+            return this.openEditPage();
         }    
     }  
 
