@@ -15,78 +15,48 @@
 
                 <p:panel header="#{msg['label.cotacao.cotarLivro']}">
                     
-                    <h:panelGrid width="100%" columns="1">
+                    <p:graphicImage url="http://www.seeklogo.com/images/C/Carrinho_de_Compras-logo-F251151A71-seeklogo.com.gif"
+                                    style="margin-left: 90%;" height="64" width="64" id="carrinhoCompras"/>
+                    
+                    
+                    <p:overlayPanel id="panelCarrinho" for="carrinhoCompras">
+                    
+                    
+                    </p:overlayPanel>   
+                        
+                    <h:panelGrid  id="livrosCotados" width="100%" columns="1">
 
-                        <p:dataTable id="tabelaLivrosCot" var="livro" paginator="true" rows="10" paginatorAlwaysVisible="false"
-                                     value="#{cotacaoController.form.livrosCotacao}" 
-                                     emptyMessage="#{msg['cadastro.curso.registrosnaoencontrado']}">
-
+                        <h:panelGrid columns="7">
                             
-
-                            <p:column headerText="#{msg['label.cotacao.titulo']}"
-                                      filterBy="#{livro.titulo}">  
-
-                                <h:outputText value="#{livro.titulo}" />  
-
-                            </p:column> 
-
-                            <p:column headerText="#{msg['label.cotacao.autor']}"
-                                      filterBy="#{livro.autores}" style="text-align: center;">  
-                                      
-                                <ui:repeat value="#{livro.autores}" var="autor">
+                            <p:graphicImage url="http://1.bp.blogspot.com/-n-fsjwiesiw/Tr7UmKfH6JI/AAAAAAAAAXQ/PUbQNNaU0bY/s1600/fundacao.jpg" width="150" height="220" />
+                            
+                            <p:spacer width="15"/>
+                            
+                            <h:panelGrid>
                                 
-                                    <h:outputText value="#{autor.sobrenome}, #{autor.nome}" />  
+                                <h:outputLabel value="Nome do livro"/>
+                                
+                                <h:outputLabel value="Autor(es)"/>
+                                
+                                <h:outputLabel value="Nº da Edição"/>
+                                
+                                <h:outputLabel value="Ano"/>
+                                
+                                <h:outputLabel value="ISBN-13"/>
+                                
+                            </h:panelGrid>
+                            
+                            <p:dataTable >
+                                
+                                <p:column headerText="#{msg['label.cotacao.loja']}">
                                     
-                                </ui:repeat>
-
-                            </p:column>
-                            
-                            <p:column headerText="#{msg['label.cotacao.edicao']}">  
-
-                                <h:outputText value="#{livro.edicao}" />  
-
-                            </p:column> 
-                            
-                            <p:column headerText="#{msg['label.cotacao.ano']}">  
-
-                                <h:outputText value="#{livro.ano}" />  
-
-                            </p:column> 
-                            
-                            <p:column headerText="#{msg['label.cotacao.editora']}">  
-
-                                <h:outputText value="#{livro.editora.nome}" />  
-
-                            </p:column> 
-                            
-                            <p:column headerText="#{msg['label.cotacao.isbn13']}">  
-
-                                <h:outputText value="#{livro.isbn13}" />  
-
-                            </p:column> 
-                            
-                            <p:column headerText="#{msg['label.cotacao.disciplina']}">  
-
-                                <h:outputText value="#{livro.disciplinasAsString}" />  
-
-                            </p:column> 
-                            
-                            <p:column headerText="#{msg['label.cotacao.estrangeiro']}">  
-
-                                <h:outputText value="#{msg['arquitetura.msg.sim']}" rendered="#{livro.estrangeiro}" />  
+                                </p:column>
                                 
-                                <h:outputText value="#{msg['arquitetura.msg.nao']}" rendered="#{not livro.estrangeiro}"/>  
-
-                            </p:column> 
-
-                        </p:dataTable>
-
-                        <p:spacer height="15" width="5"/>
-
-                        <h:panelGrid columns="3" style="margin-left: 80%;">
-
-                            <p:commandButton value="#{msg['label.cotacao.realizarCotacao']}" ajax="false"
-                                             action="#{cotacaoController.openInsertPage()}"/>
+                                <p:column headerText="#{msg['label.cotacao.valor']}">
+                                    
+                                </p:column>
+                                
+                            </p:dataTable>
                             
                         </h:panelGrid>
 
