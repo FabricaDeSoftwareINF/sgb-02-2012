@@ -21,7 +21,7 @@
                     <h:panelGrid style=" width: 100%;">
 
                         <p:dataTable id="disciplinas_datatable" value="#{disciplinaController.form.dataModelDisciplina}" var="disciplina" selection="#{disciplinaController.form.disciplinasSelecionadas}"
-                                     emptyMessage="#{msg['cadastro.autor.label.nenhumRegistro']}">
+                                     emptyMessage="#{msg['cadastro.autor.label.nenhumRegistro']}" paginator="true" rows="10">
 
                             <p:column selectionMode="multiple" style="width: 18px;">
 

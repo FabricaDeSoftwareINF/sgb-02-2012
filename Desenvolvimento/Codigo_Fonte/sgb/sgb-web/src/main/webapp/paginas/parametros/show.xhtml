@@ -20,19 +20,18 @@
                             <h:panelGroup>
                                 <h:outputLabel value="R$" style="margin-right: 5px;"/>
 
-                                <p:inplace id="basic" editor="true" styleClass="bordinha danado">  
+                                <p:inplace id="basic" editor="true" styleClass="bordinha">  
                                     <p:inputText required="true" value="#{parametrosController.form.entity.valorFrete}">
                                         <f:convertNumber minFractionDigits="2"
                                                          groupingUsed="true"
-                                                         pattern="####.##"
-                                                         />
+                                                         pattern="####.##"/>
                                     </p:inputText>
                                     <p:ajax event="save" listener="#{parametrosController.edit}"/>
                                 </p:inplace>
 
                             </h:panelGroup>
                             <h:outputText value="#{msg['parametros.label.mec']}: "/>
-                            <p:inplace id="ajaxSetMEC" editor="true" styleClass="bordinha danado">
+                            <p:inplace id="ajaxSetMEC" editor="true" styleClass="bordinha">
                                 <p:inputText id="paramMec" required="true" value="#{parametrosController.form.entity.parametroMEC}"/>
                                 <p:ajax event="save" listener="#{parametrosController.edit}"/>
                             </p:inplace>
