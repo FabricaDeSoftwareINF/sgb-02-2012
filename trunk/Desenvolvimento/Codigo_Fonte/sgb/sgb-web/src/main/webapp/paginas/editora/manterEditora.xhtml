@@ -46,21 +46,19 @@
 
                             <h:panelGrid columns="2" cellpadding="10" style="margin-left: 80%;">
                                 <p:commandButton action="#{editoraController.openInsertPage()}"  value="Novo" ajax="false"></p:commandButton>
-                                <p:commandButton value="#{msg['arquitetura.label.remover']}" 
-                                                 action="#{editoraController.prepararExclusao}" update="@form" />
+                                <p:commandButton value="#{msg['arquitetura.label.remover']}" onclick="dialogRemocao.show()" />
                             </h:panelGrid>
                         </h:panelGrid>
                     </h:panelGrid>
 
-                    <p:confirmDialog id="dialogRemocao" message="#{msg['arquitetura.label.confirmarconteudo']}"
+                    <p:confirmDialog id="dialog_remocao" message="#{msg['arquitetura.label.confirmarconteudo']}"
                                      header="#{msg['arquitetura.label.confirmar']}" severity="alert" 
-                                     widgetVar="confirmation" visible="#{editoraController.form.exibirDialogExclusao}">
+                                     widgetVar="dialogRemocao">
                         <center>
                             <p:commandButton value="#{msg['cadastro.autor.label.sim']}" 
                                              action="#{editoraController.removerEditoraSelecionadas()}" 
-                                             update="@form" />
-                            <p:commandButton value="#{msg['cadastro.autor.label.nao']}" 
-                                             action="#{editoraController.openInitialPage()}" ajax="false"/>
+                                             update="@form" oncomplete="dialogRemocao.hide()" />
+                            <p:commandButton value="#{msg['cadastro.autor.label.nao']}" onclick="dialogRemocao.hide()"/>
                         </center>
                     </p:confirmDialog>
 
