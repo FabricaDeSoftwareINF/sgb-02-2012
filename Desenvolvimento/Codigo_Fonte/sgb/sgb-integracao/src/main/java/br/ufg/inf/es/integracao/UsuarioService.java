@@ -46,6 +46,7 @@ public class UsuarioService extends GenericService<Usuario> {
      * @return id da Entidade persistida.
      * @throws ValidationException
      */
+    @Override
     public Long insert(Usuario entity) throws ValidationException {
 
         entity.setDataCadastro(new Date());
@@ -59,6 +60,27 @@ public class UsuarioService extends GenericService<Usuario> {
         entity.setStatus(true);
 
         return super.insert(entity);
+    }
+    
+    @Override
+    public void update(Usuario entity) throws ValidationException {
+        String oldPass = entity.getSenha();
+
+        String passEncrypted = cryptography.encrypt(oldPass);
+
+        entity.setSenha(passEncrypted);
+        
+        super.update(entity);
+    }
+    
+    @Override
+     public void save(Usuario entity) throws ValidationException {
+        String oldPass = entity.getSenha();
+
+        String passEncrypted = cryptography.encrypt(oldPass);
+
+        entity.setSenha(passEncrypted);
+        super.save(entity);
     }
     
     /**
