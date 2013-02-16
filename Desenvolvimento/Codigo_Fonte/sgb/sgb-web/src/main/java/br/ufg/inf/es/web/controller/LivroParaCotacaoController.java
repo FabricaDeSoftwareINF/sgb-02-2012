@@ -1,7 +1,7 @@
 package br.ufg.inf.es.web.controller;
 
 import br.ufg.inf.es.integracao.LivroParaCotacaoService;
-import br.ufg.inf.es.model.LivroParaCotacao;
+import br.ufg.inf.es.model.dtos.LivroParaCotacao;
 import br.ufg.inf.es.web.controller.form.LivroParaCotacaoForm;
 import java.util.Collection;
 import java.util.Iterator;

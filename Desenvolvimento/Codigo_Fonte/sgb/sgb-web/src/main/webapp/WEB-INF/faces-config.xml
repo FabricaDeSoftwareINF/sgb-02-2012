@@ -45,9 +45,9 @@
         
         <navigation-case>
             
-            <from-outcome>LivroController/searchPage</from-outcome>
+            <from-outcome>LivroController/insertPage</from-outcome>
             
-            <to-view-id>/paginas/livro/visualizacao.xhtml</to-view-id>
+            <to-view-id>/paginas/livro/inclusao.xhtml</to-view-id>
                         
         </navigation-case>
         

@@ -1,6 +1,6 @@
 package br.ufg.inf.es.web.controller.form;
 
-import br.ufg.inf.es.model.LivroParaCotacao;
+import br.ufg.inf.es.model.dtos.LivroParaCotacao;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 

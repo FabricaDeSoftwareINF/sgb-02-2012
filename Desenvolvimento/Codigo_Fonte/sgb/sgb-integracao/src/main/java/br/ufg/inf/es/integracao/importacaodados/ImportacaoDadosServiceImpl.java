@@ -23,17 +23,25 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.apache.http.HttpException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 /**
  *
  * @author Vinícius
  */
+@Component
 public class ImportacaoDadosServiceImpl implements ImportacaoDadosService {
 
+    @Autowired
     private AutorService autorService;
+    @Autowired
     private CursoService cursoService;
+    @Autowired
     private DisciplinaService disciplinaService;
+    @Autowired
     private LivroService livroService;
+    @Autowired
     private EditoraService editoraService;
     private Client client;
     private String urlServico;

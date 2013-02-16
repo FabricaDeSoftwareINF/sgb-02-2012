@@ -4,6 +4,7 @@
  */
 package br.ufg.inf.es.model;
 
+import br.ufg.inf.es.model.dtos.LivroParaCotacao;
 import org.junit.*;
 import static org.junit.Assert.*;
 

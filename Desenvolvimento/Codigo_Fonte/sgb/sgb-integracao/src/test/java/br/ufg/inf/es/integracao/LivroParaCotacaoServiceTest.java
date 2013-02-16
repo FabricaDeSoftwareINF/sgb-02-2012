@@ -1,6 +1,7 @@
 package br.ufg.inf.es.integracao;
 
 import br.ufg.inf.es.base.persistence.DAO;
+import br.ufg.inf.es.model.dtos.LivroParaCotacao;
 import br.ufg.inf.es.base.validation.ValidationException;
 import br.ufg.inf.es.integracao.biblioteca.BibliotecaServiceMock;
 import br.ufg.inf.es.model.*;
