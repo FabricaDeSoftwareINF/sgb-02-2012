@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.ufg.inf.es.model;
+package br.ufg.inf.es.model.exportacaodados.planilha;
 
 /**
  * Entidade ItemPlanilha

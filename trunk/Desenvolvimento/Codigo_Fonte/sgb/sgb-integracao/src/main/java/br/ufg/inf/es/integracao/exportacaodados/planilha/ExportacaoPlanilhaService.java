@@ -1,7 +1,8 @@
 package br.ufg.inf.es.integracao.exportacaodados.planilha;
 
-import br.ufg.inf.es.model.ItemPlanilha;
+import br.ufg.inf.es.model.exportacaodados.planilha.ItemPlanilha;
 import java.io.*;
+import java.nio.charset.Charset;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -59,12 +60,12 @@ public class ExportacaoPlanilhaService {
      * nacionais.
      * @param linhasPlanilhaEstrangeiros Lista de itens da planilha de livros
      * nacionais.
-     * @return Objeto FileOutpuStream correspondente ao arquivo gerado.
+     * @return Array de bytes correspondente ao arquivo XLS gerado.
      */
-    public FileOutputStream gerarPlanilhaXLS(List<ItemPlanilha> linhasPlanilhaNacionais,
+    public byte[] gerarPlanilhaXLS(List<ItemPlanilha> linhasPlanilhaNacionais,
             List<ItemPlanilha> linhasPlanilhaEstrangeiros) {
 
-        FileOutputStream stream;
+        FileOutputStream outputStream;
 
         try {
 
@@ -81,10 +82,18 @@ public class ExportacaoPlanilhaService {
             ajustarTamanhoCelulas(planilhaNacionais, ItemPlanilha.getNumColunas());
             ajustarTamanhoCelulas(planilhaEstrangeiros, ItemPlanilha.getNumColunas());
 
-            stream = new FileOutputStream("planilha.xls");
+            //Escreve o arquivo no disco rígido temporariamente
+            outputStream = new FileOutputStream("planilha.xls");
+            geradorPlanilha.write(outputStream);
 
-            geradorPlanilha.write(stream);
-            return stream;
+            //Lê o arquivo do disco rígido e transforma-o em um array de bytes
+            File file = new File("planilha.xls");
+            byte[] arrayBytes = getBytes(file);
+
+            //Exlclui o arquivo temporário do disco rígido
+            file.delete();
+
+            return arrayBytes;
 
         } catch (FileNotFoundException ex) {
             Logger.getLogger(ExportacaoPlanilhaService.class.getName()).log(Level.SEVERE, null, ex);
@@ -93,6 +102,34 @@ public class ExportacaoPlanilhaService {
             Logger.getLogger(ExportacaoPlanilhaService.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         }
+    }
+
+    /**
+     * *
+     * Retorna o array de bystes de um arquivo.
+     *
+     * @param file Objeto File a ser convertido em array de bytes.
+     * @return Array de bytes do arquivo repassado.
+     */
+    private byte[] getBytes(File file) {
+
+        int tamanho = (int) file.length();
+
+        byte[] buffer = new byte[tamanho];
+        FileInputStream inputStream = null;
+
+        try {
+            inputStream = new FileInputStream(file);
+            inputStream.read(buffer, 0, tamanho);
+
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(ExportacaoPlanilhaService.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(ExportacaoPlanilhaService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return buffer;
+
     }
 
     /**
@@ -319,31 +356,93 @@ public class ExportacaoPlanilhaService {
      * @param linhasPlanilha Lista de itens da planilha.
      * @return String correspondente ao arquivo CSV.
      */
-    public String gerarPlanilhaCSV(List<ItemPlanilha> linhasPlanilha) {
+//    public byte[] gerarPlanilhaCSV(List<ItemPlanilha> linhasPlanilha) {
+//
+//        List<Map> planilhaListMap = obterListMap(linhasPlanilha);
+//        String separadorCSV = ",";
+//        StringBuilder linha = new StringBuilder();
+//
+//        for (Map itemListMap : planilhaListMap) {
+//
+//            Iterator iterador = itemListMap.values().iterator();
+//
+//            while (iterador.hasNext()) {
+//                Object value = iterador.next();
+//
+//                if (value != null) {
+//                    linha.append(value.toString());
+//                }
+//
+//                if (iterador.hasNext()) {
+//                    linha.append(separadorCSV);
+//                }
+//                
+//                linha.append(System.getProperty("line.separator"));
+//            }
+//
+//        }
+//
+//        return linha.toString().getBytes(Charset.forName("UTF-8"));
+//
+//    }
+    /**
+     * *
+     * Gera planilha em formato CSV com base numa lista de itens de planilha.
+     * Cada ItemPlanilha é uma linha da planilha com suas devidas COLUNAs.
+     *
+     * @param linhasPlanilha Lista de itens da planilha.
+     * @return Array de bytes correspondente ao arquivo CSV gerado.
+     */
+    public byte[] gerarPlanilhaCSV(List<ItemPlanilha> linhasPlanilha) {
 
         List<Map> planilhaListMap = obterListMap(linhasPlanilha);
         String separadorCSV = ",";
-        StringBuilder linha = new StringBuilder();
 
-        for (Map itemListMap : planilhaListMap) {
+        try {
 
-            Iterator iterador = itemListMap.values().iterator();
+            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(
+                    new FileOutputStream("planilha.csv"), "UTF-8"));
 
-            while (iterador.hasNext()) {
-                Object value = iterador.next();
+            for (Map itemListMap : planilhaListMap) {
 
-                if (value != null) {
-                    linha.append(value.toString());
+                StringBuilder linha = new StringBuilder();
+                Iterator iterador = itemListMap.values().iterator();
+
+                while (iterador.hasNext()) {
+                    Object value = iterador.next();
+
+                    if (value != null) {
+                        linha.append(value.toString());
+                    }
+
+                    if (iterador.hasNext()) {
+                        linha.append(separadorCSV);
+                    }
                 }
 
-                if (iterador.hasNext()) {
-                    linha.append(separadorCSV);
-                }
+                writer.write(linha.toString());
+                writer.newLine();
             }
 
-        }
+            writer.flush();
+            writer.close();
 
-        return linha.toString();
+            File file = new File("planilha.csv");
+            byte[] arrayBytes = getBytes(file);
+            file.delete();
+
+            return arrayBytes;
+
+        } catch (UnsupportedEncodingException e) {
+            Logger.getLogger(ExportacaoPlanilhaService.class.getName()).log(Level.SEVERE, null, e);
+            return null;
+        } catch (FileNotFoundException e) {
+            Logger.getLogger(ExportacaoPlanilhaService.class.getName()).log(Level.SEVERE, null, e);
+            return null;
+        } catch (IOException e) {
+            Logger.getLogger(ExportacaoPlanilhaService.class.getName()).log(Level.SEVERE, null, e);
+            return null;
+        }
 
     }
 
