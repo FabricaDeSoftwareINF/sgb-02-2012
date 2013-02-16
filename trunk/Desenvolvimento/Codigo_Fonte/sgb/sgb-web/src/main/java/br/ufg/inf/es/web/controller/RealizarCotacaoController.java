@@ -45,37 +45,6 @@ public class RealizarCotacaoController extends SGBController<ListaCotacao, Reali
         
         return super.openInitialPage();
     }
-
-    @Override
-    public void openInsertView() {
-     
-//        Cotacao cotacao = new Cotacao();
-//        
-//        Livro livro = this.getService().getLivroDao().find(163840l);
-//        
-//        livro.setAutores((Collection<Autor>) this.getService().getLivroDao().getAutores(livro.getId()));
-//        
-//        cotacao.setLivro(livro);
-//              
-//        cotacao.setQuantidade(3);
-//        
-//        cotacao.setValor(79.5);
-//        
-//        Livraria livraria = new Livraria();
-//        
-//        livraria.setNome("Barnes & Noble");
-//        
-//        livraria.setSite("http://barnesenobles.com");
-//        
-//        livraria.setUrlLogo("http://1.bp.blogspot.com/-n-fsjwiesiw/Tr7UmKfH6JI/AAAAAAAAAXQ/PUbQNNaU0bY/s1600/fundacao.jpg");
-//        
-//        List<Cotacao> cotacoes = new ArrayList<Cotacao>();
-//        
-//        cotacoes.add(cotacao);
-//        
-//        this.getForm().setCotacoesDataModel(new CotacaoDataModel(cotacoes));
-        
-    }
     
     @Override
     public RealizarCotacaoForm getForm() {
@@ -95,6 +64,8 @@ public class RealizarCotacaoController extends SGBController<ListaCotacao, Reali
         List<Cotacao> cotacoes = (List) this.service.realizarCotacao(Arrays.asList(livrosSelecionados));
         
         this.getForm().setCotacoesDataModel(new CotacaoDataModel(cotacoes));
+        
+        this.getForm().setCotacoesSelecionadas(cotacoes.toArray(new Cotacao[cotacoes.size()]));
         
         return this.openInsertPage();
     }
