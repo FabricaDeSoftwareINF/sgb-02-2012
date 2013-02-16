@@ -115,25 +115,27 @@
 
                     <p:spacer height="15"/>
 
-                </h:form> 
-
-                <h:form>
-
-                    <p:commandButton value="#{msg['cotacao.button.exportarXLS']}" ajax="false"
-                                     actionListener="#{listaCotacaoController.exportarXLS(listaCotacaoController.form.entity)}">
+                    <p:commandButton id="gerar_xls_btn"
+                                     value="#{msg['cotacao.button.exportarXLS']}" 
+                                     ajax="false"
+                                     actionListener="#{listaCotacaoController.exportarXLS()}">
                         <p:fileDownload value="#{listaCotacaoController.arquivoXLS}" />  
                     </p:commandButton>
-                    
-                    <p:commandButton value="#{msg['cotacao.button.exportarCSVNacionais']}" ajax="false"
-                                     actionListener="#{listaCotacaoController.exportarCSV(listaCotacaoController.form.entity, true, false)} ">
-                        <p:fileDownload value="#{listaCotacaoController.arquivoCSV()}" />  
-                    </p:commandButton>
-                    
-                    <p:commandButton value="#{msg['cotacao.button.exportarCSVEstrangeiros']}" ajax="false"
-                                     actionListener="#{listaCotacaoController.exportarCSV(listaCotacaoController.form.entity, false, true)} ">
-                        <p:fileDownload value="#{listaCotacaoController.arquivoCSV()}" />  
-                    </p:commandButton>
-                    
+
+                    <p:commandButton id="gerar_csv_nac_btn"
+                                     value="#{msg['cotacao.button.exportarCSVNacionais']}" 
+                                     ajax="false"
+                                     actionListener="#{listaCotacaoController.exportarCSVNacionais()}">
+                        <p:fileDownload value="#{listaCotacaoController.arquivoCSVNacionais}" />  
+                    </p:commandButton> 
+
+                    <p:commandButton id="gerar_csv_estran_btn"
+                                     value="#{msg['cotacao.button.exportarCSVEstrangeiros']}"
+                                     ajax="false"
+                                     actionListener="#{listaCotacaoController.exportarCSVEstrangeiros()}">
+                        <p:fileDownload value="#{listaCotacaoController.arquivoCSVEstrangeiros}" />  
+                    </p:commandButton> 
+
                 </h:form>
 
             </p:panel>        
