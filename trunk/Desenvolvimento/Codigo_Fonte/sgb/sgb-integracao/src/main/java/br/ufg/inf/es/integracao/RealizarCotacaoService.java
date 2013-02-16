@@ -14,7 +14,6 @@ import br.ufg.inf.es.persistencia.biblioteca.LivrosBibliotecaDAO;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javassist.NotFoundException;
@@ -22,6 +21,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Component;
+import br.ufg.inf.es.integracao.cotacao.Cotador;
+import br.ufg.inf.es.integracao.cotacao.CotadorBuscape;
+import br.ufg.inf.es.integracao.cotacao.CotadorGoogleShop;
+import br.ufg.inf.es.integracao.cotacao.ResultadoCotacao;
+import br.ufg.inf.es.model.CotacoesLivro;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -31,13 +38,13 @@ import org.springframework.stereotype.Component;
 @Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class RealizarCotacaoService extends GenericService<ListaCotacao> {
 
-    /** Campo dao*/
+    /**
+     * Campo dao
+     */
     @Autowired
     private ListaCotacaoDAO dao;
-    
     @Autowired
     private LivroDAO livroDao;
-    
     @Autowired
     private CotacaoDAO cotacaoDao;
     
@@ -66,19 +73,64 @@ public class RealizarCotacaoService extends GenericService<ListaCotacao> {
     }
 
     public ListaCotacaoDAO getDao() {
-        
+
         return this.dao;
     }
 
     public LivroDAO getLivroDao() {
-        
+
         return this.livroDao;
     }
 
     public CotacaoDAO getCotacaoDao() {
-        
+
         return this.cotacaoDao;
     }
+
+
+    public ListaCotacao realizarCotacao(Collection<Livro> livros) {
+        Collection<CotacoesLivro> cotacoes = new ArrayList<CotacoesLivro>();
+        Map<Livro, Collection<ResultadoCotacao>> resultados = buscarOfertas(livros);
+
+        for (Livro livro : resultados.keySet()) {
+            cotacoes.add(extraiCotacao(livro, resultados.get(livro)));
+        }
+
+        ListaCotacao listaCotacao = new ListaCotacao();
+        listaCotacao.setCotacoes(cotacoes);
+        return listaCotacao;
+    }
+
+    private double calculaPrecoMedio(CotacoesLivro cotacoesLivro) {
+        double somatorioPrecos = 0.0;
+        double media = -1.0; //-1 indica que não foram encontradas cotações
+        if (cotacoesLivro != null) {
+            Collection<Cotacao> cotacoes = cotacoesLivro.getCotacaoes();
+            for (Cotacao cotacao : cotacoes) {
+                somatorioPrecos += cotacao.getValor();
+            }
+            media = somatorioPrecos / cotacoes.size();
+        }
+        return media;
+    }
+
+    private Map<Livro, Collection<ResultadoCotacao>> buscarOfertas(Collection<Livro> livros) {
+        Map<Livro, Collection<ResultadoCotacao>> resultados = new HashMap();
+        CotadorBuscape cotadorBuscape = new CotadorBuscape();
+        CotadorGoogleShop cotadorGoogleShop = new CotadorGoogleShop();
+        Cotador cotador;
+
+        for (Livro livro : livros) {
+            if (livro.isEstrangeiro()) {
+                cotador = cotadorGoogleShop;
+            } else {
+                cotador = cotadorBuscape;
+            }
+            resultados.put(livro, cotador.buscarOfertas(livro));
+        }
+        return resultados;
+    }
+
 
     public LivrosBibliotecaDAO getBibliotecaDao() {
         
@@ -90,20 +142,30 @@ public class RealizarCotacaoService extends GenericService<ListaCotacao> {
         return this.parametrosDao;
     }
         
-    public Collection<Cotacao> realizarCotacao(Collection<Livro> livros) {
+
+    private CotacoesLivro extraiCotacao(Livro livro, Collection<ResultadoCotacao> resultadosCotacao) {
         Collection<Cotacao> cotacoes = new ArrayList<Cotacao>();
-        for (Livro livro : livros) {
+        for (ResultadoCotacao resultadoCotacao : resultadosCotacao) {
             Cotacao cotacao = new Cotacao();
-            cotacao.setLivro(livro);
+            cotacao.setLivraria(resultadoCotacao.getLivraria());
+            double preco = -1.0;
+            try {
+                preco = Double.parseDouble(resultadoCotacao.getOfertaLivro().getPrecoLivro());
+            } catch (NumberFormatException nfe) {
+                System.err.println(nfe.getMessage());
+            }
+            cotacao.setValor(preco);
             cotacoes.add(cotacao);
         }
-        
-        this.obtemQuantidadeNecessariaLivros(cotacoes);
-        
-        return cotacoes;
+        CotacoesLivro cotacoesLivro = new CotacoesLivro();
+        cotacoesLivro.setLivro(livro);
+        cotacoesLivro.setCotacoes(cotacoes);
+        cotacoesLivro.setValor(calculaPrecoMedio(cotacoesLivro));
+        return cotacoesLivro;
     }
+
     
-    private Collection<Cotacao> obtemQuantidadeNecessariaLivros(Collection<Cotacao> cotacoes){
+    private Collection<Cotacao> obtemQuantidadeNecessariaLivros(Collection<CotacoesLivro> cotacoes){
         
         try {
             
@@ -116,7 +178,7 @@ public class RealizarCotacaoService extends GenericService<ListaCotacao> {
                 quantidadeLivrosPorAlunos = param.get(0).getParametroMEC();
             }
             
-            for(Cotacao cotacao: cotacoes) {
+            for(CotacoesLivro cotacao: cotacoes) {
             
                 Integer quantidadeBiblioteca = 0;
                 
@@ -148,7 +210,7 @@ public class RealizarCotacaoService extends GenericService<ListaCotacao> {
         return null;
     }
 
-    public void salvarListaCotacao(Cotacao[] cotacoesSelecionadas) {
+    public void salvarListaCotacao(Collection<CotacoesLivro> cotacoesSelecionadas) {
         throw new UnsupportedOperationException("Not yet implemented");
     }
 

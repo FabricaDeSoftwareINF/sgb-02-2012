@@ -29,7 +29,7 @@ public class BibliografiaBootstrap {
     private static Curso curso;
     private static Livraria livraria;
     private static ListaCotacao listaCotacao;
-    private static List<Cotacao> cotacoes;
+    private static List<CotacoesLivro> listaCotacoesLivro;
 
     /**
      * Cria alguns dados para a verificação da lista de livros necessários para
@@ -65,34 +65,34 @@ public class BibliografiaBootstrap {
         listaCotacao.setDataRealizada(Calendar.getInstance().getTime());
         listaCotacao.setPreco(1230);
         crieCotacoes();
-        listaCotacao.setCotacoes(cotacoes);
+        listaCotacao.setCotacoes(listaCotacoesLivro);
         listaCotacao.setId(salve(listaCotacao));
 
     }
 
     private static void crieCotacoes() {
 
-        cotacoes = new ArrayList<Cotacao>();
+        listaCotacoesLivro = new ArrayList<CotacoesLivro>();
         crieLivraria();
 
         Cotacao cotacao1 = new Cotacao();
-        cotacao1.setDataCadastro(Calendar.getInstance().getTime());
-        cotacao1.setLivro(livro1);
-        cotacao1.setQuantidade(QUANTIDADE);
         cotacao1.setValor(VALOR);
         cotacao1.setLivraria(livraria);
         cotacao1.setId(salve(cotacao1));
 
         Cotacao cotacao2 = new Cotacao();
-        cotacao2.setDataCadastro(Calendar.getInstance().getTime());
-        cotacao2.setLivro(livro2);
-        cotacao2.setQuantidade(QUANTIDADE2);
         cotacao2.setValor(VALOR2);
         cotacao2.setLivraria(livraria);
         cotacao2.setId(salve(cotacao2));
-
+        
+        Collection<Cotacao> cotacoes = new ArrayList<Cotacao>();
         cotacoes.add(cotacao1);
         cotacoes.add(cotacao2);
+
+        CotacoesLivro cotacoesLivro = new CotacoesLivro();
+        cotacoesLivro.setLivro(livro1);
+        cotacoesLivro.setQuantidade(QUANTIDADE);
+        listaCotacoesLivro.add(cotacoesLivro);
 
     }
 

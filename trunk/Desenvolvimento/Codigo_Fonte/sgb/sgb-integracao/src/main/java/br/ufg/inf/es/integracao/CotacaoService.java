@@ -6,8 +6,10 @@ package br.ufg.inf.es.integracao;
 
 import br.ufg.inf.es.base.persistence.DAO;
 import br.ufg.inf.es.model.Cotacao;
+import br.ufg.inf.es.model.CotacoesLivro;
 import br.ufg.inf.es.model.Livro;
 import br.ufg.inf.es.persistencia.CotacaoDAO;
+import br.ufg.inf.es.persistencia.CotacoesLivroDAO;
 import br.ufg.inf.es.persistencia.LivroDAO;
 import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,11 +23,11 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
-public class CotacaoService extends GenericService<Cotacao> {
+public class CotacaoService extends GenericService<CotacoesLivro> {
 
     /** Campo dao*/
     @Autowired
-    private CotacaoDAO dao;
+    private CotacoesLivroDAO dao;
     
     @Autowired
     private LivroDAO livroDao;
@@ -34,7 +36,7 @@ public class CotacaoService extends GenericService<Cotacao> {
      * {@inheritDoc} 
      */
     @Override
-    public DAO<Cotacao, Long> getDAO() {
+    public DAO<CotacoesLivro, Long> getDAO() {
         return dao;
     }
 
@@ -43,7 +45,7 @@ public class CotacaoService extends GenericService<Cotacao> {
      *
      * @param dao
      */
-    public void setDao(CotacaoDAO dao) {
+    public void setDao(CotacoesLivroDAO dao) {
     	
         this.dao = dao;
     }

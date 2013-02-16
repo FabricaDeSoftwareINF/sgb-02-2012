@@ -12,128 +12,66 @@ import javax.persistence.Temporal;
 
 /**
  * Entidade Cotacao
+ *
  * @author Marquete
  */
 @Entity
 @Table(name = "COTACAO")
 public class Cotacao extends AbstractEntityModel {
 
-    /** Campo valor*/
+    /**
+     * Campo valor
+     */
     private double valor;
-    
-    /** Campo dataCadastro*/
-    @Temporal(javax.persistence.TemporalType.DATE)
-    private Date dataCadastro;
-    
-    /** Campo livro*/
-    @OneToOne
-    private Livro livro;
-    
-    /** Campo livraria*/
+
+    /**
+     * Campo livraria
+     */
     @OneToOne
     private Livraria livraria;
-    
-    /** Campo quantidade*/
-    private int quantidade;
 
-	/**
-	 * Obtém o valor do campo <code>valor</code>
-	 *
-	 * @return {@link double}
-	 */
-	public double getValor() {
-		
-		return this.valor;
-	}
 
-	/**
-	 * Define o campo <code>valor</code>.
-	 *
-	 * @param valor 
-	 */
-	public void setValor(double valor) {
-		
-		this.valor = valor;
-	}
+    /**
+     * Obtém o valor do campo
+     * <code>valor</code>
+     *
+     * @return {@link double}
+     */
+    public double getValor() {
+        return this.valor;
+    }
 
-	/**
-	 * Obtém o valor do campo <code>dataCadastro</code>
-	 *
-	 * @return {@link Date}
-	 */
-	public Date getDataCadastro() {
-		
-		return dataCadastro != null ? (Date)dataCadastro.clone() : dataCadastro;
-	}
+    /**
+     * Define o campo
+     * <code>valor</code>.
+     *
+     * @param valor
+     */
+    public void setValor(double valor) {
 
-	/**
-	 * Define o campo <code>dataCadastro</code>.
-	 *
-	 * @param dataCadastro 
-	 */
-	public void setDataCadastro(Date dataCadastro) {
-		
-            this.dataCadastro = dataCadastro != null ? (Date)dataCadastro.clone() : dataCadastro;
-	}
+        this.valor = valor;
+    }
 
-	/**
-	 * Obtém o valor do campo <code>livro</code>
-	 *
-	 * @return {@link Livro}
-	 */
-	public Livro getLivro() {
-		
-		return this.livro;
-	}
+    /**
+     * Obtém o valor do campo
+     * <code>livraria</code>
+     *
+     * @return {@link Livraria}
+     */
+    public Livraria getLivraria() {
 
-	/**
-	 * Define o campo <code>livro</code>.
-	 *
-	 * @param livro 
-	 */
-	public void setLivro(Livro livro) {
-		
-		this.livro = livro;
-	}
+        return this.livraria;
+    }
 
-	/**
-	 * Obtém o valor do campo <code>livraria</code>
-	 *
-	 * @return {@link Livraria}
-	 */
-	public Livraria getLivraria() {
-		
-		return this.livraria;
-	}
+    /**
+     * Define o campo
+     * <code>livraria</code>.
+     *
+     * @param livraria
+     */
+    public void setLivraria(Livraria livraria) {
 
-	/**
-	 * Define o campo <code>livraria</code>.
-	 *
-	 * @param livraria 
-	 */
-	public void setLivraria(Livraria livraria) {
-		
-		this.livraria = livraria;
-	}
-
-	/**
-	 * Obtém o valor do campo <code>quantidade</code>
-	 *
-	 * @return {@link int}
-	 */
-	public int getQuantidade() {
-		
-		return this.quantidade;
-	}
-
-	/**
-	 * Define o campo <code>quantidade</code>.
-	 *
-	 * @param quantidade 
-	 */
-	public void setQuantidade(int quantidade) {
-		
-		this.quantidade = quantidade;
-	}
+        this.livraria = livraria;
+    }
 
 }
