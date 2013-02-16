@@ -6,12 +6,12 @@
     <parent>
         <artifactId>sgb</artifactId>
         <groupId>br.ufg.inf.es</groupId>
-        <version>1.1-SNAPSHOT</version>
+        <version>1.2-SNAPSHOT</version>
     </parent>
 
     <groupId>br.ufg.inf.es</groupId>
     <artifactId>sgb-web</artifactId>
-    <version>1.1-SNAPSHOT</version>
+    <version>1.2-SNAPSHOT</version>
     <packaging>war</packaging>
     <name>sgb-web</name>
     
@@ -61,22 +61,22 @@
         <dependency>
             <groupId>br.ufg.inf.es</groupId>
             <artifactId>sgb-base</artifactId>
-            <version>1.1-SNAPSHOT</version>
+            <version>1.2-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>br.ufg.inf.es</groupId>
             <artifactId>sgb-integracao</artifactId>
-            <version>1.1-SNAPSHOT</version>
+            <version>1.2-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>br.ufg.inf.es</groupId>
             <artifactId>sgb-model</artifactId>
-            <version>1.1-SNAPSHOT</version>
+            <version>1.2-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>br.ufg.inf.es</groupId>
             <artifactId>sgb-persistencia</artifactId>
-            <version>1.1-SNAPSHOT</version>
+            <version>1.2-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.sun.faces</groupId>
