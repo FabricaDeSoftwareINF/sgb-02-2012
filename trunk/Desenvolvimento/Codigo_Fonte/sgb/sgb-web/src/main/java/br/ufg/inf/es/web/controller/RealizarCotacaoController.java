@@ -8,7 +8,10 @@ import br.ufg.inf.es.model.Livraria;
 import br.ufg.inf.es.model.Livro;
 import br.ufg.inf.es.web.controller.form.RealizarCotacaoForm;
 import br.ufg.inf.es.web.datamodel.LivroDataModel;
+import br.ufg.inf.es.web.datamodel.CotacaoDataModel;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -31,7 +34,7 @@ public class RealizarCotacaoController extends SGBController<ListaCotacao, Reali
     
     @Autowired
     private LivroService livroService;
-
+    
     @Override
     public String openInitialPage(){
         LivroDataModel livroDataModel = new LivroDataModel((List) livroService.list());
@@ -72,6 +75,13 @@ public class RealizarCotacaoController extends SGBController<ListaCotacao, Reali
         return service;
     }
 
-    
+    public String realizarCotacao() {
+        Livro[] livrosSelecionados = this.getForm().getLivrosSelecionados();
+        
+        List<Cotacao> cotacoes = (List) this.service.realizarCotacao(Arrays.asList(livrosSelecionados));
+        
+        this.getForm().setCotacoesDataModel(new CotacaoDataModel(cotacoes));
+        return this.openInsertPage();
+    }
     
 }

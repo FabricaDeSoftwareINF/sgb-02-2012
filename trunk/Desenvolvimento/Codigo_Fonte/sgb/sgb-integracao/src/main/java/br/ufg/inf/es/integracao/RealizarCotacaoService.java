@@ -1,9 +1,13 @@
 package br.ufg.inf.es.integracao;
 
+import br.ufg.inf.es.model.Cotacao;
 import br.ufg.inf.es.model.ListaCotacao;
+import br.ufg.inf.es.model.Livro;
 import br.ufg.inf.es.persistencia.CotacaoDAO;
 import br.ufg.inf.es.persistencia.ListaCotacaoDAO;
 import br.ufg.inf.es.persistencia.LivroDAO;
+import java.util.ArrayList;
+import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
@@ -58,6 +62,16 @@ public class RealizarCotacaoService extends GenericService<ListaCotacao> {
     public CotacaoDAO getCotacaoDao() {
         
         return cotacaoDao;
+    }
+    
+    public Collection<Cotacao> realizarCotacao(Collection<Livro> livros) {
+        Collection<Cotacao> cotacoes = new ArrayList<Cotacao>();
+        for (Livro livro : livros) {
+            Cotacao cotacao = new Cotacao();
+            cotacao.setLivro(livro);
+            cotacoes.add(cotacao);
+        }
+        return cotacoes;
     }
 
 }
