@@ -350,42 +350,6 @@ public class ExportacaoPlanilhaService {
     }
 
     /**
-     * Gera planilha em formato CSV com base numa lista de itens de planilha.
-     * Cada ItemPlanilha é uma linha da planilha com suas devidas COLUNAs
-     *
-     * @param linhasPlanilha Lista de itens da planilha.
-     * @return String correspondente ao arquivo CSV.
-     */
-//    public byte[] gerarPlanilhaCSV(List<ItemPlanilha> linhasPlanilha) {
-//
-//        List<Map> planilhaListMap = obterListMap(linhasPlanilha);
-//        String separadorCSV = ",";
-//        StringBuilder linha = new StringBuilder();
-//
-//        for (Map itemListMap : planilhaListMap) {
-//
-//            Iterator iterador = itemListMap.values().iterator();
-//
-//            while (iterador.hasNext()) {
-//                Object value = iterador.next();
-//
-//                if (value != null) {
-//                    linha.append(value.toString());
-//                }
-//
-//                if (iterador.hasNext()) {
-//                    linha.append(separadorCSV);
-//                }
-//                
-//                linha.append(System.getProperty("line.separator"));
-//            }
-//
-//        }
-//
-//        return linha.toString().getBytes(Charset.forName("UTF-8"));
-//
-//    }
-    /**
      * *
      * Gera planilha em formato CSV com base numa lista de itens de planilha.
      * Cada ItemPlanilha é uma linha da planilha com suas devidas COLUNAs.

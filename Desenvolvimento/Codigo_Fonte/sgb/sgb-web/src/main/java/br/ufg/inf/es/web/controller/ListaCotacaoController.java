@@ -28,10 +28,14 @@ public class ListaCotacaoController extends SGBController<ListaCotacao, ListaCot
     private ListaCotacaoForm form;
     @Autowired
     private ListaCotacaoService service;
+    
     private StreamedContent arquivoXLS;
     private StreamedContent arquivoCSVNacionais;
     private StreamedContent arquivoCSVEstrangeiros;
+    
     ExportacaoPlanilhaService exportador = new ExportacaoPlanilhaService();
+    byte[] arrayBytes;
+    ByteArrayInputStream stream;
 
     @Override
     public void initData() {
@@ -61,24 +65,28 @@ public class ListaCotacaoController extends SGBController<ListaCotacao, ListaCot
         return arquivoXLS;
     }
 
+    /***
+     * Permite exportar a lista de cotações para o formato XLS, disponibilizando-a
+     * para download. São inclusos tantos os livros nacionais quanto estrangeiros,
+     * cada qual em uma planilha do arquivo.
+     */
     public void exportarXLS() {
 
-        ListaCotacao listaCotacao = form.getEntity();
         List<ItemPlanilha> linhasPlanilhaNacionais = new ArrayList<ItemPlanilha>();
         List<ItemPlanilha> linhasPlanilhaEstrangeiros = new ArrayList<ItemPlanilha>();
 
-        for (int i = 0; i < listaCotacao.getCotacoes().size(); i++) {
+        for (int i = 0; i < form.getEntity().getCotacoes().size(); i++) {
 
-            ItemPlanilha itemPlanilha = montarItemPlanilha(listaCotacao.getCotacoes().get(i), i + 1);
+            ItemPlanilha itemPlanilha = montarItemPlanilha(form.getEntity().getCotacoes().get(i), i + 1);
 
-            if (listaCotacao.getCotacoes().get(i).getLivro().isEstrangeiro() == false) {
+            if (form.getEntity().getCotacoes().get(i).getLivro().isEstrangeiro() == false) {
                 linhasPlanilhaNacionais.add(itemPlanilha);
             } else {
                 linhasPlanilhaEstrangeiros.add(itemPlanilha);
             }
 
-            byte[] arrayBytes = exportador.gerarPlanilhaXLS(linhasPlanilhaNacionais, linhasPlanilhaEstrangeiros);
-            ByteArrayInputStream stream = new ByteArrayInputStream(arrayBytes);
+            arrayBytes = exportador.gerarPlanilhaXLS(linhasPlanilhaNacionais, linhasPlanilhaEstrangeiros);
+            stream = new ByteArrayInputStream(arrayBytes);
 
             this.arquivoXLS = new DefaultStreamedContent(stream, "application/vnd.ms-excel", "planilha.xls");
 
@@ -86,48 +94,63 @@ public class ListaCotacaoController extends SGBController<ListaCotacao, ListaCot
 
     }
 
+    /***
+     * Permite exportar os livros nacioanais da lista de cotações para o formato
+     * CSV, disponibilizando-os para download.
+     */
     public void exportarCSVNacionais() {
 
-        ListaCotacao listaCotacao = form.getEntity();
         List<ItemPlanilha> linhasPlanilhaNacionais = new ArrayList<ItemPlanilha>();
 
-        for (int i = 0; i < listaCotacao.getCotacoes().size(); i++) {
+        for (int i = 0; i < form.getEntity().getCotacoes().size(); i++) {
 
-            if (listaCotacao.getCotacoes().get(i).getLivro().isEstrangeiro() == false) {
+            if (form.getEntity().getCotacoes().get(i).getLivro().isEstrangeiro() == false) {
 
-                ItemPlanilha itemPlanilha = montarItemPlanilha(listaCotacao.getCotacoes().get(i), i + 1);
+                ItemPlanilha itemPlanilha = montarItemPlanilha(form.getEntity().getCotacoes().get(i), i + 1);
                 linhasPlanilhaNacionais.add(itemPlanilha);
             }
 
         }
 
-        byte[] arrayBytes = exportador.gerarPlanilhaCSV(linhasPlanilhaNacionais);
-        ByteArrayInputStream stream = new ByteArrayInputStream(arrayBytes);
+        arrayBytes = exportador.gerarPlanilhaCSV(linhasPlanilhaNacionais);
+        stream = new ByteArrayInputStream(arrayBytes);
         arquivoCSVNacionais = new DefaultStreamedContent(stream, "text/csv", "planilha.csv");
 
     }
 
+    /***
+     * Permite exportar os livros estrangeiros da lista de cotações para o formato
+     * CSV, disponibilizando-os para download.
+     */
     public void exportarCSVEstrangeiros() {
 
-        ListaCotacao listaCotacao = form.getEntity();
         List<ItemPlanilha> linhasPlanilhaEstrangeiros = new ArrayList<ItemPlanilha>();
 
-        for (int i = 0; i < listaCotacao.getCotacoes().size(); i++) {
+        for (int i = 0; i < form.getEntity().getCotacoes().size(); i++) {
 
-            if (listaCotacao.getCotacoes().get(i).getLivro().isEstrangeiro() == true) {
+            if (form.getEntity().getCotacoes().get(i).getLivro().isEstrangeiro() == true) {
 
-                ItemPlanilha itemPlanilha = montarItemPlanilha(listaCotacao.getCotacoes().get(i), i + 1);
+                ItemPlanilha itemPlanilha = montarItemPlanilha(form.getEntity().getCotacoes().get(i), i + 1);
                 linhasPlanilhaEstrangeiros.add(itemPlanilha);
             }
 
         }
 
-        byte[] arrayBytes = exportador.gerarPlanilhaCSV(linhasPlanilhaEstrangeiros);
-        ByteArrayInputStream stream = new ByteArrayInputStream(arrayBytes);
+        arrayBytes = exportador.gerarPlanilhaCSV(linhasPlanilhaEstrangeiros);
+        stream = new ByteArrayInputStream(arrayBytes);
         arquivoCSVEstrangeiros = new DefaultStreamedContent(stream, "text/csv", "planilha.csv");
 
     }
 
+    /***
+     * Monta um objeto ItemPlanilha com base num objeto Cotacao.
+     * @param cotacao
+     * Cotacao a ser convertida em um item de planilha.
+     * @param numItem
+     * Número do item de planilha, identificador único desta.
+     * @return 
+     * Objteo ItemPlanilha devidamente montado.
+     */
     private ItemPlanilha montarItemPlanilha(Cotacao cotacao, int numItem) {
 
         final String AREA_CONHECIMENTO = "Ciências Exatas e da Terra";
