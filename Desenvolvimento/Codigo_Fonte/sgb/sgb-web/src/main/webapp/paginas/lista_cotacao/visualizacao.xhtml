@@ -11,7 +11,7 @@
 
         <ui:define name="content">
 
-            <p:panel header="#{msg['cotacao.label.cotacoeslista']}">
+            <p:panel header="#{listaCotacaoController.form.entity.nome}">
 
                 <h:form prependId="false">
 
@@ -98,22 +98,21 @@
 
                         </p:column>
 
-                        <p:column headerText="#{msg['cotacao.label.area']}" >
+                        <p:column headerText="#{msg['cotacao.label.area']}">
 
                             <h:outputText value="Ciências Exatas e da Terra" />
 
                         </p:column>
 
-                       <!-- <p:column headerText="#{msg['cotacao.label.estrangeiro']}" >
+                      <!--  <p:column headerText="#{msg['cotacao.label.estrangeiro']}" >
 
                             <h:outputText value="#{(cotacao.livro.estrangeiro == true ? 'Sim' : 'Não')}" />
 
                         </p:column> -->
 
-
                     </p:dataTable>
 
-                    <p:spacer height="15"/>
+                    <p:spacer width="15px"/>
 
                     <p:commandButton id="gerar_xls_btn"
                                      value="#{msg['cotacao.button.exportarXLS']}" 
