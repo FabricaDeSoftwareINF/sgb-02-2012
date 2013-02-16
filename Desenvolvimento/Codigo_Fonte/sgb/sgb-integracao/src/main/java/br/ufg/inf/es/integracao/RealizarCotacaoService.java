@@ -1,7 +1,9 @@
 package br.ufg.inf.es.integracao;
 
 import br.ufg.inf.es.model.ListaCotacao;
+import br.ufg.inf.es.persistencia.CotacaoDAO;
 import br.ufg.inf.es.persistencia.ListaCotacaoDAO;
+import br.ufg.inf.es.persistencia.LivroDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
@@ -19,6 +21,12 @@ public class RealizarCotacaoService extends GenericService<ListaCotacao> {
     @Autowired
     private ListaCotacaoDAO dao;
     
+    @Autowired
+    private LivroDAO livroDao;
+    
+    @Autowired
+    private CotacaoDAO cotacaoDao;
+    
     /** 
      * {@inheritDoc} 
      */
@@ -35,6 +43,21 @@ public class RealizarCotacaoService extends GenericService<ListaCotacao> {
     public void setDao(ListaCotacaoDAO dao) {
 
         this.dao = dao;
+    }
+
+    public ListaCotacaoDAO getDao() {
+        
+        return dao;
+    }
+
+    public LivroDAO getLivroDao() {
+        
+        return livroDao;
+    }
+
+    public CotacaoDAO getCotacaoDao() {
+        
+        return cotacaoDao;
     }
 
 }

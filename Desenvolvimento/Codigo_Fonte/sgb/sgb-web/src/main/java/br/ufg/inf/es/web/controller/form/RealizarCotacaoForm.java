@@ -27,6 +27,8 @@ public class RealizarCotacaoForm extends GenericForm<ListaCotacao> {
     private CotacaoDataModel cotacaoDataModel;
     
     private Cotacao[] cotacoesSelecionadas;
+    
+    private Collection<Cotacao> cotacoesRealizadas;
 
     public CotacaoDataModel getCotacaoDataModel() {
 
@@ -81,11 +83,23 @@ public class RealizarCotacaoForm extends GenericForm<ListaCotacao> {
     }
 
     public Collection<Livro>  getLivrosSelecionados() {
+        
         return livrosSelecionados;
     }
 
     public void setLivrosSelecionados(Collection<Livro> livrosSelecionados) {
+        
         this.livrosSelecionados = livrosSelecionados;
+    }
+
+    public Collection<Cotacao> getCotacoesRealizadas() {
+        
+        return cotacoesRealizadas;
+    }
+
+    public void setCotacoesRealizadas(Collection<Cotacao> cotacoesRealizadas) {
+        
+        this.cotacoesRealizadas = cotacoesRealizadas;
     }
     
 }

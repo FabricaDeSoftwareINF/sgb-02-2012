@@ -16,7 +16,7 @@
                 <p:panel header="#{msg['label.cotacao.cotarLivro']}">
                     
                     
-                    <p:dataTable paginator="true" rows="10">
+                    <p:dataTable paginator="true" rows="10" value="#{realizarCotacaoController.form.cotacoesRealizadas}" var="cotacao">
                     
                         <p:column/>
 
@@ -30,15 +30,15 @@
 
                             <h:panelGrid>
 
-                                <h:outputLabel value="Nome do livro"/>
+                                <h:outputLabel value="#{cotacao.livro.titulo}"/>
 
-                                <h:outputLabel value="Autor(es)"/>
+                                <h:outputLabel value="#{cotacao.livro.autoresAsString}"/>
 
-                                <h:outputLabel value="Nº da Edição"/>
+                                <h:outputLabel value="Nº da Edição: #{cotacao.livro.edicao}"/>
 
-                                <h:outputLabel value="Ano"/>
+                                <h:outputLabel value="Ano: #{cotacao.livro.ano}"/>
 
-                                <h:outputLabel value="ISBN-13"/>
+                                <h:outputLabel value="ISBN-13: #{cotacao.livro.isbn13} "/>
 
                             </h:panelGrid>
 
@@ -46,10 +46,12 @@
 
                         <p:column>
 
-                            <p:dataTable >
+                            <p:dataTable value="#{cotacao.livraria}" var="livraria">
 
                                 <p:column headerText="#{msg['label.cotacao.loja']}">
 
+                                    
+                                    
                                 </p:column>
 
                                 <p:column headerText="#{msg['label.cotacao.valor']}">

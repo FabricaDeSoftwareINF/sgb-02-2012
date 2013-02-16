@@ -205,7 +205,7 @@
         <!-- Estória 10: Gerar Cotação-->
         <navigation-case>
             
-            <from-outcome>CotacaoController/initialPage</from-outcome>
+            <from-outcome>RealizarCotacaoController/initialPage</from-outcome>
             
             <to-view-id>/paginas/realizar_cotacao/inicial.xhtml</to-view-id>
         
@@ -213,7 +213,7 @@
         
         <navigation-case>
             
-            <from-outcome>CotacaoController/insertPage</from-outcome>
+            <from-outcome>RealizarCotacaoController/insertPage</from-outcome>
             
             <to-view-id>/paginas/realizar_cotacao/cotacao_gerada.xhtml</to-view-id>
         

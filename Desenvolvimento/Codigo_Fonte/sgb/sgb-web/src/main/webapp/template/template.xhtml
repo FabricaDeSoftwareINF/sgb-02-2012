@@ -71,7 +71,10 @@
                     <p:submenu label="Cotação" autoSubmenuDisplay="true">
                         <p:menuitem value="Livros para cotação" action="#{livroParaCotacaoController.openInitialPage()}" ajax="false"/>
                         <p:menuitem value="Listas de cotações" action="#{listaCotacaoController.openInitialPage()}" ajax="false"/>
-                        <p:menuitem value="Gerar Cotação" action="#{cotacaoController.openInitialPage()}" ajax="false"/>
+                        <p:submenu label="Gerar Cotação">
+                            <p:menuitem value="Livros" action="#{realizarCotacaoController.openInitialPage()}" ajax="false"/>
+                            <p:menuitem value="Lista de Compras" action="#{listaComprasController.openInitialPage()}" ajax="false"/>
+                        </p:submenu>
                     </p:submenu>
 
                     <p:submenu label="Configurações">                    
