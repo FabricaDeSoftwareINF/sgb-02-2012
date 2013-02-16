@@ -1,5 +1,6 @@
 package br.ufg.inf.es.web.controller;
 
+import br.ufg.inf.es.base.util.UtilObjeto;
 import br.ufg.inf.es.base.validation.ValidationException;
 import br.ufg.inf.es.enuns.EnumTipoBibliografia;
 import br.ufg.inf.es.integracao.AutorService;
@@ -61,7 +62,7 @@ public class LivroController extends SGBController<Livro, LivroForm, LivroServic
     private StreamedContent fileExportado;
     private LivroDataModel livroModel;
     private Livro[] livrosSelecionados;
-    
+
     /**
      * Método responsável por retornar a string de navegação para a pagina
      * incial da Estória de usuário buscar todos os livros.
@@ -81,6 +82,9 @@ public class LivroController extends SGBController<Livro, LivroForm, LivroServic
         return super.openInitialPage();
     }
 
+    /**
+     * {@inheritDoc }
+     */
     @Override
     public void openInsertView() {
         super.openInsertView();
@@ -223,9 +227,9 @@ public class LivroController extends SGBController<Livro, LivroForm, LivroServic
     }
 
     public void setLivrosSelecionados(Livro[] livrosSelecionados) {
-        
-        if(livrosSelecionados != null){
-        
+
+        if (livrosSelecionados != null) {
+
             this.livrosSelecionados = (Livro[]) livrosSelecionados.clone();
         }
     }
@@ -242,15 +246,20 @@ public class LivroController extends SGBController<Livro, LivroForm, LivroServic
 
     public void associarDisciplina() {
 
-        Livro livro = this.form.getEntity();
-        Bibliografia bibliografia = this.form.getBibliografiaTemp();
-        bibliografia.setTipo(this.form.getTipoBibliografia());
-        bibliografia.setLivro(livro);
-        Collection<Bibliografia> listaBibliografias = livro.getBibliografias();
-        listaBibliografias.add(bibliografia);
-        this.form.setBibliografiaTemp(new Bibliografia());
-        this.form.setTipoBibliografia(null);
-        this.form.setCursoSelecionado(null);
+        if (UtilObjeto.isReferencia(this.getForm().getBibliografiaTemp().getDisciplina())
+                && UtilObjeto.isReferencia(this.getForm().getTipoBibliografia())) {
+            Livro livro = this.form.getEntity();
+            Bibliografia bibliografia = this.form.getBibliografiaTemp();
+            bibliografia.setTipo(this.form.getTipoBibliografia());
+            bibliografia.setLivro(livro);
+            Collection<Bibliografia> listaBibliografias = livro.getBibliografias();
+            listaBibliografias.add(bibliografia);
+            this.form.setBibliografiaTemp(new Bibliografia());
+            this.form.setTipoBibliografia(null);
+            this.form.setCursoSelecionado(null);
+        } else {
+            this.addWarningMessage("cadastro.livro.validacao.associacaodisciplina");
+        }
     }
 
     public Collection<Livro> complete(String query) {
@@ -303,16 +312,11 @@ public class LivroController extends SGBController<Livro, LivroForm, LivroServic
 
         this.cursos = this.cursoService.list();
         this.getForm().setCursoSelecionado(new Curso());
-
-
-        this.openInsertView();
         return "/paginas/livro/inclusao.xhtml";
     }
 
     public String salvarLivro() throws ValidationException {
-
         super.insert();
-
         return super.openSearchPage();
     }
 
@@ -322,7 +326,7 @@ public class LivroController extends SGBController<Livro, LivroForm, LivroServic
             Hibernate.isInitialized(this.getForm().getEntity());
 
             Hibernate.initialize(this.getForm().getEntity());
-            this.getService().insert(this.getForm().getEntity());
+            this.getService().update(this.getForm().getEntity());
             this.getForm().clearInsertData();
             this.addSuccessMessage("arquitetura.msg.sucesso");
 
@@ -407,11 +411,12 @@ public class LivroController extends SGBController<Livro, LivroForm, LivroServic
 
         this.getForm().getAutoresAdicionados().add(autorSelecionado);
     }
-    
+
     /**
-     * Cria opções para filtragem dos livros, no datatable, entre 
-     * estrangeiros ou não.
-     * @return Opções para filtragem dos livros, no datatable, entre 
+     * Cria opções para filtragem dos livros, no datatable, entre estrangeiros
+     * ou não.
+     *
+     * @return Opções para filtragem dos livros, no datatable, entre
      * estrangeiros ou não.
      */
     public SelectItem[] getEstrangeiroOptions() {
@@ -420,7 +425,6 @@ public class LivroController extends SGBController<Livro, LivroForm, LivroServic
         SelectItem vazio = new SelectItem("");
         SelectItem sim = new SelectItem("true", simLabel);
         SelectItem nao = new SelectItem("false", naoLabel);
-        return new SelectItem[] {vazio, sim, nao};
+        return new SelectItem[]{vazio, sim, nao};
     }
-    
 }

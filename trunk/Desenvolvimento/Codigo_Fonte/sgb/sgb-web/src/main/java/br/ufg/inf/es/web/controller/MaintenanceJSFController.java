@@ -17,6 +17,9 @@ public abstract class MaintenanceJSFController<E extends AbstractEntityModel>
     
     public abstract Service<E, Long> getService();
     
+    /**
+     * {@inheritDoc }
+     */
     public String openInsertPage() {
         
         this.openInsertView();
@@ -24,12 +27,18 @@ public abstract class MaintenanceJSFController<E extends AbstractEntityModel>
         return this.getRootNavigation() + "insertPage";
     }
     
+    /**
+     * {@inheritDoc }
+     */
     @Override
     public void openInsertView() {
         
         this.getForm().clearInsertData();
     }
 
+    /**
+     * {@inheritDoc }
+     */
     @Override
     public void insert() {
         
@@ -47,6 +56,9 @@ public abstract class MaintenanceJSFController<E extends AbstractEntityModel>
         }
     }
 
+    /**
+     * {@inheritDoc }
+     */
     @Override
     public void openSearchView() {
         
@@ -55,6 +67,9 @@ public abstract class MaintenanceJSFController<E extends AbstractEntityModel>
         this.getForm().getCollectionEntities().addAll(this.getService().list());
     }
 
+    /**
+     * {@inheritDoc }
+     */
     public String openSearchPage() {
         
         this.openSearchView();
@@ -62,6 +77,9 @@ public abstract class MaintenanceJSFController<E extends AbstractEntityModel>
         return this.getRootNavigation() + "searchPage";
     }
     
+    /**
+     * {@inheritDoc }
+     */
     @Override
     public void search() {
         
@@ -70,6 +88,9 @@ public abstract class MaintenanceJSFController<E extends AbstractEntityModel>
         this.getForm().getCollectionEntities().addAll(this.getService().search(this.getForm().getSearch()));
     }
     
+    /**
+     * 
+     */
     private void loadEntityFromRequest() {
         
         Long entityID = Long.parseLong(this.getParameterFromRequest("entityID"));
@@ -77,6 +98,9 @@ public abstract class MaintenanceJSFController<E extends AbstractEntityModel>
         this.getForm().setEntity(this.getService().find(entityID));
     }
     
+    /**
+     * 
+     */
     public String openEditPage() {
         try {
             this.openEditView();
@@ -87,6 +111,9 @@ public abstract class MaintenanceJSFController<E extends AbstractEntityModel>
         return "";
     }
     
+    /**
+     * 
+     */
     public String openEditPage(E entity) {
         
         this.getForm().clearInsertData();
@@ -96,6 +123,9 @@ public abstract class MaintenanceJSFController<E extends AbstractEntityModel>
         return this.getRootNavigation() + "editPage";
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void openEditView() {
         
@@ -112,6 +142,9 @@ public abstract class MaintenanceJSFController<E extends AbstractEntityModel>
         }
     }
     
+    /**
+     * 
+     */
     public String openViewPage() {
         try {
             
@@ -122,6 +155,9 @@ public abstract class MaintenanceJSFController<E extends AbstractEntityModel>
         return "";
     }
     
+    /**
+     * 
+     */
     public String openViewPage(E entity) {
         
         this.getForm().setEntity(entity);
@@ -129,6 +165,9 @@ public abstract class MaintenanceJSFController<E extends AbstractEntityModel>
         return this.getRootNavigation() + "viewPage";
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void edit() {
         
@@ -145,6 +184,9 @@ public abstract class MaintenanceJSFController<E extends AbstractEntityModel>
         }        
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void remove() {
         

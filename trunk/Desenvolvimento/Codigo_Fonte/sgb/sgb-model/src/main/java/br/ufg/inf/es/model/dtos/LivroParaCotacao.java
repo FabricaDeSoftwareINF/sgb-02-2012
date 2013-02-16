@@ -1,4 +1,6 @@
-package br.ufg.inf.es.model;
+package br.ufg.inf.es.model.dtos;
+
+import br.ufg.inf.es.model.AbstractEntityModel;
 
 /**
  * Classe que representa a entidade Livro para a cotação.
