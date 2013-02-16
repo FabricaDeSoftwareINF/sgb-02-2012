@@ -15,52 +15,52 @@
 
                 <p:panel header="#{msg['label.cotacao.cotarLivro']}">
                     
-                    <p:graphicImage url="http://www.seeklogo.com/images/C/Carrinho_de_Compras-logo-F251151A71-seeklogo.com.gif"
-                                    style="margin-left: 90%;" height="64" width="64" id="carrinhoCompras"/>
                     
+                    <p:dataTable paginator="true" rows="10">
                     
-                    <p:overlayPanel id="panelCarrinho" for="carrinhoCompras">
-                    
-                    
-                    </p:overlayPanel>   
-                        
-                    <h:panelGrid  id="livrosCotados" width="100%" columns="1">
+                        <p:column/>
 
-                        <h:panelGrid columns="7">
-                            
-                            <p:graphicImage url="http://1.bp.blogspot.com/-n-fsjwiesiw/Tr7UmKfH6JI/AAAAAAAAAXQ/PUbQNNaU0bY/s1600/fundacao.jpg" width="150" height="220" />
-                            
-                            <p:spacer width="15"/>
-                            
+                        <p:column>
+
+                               <p:graphicImage url="http://1.bp.blogspot.com/-n-fsjwiesiw/Tr7UmKfH6JI/AAAAAAAAAXQ/PUbQNNaU0bY/s1600/fundacao.jpg" width="150" height="220" />
+
+                        </p:column>
+
+                        <p:column>
+
                             <h:panelGrid>
-                                
-                                <h:outputLabel value="Nome do livro"/>
-                                
-                                <h:outputLabel value="Autor(es)"/>
-                                
-                                <h:outputLabel value="Nº da Edição"/>
-                                
-                                <h:outputLabel value="Ano"/>
-                                
-                                <h:outputLabel value="ISBN-13"/>
-                                
-                            </h:panelGrid>
-                            
-                            <p:dataTable >
-                                
-                                <p:column headerText="#{msg['label.cotacao.loja']}">
-                                    
-                                </p:column>
-                                
-                                <p:column headerText="#{msg['label.cotacao.valor']}">
-                                    
-                                </p:column>
-                                
-                            </p:dataTable>
-                            
-                        </h:panelGrid>
 
-                    </h:panelGrid>
+                                <h:outputLabel value="Nome do livro"/>
+
+                                <h:outputLabel value="Autor(es)"/>
+
+                                <h:outputLabel value="Nº da Edição"/>
+
+                                <h:outputLabel value="Ano"/>
+
+                                <h:outputLabel value="ISBN-13"/>
+
+                            </h:panelGrid>
+
+                        </p:column>
+
+                        <p:column>
+
+                            <p:dataTable >
+
+                                <p:column headerText="#{msg['label.cotacao.loja']}">
+
+                                </p:column>
+
+                                <p:column headerText="#{msg['label.cotacao.valor']}">
+
+                                </p:column>
+
+                            </p:dataTable>
+
+                        </p:column>
+                    
+                    </p:dataTable>
                     
                 </p:panel>
 
