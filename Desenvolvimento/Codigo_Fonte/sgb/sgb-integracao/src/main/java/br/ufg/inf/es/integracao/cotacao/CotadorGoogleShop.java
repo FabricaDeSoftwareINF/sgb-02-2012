@@ -5,8 +5,11 @@
 package br.ufg.inf.es.integracao.cotacao;
 
 import br.ufg.inf.es.model.Livraria;
+import br.ufg.inf.es.model.Livro;
 import com.google.gson.Gson;
 import com.google.gson.internal.StringMap;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,7 +23,8 @@ public class CotadorGoogleShop extends Cotador {
 
     private static final String KEY = "AIzaSyDzuxDAgvInL9nk7jIlBcs9cPSSnfbJfrw";
     
-    private static final String URL = "https://www.googleapis.com/shopping/search/v1/public/products?key=" + KEY + "&country=US&alt=json&currency=USD&restrictBy=condition:new";  
+    private static final String URL = "https://www.googleapis.com/shopping/search/v1/public/products?key="
+            + KEY + "&country=US&alt=json&currency=USD&restrictBy=condition:new";  
 
     @Override
     public String gerarUrlDeBusca(String isbn) {
@@ -28,7 +32,7 @@ public class CotadorGoogleShop extends Cotador {
     }
 
     @Override
-    public Map<Livraria, OfertaLivro> buscarOfertas(String isbn) {
+    public Collection<ResultadoCotacao> buscarOfertas(String isbn) {
         
         Gson gson = new Gson();
         
@@ -36,7 +40,7 @@ public class CotadorGoogleShop extends Cotador {
         
         Map map = gson.fromJson(json, Map.class);
 
-        Map<Livraria, OfertaLivro> resultado = new HashMap();
+        Collection<ResultadoCotacao> resultado = new ArrayList<ResultadoCotacao>();
         
         List<StringMap> itens = (List<StringMap>) map.get("items");
        
@@ -83,9 +87,13 @@ public class CotadorGoogleShop extends Cotador {
            
             OfertaLivro oferta = new OfertaLivro(nomeLivro, descricaoLivro, precoLivro, moeda, nomeLivraria, linkLivroNaLivraria, linkImagemLivro, null);
             
-            resultado.put(livraria, oferta);
+            ResultadoCotacao resultadoCotacao = new ResultadoCotacao(livraria, oferta);
+            resultado.add(resultadoCotacao);
         }
         
         return resultado;
     }
+
+    
+    
 }

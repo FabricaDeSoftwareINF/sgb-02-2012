@@ -7,8 +7,8 @@ package br.ufg.inf.es.integracao.cotacao;
 import br.ufg.inf.es.model.Livraria;
 import com.buscape.developer.result.type.*;
 import java.net.URL;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.xml.bind.JAXBContext;
@@ -33,8 +33,8 @@ public class CotadorBuscape extends Cotador {
     }
 
     @Override
-    public Map<Livraria, OfertaLivro> buscarOfertas(String isbn) {
-        Map<Livraria, OfertaLivro> map = new HashMap<Livraria, OfertaLivro>();
+    public Collection<ResultadoCotacao> buscarOfertas(String isbn) {
+        Collection<ResultadoCotacao> map = new ArrayList<ResultadoCotacao>();
         try {
             Result result = (Result) u.unmarshal(new URL(gerarUrlDeBusca(isbn)));
             for (Offer offer : result.getOffers()) {
@@ -59,7 +59,9 @@ public class CotadorBuscape extends Cotador {
                 livraria.setNome(nomeLivraria);
                 livraria.setSite(linkLivraria);
                 livraria.setUrlLogo(linkLogoLivraria);
-                map.put(livraria, oferta);
+                
+                ResultadoCotacao resultadoCotacao = new ResultadoCotacao(livraria, oferta);
+                map.add(resultadoCotacao);
             }
         } catch (Exception ex) {
             Logger.getLogger(CotadorGoogleShop.class.getName()).log(Level.SEVERE, null, ex);
@@ -71,4 +73,5 @@ public class CotadorBuscape extends Cotador {
     public String gerarUrlDeBusca(String isbn) {
         return "http://sandbox.buscape.com/service/findOfferList/564771466d477a4458664d3d/?categoryId=3482&keyword=" + isbn;
     }
+
 }

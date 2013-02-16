@@ -1,8 +1,6 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.ufg.inf.es.integracao.cotacao;
+
+import br.ufg.inf.es.model.Livro;
 
 /**
  *
@@ -10,6 +8,7 @@ package br.ufg.inf.es.integracao.cotacao;
  */
 public class OfertaLivro {
 
+    private Livro livro;
     private String nomeLivro;
     private String descricaoLivro;
     private String precoLivro;
@@ -22,7 +21,10 @@ public class OfertaLivro {
     public OfertaLivro() {
     }
 
-    public OfertaLivro(String nomeLivro, String descricaoLivro, String precoLivro, String moeda, String nomeLivraria, String linkLivroNaLivraria, String linkImagemLIvro, String linkLogoLivraria) {
+    public OfertaLivro(String nomeLivro, String descricaoLivro, 
+            String precoLivro, String moeda, String nomeLivraria, 
+            String linkLivroNaLivraria, String linkImagemLIvro, 
+            String linkLogoLivraria) {
         this.nomeLivro = nomeLivro;
         this.descricaoLivro = descricaoLivro;
         this.precoLivro = precoLivro;
@@ -33,7 +35,13 @@ public class OfertaLivro {
         this.linkLogoLivraria = linkLogoLivraria;
     }
 
-    
+    public Livro getLivro() {
+        return livro;
+    }
+
+    public void setLivro(Livro livro) {
+        this.livro = livro;
+    }
         
     public String getDescricaoLivro() {
         return descricaoLivro;

@@ -1,5 +1,6 @@
 package br.ufg.inf.es.model;
 
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.CascadeType;
@@ -23,7 +24,7 @@ public class ListaCotacao extends AbstractEntityModel {
     
     /** Campo cotacoes*/
     @OneToMany(cascade = CascadeType.ALL)
-    private List<Cotacao> cotacoes;
+    private Collection<CotacoesLivro> cotacoes;
     
     /** Campo preco*/
     private double preco;
@@ -71,7 +72,7 @@ public class ListaCotacao extends AbstractEntityModel {
      *
      * @return {@link List<Cotacao>}
      */
-    public List<Cotacao> getCotacoes() {
+    public Collection<CotacoesLivro> getCotacoes() {
             return this.cotacoes;
     }
 
@@ -80,7 +81,7 @@ public class ListaCotacao extends AbstractEntityModel {
      *
      * @param cotacoes 
      */
-    public void setCotacoes(List<Cotacao> cotacoes) {
+    public void setCotacoes(Collection<CotacoesLivro> cotacoes) {
             this.cotacoes = cotacoes;
     }
 

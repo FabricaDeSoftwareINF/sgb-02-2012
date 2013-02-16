@@ -3,6 +3,7 @@ package br.ufg.inf.es.web.datamodel;
 
 import br.ufg.inf.es.integracao.CotacaoService;
 import br.ufg.inf.es.model.Cotacao;
+import br.ufg.inf.es.model.CotacoesLivro;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
@@ -13,12 +14,12 @@ import org.primefaces.model.SelectableDataModel;
  *
  * @author Bruno Marquete
  */
-public class CotacaoDataModel extends ListDataModel<Cotacao> implements SelectableDataModel<Cotacao>, Serializable {
+public class CotacaoDataModel extends ListDataModel<CotacoesLivro> implements SelectableDataModel<CotacoesLivro>, Serializable {
 
-    private Collection<Cotacao> datasource;
+    private Collection<CotacoesLivro> datasource;
     private CotacaoService service;
 
-    public CotacaoDataModel(List<Cotacao> list) {
+    public CotacaoDataModel(List<CotacoesLivro> list) {
         super(list);
     }
 
@@ -28,16 +29,16 @@ public class CotacaoDataModel extends ListDataModel<Cotacao> implements Selectab
     }
 
     @Override
-    public Object getRowKey(Cotacao cotacao) {
+    public Object getRowKey(CotacoesLivro cotacao) {
         return cotacao.getId();
     }
 
     @Override
-    public Cotacao getRowData(String rowKey) {
+    public CotacoesLivro getRowData(String rowKey) {
         
-        List<Cotacao> cotacoes = (List<Cotacao>) getWrappedData();  
+        List<CotacoesLivro> cotacoes = (List<CotacoesLivro>) getWrappedData();  
           
-        for(Cotacao cotacao : cotacoes) {  
+        for(CotacoesLivro cotacao : cotacoes) {  
             
             if(String.valueOf(cotacao.getId()).equals(rowKey)) {
                 
@@ -49,11 +50,11 @@ public class CotacaoDataModel extends ListDataModel<Cotacao> implements Selectab
         
     }
 
-    public Collection<Cotacao> getDatasource() {
+    public Collection<CotacoesLivro> getDatasource() {
         return datasource;
     }
 
-    public void setDatasource(Collection<Cotacao> datasource) {
+    public void setDatasource(Collection<CotacoesLivro> datasource) {
         this.datasource = datasource;
     }
 
@@ -64,4 +65,5 @@ public class CotacaoDataModel extends ListDataModel<Cotacao> implements Selectab
     public void setService(CotacaoService service) {
         this.service = service;
     }
+
 }

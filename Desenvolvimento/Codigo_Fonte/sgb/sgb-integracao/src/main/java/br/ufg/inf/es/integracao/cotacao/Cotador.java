@@ -1,10 +1,8 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.ufg.inf.es.integracao.cotacao;
 
 import br.ufg.inf.es.model.Livraria;
+import br.ufg.inf.es.model.Livro;
+import java.util.Collection;
 import java.util.Map;
 
 /**
@@ -60,7 +58,15 @@ public abstract class Cotador {
      * livro. Os valores das chaves são Ofertas que possuem os dados como Preço,
      * Image do Livro, etc.
      */
-    public abstract Map<Livraria, OfertaLivro> buscarOfertas(String isbn);
+    public abstract Collection<ResultadoCotacao> buscarOfertas(String isbn);
+
+    public Collection<ResultadoCotacao> buscarOfertas(Livro livro) {
+        Collection<ResultadoCotacao> ofertas = buscarOfertas(livro.getIsbn13());
+        for (ResultadoCotacao oferta : ofertas) {
+            oferta.setLivro(livro);
+        }
+        return ofertas;
+    }
 
     /**
      * Gera a url final de busca. Para isso adiciona-se o isbn na url padrão.

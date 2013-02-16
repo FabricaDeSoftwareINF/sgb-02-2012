@@ -1,6 +1,7 @@
 package br.ufg.inf.es.web.controller.form;
 
 import br.ufg.inf.es.model.Cotacao;
+import br.ufg.inf.es.model.CotacoesLivro;
 import br.ufg.inf.es.model.ListaCotacao;
 import br.ufg.inf.es.model.Livro;
 import br.ufg.inf.es.web.datamodel.CotacaoDataModel;
@@ -22,14 +23,14 @@ public class RealizarCotacaoForm extends GenericForm<ListaCotacao> {
     private LivroDataModel livrosCotacao;    
     private LivroDataModel livroDataModel;
     private Livro[] livrosSelecionados;
-    private Cotacao[] cotacoesSelecionadas;
+    private List<CotacoesLivro> cotacoesSelecionadas;
     private CotacaoDataModel cotacoesDataModel;
     
-    public Cotacao[] getCotacoesSelecionadas() {
+    public List<CotacoesLivro> getCotacoesSelecionadas() {
         return this.cotacoesSelecionadas;
     }
 
-    public void setCotacoesSelecionadas(Cotacao[] cotacoesSelecionadas) {
+    public void setCotacoesSelecionadas(List<CotacoesLivro> cotacoesSelecionadas) {
         this.cotacoesSelecionadas = cotacoesSelecionadas;
     }
 
