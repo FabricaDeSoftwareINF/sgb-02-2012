@@ -104,4 +104,28 @@ public class LivroDAO extends GenericHibernateDAO<Livro> {
             this.getSession().close();
         }
     }
+
+    /**
+     * Método que obtém a quantidade de alunos de acordo com as disciplinas 
+     * que utilizam o determinado livro.
+     * 
+     * @param id Identificador do livro.
+     * @return Quantidade de alunos 
+     */
+    public Integer obterQuantidadeDeAlunosPorLivro(Long id) {
+        
+        Criteria criteria = this.createCriteria();
+        
+        criteria.createAlias("bibliografias", "biblio");
+        
+        criteria.add(Restrictions.eq("biblio.livro.id", id));
+        
+        criteria.createAlias("biblio.disciplina", "discip");
+        
+        criteria.createAlias("discip.curso", "curs");
+        
+        criteria.setProjection(Projections.projectionList().add(Projections.sum("curs.vagas")));
+        
+        return UtilObjeto.isReferencia(criteria.uniqueResult()) ? (Integer) criteria.uniqueResult() : 0;
+    }
 }

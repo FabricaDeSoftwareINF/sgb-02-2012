@@ -2,17 +2,13 @@ package br.ufg.inf.es.web.controller;
 
 import br.ufg.inf.es.integracao.RealizarCotacaoService;
 import br.ufg.inf.es.integracao.LivroService;
-import br.ufg.inf.es.model.Autor;
 import br.ufg.inf.es.model.Cotacao;
 import br.ufg.inf.es.model.ListaCotacao;
-import br.ufg.inf.es.model.Livraria;
 import br.ufg.inf.es.model.Livro;
 import br.ufg.inf.es.web.controller.form.RealizarCotacaoForm;
 import br.ufg.inf.es.web.datamodel.LivroDataModel;
 import br.ufg.inf.es.web.datamodel.CotacaoDataModel;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -59,6 +55,7 @@ public class RealizarCotacaoController extends SGBController<ListaCotacao, Reali
     } 
 
     public String realizarCotacao() {
+        
         Livro[] livrosSelecionados = this.getForm().getLivrosSelecionados();
         
         List<Cotacao> cotacoes = (List) this.service.realizarCotacao(Arrays.asList(livrosSelecionados));
@@ -68,6 +65,13 @@ public class RealizarCotacaoController extends SGBController<ListaCotacao, Reali
         this.getForm().setCotacoesSelecionadas(cotacoes.toArray(new Cotacao[cotacoes.size()]));
         
         return this.openInsertPage();
+    }
+    
+    public String salvarListaCotacao() {
+        
+        this.getService().salvarListaCotacao(this.getForm().getCotacoesSelecionadas());
+        
+        return null;
     }
     
 }
