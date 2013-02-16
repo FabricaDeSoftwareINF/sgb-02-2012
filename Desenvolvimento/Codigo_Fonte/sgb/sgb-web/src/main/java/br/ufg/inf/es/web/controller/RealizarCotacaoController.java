@@ -7,7 +7,9 @@ import br.ufg.inf.es.model.ListaCotacao;
 import br.ufg.inf.es.model.Livraria;
 import br.ufg.inf.es.model.Livro;
 import br.ufg.inf.es.web.controller.form.RealizarCotacaoForm;
+import br.ufg.inf.es.web.datamodel.LivroDataModel;
 import java.util.ArrayList;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -31,11 +33,10 @@ public class RealizarCotacaoController extends SGBController<ListaCotacao, Reali
     private LivroService livroService;
 
     @Override
-    public void openInitialView() {
-        
-        this.getForm().setTabelaCotacoes(new ArrayList<Cotacao>());
-        
-        this.getForm().setLivrosCotacao(livroService.list());
+    public String openInitialPage(){
+        LivroDataModel livroDataModel = new LivroDataModel((List) livroService.list());
+        this.getForm().setLivroDataModel(livroDataModel);
+        return super.openInitialPage();
     }
 
     @Override
@@ -57,7 +58,7 @@ public class RealizarCotacaoController extends SGBController<ListaCotacao, Reali
         
         livraria.setUrlLogo("http://1.bp.blogspot.com/-n-fsjwiesiw/Tr7UmKfH6JI/AAAAAAAAAXQ/PUbQNNaU0bY/s1600/fundacao.jpg");
                 
-        this.getForm().getCotacoesRealizadas().add(cotacao);
+        //this.getForm().getCotacoesRealizadas().add(cotacao);
         
     }
     
@@ -71,4 +72,6 @@ public class RealizarCotacaoController extends SGBController<ListaCotacao, Reali
         return service;
     }
 
+    
+    
 }

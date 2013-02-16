@@ -4,6 +4,7 @@ import br.ufg.inf.es.model.Cotacao;
 import br.ufg.inf.es.model.ListaCotacao;
 import br.ufg.inf.es.model.Livro;
 import br.ufg.inf.es.web.datamodel.CotacaoDataModel;
+import br.ufg.inf.es.web.datamodel.LivroDataModel;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -18,88 +19,52 @@ import org.springframework.stereotype.Component;
 @Scope("session")
 public class RealizarCotacaoForm extends GenericForm<ListaCotacao> {
 
-    private Collection<Cotacao> tabelaCotacoes;
-    
-    private Collection<Livro> livrosCotacao;
-    
-    private Collection<Livro>  livrosSelecionados;
-    
-    private CotacaoDataModel cotacaoDataModel;
-    
+    private LivroDataModel livrosCotacao;    
+    private LivroDataModel livroDataModel;
+    private Livro[] livrosSelecionados;
     private Cotacao[] cotacoesSelecionadas;
-    
-    private Collection<Cotacao> cotacoesRealizadas;
-
-    public CotacaoDataModel getCotacaoDataModel() {
-
-        List<Cotacao> cotacoes = new ArrayList<Cotacao>(this.getTabelaCotacoes());
-        
-        cotacaoDataModel = new CotacaoDataModel(cotacoes);
-
-        return cotacaoDataModel;
-    }
-
-    public void setCotacaoDataModel(CotacaoDataModel cotacaoDataModel) {
-    
-        this.cotacaoDataModel = cotacaoDataModel;
-    }
+    private CotacaoDataModel cotacoesDataModel;
     
     public Cotacao[] getCotacoesSelecionadas() {
-        
-        Cotacao[] retorno = null;
-        
-        if(this.cotacoesSelecionadas != null) {
-            
-             retorno = this.cotacoesSelecionadas.clone();
-        }
-        
-        return retorno;
+        return this.cotacoesSelecionadas;
     }
 
     public void setCotacoesSelecionadas(Cotacao[] cotacoesSelecionadas) {
-        
-        if(cotacoesSelecionadas != null) {
-        
-            this.cotacoesSelecionadas = (Cotacao[]) cotacoesSelecionadas.clone();
-        }
+        this.cotacoesSelecionadas = cotacoesSelecionadas;
     }
 
-    public Collection<Cotacao> getTabelaCotacoes() {
-        return tabelaCotacoes;
-    }
-
-    public void setTabelaCotacoes(Collection<Cotacao> tabelaCotacoes) {
-        this.tabelaCotacoes = tabelaCotacoes;
-    }
-
-    public Collection<Livro> getLivrosCotacao() {
-        
+    public LivroDataModel getLivrosCotacao() {
         return livrosCotacao;
     }
 
-    public void setLivrosCotacao(Collection<Livro> livrosCotacao) {
-     
+    public void setLivrosCotacao(LivroDataModel livrosCotacao) {
         this.livrosCotacao = livrosCotacao;
     }
 
-    public Collection<Livro>  getLivrosSelecionados() {
+    public Livro[]  getLivrosSelecionados() {
         
         return livrosSelecionados;
     }
 
-    public void setLivrosSelecionados(Collection<Livro> livrosSelecionados) {
+    public void setLivrosSelecionados(Livro[] livrosSelecionados) {
         
         this.livrosSelecionados = livrosSelecionados;
     }
 
-    public Collection<Cotacao> getCotacoesRealizadas() {
-        
-        return cotacoesRealizadas;
+    public CotacaoDataModel getCotacoesDataModel() {
+        return cotacoesDataModel;
     }
 
-    public void setCotacoesRealizadas(Collection<Cotacao> cotacoesRealizadas) {
-        
-        this.cotacoesRealizadas = cotacoesRealizadas;
+    public void setCotacoesDataModel(CotacaoDataModel cotacoesDataModel) {
+        this.cotacoesDataModel = cotacoesDataModel;
+    }
+    
+    public LivroDataModel getLivroDataModel() {
+        return livroDataModel;
+    }
+
+    public void setLivroDataModel(LivroDataModel livroDataModel) {
+        this.livroDataModel = livroDataModel;
     }
     
 }
