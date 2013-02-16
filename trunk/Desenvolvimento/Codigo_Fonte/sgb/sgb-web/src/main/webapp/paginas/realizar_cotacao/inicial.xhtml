@@ -20,7 +20,7 @@
                         <p:dataTable id="tabelaLivrosCot" var="livro" paginator="true" rows="10" paginatorAlwaysVisible="false"
                                      value="#{realizarcotacaoController.form.livrosCotacao}" style="text-align: center;"
                                      emptyMessage="#{msg['cadastro.curso.registrosnaoencontrado']}"
-                                     selection="#{realizarcotacaoController.form.livrosSelecionadas}">
+                                     selection="#{realizarCotacaoController.form.cotacoesSelecionadas}">
 
                             <p:column style="width: 18px;" selectionMode="multiple"/>
 
@@ -87,7 +87,7 @@
                         <h:panelGrid columns="3" style="margin-left: 80%;">
 
                             <p:commandButton value="#{msg['label.cotacao.realizarCotacao']}" ajax="false"
-                                             action="#{cotacaoController.openInsertPage()}"/>
+                                             action="#{realizarCotacaoController.openInsertPage()}"/>
                             
                         </h:panelGrid>
 
