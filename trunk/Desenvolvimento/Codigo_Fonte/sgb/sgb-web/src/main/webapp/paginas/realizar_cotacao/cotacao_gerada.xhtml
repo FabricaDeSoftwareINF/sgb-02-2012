@@ -10,8 +10,6 @@
 
         <ui:define name="content">
 
-            <ui:include src="salvar_lista_dialog.xhtml"/>
-
             <h:form id="formCotacaoGerada" style="font-size: 14px;">
 
                 <p:messages/>
@@ -20,12 +18,13 @@
 
 
                     <p:dataTable id="tabelaCotacoes" paginator="true" rows="10" value="#{realizarCotacaoController.form.cotacoesDataModel}" 
-                                 var="cotacesLivro" style="text-align: center;" editable="true" editMode="row" selection="#{realizarCotacaoController.form.cotacoesSelecionadas}">
+                                 var="cotacesLivro" style="text-align: center;" editable="true" editMode="row" 
+                                 selection="#{realizarCotacaoController.form.cotacoesSelecionadas}">
 
                         <p:column selectionMode="multiple" style="width:18px" />
 
                         <p:column>
-                            
+
                             <p:graphicImage value="#{cotacoesLivro.urlImagem}" width="50" height="73"/>
 
                         </p:column>
@@ -137,7 +136,7 @@
                         </p:column> 
 
                         <p:ajax event="rowEdit" update="valor_total" /> 
-                        
+
                         <f:facet name="footer">  
                             <h:outputText id="valor_total" value="Total: #{realizarCotacaoController.form.valorTotal}"/>
                         </f:facet> 
@@ -148,11 +147,16 @@
 
                     <h:panelGrid width="100%" style="text-align: right;">
 
-                        <h:panelGrid width="100%" style="text-align: right;" columns="2">
+                        <h:panelGrid style="text-align: right;" columns="3">
+                            
+                            <p:commandButton value="#{msg['arquitetura.label.remover']}"
+                                             onclick="dialogRemocao.show()"
+                                             icon="ui-icon-trash"/>
 
                             <p:commandButton value="#{msg['acao.salvar']}" style="width: 120px" onclick="salvarDialog.show()"/>
 
-                            <p:commandButton value="#{msg['acao.voltar']}" ajax="false" action="#{realizarCotacaoController.openInitialPage()}" style="width: 120px" />
+                            <p:commandButton value="#{msg['acao.voltar']}" ajax="false" 
+                                             action="#{realizarCotacaoController.openInitialPage()}" style="width: 120px" />
 
                         </h:panelGrid>
 
@@ -160,6 +164,36 @@
 
                 </p:panel>
 
+                <p:dialog widgetVar="salvarDialog" header="Salvar" modal="true">
+                    <h:outputLabel id="nome_lista" value="Nome: "/>
+                    <p:inputText value="#{realizarCotacaoController.form.nomeLista}"/>
+                    <p:commandButton id="salvar_devez_btn" value="#{msg['arquitetura.label.salvar']}"
+                                     action="#{realizarCotacaoController.salvarListaCotacao}"
+                                     oncomplete="salvarDialog.hide()"/>
+                </p:dialog>
+
+                <p:dialog id="dialog_remocao" widgetVar="dialogRemocao" modal="true"
+                          resizable="false" closable="false">
+
+                    <h:panelGrid columns="1" style="text-align: center;">
+
+                        <h:outputText value="#{msg['cadastro.autor.label.remocao']}"/>
+
+                        <p:spacer height="10"/>
+
+                        <h:panelGrid columns="2" style="margin-left: 30%;">
+
+                            <p:commandButton value="#{msg['cadastro.autor.label.sim']}" update="@form"
+                                             action="#{realizarCotacaoController.removerCotacoesLivro}" oncomplete="dialogRemocao.hide()"/>
+
+                            <p:commandButton value="#{msg['cadastro.autor.label.nao']}"
+                                             onclick="dialogRemocao.hide();"/>
+
+                        </h:panelGrid>
+
+                    </h:panelGrid>
+
+                </p:dialog>
             </h:form>
 
         </ui:define>

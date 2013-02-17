@@ -16,16 +16,11 @@ import org.primefaces.model.SelectableDataModel;
 public class ListaCotacaoDataModel extends ListDataModel<ListaCotacao> implements SelectableDataModel<ListaCotacao>, Serializable {
 
     private Collection<ListaCotacao> datasource;
-    private ListaCotacaoService service;
 
     public ListaCotacaoDataModel(List<ListaCotacao> list) {
         super(list);
     }
 
-    public ListaCotacaoDataModel(ListaCotacaoService service) {
-        this.service = service;
-        this.datasource = service.list();
-    }
 
     @Override
     public Object getRowKey(ListaCotacao listaCotacao) {
@@ -49,20 +44,4 @@ public class ListaCotacaoDataModel extends ListDataModel<ListaCotacao> implement
         
     }
 
-    public Collection<ListaCotacao> getDatasource() {
-        return datasource;
-    }
-
-    public void setDatasource(Collection<ListaCotacao> datasource) {
-        this.datasource = datasource;
-    }
-
-    public ListaCotacaoService getService() {
-        return service;
-    }
-
-    public void setService(ListaCotacaoService service) {
-        this.service = service;
-    }
-    
 }

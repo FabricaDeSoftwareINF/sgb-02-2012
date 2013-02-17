@@ -1,6 +1,7 @@
 package br.ufg.inf.es.web.controller;
 
 import br.ufg.inf.es.base.util.UtilObjeto;
+import br.ufg.inf.es.base.validation.ValidationException;
 import br.ufg.inf.es.integracao.RealizarCotacaoService;
 import br.ufg.inf.es.integracao.LivroService;
 import br.ufg.inf.es.model.CotacoesLivro;
@@ -8,7 +9,7 @@ import br.ufg.inf.es.model.ListaCotacao;
 import br.ufg.inf.es.model.Livro;
 import br.ufg.inf.es.web.controller.form.RealizarCotacaoForm;
 import br.ufg.inf.es.web.datamodel.LivroDataModel;
-import br.ufg.inf.es.web.datamodel.CotacaoDataModel;
+import br.ufg.inf.es.web.datamodel.CotacoesLivroDataModel;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -41,6 +42,8 @@ public class RealizarCotacaoController extends SGBController<ListaCotacao, Reali
     private RealizarCotacaoService service;
     @Autowired
     private LivroService livroService;
+    
+    List<CotacoesLivro> listaCotacoesLivro;
 
     @Override
     public String openInitialPage() {
@@ -72,9 +75,9 @@ public class RealizarCotacaoController extends SGBController<ListaCotacao, Reali
 
         List<CotacoesLivro> cotacoes = new ArrayList<CotacoesLivro>(listaCotacao.getCotacoesLivro());
 
-        this.getForm().setCotacoesDataModel(new CotacaoDataModel(cotacoes));
-
-        this.getForm().setCotacoesSelecionadas(cotacoes);
+        this.listaCotacoesLivro = cotacoes;
+        
+        this.getForm().setCotacoesDataModel(new CotacoesLivroDataModel(cotacoes));
 
         return this.openInsertPage();
     }
@@ -87,9 +90,11 @@ public class RealizarCotacaoController extends SGBController<ListaCotacao, Reali
 
             List<CotacoesLivro> cotacoes = new ArrayList<CotacoesLivro>(listaCotacao.getCotacoesLivro());
 
-            this.getForm().setCotacoesDataModel(new CotacaoDataModel(cotacoes));
+            this.getForm().setCotacoesDataModel(new CotacoesLivroDataModel(cotacoes));
+            
+            CotacoesLivro[] cotacoesArray = cotacoes.toArray(new CotacoesLivro[cotacoes.size()]);
 
-            this.getForm().setCotacoesSelecionadas(cotacoes);
+            this.getForm().setCotacoesSelecionadas(cotacoesArray);
 
             return this.openInsertPage();
         }
@@ -98,7 +103,7 @@ public class RealizarCotacaoController extends SGBController<ListaCotacao, Reali
     }
 
     public String salvarListaCotacao() {
-        this.getService().salvarListaCotacao(this.getForm().getCotacoesSelecionadas(),
+        this.getService().salvarListaCotacao(listaCotacoesLivro,
                 this.getForm().getNomeLista());
 
         return this.openInitialPage();
@@ -114,5 +119,10 @@ public class RealizarCotacaoController extends SGBController<ListaCotacao, Reali
             Logger.getLogger(RealizarCotacaoController.class.getName()).log(Level.SEVERE, null, ex);
         }
         return sc;
+    }
+    
+    public void removerCotacoesLivro() {
+        List<CotacoesLivro> remover = Arrays.asList(this.getForm().getCotacoesSelecionadas());
+        listaCotacoesLivro.removeAll(remover);
     }
 }

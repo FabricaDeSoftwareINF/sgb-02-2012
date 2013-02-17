@@ -1,7 +1,6 @@
 package br.ufg.inf.es.model;
 
 import java.util.Collection;
-import java.util.Date;
 import javax.persistence.*;
 
 /**
@@ -20,21 +19,21 @@ public class CotacoesLivro extends AbstractEntityModel {
      * Campo valor
      */
     private double valorMedio;
-    /**
-     * Campo dataCadastro
-     */
-    @Temporal(javax.persistence.TemporalType.DATE)
-    private Date dataCadastro;
+
     /**
      * Campo livro
      */
-    @ManyToOne(cascade= CascadeType.MERGE)
+    @ManyToOne(cascade= CascadeType.REFRESH)
     private Livro livro;
     /**
      * Campo livraria
      */
     @OneToMany(cascade= CascadeType.ALL)
-    @JoinColumn(name="id_cotacao")
+    @JoinTable(
+            name="COTACOESLIVRO_COTACAO",
+            joinColumns = @JoinColumn( name="id_cotacoeslivro"),
+            inverseJoinColumns = @JoinColumn( name="id_cotacao")
+    )
     private Collection<Cotacao> cotacoes;
     
     /**
@@ -84,28 +83,6 @@ public class CotacoesLivro extends AbstractEntityModel {
     public void setValorMedio(double valorMedio) {
 
         this.valorMedio = valorMedio;
-    }
-
-    /**
-     * Obtém o valor do campo
-     * <code>dataCadastro</code>
-     *
-     * @return {@link Date}
-     */
-    public Date getDataCadastro() {
-
-        return dataCadastro != null ? (Date) dataCadastro.clone() : dataCadastro;
-    }
-
-    /**
-     * Define o campo
-     * <code>dataCadastro</code>.
-     *
-     * @param dataCadastro
-     */
-    public void setDataCadastro(Date dataCadastro) {
-
-        this.dataCadastro = dataCadastro != null ? (Date) dataCadastro.clone() : dataCadastro;
     }
 
     /**
@@ -170,6 +147,44 @@ public class CotacoesLivro extends AbstractEntityModel {
     public void setQuantidade(int quantidade) {
 
         this.quantidade = quantidade;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 19 * hash + (this.urlImagem != null ? this.urlImagem.hashCode() : 0);
+        hash = 19 * hash + (int) (Double.doubleToLongBits(this.valorMedio) ^ (Double.doubleToLongBits(this.valorMedio) >>> 32));
+        hash = 19 * hash + (this.livro != null ? this.livro.hashCode() : 0);
+        hash = 19 * hash + (this.cotacoes != null ? this.cotacoes.hashCode() : 0);
+        hash = 19 * hash + this.quantidade;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final CotacoesLivro other = (CotacoesLivro) obj;
+        if ((this.urlImagem == null) ? (other.urlImagem != null) : !this.urlImagem.equals(other.urlImagem)) {
+            return false;
+        }
+        if (Double.doubleToLongBits(this.valorMedio) != Double.doubleToLongBits(other.valorMedio)) {
+            return false;
+        }
+        if (this.livro != other.livro && (this.livro == null || !this.livro.equals(other.livro))) {
+            return false;
+        }
+        if (this.cotacoes != other.cotacoes && (this.cotacoes == null || !this.cotacoes.equals(other.cotacoes))) {
+            return false;
+        }
+        if (this.quantidade != other.quantidade) {
+            return false;
+        }
+        return true;
     }
     
 }

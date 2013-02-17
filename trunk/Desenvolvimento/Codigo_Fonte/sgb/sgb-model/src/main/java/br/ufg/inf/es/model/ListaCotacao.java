@@ -21,8 +21,12 @@ public class ListaCotacao extends AbstractEntityModel {
     private Date dataRealizada;
     
     /** Campo cotacoes*/
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name="lista_cotacao_id")
+    @OneToMany(fetch=FetchType.EAGER, cascade={CascadeType.ALL})
+    @JoinTable(
+            name="LISTACOTACAO_COTACOESLIVRO",
+            joinColumns = @JoinColumn( name="id_lista_cotacao"),
+            inverseJoinColumns = @JoinColumn( name="id_cotacoes_livro")
+    )
     private Collection<CotacoesLivro> cotacoesLivro;
     
     /** Campo valor*/
@@ -100,6 +104,40 @@ public class ListaCotacao extends AbstractEntityModel {
      */
     public void setValor(double valor) {
         this.valor = valor;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 13 * hash + (this.nome != null ? this.nome.hashCode() : 0);
+        hash = 13 * hash + (this.dataRealizada != null ? this.dataRealizada.hashCode() : 0);
+        hash = 13 * hash + (this.cotacoesLivro != null ? this.cotacoesLivro.hashCode() : 0);
+        hash = 13 * hash + (int) (Double.doubleToLongBits(this.valor) ^ (Double.doubleToLongBits(this.valor) >>> 32));
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final ListaCotacao other = (ListaCotacao) obj;
+        if ((this.nome == null) ? (other.nome != null) : !this.nome.equals(other.nome)) {
+            return false;
+        }
+        if (this.dataRealizada != other.dataRealizada && (this.dataRealizada == null || !this.dataRealizada.equals(other.dataRealizada))) {
+            return false;
+        }
+        if (this.cotacoesLivro != other.cotacoesLivro && (this.cotacoesLivro == null || !this.cotacoesLivro.equals(other.cotacoesLivro))) {
+            return false;
+        }
+        if (Double.doubleToLongBits(this.valor) != Double.doubleToLongBits(other.valor)) {
+            return false;
+        }
+        return true;
     }
     
 }

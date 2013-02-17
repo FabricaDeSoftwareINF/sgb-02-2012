@@ -221,6 +221,7 @@ public class RealizarCotacaoService extends GenericService<ListaCotacao> {
     }
 
     public void salvarListaCotacao(Collection<CotacoesLivro> cotacoesSelecionadas, String nome) {
+        System.err.println(cotacoesSelecionadas);
         ListaCotacao listaCotacao = new ListaCotacao();
         listaCotacao.setCotacoesLivro(cotacoesSelecionadas);
         listaCotacao.setDataRealizada(new Date());
@@ -230,7 +231,7 @@ public class RealizarCotacaoService extends GenericService<ListaCotacao> {
             valorTotal += cotacoesLivro.getValorMedio() * cotacoesLivro.getQuantidade();
         }
         listaCotacao.setValor(valorTotal);
-        this.getDAO().save(listaCotacao);
+        this.getDAO().insert(listaCotacao);
     }
 
 }

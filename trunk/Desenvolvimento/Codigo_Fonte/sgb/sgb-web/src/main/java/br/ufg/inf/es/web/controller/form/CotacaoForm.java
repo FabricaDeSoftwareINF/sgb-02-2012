@@ -4,7 +4,7 @@ package br.ufg.inf.es.web.controller.form;
 import br.ufg.inf.es.model.Cotacao;
 import br.ufg.inf.es.model.CotacoesLivro;
 import br.ufg.inf.es.model.Livro;
-import br.ufg.inf.es.web.datamodel.CotacaoDataModel;
+import br.ufg.inf.es.web.datamodel.CotacoesLivroDataModel;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -25,20 +25,20 @@ public class CotacaoForm extends GenericForm<CotacoesLivro> {
     
     private Livro[] livrosParaCotacao;
     
-    private CotacaoDataModel cotacaoDataModel;
+    private CotacoesLivroDataModel cotacaoDataModel;
     
     private Cotacao[] cotacoesSelecionadas;
 
-    public CotacaoDataModel getCotacaoDataModel() {
+    public CotacoesLivroDataModel getCotacaoDataModel() {
 
         List<CotacoesLivro> cotacoes = new ArrayList<CotacoesLivro>(this.getTabelaCotacoes());
         
-        cotacaoDataModel = new CotacaoDataModel(cotacoes);
+        cotacaoDataModel = new CotacoesLivroDataModel(cotacoes);
 
         return cotacaoDataModel;
     }
 
-    public void setCotacaoDataModel(CotacaoDataModel cotacaoDataModel) {
+    public void setCotacaoDataModel(CotacoesLivroDataModel cotacaoDataModel) {
     
         this.cotacaoDataModel = cotacaoDataModel;
     }
