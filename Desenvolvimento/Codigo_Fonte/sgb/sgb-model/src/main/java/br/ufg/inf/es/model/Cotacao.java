@@ -5,6 +5,7 @@
 package br.ufg.inf.es.model;
 
 import java.util.Date;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -27,7 +28,7 @@ public class Cotacao extends AbstractEntityModel {
     /**
      * Campo livraria
      */
-    @OneToOne
+    @OneToOne(cascade= CascadeType.ALL)
     private Livraria livraria;
 
 

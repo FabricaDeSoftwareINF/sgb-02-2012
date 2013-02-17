@@ -2,6 +2,7 @@ package br.ufg.inf.es.model;
 
 import java.util.Collection;
 import java.util.Date;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
@@ -14,7 +15,7 @@ import javax.persistence.Temporal;
  * @author vinicius
  */
 @Entity
-@Table(name = "COTACAO_LIVRO")
+@Table(name = "COTACOES_LIVRO")
 public class CotacoesLivro extends AbstractEntityModel {
 
     /**
@@ -34,7 +35,7 @@ public class CotacoesLivro extends AbstractEntityModel {
     /**
      * Campo livraria
      */
-    @OneToMany
+    @OneToMany(cascade= CascadeType.ALL)
     @JoinColumn(name="id_cotacao")
     private Collection<Cotacao> cotacoes;
     

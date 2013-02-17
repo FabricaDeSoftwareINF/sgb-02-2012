@@ -10,6 +10,8 @@
 
         <ui:define name="content">
 
+            <ui:include src="salvar_lista_dialog.xhtml"/>
+                
             <h:form id="formCotacaoGerada" style="font-size: 14px;">
 
                 <p:messages/>
@@ -66,7 +68,8 @@
 
                             <p:overlayPanel for="btnLivrarias">
 
-                                <p:dataTable value="#{cotacesLivro.cotacoes}" var="cotacao">
+                                <p:dataTable value="#{cotacesLivro.cotacoes}" var="cotacao"
+                                             paginator="true" rows="15">
 
                                     <p:column headerText="#{msg['label.cotacao.loja']}">
                                         <h:outputText value="#{cotacao.livraria.nome}"/>
@@ -141,7 +144,7 @@
 
                         <h:panelGrid width="100%" style="text-align: right;" columns="2">
 
-                            <p:commandButton value="#{msg['acao.salvar']}" style="width: 120px" action="#{realizarCotacaoController.salvarListaCotacao}"/>
+                            <p:commandButton value="#{msg['acao.salvar']}" style="width: 120px" onclick="salvarDialog.show()"/>
 
                             <p:commandButton value="#{msg['acao.voltar']}" ajax="false" action="#{realizarCotacaoController.openInitialPage()}" style="width: 120px" />
 

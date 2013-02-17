@@ -91,9 +91,10 @@ public class RealizarCotacaoController extends SGBController<ListaCotacao, Reali
     
     public String salvarListaCotacao() {
         
-        this.getService().salvarListaCotacao(this.getForm().getCotacoesSelecionadas());
+        this.getService().salvarListaCotacao(this.getForm().getCotacoesSelecionadas(), 
+                this.getForm().getNomeLista());
         
-        return null;
+        return this.openInitialPage();
     }
     
 }
