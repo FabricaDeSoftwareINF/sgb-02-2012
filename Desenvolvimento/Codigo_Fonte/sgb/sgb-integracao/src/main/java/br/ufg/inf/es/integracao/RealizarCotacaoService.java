@@ -97,7 +97,7 @@ public class RealizarCotacaoService extends GenericService<ListaCotacao> {
         }
 
         ListaCotacao listaCotacao = new ListaCotacao();
-        listaCotacao.setCotacoes(cotacoes);
+        listaCotacao.setCotacoesLivro(cotacoes);
         return listaCotacao;
     }
 
@@ -160,7 +160,7 @@ public class RealizarCotacaoService extends GenericService<ListaCotacao> {
         CotacoesLivro cotacoesLivro = new CotacoesLivro();
         cotacoesLivro.setLivro(livro);
         cotacoesLivro.setCotacoes(cotacoes);
-        cotacoesLivro.setValor(calculaPrecoMedio(cotacoesLivro));
+        cotacoesLivro.setValorMedio(calculaPrecoMedio(cotacoesLivro));
         return cotacoesLivro;
     }
 
