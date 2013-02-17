@@ -268,8 +268,7 @@ public class LivroController extends SGBController<Livro, LivroForm, LivroServic
     }
 
     public Collection<Autor> completeAutor(String query) {
-        Collection<Autor> autores = this.autorService.
-                searchByAttributes(query, "nome", "sobrenome");
+        Collection<Autor> autores = this.autorService.searchByAttributes(query, "nome", "sobrenome");
         Collection<Autor> autoresAdicionados = this.getForm().getAutoresAdicionados();
         if (autoresAdicionados != null) {
             autores.removeAll(autoresAdicionados);
@@ -427,4 +426,5 @@ public class LivroController extends SGBController<Livro, LivroForm, LivroServic
         SelectItem nao = new SelectItem("false", naoLabel);
         return new SelectItem[]{vazio, sim, nao};
     }
+
 }

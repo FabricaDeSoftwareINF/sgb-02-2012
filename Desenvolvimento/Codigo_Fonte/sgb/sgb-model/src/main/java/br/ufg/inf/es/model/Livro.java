@@ -72,11 +72,10 @@ public class Livro extends AbstractEntityModel {
     mappedBy = "livrosDaListaCompras",
     targetEntity = ListaCompras.class)
     private Collection<ListaCompras> listaCompras;
-    
     /**
      * Campo cotacoesLivro
      */
-    @ManyToMany(cascade={CascadeType.PERSIST, CascadeType.MERGE},
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE},
     mappedBy = "livro")
     private Collection<CotacoesLivro> cotacoesLivro;
 
@@ -282,6 +281,7 @@ public class Livro extends AbstractEntityModel {
 
     /**
      * Concatena os todos os autores em uma única String separada por vírgulas.
+     *
      * @return Todos os autores em uma única String separada por vírgulas
      */
     public String getAutoresAsString() {
@@ -293,15 +293,15 @@ public class Livro extends AbstractEntityModel {
         }
         return autoresAsString;
     }
-    
-    
+
     /**
-     * Concatena os todas as bibliografias em uma única String separada 
-     * por vírgulas. Cada bibliografia inclui o nome da disciplina,
-     * o tipo da bibliografia e o curso a que pertence a disciplina.
-     * @return Todas as bibliografias em uma única String separada 
-     * por vírgulas. Cada bibliografia inclui o nome da disciplina,
-     * o tipo da bibliografia e o curso a que pertence a disciplina.
+     * Concatena os todas as bibliografias em uma única String separada por
+     * vírgulas. Cada bibliografia inclui o nome da disciplina, o tipo da
+     * bibliografia e o curso a que pertence a disciplina.
+     *
+     * @return Todas as bibliografias em uma única String separada por vírgulas.
+     * Cada bibliografia inclui o nome da disciplina, o tipo da bibliografia e o
+     * curso a que pertence a disciplina.
      */
     public String getDisciplinasAsString() {
         Collection<Bibliografia> bibliografias = getBibliografias();
@@ -325,5 +325,16 @@ public class Livro extends AbstractEntityModel {
     public void setCotacoesLivro(Collection<CotacoesLivro> cotacoesLivro) {
         this.cotacoesLivro = cotacoesLivro;
     }
-    
+
+    @Override
+    public String toString() {
+
+//        if (this.isbn13 != null && this.isbn13.isEmpty() == false) {
+//            return titulo + "(ISBN13: " + this.isbn13 + ")";
+//        } else if (this.isbn10 != null && this.isbn10.isEmpty() == false) {
+//            return titulo + "(ISBN10: " + this.isbn10 + ")";
+//        } else {
+            return titulo;
+//        }
+    }
 }

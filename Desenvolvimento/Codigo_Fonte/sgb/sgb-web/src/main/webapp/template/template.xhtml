@@ -22,7 +22,7 @@
             <h:outputScript name="jquery.alphanumeric.js" library="javascript"/>
             <h:outputStylesheet library="css" name="default.css"/>
             <h:outputStylesheet library="css" name="panelGrid.css"/>
-            
+
             <script>
                 jQuery(document).ready(function() {
                     jQuery('.numeric').numeric({ichars:'ç[]=-;*/-+.,()¬¨%$"\'\'@!|?°º}]{[´`~^\\'}); 
@@ -40,11 +40,26 @@
                     <h:panelGrid style="float: right" columns="6" >
 
                         <h:panelGrid columns="2">
-                            <p:inputText id="pesquisaLivro" size="40"/> 
-                            <p:commandButton icon="ui-icon-search"/>
-                        </h:panelGrid>
+                            <p:autoComplete id="pesquisaLivro"  
+                                            size="200"
+                                            maxlength="1"
+                                            value="#{templateController.livros}"
+                                            completeMethod="#{templateController.completeLivro}"  
+                                            var="livro" 
+                                            itemLabel="#{livro.toString()}" 
+                                            itemValue="#{livro}" 
+                                            converter="livroConverter"
+                                            multiple="true">
 
+                                <p:ajax event="itemUnselect" listener="#{templateController.handleUnselectLivro}" /> 
+                                <p:ajax event="itemSelect" listener="#{templateController.addLivroOnSelect}" />
+
+                            </p:autoComplete>  
+                            <p:commandButton value="Acessar" icon="ui-icon-circle-check"/>
+                            
+                        </h:panelGrid>
                         <p:watermark for="pesquisaLivro" value="Pesquisar Livro"/>
+
                         <p:spacer width="45" height="0"/>
                         <h4>#{loginController.usuarioLogado}</h4>                                
                         <h:outputLink style="font-size: 16px;" value="#{request.contextPath}/j_spring_security_logout">(Sair)</h:outputLink>
@@ -67,7 +82,7 @@
                     <p:menuitem value="#{msg['listaCompras.inicial']}" action="#{listaComprasController.openInitialPage()}" ajax="false">
 
                     </p:menuitem>
-                    
+
                     <p:submenu label="Cotação" autoSubmenuDisplay="true">
                         <p:menuitem value="Livros para cotação" action="#{livroParaCotacaoController.openInitialPage()}" ajax="false"/>
                         <p:menuitem value="Listas de cotações" action="#{listaCotacaoController.openInitialPage()}" ajax="false"/>
@@ -79,20 +94,20 @@
 
                     <p:submenu label="Configurações">                    
                         <p:menuitem value="#{msg['configuracao.geral']}" action="#{parametrosController.openViewPage()}"/>
-                    
+
                         <p:menuitem value="#{msg['configuracao.biblioteca']}" action="#{bibliotecaConfigController.openInitialPage()}" ajax="false"/>
-                        
+
                         <p:menuitem value="#{msg['configuracao.comunicacao']}" action="#{comunicacaoController.openInitialPage()}" ajax="false"/>
-                        
+
                         <p:menuitem value="#{msg['parametros.integracao']}" action="#{integracaoSdbController.openInitialPage()}" ajax="false"/>
                     </p:submenu>
                     <p:menuitem value="Ajuda" ajax="false"/> 
 
-                    
+
                     <div id="content">  
-                        
+
                         <ui:insert name="content">
-                             
+
                         </ui:insert>  
 
                     </div>  
