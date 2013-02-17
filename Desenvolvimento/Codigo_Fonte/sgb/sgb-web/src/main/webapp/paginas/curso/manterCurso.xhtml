@@ -12,77 +12,74 @@
             <h:form id="formbusca" style="font-size: 14px;">
 
                 <p:remoteCommand name="recarregaPagina" action="#{cursoController.openSearchPage()}"/>
-                
+
                 <p:messages/>
 
                 <p:panel header="#{msg['curso.manter']}">
-                    
-                    <h:panelGrid width="100%" columns="1">
 
-                        <p:dataTable id="tabelaCursos" var="curso" paginator="true" rows="10" paginatorAlwaysVisible="false"
-                                     value="#{cursoController.form.cursoDataTableModel}" selection="#{cursoController.form.cursosParaRemocao}"
-                                     emptyMessage="#{msg['cadastro.curso.registrosnaoencontrado']}">
+                    <p:spacer width="15px" height="20px"/>
 
-
-                            <p:column selectionMode="multiple" style="width:18px" />
-
-                            <p:column headerText="#{msg['cadastro.curso.label.nome']}"
-                                      filterBy="#{curso.nome}">  
-
-                                <h:outputText value="#{curso.nome}" />  
-
-                            </p:column> 
-
-                            <p:column headerText="#{msg['cadastro.curso.label.vagas']}"
-                                      filterBy="#{curso.vagas}" style="text-align: center;">  
-
-                                <h:outputText value="#{curso.vagas}" />  
-
-                            </p:column>
-
-                            <p:column headerText="#{msg['cadastro.acao']}" style="text-align: center;">  
-
-                                <h:panelGrid columns="2" class="semborda">
-
-                                    <p:commandLink id="linkAcaoEditar" value="#{msg['acao.editar']}" 
-                                                   action="#{cursoController.openEditPage()}">
-
-                                        <f:setPropertyActionListener target="#{cursoController.form.entity}"
-                                                                     value="#{curso}"/>
-
-                                    </p:commandLink>
+                    <p:dataTable id="tabelaCursos" var="curso" paginator="true" rows="10"
+                                 value="#{cursoController.form.cursoDataTableModel}" selection="#{cursoController.form.cursosParaRemocao}"
+                                 emptyMessage="#{msg['cadastro.curso.registrosnaoencontrado']}">
 
 
-                                    <p:commandLink id="linkAcaoDetalhe" value="#{msg['acao.detalhes']}" 
-                                                   oncomplete="dlgDetalhe.show();" update=":formbusca:dialogDetalhes" action="#{cursoController.preparaCursoParaDetalhe}">
+                        <p:column selectionMode="multiple" style="width:18px" />
 
-                                        <f:setPropertyActionListener target="#{cursoController.form.cursoParaDetalhe}"
-                                                                     value="#{curso}"/>
+                        <p:column headerText="#{msg['cadastro.curso.label.nome']}"
+                                  filterBy="#{curso.nome}">  
 
-                                    </p:commandLink>
+                            <h:outputText value="#{curso.nome}" />  
 
-                                </h:panelGrid>    
+                        </p:column> 
 
-                            </p:column> 
+                        <p:column headerText="#{msg['cadastro.curso.label.vagas']}"
+                                  filterBy="#{curso.vagas}" style="text-align: center;">  
 
-                        </p:dataTable>
+                            <h:outputText value="#{curso.vagas}" />  
 
-                        <p:spacer height="15" width="5"/>
+                        </p:column>
 
-                        <h:panelGrid columns="3" style="margin-left: 80%;">
+                        <p:column headerText="#{msg['cadastro.acao']}" style="text-align: center;"
+                                  width="120">  
 
-                            <p:commandButton value="#{msg['usuario.label.novo']}" ajax="false"
-                                             action="#{cursoController.openInsertPage()}"/>
+                            <p:commandButton id="linkAcaoEditar" 
+                                             value="#{msg['acao.editar']}" 
+                                             action="#{cursoController.openEditPage()}"
+                                             style="width: 110px;"
+                                             icon="ui-icon-pencil">
 
-                            <p:spacer width="15"/>
+                                <f:setPropertyActionListener target="#{cursoController.form.entity}"
+                                                             value="#{curso}"/>
 
-                            <p:commandButton value="#{msg['usuario.label.remover']}"
-                                             onclick="dlgRemocao.show();"/>
+                            </p:commandButton>
+                            <br/>
+                            <p:commandButton id="linkAcaoDetalhe" value="#{msg['acao.detalhes']}" 
+                                             oncomplete="dlgDetalhe.show();" 
+                                             update=":formbusca:dialogDetalhes" 
+                                             action="#{cursoController.preparaCursoParaDetalhe}"
+                                             style="width: 110px;"
+                                             icon="ui-icon-contact">
 
-                        </h:panelGrid>
+                                <f:setPropertyActionListener target="#{cursoController.form.cursoParaDetalhe}"
+                                                             value="#{curso}"/>
 
-                    </h:panelGrid>
-                    
+                            </p:commandButton>
+
+                        </p:column> 
+
+                    </p:dataTable>
+
+                    <p:spacer width="15px" height="50px"/>
+
+                    <p:commandButton value="#{msg['usuario.label.novo']}" ajax="false"
+                                     action="#{cursoController.openInsertPage()}"
+                                     icon="ui-icon-document"/>
+
+                    <p:commandButton value="#{msg['usuario.label.remover']}"
+                                     onclick="dlgRemocao.show();"
+                                     icon="ui-icon-trash"/>
+
                 </p:panel>
 
                 <p:dialog id="dialogRemocao" widgetVar="dlgRemocao" modal="true"
@@ -121,21 +118,21 @@
                             <p:outputLabel value="#{cursoController.form.cursoParaDetalhe.nome}"/>
 
                             <p:spacer height="35" width="5"/>
-                            
+
                             <p:outputLabel value="#{msg['cadastro.curso.label.vagas']}:" />
 
                             <p:outputLabel value="#{cursoController.form.cursoParaDetalhe.vagas}"/>
 
                         </h:panelGrid>
-                        
+
                         <p:spacer height="15" width="5"/>
 
                     </h:panelGrid>
-                    
+
                     <p:panel header="#{msg['cadastro.disciplinas']}">
-                        
+
                         <p:spacer height="15" width="5"/>
-                        
+
                         <p:dataTable value="#{cursoController.form.cursoParaDetalhe.disciplinas}" 
                                      paginator="true" rows="5" var="disciplina">
 
@@ -164,7 +161,7 @@
                             </p:column>
 
                         </p:dataTable>
-                   
+
                     </p:panel>
 
                 </p:dialog>

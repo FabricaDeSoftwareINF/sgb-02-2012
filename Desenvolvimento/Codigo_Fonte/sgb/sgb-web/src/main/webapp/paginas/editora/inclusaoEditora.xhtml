@@ -19,10 +19,16 @@
                             </h:panelGrid>
                             
                             <h:panelGrid columns="2" cellpadding="1" style="margin-left: 25px;">
+                                
                                 <p:commandButton action="#{editoraController.salvarEditora()}" 
-                                                 value="#{msg['arquitetura.label.salvar']}" ajax="false"/>
+                                                 value="#{msg['arquitetura.label.salvar']}" 
+                                                 ajax="false"
+                                                 icon="ui-icon-disk"/>
+                               
                                 <p:commandButton value="#{msg['arquitetura.label.cancelar']}" 
-                                                 action="#{editoraController.openInitialPage()}" ajax="false"/>
+                                                 action="#{editoraController.openInitialPage()}"
+                                                 ajax="false"
+                                                 icon="ui-icon-close"/>
                             </h:panelGrid>
                         </h:panelGrid>
                     </h:form>

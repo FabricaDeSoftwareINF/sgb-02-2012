@@ -16,34 +16,37 @@
             <ui:include src="exportacao_dialog.xhtml"/>
             <ui:include src="detalhes_dialog.xhtml"/>
 
-            <p:messages autoUpdate="true" closable="true"/>
-
             <p:panel header="#{msg['cadastro.livro.manter']}">
+
+                <p:messages autoUpdate="true" closable="true"/>
+                <p:spacer width="15px" height="20px"/>
 
                 <h:form id="lista_livros_form">
 
                     <p:dataTable id="livros_datatable" value="#{livroController.livroModel}" var="livro"
-                                 rows="10" paginator="true" paginatorAlwaysVisible="false" 
-                                 selection="#{livroController.livrosSelecionados}">
+                                 rows="10" paginator="true" selection="#{livroController.livrosSelecionados}">
 
                         <p:column selectionMode="multiple" style="width:18px" /> 
 
                         <p:column headerText="#{msg['cadastro.livro.label.titulo']}"
                                   filterBy="#{livro.titulo}" filterMatchMode="contains">
 
-                            <h:outputText value="#{livro.titulo}" />
+                            <h:outputText value="#{livro.titulo}"
+                                          converter="string20Converter" escape="false"/>
 
                         </p:column>
 
                         <p:column headerText="#{msg['cadastro.livro.label.autor']}"
                                   filterBy="#{livro.autoresAsString}" filterMatchMode="contains">
                             <p:dataList value="#{livro.autores}" var="autor">
-                                <h:outputText value="#{autor}" />
+                                <h:outputText value="#{autor.sobrenome.toUpperCase()},#{autor.nome}" 
+                                              converter="string15Converter" escape="false"/>
                             </p:dataList>
                         </p:column>
 
                         <p:column headerText="#{msg['cadastro.livro.label.edicao']}">
-                            <h:outputText value="#{livro.edicao}" />
+                            <h:outputText value="#{livro.edicao}"
+                                          converter="string15Converter" escape="false"/>
                         </p:column>
 
                         <p:column headerText="#{msg['cadastro.livro.label.ano']}">
@@ -61,54 +64,62 @@
                         <p:column headerText="#{msg['cadastro.livro.label.disciplinas']}"
                                   filterBy="#{livro.disciplinasAsString}" filterMatchMode="contains">
                             <p:dataList value="#{livro.bibliografias}" var="bibliografia">
-                                <h:outputText value="#{bibliografia.disciplina.nome} - #{bibliografia.disciplina.curso.nome} - #{bibliografia.tipo.value}" />
+                                <h:outputText value="#{bibliografia.disciplina.nome} - #{bibliografia.disciplina.curso.nome} - #{bibliografia.tipo.value}" 
+                                              converter="string15Converter" escape="false"/>
                             </p:dataList>
                         </p:column>
-                        
+
                         <p:column headerText="#{msg['cadastro.livro.label.estrangeiro']}"
                                   filterBy="#{livro.estrangeiro}" filterOptions="#{livroController.estrangeiroOptions}"
                                   filterMatchMode="exact">
                             <h:outputText value="#{livro.estrangeiro ? 'Sim' : 'Não'}" />
                         </p:column>
 
-                        <p:column headerText="#{msg['cadastro.livro.label.acoes']}">
+                        <p:column headerText="#{msg['cadastro.livro.label.acoes']}" width="120">
 
-                            <p:panelGrid columns="3" width="100%">
+                            <p:commandButton id="acao_editar_livro" 
+                                             value="#{msg['acao.editar']}" 
+                                             action="#{livroController.openEditPage()}"
+                                             style="width: 110px;"
+                                             icon="ui-icon-pencil">
+                                <f:setPropertyActionListener target="#{livroController.form.entity}"
+                                                             value="#{livro}"/>
+                            </p:commandButton>   
+                            <br/>
+                            <p:commandButton id="acao_detalhes_livro" 
+                                             value="#{msg['acao.detalhes']}" 
+                                             oncomplete="dialogDetalhes.show()" 
+                                             actionListener="#{livroController.form.setEntity(livro)}"
+                                             update=":dialog_detalhes"
+                                             style="width: 110px"
+                                             icon="ui-icon-contact">
+                            </p:commandButton>
+                            <br/>
+                            <p:commandButton id="exportar_button" value="#{msg['cadastro.livro.button.exportar']}"
+                                             oncomplete="geracaoPlanilhaDialog.show()"
+                                             style="width: 110px"
+                                             icon="ui-icon-note">
 
-                                <h:commandLink id="acao_editar_livro" value="#{msg['acao.editar']}" 
-                                               action="#{livroController.openEditPage()}">
-                                    <f:setPropertyActionListener target="#{livroController.form.entity}"
-                                                                 value="#{livro}"/>
-                                </h:commandLink>   
+                                <f:setPropertyActionListener value="#{livro}" target="#{livroController.form.entity}" />
 
-                                <p:commandLink id="acao_detalhes_livro" value="#{msg['acao.detalhes']}" 
-                                               oncomplete="dialogDetalhes.show()" 
-                                               actionListener="#{livroController.form.setEntity(livro)}"
-                                               update=":dialog_detalhes">
-                                </p:commandLink>
+                                <f:param name="entityID" value="#{livro.id}" />
 
-                                <p:commandLink id="exportar_button" value="#{msg['cadastro.livro.button.exportar']}"
-                                               oncomplete="geracaoPlanilhaDialog.show()">
-
-                                    <f:setPropertyActionListener value="#{livro}" target="#{livroController.form.entity}" />
-
-                                    <f:param name="entityID" value="#{livro.id}" />
-
-                                </p:commandLink>
-
-                            </p:panelGrid>
+                            </p:commandButton>
 
                         </p:column>
 
                     </p:dataTable>
 
-                    <h:panelGrid columns="2" style="float: right;">
+                    <p:spacer width="15px" height="50px"/>
 
-                        <p:commandButton value="#{msg['cadastro.livro.button.novo']}"  action="#{livroController.openInsertPage()}" ajax="false" style="margin-right: 1em" />
+                    <p:commandButton value="#{msg['cadastro.livro.button.novo']}" 
+                                     action="#{livroController.openInsertPage()}" 
+                                     ajax="false" style="margin-right: 1em"
+                                     icon="ui-icon-document"/>
 
-                        <p:commandButton value="#{msg['cadastro.livro.button.remover']}" onclick="dlgRemocao.show()"/>
-
-                    </h:panelGrid>
+                    <p:commandButton value="#{msg['cadastro.livro.button.remover']}"
+                                     onclick="dlgRemocao.show()"
+                                     icon="ui-icon-trash"/>
 
                     <p:dialog id="dialogRemocao" widgetVar="dlgRemocao" modal="true"
                               resizable="false" closable="false">

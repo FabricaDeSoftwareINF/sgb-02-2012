@@ -41,7 +41,7 @@
                             </h:panelGrid>    
 
                             <p:inputText styleClass="numeric" value="#{cursoController.form.entity.vagas}" id="qtdVagas" size="15"/>
-                                                
+
                         </h:panelGrid>
 
                     </h:panelGrid>
@@ -50,7 +50,7 @@
 
                     <p:fieldset id="fieldsetAssociacao" legend="#{msg['cadastro.curso.associacao']}">
 
-                        <h:panelGrid columns="2" cellspacing="20">
+                        <h:panelGrid columns="3" cellspacing="20">
 
                             <h:outputLabel value="#{msg['cadastro.disciplina']}:" for="disciplina" />
 
@@ -64,14 +64,14 @@
 
                             </p:selectOneMenu>
 
-                            <p:spacer/>
-
                             <p:commandButton value="#{msg['cadastro.associar.disciplina']}" ajax="false"
                                              action="#{cursoController.addDisciplinaAssociacao}" 
-                                             update="fieldsetAssociacao"/>
+                                             update="fieldsetAssociacao"
+                                             icon="ui-icon-trash"/>
                         </h:panelGrid>
 
-                        <p:dataTable id="associationTable" var="disciplinaAssociada" emptyMessage="#{msg['arquitetura.msg.nenhumregistroencontrado']}"
+                        <p:dataTable id="associationTable" var="disciplinaAssociada" 
+                                     emptyMessage="#{msg['arquitetura.msg.nenhumregistroencontrado']}"
                                      value="#{cursoController.form.listaDisciplinaAssociacao}">
 
                             <p:column headerText="#{msg['cadastro.disciplina']}">  
@@ -80,29 +80,42 @@
 
                             </p:column>
 
-                            <p:column headerText="#{msg['cadastro.acao']}">  
+                            <p:column headerText="#{msg['cadastro.acao']}" width="120"
+                                      style="text-align: center">  
 
-                                <p:commandLink id="linkAcao" value="Remover" update=":formEditarAutor:fieldsetAssociacao" action="#{cursoController.removeDisciplina()}">
+                                <p:commandButton id="linkAcao" 
+                                                 value="Remover" 
+                                                 update=":formEditarAutor:fieldsetAssociacao"
+                                                 action="#{cursoController.removeDisciplina()}"
+                                                 style="width: 110px"
+                                                 icon="ui-icon-trash">
 
-                                    <f:setPropertyActionListener value="#{disciplinaAssociada}" target="#{cursoController.form.disciplinaToRemove}"/>
+                                    <f:setPropertyActionListener value="#{disciplinaAssociada}" 
+                                                                 target="#{cursoController.form.disciplinaToRemove}"/>
 
-                                </p:commandLink>
+                                </p:commandButton>>
 
                             </p:column> 
 
                         </p:dataTable>
 
                     </p:fieldset>
-                    
+
                     <p:remoteCommand name="abrePaginaInicial" action="#{cursoController.openSearchPage()}"/>
 
-                    <h:panelGrid style="margin-left: 80%;text-align: right;" columns="2" >
+                    <p:spacer width="15px" height="50px"/>
 
-                        <p:commandButton value="#{msg['cadastro.curso.button.insert']}" action="#{cursoController.insert()}" ajax="false"/>
+                    <p:commandButton value="#{msg['cadastro.curso.button.insert']}" 
+                                     action="#{cursoController.insert()}" 
+                                     ajax="false"
+                                     icon="ui-icon-disk"/>
 
-                        <p:commandButton value="#{msg['acao.voltar']}"  ajax="false" action="#{cursoController.openSearchPage()}"/>
+                    <p:commandButton value="#{msg['acao.voltar']}" 
+                                     ajax="false"
+                                     action="#{cursoController.openSearchPage()}"
+                                     icon="ui-icon-arrowreturnthick-1-w"/>
 
-                    </h:panelGrid>   
+
 
                     <p:dialog modal="true" width="405" height="140" resizable="false" closable="false"
                               header="#{msg['arquitetura.msg.atencao']}" visible="#{cursoController.form.exibirDialog}">

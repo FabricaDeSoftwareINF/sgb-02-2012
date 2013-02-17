@@ -10,7 +10,7 @@
         <ui:define name="content">
             <p:panel header="#{msg['cadastro.curso.panel.editar']}">
 
-                <h:form id="formEditarCurso" style="font-size: 12px;">
+                <h:form id="formEditarCurso" style="font-size: 14px;">
                     <h:panelGrid width="100%" style="float: left" columns="1" >
 
                         <p:messages/>
@@ -39,7 +39,7 @@
 
                         <p:fieldset id="fieldsetAssociacao" legend="#{msg['cadastro.curso.associacao']}">
 
-                            <h:panelGrid columns="2" cellspacing="20">
+                            <h:panelGrid columns="3" cellspacing="10">
 
                                 <h:outputLabel value="#{msg['cadastro.disciplina']}:" for="disciplinaEditar" />
 
@@ -53,11 +53,10 @@
 
                                 </p:selectOneMenu>
 
-                                <p:spacer/>
-
                                 <p:commandButton value="#{msg['cadastro.associar.disciplina']}" 
                                                  action="#{cursoController.addDisciplinaAssociacao}" 
-                                                 update="fieldsetAssociacao" ajax="false"/>
+                                                 update="fieldsetAssociacao" ajax="false"
+                                                 icon="ui-icon-plusthick"/>
                             </h:panelGrid>
 
                             <p:dataTable id="tabelaAssociacao" var="disciplina" 
@@ -69,15 +68,17 @@
 
                                 </p:column>
 
-                                <p:column headerText="#{msg['cadastro.acao']}">  
+                                <p:column headerText="#{msg['cadastro.acao']}" width="120">  
 
-                                    <p:commandLink id="linkRemoverDisciplina" 
+                                    <p:commandButton id="linkRemoverDisciplina" 
                                                    value="Remover" update=":formEditarCurso:fieldsetAssociacao" 
-                                                   action="#{cursoController.removeDisciplina()}">
+                                                   action="#{cursoController.removeDisciplina()}"
+                                                   style="width: 110px;"
+                                                   icon="ui-icon-trash">
 
                                         <f:setPropertyActionListener value="#{disciplina}" target="#{cursoController.form.disciplinaToRemove}"/>
 
-                                    </p:commandLink>
+                                    </p:commandButton>
 
                                 </p:column> 
 
@@ -86,18 +87,19 @@
                         </p:fieldset>
 
                     </h:panelGrid>
-                    
+
                     <p:remoteCommand name="abrePaginaInicial" action="#{cursoController.openSearchPage()}"/>
 
-                    <h:panelGrid style="margin-left: 80%;text-align: right;" columns="2" >
+                    <p:spacer width="15px" height="50px"/>
 
-                        <p:commandButton value="#{msg['cadastro.curso.button.edit']}"
-                                         action="#{cursoController.editar()}" ajax="false" />
+                    <p:commandButton value="#{msg['cadastro.curso.button.edit']}"
+                                     action="#{cursoController.editar()}"
+                                     ajax="false"
+                                     icon="ui-icon-pencil"/>
 
-                        <p:commandButton value="#{msg['acao.voltar']}" ajax="false"
-                                         action="#{cursoController.openSearchPage()}"/>
-
-                    </h:panelGrid>    
+                    <p:commandButton value="#{msg['acao.voltar']}" ajax="false"
+                                     action="#{cursoController.openSearchPage()}"
+                                     icon="ui-icon-arrowreturnthick-1-w"/>
 
                     <p:dialog modal="true" width="405" height="140" resizable="false" closable="false"
                               header="#{msg['arquitetura.msg.atencao']}" visible="#{cursoController.form.exibirDialog}">
@@ -122,6 +124,9 @@
 
                 </h:form>
             </p:panel>
+
+            <p:spacer height="50"/> 
+
         </ui:define>
 
     </ui:composition>
