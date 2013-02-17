@@ -85,7 +85,7 @@ public class BibliografiaTest {
     public void testEqualsParaObjetosComDisciplinasDiferentes() {
         Bibliografia other = bibliografia;
         other.setDisciplina(new Disciplina());
-        boolean expResult = false;
+        boolean expResult = true;
         boolean result = bibliografia.equals(other);
         assertEquals(expResult, result);
     }
