@@ -55,7 +55,7 @@ public class LivrosBibliotecaDAO implements Serializable {
 
         String pass = new String(new CriptoGeneric().decriptografa(dbConfig.getPasswordDataBase()));
 
-        pass = "root";
+        //pass = "root";
         this.connection = Conecta.getSessionConnection(dbConfig.getDriver(),
                 dbConfig.getUrl(), dbConfig.getPorta(), dbConfig.getNameDataBase(),
                 dbConfig.getUserDataBase(), pass);
