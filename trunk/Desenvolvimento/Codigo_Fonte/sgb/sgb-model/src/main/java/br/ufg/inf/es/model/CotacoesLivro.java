@@ -114,7 +114,7 @@ public class CotacoesLivro extends AbstractEntityModel {
      *
      * @return {@link Livraria}
      */
-    public Collection<Cotacao> getCotacaoes() {
+    public Collection<Cotacao> getCotacoes() {
         return this.cotacoes;
     }
 

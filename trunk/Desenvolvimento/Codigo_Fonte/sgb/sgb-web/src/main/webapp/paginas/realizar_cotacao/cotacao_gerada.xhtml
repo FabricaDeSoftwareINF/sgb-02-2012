@@ -3,122 +3,142 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core">
+      xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
 
     <ui:composition template="/template/template.xhtml">
 
         <ui:define name="content">
 
             <h:form id="formCotacaoGerada" style="font-size: 14px;">
-                
+
                 <p:messages/>
 
                 <p:panel header="#{msg['label.cotacao.cotarLivro']}">
-                    
-                    
+
+
                     <p:dataTable id="tabelaCotacoes" paginator="true" rows="10" value="#{realizarCotacaoController.form.cotacoesDataModel}" 
-                                 var="cotacao" style="text-align: center;" editable="true" editMode="cell" selection="#{realizarCotacaoController.form.cotacoesSelecionadas}">
-                    
+                                 var="cotacesLivro" style="text-align: center;" editable="true" editMode="row" selection="#{realizarCotacaoController.form.cotacoesSelecionadas}">
+
                         <p:ajax event="cellEdit" update=":formCotacaoGerada:tabelaCotacoes" />
-                        
+
                         <p:column selectionMode="multiple" style="width:18px" />
 
                         <p:column>
 
-                               <p:graphicImage url="http://1.bp.blogspot.com/-n-fsjwiesiw/Tr7UmKfH6JI/AAAAAAAAAXQ/PUbQNNaU0bY/s1600/fundacao.jpg" width="50" height="73" />
+                            <p:graphicImage url="http://1.bp.blogspot.com/-n-fsjwiesiw/Tr7UmKfH6JI/AAAAAAAAAXQ/PUbQNNaU0bY/s1600/fundacao.jpg" width="50" height="73" />
 
                         </p:column>
 
                         <p:column headerText="Título">
 
-                                <h:outputLabel value="#{cotacao.livro.titulo}"/>
+                            <h:outputLabel value="#{cotacesLivro.livro.titulo}"/>
 
                         </p:column>
-                            
+
                         <p:column headerText="Autor(es)">
-                        
-                                <h:outputLabel value="#{cotacao.livro.autoresAsString}"/>
+
+                            <h:outputLabel value="#{cotacesLivro.livro.autoresAsString}"/>
 
                         </p:column>
-                        
+
                         <p:column headerText="N° da Edição">        
-                                
-                                <h:outputLabel value="#{cotacao.livro.edicao}"/>
-                        
+
+                            <h:outputLabel value="#{cotacesLivro.livro.edicao}"/>
+
                         </p:column>    
-                        
+
                         <p:column headerText="Ano">
 
-                                <h:outputLabel value="#{cotacao.livro.ano}"/>
+                            <h:outputLabel value="#{cotacesLivro.livro.ano}"/>
 
                         </p:column>
-                        
+
                         <p:column headerText="ISBN-13">
-                                
-                                <h:outputLabel value="#{cotacao.livro.isbn13} "/>
+
+                            <h:outputLabel value="#{cotacesLivro.livro.isbn13} "/>
 
                         </p:column>
 
                         <p:column>
 
                             <p:commandButton value="Livrarias" id="btnLivrarias"/>
-                            
+
                             <p:overlayPanel for="btnLivrarias">
-                            
-                                
-                           
+
+                                <p:dataTable value="#{cotacesLivro.cotacoes}" var="cotacao">
+
+                                    <p:column headerText="#{msg['label.cotacao.loja']}">
+                                        <h:outputText value="#{cotacao.livraria.nome}"/>
+                                    </p:column>
+
+                                    <p:column headerText="#{msg['label.cotacao.valor']}">
+                                        <h:outputText value="#{cotacao.valor}"/>
+                                    </p:column>
+
+                                </p:dataTable>
+
                             </p:overlayPanel>
 
                         </p:column>
-                        
+
                         <p:column headerText="Quantidade">
-                            
+
                             <p:cellEditor>  
-                                
-                                <f:facet name="output"><h:outputText value="#{cotacao.quantidade}" /></f:facet>  
-                            
-                                <f:facet name="input"><p:inputText id="modelInput" value="#{cotacao.quantidade}"/></f:facet>  
-                                
+
+                                <f:facet name="output"><h:outputText value="#{cotacesLivro.quantidade}" /></f:facet>  
+
+                                <f:facet name="input"><p:inputText id="modelInput" value="#{cotacesLivro.quantidade}"/></f:facet>  
+
                             </p:cellEditor>    
-                                
+
                         </p:column>
-                        
+
                         <p:column headerText="Preço Médio em R$">
-                            
+
                             <p:cellEditor>  
-                                
+
                                 <f:facet name="output">
-                                    
-                                    <h:outputText value="#{cotacao.valor}">
-                                        
+
+                                    <h:outputText value="#{(cotacesLivro.cotacoes != null and !cotacesLivro.cotacoes.isEmpty()
+                                                           or cotacesLivro.valorMedio > 0.0 )
+                                                           ? cotacesLivro.valorMedio : msg['cotacao.msg.valorindisponivel']}">
+
                                         <f:convertNumber maxFractionDigits="2"/> 
-                                        
+
                                     </h:outputText>
-                                
+
                                 </f:facet>  
-                            
-                                <f:facet name="input"><p:inputText id="precoInput" value="#{cotacao.valor}"/></f:facet>  
-                                
+
+                                <f:facet name="input">
+                                    <p:inputText id="precoInput" value="#{cotacesLivro.valorMedio}" styleClass="numeric"
+                                                 />
+                                </f:facet>  
+
                             </p:cellEditor>    
-                                
+
                         </p:column>
-                        
+
                         <p:column headerText="Preço Total em R$">
-                                                           
-                            <h:outputText value="#{cotacao.valor * cotacao.quantidade}">
+
+                            <h:outputText value="#{cotacesLivro.valorMedio * cotacesLivro.quantidade}">
 
                                 <f:convertNumber maxFractionDigits="2"/> 
 
                             </h:outputText>                                  
-                                
+
                         </p:column>
-                    
+
+                        <p:column style="width:6%">  
+                            <p:rowEditor />  
+                        </p:column> 
+
                     </p:dataTable>
-                    
+
                     <p:spacer height="25" width="5"/>
-                    
+
                     <h:panelGrid width="100%" style="text-align: right;">
-                        
+
                         <h:panelGrid width="100%" style="text-align: right;" columns="2">
 
                             <p:commandButton value="#{msg['acao.salvar']}" style="width: 120px" action="#{realizarCotacaoController.salvarListaCotacao}"/>
@@ -126,9 +146,9 @@
                             <p:commandButton value="#{msg['acao.voltar']}" ajax="false" action="#{realizarCotacaoController.openInitialPage()}" style="width: 120px" />
 
                         </h:panelGrid>
-                   
+
                     </h:panelGrid>
-                    
+
                 </p:panel>
 
             </h:form>
