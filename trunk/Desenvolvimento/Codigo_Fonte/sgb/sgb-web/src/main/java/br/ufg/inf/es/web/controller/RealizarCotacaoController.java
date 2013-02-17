@@ -61,7 +61,7 @@ public class RealizarCotacaoController extends SGBController<ListaCotacao, Reali
         
         ListaCotacao listaCotacao = this.service.realizarCotacao(Arrays.asList(livrosSelecionados));
         
-        List<CotacoesLivro> cotacoes = new ArrayList<CotacoesLivro>(listaCotacao.getCotacoes());
+        List<CotacoesLivro> cotacoes = new ArrayList<CotacoesLivro>(listaCotacao.getCotacoesLivro());
         
         this.getForm().setCotacoesDataModel(new CotacaoDataModel(cotacoes));
         
