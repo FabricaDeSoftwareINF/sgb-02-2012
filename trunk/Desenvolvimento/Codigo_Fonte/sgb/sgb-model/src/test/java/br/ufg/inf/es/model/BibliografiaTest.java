@@ -77,7 +77,19 @@ public class BibliografiaTest {
         boolean result = bibliografia.equals(bibliografia);
         assertEquals(expResult, result);
     }
-    
+
+    /**
+     * Test of equals method, of class Bibliografia.
+     */
+    @Test
+    public void testEqualsParaObjetosComDisciplinasDiferentes() {
+        Bibliografia other = bibliografia;
+        other.setDisciplina(new Disciplina());
+        boolean expResult = false;
+        boolean result = bibliografia.equals(other);
+        assertEquals(expResult, result);
+    }
+
     /**
      * Test of equals method, of class Bibliografia.
      */
@@ -87,7 +99,16 @@ public class BibliografiaTest {
         boolean result = bibliografia.equals(livro);
         assertEquals(expResult, result);
     }
-    
+
+    /**
+     * Test of equals method, of class Bibliografia.
+     */
+    @Test
+    public void testEqualsParaObjetoNulo() {
+        boolean expResult = false;
+        boolean result = bibliografia.equals(null);
+        assertEquals(expResult, result);
+    }
 
     /**
      * Test of hashCode method, of class Bibliografia.

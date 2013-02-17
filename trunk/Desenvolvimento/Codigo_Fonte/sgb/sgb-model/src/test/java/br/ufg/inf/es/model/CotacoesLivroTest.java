@@ -14,6 +14,7 @@ import org.junit.Test;
 public class CotacoesLivroTest {
 
     private CotacoesLivro cotacoesLivro;
+    private String urlImagem = "url";
     private double valorMedio = 10;
     private Date dataCadastro = new Date();
     private Livro livro = new Livro();
@@ -31,6 +32,7 @@ public class CotacoesLivroTest {
         cotacoesLivro.setLivro(livro);
         cotacoesLivro.setCotacoes(cotacoes);
         cotacoesLivro.setQuantidade(quantidade);
+        cotacoesLivro.setUrlImagem(urlImagem);
     }
 
     /**
@@ -71,5 +73,13 @@ public class CotacoesLivroTest {
     @Test
     public void testGetQuantidade() {
         assertEquals(quantidade, cotacoesLivro.getQuantidade());
+    }
+
+    /**
+     * Test of getUrlImagem method, of class CotacoesLivro.
+     */
+    @Test
+    public void testGetUrlImagem() {
+        assertEquals(urlImagem, cotacoesLivro.getUrlImagem());
     }
 }
