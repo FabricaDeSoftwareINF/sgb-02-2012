@@ -30,14 +30,13 @@ public class ListaCotacaoController extends SGBController<ListaCotacao, ListaCot
     private ListaCotacaoForm form;
     @Autowired
     private ListaCotacaoService service;
-    
     private StreamedContent arquivoXLS;
     private StreamedContent arquivoCSVNacionais;
     private StreamedContent arquivoCSVEstrangeiros;
-    
-    ExportacaoPlanilhaService exportador = new ExportacaoPlanilhaService();
-    byte[] arrayBytes;
-    ByteArrayInputStream stream;
+    private ExportacaoPlanilhaService exportador = new ExportacaoPlanilhaService();
+    private byte[] arrayBytes;
+    private ByteArrayInputStream stream;
+    private static final String AREA_CONHECIMENTO = "Ciências Exatas e da Terra";
 
     @Override
     public void initData() {
@@ -67,22 +66,24 @@ public class ListaCotacaoController extends SGBController<ListaCotacao, ListaCot
         return arquivoXLS;
     }
 
-    /***
-     * Permite exportar a lista de cotações para o formato XLS, disponibilizando-a
-     * para download. São inclusos tantos os livros nacionais quanto estrangeiros,
-     * cada qual em uma planilha do arquivo.
+    /**
+     * *
+     * Permite exportar a lista de cotações para o formato XLS,
+     * disponibilizando-a para download. São inclusos tantos os livros nacionais
+     * quanto estrangeiros, cada qual em uma planilha do arquivo.
      */
     public void exportarXLS() {
 
         List<ItemPlanilha> linhasPlanilhaNacionais = new ArrayList<ItemPlanilha>();
         List<ItemPlanilha> linhasPlanilhaEstrangeiros = new ArrayList<ItemPlanilha>();
         List<CotacoesLivro> cotacoesLivro = new ArrayList(form.getEntity().getCotacoesLivro());
-        
+
         for (int i = 0; i < form.getEntity().getCotacoesLivro().size(); i++) {
-            
+
             ItemPlanilha itemPlanilha = montarItemPlanilha(cotacoesLivro.get(i), i + 1);
 
-            if (cotacoesLivro.get(i).getLivro().isEstrangeiro() == false) {
+            boolean isEstrangeiro = cotacoesLivro.get(i).getLivro().isEstrangeiro();
+            if (isEstrangeiro == false) {
                 linhasPlanilhaNacionais.add(itemPlanilha);
             } else {
                 linhasPlanilhaEstrangeiros.add(itemPlanilha);
@@ -97,7 +98,8 @@ public class ListaCotacaoController extends SGBController<ListaCotacao, ListaCot
 
     }
 
-    /***
+    /**
+     * *
      * Permite exportar os livros nacionais da lista de cotações para o formato
      * CSV, disponibilizando-os para download.
      */
@@ -107,9 +109,9 @@ public class ListaCotacaoController extends SGBController<ListaCotacao, ListaCot
         List<CotacoesLivro> cotacoesLivro = new ArrayList(form.getEntity().getCotacoesLivro());
 
         for (int i = 0; i < form.getEntity().getCotacoesLivro().size(); i++) {
-            
 
-            if (cotacoesLivro.get(i).getLivro().isEstrangeiro() == false) {
+            boolean isEstrangeiro = cotacoesLivro.get(i).getLivro().isEstrangeiro();
+            if (isEstrangeiro == false) {
 
                 ItemPlanilha itemPlanilha = montarItemPlanilha(cotacoesLivro.get(i), i + 1);
                 linhasPlanilhaNacionais.add(itemPlanilha);
@@ -123,9 +125,10 @@ public class ListaCotacaoController extends SGBController<ListaCotacao, ListaCot
 
     }
 
-    /***
-     * Permite exportar os livros estrangeiros da lista de cotações para o formato
-     * CSV, disponibilizando-os para download.
+    /**
+     * *
+     * Permite exportar os livros estrangeiros da lista de cotações para o
+     * formato CSV, disponibilizando-os para download.
      */
     public void exportarCSVEstrangeiros() {
 
@@ -134,7 +137,8 @@ public class ListaCotacaoController extends SGBController<ListaCotacao, ListaCot
 
         for (int i = 0; i < form.getEntity().getCotacoesLivro().size(); i++) {
 
-            if (cotacoesLivro.get(i).getLivro().isEstrangeiro() == true) {
+            boolean isEstrangeiro = cotacoesLivro.get(i).getLivro().isEstrangeiro();
+            if (isEstrangeiro == true) {
 
                 ItemPlanilha itemPlanilha = montarItemPlanilha(cotacoesLivro.get(i), i + 1);
                 linhasPlanilhaEstrangeiros.add(itemPlanilha);
@@ -148,42 +152,50 @@ public class ListaCotacaoController extends SGBController<ListaCotacao, ListaCot
 
     }
 
-    /***
+    /**
+     * *
      * Monta um objeto ItemPlanilha com base num objeto Cotacao.
-     * @param cotacao
-     * Cotacao a ser convertida em um item de planilha.
-     * @param numItem
-     * Número do item de planilha, identificador único desta.
-     * @return 
-     * Objteo ItemPlanilha devidamente montado.
+     *
+     * @param cotacao Cotacao a ser convertida em um item de planilha.
+     * @param numItem Número do item de planilha, identificador único desta.
+     * @return Objteo ItemPlanilha devidamente montado.
      */
     private ItemPlanilha montarItemPlanilha(CotacoesLivro cotacoesLivro, int numItem) {
 
-        final String AREA_CONHECIMENTO = "Ciências Exatas e da Terra";
+        StringBuilder builder;
         ItemPlanilha itemPlanilha = new ItemPlanilha();
         itemPlanilha.setNumItem(numItem);
         itemPlanilha.setTituloObra(cotacoesLivro.getLivro().getTitulo());
-     
+
         String nomeAutor = "";
         List<Autor> autores = new ArrayList<Autor>(cotacoesLivro.getLivro().getAutores());
-        for(int i = 0; i < autores.size(); i++) {
-            nomeAutor += autores.get(i).getSobrenome().toUpperCase() + "," + autores.get(i).getNome() +
-                    System.getProperty("line.separator");
+        for (int i = 0; i < autores.size(); i++) {
+
+            builder = new StringBuilder();
+            builder.append(autores.get(i).getSobrenome().toUpperCase()).append(",").
+                    append(autores.get(i).getNome()).append(System.getProperty("line.separator"));
+
+            nomeAutor += builder.toString();
         }
         itemPlanilha.setNomeAutor(nomeAutor);
-        
+
         itemPlanilha.setEdicao(cotacoesLivro.getLivro().getEdicao());
         itemPlanilha.setEditora(cotacoesLivro.getLivro().getEditora().getNome());
         itemPlanilha.setAno(cotacoesLivro.getLivro().getAno().toString());
-        
+
         String cursoDestino = "";
         List<Bibliografia> bibliografias = new ArrayList<Bibliografia>(cotacoesLivro.getLivro().getBibliografias());
-        for(int i = 0; i < bibliografias.size(); i++) {
-            cursoDestino += bibliografias.get(i).getDisciplina().getCurso().getNome() + 
-                    System.getProperty("line.separator");
+        for (int i = 0; i < bibliografias.size(); i++) {
+
+            builder = new StringBuilder();
+            builder.append(bibliografias.get(i).getDisciplina().getCurso().getNome()).
+                    append(System.getProperty("line.separator"));
+
+            cursoDestino += builder.toString();
+
         }
         itemPlanilha.setCursoDestino(cursoDestino);
-        
+
         itemPlanilha.setValorMedioUnitario(cotacoesLivro.getValorMedio());
         itemPlanilha.setQuantExemplares(cotacoesLivro.getQuantidade());
         itemPlanilha.setAreaConhecimento(AREA_CONHECIMENTO);

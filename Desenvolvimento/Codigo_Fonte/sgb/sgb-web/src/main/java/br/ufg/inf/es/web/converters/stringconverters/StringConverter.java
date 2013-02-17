@@ -41,17 +41,17 @@ public abstract class StringConverter implements Converter {
     private String estruturarString(String value) {
 
         StringBuilder builder = new StringBuilder();
-        final int TAMANHO = value.length();
+        final int tamanho = value.length();
 
-        if (TAMANHO > limiteMaximo) {
+        if (tamanho > limiteMaximo) {
 
-            for (int i = 1; i <= TAMANHO; i++) {
+            for (int i = 1; i <= tamanho; i++) {
 
                 if (i % limiteMaximo == 0) {
                     builder.append(value.substring(i - limiteMaximo, i)).append("<br/>");
 
-                    if (TAMANHO - i < limiteMaximo && TAMANHO - i != 0) {
-                        builder.append(value.substring(i, TAMANHO));
+                    if (tamanho - i < limiteMaximo && tamanho - i != 0) {
+                        builder.append(value.substring(i, tamanho));
                         break;
                     }
                 }

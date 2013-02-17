@@ -2,7 +2,6 @@
 package br.ufg.inf.es.web.controller;
 
 import br.ufg.inf.es.integracao.CotacaoService;
-import br.ufg.inf.es.model.Cotacao;
 import br.ufg.inf.es.model.CotacoesLivro;
 import br.ufg.inf.es.web.controller.form.CotacaoForm;
 import java.util.ArrayList;
