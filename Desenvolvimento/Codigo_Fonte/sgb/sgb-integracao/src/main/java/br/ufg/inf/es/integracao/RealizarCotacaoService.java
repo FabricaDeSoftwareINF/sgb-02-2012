@@ -103,13 +103,16 @@ public class RealizarCotacaoService extends GenericService<ListaCotacao> {
 
     private double calculaPrecoMedio(CotacoesLivro cotacoesLivro) {
         double somatorioPrecos = 0.0;
-        double media = -1.0; //-1 indica que não foram encontradas cotações
+        double media = 0.0;
         if (cotacoesLivro != null) {
-            Collection<Cotacao> cotacoes = cotacoesLivro.getCotacaoes();
+            Collection<Cotacao> cotacoes = cotacoesLivro.getCotacoes();
             for (Cotacao cotacao : cotacoes) {
                 somatorioPrecos += cotacao.getValor();
             }
             media = somatorioPrecos / cotacoes.size();
+        }
+        if (Double.isNaN(media)) {
+            media = 0.0;
         }
         return media;
     }
@@ -147,8 +150,9 @@ public class RealizarCotacaoService extends GenericService<ListaCotacao> {
         Collection<Cotacao> cotacoes = new ArrayList<Cotacao>();
         for (ResultadoCotacao resultadoCotacao : resultadosCotacao) {
             Cotacao cotacao = new Cotacao();
+            resultadoCotacao.getOfertaLivro().getLinkImagemLIvro();
             cotacao.setLivraria(resultadoCotacao.getLivraria());
-            double preco = -1.0;
+            double preco = 0.0;
             try {
                 preco = Double.parseDouble(resultadoCotacao.getOfertaLivro().getPrecoLivro());
             } catch (NumberFormatException nfe) {
