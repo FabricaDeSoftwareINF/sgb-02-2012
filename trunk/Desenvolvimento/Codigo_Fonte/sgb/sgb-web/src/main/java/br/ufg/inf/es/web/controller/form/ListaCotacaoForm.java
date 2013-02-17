@@ -1,6 +1,5 @@
 package br.ufg.inf.es.web.controller.form;
 
-import br.ufg.inf.es.model.Cotacao;
 import br.ufg.inf.es.model.ListaCotacao;
 import br.ufg.inf.es.web.datamodel.ListaCotacaoDataModel;
 import java.util.ArrayList;

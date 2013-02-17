@@ -2,7 +2,6 @@ package br.ufg.inf.es.integracao.exportacaodados.planilha;
 
 import br.ufg.inf.es.model.exportacaodados.planilha.ItemPlanilha;
 import java.io.*;
-import java.nio.charset.Charset;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;

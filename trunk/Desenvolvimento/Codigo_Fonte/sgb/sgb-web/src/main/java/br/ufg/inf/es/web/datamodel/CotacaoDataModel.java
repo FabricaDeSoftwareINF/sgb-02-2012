@@ -2,7 +2,6 @@
 package br.ufg.inf.es.web.datamodel;
 
 import br.ufg.inf.es.integracao.CotacaoService;
-import br.ufg.inf.es.model.Cotacao;
 import br.ufg.inf.es.model.CotacoesLivro;
 import java.io.Serializable;
 import java.util.Collection;

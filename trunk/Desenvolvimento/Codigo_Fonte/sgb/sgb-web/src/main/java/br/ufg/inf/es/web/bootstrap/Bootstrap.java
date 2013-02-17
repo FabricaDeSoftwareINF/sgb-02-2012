@@ -1,13 +1,8 @@
 package br.ufg.inf.es.web.bootstrap;
 
 import br.ufg.inf.es.base.util.SgbCryptography;
-import br.ufg.inf.es.base.util.UtilObjeto;
 import br.ufg.inf.es.base.util.cripto.CriptoGeneric;
-import br.ufg.inf.es.model.Comunicacao;
-import br.ufg.inf.es.model.Livro;
-import br.ufg.inf.es.model.Parametros;
-import br.ufg.inf.es.model.Usuario;
-import br.ufg.inf.es.model.UsuarioPerfil;
+import br.ufg.inf.es.model.*;
 import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.logging.Level;

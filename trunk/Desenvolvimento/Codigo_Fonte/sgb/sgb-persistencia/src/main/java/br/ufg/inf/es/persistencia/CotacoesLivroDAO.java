@@ -4,7 +4,6 @@
  */
 package br.ufg.inf.es.persistencia;
 
-import br.ufg.inf.es.model.Cotacao;
 import br.ufg.inf.es.model.CotacoesLivro;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -82,11 +82,11 @@ public class CotacaoForm extends GenericForm<CotacoesLivro> {
     }
 
     public Livro[] getLivrosParaCotacao() {
-        return livrosParaCotacao;
+        return livrosParaCotacao.clone();
     }
 
     public void setLivrosParaCotacao(Livro[] livrosParaCotacao) {
-        this.livrosParaCotacao = livrosParaCotacao;
+        this.livrosParaCotacao = livrosParaCotacao.clone();
     }
     
 }
