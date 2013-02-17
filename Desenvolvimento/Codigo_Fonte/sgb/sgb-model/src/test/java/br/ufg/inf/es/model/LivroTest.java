@@ -1,37 +1,68 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.ufg.inf.es.model;
 
+import br.ufg.inf.es.enuns.EnumTipoBibliografia;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
-import org.junit.*;
 import static org.junit.Assert.*;
+import org.junit.Before;
+import org.junit.Test;
 
 /**
  *
- * @author Alunoinf_2
+ * @author Alunoinf_2, Victor Carvalho
  */
 public class LivroTest {
-    
-    public LivroTest() {
-    }
 
-    @BeforeClass
-    public static void setUpClass() throws Exception {
-    }
+    private Livro livro;
+    private String titulo = "titulo";
+    private Long ano = 0L;
+    private String isbn10 = "isbn10";
+    private String isbn13 = "isbn13";
+    private String edicao = "edicao";
+    private boolean estrangeiro = false;
+    private Editora editora = new Editora();
+    private Collection<Autor> autores = Arrays.asList(new Autor());
+    private Collection<Bibliografia> bibliografias;
+    private Collection<ListaCompras> listaCompras = Arrays.asList(new ListaCompras());
+    private Collection<CotacoesLivro> cotacoesLivro = Arrays.asList(new CotacoesLivro());
 
-    @AfterClass
-    public static void tearDownClass() throws Exception {
-    }
-    
+    /**
+     * setup
+     */
     @Before
     public void setUp() {
+        livro = new Livro();
+
+        prepareBibliografias();
+
+        livro.setTitulo(titulo);
+        livro.setAno(ano);
+        livro.setIsbn10(isbn10);
+        livro.setIsbn13(isbn13);
+        livro.setEdicao(edicao);
+        livro.setEstrangeiro(estrangeiro);
+        livro.setEditora(editora);
+        livro.setAutores(autores);
+        livro.setBibliografias(bibliografias);
+        livro.setListaCompras(listaCompras);
+        livro.setCotacoesLivro(cotacoesLivro);
     }
-    
-    @After
-    public void tearDown() {
+
+    /**
+     * define uma bibliografia com disciplina e curso
+     */
+    private void prepareBibliografias() {
+        Bibliografia bibliografia = new Bibliografia();
+        Disciplina disciplina = new Disciplina();
+        Curso curso = new Curso();
+        bibliografia.setTipo(EnumTipoBibliografia.BASICA);
+        curso.setNome("curso");
+        disciplina.setNome("disciplina");
+        disciplina.setCurso(curso);
+        bibliografia.setDisciplina(disciplina);
+
+        bibliografias = Arrays.asList(bibliografia);
     }
 
     /**
@@ -39,26 +70,7 @@ public class LivroTest {
      */
     @Test
     public void testGetTitulo() {
-       
-        Livro instance = new Livro();
-        instance.setTitulo("A");
-        String expResult = "A";
-        String result = instance.getTitulo();
-        assertEquals(expResult, result);
-      
-    }
-
-    /**
-     * Test of setTitulo method, of class Livro.
-     */
-    @Test
-    public void testSetTitulo() {
-        Livro instance = new Livro();
-        instance.setTitulo("A");
-        String titulo = "A";
-      
-        instance.setTitulo(titulo);
-        assertEquals(titulo, instance.getTitulo());
+        assertEquals(titulo, livro.getTitulo());
     }
 
     /**
@@ -66,54 +78,15 @@ public class LivroTest {
      */
     @Test
     public void testGetAno() {
-        
-        Livro instance = new Livro();
-        instance.setAno(2012L);
-        Long expResult = 2012L;
-        Long result = instance.getAno();
-        assertEquals(expResult, result);
-        
-    }
-
-    /**
-     * Test of setAno method, of class Livro.
-     */
-    @Test
-    public void testSetAno() {
-        
-        Long ano = 2012L;
-        Livro instance = new Livro();
-        instance.setAno(2012L);
-        instance.setAno(ano);
-        assertEquals(instance.getAno(), ano);
+        assertEquals(ano, livro.getAno());
     }
 
     /**
      * Test of getIsbn10 method, of class Livro.
      */
     @Test
-    public void testgetIsbn10() {
-        
-        Livro instance = new Livro();
-        instance.setIsbn10("AB");
-        String expResult = "AB";
-        String result = instance.getIsbn10();
-        assertEquals(expResult, result);
-        
-    }
-
-    /**
-     * Test of setIsbn10 method, of class Livro.
-     */
-    @Test
-    public void testsetIsbn10() {
-       
-        String isbn10 = "AB";
-        Livro instance = new Livro();
-        instance.setIsbn10("AB");
-        
-        instance.setIsbn10(isbn10);
-        assertEquals(instance.getIsbn10(), isbn10);
+    public void testGetIsbn10() {
+        assertEquals(isbn10, livro.getIsbn10());
     }
 
     /**
@@ -121,26 +94,7 @@ public class LivroTest {
      */
     @Test
     public void testGetIsbn13() {
-        
-        Livro instance = new Livro();
-        instance.setIsbn13("BA");
-        String expResult = "BA";
-        String result = instance.getIsbn13();
-        assertEquals(expResult, result);
-        
-    }
-
-    /**
-     * Test of setIsbn13 method, of class Livro.
-     */
-    @Test
-    public void testSetIsbn13() {
-        Livro instance = new Livro();
-        instance.setIsbn13("BA");
-        String expResult = "BA";
-        String result = instance.getIsbn13();
-        assertEquals(expResult, result);
-        
+        assertEquals(isbn13, livro.getIsbn13());
     }
 
     /**
@@ -148,26 +102,15 @@ public class LivroTest {
      */
     @Test
     public void testGetEdicao() {
-        
-        Livro instance = new Livro();
-        String expResult = "5";
-        instance.setEdicao(expResult);
-        String result = instance.getEdicao();
-        assertEquals(expResult, result);
-        
+        assertEquals(edicao, livro.getEdicao());
     }
 
     /**
-     * Test of setEdicao method, of class Livro.
+     * Test of isEstrangeiro method, of class Livro.
      */
     @Test
-    public void testSetEdicao() {
-         Livro instance = new Livro();
-        String expResult = "5";
-        instance.setEdicao(expResult);
-        String result = instance.getEdicao();
-        assertEquals(expResult, result);
-        
+    public void testIsEstrangeiro() {
+        assertEquals(estrangeiro, livro.isEstrangeiro());
     }
 
     /**
@@ -175,30 +118,7 @@ public class LivroTest {
      */
     @Test
     public void testGetEditora() {
-       
-        Livro instance = new Livro();
-        Editora expResult = new Editora();
-        expResult.setId(1L);
-        expResult.setNome("A");
-        instance.setEditora(expResult);
-        Editora result = instance.getEditora();
-        assertEquals(expResult, result);
-        
-    }
-
-    /**
-     * Test of setEditora method, of class Livro.
-     */
-    @Test
-    public void testSetEditora() {
-          Livro instance = new Livro();
-        Editora expResult = new Editora();
-        expResult.setId(1L);
-        expResult.setNome("A");
-        instance.setEditora(expResult);
-        Editora result = instance.getEditora();
-        assertEquals(expResult, result);
-        
+        assertEquals(editora, livro.getEditora());
     }
 
     /**
@@ -206,66 +126,46 @@ public class LivroTest {
      */
     @Test
     public void testGetAutores() {
-      
-        Livro instance = new Livro();
-        Collection expResult = new ArrayList<Autor>();
-        Autor a = new Autor();
-        a.setId(Long.MIN_VALUE);
-        a.setNome("B");
-        a.setSobrenome("C");
-        instance.setAutores(expResult);
-        Collection result = instance.getAutores();
-        assertEquals(expResult, result);
-        
+        assertEquals(autores, livro.getAutores());
     }
 
     /**
-     * Test of setAutores method, of class Livro.
+     * Test of getBibliografias method, of class Livro.
      */
     @Test
-    public void testSetAutores() {
-       Livro instance = new Livro();
-        Collection expResult = new ArrayList<Autor>();
-        Autor a = new Autor();
-        a.setId(Long.MIN_VALUE);
-        a.setNome("B");
-        a.setSobrenome("C");
-        instance.setAutores(expResult);
-        Collection result = instance.getAutores();
-        assertEquals(expResult, result);
-        
+    public void testGetBibliografias() {
+        assertEquals(bibliografias, livro.getBibliografias());
     }
 
     /**
-     * Test of getBibliografia method, of class Livro.
+     * Test of getListaCompras method, of class Livro.
      */
     @Test
-    public void testGetBibliografia() {
-        
-        Livro instance = new Livro();
-        Collection expResult = new ArrayList<Bibliografia>();
-        Bibliografia b = new Bibliografia();
-        b.setLivro(instance);
-        expResult.add(b);
-        instance.setBibliografias(expResult);
-        Collection result = instance.getBibliografias();
-        assertEquals(expResult, result);
-        
+    public void testGetListaCompras() {
+        assertEquals(listaCompras, livro.getListaCompras());
     }
 
     /**
-     * Test of setBibliografia method, of class Livro.
+     * Test of getAutoresAsString method, of class Livro.
      */
     @Test
-    public void testSetBibliografia() {
-        
-        Livro instance = new Livro();
-        Collection expResult = new ArrayList<Bibliografia>();
-        Bibliografia b = new Bibliografia();
-        b.setLivro(instance);
-        expResult.add(b);
-        instance.setBibliografias(expResult);
-        Collection result = instance.getBibliografias();
-        assertEquals(expResult, result);
+    public void testGetAutoresAsString() {
+        assertNotNull(livro.getAutoresAsString());
+    }
+
+    /**
+     * Test of getDisciplinasAsString method, of class Livro.
+     */
+    @Test
+    public void testGetDisciplinasAsString() {
+        assertNotNull(livro.getDisciplinasAsString());
+    }
+
+    /**
+     * Test of getCotacoesLivro method, of class Livro.
+     */
+    @Test
+    public void testGetCotacoesLivro() {
+        assertEquals(cotacoesLivro, livro.getCotacoesLivro());
     }
 }
