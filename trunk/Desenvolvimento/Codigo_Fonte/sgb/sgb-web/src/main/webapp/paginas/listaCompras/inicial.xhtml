@@ -66,7 +66,13 @@
                             <p:column headerText="Isbn13">  
                                 <h:outputText value="#{livro.isbn13}" />  
                             </p:column>-->
-                        </p:dataTable>    
+                        </p:dataTable>   
+                        
+                        <p:commandButton value="Cotar" action="#{realizarCotacaoController.realizarCotacaoListaCompras}" ajax="false">
+                            
+                            <f:setPropertyActionListener value="#{listaCompras}" target="#{realizarCotacaoController.form.listaCompras}"/>
+                            
+                        </p:commandButton>
 
                     </p:rowExpansion>  
                 </p:dataTable> 

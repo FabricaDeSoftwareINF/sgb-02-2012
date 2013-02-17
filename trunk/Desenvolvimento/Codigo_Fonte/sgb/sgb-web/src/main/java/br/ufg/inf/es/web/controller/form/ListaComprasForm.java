@@ -2,6 +2,7 @@ package br.ufg.inf.es.web.controller.form;
 
 import br.ufg.inf.es.model.ListaCompras;
 import br.ufg.inf.es.model.Livro;
+import br.ufg.inf.es.model.Usuario;
 import br.ufg.inf.es.web.datamodel.ListaComprasDataModel;
 import br.ufg.inf.es.web.datamodel.LivroDataModel;
 import java.util.ArrayList;
@@ -29,7 +30,7 @@ public class ListaComprasForm extends GenericForm<ListaCompras> {
     private ListaComprasDataModel listaComprasDM;
     
     private String filtroTitulo;
-
+    
     public Collection<ListaCompras> getListaCompras() {
         return listaCompras;
     }
@@ -97,5 +98,5 @@ public class ListaComprasForm extends GenericForm<ListaCompras> {
 
     public void setListaComprasDM(ListaComprasDataModel lcDM) {
         this.listaComprasDM = lcDM;
-    }
+    }    
 }

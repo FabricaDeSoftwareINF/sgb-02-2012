@@ -52,7 +52,17 @@
                 </p:dataTable>
                 
                 
+                <h:panelGrid>
+                    
+                    <p:commandButton value="Salvar" action="#{listaComprasController.criaListaCompras}" ajax="false"/>
+                    
+                    <p:commandButton value="Cancelar" onclick="novaListaCompra.hide()"/>
+                    
+                </h:panelGrid>
+                
             </h:form>
+            
         </p:dialog>
+        
     </f:view>    
 </html>

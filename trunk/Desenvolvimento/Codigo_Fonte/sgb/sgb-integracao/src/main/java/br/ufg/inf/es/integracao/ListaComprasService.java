@@ -2,9 +2,13 @@ package br.ufg.inf.es.integracao;
 
 import br.ufg.inf.es.model.ListaCompras;
 import br.ufg.inf.es.model.Livro;
+import br.ufg.inf.es.model.Usuario;
 import br.ufg.inf.es.persistencia.ListaComprasDAO;
 import br.ufg.inf.es.persistencia.LivroDAO;
+import br.ufg.inf.es.persistencia.UsuarioDAO;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
@@ -25,6 +29,9 @@ public class ListaComprasService extends GenericService<ListaCompras> {
     /** Campo livroDao*/
     @Autowired
     private LivroDAO livroDao;
+    
+    @Autowired
+    private UsuarioDAO usuarioDao;   
 
     /**
      * Método que obtém o DAO do Livro.
@@ -85,6 +92,29 @@ public class ListaComprasService extends GenericService<ListaCompras> {
 
         return livroDao.list();
 
+    }
+
+    public UsuarioDAO getUsuarioDao() {
+        return usuarioDao;
+    }
+
+    public void setUsuarioDao(UsuarioDAO usuarioDao) {
+        this.usuarioDao = usuarioDao;
+    }
+
+    public void criaListaCompras(final Livro[] selectedLivros) {
+        
+        ListaCompras listaCompras = new ListaCompras();
+        
+        listaCompras.setDataCriacao(new Date());
+        
+        listaCompras.setLivrosDaListaCompras(Arrays.asList(selectedLivros));
+        
+        listaCompras.setNome(listaCompras.getDataCriacao().toString());
+        
+        listaCompras.setUser(this.getUsuarioDao().find(1l));
+        
+        this.getDAO().insert(listaCompras);
     }
     
 }
