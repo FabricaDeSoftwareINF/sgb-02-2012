@@ -25,6 +25,9 @@ public class Parametros extends AbstractEntityModel {
     /** Campo parametroMEC*/
     @Column(name = "parametro_mec")
     private Integer parametroMEC = Parametros.VALOR_INICIAL_PARAMETRO_MEC;
+    
+    @Column(name="url_service_bibliografico")
+    private String urlSeviceBibliografico;
 
 	/**
 	 * Obtém o valor do campo <code>valorFrete</code>
@@ -62,4 +65,12 @@ public class Parametros extends AbstractEntityModel {
 		this.parametroMEC = parametroMEC;
 	}
 
+
+    public String getUrlSeviceBibliografico() {
+        return urlSeviceBibliografico;
+    }
+
+    public void setUrlSeviceBibliografico(String urlSeviceBibliografico) {
+        this.urlSeviceBibliografico = urlSeviceBibliografico;
+    }
 }

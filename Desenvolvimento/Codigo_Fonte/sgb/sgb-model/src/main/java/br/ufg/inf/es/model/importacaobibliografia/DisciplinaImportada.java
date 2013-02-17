@@ -9,7 +9,7 @@ package br.ufg.inf.es.model.importacaobibliografia;
  * @author Vinícius
  */
 public class DisciplinaImportada {
-    
+
     /** Campo nome*/
     private String nome;
     
@@ -84,8 +84,7 @@ public class DisciplinaImportada {
 	 */
 	@Override
     public String toString() {
-        return "DisciplinaImportada{" + "nome=" + nome + ", codigo=" 
+        return "DisciplinaImportada{" + "nome=" + nome + ", codigo="
                 + codigo + ", bibliografia=" + bibliografia + '}';
     }
-
 }
