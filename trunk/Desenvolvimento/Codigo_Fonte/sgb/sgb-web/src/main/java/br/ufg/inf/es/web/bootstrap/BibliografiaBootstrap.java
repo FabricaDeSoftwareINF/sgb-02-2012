@@ -29,7 +29,7 @@ public class BibliografiaBootstrap {
     private static Autor autor;
     private static Editora editora;
     private static Curso curso;
-    private static Livraria livraria;
+    private static Livraria livraria1;
     private static Livraria livraria2;
     private static ListaCotacao listaCotacao;
     private static List<CotacoesLivro> listaCotacoesLivro;
@@ -86,7 +86,7 @@ public class BibliografiaBootstrap {
         cotacaoLivro1.setValorMedio((VALOR1 + VALOR2) / 2d);
         List<Cotacao> cotacoes1 = new ArrayList<Cotacao>();
         Cotacao cotacao1 = new Cotacao();
-        cotacao1.setLivraria(livraria);
+        cotacao1.setLivraria(livraria1);
         cotacao1.setValor(VALOR1);
         cotacao1.setId(salve(cotacao1));
         cotacoes1.add(cotacao1);
@@ -105,14 +105,14 @@ public class BibliografiaBootstrap {
         cotacaoLivro2.setValorMedio((VALOR3 + VALOR4) / 2d);
         List<Cotacao> cotacoes2 = new ArrayList<Cotacao>();
         Cotacao cotacao3 = new Cotacao();
-        cotacao3.setLivraria(livraria);
+        cotacao3.setLivraria(livraria1);
         cotacao3.setValor(VALOR3);
-        cotacao3.setId(salve(cotacao1));
+        cotacao3.setId(salve(cotacao3));
         cotacoes2.add(cotacao3);
         Cotacao cotacao4 = new Cotacao();
         cotacao4.setLivraria(livraria2);
         cotacao4.setValor(VALOR4);
-        cotacao4.setId(salve(cotacao2));
+        cotacao4.setId(salve(cotacao4));
         cotacoes2.add(cotacao4);
         cotacaoLivro2.setCotacoes(cotacoes2);
         cotacaoLivro2.setId(salve(cotacaoLivro2));
@@ -139,15 +139,15 @@ public class BibliografiaBootstrap {
     }
 
     private static void crieLivrarias() {
-        livraria = new Livraria();
-        livraria.setNome("Siciliano");
-        livraria.setSite("www.siciliano.com.br");
-        livraria.setId(salve(livraria));
+        livraria1 = new Livraria();
+        livraria1.setNome("Siciliano");
+        livraria1.setSite("www.siciliano.com.br");
+        livraria1.setId(salve(livraria1));
 
         livraria2 = new Livraria();
         livraria2.setNome("Cultura");
         livraria2.setSite("www.cultura.com.br");
-        livraria2.setId(salve(livraria));
+        livraria2.setId(salve(livraria2));
     }
 
     private static Bibliografia crieBibliografia(Disciplina disciplina, Livro livro) {

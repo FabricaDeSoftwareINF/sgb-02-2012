@@ -23,9 +23,9 @@
 
                         <p:column headerText="#{msg['listaCotacao.label.autor']}" >
 
-                            <p:dataList value="#{cotacaoLivro.livro.autores}" var="autor" 
-                                        type="definition" >  
-                                #{autor.sobrenome}, #{autor.nome}
+                            <p:dataList value="#{cotacaoLivro.livro.autores}" var="autor" >  
+                                <h:outputText value=" #{autor.sobrenome.toUpperCase()}, #{autor.nome}" 
+                                              converter="string15Converter" escape="false"/>
                             </p:dataList> 
 
                         </p:column>
@@ -33,7 +33,7 @@
                         <p:column headerText="#{msg['listaCotacao.label.titulo']}" filterBy="#{cotacaoLivro.livro.titulo}" 
                                   filterMatchMode="contains" sortBy="#{cotacaoLivro.livro.titulo}">
 
-                            <h:outputText value="#{cotacaoLivro.livro.titulo}" />
+                            <h:outputText value="#{cotacaoLivro.livro.titulo}"/>
 
                         </p:column>
 
@@ -61,9 +61,9 @@
 
                         <p:column headerText="#{msg['listaCotacao.label.curso']}" >
 
-                            <p:dataList value="#{cotacaoLivro.livro.bibliografias}" var="bibliografia" 
-                                        type="definition" >  
-                                #{bibliografia.disciplina.curso.nome}
+                            <p:dataList value="#{cotacaoLivro.livro.bibliografias}" var="bibliografia">  
+                                <h:outputText value="#{bibliografia.disciplina.curso.nome}" 
+                                              converter="string15Converter" escape="false"/>
                             </p:dataList> 
 
                         </p:column>
@@ -88,9 +88,10 @@
 
                         </p:column>
 
-                        <p:column headerText="#{msg['listaCotacao.label.area']}" resizable="true">
+                        <p:column headerText="#{msg['listaCotacao.label.area']}" >
 
-                            <h:outputText value="Ciências Exatas e da Terra" />
+                            <h:outputText value="Ciências Exatas e da Terra"
+                                          converter="string10Converter" escape="false" />
 
                         </p:column>
 

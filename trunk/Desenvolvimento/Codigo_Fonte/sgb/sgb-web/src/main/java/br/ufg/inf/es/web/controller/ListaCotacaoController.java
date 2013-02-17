@@ -2,6 +2,8 @@ package br.ufg.inf.es.web.controller;
 
 import br.ufg.inf.es.integracao.ListaCotacaoService;
 import br.ufg.inf.es.integracao.exportacaodados.planilha.ExportacaoPlanilhaService;
+import br.ufg.inf.es.model.Autor;
+import br.ufg.inf.es.model.Bibliografia;
 import br.ufg.inf.es.model.CotacoesLivro;
 import br.ufg.inf.es.model.ListaCotacao;
 import br.ufg.inf.es.model.exportacaodados.planilha.ItemPlanilha;
@@ -161,11 +163,27 @@ public class ListaCotacaoController extends SGBController<ListaCotacao, ListaCot
         ItemPlanilha itemPlanilha = new ItemPlanilha();
         itemPlanilha.setNumItem(numItem);
         itemPlanilha.setTituloObra(cotacoesLivro.getLivro().getTitulo());
-        itemPlanilha.setNomeAutor(cotacoesLivro.getLivro().getAutoresAsString());
+     
+        String nomeAutor = "";
+        List<Autor> autores = new ArrayList<Autor>(cotacoesLivro.getLivro().getAutores());
+        for(int i = 0; i < autores.size(); i++) {
+            nomeAutor += autores.get(i).getSobrenome().toUpperCase() + "," + autores.get(i).getNome() +
+                    System.getProperty("line.separator");
+        }
+        itemPlanilha.setNomeAutor(nomeAutor);
+        
         itemPlanilha.setEdicao(cotacoesLivro.getLivro().getEdicao());
         itemPlanilha.setEditora(cotacoesLivro.getLivro().getEditora().getNome());
         itemPlanilha.setAno(cotacoesLivro.getLivro().getAno().toString());
-        itemPlanilha.setCursoDestino("Engenharia de Software");
+        
+        String cursoDestino = "";
+        List<Bibliografia> bibliografias = new ArrayList<Bibliografia>(cotacoesLivro.getLivro().getBibliografias());
+        for(int i = 0; i < bibliografias.size(); i++) {
+            cursoDestino += bibliografias.get(i).getDisciplina().getCurso().getNome() + 
+                    System.getProperty("line.separator");
+        }
+        itemPlanilha.setCursoDestino(cursoDestino);
+        
         itemPlanilha.setValorMedioUnitario(cotacoesLivro.getValorMedio());
         itemPlanilha.setQuantExemplares(cotacoesLivro.getQuantidade());
         itemPlanilha.setAreaConhecimento(AREA_CONHECIMENTO);
