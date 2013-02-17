@@ -27,8 +27,11 @@ public class ListaCotacao extends AbstractEntityModel {
     
     /** Campo cotacoes*/
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name="cotacoes_livro_id")
+    @JoinColumn(name="lista_cotacao_id")
     private Collection<CotacoesLivro> cotacoesLivro;
+    
+    /** Campo valor*/
+    private double valor;
 
     /**
      * Obtém o valor do campo <code>nome</code>
@@ -84,6 +87,24 @@ public class ListaCotacao extends AbstractEntityModel {
      */
     public void setCotacoesLivro(Collection<CotacoesLivro> cotacoesLivro) {
             this.cotacoesLivro = cotacoesLivro;
+    }
+
+    /**
+     * Obtém o valor do campo <code>valor</code>
+     *
+     * @return valor
+     */
+    public double getValor() {
+        return valor;
+    }
+
+    /**
+     * Define o campo <code>valor</code>.
+     *
+     * @param valor 
+     */
+    public void setValor(double valor) {
+        this.valor = valor;
     }
     
 }
