@@ -365,7 +365,7 @@ public class LivroController extends SGBController<Livro, LivroForm, LivroServic
             this.addSuccessMessage("arquitetura.msg.sucesso");
             this.getLivroModel().setWrappedData(this.getService().list());
         } catch (ValidationException ve) {
-            this.addSuccessMessage("arquitetura.msg.erro");
+            this.addSuccessMessage(ve.getKeyMessage());
         }
     }
 

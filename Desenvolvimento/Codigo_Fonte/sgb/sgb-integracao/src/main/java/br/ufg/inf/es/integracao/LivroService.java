@@ -4,6 +4,7 @@ import br.ufg.inf.es.base.validation.ValidationException;
 import br.ufg.inf.es.integracao.annotations.RNG002Livro;
 import br.ufg.inf.es.model.Livro;
 import br.ufg.inf.es.persistencia.LivroDAO;
+import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
@@ -78,6 +79,15 @@ public class LivroService extends GenericService<Livro> {
         } catch (org.hibernate.exception.ConstraintViolationException e) {
             String message = messageToProperty(e.getCause().getMessage());
             throw new ValidationException(message);
+        }
+    }
+    
+    @Override
+    public void removeAll(Collection<Livro> livros) throws ValidationException {
+        try {
+            super.removeAll(livros);
+        } catch (org.hibernate.exception.ConstraintViolationException e) {
+            throw new ValidationException("cadastro.livro.remocao.dependencia");
         }
     }
 
