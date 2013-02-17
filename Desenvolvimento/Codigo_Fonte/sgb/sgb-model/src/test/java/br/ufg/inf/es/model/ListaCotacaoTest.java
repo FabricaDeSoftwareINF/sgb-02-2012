@@ -3,7 +3,7 @@ package br.ufg.inf.es.model;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -44,6 +44,24 @@ public class ListaCotacaoTest {
     @Test
     public void testGetDataRealizada() {
         assertEquals(dataRealizada, listaCotacao.getDataRealizada());
+    }
+
+    /**
+     * Test of getDataRealizada method, of class ListaCotacao.
+     */
+    @Test
+    public void testGetDataRealizadaQuandoADataEstaNula() {
+        assertNull(new ListaCotacao().getDataRealizada());
+    }
+
+    /**
+     * Test of setDataRealizada method, of class ListaCotacao.
+     */
+    @Test
+    public void testSetDataRealizadaQuandoADataEstaNula() {
+        ListaCotacao other = new ListaCotacao();
+        other.setDataRealizada(null);
+        assertNull(other.getDataRealizada());
     }
 
     /**

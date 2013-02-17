@@ -98,6 +98,16 @@ public class DBBibliotecaConfigTest {
     }
 
     /**
+     * Test of setPasswordDataBase method, of class DBBibliotecaConfig.
+     */
+    @Test
+    public void testSetPasswordDataBaseNull() {
+        DBBibliotecaConfig other = new DBBibliotecaConfig();
+        other.setPasswordDataBase(null);
+        assertNull(other.getPasswordDataBase());
+    }
+
+    /**
      * Test of getTabela method, of class DBBibliotecaConfig.
      */
     @Test

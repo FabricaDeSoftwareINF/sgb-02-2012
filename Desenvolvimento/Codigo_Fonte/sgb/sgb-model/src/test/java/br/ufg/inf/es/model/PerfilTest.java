@@ -30,4 +30,13 @@ public class PerfilTest {
     public void testGetTipo() {
         assertEquals(tipo, perfil.getTipo());
     }
+
+    /**
+     * Test of getTipo method, of class Perfil.
+     */
+    @Test
+    public void testGetConstructor() {
+        perfil = new Perfil(tipo);
+        assertEquals(tipo, perfil.getTipo());
+    }
 }

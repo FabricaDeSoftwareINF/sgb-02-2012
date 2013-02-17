@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.ufg.inf.es.model;
 
 import java.util.Date;
@@ -10,7 +6,7 @@ import org.junit.Test;
 
 /**
  *
- * @author alunoufg
+ * @author alunoufg, Victor Carvalho
  */
 public class UsuarioTest {
 
@@ -194,5 +190,15 @@ public class UsuarioTest {
         instance.setConfirmacaoEmail(confirmacaoEmail);
 
         assertEquals(confirmacaoEmail, instance.getConfirmacaoEmail());
+    }
+
+    @Test
+    public void testGetPerfil() {
+        Usuario instance = new Usuario();
+        instance.setPerfil(UsuarioPerfil.ADM);
+        UsuarioPerfil expResult = UsuarioPerfil.ADM;
+        UsuarioPerfil result = instance.getPerfil();
+        assertEquals(expResult, result);
+
     }
 }

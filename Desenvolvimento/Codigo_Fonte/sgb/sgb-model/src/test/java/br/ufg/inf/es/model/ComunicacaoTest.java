@@ -1,7 +1,6 @@
 package br.ufg.inf.es.model;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -69,12 +68,21 @@ public class ComunicacaoTest {
     public void testGetUsuario() {
         assertEquals(usuario, comunicacao.getUsuario());
     }
-    
+
     /**
      * Test of getSenha method, of class Comunicacao.
      */
     @Test
     public void testGetSenha() {
         assertNotNull(comunicacao.getSenha());
+    }
+
+    /**
+     * Test of setSenha method, of class Comunicacao.
+     */
+    @Test
+    public void testSetSenha() {
+        comunicacao.setSenha(null);
+        assertNull(comunicacao.getSenha());
     }
 }
