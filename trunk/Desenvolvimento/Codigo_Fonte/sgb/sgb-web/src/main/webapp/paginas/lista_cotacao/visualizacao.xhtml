@@ -83,15 +83,15 @@
 
                         <p:column headerText="#{msg['listaCotacao.label.valormedio']}"
                                   sortBy="#{cotacaoLivro.valorMedio}" 
-                                  style="text-align: center;width:5%">
+                                  style="text-align: center;width:10%">
 
                             <h:outputText value="#{cotacaoLivro.valorMedio}"
-                                          title="#{cotacaoLivro.valorMedio}" />
+                                          title="#{cotacaoLivro.valorMedio}"  />
 
                         </p:column>
 
                         <p:column headerText="#{msg['listaCotacao.label.valortotal']}" 
-                                  style="text-align: center;width: 5%">
+                                  style="text-align: center;width: 10%">
 
                             <h:outputText value="#{cotacaoLivro.valorMedio * cotacaoLivro.quantidade}" 
                                           title="#{cotacaoLivro.valorMedio * cotacaoLivro.quantidade}"/>
@@ -108,9 +108,10 @@
                         </p:column>
 
                         <p:column headerText="#{msg['listaCotacao.label.area']}"
-                                  style="text-align: center;width: 15%">
+                                  style="text-align: center;width: 10%">
 
-                            <h:outputText value="Ciências Exatas e da Terra"
+                            <h:outputText value="Ciências Exatas"/><br/>
+                            <h:outputText value="e da Terra"
                                           title="Ciências Exatas e da Terra"/>
 
                         </p:column>
