@@ -1,15 +1,19 @@
 package br.ufg.inf.es.integracao.importacaodados;
 
+import br.ufg.inf.es.enuns.EnumTipoBibliografia;
 import br.ufg.inf.es.integracao.AutorService;
 import br.ufg.inf.es.integracao.CursoService;
 import br.ufg.inf.es.integracao.DisciplinaService;
 import br.ufg.inf.es.integracao.EditoraService;
 import br.ufg.inf.es.integracao.LivroService;
+import br.ufg.inf.es.model.Autor;
+import br.ufg.inf.es.model.Bibliografia;
 import br.ufg.inf.es.model.Curso;
 import br.ufg.inf.es.model.Disciplina;
 import br.ufg.inf.es.model.Livro;
 import br.ufg.inf.es.model.importacaobibliografia.BibliografiaImportada;
 import br.ufg.inf.es.model.importacaobibliografia.CursoImportado;
+import br.ufg.inf.es.model.importacaobibliografia.DisciplinaImportada;
 import br.ufg.inf.es.model.importacaobibliografia.LivroImportado;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -17,13 +21,21 @@ import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
 import java.lang.reflect.Type;
+import java.util.AbstractCollection;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javassist.NotFoundException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.apache.http.HttpException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Component;
 
 /**
@@ -31,8 +43,9 @@ import org.springframework.stereotype.Component;
  * @author Vinícius
  */
 @Component
+@Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class ImportacaoDadosServiceImpl implements ImportacaoDadosService {
-
+   
     @Autowired
     private AutorService autorService;
     @Autowired
@@ -47,203 +60,378 @@ public class ImportacaoDadosServiceImpl implements ImportacaoDadosService {
     private String urlServico;
     private Gson jsonParser;
     private static final int OK_STATUS = 200;
-
+    
     public ImportacaoDadosServiceImpl() {
         client = Client.create();
         jsonParser = new Gson();
     }
 
-    private String httpGet(Map<String, String> parametros) throws HttpException {
+//    private String httpGet(Map<String, String> parametros) {
+//        String url = urlServico;
+//        if (parametros != null) {
+//            url += "?";
+//            for (String parametro : parametros.keySet()) {
+//                url += parametro + "=" + parametros.get(parametro) + "&";
+//            }
+//        }
+//        WebResource webResource = client
+//                .resource(urlServico);
+//
+//        ClientResponse response = webResource.accept("application/json")
+//                .get(ClientResponse.class);
+//
+//        if (response.getStatus() != 200) {
+//            throw new RuntimeException("Failed : HTTP error code : "
+//                    + response.getStatus());
+//        }
+//        String output = response.getEntity(String.class);
+//        return output;
+//    }
+    private String httpGet(String parametro) throws HttpException {
+        StringBuilder urlParametro = new StringBuilder(this.urlServico);
         
-        String url = urlServico;
-        
-        StringBuilder urlBuilder = new StringBuilder();
-        
-        urlBuilder.append(url);
-        
-        if (parametros != null) {
-            
-            urlBuilder.append("?");
-            
-            for (String parametro : parametros.keySet()) {
-                
-                urlBuilder.append(parametro);
-                
-                urlBuilder.append("=");
-                
-                urlBuilder.append(parametros.get(parametro));
-                
-                urlBuilder.append("&");
+        WebResource webResource = webResource = client
+                .resource(urlParametro.toString());
+        if (parametro != null && (!parametro.isEmpty())) {
+            if (urlServico.substring(urlServico.length() - 1, urlServico.length()).equals("/")) {
+                webResource = client
+                        .resource(urlParametro.append(parametro).toString());
+            } else {
+                webResource = client
+                        .resource(urlParametro.append("/").append(parametro).toString());
             }
         }
-        
-        WebResource webResource = client.resource(urlServico);
-
         ClientResponse response = webResource.accept("application/json")
                 .get(ClientResponse.class);
-
+        
         if (response.getStatus() != ImportacaoDadosServiceImpl.OK_STATUS) {
-           
+            
             throw new HttpException("Failed : HTTP error code : "
                     + response.getStatus());
         }
         return response.getEntity(String.class);
     }
-
+    
     public String getUrlServico() {
         return urlServico;
     }
-
+    
     public void setUrlServico(String urlServico) {
-
+        
         this.urlServico = urlServico;
     }
-
-    public void importarBibliografia(Curso curso) {
-        
+    
+    public void importarCurso(Curso curso) {
         try {
-        
-            String bibliografiaJson = httpGet(null);
-            Type bibliografiaType = new TypeToken<BibliografiaImportada>() {}.getType();
-            BibliografiaImportada bibliografia =
-                    jsonParser.fromJson(bibliografiaJson, bibliografiaType);
-            Collection<Disciplina> disciplinas = curso.getDisciplinas();
             
-        } catch (HttpException he){
+            String bibliografiaJson = httpGet(curso.getNome());
+            Type cursoType = new TypeToken<CursoImportado>() {
+            }.getType();
+            CursoImportado cursoImportado =
+                    jsonParser.fromJson(bibliografiaJson, cursoType);
+            Curso cursoImporta = getCursoModel(cursoImportado);
+
+            //TODO implementa Diff dos cursos.
+        } catch (HttpException he) {
             
             Logger.getAnonymousLogger().log(Level.SEVERE, he.getMessage());
         }
     }
-
+    
     public void importarCurso(String nome) {
-        
-       try {
-           
-            String bibliografiaJson = httpGet(null);
+        try {
+            String bibliografiaJson = httpGet(nome);
             
-            Type cursoType = new TypeToken<CursoImportado>() {}.getType();
-            CursoImportado cursoImportado = jsonParser.fromJson(bibliografiaJson, cursoType);
-            Curso curso = new Curso();
-            curso.setNome(nome);
-            curso.setVagas(cursoImportado.getVagas());
+            Type cursoType = new TypeToken<CursoImportado>() {
+            }.getType();
+            CursoImportado cursoImportado =
+                    jsonParser.fromJson(bibliografiaJson, cursoType);
+            Curso curso = getCursoModel(cursoImportado);
             cursoService.getDAO().insert(curso);
-            
-        } catch (HttpException he){
-            
-            Logger.getAnonymousLogger().log(Level.SEVERE, he.getMessage());
+        } catch (HttpException ex) {http://localhost:4567/cursos/cursos
+            Logger.getLogger(ImportacaoDadosServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    
     public void importarCursos() {
-            
         try {
-            
             String bibliografiaJson = httpGet(null);
-            Type listaCursoType = new TypeToken<List<CursoImportado>>() {}.getType();
-            List<CursoImportado> cursosImportado =
-                    jsonParser.fromJson(bibliografiaJson, listaCursoType);
-            for (CursoImportado cursoImportado : cursosImportado) {
-                Curso curso = new Curso();
-                curso.setNome(cursoImportado.getNome());
-                curso.setVagas(cursoImportado.getVagas());
+            
+            Type cursosType = new TypeToken<Collection<CursoImportado>>() {
+            }.getType();
+            Collection<CursoImportado> listCursoImportado =
+                    jsonParser.fromJson(bibliografiaJson, cursosType);
+            for (CursoImportado cursoImportado : listCursoImportado) {
+                Curso curso = getCursoModel(cursoImportado);
                 cursoService.getDAO().insert(curso);
             }
-            
-        } catch (HttpException he){
-            
-            Logger.getAnonymousLogger().log(Level.SEVERE, he.getMessage());
+        } catch (HttpException ex) {
+            Logger.getLogger(ImportacaoDadosServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void importarDisciplinas(Disciplina disciplina) {
+        try {
+            String bibliografiaJson = httpGet(disciplina.getNome());
+            Type listaDisciplinaType = new TypeToken<List<DisciplinaImportada>>() {
+            }.getType();
+            List<DisciplinaImportada> disciplinaImportadas =
+                    jsonParser.fromJson(bibliografiaJson, listaDisciplinaType);
+            for (DisciplinaImportada disciplinaImportada : disciplinaImportadas) {
+                Disciplina disciplinaModel = new Disciplina();
+                disciplinaModel.setNome(disciplinaImportada.getNome());
+                disciplinaModel.setCodigo(disciplinaImportada.getCodigo());
+                disciplinaModel.setBibliografias(getBibliografiaModel(disciplinaImportada.getBibliografia()));
+                disciplinaService.getDAO().insert(disciplinaModel);
+            }
+        } catch (HttpException ex) {
+            Logger.getLogger(ImportacaoDadosServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-    public void importarLivros(Disciplina disciplina) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    public void importarLivros() {
-        
+    /**
+     *
+     */
+    public void importarDisciplinas() {
         try {
-            
-            String livrosJson = httpGet(null);
-            Type listaLivroType = new TypeToken<List<LivroImportado>>() {}.getType();
-            List<LivroImportado> livrosImportado =
-                    jsonParser.fromJson(livrosJson, listaLivroType);
-            for (LivroImportado livroImportado : livrosImportado) {
-                Livro livro = new Livro();
-                livro.setIsbn10(livroImportado.getIsbn10());
-                livro.setIsbn13(livroImportado.getIsbn13());
-                livro.setEdicao(livroImportado.getEdicao());
-                livro.setTitulo(livroImportado.getTitulo());
-                livroService.getDAO().insert(livro);
+            String bibliografiaJson = httpGet(null);
+            Type listaDisciplinaType = new TypeToken<List<DisciplinaImportada>>() {
+            }.getType();
+            List<DisciplinaImportada> disciplinaImportadas =
+                    jsonParser.fromJson(bibliografiaJson, listaDisciplinaType);
+            for (DisciplinaImportada disciplinaImportada : disciplinaImportadas) {
+                Disciplina disciplinaModel = new Disciplina();
+                disciplinaModel.setNome(disciplinaImportada.getNome());
+                disciplinaModel.setCodigo(disciplinaImportada.getCodigo());
+                disciplinaModel.setBibliografias(getBibliografiaModel(disciplinaImportada.getBibliografia()));
+                disciplinaService.getDAO().insert(disciplinaModel);
+            }
+        } catch (HttpException ex) {
+            Logger.getLogger(ImportacaoDadosServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void importarLivros(Livro livro) {
+        try {
+            String bibliografiaJson = httpGet(livro.getTitulo());
+            Type listaLivroType = new TypeToken<List<LivroImportado>>() {
+            }.getType();
+            List<LivroImportado> livroImportados =
+                    jsonParser.fromJson(bibliografiaJson, listaLivroType);
+            for (LivroImportado livroImportado : livroImportados) {
+                Livro livroModel = getlivroModel(livroImportado);
+                livroService.getDAO().insert(livroModel);
             }
             
-        } catch (HttpException he){
             
-            Logger.getAnonymousLogger().log(Level.SEVERE, he.getMessage());
+        } catch (HttpException ex) {
+            Logger.getLogger(ImportacaoDadosServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
-    public void importarEditoras() {
-        throw new UnsupportedOperationException("Not supported yet.");
+    
+    public void importarLivros() {
+        try {
+            String bibliografiaJson = httpGet(null);
+            Type listaLivroType = new TypeToken<List<LivroImportado>>() {
+            }.getType();
+            List<LivroImportado> livroImportados =
+                    jsonParser.fromJson(bibliografiaJson, listaLivroType);
+            for (LivroImportado livroImportado : livroImportados) {
+                Livro livroModel = getlivroModel(livroImportado);
+                livroService.getDAO().insert(livroModel);
+            }
+        } catch (HttpException ex) {
+            Logger.getLogger(ImportacaoDadosServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
-
-    public void importarAutores() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
+    
     public AutorService getAutorService() {
         return autorService;
     }
-
+    
     public void setAutorService(AutorService autorService) {
         this.autorService = autorService;
     }
-
+    
     public CursoService getCursoService() {
         return cursoService;
     }
-
+    
     public void setCursoService(CursoService cursoService) {
         this.cursoService = cursoService;
     }
-
+    
     public DisciplinaService getDisciplinaService() {
         return disciplinaService;
     }
-
+    
     public void setDisciplinaService(DisciplinaService disciplinaService) {
         this.disciplinaService = disciplinaService;
     }
-
+    
     public LivroService getLivroService() {
         return livroService;
     }
-
+    
     public void setLivroService(LivroService livroService) {
         this.livroService = livroService;
     }
-
+    
     public EditoraService getEditoraService() {
         return editoraService;
     }
-
+    
     public void setEditoraService(EditoraService editoraService) {
         this.editoraService = editoraService;
     }
-
+    
     public Client getClient() {
         return client;
     }
-
+    
     public void setClient(Client client) {
         this.client = client;
     }
-
+    
     public Gson getJsonParser() {
         return jsonParser;
     }
-
+    
     public void setJsonParser(Gson jsonParser) {
         this.jsonParser = jsonParser;
     }
     
+    private Curso getCursoModel(CursoImportado cursoImportado) {
+        Curso curso = new Curso();
+        curso.setNome(cursoImportado.getNome());
+        curso.setVagas(cursoImportado.getVagas());
+        curso.setDisciplinas(getDisciplinasModel(cursoImportado.getDisciplinas()));
+        
+        return curso;
+    }
+    
+    private Collection<Curso> getCursosModel(Collection<CursoImportado> cursoImportados) {
+        Collection<Curso> cursos = new ArrayList<Curso>();
+        
+        if (cursoImportados != null && (!cursoImportados.isEmpty())) {
+            
+            for (CursoImportado cursoImportado : cursoImportados) {
+                Curso curso = getCursoModel(cursoImportado);
+                cursos.add(curso);
+            }
+        }
+        
+        return cursos;
+    }
+    
+    private Collection<Disciplina> getDisciplinasModel(Collection<DisciplinaImportada> disciplinaImportadas) {
+        Collection<Disciplina> disciplinas = new ArrayList<Disciplina>();
+        
+        for (DisciplinaImportada disciplinaImportada : disciplinaImportadas) {
+            Disciplina disciplina = new Disciplina();
+            disciplina.setCodigo(disciplinaImportada.getCodigo());
+            disciplina.setNome(disciplinaImportada.getNome());
+            
+            if (disciplinaImportada.getBibliografia() != null) {
+                disciplina.setBibliografias(
+                        getBibliografiaModel(disciplinaImportada.getBibliografia()));
+            }
+            disciplinas.add(disciplina);
+        }
+        
+        return disciplinas;
+    }
+    
+    private Collection<Bibliografia> getBibliografiaModel(BibliografiaImportada bibliografiaImportada) {
+        Collection<Bibliografia> bibliografias = new ArrayList<Bibliografia>();
+        
+        if (bibliografiaImportada.getBasica() != null
+                && (!bibliografiaImportada.getBasica().isEmpty())) {
+            EnumTipoBibliografia basica = EnumTipoBibliografia.BASICA;
+            for (Livro livro : getLivrosModel(bibliografiaImportada.getBasica())) {
+                Bibliografia bibliografia = new Bibliografia();
+                bibliografia.setTipo(basica);                
+                bibliografia.setLivro(livro);                
+                bibliografias.add(bibliografia);
+            }
+        }
+        
+        if (bibliografiaImportada.getComplementar() != null
+                && (!bibliografiaImportada.getComplementar().isEmpty())) {
+            EnumTipoBibliografia complementar = EnumTipoBibliografia.COMPLEMENTAR;
+            for (Livro livro : getLivrosModel(bibliografiaImportada.getComplementar())) {
+                Bibliografia bibliografia = new Bibliografia();
+                bibliografia.setTipo(complementar);
+                bibliografia.setLivro(livro);
+                
+                bibliografias.add(bibliografia);
+            }
+        }
+        
+        if (bibliografiaImportada.getSugerida() != null
+                && (!bibliografiaImportada.getSugerida().isEmpty())) {
+            EnumTipoBibliografia sugerida = EnumTipoBibliografia.SUGERIDA;
+            for (Livro livro : getLivrosModel(bibliografiaImportada.getSugerida())) {
+                Bibliografia bibliografia = new Bibliografia();
+                bibliografia.setTipo(sugerida);
+                bibliografia.setLivro(livro);
+                
+                bibliografias.add(bibliografia);
+            }
+        }
+        
+        return bibliografias;
+    }
+    
+    private Collection<Livro> getLivrosModel(List<LivroImportado> livroImportados) {
+        Collection<Livro> livros = null;
+        
+        if (livroImportados != null && (!livroImportados.isEmpty())) {
+            livros = new ArrayList<Livro>();
+            
+            for (LivroImportado livroImportado : livroImportados) {
+                Livro livro = getlivroModel(livroImportado);
+                livros.add(livro);
+            }
+        }
+        
+        return livros;
+    }
+    
+    private Livro getlivroModel(LivroImportado livroImportado) {
+        Livro livro = new Livro();
+        
+        if (livroImportado != null) {
+            livro.setIsbn10(livroImportado.getIsbn10());
+            livro.setIsbn13(livroImportado.getIsbn13());
+            livro.setEdicao(livroImportado.getEdicao());
+            livro.setTitulo(livroImportado.getTitulo());
+            
+            if (livroImportado.getAutor() != null
+                    && (!livroImportado.getAutor().equals(""))) {
+                Autor autor = new Autor();
+                autor.setNome(livroImportado.getAutor());
+                
+                Collection<Autor> autores = new ArrayList<Autor>();
+                autores.add(autor);
+                
+                livro.setAutores(autores);
+            }
+        }
+        return livro;
+    }
+    
+    private Collection<Disciplina> getDisciplinaDiff(Collection<Disciplina> disciplinas,
+            Collection<DisciplinaImportada> disciplinaImportadas) {
+
+        //TODO implementar o verificador de diferenças entre as listas
+        return null;
+    }
+    
+    private Collection<Bibliografia> getBibliografiaDiff(Collection<Bibliografia> bibliografias,
+            BibliografiaImportada bibliografiaImportada) {
+
+        //TODO implementar o verificador de diferenças entre as listas    
+        return null;
+    }
 }

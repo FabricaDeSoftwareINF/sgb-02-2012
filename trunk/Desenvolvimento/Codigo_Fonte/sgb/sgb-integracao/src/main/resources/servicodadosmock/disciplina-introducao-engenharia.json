@@ -1,0 +1,17 @@
+[
+    {
+        "nome": "Introdução a Engenharia de Software",
+        "bibliografia": {
+            "basica": [
+                {
+                    "titulo": "Engenharia de Software",
+                    "edicao": "3",
+                    "anoPublicacao": "2000",
+                    "autor": "Sommerville",
+                    "isbn10": "12345678901",
+                    "isbn13": "1234567890123"
+                } 
+            ]
+        }
+    }
+]

@@ -1,0 +1,38 @@
+[ 
+    {
+        "nome": "Sistemas de Informação",
+        "vagas": 40,
+        "disciplinas": [
+            {
+                "nome": "Introdução a Engenharia de Software",
+                "bibliografia": {
+                    "basica": [
+                        {
+                            "titulo": "Engenharia de Software",
+                            "edicao": "3",
+                            "anoPublicacao": "2000",
+                            "autor": "Sommerville",
+                            "isbn10": "12345678901",
+                            "isbn13": "1234567890123"
+                        } 
+                    ]
+                }
+            },
+            {
+                "nome": "Introdução a Programação",
+                "bibliografia": {
+                    "basica": [
+                        {
+                            "titulo": "Java: Como Programar",
+                            "edicao": "3",
+                            "anoPublicacao": "2000",
+                            "autor": "Sommerville",
+                            "isbn10": "12345678901",
+                            "isbn13": "1234567890123"
+                        } 
+                    ]
+                }
+            }
+        ]
+    }
+]

@@ -2,6 +2,7 @@ package br.ufg.inf.es.integracao.importacaodados;
 
 import br.ufg.inf.es.model.Curso;
 import br.ufg.inf.es.model.Disciplina;
+import br.ufg.inf.es.model.Livro;
 
 /**
  * Interface de comunicação com Serviços de Importação
@@ -13,7 +14,7 @@ public interface ImportacaoDadosService {
      * 
      * @param curso 
      */
-    void importarBibliografia(Curso curso);
+    public void importarCurso(Curso curso);
     
     /**
      * 
@@ -30,21 +31,21 @@ public interface ImportacaoDadosService {
      * 
      * @param Disciplina 
      */
-    void importarLivros(Disciplina disciplina) ;
+
+    public void importarDisciplinas(Disciplina disciplina) ;
     
     /**
      * 
      */
-    void importarLivros();
+    public void importarDisciplinas();
     
     /**
      * 
      */
-    void importarEditoras();
+    public void importarLivros(Livro livro) ;
     
     /**
      * 
      */
-    void importarAutores();
-    
+    public void importarLivros();  
 }
