@@ -20,7 +20,7 @@ public class CotacoesLivro extends AbstractEntityModel {
     /**
      * Campo valor
      */
-    private double valor;
+    private double valorMedio;
     /**
      * Campo dataCadastro
      */
@@ -49,8 +49,8 @@ public class CotacoesLivro extends AbstractEntityModel {
      *
      * @return {@link double}
      */
-    public double getValor() {
-        return this.valor;
+    public double getValorMedio() {
+        return this.valorMedio;
     }
 
     /**
@@ -59,9 +59,9 @@ public class CotacoesLivro extends AbstractEntityModel {
      *
      * @param valor
      */
-    public void setValor(double valor) {
+    public void setValorMedio(double valorMedio) {
 
-        this.valor = valor;
+        this.valorMedio = valorMedio;
     }
 
     /**
