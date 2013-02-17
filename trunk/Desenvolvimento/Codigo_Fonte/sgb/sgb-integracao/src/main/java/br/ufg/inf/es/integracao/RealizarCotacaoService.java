@@ -96,7 +96,9 @@ public class RealizarCotacaoService extends GenericService<ListaCotacao> {
         for (Livro livro : resultados.keySet()) {
             cotacoes.add(extraiCotacao(livro, resultados.get(livro)));
         }
-
+        
+        this.obtemQuantidadeNecessariaLivros(cotacoes);
+        
         ListaCotacao listaCotacao = new ListaCotacao();
         listaCotacao.setCotacoesLivro(cotacoes);
         return listaCotacao;

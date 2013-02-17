@@ -1,11 +1,14 @@
 package br.ufg.inf.es.web.bootstrap;
 
 import br.ufg.inf.es.base.util.SgbCryptography;
+import br.ufg.inf.es.base.util.UtilObjeto;
 import br.ufg.inf.es.base.util.cripto.CriptoGeneric;
 import br.ufg.inf.es.model.Comunicacao;
 import br.ufg.inf.es.model.Livro;
+import br.ufg.inf.es.model.Parametros;
 import br.ufg.inf.es.model.Usuario;
 import br.ufg.inf.es.model.UsuarioPerfil;
+import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -25,6 +28,10 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
 public class Bootstrap implements ServletContextListener {
 
     private SessionFactory sessionFactory;
+    
+    private static final BigDecimal VALOR_FRETE = BigDecimal.valueOf(30);
+    
+    private static final int PARAMETRO_MEC = 5; 
 
     @Override
     public void contextInitialized(ServletContextEvent sce) {
@@ -39,6 +46,7 @@ public class Bootstrap implements ServletContextListener {
             initializeDefaulUser();
             crieBibliografias();
             initializeDefaulComunication();
+            inicializaParametrosDefault();
         }
     }
 
@@ -76,7 +84,24 @@ public class Bootstrap implements ServletContextListener {
             }
         }
     }
-
+    
+    private void inicializaParametrosDefault(){
+        
+        Collection parametros = list(this.getSessionFactory(), Parametros.class);
+        
+        if(parametros == null || parametros.isEmpty()){
+            
+            Parametros param = new Parametros();
+            
+            param.setParametroMEC(Bootstrap.PARAMETRO_MEC);
+            
+            param.setValorFrete(Bootstrap.VALOR_FRETE);
+            
+            this.insert(this.getSessionFactory(), param);
+        }
+        
+    }
+    
     private Collection list(SessionFactory sessionFactory, Class clazz) {
         Criteria criteria = sessionFactory.openSession().createCriteria(clazz);
         return criteria.list();

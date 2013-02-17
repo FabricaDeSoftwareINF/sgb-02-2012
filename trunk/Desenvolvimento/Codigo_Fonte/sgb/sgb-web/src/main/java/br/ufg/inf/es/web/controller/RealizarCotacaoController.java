@@ -72,7 +72,7 @@ public class RealizarCotacaoController extends SGBController<ListaCotacao, Reali
     }
     
     public String realizarCotacaoListaCompras() {
-        //TODO Atualizar a cotacao
+        
         if(UtilObjeto.isReferencia(this.getForm().getListaCompras()) && UtilObjeto.isReferencia(this.getForm().getListaCompras().getLivrosDaListaCompras())){
         
             ListaCotacao listaCotacao = this.getService().realizarCotacao(this.getForm().getListaCompras().getLivrosDaListaCompras());
