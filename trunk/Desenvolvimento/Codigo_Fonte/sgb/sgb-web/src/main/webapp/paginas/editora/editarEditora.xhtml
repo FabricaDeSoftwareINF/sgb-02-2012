@@ -21,8 +21,17 @@
                             </h:panelGrid>
 
                             <h:panelGrid columns="2" cellpadding="1" style="margin-left: 25px;">
-                                <p:commandButton action="#{editoraController.editarEditora()}" value="#{msg['arquitetura.label.salvar']}" ajax="false"></p:commandButton>
-                                <p:commandButton value="#{msg['arquitetura.label.cancelar']}" action="#{editoraController.openInitialPage()}" ajax="false"></p:commandButton>
+                                <p:commandButton action="#{editoraController.editarEditora()}"
+                                                 value="#{msg['arquitetura.label.salvar']}"
+                                                 ajax="false"
+                                                 icon="ui-icon-disk">
+                                </p:commandButton>
+                                
+                                <p:commandButton value="#{msg['arquitetura.label.cancelar']}"
+                                                 action="#{editoraController.openInitialPage()}" 
+                                                 ajax="false"
+                                                 icon="ui-icon-close">
+                                </p:commandButton>
                             </h:panelGrid>
 
                         </h:panelGrid>
