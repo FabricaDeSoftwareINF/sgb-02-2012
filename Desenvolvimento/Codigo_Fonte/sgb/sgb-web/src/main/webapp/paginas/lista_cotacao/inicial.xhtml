@@ -11,48 +11,49 @@
 
         <ui:define name="content">
 
-            <p:panel header="#{msg['cotacao.label.lista']}">
+            <p:panel header="#{msg['listaCotacao.label.lista']}">
 
                 <h:form prependId="false">
 
                     <p:messages />
-                    
-                    <h:panelGrid columns="2" style="width: 100%" >
 
-                        <p:dataTable id="listaCotacoes" value="#{listaCotacaoController.form.listaCotacaoDataModel}" var="listaCotacao"  
-                                     paginator="true" rows="10" style="width: 100%" >
+                    <p:spacer width="15px" height="20px"/>
 
-                            <p:column headerText="#{msg['cotacao.label.nome']}" 
-                                      filterBy="#{listaCotacao.nome}" filterMatchMode="contains">
+                    <p:dataTable id="listaCotacoes" value="#{listaCotacaoController.form.listaCotacaoDataModel}" var="listaCotacao"  
+                                 paginator="true" rows="10"  >
 
-                                <h:outputText value="#{listaCotacao.nome}" />
+                        <p:column headerText="#{msg['listaCotacao.label.nome']}"  style="width: 50%;"
+                                  filterBy="#{listaCotacao.nome}" filterMatchMode="contains">
 
-                            </p:column>
+                            <h:outputText value="#{listaCotacao.nome}" />
 
-                            <p:column headerText="#{msg['cotacao.label.preco']}"  style="text-align: center"
-                                      filterBy="#{listaCotacao.preco}" filterMatchMode="contains">
+                        </p:column>
 
-                                <h:outputText value="#{listaCotacao.preco}"/>
+                        <p:column headerText="#{msg['listaCotacao.label.preco']}"  style="width: 15%"
+                                  filterBy="#{listaCotacao.preco}" filterMatchMode="contains">
 
-                            </p:column>
+                            <h:outputText value="#{listaCotacao.preco}" style="text-align: center"/>
 
-                            <p:column headerText="#{msg['cotacao.label.cricadoem']}" style="text-align: center">
+                        </p:column>
 
-                                <h:outputText value="#{listaCotacao.dataRealizada}"/>
+                        <p:column headerText="#{msg['listaCotacao.label.cricadoem']}" style="width: 25%">
 
-                            </p:column>
+                            <h:outputText value="#{listaCotacao.dataRealizada}"/>
 
-                            <p:column headerText="#{msg['cotacao.label.acoes']}" style="width: 100px;text-align: center">
+                        </p:column>
 
-                                <p:commandButton value="#{msg['cotacao.button.visualizar']}" action="#{listaCotacaoController.openViewPage(listaCotacao)}" ajax="false" />
+                        <p:column headerText="#{msg['listaCotacao.label.acoes']}" style="width: 10%">
 
-                            </p:column>
+                            <p:commandButton value="#{msg['listaCotacao.button.visualizar']}" 
+                                             action="#{listaCotacaoController.openViewPage(listaCotacao)}"
+                                             ajax="false" 
+                                             icon="ui-icon-zoomin"/>
 
-                        </p:dataTable>
+                        </p:column>
 
-                        <p:spacer height="15"/>
+                    </p:dataTable>
 
-                    </h:panelGrid>
+                    <p:spacer height="15"/>
 
                 </h:form> 
 

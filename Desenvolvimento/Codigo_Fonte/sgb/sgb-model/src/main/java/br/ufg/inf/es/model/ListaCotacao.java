@@ -24,7 +24,7 @@ public class ListaCotacao extends AbstractEntityModel {
     
     /** Campo cotacoes*/
     @OneToMany(cascade = CascadeType.ALL)
-    private Collection<CotacoesLivro> cotacoes;
+    private Collection<CotacoesLivro> cotacoesLivro;
     
     /** Campo preco*/
     private double preco;
@@ -72,8 +72,8 @@ public class ListaCotacao extends AbstractEntityModel {
      *
      * @return {@link List<Cotacao>}
      */
-    public Collection<CotacoesLivro> getCotacoes() {
-            return this.cotacoes;
+    public Collection<CotacoesLivro> getCotacoesLivro() {
+            return this.cotacoesLivro;
     }
 
     /**
@@ -81,8 +81,8 @@ public class ListaCotacao extends AbstractEntityModel {
      *
      * @param cotacoes 
      */
-    public void setCotacoes(Collection<CotacoesLivro> cotacoes) {
-            this.cotacoes = cotacoes;
+    public void setCotacoesLivro(Collection<CotacoesLivro> cotacoesLivro) {
+            this.cotacoesLivro = cotacoesLivro;
     }
 
     /**
