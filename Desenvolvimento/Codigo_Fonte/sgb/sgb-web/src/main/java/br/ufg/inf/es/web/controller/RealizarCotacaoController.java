@@ -1,5 +1,6 @@
 package br.ufg.inf.es.web.controller;
 
+import br.ufg.inf.es.base.util.UtilObjeto;
 import br.ufg.inf.es.integracao.RealizarCotacaoService;
 import br.ufg.inf.es.integracao.LivroService;
 import br.ufg.inf.es.model.CotacoesLivro;
@@ -59,7 +60,7 @@ public class RealizarCotacaoController extends SGBController<ListaCotacao, Reali
         
         Livro[] livrosSelecionados = this.getForm().getLivrosSelecionados();
         
-        ListaCotacao listaCotacao = this.service.realizarCotacao(Arrays.asList(livrosSelecionados));
+        ListaCotacao listaCotacao = this.getService().realizarCotacao(Arrays.asList(livrosSelecionados));
         
         List<CotacoesLivro> cotacoes = new ArrayList<CotacoesLivro>(listaCotacao.getCotacoesLivro());
         
@@ -68,6 +69,24 @@ public class RealizarCotacaoController extends SGBController<ListaCotacao, Reali
         this.getForm().setCotacoesSelecionadas(cotacoes);
         
         return this.openInsertPage();
+    }
+    
+    public String realizarCotacaoListaCompras() {
+        //TODO Atualizar a cotacao
+        if(UtilObjeto.isReferencia(this.getForm().getListaCompras()) && UtilObjeto.isReferencia(this.getForm().getListaCompras().getLivrosDaListaCompras())){
+        
+            ListaCotacao listaCotacao = this.getService().realizarCotacao(this.getForm().getListaCompras().getLivrosDaListaCompras());
+
+            List<CotacoesLivro> cotacoes = new ArrayList<CotacoesLivro>(listaCotacao.getCotacoes());
+
+            this.getForm().setCotacoesDataModel(new CotacaoDataModel(cotacoes));
+
+            this.getForm().setCotacoesSelecionadas(cotacoes);
+        
+            return this.openInsertPage();
+        }
+        
+        return "";
     }
     
     public String salvarListaCotacao() {

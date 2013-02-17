@@ -22,7 +22,7 @@ public class ListaCompras extends AbstractEntityModel {
     private Date dataCriacao;
     
     @JoinColumn(name="id_usuario")
-    @OneToOne(optional = false)
+    @ManyToOne(optional = false)
     private Usuario user;
     
     /** Campo livrosDaListaCompras*/

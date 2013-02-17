@@ -95,4 +95,12 @@ public class ListaComprasController extends SGBController<ListaCompras, ListaCom
             this.livrosSelecionados = (Livro[]) livrosSelecionados.clone();
         }
     }
+    
+    public void criaListaCompras(){
+        
+        this.getService().criaListaCompras(this.getForm().getSelectedLivros());
+        
+        this.getForm().setListaCompras(this.getService().list());
+        
+    }
 }
