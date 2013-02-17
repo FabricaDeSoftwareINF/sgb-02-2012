@@ -25,8 +25,8 @@
                         <p:column selectionMode="multiple" style="width:18px" />
 
                         <p:column>
-
-                            <p:graphicImage url="http://1.bp.blogspot.com/-n-fsjwiesiw/Tr7UmKfH6JI/AAAAAAAAAXQ/PUbQNNaU0bY/s1600/fundacao.jpg" width="50" height="73" />
+                            
+                            <p:graphicImage value="#{cotacoesLivro.urlImagem}" width="50" height="73"/>
 
                         </p:column>
 
@@ -67,10 +67,12 @@
                             <p:overlayPanel for="btnLivrarias">
 
                                 <p:dataTable value="#{cotacesLivro.cotacoes}" var="cotacao"
-                                             paginator="true" rows="15">
+                                             paginator="true" rows="10">
 
                                     <p:column headerText="#{msg['label.cotacao.loja']}">
-                                        <h:outputText value="#{cotacao.livraria.nome}"/>
+                                        <h:outputLink value="#{cotacao.livraria.site}" target="_blank">
+                                            <h:outputText value="#{cotacao.livraria.nome}"/>
+                                        </h:outputLink>
                                     </p:column>
 
                                     <p:column headerText="#{msg['label.cotacao.valor']}">
