@@ -19,79 +19,99 @@
                     <p:spacer width="15px" height="20px"/>
 
                     <p:dataTable id="cotacoes" value="#{listaCotacaoController.form.entity.cotacoesLivro}" 
-                                 var="cotacaoLivro" paginator="true" rows="10" style="width: 100%" >
+                                 var="cotacaoLivro" paginator="true" rows="10" style="width: 100%"
+                                 resizableColumns="true">
 
-                        <p:column headerText="#{msg['listaCotacao.label.autor']}" >
+                        <p:column headerText="#{msg['listaCotacao.label.autor']}" style="width: 15%">
 
-                            <p:dataList value="#{cotacaoLivro.livro.autores}" var="autor" >  
-                                <h:outputText value=" #{autor.sobrenome.toUpperCase()}, #{autor.nome}" 
-                                              converter="string15Converter" escape="false"/>
+                            <p:dataList value="#{cotacaoLivro.livro.autores}"
+                                        var="autor" >  
+                                <h:outputText value=" #{autor.sobrenome.toUpperCase()}, #{autor.nome}"
+                                              title="#{autor.sobrenome.toUpperCase()}, #{autor.nome}"/>
                             </p:dataList> 
 
                         </p:column>
 
-                        <p:column headerText="#{msg['listaCotacao.label.titulo']}" filterBy="#{cotacaoLivro.livro.titulo}" 
-                                  filterMatchMode="contains" sortBy="#{cotacaoLivro.livro.titulo}">
+                        <p:column headerText="#{msg['listaCotacao.label.titulo']}" 
+                                  filterBy="#{cotacaoLivro.livro.titulo}" 
+                                  filterMatchMode="contains" 
+                                  sortBy="#{cotacaoLivro.livro.titulo}" 
+                                  style="width: 15%">
 
-                            <h:outputText value="#{cotacaoLivro.livro.titulo}"/>
-
-                        </p:column>
-
-                        <p:column headerText="#{msg['listaCotacao.label.edicao']}" style="text-align: center"
-                                  filterBy="#{cotacaoLivro.livro.edicao}" filterMatchMode="contains" 
-                                  sortBy="#{cotacaoLivro.livro.edicao}" >
-
-                            <h:outputText value="#{cotacaoLivro.livro.edicao}" />
+                            <h:outputText value="#{cotacaoLivro.livro.titulo}" 
+                                          title="#{cotacaoLivro.livro.titulo}"/>
 
                         </p:column>
 
-                        <p:column headerText="#{msg['listaCotacao.label.editora']}" filterBy="#{cotacaoLivro.livro.editora.nome}" 
-                                  filterMatchMode="contains" sortBy="#{cotacaoLivro.livro.editora.nome}">
+                        <p:column headerText="#{msg['listaCotacao.label.edicao']}" 
+                                  sortBy="#{cotacaoLivro.livro.edicao}"  
+                                  style="text-align: center;width: 10%">
 
-                            <h:outputText value="#{cotacaoLivro.livro.editora.nome}" />
-
-                        </p:column>
-
-                        <p:column headerText="#{msg['listaCotacao.label.ano']}" filterBy="#{cotacaoLivro.livro.ano}" 
-                                  filterMatchMode="contains" sortBy="#{cotacaoLivro.livro.ano}">
-
-                            <h:outputText value="#{cotacaoLivro.livro.ano}" />
+                            <h:outputText value="#{cotacaoLivro.livro.edicao}"
+                                          title="#{cotacaoLivro.livro.edicao}"/>
 
                         </p:column>
 
-                        <p:column headerText="#{msg['listaCotacao.label.curso']}" >
+                        <p:column headerText="#{msg['listaCotacao.label.editora']}" 
+                                  sortBy="#{cotacaoLivro.livro.editora.nome}"
+                                  style="text-align: center;width: 10%">
 
-                            <p:dataList value="#{cotacaoLivro.livro.bibliografias}" var="bibliografia">  
-                                <h:outputText value="#{bibliografia.disciplina.curso.nome}" 
-                                              converter="string15Converter" escape="false"/>
+                            <h:outputText value="#{cotacaoLivro.livro.editora.nome}"
+                                          title="#{cotacaoLivro.livro.editora.nome}"/>
+
+                        </p:column>
+
+                        <p:column headerText="#{msg['listaCotacao.label.ano']}" 
+                                  sortBy="#{cotacaoLivro.livro.ano}" 
+                                  style="text-align: center;width: 5%">
+
+                            <h:outputText value="#{cotacaoLivro.livro.ano}"
+                                          title="#{cotacaoLivro.livro.ano}"/>
+
+                        </p:column>
+
+                        <p:column headerText="#{msg['listaCotacao.label.curso']}" 
+                                  style="text-align: center;width: 15%">
+
+                            <p:dataList value="#{cotacaoLivro.livro.bibliografias}"
+                                        var="bibliografia">  
+                                <h:outputText value="#{bibliografia.disciplina.curso.nome}"
+                                              title="#{bibliografia.disciplina.curso.nome}" />
                             </p:dataList> 
 
                         </p:column>
 
-                        <p:column headerText="#{msg['listaCotacao.label.valormedio']}" style="text-align: center"
-                                  sortBy="#{cotacaoLivro.valorMedio}">
+                        <p:column headerText="#{msg['listaCotacao.label.valormedio']}"
+                                  sortBy="#{cotacaoLivro.valorMedio}" 
+                                  style="text-align: center;width:5%">
 
-                            <h:outputText value="#{cotacaoLivro.valorMedio}" />
-
-                        </p:column>
-
-                        <p:column headerText="#{msg['listaCotacao.label.valortotal']}" style="text-align: center" >
-
-                            <h:outputText value="#{cotacaoLivro.valorMedio * cotacaoLivro.quantidade}" />
+                            <h:outputText value="#{cotacaoLivro.valorMedio}"
+                                          title="#{cotacaoLivro.valorMedio}" />
 
                         </p:column>
 
-                        <p:column headerText="#{msg['listaCotacao.label.quantidade']}" style="text-align: center"
-                                  sortBy="#{cotacaoLivro.quantidade}" >
+                        <p:column headerText="#{msg['listaCotacao.label.valortotal']}" 
+                                  style="text-align: center;width: 5%">
 
-                            <h:outputText value="#{cotacaoLivro.quantidade}" />
+                            <h:outputText value="#{cotacaoLivro.valorMedio * cotacaoLivro.quantidade}" 
+                                          title="#{cotacaoLivro.valorMedio * cotacaoLivro.quantidade}"/>
 
                         </p:column>
 
-                        <p:column headerText="#{msg['listaCotacao.label.area']}" >
+                        <p:column headerText="#{msg['listaCotacao.label.quantidade']}" 
+                                  sortBy="#{cotacaoLivro.quantidade}" 
+                                  style="text-align: center;width: 5%">
+
+                            <h:outputText value="#{cotacaoLivro.quantidade}" 
+                                          title="#{cotacaoLivro.quantidade}"/>
+
+                        </p:column>
+
+                        <p:column headerText="#{msg['listaCotacao.label.area']}"
+                                  style="text-align: center;width: 15%">
 
                             <h:outputText value="Ciências Exatas e da Terra"
-                                          converter="string10Converter" escape="false" />
+                                          title="Ciências Exatas e da Terra"/>
 
                         </p:column>
 

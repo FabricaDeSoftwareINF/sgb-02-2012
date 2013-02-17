@@ -19,30 +19,41 @@
 
                     <p:spacer width="15px" height="20px"/>
 
-                    <p:dataTable id="listaCotacoes" value="#{listaCotacaoController.form.listaCotacaoDataModel}" var="listaCotacao"  
-                                 paginator="true" rows="10"  >
+                    <p:dataTable id="listaCotacoes" 
+                                 value="#{listaCotacaoController.form.listaCotacaoDataModel}" 
+                                 var="listaCotacao"  
+                                 paginator="true" rows="10"
+                                 resizableColumns="true">
 
-                        <p:column headerText="#{msg['listaCotacao.label.nome']}"  style="width: 50%;"
-                                  filterBy="#{listaCotacao.nome}" filterMatchMode="contains">
+                        <p:column headerText="#{msg['listaCotacao.label.nome']}"  
+                                  filterBy="#{listaCotacao.nome}"
+                                  filterMatchMode="contains"
+                                  style="width: 30%;">
 
-                            <h:outputText value="#{listaCotacao.nome}" />
+                            <h:outputText value="#{listaCotacao.nome}" 
+                                          title="#{listaCotacao.nome}"/>
 
                         </p:column>
 
                         <p:column headerText="#{msg['listaCotacao.label.preco']}"  style="width: 15%"
                                   filterBy="#{listaCotacao.valor}" filterMatchMode="contains">
 
-                            <h:outputText value="#{listaCotacao.valor}" style="text-align: center"/>
+                            <h:outputText value="#{listaCotacao.valor}" 
+                                          title="#{listaCotacao.valor}"/>
+
 
                         </p:column>
 
-                        <p:column headerText="#{msg['listaCotacao.label.cricadoem']}" style="width: 25%">
+                        <p:column headerText="#{msg['listaCotacao.label.cricadoem']}"
+                                  style="width: 28%">
 
-                            <h:outputText value="#{listaCotacao.dataRealizada}"/>
+                            <h:outputText value="#{listaCotacao.dataRealizada}"
+                                          title="#{listaCotacao.dataRealizada}"/>
 
                         </p:column>
 
-                        <p:column headerText="#{msg['listaCotacao.label.acoes']}" style="width: 10%">
+                        <p:column headerText="#{msg['listaCotacao.label.acoes']}" 
+                                  style="width: 12%;text-align: center">
 
                             <p:commandButton value="#{msg['listaCotacao.button.visualizar']}" 
                                              action="#{listaCotacaoController.openViewPage(listaCotacao)}"
