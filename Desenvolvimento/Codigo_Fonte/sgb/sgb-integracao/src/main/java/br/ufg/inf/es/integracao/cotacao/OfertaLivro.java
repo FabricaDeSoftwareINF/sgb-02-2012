@@ -51,7 +51,7 @@ public class OfertaLivro {
         this.descricaoLivro = descricaoLivro;
     }
 
-    public String getLinkImagemLIvro() {
+    public String getLinkImagemLivro() {
         return linkImagemLIvro;
     }
 

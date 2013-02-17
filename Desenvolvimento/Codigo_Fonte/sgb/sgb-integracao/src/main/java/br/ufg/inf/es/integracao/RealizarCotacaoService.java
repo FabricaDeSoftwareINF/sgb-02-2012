@@ -151,9 +151,9 @@ public class RealizarCotacaoService extends GenericService<ListaCotacao> {
 
     private CotacoesLivro extraiCotacao(Livro livro, Collection<ResultadoCotacao> resultadosCotacao) {
         Collection<Cotacao> cotacoes = new ArrayList<Cotacao>();
+        CotacoesLivro cotacoesLivro = new CotacoesLivro();
         for (ResultadoCotacao resultadoCotacao : resultadosCotacao) {
             Cotacao cotacao = new Cotacao();
-            resultadoCotacao.getOfertaLivro().getLinkImagemLIvro();
             cotacao.setLivraria(resultadoCotacao.getLivraria());
             double preco = 0.0;
             try {
@@ -163,8 +163,11 @@ public class RealizarCotacaoService extends GenericService<ListaCotacao> {
             }
             cotacao.setValor(preco);
             cotacoes.add(cotacao);
+            if (cotacoesLivro.getUrlImagem() == null) {
+                String urlImagem = resultadoCotacao.getOfertaLivro().getLinkImagemLivro();
+                cotacoesLivro.setUrlImagem(urlImagem);
+            }
         }
-        CotacoesLivro cotacoesLivro = new CotacoesLivro();
         cotacoesLivro.setLivro(livro);
         cotacoesLivro.setCotacoes(cotacoes);
         cotacoesLivro.setValorMedio(calculaPrecoMedio(cotacoesLivro));

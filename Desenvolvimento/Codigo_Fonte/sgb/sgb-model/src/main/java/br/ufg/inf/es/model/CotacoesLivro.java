@@ -20,6 +20,10 @@ import javax.persistence.Temporal;
 public class CotacoesLivro extends AbstractEntityModel {
 
     /**
+     * Campo urlImagem
+     */
+    private String urlImagem;
+    /**
      * Campo valor
      */
     private double valorMedio;
@@ -44,6 +48,29 @@ public class CotacoesLivro extends AbstractEntityModel {
      * Campo quantidade
      */
     private int quantidade;
+
+    
+
+    /**
+     * Obtém o valor do campo
+     * <code>urlImagem</code>
+     *
+     * @return {@link double}
+     */
+    public String getUrlImagem() {
+        return urlImagem;
+    }
+
+    /**
+     * Define o campo
+     * <code>urlImagem</code>.
+     *
+     * @param urlImagem
+     */
+    public void setUrlImagem(String urlImagem) {
+        this.urlImagem = urlImagem;
+    }
+    
 
     /**
      * Obtém o valor do campo
@@ -151,4 +178,5 @@ public class CotacoesLivro extends AbstractEntityModel {
 
         this.quantidade = quantidade;
     }
+    
 }
