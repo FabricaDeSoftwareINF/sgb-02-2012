@@ -15,6 +15,8 @@ public class DBBibliotecaConfigForm extends GenericForm<DBBibliotecaConfig>{
     
     private Boolean exibirDialogExclusao;
     
+    private DBDriver driver;
+    
     public DBDriver[] getDrivers(){        
         return DBDriver.values();
     }
@@ -25,5 +27,13 @@ public class DBBibliotecaConfigForm extends GenericForm<DBBibliotecaConfig>{
     
      public void setExibirDialogExclusao(Boolean exibirDialogExclusao) {
         this.exibirDialogExclusao = exibirDialogExclusao;
+    }
+
+    public DBDriver getDriver() {
+        return driver;
+    }
+
+    public void setDriver(DBDriver driver) {
+        this.driver = driver;
     }
 }

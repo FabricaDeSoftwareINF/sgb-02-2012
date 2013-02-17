@@ -269,6 +269,15 @@
             
         </navigation-case>
         
+        <!-- ESTÓRIA 17: Integração com SDB - Sistema de Dados Bibliográficos -->
+        <navigation-case>
+            
+            <from-outcome>IntegracaoSdbController/initialPage</from-outcome>
+            
+            <to-view-id>/paginas/parametros/integracaoSDB.xhtml</to-view-id>
+            
+        </navigation-case>
+        
     </navigation-rule>
     
     <converter>
