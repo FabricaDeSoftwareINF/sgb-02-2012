@@ -1,5 +1,6 @@
 package br.ufg.inf.es.web.controller;
 
+import br.ufg.inf.es.base.persistence.biblioteca.DBDriver;
 import br.ufg.inf.es.base.util.cripto.CriptoGeneric;
 import br.ufg.inf.es.base.validation.ValidationException;
 import br.ufg.inf.es.integracao.DBBibliotecaConfigService;
@@ -31,7 +32,8 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @Scope("session")
-public class BibliotecaConfigController extends SGBController<DBBibliotecaConfig, DBBibliotecaConfigForm, DBBibliotecaConfigService> {
+public class BibliotecaConfigController extends SGBController<DBBibliotecaConfig, 
+        DBBibliotecaConfigForm, DBBibliotecaConfigService> {
 
     @Autowired
     private DBBibliotecaConfigForm form;
@@ -52,9 +54,11 @@ public class BibliotecaConfigController extends SGBController<DBBibliotecaConfig
     public String openInitialPage() {
         DBBibliotecaConfig config = service.getBibliotecaCfg();
         if (config != null) {
-
+            form.setDriver(config.getDriver());
             form.setEntity(config);
 
+        } else {
+            form.setDriver(DBDriver.Oracle);
         }
 
         if (this.form.getEntity().getPasswordDataBase() != null) {
@@ -92,10 +96,12 @@ public class BibliotecaConfigController extends SGBController<DBBibliotecaConfig
             if (this.getForm().getEntity() == null
                     && this.getForm().getEntity().getId() == null
                     && this.getForm().getEntity().getId() == 0) {
+                this.form.getEntity().setDriver(this.form.getDriver());
                 this.form.getEntity().setPasswordDataBase(new CriptoGeneric().criptografa(password));
                 this.service.insert(this.form.getEntity());
                 this.addSuccessMessage("arquitetura.msg.sucesso");
             } else {
+                this.form.getEntity().setDriver(this.form.getDriver());
                 this.form.getEntity().setPasswordDataBase(new CriptoGeneric().criptografa(password));
                 this.service.editar(this.form.getEntity());
                 this.addSuccessMessage("arquitetura.msg.sucesso");
@@ -154,8 +160,6 @@ public class BibliotecaConfigController extends SGBController<DBBibliotecaConfig
                 
                 for (LivroBiblioteca livroBc : livrosBiblioteca) {
                     
-                    livroStrBuilder.append(livros);
-                    
                     livroStrBuilder.append("Livro: ");
                     
                     livroStrBuilder.append(livroBc.getNome());
@@ -169,9 +173,8 @@ public class BibliotecaConfigController extends SGBController<DBBibliotecaConfig
                     livroStrBuilder.append(livroBc.getQuantidade());
                     
                     livroStrBuilder.append("\n");
-                    
-                    livros = livroStrBuilder.toString();
                 }
+                livros = livroStrBuilder.toString();
             }
 
             //Grava o objeto cliente no arquivo

@@ -20,11 +20,11 @@
                     <h:panelGrid columns="2">                          
                         <h:outputLabel value="#{msg['parametros.bc.tipo']}"  ></h:outputLabel>
 
-                        <p:selectOneMenu label="SGBD" value="#{bibliotecaConfigController.form.entity.driver}"  
+                        <p:selectOneMenu label="SGBD" value="#{bibliotecaConfigController.form.driver}"  
                                          converter="dbDriverConverter">
                             
                             <f:selectItems  var="driver" value="#{bibliotecaConfigController.form.drivers}"
-                                            itemLabel="#{driver.name}" itemValue="#{driver}"/>
+                                            itemLabel="#{driver}" itemValue="#{driver}"/>
                         </p:selectOneMenu>
 
                         <h:outputLabel value="#{msg['parametros.bc.url']}"  ></h:outputLabel>
