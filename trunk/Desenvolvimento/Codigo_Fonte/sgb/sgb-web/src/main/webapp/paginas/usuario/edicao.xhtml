@@ -50,9 +50,13 @@
 
                     <h:panelGrid columns="2">
                         
-                        <p:commandButton action="#{usuarioController.editarUsuario()}" value="#{msg['cadastro.usuario.button.edit']}" ajax="false"/>
+                        <p:commandButton action="#{usuarioController.editarUsuario()}"
+                                         value="#{msg['cadastro.usuario.button.edit']}" ajax="false"
+                                            icon="ui-icon-disk"/>
 
-                        <p:commandButton action="#{usuarioController.openInitialPage()}" value="#{msg['cadastro.usuario.button.voltar']}" ajax="false"/>
+                        <p:commandButton action="#{usuarioController.openInitialPage()}"
+                                         value="#{msg['cadastro.usuario.button.voltar']}" ajax="false"
+                                            icon="ui-icon-arrowreturnthick-1-w"/>
                 
                     </h:panelGrid>
             

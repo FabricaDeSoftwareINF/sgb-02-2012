@@ -5,19 +5,13 @@
 
     <ui:composition template="/template/template.xhtml">
 
-        <ui:define name="title">
-            Cadastro de Disciplina - SGB
-        </ui:define>
-
         <ui:define name="content">
-
+            
             <h:form id="formInicial">
 
                 <p:panel header="#{msg['label.disciplina.title.cadastroDisciplina']}">
 
                     <p:messages autoUpdate="true"/>
-
-                    <h:panelGrid style="width: 100%;">
 
                         <h:panelGrid columns="6" style="width: 100%;">
 
@@ -41,11 +35,13 @@
                             </p:selectOneMenu>
 
                         </h:panelGrid>
+                        
+                        <p:spacer width="10" height="15"/>
 
                         <p:fieldset style="width: 97%;" legend="#{msg['label.disciplina.associacaoLivro']}">
 
                             <h:panelGrid id="bibliografia_panelgrid" columns="2">
-
+                                <h:panelGrid columns="2">
                                 <h:outputLabel value="#{msg['label.disciplina.tipoBibliografia']}:"></h:outputLabel>
 
                                 <p:selectOneMenu value="#{disciplinaController.form.tipoBibliografiaSelecionado}" converter="enumTipoBibliografiaConverter">
@@ -63,16 +59,21 @@
                                         #{livro.titulo} - #{livro.getAutoresAsString()}
                                     </p:column>
                                 </p:autoComplete>
-
-                                <p:spacer width="10"/>
+                                
+                                  </h:panelGrid>
 
                                 <p:commandButton value="#{msg['label.disciplina.associarLivro']}" action="#{disciplinaController.associarLivros}"
-                                                 update="bibliografias_datatable, bibliografia_panelgrid" process="bibliografia_panelgrid">
+                                                 update="bibliografias_datatable, bibliografia_panelgrid"
+                                                 process="bibliografia_panelgrid" icon="ui-icon-plusthick">
                                 </p:commandButton>
+                                
+                                 </h:panelGrid>
+                            
+                                                        <p:spacer width="15px" height="20px"/>
 
-                            </h:panelGrid>
-
-                            <p:dataTable id="bibliografias_datatable" value="#{disciplinaController.form.entity.bibliografias}" var="bibliografia" paginator="true" rows="10" >
+                            <p:dataTable id="bibliografias_datatable" 
+                                         value="#{disciplinaController.form.entity.bibliografias}" 
+                                         var="bibliografia" paginator="true" rows="10" >
 
                                 <p:column headerText="#{msg['label.disciplina.tipoBibliografia']}">
 
@@ -86,33 +87,43 @@
 
                                 </p:column>
 
-                                <p:column headerText="#{msg['label.disciplina.acao']}">
+                                <p:column headerText="#{msg['label.disciplina.acao']}" width="120"
+                                          style="text-align:center">
 
-                                    <p:commandLink value="#{msg['cadastro.acao.remover']}"  oncomplete="dialogRemocao.show()" update=":formInicial:dialog_remocao">                                     
+                                    <p:commandButton value="#{msg['cadastro.acao.remover']}" 
+                                                     oncomplete="dialogRemocao.show()" 
+                                                     update=":formInicial:dialog_remocao"
+                                                     style="width: 110px;"
+                                                     icon="ui-icon-trash">                                     
 
-                                        <f:setPropertyActionListener target="#{disciplinaController.form.bibliografiaParaRemocao}" value="#{bibliografia}"/>
+                                        <f:setPropertyActionListener target="#{disciplinaController.form.bibliografiaParaRemocao}" 
+                                                                     value="#{bibliografia}"/>
 
-                                    </p:commandLink>
+                                    </p:commandButton>
 
                                 </p:column>
 
                             </p:dataTable>
 
                         </p:fieldset>
+                   
+                        <p:spacer width="15px" height="50px"/>
 
-                        <h:panelGrid columns="2" style="float: right">
+                            <p:commandButton value="#{msg['label.disciplina.cadastrar']}" 
+                                             action="#{disciplinaController.inserir}" 
+                                             rendered="#{!disciplinaController.form.isEditPage}" 
+                                             update="formInicial">
+                            </p:commandButton>
 
-                            <p:commandButton value="#{msg['label.disciplina.cadastrar']}" action="#{disciplinaController.inserir}" rendered="#{!disciplinaController.form.isEditPage}" update="formInicial"></p:commandButton>
+                            <p:commandButton value="Editar" action="#{disciplinaController.editarDisciplina}" 
+                                             rendered="#{disciplinaController.form.isEditPage}"
+                                            icon="ui-icon-disk">
+                             </p:commandButton>
 
-                            <p:commandButton value="Editar" action="#{disciplinaController.editarDisciplina}" rendered="#{disciplinaController.form.isEditPage}"/>
-
-                            <p:commandButton value="#{msg['label.disciplina.voltar']}" action="#{disciplinaController.openInitialPage()}"></p:commandButton>
-
-                        </h:panelGrid>
-
-                    </h:panelGrid>
-
-                </p:panel>
+                            <p:commandButton value="#{msg['label.disciplina.voltar']}" 
+                                             action="#{disciplinaController.openInitialPage()}"
+                                              icon="ui-icon-arrowreturnthick-1-w">
+                            </p:commandButton>
 
 
                 <p:confirmDialog id="dialog_remocao" message="#{msg['label.disciplina.mensagem.removerAssociacao']}: #{disciplinaController.form.bibliografiaParaRemocao.livro.titulo} ?"
@@ -128,8 +139,10 @@
                     </center>
 
                 </p:confirmDialog>
+                </p:panel>
 
             </h:form>
+                
 
         </ui:define>
 

@@ -49,9 +49,13 @@
 
                     </h:panelGrid>
 
-                    <h:commandButton action="#{usuarioController.criarUsuario()}" value="#{msg['cadastro.usuario.button.insert']}" />
+                    <p:commandButton action="#{usuarioController.criarUsuario()}"
+                                     value="#{msg['cadastro.usuario.button.insert']}"
+                                       icon="ui-icon-disk"/>
 
-                    <h:commandButton action="#{usuarioController.openInitialPage()}" value="#{msg['cadastro.usuario.button.voltar']}" />
+                    <p:commandButton action="#{usuarioController.openInitialPage()}" 
+                                     value="#{msg['cadastro.usuario.button.voltar']}" 
+                                        icon="ui-icon-arrowreturnthick-1-w"/>
 
                 </h:form>
 
