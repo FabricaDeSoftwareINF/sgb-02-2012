@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.ufg.inf.es.integracao;
 
 import br.ufg.inf.es.model.Usuario;
@@ -10,31 +6,26 @@ import java.util.ArrayList;
 import java.util.Collection;
 import static org.junit.Assert.assertEquals;
 import org.junit.*;
-import org.mockito.Mockito;
+import static org.mockito.Mockito.*;
 
 /**
+ * Testes do servico de autenticacao
  *
- * @author Alunoinf_2
+ * @author Alunoinf_2, Victor Carvalho
  */
 public class SgbAuthTest {
 
-    public SgbAuthTest() {
-    }
-
-    @BeforeClass
-    public static void setUpClass() throws Exception {
-    }
-
-    @AfterClass
-    public static void tearDownClass() throws Exception {
-    }
+    private SgbAuth auth;
+    private UsuarioService us;
+    private String user = "user";
+    private String password = "password";
 
     @Before
     public void setUp() {
-    }
+        auth = new SgbAuth();
+        us = mock(UsuarioService.class);
 
-    @After
-    public void tearDown() {
+        auth.setUsuarioService(us);
     }
 
     /**
@@ -42,21 +33,15 @@ public class SgbAuthTest {
      */
     @Test
     public void testLogin() {
-
-        String user = "professor";
-        String password = "123";
-        SgbAuth instance = new SgbAuth();
-        UsuarioService us = Mockito.mock(UsuarioService.class);
         Usuario usuario = new Usuario();
         usuario.setPerfil(UsuarioPerfil.ADM);
-        Mockito.when(us.authUser(user, password)).thenReturn(usuario);
+        when(us.authUser(user, password)).thenReturn(usuario);
 
-        instance.setUsuarioService(us);
+        auth.setUsuarioService(us);
         Collection<String> expResult = new ArrayList();
         expResult.add(UsuarioPerfil.ADM.name());
-        Collection result = instance.login(user, password);
+        Collection result = auth.login(user, password);
         assertEquals(expResult, result);
-
     }
 
     /**
@@ -64,13 +49,6 @@ public class SgbAuthTest {
      */
     @Test
     public void testGetUsuarioService() {
-
-        SgbAuth instance = new SgbAuth();
-        UsuarioService us = Mockito.mock(UsuarioService.class);
-        instance.setUsuarioService(us);
-
-        UsuarioService result = instance.getUsuarioService();
-        assertEquals(us, result);
-
+        assertEquals(us, auth.getUsuarioService());
     }
 }

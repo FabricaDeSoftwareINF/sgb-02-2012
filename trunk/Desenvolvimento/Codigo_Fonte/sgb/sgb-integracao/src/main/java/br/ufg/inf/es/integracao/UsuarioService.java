@@ -25,7 +25,6 @@ public class UsuarioService extends GenericService<Usuario> {
      */
     @Autowired
     private UsuarioDAO dao;
-
     /**
      * Constante GERADOR_RANDOM
      */
@@ -38,7 +37,7 @@ public class UsuarioService extends GenericService<Usuario> {
      * Atributo cryptography
      */
     private SgbCryptography cryptography = new SgbCryptography();
-    
+
     /**
      * Método responsável por inserir uma entidade Usuário
      *
@@ -48,56 +47,60 @@ public class UsuarioService extends GenericService<Usuario> {
      */
     @Override
     public Long insert(Usuario entity) throws ValidationException {
-
         entity.setDataCadastro(new Date());
-
         String oldPass = entity.getSenha();
-
         String passEncrypted = cryptography.encrypt(oldPass);
-
         entity.setSenha(passEncrypted);
-
         entity.setStatus(true);
 
         return super.insert(entity);
     }
-    
+
+    /**
+     * Atualiza um usuario
+     *
+     * @param entity Usuario a ser atualizado
+     * @throws ValidationException
+     */
     @Override
     public void update(Usuario entity) throws ValidationException {
         String oldPass = entity.getSenha();
-
         String passEncrypted = cryptography.encrypt(oldPass);
 
         entity.setSenha(passEncrypted);
-        
         super.update(entity);
     }
-    
+
+    /**
+     * Salva um novo usuario
+     *
+     * @param entity Usuario a ser salvo
+     * @throws ValidationException
+     */
     @Override
-     public void save(Usuario entity) throws ValidationException {
+    public void save(Usuario entity) throws ValidationException {
         String oldPass = entity.getSenha();
-
         String passEncrypted = cryptography.encrypt(oldPass);
-
         entity.setSenha(passEncrypted);
         super.save(entity);
     }
-    
+
     /**
      * Método responsável por autenticar os dados informados para o Usuário
+     *
      * @param user
      * @param password
      * @return usuário
      */
-
     public Usuario authUser(String user, String password) {
-
         return dao.findUserByEmailAndPassword(user, password);
     }
 
     /**
-     * Método responsável por recuperar a senha do usuário de acordo com seu email cadastrado
-     * @param emailUsuario 
+     * Método responsável por recuperar a senha do usuário de acordo com seu
+     * email cadastrado
+     *
+     * @param emailUsuario
      */
     public void recuperarSenha(String emailUsuario) throws ValidationException {
         Usuario usuario = dao.findUserByEmail(emailUsuario);
@@ -142,14 +145,4 @@ public class UsuarioService extends GenericService<Usuario> {
     public void setDao(UsuarioDAO dao) {
         this.dao = dao;
     }
-
-    /**
-     * Método responsável por setar um novo valor para entidade de Criptografia
-     *
-     * @param cryptography
-     */
-    public void setCryptography(SgbCryptography cryptography) {
-        this.cryptography = cryptography;
-    }
-
 }

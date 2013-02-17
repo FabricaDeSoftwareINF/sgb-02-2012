@@ -4,61 +4,35 @@ import br.ufg.inf.es.base.service.Auth;
 import br.ufg.inf.es.model.Usuario;
 import br.ufg.inf.es.model.UsuarioPerfil;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * Classe para Autenticação.
- * @author Diogo Ribeiro
+ *
+ * @author Diogo Ribeiro, Victor Carvalho
  */
 public class SgbAuth implements Auth {
 
-    /** Campo usuarioService*/
+    /**
+     * Campo usuarioService
+     */
     @Autowired
     private UsuarioService usuarioService;
 
-    /** 
-     * {@inheritDoc} 
+    /**
+     * Faz o login do usuario no sistema, validando o nome e a senha
+     *
      */
     public Collection<String> login(String user, String password) {
-    	
+
         Collection<String> roles = new ArrayList<String>();
         Usuario usuario = usuarioService.authUser(user, password);
 
         if (usuario != null) {
-            if (usuario.getPerfil().equals(UsuarioPerfil.ADM)) {
-                roles.add(UsuarioPerfil.ADM.name());
-            }
-            if (usuario.getPerfil().equals(UsuarioPerfil.CONSELHEIRO)) {
-                roles.add(UsuarioPerfil.CONSELHEIRO.name());
-            }
-            if (usuario.getPerfil().equals(UsuarioPerfil.CONSELHEIRO_ADM)) {
-                roles.add(UsuarioPerfil.ADM.name());
-                roles.add(UsuarioPerfil.CONSELHEIRO.name());
-            }
-            if (usuario.getPerfil().equals(UsuarioPerfil.DOCENTE)) {
-                roles.add(UsuarioPerfil.DOCENTE.name());
-            }
-            if (usuario.getPerfil().equals(UsuarioPerfil.DOCENTE_ADM)) {
-                roles.add(UsuarioPerfil.ADM.name());
-                roles.add(UsuarioPerfil.DOCENTE.name());
-            }
-            if (usuario.getPerfil().equals(UsuarioPerfil.DOCENTE_CONSELHEIRO)) {
-                roles.add(UsuarioPerfil.DOCENTE.name());
-                roles.add(UsuarioPerfil.CONSELHEIRO.name());
-            }
-            if (usuario.getPerfil().equals(UsuarioPerfil.DOCENTE_CONSELHEIRO_ADM)) {
-                roles.add(UsuarioPerfil.ADM.name());
-                roles.add(UsuarioPerfil.DOCENTE.name());
-                roles.add(UsuarioPerfil.CONSELHEIRO.name());
-            }
-            if (usuario.getPerfil().equals(UsuarioPerfil.TECNICO)) {
-                roles.add(UsuarioPerfil.TECNICO.name());
-            }
-            if (usuario.getPerfil().equals(UsuarioPerfil.TECNICO_ADM)) {
-                roles.add(UsuarioPerfil.ADM.name());
-                roles.add(UsuarioPerfil.TECNICO.name());
-            }
+            roles = usuario.getPerfil() != null ? usuario.getPerfil().getRoles()
+                    : Arrays.asList("");
         }
 
         return roles;
@@ -74,7 +48,7 @@ public class SgbAuth implements Auth {
     }
 
     /**
-     * Método que define o Service do usuário. 
+     * Método que define o Service do usuário.
      *
      * @param us
      */
