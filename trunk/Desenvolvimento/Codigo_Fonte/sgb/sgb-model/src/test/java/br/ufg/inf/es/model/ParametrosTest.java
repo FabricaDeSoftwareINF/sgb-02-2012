@@ -1,47 +1,39 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.ufg.inf.es.model;
 
 import java.math.BigDecimal;
-import java.math.BigInteger;
-import org.junit.*;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import org.junit.Before;
+import org.junit.Test;
 
 /**
  *
- * @author alunoufg
+ * @author alunoufg, Victor Carvalho
  */
 public class ParametrosTest {
-   
+
+    private Parametros parametros;
+    private BigDecimal valorFrete = new BigDecimal("30.00");
+    private Integer parametroMEC = 5;
+    private String urlSeviceBibliografico = "url";
+
+    /**
+     * setup
+     */
+    @Before
+    public void setUp() {
+        parametros = new Parametros();
+
+        parametros.setValorFrete(valorFrete);
+        parametros.setParametroMEC(parametroMEC);
+        parametros.setUrlSeviceBibliografico(urlSeviceBibliografico);
+    }
 
     /**
      * Test of getParametroMEC method, of class Parametros.
      */
     @Test
     public void testGetParametroMEC() {
-        
-        Parametros instance = new Parametros();
-        instance.setParametroMEC(10);
-        Integer expResult = 10;
-        Integer result = instance.getParametroMEC();
-        assertEquals(expResult, result);
-        
-    }
-
-    /**
-     * Test of setParametroMEC method, of class Parametros.
-     */
-    @Test
-    public void testSetParametroMEC() {
-       
-        
-        Parametros instance = new Parametros();
-        instance.setParametroMEC(10);
-        Integer expResult = 10;
-        Integer result = instance.getParametroMEC();
-        assertEquals(expResult, result);
+        assertEquals(parametroMEC, parametros.getParametroMEC());
     }
 
     /**
@@ -49,25 +41,15 @@ public class ParametrosTest {
      */
     @Test
     public void testGetValorFrete() {
-       
-        Parametros instance = new Parametros();
-        BigDecimal expResult = new BigDecimal(1);
-        instance.setValorFrete(expResult);
-        BigDecimal result = instance.getValorFrete();
-        assertEquals(expResult, result);
-        
+        assertEquals(valorFrete, parametros.getValorFrete());
+
     }
 
     /**
-     * Test of setValorFrete method, of class Parametros.
+     * Test of getUrlSeviceBibliografico method, of class Parametros.
      */
     @Test
-    public void testSetValorFrete() {
-        System.out.println("setValorFrete");
-        BigDecimal valorFrete = new BigDecimal(1);
-        Parametros instance = new Parametros();
-       instance.setValorFrete(valorFrete);
-        BigDecimal result = instance.getValorFrete();
-        assertEquals(valorFrete, result);
+    public void testGetUrlSeviceBibliografico() {
+        assertEquals(urlSeviceBibliografico, parametros.getUrlSeviceBibliografico());
     }
 }
