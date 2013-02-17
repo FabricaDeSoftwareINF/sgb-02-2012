@@ -337,4 +337,55 @@ public class Livro extends AbstractEntityModel {
             return titulo;
 //        }
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 71 * hash + (this.titulo != null ? this.titulo.hashCode() : 0);
+        hash = 71 * hash + (this.ano != null ? this.ano.hashCode() : 0);
+        hash = 71 * hash + (this.isbn10 != null ? this.isbn10.hashCode() : 0);
+        hash = 71 * hash + (this.isbn13 != null ? this.isbn13.hashCode() : 0);
+        hash = 71 * hash + (this.edicao != null ? this.edicao.hashCode() : 0);
+        hash = 71 * hash + (this.estrangeiro ? 1 : 0);
+        hash = 71 * hash + (this.editora != null ? this.editora.hashCode() : 0);
+        hash = 71 * hash + (this.autores != null ? this.autores.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Livro other = (Livro) obj;
+        if ((this.titulo == null) ? (other.titulo != null) : !this.titulo.equals(other.titulo)) {
+            return false;
+        }
+        if (this.ano != other.ano && (this.ano == null || !this.ano.equals(other.ano))) {
+            return false;
+        }
+        if ((this.isbn10 == null) ? (other.isbn10 != null) : !this.isbn10.equals(other.isbn10)) {
+            return false;
+        }
+        if ((this.isbn13 == null) ? (other.isbn13 != null) : !this.isbn13.equals(other.isbn13)) {
+            return false;
+        }
+        if ((this.edicao == null) ? (other.edicao != null) : !this.edicao.equals(other.edicao)) {
+            return false;
+        }
+        if (this.estrangeiro != other.estrangeiro) {
+            return false;
+        }
+        if (this.editora != other.editora && (this.editora == null || !this.editora.equals(other.editora))) {
+            return false;
+        }
+        if (this.autores != other.autores && (this.autores == null || !this.autores.equals(other.autores))) {
+            return false;
+        }
+        return true;
+    }
+    
 }

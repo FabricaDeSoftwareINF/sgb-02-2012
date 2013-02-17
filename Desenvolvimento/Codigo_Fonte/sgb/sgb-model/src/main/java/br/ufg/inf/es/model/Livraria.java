@@ -4,22 +4,31 @@
  */
 package br.ufg.inf.es.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Table;
 
 /**
  * Entidade Livraria
+ *
  * @author GeovaneFilho
  */
 @Entity
+@Table(name="LIVRARIA")
 public class Livraria extends AbstractEntityModel {
 
-    /** Campo nome*/
+    /**
+     * Campo nome
+     */
     private String nome;
-    
-    /** Campo site*/
+    /**
+     * Campo site
+     */
+    @Column(length=2083)
     private String site;
-    
-    /** Campo urlLogo*/
+    /**
+     * Campo urlLogo
+     */
     private String urlLogo;
 
     /**
@@ -28,58 +37,63 @@ public class Livraria extends AbstractEntityModel {
     public Livraria() {
     }
 
-	/**
-	 * Obtém o valor do campo <code>nome</code>
-	 *
-	 * @return {@link String}
-	 */
-	public String getNome() {
-		return this.nome;
-	}
+    /**
+     * Obtém o valor do campo
+     * <code>nome</code>
+     *
+     * @return {@link String}
+     */
+    public String getNome() {
+        return this.nome;
+    }
 
-	/**
-	 * Define o campo <code>nome</code>.
-	 *
-	 * @param nome 
-	 */
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
+    /**
+     * Define o campo
+     * <code>nome</code>.
+     *
+     * @param nome
+     */
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
 
-	/**
-	 * Obtém o valor do campo <code>site</code>
-	 *
-	 * @return {@link String}
-	 */
-	public String getSite() {
-		return this.site;
-	}
+    /**
+     * Obtém o valor do campo
+     * <code>site</code>
+     *
+     * @return {@link String}
+     */
+    public String getSite() {
+        return this.site;
+    }
 
-	/**
-	 * Define o campo <code>site</code>.
-	 *
-	 * @param site 
-	 */
-	public void setSite(String site) {
-		this.site = site;
-	}
+    /**
+     * Define o campo
+     * <code>site</code>.
+     *
+     * @param site
+     */
+    public void setSite(String site) {
+        this.site = site;
+    }
 
-	/**
-	 * Obtém o valor do campo <code>urlLogo</code>
-	 *
-	 * @return {@link String}
-	 */
-	public String getUrlLogo() {
-		return this.urlLogo;
-	}
+    /**
+     * Obtém o valor do campo
+     * <code>urlLogo</code>
+     *
+     * @return {@link String}
+     */
+    public String getUrlLogo() {
+        return this.urlLogo;
+    }
 
-	/**
-	 * Define o campo <code>urlLogo</code>.
-	 *
-	 * @param urlLogo 
-	 */
-	public void setUrlLogo(String urlLogo) {
-		this.urlLogo = urlLogo;
-	}
-    
+    /**
+     * Define o campo
+     * <code>urlLogo</code>.
+     *
+     * @param urlLogo
+     */
+    public void setUrlLogo(String urlLogo) {
+        this.urlLogo = urlLogo;
+    }
 }

@@ -4,7 +4,7 @@ import br.ufg.inf.es.model.CotacoesLivro;
 import br.ufg.inf.es.model.ListaCompras;
 import br.ufg.inf.es.model.ListaCotacao;
 import br.ufg.inf.es.model.Livro;
-import br.ufg.inf.es.web.datamodel.CotacaoDataModel;
+import br.ufg.inf.es.web.datamodel.CotacoesLivroDataModel;
 import br.ufg.inf.es.web.datamodel.LivroDataModel;
 import java.util.List;
 import org.springframework.context.annotation.Scope;
@@ -19,24 +19,18 @@ import org.springframework.stereotype.Component;
 public class RealizarCotacaoForm extends GenericForm<ListaCotacao> {
 
     private LivroDataModel livrosCotacao;
-    
     private LivroDataModel livroDataModel;
-    
     private Livro[] livrosSelecionados;
-    
-    private List<CotacoesLivro> cotacoesSelecionadas;
-    
-    private CotacaoDataModel cotacoesDataModel;
-    
+    private CotacoesLivro[] cotacoesSelecionadas;
+    private CotacoesLivroDataModel cotacoesDataModel;
     private ListaCompras listaCompras;
-    
     private String nomeLista;
-    
-    public List<CotacoesLivro> getCotacoesSelecionadas() {
+
+    public CotacoesLivro[] getCotacoesSelecionadas() {
         return this.cotacoesSelecionadas;
     }
 
-    public void setCotacoesSelecionadas(List<CotacoesLivro> cotacoesSelecionadas) {
+    public void setCotacoesSelecionadas(CotacoesLivro[] cotacoesSelecionadas) {
         this.cotacoesSelecionadas = cotacoesSelecionadas;
     }
 
@@ -48,24 +42,24 @@ public class RealizarCotacaoForm extends GenericForm<ListaCotacao> {
         this.livrosCotacao = livrosCotacao;
     }
 
-    public Livro[]  getLivrosSelecionados() {
-        
+    public Livro[] getLivrosSelecionados() {
+
         return livrosSelecionados;
     }
 
     public void setLivrosSelecionados(Livro[] livrosSelecionados) {
-        
+
         this.livrosSelecionados = livrosSelecionados;
     }
 
-    public CotacaoDataModel getCotacoesDataModel() {
+    public CotacoesLivroDataModel getCotacoesDataModel() {
         return cotacoesDataModel;
     }
 
-    public void setCotacoesDataModel(CotacaoDataModel cotacoesDataModel) {
+    public void setCotacoesDataModel(CotacoesLivroDataModel cotacoesDataModel) {
         this.cotacoesDataModel = cotacoesDataModel;
     }
-    
+
     public LivroDataModel getLivroDataModel() {
         return livroDataModel;
     }
@@ -75,14 +69,14 @@ public class RealizarCotacaoForm extends GenericForm<ListaCotacao> {
     }
 
     public ListaCompras getListaCompras() {
-        
+
         return this.listaCompras;
     }
 
     public void setListaCompras(final ListaCompras listaCompras) {
-        
+
         this.listaCompras = listaCompras;
-    }    
+    }
 
     public String getNomeLista() {
         return nomeLista;
@@ -91,11 +85,13 @@ public class RealizarCotacaoForm extends GenericForm<ListaCotacao> {
     public void setNomeLista(String nomeLista) {
         this.nomeLista = nomeLista;
     }
-    
+
     public double getValorTotal() {
         double valorTotal = 0;
-        for (CotacoesLivro cotacoesLivro : cotacoesSelecionadas) {
-            valorTotal += cotacoesLivro.getValorMedio() * cotacoesLivro.getQuantidade();
+        if (cotacoesSelecionadas != null) {
+            for (CotacoesLivro cotacoesLivro : cotacoesSelecionadas) {
+                valorTotal += cotacoesLivro.getValorMedio() * cotacoesLivro.getQuantidade();
+            }
         }
         return valorTotal;
     }

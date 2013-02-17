@@ -70,4 +70,30 @@ public class Cotacao extends AbstractEntityModel {
         this.livraria = livraria;
     }
 
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 67 * hash + (int) (Double.doubleToLongBits(this.valor) ^ (Double.doubleToLongBits(this.valor) >>> 32));
+        hash = 67 * hash + (this.livraria != null ? this.livraria.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Cotacao other = (Cotacao) obj;
+        if (Double.doubleToLongBits(this.valor) != Double.doubleToLongBits(other.valor)) {
+            return false;
+        }
+        if (this.livraria != other.livraria && (this.livraria == null || !this.livraria.equals(other.livraria))) {
+            return false;
+        }
+        return true;
+    }
+    
 }

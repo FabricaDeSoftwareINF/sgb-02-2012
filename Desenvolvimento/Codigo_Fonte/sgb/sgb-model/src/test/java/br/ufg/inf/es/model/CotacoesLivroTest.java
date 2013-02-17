@@ -28,7 +28,6 @@ public class CotacoesLivroTest {
     public void setUp() {
         cotacoesLivro = new CotacoesLivro();
         cotacoesLivro.setValorMedio(valorMedio);
-        cotacoesLivro.setDataCadastro(dataCadastro);
         cotacoesLivro.setLivro(livro);
         cotacoesLivro.setCotacoes(cotacoes);
         cotacoesLivro.setQuantidade(quantidade);
@@ -41,14 +40,6 @@ public class CotacoesLivroTest {
     @Test
     public void testGetValorMedio() {
         assertEquals(valorMedio, cotacoesLivro.getValorMedio(), 0.0);
-    }
-
-    /**
-     * Test of getDataCadastro method, of class CotacoesLivro.
-     */
-    @Test
-    public void testGetDataCadastro() {
-        assertEquals(dataCadastro, cotacoesLivro.getDataCadastro());
     }
 
     /**
