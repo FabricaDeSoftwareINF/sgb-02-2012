@@ -30,6 +30,8 @@ public class RealizarCotacaoForm extends GenericForm<ListaCotacao> {
     
     private ListaCompras listaCompras;
     
+    private String nomeLista;
+    
     public List<CotacoesLivro> getCotacoesSelecionadas() {
         return this.cotacoesSelecionadas;
     }
@@ -81,4 +83,13 @@ public class RealizarCotacaoForm extends GenericForm<ListaCotacao> {
         
         this.listaCompras = listaCompras;
     }    
+
+    public String getNomeLista() {
+        return nomeLista;
+    }
+
+    public void setNomeLista(String nomeLista) {
+        this.nomeLista = nomeLista;
+    }
+    
 }

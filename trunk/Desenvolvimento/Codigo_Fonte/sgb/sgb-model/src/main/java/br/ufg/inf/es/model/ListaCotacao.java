@@ -5,7 +5,9 @@ import java.util.Date;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 
 /**
@@ -13,6 +15,7 @@ import javax.persistence.Temporal;
  * @author GeovaneFilho
  */
 @Entity
+@Table(name = "LISTA_COTACAO")
 public class ListaCotacao extends AbstractEntityModel {
 
     /** Campo nome*/
@@ -24,10 +27,8 @@ public class ListaCotacao extends AbstractEntityModel {
     
     /** Campo cotacoes*/
     @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name="cotacoes_livro_id")
     private Collection<CotacoesLivro> cotacoesLivro;
-    
-    /** Campo preco*/
-    private double preco;
 
     /**
      * Obtém o valor do campo <code>nome</code>
@@ -83,24 +84,6 @@ public class ListaCotacao extends AbstractEntityModel {
      */
     public void setCotacoesLivro(Collection<CotacoesLivro> cotacoesLivro) {
             this.cotacoesLivro = cotacoesLivro;
-    }
-
-    /**
-     * Obtém o valor do campo <code>preco</code>
-     *
-     * @return {@link double}
-     */
-    public double getPreco() {
-            return this.preco;
-    }
-
-    /**
-     * Define o campo <code>preco</code>.
-     *
-     * @param preco 
-     */
-    public void setPreco(double preco) {
-            this.preco = preco;
     }
     
 }
