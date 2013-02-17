@@ -30,9 +30,9 @@
                         </p:column>
 
                         <p:column headerText="#{msg['listaCotacao.label.preco']}"  style="width: 15%"
-                                  filterBy="#{listaCotacao.preco}" filterMatchMode="contains">
+                                  filterBy="#{listaCotacao.valor}" filterMatchMode="contains">
 
-                            <h:outputText  style="text-align: center"/>
+                            <h:outputText value="#{listaCotacao.valor}" style="text-align: center"/>
 
                         </p:column>
 
