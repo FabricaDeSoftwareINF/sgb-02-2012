@@ -1,5 +1,6 @@
 package br.ufg.inf.es.web.controller.form;
 
+import br.ufg.inf.es.model.Cotacao;
 import br.ufg.inf.es.model.ListaCotacao;
 import br.ufg.inf.es.web.datamodel.ListaCotacaoDataModel;
 import java.util.ArrayList;
@@ -23,11 +24,14 @@ public class ListaCotacaoForm extends GenericForm<ListaCotacao> {
     private ListaCotacao[] listasCotacoesSelecionadas;
 
     public ListaCotacaoDataModel getListaCotacaoDataModel() {
-
-        List<ListaCotacao> listasCotacoes = new ArrayList<ListaCotacao>(this.getTabelaListaCotacoes());
         
-        listaCotacaoDataModel = new ListaCotacaoDataModel(listasCotacoes);
+        Collection<ListaCotacao> listaCotacao = this.getTabelaListaCotacoes();
 
+        if (listaCotacao != null) {
+            List<ListaCotacao> listasCotacoes = new ArrayList<ListaCotacao>(listaCotacao);
+            listaCotacaoDataModel = new ListaCotacaoDataModel(listasCotacoes);
+        }
+        
         return listaCotacaoDataModel;
     }
     

@@ -24,7 +24,7 @@
                     <h:outputLabel value="#{msg['cadastro.livro.label.edicao']}"  ></h:outputLabel>
                     <p:inputText value="#{livroController.form.entity.edicao}" />
                     <h:outputLabel value="#{msg['cadastro.livro.label.isbn10']}" ></h:outputLabel>
-                    <p:inputMask value="#{livroController.form.entity.isbn10}" mask="9999999999"/>
+                    <p:inputText value="#{livroController.form.entity.isbn10}" maxlength="10"/>
                     <h:outputLabel value="#{msg['cadastro.livro.label.autor']}" ></h:outputLabel>
                     <h:panelGrid columns="2" >
                         <p:autoComplete id="autorCompleteAutor" value="#{livroController.form.entity.autores}" completeMethod="#{livroController.completeAutor}"  
@@ -41,7 +41,7 @@
                         <p:commandButton oncomplete="cadastroEditoraDialog.show()" immediate="true" icon="ui-icon-plusthick"></p:commandButton>
                     </h:panelGrid>
                     <h:outputLabel value="#{msg['cadastro.livro.label.isbn13']}" ></h:outputLabel>
-                    <p:inputMask value="#{livroController.form.entity.isbn13}" mask="9999999999999"/>
+                    <p:inputText value="#{livroController.form.entity.isbn13}" maxlength="13"/>
                     <h:outputLabel value="#{msg['cadastro.livro.label.ano']}" ></h:outputLabel>
                     <p:inputMask value="#{livroController.form.entity.ano}" type="number" size="4" maxlength="4" mask="9999"/>
                     

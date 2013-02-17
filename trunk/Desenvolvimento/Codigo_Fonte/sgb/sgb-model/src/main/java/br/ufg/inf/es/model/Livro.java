@@ -72,6 +72,13 @@ public class Livro extends AbstractEntityModel {
     mappedBy = "livrosDaListaCompras",
     targetEntity = ListaCompras.class)
     private Collection<ListaCompras> listaCompras;
+    
+    /**
+     * Campo cotacoesLivro
+     */
+    @ManyToMany(cascade={CascadeType.PERSIST, CascadeType.MERGE},
+    mappedBy = "livro")
+    private Collection<CotacoesLivro> cotacoesLivro;
 
     /**
      * Obtém o valor do campo
@@ -309,6 +316,14 @@ public class Livro extends AbstractEntityModel {
             }
         }
         return sb.toString();
+    }
+
+    public Collection<CotacoesLivro> getCotacoesLivro() {
+        return cotacoesLivro;
+    }
+
+    public void setCotacoesLivro(Collection<CotacoesLivro> cotacoesLivro) {
+        this.cotacoesLivro = cotacoesLivro;
     }
     
 }

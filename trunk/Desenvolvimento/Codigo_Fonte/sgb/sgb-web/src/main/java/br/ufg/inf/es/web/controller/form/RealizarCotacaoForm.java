@@ -92,4 +92,11 @@ public class RealizarCotacaoForm extends GenericForm<ListaCotacao> {
         this.nomeLista = nomeLista;
     }
     
+    public double getValorTotal() {
+        double valorTotal = 0;
+        for (CotacoesLivro cotacoesLivro : cotacoesSelecionadas) {
+            valorTotal += cotacoesLivro.getValorMedio() * cotacoesLivro.getQuantidade();
+        }
+        return valorTotal;
+    }
 }

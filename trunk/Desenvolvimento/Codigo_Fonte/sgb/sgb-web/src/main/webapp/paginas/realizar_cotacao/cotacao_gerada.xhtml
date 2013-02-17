@@ -11,7 +11,7 @@
         <ui:define name="content">
 
             <ui:include src="salvar_lista_dialog.xhtml"/>
-                
+
             <h:form id="formCotacaoGerada" style="font-size: 14px;">
 
                 <p:messages/>
@@ -21,8 +21,6 @@
 
                     <p:dataTable id="tabelaCotacoes" paginator="true" rows="10" value="#{realizarCotacaoController.form.cotacoesDataModel}" 
                                  var="cotacesLivro" style="text-align: center;" editable="true" editMode="row" selection="#{realizarCotacaoController.form.cotacoesSelecionadas}">
-
-                        <p:ajax event="cellEdit" update=":formCotacaoGerada:tabelaCotacoes" />
 
                         <p:column selectionMode="multiple" style="width:18px" />
 
@@ -135,6 +133,12 @@
                         <p:column style="width:6%">  
                             <p:rowEditor />  
                         </p:column> 
+
+                        <p:ajax event="rowEdit" update="valor_total" /> 
+                        
+                        <f:facet name="footer">  
+                            <h:outputText id="valor_total" value="Total: #{realizarCotacaoController.form.valorTotal}"/>
+                        </f:facet> 
 
                     </p:dataTable>
 

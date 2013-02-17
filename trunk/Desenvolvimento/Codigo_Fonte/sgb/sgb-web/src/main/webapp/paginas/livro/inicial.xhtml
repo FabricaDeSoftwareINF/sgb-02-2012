@@ -65,7 +65,8 @@
                                   filterBy="#{livro.disciplinasAsString}" filterMatchMode="contains">
                             <p:dataList value="#{livro.bibliografias}" var="bibliografia">
                                 <h:outputText value="#{bibliografia.disciplina.nome} - #{bibliografia.disciplina.curso.nome} - #{bibliografia.tipo.value}" 
-                                              converter="string15Converter" escape="false"/>
+                                              converter="string20Converter" escape="false"
+                                              title="#{bibliografia.disciplina.nome} - #{bibliografia.disciplina.curso.nome} - #{bibliografia.tipo.value}"/>
                             </p:dataList>
                         </p:column>
 
