@@ -1,10 +1,7 @@
-
 package br.ufg.inf.es.web.datamodel;
 
-import br.ufg.inf.es.integracao.ListaCotacaoService;
 import br.ufg.inf.es.model.ListaCotacao;
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.List;
 import javax.faces.model.ListDataModel;
 import org.primefaces.model.SelectableDataModel;
@@ -15,12 +12,9 @@ import org.primefaces.model.SelectableDataModel;
  */
 public class ListaCotacaoDataModel extends ListDataModel<ListaCotacao> implements SelectableDataModel<ListaCotacao>, Serializable {
 
-    private Collection<ListaCotacao> datasource;
-
     public ListaCotacaoDataModel(List<ListaCotacao> list) {
         super(list);
     }
-
 
     @Override
     public Object getRowKey(ListaCotacao listaCotacao) {
