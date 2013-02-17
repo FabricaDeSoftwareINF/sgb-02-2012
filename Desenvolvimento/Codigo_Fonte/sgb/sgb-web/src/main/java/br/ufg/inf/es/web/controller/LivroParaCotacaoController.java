@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
  * @author Victor Carvalho
  */
 @Component
-@Scope
+@Scope("session")
 public class LivroParaCotacaoController extends SGBController<LivroParaCotacao, LivroParaCotacaoForm, LivroParaCotacaoService> {
 
     @Autowired

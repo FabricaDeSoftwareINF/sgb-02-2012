@@ -1,49 +1,41 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.ufg.inf.es.integracao;
 
+import br.ufg.inf.es.base.validation.ValidationException;
 import br.ufg.inf.es.model.Usuario;
-import br.ufg.inf.es.model.UsuarioPerfil;
 import br.ufg.inf.es.persistencia.UsuarioDAO;
 import java.util.ArrayList;
 import java.util.Collection;
 import static org.junit.Assert.assertEquals;
-import org.junit.*;
-import org.mockito.Mockito;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import static org.powermock.api.mockito.PowerMockito.*;
+import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.modules.junit4.PowerMockRunner;
 
 /**
+ * Testes do servico de usuarios
  *
- * @author alunoufg
+ * @author alunoufg, Victor Carvalho
  */
+@RunWith(PowerMockRunner.class)
+@PrepareForTest(EmailService.class)
 public class UsuarioServiceTest {
 
-    Usuario entity = new Usuario();
-    UsuarioService instance = new UsuarioService();
-
-    public UsuarioServiceTest() {
-    }
-
-    @BeforeClass
-    public static void setUpClass() throws Exception {
-    }
-
-    @AfterClass
-    public static void tearDownClass() throws Exception {
-    }
+    private Usuario usuario;
+    private UsuarioService usuarioService;
+    private UsuarioDAO usuarioDAO;
 
     @Before
     public void setUp() {
-        entity.setSenha("123456");
-        entity.setId(Long.MIN_VALUE);
+        usuario = new Usuario();
+        usuarioService = new UsuarioService();
 
-        UsuarioDAO ususarioDAO = Mockito.mock(UsuarioDAO.class);
-        instance.setDao(ususarioDAO);
-    }
+        usuario.setSenha("123456");
+        usuario.setId(Long.MIN_VALUE);
 
-    @After
-    public void tearDown() {
+        usuarioDAO = mock(UsuarioDAO.class);
+        usuarioService.setDao(usuarioDAO);
     }
 
     /**
@@ -51,12 +43,7 @@ public class UsuarioServiceTest {
      */
     @Test
     public void testGetDAO() {
-
-        UsuarioService instance = new UsuarioService();
-        UsuarioDAO usuario = new UsuarioDAO();
-        instance.setDao(usuario);
-        assertEquals(usuario, instance.getDAO());
-
+        assertEquals(usuarioDAO, usuarioService.getDAO());
     }
 
     /**
@@ -65,9 +52,8 @@ public class UsuarioServiceTest {
     @Test
     public void testSetDao() {
         UsuarioDAO dao = new UsuarioDAO();
-        UsuarioService instance = new UsuarioService();
-        instance.setDao(dao);
-        assertEquals(dao, instance.getDAO());
+        usuarioService.setDao(dao);
+        assertEquals(dao, usuarioService.getDAO());
     }
 
     /**
@@ -75,22 +61,15 @@ public class UsuarioServiceTest {
      */
     @Test
     public void testInsert() throws Exception {
-
         Usuario entity = new Usuario();
         entity.setSenha("123456");
-        UsuarioService instance = new UsuarioService();
 
+        when(usuarioDAO.insert(entity)).thenReturn(0L);
 
-
-        UsuarioDAO ususarioDAO = Mockito.mock(UsuarioDAO.class);
-        Mockito.when(ususarioDAO.insert(entity)).thenReturn(0L);
-
-        instance.setDao(ususarioDAO);
         Long expResult = new Long(0);
 
-        Long result = instance.insert(entity);
+        Long result = usuarioService.insert(entity);
         assertEquals(expResult, result);
-
     }
 
     /**
@@ -98,17 +77,7 @@ public class UsuarioServiceTest {
      */
     @Test
     public void testUpdate() throws Exception {
-
-        Usuario en = new Usuario();
-        en.setSenha("123456");
-        en.setId(Long.MIN_VALUE);
-
-        UsuarioService ins = new UsuarioService();
-
-        UsuarioDAO ususarioDAO = Mockito.mock(UsuarioDAO.class);
-        ins.setDao(ususarioDAO);
-        ins.update(en);
-
+        usuarioService.update(usuario);
     }
 
     /**
@@ -116,7 +85,7 @@ public class UsuarioServiceTest {
      */
     @Test
     public void testRemove() throws Exception {
-        instance.remove(entity);
+        usuarioService.remove(usuario);
     }
 
     /**
@@ -124,11 +93,8 @@ public class UsuarioServiceTest {
      */
     @Test
     public void testRemoveAll() throws Exception {
-
         Collection<Usuario> collectionEntities = new ArrayList<Usuario>();
-
-        instance.removeAll(collectionEntities);
-
+        usuarioService.removeAll(collectionEntities);
     }
 
     /**
@@ -136,21 +102,16 @@ public class UsuarioServiceTest {
      */
     @Test
     public void testSearch() {
-
-
         Collection expResult = new ArrayList<Usuario>();
-        Collection result = instance.search(entity);
+        Collection result = usuarioService.search(usuario);
         assertEquals(expResult, result);
-
     }
 
     @Test
     public void testList() {
-
         Collection expResult = new ArrayList<Usuario>();
-        Collection result = instance.list();
+        Collection result = usuarioService.list();
         assertEquals(expResult, result);
-
     }
 
     /**
@@ -158,26 +119,60 @@ public class UsuarioServiceTest {
      */
     @Test
     public void testRefresh() {
-
-        instance.refresh(entity);
-
+        usuarioService.refresh(usuario);
     }
 
     /**
      * Test of authUser method, of class UsuarioService.
      */
     @Test
-    @Ignore
     public void testAuthUser() {
-
         String user = "a";
         String password = "123";
-        UsuarioService instance = new UsuarioService();
+
         Usuario expResult = new Usuario();
         expResult.setNome(user);
         expResult.setSenha(password);
-        Usuario result = instance.authUser(user, password);
-        assertEquals(expResult, result);
 
+        when(usuarioDAO.findUserByEmailAndPassword(user, password)).thenReturn(expResult);
+
+        Usuario result = usuarioService.authUser(user, password);
+
+        assertEquals(expResult, result);
+    }
+
+    /**
+     * Test of save method, of class UsuarioService.
+     */
+    @Test
+    public void testSave() throws Exception {
+        usuarioService.save(usuario);
+    }
+
+    /**
+     * Test of recuperarSenha method, of class UsuarioService. Para usuario
+     * inexistente
+     */
+    @Test(expected = ValidationException.class)
+    public void testRecuperarSenhaParaUsuarioNaoCadastrado() throws Exception {
+        when(usuarioDAO.findUserByEmail("")).thenReturn(null);
+        usuarioService.recuperarSenha("");
+    }
+
+    /**
+     * Test of recuperarSenha method, of class UsuarioService. Para usuario
+     * existente
+     */
+    @Test
+    public void testRecuperarSenhaParaUsuarioExistente() throws Exception {
+        String email = "email";
+        usuario.setEmail(email);
+        when(usuarioDAO.findUserByEmail(email)).thenReturn(usuario);
+
+        mockStatic(EmailService.class);
+
+        usuarioService.recuperarSenha(email);
+        
+        verifyStatic();
     }
 }
