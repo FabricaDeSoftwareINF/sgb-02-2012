@@ -271,7 +271,7 @@ public class LivroControllerTest {
     public void testOpenInsertPage() {
        
      
-        String expResult = "/paginas/livro/inclusao.xhtml";
+        String expResult = "LivroController/insertPage";
         String result = livroController.openInsertPage();
         Mockito.verify(cursoServiceMock).list();
         assertEquals(expResult, result);
