@@ -1,11 +1,6 @@
 package br.ufg.inf.es.integracao.importacaodados;
 
 import br.ufg.inf.es.enuns.EnumTipoBibliografia;
-import br.ufg.inf.es.integracao.AutorService;
-import br.ufg.inf.es.integracao.CursoService;
-import br.ufg.inf.es.integracao.DisciplinaService;
-import br.ufg.inf.es.integracao.EditoraService;
-import br.ufg.inf.es.integracao.LivroService;
 import br.ufg.inf.es.model.Autor;
 import br.ufg.inf.es.model.Bibliografia;
 import br.ufg.inf.es.model.Curso;
@@ -21,15 +16,9 @@ import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
 import java.lang.reflect.Type;
-import java.util.AbstractCollection;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javassist.NotFoundException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.apache.http.HttpException;
@@ -37,6 +26,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Component;
+import br.ufg.inf.es.persistencia.*;
 
 /**
  *
@@ -47,15 +37,16 @@ import org.springframework.stereotype.Component;
 public class ImportacaoDadosServiceImpl implements ImportacaoDadosService {
    
     @Autowired
-    private AutorService autorService;
+    private AutorDAO autorDao;
     @Autowired
-    private CursoService cursoService;
+    private CursoDAO cursoDao;
     @Autowired
-    private DisciplinaService disciplinaService;
+    private DisciplinaDAO disciplinaDao;
     @Autowired
-    private LivroService livroService;
+    private LivroDAO livroDao;
     @Autowired
-    private EditoraService editoraService;
+    private EditoraDAO editoraDao;
+    
     private Client client;
     private String urlServico;
     private Gson jsonParser;
@@ -147,7 +138,7 @@ public class ImportacaoDadosServiceImpl implements ImportacaoDadosService {
             CursoImportado cursoImportado =
                     jsonParser.fromJson(bibliografiaJson, cursoType);
             Curso curso = getCursoModel(cursoImportado);
-            cursoService.getDAO().insert(curso);
+            cursoDao.insert(curso);
         } catch (HttpException ex) {http://localhost:4567/cursos/cursos
             Logger.getLogger(ImportacaoDadosServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -163,7 +154,7 @@ public class ImportacaoDadosServiceImpl implements ImportacaoDadosService {
                     jsonParser.fromJson(bibliografiaJson, cursosType);
             for (CursoImportado cursoImportado : listCursoImportado) {
                 Curso curso = getCursoModel(cursoImportado);
-                cursoService.getDAO().insert(curso);
+                cursoDao.insert(curso);
             }
         } catch (HttpException ex) {
             Logger.getLogger(ImportacaoDadosServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
@@ -182,7 +173,7 @@ public class ImportacaoDadosServiceImpl implements ImportacaoDadosService {
                 disciplinaModel.setNome(disciplinaImportada.getNome());
                 disciplinaModel.setCodigo(disciplinaImportada.getCodigo());
                 disciplinaModel.setBibliografias(getBibliografiaModel(disciplinaImportada.getBibliografia()));
-                disciplinaService.getDAO().insert(disciplinaModel);
+                disciplinaDao.insert(disciplinaModel);
             }
         } catch (HttpException ex) {
             Logger.getLogger(ImportacaoDadosServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
@@ -204,7 +195,7 @@ public class ImportacaoDadosServiceImpl implements ImportacaoDadosService {
                 disciplinaModel.setNome(disciplinaImportada.getNome());
                 disciplinaModel.setCodigo(disciplinaImportada.getCodigo());
                 disciplinaModel.setBibliografias(getBibliografiaModel(disciplinaImportada.getBibliografia()));
-                disciplinaService.getDAO().insert(disciplinaModel);
+                disciplinaDao.insert(disciplinaModel);
             }
         } catch (HttpException ex) {
             Logger.getLogger(ImportacaoDadosServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
@@ -220,7 +211,7 @@ public class ImportacaoDadosServiceImpl implements ImportacaoDadosService {
                     jsonParser.fromJson(bibliografiaJson, listaLivroType);
             for (LivroImportado livroImportado : livroImportados) {
                 Livro livroModel = getlivroModel(livroImportado);
-                livroService.getDAO().insert(livroModel);
+                livroDao.insert(livroModel);
             }
             
             
@@ -238,51 +229,51 @@ public class ImportacaoDadosServiceImpl implements ImportacaoDadosService {
                     jsonParser.fromJson(bibliografiaJson, listaLivroType);
             for (LivroImportado livroImportado : livroImportados) {
                 Livro livroModel = getlivroModel(livroImportado);
-                livroService.getDAO().insert(livroModel);
+                livroDao.insert(livroModel);
             }
         } catch (HttpException ex) {
             Logger.getLogger(ImportacaoDadosServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
-    public AutorService getAutorService() {
-        return autorService;
+    public AutorDAO getAutorDAO() {
+        return autorDao;
     }
     
-    public void setAutorService(AutorService autorService) {
-        this.autorService = autorService;
+    public void setAutorDAO(AutorDAO autorDAO) {
+        this.autorDao = autorDAO;
     }
     
-    public CursoService getCursoService() {
-        return cursoService;
+    public CursoDAO getCursoDAO() {
+        return cursoDao;
     }
     
-    public void setCursoService(CursoService cursoService) {
-        this.cursoService = cursoService;
+    public void setCursoDAO(CursoDAO cursoDAO) {
+        this.cursoDao = cursoDAO;
     }
     
-    public DisciplinaService getDisciplinaService() {
-        return disciplinaService;
+    public DisciplinaDAO getDisciplinaDAO() {
+        return disciplinaDao;
     }
     
-    public void setDisciplinaService(DisciplinaService disciplinaService) {
-        this.disciplinaService = disciplinaService;
+    public void setDisciplinaDAO(DisciplinaDAO disciplinaDAO) {
+        this.disciplinaDao = disciplinaDAO;
     }
     
-    public LivroService getLivroService() {
-        return livroService;
+    public LivroDAO getLivroDAO() {
+        return livroDao;
     }
     
-    public void setLivroService(LivroService livroService) {
-        this.livroService = livroService;
+    public void setLivroDAO(LivroDAO livroDAO) {
+        this.livroDao = livroDAO;
     }
     
-    public EditoraService getEditoraService() {
-        return editoraService;
+    public EditoraDAO getEditoraDAO() {
+        return editoraDao;
     }
     
-    public void setEditoraService(EditoraService editoraService) {
-        this.editoraService = editoraService;
+    public void setEditoraDAO(EditoraDAO editoraDAO) {
+        this.editoraDao = editoraDAO;
     }
     
     public Client getClient() {

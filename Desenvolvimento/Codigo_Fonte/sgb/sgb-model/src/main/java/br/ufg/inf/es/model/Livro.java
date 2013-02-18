@@ -28,7 +28,7 @@ public class Livro extends AbstractEntityModel {
     /**
      * Campo isbn10
      */
-    @Column(name = "isbn10", unique = true, nullable = false)
+    @Column(name = "isbn10", unique = true)
     private String isbn10;
     /**
      * Campo isbn13

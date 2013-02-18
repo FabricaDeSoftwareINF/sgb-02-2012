@@ -40,8 +40,8 @@ public class LivroValidator extends Validation<Livro> {
         verifyString(livro.getEdicao(), RNG002_EDICAO);
 
         ISBNValidator isbnValidator = ISBNValidator.getInstance();
-        if (isInvalid(livro.getIsbn10())
-                || !isbnValidator.isValidISBN10(livro.getIsbn10())) {
+        if (livro.getIsbn10() != null && !livro.getIsbn10().isEmpty()
+                && !isbnValidator.isValidISBN10(livro.getIsbn10())) {
             throwsValidationException(RNG002_ISBN10);
         }
         if (isInvalid(livro.getIsbn13())
