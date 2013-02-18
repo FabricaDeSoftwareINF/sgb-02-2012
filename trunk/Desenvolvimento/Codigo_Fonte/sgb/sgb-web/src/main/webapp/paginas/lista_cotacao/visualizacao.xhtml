@@ -20,7 +20,8 @@
 
                     <p:dataTable id="cotacoes" value="#{listaCotacaoController.form.entity.cotacoesLivro}" 
                                  var="cotacaoLivro" paginator="true" rows="10" style="width: 100%"
-                                 resizableColumns="true">
+                                 resizableColumns="true"
+                                 emptyMessage="#{msg['arquitetura.label.nenhumregitro']}">
 
                         <p:column headerText="#{msg['listaCotacao.label.autor']}" style="width: 15%">
 

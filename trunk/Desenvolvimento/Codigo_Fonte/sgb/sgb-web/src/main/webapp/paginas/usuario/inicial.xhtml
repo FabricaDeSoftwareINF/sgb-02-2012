@@ -20,7 +20,8 @@
 
                     <p:dataTable id="listaUsuarios" value="#{usuarioController.form.userDataModel}" 
                                  var="usuario" paginator="true" rows="10" style="width: 100%" 
-                                 selection="#{usuarioController.form.usuariosSelecionados}">
+                                 selection="#{usuarioController.form.usuariosSelecionados}"
+                                 emptyMessage="#{msg['arquitetura.label.nenhumregitro']}">
 
                         <p:column style="width: 18px;" selectionMode="multiple"/>
 

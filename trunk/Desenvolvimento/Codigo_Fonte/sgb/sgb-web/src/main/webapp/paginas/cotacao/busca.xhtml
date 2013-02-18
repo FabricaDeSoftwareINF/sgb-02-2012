@@ -22,8 +22,10 @@
                     <h:form style="font-size: 14px;">
                         <p:messages />
                         <h:panelGrid columns="2" width="100%">
-                            <p:dataTable id="listaLivrosParaCotacao" paginator="true" rows="10" paginatorAlwaysVisible="false"
-                                         value="#{livroParaCotacaoController.form.collectionEntities}" var="livroParaCotacao">
+                            <p:dataTable id="listaLivrosParaCotacao" paginator="true" rows="10" 
+                                         value="#{livroParaCotacaoController.form.collectionEntities}" 
+                                         var="livroParaCotacao"
+                                         emptyMessage="#{msg['arquitetura.label.nenhumregitro']}">
 
                                 <p:column headerText="Isbn" sortBy="#{livroParaCotacao.isbn}" filterBy="#{livroParaCotacao.isbn}" filterMatchMode="contains">
                                     <h:outputText value="#{livroParaCotacao.isbn}" />
