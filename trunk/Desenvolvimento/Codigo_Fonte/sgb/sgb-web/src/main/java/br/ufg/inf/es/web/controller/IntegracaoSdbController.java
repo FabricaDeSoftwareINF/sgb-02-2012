@@ -30,6 +30,7 @@ public class IntegracaoSdbController extends
     private MetodoImportacao metodoImportacao;
     private TipoEntidade tipoEntidade;
     
+    @Autowired
     private ImportacaoDadosServiceImpl importacaoSipa = new ImportacaoDadosServiceImpl();
 
     @Override

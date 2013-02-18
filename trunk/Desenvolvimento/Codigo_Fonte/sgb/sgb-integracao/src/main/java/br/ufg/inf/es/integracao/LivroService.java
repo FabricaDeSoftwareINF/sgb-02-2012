@@ -12,18 +12,21 @@ import org.springframework.stereotype.Component;
 
 /**
  * Classe Service para a classe Livro.
+ *
  * @author cezar
  */
 @Component
 @Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class LivroService extends GenericService<Livro> {
 
-    /** Campo dao*/
+    /**
+     * Campo dao
+     */
     @Autowired
     private LivroDAO dao;
-    
-    /** 
-     * {@inheritDoc} 
+
+    /**
+     * {@inheritDoc}
      */
     @Override
     public LivroDAO getDAO() {
@@ -40,14 +43,18 @@ public class LivroService extends GenericService<Livro> {
         this.dao = dao;
     }
 
-    /** 
-     * {@inheritDoc} 
+    /**
+     * {@inheritDoc}
      */
     @Override
     @RNG002Livro
     public Long insert(Livro entity) throws ValidationException {
         Long id = 0l;
         try {
+            String isbn10 = entity.getIsbn10();
+            if (isbn10 != null && isbn10.isEmpty()) {
+                entity.setIsbn10(null);
+            }
             id = super.insert(entity);
         } catch (org.hibernate.exception.ConstraintViolationException e) {
             String message = messageToProperty(e.getCause().getMessage());
@@ -57,10 +64,11 @@ public class LivroService extends GenericService<Livro> {
     }
 
     /**
-     * Método que realiza a formatação de uma string para uma chave do properties. 
+     * Método que realiza a formatação de uma string para uma chave do
+     * properties.
      *
      * @param message
-     * @return 
+     * @return
      */
     protected String messageToProperty(String message) {
         String[] msg = message.split(" ");
@@ -69,19 +77,23 @@ public class LivroService extends GenericService<Livro> {
         return prefix.concat(".").concat(sufix);
     }
 
-    /** 
-     * {@inheritDoc} 
+    /**
+     * {@inheritDoc}
      */
     @RNG002Livro
     public void update(Livro entity) throws ValidationException {
         try {
+            String isbn10 = entity.getIsbn10();
+            if (isbn10 != null && isbn10.isEmpty()) {
+                entity.setIsbn10(null);
+            }
             super.update(entity);
         } catch (org.hibernate.exception.ConstraintViolationException e) {
             String message = messageToProperty(e.getCause().getMessage());
             throw new ValidationException(message);
         }
     }
-    
+
     @Override
     public void removeAll(Collection<Livro> livros) throws ValidationException {
         try {
@@ -90,5 +102,4 @@ public class LivroService extends GenericService<Livro> {
             throw new ValidationException("cadastro.livro.remocao.dependencia");
         }
     }
-
 }
