@@ -86,8 +86,23 @@ public class LivroController extends SGBController<Livro, LivroForm, LivroServic
      * {@inheritDoc }
      */
     @Override
-    public void openInsertView() {
-        super.openInsertView();
+    public String openInsertPage() {
+        this.cursos = this.cursoService.list();
+        return super.openInsertPage();
+    }
+
+    @Override
+    public String openEditPage() {
+        this.cursos = this.cursoService.list();
+        Collection<Autor> autoresAdicionados = this.getForm().getEntity().getAutores();
+        if (autoresAdicionados != null) {
+            this.getForm().setAutoresAdicionados(autoresAdicionados);
+        }
+        return super.openEditPage();
+    }
+    
+    @Override
+    public void initData() {
         this.getForm().setCursoSelecionado(new Curso());
         this.getForm().clearCollectionData();
         this.getForm().clearInsertData();
@@ -96,20 +111,6 @@ public class LivroController extends SGBController<Livro, LivroForm, LivroServic
         this.getForm().setAutoresAdicionados(new ArrayList<Autor>());
         this.getForm().setBibliografiaRemocao(new Bibliografia());
         this.getForm().setBibliografiaTemp(new Bibliografia());
-    }
-
-    @Override
-    public void openEditView() {
-        super.openEditView();
-        this.getForm().setCursoSelecionado(new Curso());
-        this.getForm().setTipoBibliografia(null);
-        this.getForm().setAutoresAdicionados(new ArrayList<Autor>());
-        this.getForm().setBibliografiaRemocao(new Bibliografia());
-        this.getForm().setBibliografiaTemp(new Bibliografia());
-        Collection<Autor> autoresAdicionados = this.getForm().getEntity().getAutores();
-        if (autoresAdicionados != null) {
-            this.getForm().setAutoresAdicionados(autoresAdicionados);
-        }
     }
 
     public LivroDataModel getLivroModel() {
@@ -306,15 +307,8 @@ public class LivroController extends SGBController<Livro, LivroForm, LivroServic
         return disciplinasAdicionadas;
     }
 
-    @Override
-    public String openInsertPage() {
-
-        this.cursos = this.cursoService.list();
-        this.getForm().setCursoSelecionado(new Curso());
-        return "/paginas/livro/inclusao.xhtml";
-    }
-
     public String salvarLivro() throws ValidationException {
+        
         super.insert();
         return super.openSearchPage();
     }
