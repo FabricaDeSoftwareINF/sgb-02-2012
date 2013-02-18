@@ -23,7 +23,8 @@
                                  value="#{listaCotacaoController.form.listaCotacaoDataModel}" 
                                  var="listaCotacao"  
                                  paginator="true" rows="10"
-                                 resizableColumns="true">
+                                 resizableColumns="true"
+                                 emptyMessage="#{msg['arquitetura.label.nenhumregitro']}">
 
                         <p:column headerText="#{msg['listaCotacao.label.nome']}"  
                                   filterBy="#{listaCotacao.nome}"

@@ -16,10 +16,14 @@
 
                 <p:panel header="#{msg['label.cotacao.cotarLivro']}">
 
-
-                    <p:dataTable id="tabelaCotacoes" paginator="true" rows="10" value="#{realizarCotacaoController.form.cotacoesDataModel}" 
+                    <p:spacer height="15" width="5"/>
+                    
+                    <p:dataTable id="tabelaCotacoes" paginator="true" rows="10"
+                                 value="#{realizarCotacaoController.form.cotacoesDataModel}" 
                                  var="cotacesLivro" style="text-align: center;" editable="true" editMode="row" 
-                                 selection="#{realizarCotacaoController.form.cotacoesSelecionadas}">
+                                 selection="#{realizarCotacaoController.form.cotacoesSelecionadas}"
+                                 resizableColumns="true"
+                                 emptyMessage="#{msg['arquitetura.label.nenhumregitro']}">
 
                         <p:column selectionMode="multiple" style="width:18px" />
 
@@ -31,35 +35,40 @@
 
                         <p:column headerText="Título">
 
-                            <h:outputLabel value="#{cotacesLivro.livro.titulo}"/>
+                            <h:outputLabel value="#{cotacesLivro.livro.titulo}"
+                                           title="#{cotacesLivro.livro.titulo}"/>
 
                         </p:column>
 
                         <p:column headerText="Autor(es)" resizable="true">
 
-                            <h:outputLabel value="#{cotacesLivro.livro.autoresAsString}"/>
+                            <h:outputLabel value="#{cotacesLivro.livro.autoresAsString}"
+                                           title="#{cotacesLivro.livro.autoresAsString}"/>
 
                         </p:column>
 
-                        <p:column headerText="N° da Edição">        
+                        <p:column headerText="Edição" style="width: 50px">        
 
-                            <h:outputLabel value="#{cotacesLivro.livro.edicao}"/>
+                            <h:outputLabel value="#{cotacesLivro.livro.edicao}"
+                                           title="#{cotacesLivro.livro.edicao}"/>
 
                         </p:column>    
 
-                        <p:column headerText="Ano">
+                        <p:column headerText="Ano" style="width: 50px">
 
-                            <h:outputLabel value="#{cotacesLivro.livro.ano}"/>
+                            <h:outputLabel value="#{cotacesLivro.livro.ano}"
+                                           title="#{cotacesLivro.livro.ano}"/>
 
                         </p:column>
 
                         <p:column headerText="ISBN-13">
 
-                            <h:outputLabel value="#{cotacesLivro.livro.isbn13} "/>
+                            <h:outputLabel value="#{cotacesLivro.livro.isbn13}"
+                                           title="#{cotacesLivro.livro.isbn13}"/>
 
                         </p:column>
 
-                        <p:column>
+                        <p:column width="110">
 
                             <p:commandButton value="Livrarias" id="btnLivrarias"/>
 
@@ -84,19 +93,22 @@
 
                         </p:column>
 
-                        <p:column headerText="Quantidade">
+                        <p:column headerText="Quantidade"  width="120">
 
                             <p:cellEditor>  
 
                                 <f:facet name="output"><h:outputText value="#{cotacesLivro.quantidade}" /></f:facet>  
 
-                                <f:facet name="input"><p:inputText id="modelInput" value="#{cotacesLivro.quantidade}"/></f:facet>  
+                                <f:facet name="input">
+                                    <p:inputText id="modelInput" style="width: 90px"
+                                                 value="#{cotacesLivro.quantidade}"/>
+                                </f:facet>  
 
                             </p:cellEditor>    
 
                         </p:column>
 
-                        <p:column headerText="Preço Médio em R$">
+                        <p:column headerText="Preço Médio(R$)"  width="120">
 
                             <p:cellEditor>  
 
@@ -114,14 +126,14 @@
 
                                 <f:facet name="input">
                                     <p:inputText id="precoInput" value="#{cotacesLivro.valorMedio}" styleClass="numeric"
-                                                 />
+                                                 style="width: 90px"/>
                                 </f:facet>  
 
                             </p:cellEditor>    
 
                         </p:column>
-
-                        <p:column headerText="Preço Total em R$">
+                         
+                        <p:column headerText="Preço Total(R$)" width="110">
 
                             <h:outputText value="#{cotacesLivro.valorMedio * cotacesLivro.quantidade}">
 
@@ -143,25 +155,22 @@
 
                     </p:dataTable>
 
-                    <p:spacer height="25" width="5"/>
+                    <br/>
+                    <p:spacer height="15" width="5"/>
 
-                    <h:panelGrid width="100%" style="text-align: right;">
+                    <p:commandButton value="#{msg['arquitetura.label.remover']}"
+                                     onclick="dialogRemocao.show()"
+                                     icon="ui-icon-trash"/>
 
-                        <h:panelGrid style="text-align: right;" columns="3">
-                            
-                            <p:commandButton value="#{msg['arquitetura.label.remover']}"
-                                             onclick="dialogRemocao.show()"
-                                             icon="ui-icon-trash"/>
+                    <p:commandButton value="#{msg['acao.salvar']}" 
+                                     style="width: 120px"
+                                     onclick="salvarDialog.show()"
+                                      icon="ui-icon-disk"/>
 
-                            <p:commandButton value="#{msg['acao.salvar']}" style="width: 120px" onclick="salvarDialog.show()"/>
-
-                            <p:commandButton value="#{msg['acao.voltar']}" ajax="false" 
-                                             action="#{realizarCotacaoController.openInitialPage()}" style="width: 120px" />
-
-                        </h:panelGrid>
-
-                    </h:panelGrid>
-
+                    <p:commandButton value="#{msg['acao.voltar']}" ajax="false" 
+                                     action="#{realizarCotacaoController.openInitialPage()}"
+                                     style="width: 120px" 
+                                      icon="ui-icon-arrowreturnthick-1-w"/>
                 </p:panel>
 
                 <p:dialog widgetVar="salvarDialog" header="Salvar" modal="true">

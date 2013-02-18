@@ -19,7 +19,11 @@
                     
                     <h:panelGrid columns="2" style="width: 100%;">
 
-                        <p:dataTable id="listaCotacoes" value="#{listaCotacaoController.form.listaCotacaoDataModel}" var="listaCotacao" paginator="true" rows="10" style="width: 100%" selection="#{cotacaoController.form.cotacoesSelecionadas}">
+                        <p:dataTable id="listaCotacoes" 
+                                     value="#{listaCotacaoController.form.listaCotacaoDataModel}" 
+                                     var="listaCotacao" paginator="true" rows="10" style="width: 100%"
+                                     selection="#{cotacaoController.form.cotacoesSelecionadas}"
+                                     emptyMessage="#{msg['arquitetura.label.nenhumregitro']}">
 
                             <p:column style="width: 18px;" selectionMode="multiple">
                                 

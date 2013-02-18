@@ -14,7 +14,7 @@
                              paginatorAlwaysVisible="false" rows="10" 
                              selection="#{listaComprasController.form.selectedLivros}"
                              emptyMessage="#{msg['arquitetura.msg.nenhumregistroencontrado']}">
-                    
+
                     <p:column selectionMode="multiple" style="width: 18px"></p:column>
 
                     <p:column headerText="#{msg['cadastro.livro.label.titulo']}" 
@@ -47,22 +47,22 @@
                         <h:outputText value="#{livro.isbn13}" />
                     </p:column>-->
 
-                   
-
                 </p:dataTable>
-                
-                
-                <h:panelGrid>
-                    
-                    <p:commandButton value="Salvar" action="#{listaComprasController.criaListaCompras}" ajax="false"/>
-                    
-                    <p:commandButton value="Cancelar" onclick="novaListaCompra.hide()"/>
-                    
-                </h:panelGrid>
-                
+                <br/>
+                <p:spacer height="10px"/>
+                <p:commandButton value="Salvar"
+                                 action="#{listaComprasController.criaListaCompras}"
+                                 ajax="false"
+                                 icon="ui-icon-disk"/>
+
+                <p:commandButton value="Cancelar" 
+                                 onclick="novaListaCompra.hide()"
+                                 icon="ui-icon-close"/>
+
+
             </h:form>
-            
+
         </p:dialog>
-        
+
     </f:view>    
 </html>
