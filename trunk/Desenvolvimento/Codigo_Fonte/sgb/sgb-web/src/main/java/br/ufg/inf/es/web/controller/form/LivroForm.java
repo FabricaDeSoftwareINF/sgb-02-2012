@@ -31,7 +31,6 @@ public class LivroForm extends GenericForm<Livro> {
     private String filtroTitulo;
     private Curso cursoSelecionado;   
     private Collection<Autor> autoresAdicionados = new ArrayList<Autor>();
-    private Collection<Livro> livrosAdicionados = new ArrayList<Livro>();
     private Bibliografia bibliografiaRemocao = new Bibliografia();
     
     public Bibliografia getBibliografiaTemp() {
@@ -117,14 +116,6 @@ public class LivroForm extends GenericForm<Livro> {
     public void setAutoresAdicionados(Collection<Autor> autoresAdicionados) {
         this.autoresAdicionados = autoresAdicionados;
     }
-
-    public Collection<Livro> getLivrosAdicionados() {
-        return livrosAdicionados;
-    }
-
-    public void setLivrosAdicionados(Collection<Livro> livrosAdicionados) {
-        this.livrosAdicionados = livrosAdicionados;
-    }
     
     public Bibliografia getBibliografiaRemocao() {
         return bibliografiaRemocao;
@@ -133,5 +124,5 @@ public class LivroForm extends GenericForm<Livro> {
     public void setBibliografiaRemocao(Bibliografia bibliografiaRemocao) {
         this.bibliografiaRemocao = bibliografiaRemocao;
     }
-    
+
 }

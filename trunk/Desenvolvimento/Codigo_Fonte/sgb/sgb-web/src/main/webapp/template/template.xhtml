@@ -55,8 +55,58 @@
                                 <p:ajax event="itemSelect" listener="#{templateController.addLivroOnSelect}" />
 
                             </p:autoComplete>  
-                            <p:commandButton value="Acessar" icon="ui-icon-circle-check"/>
-                            
+                            <p:commandButton value="Acessar" 
+                                             icon="ui-icon-circle-check"
+                                             id="btn_dados_livro" 
+                                             oncomplete="dialogDadosLivro.show()" 
+                                             actionListener="#{templateController.form.setEntity(templateController.form.livroSelecionado)}"
+                                             update="dialog_dados_livro"/>
+
+                            <p:dialog id="dialog_dados_livro" 
+                                      widgetVar="dialogDadosLivro"
+                                      modal="true"  header="Dados do Livro"
+                                      resizable="false" showEffect="fade">
+
+                                <h:panelGrid columns="2" cellspacing="5" 
+                                             style="width: 100%; margin-left: auto; margin-right: auto">
+
+                                    <h:outputLabel value="#{msg['cadastro.livro.label.titulo']}:" style="font-weight: bold"/>
+                                    <h:outputText value="#{templateController.form.entity.titulo}" style="margin-left: 10px;"/>
+
+                                    <h:outputLabel value="#{msg['cadastro.livro.label.autor']}:" style="font-weight: bold"/>
+                                    <p:dataList value="#{templateController.form.entity.autores}" var="autor">
+                                        <h:outputText value="#{autor}" style="margin-left: 10px;"/>
+                                    </p:dataList>
+
+                                    <h:outputLabel value="#{msg['cadastro.livro.label.edicao']}:" style="font-weight: bold"/>
+
+                                    <h:outputText value="#{templateController.form.entity.edicao}" style="margin-left: 10px;"/>
+
+                                    <h:outputLabel value="#{msg['cadastro.livro.label.ano']}:" style="font-weight: bold"/>
+
+                                    <h:outputText value="#{templateController.form.entity.ano}" style="margin-left: 10px;"/>
+
+                                    <h:outputLabel value="#{msg['cadastro.livro.label.editora']}:" style="font-weight: bold"/>
+
+                                    <h:outputText value="#{templateController.form.entity.editora.nome}" style="margin-left: 10px;"/>
+
+                                    <h:outputLabel value="#{msg['cadastro.livro.label.isbn10']}:" style="font-weight: bold"/>
+
+                                    <h:outputText value="#{templateController.form.entity.isbn10}" style="margin-left: 10px;"/>
+
+                                    <h:outputLabel value="#{msg['cadastro.livro.label.isbn13']}:" style="font-weight: bold"/>
+
+                                    <h:outputText value="#{templateController.form.entity.isbn13}" style="margin-left: 10px;"/>
+
+                                    <h:outputLabel value="#{msg['cadastro.livro.label.estrangeiro']}:" style="font-weight: bold"/>
+
+                                    <h:outputText value="#{templateController.form.entity.estrangeiro ? msg['arquitetura.msg.sim']
+                                                           : msg['arquitetura.msg.nao']}" style="margin-left: 10px;"/>
+
+                                    <h:outputLabel value="#{msg['cadastro.livro.label.disciplinas']}:" style="font-weight: bold"/>
+                                </h:panelGrid>
+                            </p:dialog>
+
                         </h:panelGrid>
                         <p:watermark for="pesquisaLivro" value="Pesquisar Livro"/>
 

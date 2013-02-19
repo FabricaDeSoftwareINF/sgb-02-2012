@@ -54,7 +54,7 @@ public class Livro extends AbstractEntityModel {
     /**
      * Campo autores
      */
-    @ManyToMany
+    @ManyToMany(fetch=FetchType.EAGER)
     @JoinTable(name = "LIVRO_AUTOR", joinColumns =
     @JoinColumn(name = "id_livro"), inverseJoinColumns =
     @JoinColumn(name = "id_autor"))
