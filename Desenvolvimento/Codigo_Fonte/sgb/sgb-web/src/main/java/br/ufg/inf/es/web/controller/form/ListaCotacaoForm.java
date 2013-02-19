@@ -17,44 +17,49 @@ import org.springframework.stereotype.Component;
 public class ListaCotacaoForm extends GenericForm<ListaCotacao> {
 
     private Collection<ListaCotacao> tabelaListaCotacoes;
-    
     private ListaCotacaoDataModel listaCotacaoDataModel;
-    
     private ListaCotacao[] listasCotacoesSelecionadas;
+    private double valorTotalAtual;
+
+    public ListaCotacaoForm() {
+        if (getEntity() != null) {
+            valorTotalAtual = getEntity().getValor();
+        }
+    }
 
     public ListaCotacaoDataModel getListaCotacaoDataModel() {
-        
+
         Collection<ListaCotacao> listaCotacao = this.getTabelaListaCotacoes();
 
         if (listaCotacao != null) {
             List<ListaCotacao> listasCotacoes = new ArrayList<ListaCotacao>(listaCotacao);
             listaCotacaoDataModel = new ListaCotacaoDataModel(listasCotacoes);
         }
-        
+
         return listaCotacaoDataModel;
     }
-    
+
     public void setListaCotacaoDataModel(ListaCotacaoDataModel listaCotacaoDataModel) {
-        
+
         this.listaCotacaoDataModel = listaCotacaoDataModel;
     }
 
     public ListaCotacao[] getListasCotacoesSelecionadas() {
-        
+
         ListaCotacao[] retorno = null;
-        
-        if(this.listasCotacoesSelecionadas != null) {
-            
-             retorno = this.listasCotacoesSelecionadas.clone();
+
+        if (this.listasCotacoesSelecionadas != null) {
+
+            retorno = this.listasCotacoesSelecionadas.clone();
         }
-        
+
         return retorno;
     }
 
     public void setListasCotacoesSelecionadas(ListaCotacao[] listasCotacoesSelecionadas) {
-        
-        if(listasCotacoesSelecionadas != null){
-        
+
+        if (listasCotacoesSelecionadas != null) {
+
             this.listasCotacoesSelecionadas = (ListaCotacao[]) listasCotacoesSelecionadas.clone();
         }
     }
@@ -65,5 +70,13 @@ public class ListaCotacaoForm extends GenericForm<ListaCotacao> {
 
     public void setTabelaListaCotacoes(Collection<ListaCotacao> tabelaListaCotacoes) {
         this.tabelaListaCotacoes = tabelaListaCotacoes;
+    }
+
+    public double getValorTotalAtual() {
+        return valorTotalAtual;
+    }
+
+    public void setValorTotalAtual(double valorTotalAtual) {
+        this.valorTotalAtual = valorTotalAtual;
     }
 }
