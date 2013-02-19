@@ -48,8 +48,8 @@
                                             var="livro" 
                                             itemLabel="#{livro.toString()}" 
                                             itemValue="#{livro}" 
-                                            converter="livroConverter"
-                                            multiple="true">
+                                            multiple="true"
+                                            converter="livroConverter">
 
                                 <p:ajax event="itemUnselect" listener="#{templateController.handleUnselectLivro}" /> 
                                 <p:ajax event="itemSelect" listener="#{templateController.addLivroOnSelect}" />
@@ -103,8 +103,19 @@
                                     <h:outputText value="#{templateController.form.entity.estrangeiro ? msg['arquitetura.msg.sim']
                                                            : msg['arquitetura.msg.nao']}" style="margin-left: 10px;"/>
 
-                                    <h:outputLabel value="#{msg['cadastro.livro.label.disciplinas']}:" style="font-weight: bold"/>
+                                    <h:outputLabel value="Valor Médio Atual (R$):" style="font-weight: bold"/>
+                                    <h:outputText value="#{templateController.valorMedio}"
+                                                  style="margin-left: 10px;"/>
+
                                 </h:panelGrid>
+
+                                <center>
+
+                                    <p:commandButton id="btnFechar" value="Fechar" 
+                                                     action="dialogDadosLivro.close()"
+                                                     ajax="false" />
+                                </center>
+
                             </p:dialog>
 
                         </h:panelGrid>
