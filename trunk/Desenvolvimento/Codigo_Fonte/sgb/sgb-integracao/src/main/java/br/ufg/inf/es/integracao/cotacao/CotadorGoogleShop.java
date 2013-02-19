@@ -4,6 +4,7 @@
  */
 package br.ufg.inf.es.integracao.cotacao;
 
+import br.ufg.inf.es.base.validation.ValidationException;
 import br.ufg.inf.es.model.Livraria;
 import br.ufg.inf.es.model.Livro;
 import com.google.gson.Gson;
@@ -42,8 +43,15 @@ public class CotadorGoogleShop extends Cotador {
 
         Collection<ResultadoCotacao> resultado = new ArrayList<ResultadoCotacao>();
         
+        if (map == null) {
+            return new ArrayList<ResultadoCotacao>();
+        }
+        
         List<StringMap> itens = (List<StringMap>) map.get("items");
        
+        if (itens == null) {
+            return new ArrayList<ResultadoCotacao>();
+        }
         for (StringMap item : itens) {
           
             StringMap produto = (StringMap) item.get("product");
