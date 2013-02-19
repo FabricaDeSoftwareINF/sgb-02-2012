@@ -40,15 +40,13 @@
                     <h:panelGrid style="float: right" columns="6" >
 
                         <h:panelGrid columns="2">
-                            <p:autoComplete id="pesquisaLivro"  
-                                            size="200"
+                            <p:autoComplete id="pesquisaLivro"
                                             maxlength="1"
                                             value="#{templateController.livros}"
                                             completeMethod="#{templateController.completeLivro}"  
                                             var="livro" 
                                             itemLabel="#{livro.toString()}" 
-                                            itemValue="#{livro}" 
-                                            multiple="true"
+                                            itemValue="#{livro}"
                                             converter="livroConverter">
 
                                 <p:ajax event="itemUnselect" listener="#{templateController.handleUnselectLivro}" /> 
