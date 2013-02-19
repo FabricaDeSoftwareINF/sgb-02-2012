@@ -100,8 +100,8 @@ public class TemplateController extends SGBController<Livro, LivroForm, LivroSer
         }
 
         if (mediaCotacoes > 0) {
-            DecimalFormat decimalFormat = new DecimalFormat(); 
-            decimalFormat.setMaximumFractionDigits(2); 
+            DecimalFormat decimalFormat = new DecimalFormat();
+            decimalFormat.setMaximumFractionDigits(2);
             return decimalFormat.format(mediaCotacoes);
         } else {
             return "Indisponível.";
