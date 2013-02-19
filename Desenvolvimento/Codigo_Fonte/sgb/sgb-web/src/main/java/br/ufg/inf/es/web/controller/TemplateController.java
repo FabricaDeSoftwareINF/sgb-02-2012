@@ -28,12 +28,12 @@ public class TemplateController extends SGBController<Livro, LivroForm, LivroSer
     private LivroForm form;
     @Autowired
     private LivroService service;
-    private Collection<Livro> livros;
+    private Livro livro;
 
     public TemplateController() {
         form = new LivroForm();
         service = new LivroService();
-        livros = new ArrayList<Livro>();
+        livro = new Livro();
     }
 
     @Autowired
@@ -53,28 +53,16 @@ public class TemplateController extends SGBController<Livro, LivroForm, LivroSer
         this.service = service;
     }
 
-    public Collection<Livro> getLivros() {
-        return livros;
+    public Livro getLivro() {
+        return livro;
     }
 
-    public void setLivros(Collection<Livro> livros) {
-        this.livros = livros;
+    public void setLivro(Livro livro) {
+        this.livro = livro;
     }
 
     public Collection<Livro> completeLivro(String query) {
-
-        Livro livroSelecionado = this.getForm().getLivroSelecionado();
-
-        if (livroSelecionado == null) {
-
-            livros = this.service.searchByAttributes(query, "titulo");
-
-        } else {
-
-            livros = new ArrayList<Livro>();
-        }
-
-        return livros;
+        return this.service.searchByAttributes(query, "titulo");
     }
 
     public void handleUnselectLivro(UnselectEvent event) {

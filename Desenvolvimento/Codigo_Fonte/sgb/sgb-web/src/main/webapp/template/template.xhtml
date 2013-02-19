@@ -41,8 +41,7 @@
 
                         <h:panelGrid columns="2">
                             <p:autoComplete id="pesquisaLivro"
-                                            maxlength="1"
-                                            value="#{templateController.livros}"
+                                            value="#{templateController.livro}"
                                             completeMethod="#{templateController.completeLivro}"  
                                             var="livro" 
                                             itemLabel="#{livro.toString()}" 
