@@ -87,7 +87,11 @@
                                   style="text-align: center;width:10%">
 
                             <h:outputText value="#{cotacaoLivro.valorMedio}"
-                                          title="#{cotacaoLivro.valorMedio}"  />
+                                          title="#{cotacaoLivro.valorMedio}"  >
+
+                                <f:convertNumber maxFractionDigits="2"/> 
+
+                            </h:outputText>
 
                         </p:column>
 
@@ -95,7 +99,11 @@
                                   style="text-align: center;width: 10%">
 
                             <h:outputText value="#{cotacaoLivro.valorMedio * cotacaoLivro.quantidade}" 
-                                          title="#{cotacaoLivro.valorMedio * cotacaoLivro.quantidade}"/>
+                                          title="#{cotacaoLivro.valorMedio * cotacaoLivro.quantidade}" >
+
+                                <f:convertNumber maxFractionDigits="2"/> 
+
+                            </h:outputText>
 
                         </p:column>
 
