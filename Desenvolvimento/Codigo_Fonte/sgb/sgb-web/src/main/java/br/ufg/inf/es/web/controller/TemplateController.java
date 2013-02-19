@@ -17,7 +17,7 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @Scope("session")
-public class TemplateController {
+public class TemplateController extends SGBController<Livro, LivroForm, LivroService> {
 
     @Autowired
     private LivroForm form;
@@ -28,8 +28,7 @@ public class TemplateController {
     public TemplateController() {
         form = new LivroForm();
         service = new LivroService();
-        form.setLivrosAdicionados(new ArrayList<Livro>());
-        livros = new ArrayList<Livro>(form.getLivrosAdicionados());
+        livros = new ArrayList<Livro>();
     }
 
     @Autowired
@@ -49,43 +48,39 @@ public class TemplateController {
         this.service = service;
     }
 
-    public  Collection<Livro> getLivros() {
-        livros = new ArrayList<Livro>(form.getLivrosAdicionados());
+    public Collection<Livro> getLivros() {
         return livros;
     }
-    
-    public void setLivros (Collection<Livro> livros) {
+
+    public void setLivros(Collection<Livro> livros) {
         this.livros = livros;
     }
-    
+
     public Collection<Livro> completeLivro(String query) {
 
-        Collection<Livro> livrosAdicionados = this.getForm().getLivrosAdicionados();
-        Collection<Livro> livros = new ArrayList<Livro>();
+        Livro livroSelecionado = this.getForm().getLivroSelecionado();
 
-        if (livrosAdicionados.isEmpty()) {
+        if (livroSelecionado == null) {
 
             livros = this.service.searchByAttributes(query, "titulo");
 
-            if (livrosAdicionados != null) {
-                livros.removeAll(livrosAdicionados);
-            }
+        } else {
 
+            livros = new ArrayList<Livro>();
         }
+
         return livros;
     }
 
     public void handleUnselectLivro(UnselectEvent event) {
 
-        Livro livroSelecionado = (Livro) event.getObject();
-
-        this.getForm().getLivrosAdicionados().remove(livroSelecionado);
+        this.getForm().setLivroSelecionado(null);
     }
 
     public void addLivroOnSelect(SelectEvent event) {
 
         Livro livroSelecionado = (Livro) event.getObject();
+        this.getForm().setLivroSelecionado(livroSelecionado);
 
-        this.getForm().getLivrosAdicionados().add(livroSelecionado);
     }
 }
