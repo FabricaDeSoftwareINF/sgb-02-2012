@@ -21,7 +21,9 @@
                     <p:dataTable id="cotacoes" value="#{listaCotacaoController.form.entity.cotacoesLivro}" 
                                  var="cotacaoLivro" paginator="true" rows="10" style="width: 100%"
                                  resizableColumns="true"
-                                 emptyMessage="#{msg['arquitetura.label.nenhumregitro']}">
+                                 ajax="true"
+                                 emptyMessage="#{msg['arquitetura.label.nenhumregitro']}"
+                                 editable="true" editMode="row" >
 
                         <p:column headerText="#{msg['listaCotacao.label.autor']}" style="width: 15%">
 
@@ -84,14 +86,25 @@
 
                         <p:column headerText="#{msg['listaCotacao.label.valormedio']}"
                                   sortBy="#{cotacaoLivro.valorMedio}" 
-                                  style="text-align: center;width:10%">
+                                  width="120">
 
-                            <h:outputText value="#{cotacaoLivro.valorMedio}"
-                                          title="#{cotacaoLivro.valorMedio}"  >
+                            <p:cellEditor>  
 
-                                <f:convertNumber maxFractionDigits="2"/> 
+                                <f:facet name="output">
+                                    <h:outputText value="#{cotacaoLivro.valorMedio}"
+                                                  title="#{cotacaoLivro.valorMedio}"  >
 
-                            </h:outputText>
+                                        <f:convertNumber maxFractionDigits="2"/> 
+
+                                    </h:outputText>
+                                </f:facet>
+                                <f:facet name="input">
+                                    <p:inputText value="#{cotacaoLivro.valorMedio}"
+                                                 styleClass="numeric" 
+                                                 style="width: 80px;margin-left: 20px"/>
+                                </f:facet>
+
+                            </p:cellEditor>
 
                         </p:column>
 
@@ -109,10 +122,23 @@
 
                         <p:column headerText="#{msg['listaCotacao.label.quantidade']}" 
                                   sortBy="#{cotacaoLivro.quantidade}" 
-                                  style="text-align: center;width: 5%">
+                                  width="80">
 
-                            <h:outputText value="#{cotacaoLivro.quantidade}" 
-                                          title="#{cotacaoLivro.quantidade}"/>
+                            <p:cellEditor>  
+
+                                <f:facet name="output">
+                                    <h:outputText value="#{cotacaoLivro.quantidade}" 
+                                                  title="#{cotacaoLivro.quantidade}"/>
+
+
+                                </f:facet>
+                                <f:facet name="input">
+                                    <p:inputText value="#{cotacaoLivro.quantidade}"
+                                                 styleClass="numeric" 
+                                                 style="width: 40px;margin-left: 10px"/>
+                                </f:facet>
+
+                            </p:cellEditor>
 
                         </p:column>
 
@@ -124,6 +150,18 @@
                                           title="Ciências Exatas e da Terra"/>
 
                         </p:column>
+
+                        <p:column style="width:4%">  
+                            <p:rowEditor />  
+                        </p:column> 
+                        <p:ajax event="rowEdit" update="" />
+
+                        <p:columnGroup type="footer">
+                            <p:row>
+                                <p:column id="valor_total" colspan="11" 
+                                          footerText="TOTAL: #{listaCotacaoController.form.entity.valor}"/>
+                            </p:row>  
+                        </p:columnGroup>
 
                     </p:dataTable> 
 
