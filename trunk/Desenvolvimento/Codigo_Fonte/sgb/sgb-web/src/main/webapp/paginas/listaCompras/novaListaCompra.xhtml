@@ -7,61 +7,95 @@
         <p:dialog id="selecao_livro_dialog" widgetVar="novaListaCompra" closable="true" 
                   header="#{msg['listaCompras.nova']}">
 
-            <h:form id="novo_lista_compra_form">
+            <p:panel header="Livros para cotação">
+                <h:panelGrid columns="2" cellpadding="5">  
+                    <h:outputText value="Parâmetro do mec: " />  
 
-                <p:dataTable id="dtTable" value="#{listaComprasController.livroDataModel}" 
-                             var="livro" style="width: 100%" paginator="true" 
-                             paginatorAlwaysVisible="false" rows="10" 
-                             selection="#{listaComprasController.form.selectedLivros}"
-                             emptyMessage="#{msg['arquitetura.msg.nenhumregistroencontrado']}">
+                </h:panelGrid>  
 
-                    <p:column selectionMode="multiple" style="width: 18px"></p:column>
+                <h:form style="font-size: 14px;">
+                    <p:messages />
+                    <h:panelGrid columns="2" width="100%">
+                        <p:dataTable id="listaLivrosParaCotacao" paginator="true" rows="10" 
+                                     value="#{listaComprasController.form.livroDataModel}" 
+                                     var="livroParaCotacao"
+                                     emptyMessage="#{msg['arquitetura.label.nenhumregitro']}"
+                                     selection="#{listaComprasController.form.livrosSelecionados}"
+                                     resizableColumns="true">
 
-                    <p:column headerText="#{msg['cadastro.livro.label.titulo']}" 
-                              filterBy="#{livro.titulo}" filterMatchMode="contains"
-                              styleClass="widthFilterBy">
+                            <p:column selectionMode="multiple" style="width:18px" /> 
 
-                        <h:outputText value="#{livro.titulo}" />
+                            <p:column headerText="#{msg['cadastro.livro.label.titulo']}"
+                                      filterBy="#{livroParaCotacao.livro.titulo}" filterMatchMode="contains">
 
-                    </p:column>
+                                <h:outputText value="#{livroParaCotacao.livro.titulo}" escape="false"/>
 
-                   <!-- <p:column headerText="#{msg['cadastro.livro.label.autor']}">
-                        <p:dataList value="#{livro.autores}" var="autor">
-                            <h:outputText value="#{autor}" />
-                        </p:dataList>
-                    </p:column>
+                            </p:column>
 
-                    <p:column headerText="#{msg['cadastro.livro.label.edicao']}">
-                        <h:outputText value="#{livro.edicao}" />
-                    </p:column>
+                            <p:column headerText="#{msg['cadastro.livro.label.autor']}"
+                                      filterBy="#{livroParaCotacao.livro.autoresAsString}" filterMatchMode="contains">
+                                <p:dataList value="#{livroParaCotacao.livro.autores}" var="autor">
+                                    <h:outputText value="#{autor.sobrenome.toUpperCase()},#{autor.nome}" escape="false"/>
+                                </p:dataList>
+                            </p:column>
 
-                    <p:column headerText="#{msg['cadastro.livro.label.ano']}">
-                        <h:outputText value="#{livro.ano}" />
-                    </p:column>
+                            <p:column headerText="#{msg['cadastro.livro.label.edicao']}">
+                                <h:outputText value="#{livroParaCotacao.livro.edicao}" escape="false"/>
+                            </p:column>
 
-                    <p:column headerText="#{msg['cadastro.livro.label.editora']}">
-                        <h:outputText value="#{livro.editora.nome}" />
-                    </p:column>
+                            <p:column headerText="#{msg['cadastro.livro.label.ano']}">
+                                <h:outputText value="#{livroParaCotacao.livro.ano}" />
+                            </p:column>
 
-                    <p:column headerText="#{msg['cadastro.livro.label.isbn13']}">
-                        <h:outputText value="#{livro.isbn13}" />
-                    </p:column>-->
+                            <p:column headerText="#{msg['cadastro.livro.label.editora']}">
+                                <h:outputText value="#{livroParaCotacao.livro.editora.nome}" />
+                            </p:column>
 
-                </p:dataTable>
-                <br/>
-                <p:spacer height="10px"/>
-                <p:commandButton value="Salvar"
-                                 action="#{listaComprasController.criaListaCompras}"
-                                 ajax="false"
-                                 icon="ui-icon-disk"/>
+                            <p:column headerText="#{msg['cadastro.livro.label.isbn13']}">
+                                <h:outputText value="#{livroParaCotacao.livro.isbn13}" />
+                            </p:column>
 
-                <p:commandButton value="Cancelar" 
-                                 onclick="novaListaCompra.hide()"
-                                 icon="ui-icon-close"/>
+                            <p:column headerText="Qtde necessária" sortBy="#{listaComprasController.quantidadeExigida}">
+                                <h:outputText value="#{livroParaCotacao.quantidadeExigida}" />
+                            </p:column>
 
+                            <p:column headerText="Qtde na biblioteca" sortBy="#{listaComprasController.quantidadeLivrosDisponiveis}" >
+                                <h:outputText value="#{livroParaCotacao.quantidadeLivrosDisponiveis}" />
+                            </p:column>
 
-            </h:form>
+                            <p:column headerText="Qtde faltando" sortBy="#{listaComprasController.quantidadeLivrosFaltando}">
+                                <h:outputText value="#{livroParaCotacao.quantidadeLivrosFaltando}" />
+                            </p:column>
 
+                            <p:column headerText="#{msg['cadastro.livro.label.disciplinas']}"
+                                      filterBy="#{livroParaCotacao.disciplinasAsString}" filterMatchMode="contains">
+                                <p:dataList value="#{livroParaCotacao.livro.bibliografias}" var="bibliografia">
+                                    <h:outputText value="#{bibliografia.disciplina.nome} - #{bibliografia.disciplina.curso.nome} - #{bibliografia.tipo.value}" 
+                                                  escape="false"
+                                                  title="#{bibliografia.disciplina.nome} - #{bibliografia.disciplina.curso.nome} - #{bibliografia.tipo.value}"/>
+                                </p:dataList>
+                            </p:column>
+
+                            <p:column headerText="#{msg['cadastro.livro.label.estrangeiro']}"
+                                      filterBy="#{livroParaCotacao.livro.estrangeiro}" filterOptions="#{listaComprasController.estrangeiroOptions}"
+                                      filterMatchMode="exact">
+                                <h:outputText value="#{livroParaCotacao.livro.estrangeiro ? 'Sim' : 'Não'}" />
+                            </p:column>
+                        </p:dataTable>
+
+                    </h:panelGrid>
+                </h:form>
+            </p:panel>  
+            <p:spacer height="10px"/>
+            <p:commandButton value="Salvar"
+                             actionListener="#{listaComprasController.salvarListaCompras()}"
+                             icon="ui-icon-disk"
+                             update="@form"
+                             oncomplete="novaListaCompra.hide()"/>
+
+            <p:commandButton value="Cancelar" 
+                             onclick="novaListaCompra.hide()"
+                             icon="ui-icon-close"/>
         </p:dialog>
 
     </f:view>    

@@ -40,7 +40,8 @@ public class LivroParaCotacaoController extends SGBController<LivroParaCotacao, 
     @Override
     public void initData() {
         super.initData();
-        Collection<LivroParaCotacao> entidades = this.getService().obtenhaLivrosParaCotacao();
+        Collection<LivroParaCotacao> entidades = this.getService().obtemLivrosParaCotacao();
+        this.getForm().setTodosLivros(livroParaCotacaoService.obtemLivrosParaCotacao());
         this.getForm().setCollectionEntities(entidades);
 
         Iterator it = entidades.iterator();

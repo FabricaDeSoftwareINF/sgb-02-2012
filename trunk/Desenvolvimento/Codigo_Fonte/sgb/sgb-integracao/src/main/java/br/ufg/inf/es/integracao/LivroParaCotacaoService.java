@@ -2,16 +2,22 @@ package br.ufg.inf.es.integracao;
 
 import br.ufg.inf.es.base.exceptions.LivroParaCotacaoException;
 import br.ufg.inf.es.base.persistence.DAO;
+import br.ufg.inf.es.persistencia.*;
+import br.ufg.inf.es.base.util.UtilObjeto;
 import br.ufg.inf.es.model.dtos.LivroParaCotacao;
 import br.ufg.inf.es.base.validation.ValidationException;
 import br.ufg.inf.es.integracao.biblioteca.BibliotecaServiceMock;
 import br.ufg.inf.es.model.*;
+import br.ufg.inf.es.model.biblioteca.LivroBiblioteca;
+import br.ufg.inf.es.persistencia.biblioteca.LivrosBibliotecaDAO;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.sql.SQLException;
 import java.util.*;
 import java.util.Map.Entry;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
@@ -35,131 +41,32 @@ public class LivroParaCotacaoService extends GenericService<LivroParaCotacao> {
     @Autowired
     private BibliotecaServiceMock bibliotecaServiceMock;
     /**
-     * Campo parametrosService
+     * Campo parametrosDao
      */
     @Autowired
-    private ParametrosService parametrosService;
+    private ParametrosDAO parametrosDao;
+    
+    /**
+     * Campo bibliotecaDao
+     */
+    @Autowired
+    private LivrosBibliotecaDAO bibliotecaDao;
+    
     /**
      * Campo livroService
      */
     @Autowired
-    private LivroService livroService;
+    private LivroDAO livroDao;
     /**
      * Campo bibliografiaService
      */
     @Autowired
     private BibliografiaService bibliografiaService;
+    
     /**
      * Campo livroCursos
      */
     private Map<Livro, List<Curso>> livroCursos = new HashMap<Livro, List<Curso>>();
-
-    /**
-     * Obtem uma listagem dos livros necessários para cotação
-     *
-     * @return lista de livros para cotacao
-     */
-    public Collection<LivroParaCotacao> obtenhaLivrosParaCotacao() {
-        Collection<Bibliografia> bibliografias = bibliografiaService.list();
-        adicioneCursosELivros(bibliografias);
-        Collection<LivroParaCotacao> dtos = new ArrayList<LivroParaCotacao>();
-
-        for (Entry<Livro, List<Curso>> entry : livroCursos.entrySet()) {
-            Livro livro = entry.getKey();
-            List<Curso> cursos = entry.getValue();
-            Integer quantidadeVagas = 0;
-
-            for (Curso curso : cursos) {
-                quantidadeVagas += curso.getVagas();
-            }
-
-            if (quantidadeVagas > 0) {
-                try {
-                    dtos.add(obtenhaLivroParaCotacao(livro, quantidadeVagas));
-                } catch (LivroParaCotacaoException lpce) {
-                    Logger.getLogger(LivroParaCotacaoService.class.getName()).log(Level.INFO, null, lpce);
-                } catch (ValidationException ve) {
-                    Logger.getLogger(LivroParaCotacaoService.class.getName()).log(Level.WARNING, null, ve);
-                }
-            }
-        }
-
-        return dtos;
-    }
-
-    /**
-     * Método que adiciona os livros e cursos para a lista a ser enviada para a
-     * cotação.
-     *
-     * @param bibliografias
-     */
-    private void adicioneCursosELivros(Collection<Bibliografia> bibliografias) {
-        for (Bibliografia b : bibliografias) {
-            Livro livro = b.getLivro();
-            Disciplina disciplina = b.getDisciplina();
-
-            adicioneLivro(livro, disciplina.getCurso());
-        }
-    }
-
-    /**
-     * Adiciona os livros e cursos para a lista de cursos da classe.
-     *
-     * @param livro
-     * @param curso
-     */
-    private void adicioneLivro(Livro livro, Curso curso) {
-        List<Curso> cursos = new ArrayList<Curso>();
-        if (livroCursos.containsKey(livro)) {
-            cursos = livroCursos.get(livro);
-
-            if (!cursos.contains(curso)) {
-                livroCursos.remove(livro);
-                cursos.add(curso);
-                livroCursos.put(livro, cursos);
-            }
-
-        } else {
-            cursos.add(curso);
-            livroCursos.put(livro, cursos);
-        }
-    }
-
-    /**
-     * Gera a partir de um livro um dto com as informações para cotacao do
-     * mesmo. Estas informacoes consistem na quantidade necessaria para compra,
-     * a quantidade existente hoje na bibliote, a quantidade de vagas que
-     * precisam do livro, o parametro do mec, entre outras informações úteis (
-     *
-     * @see LivrosParaCotacaoDTO).
-     *
-     * @param livro livro a partir do qual será feita a busca
-     * @param quantidadeVagas quantidade de vagas que utilizam o livro.
-     *
-     * @return DTO com as informacoes para cotacao
-     *
-     * @throws ValidationException
-     * @throws LivroParaCotacaoException Caso a quantidade existente do livro
-     * seja suficiente para as vagas existentes.
-     */
-    private LivroParaCotacao obtenhaLivroParaCotacao(Livro livro,
-            Integer quantidadeVagas) throws ValidationException, LivroParaCotacaoException {
-        Integer parametroMec = parametrosService.obtenhaParametroMEC();
-
-        Integer qtdeLivrosNecessarios = dividaComRoundUp(quantidadeVagas, parametroMec);
-
-        Integer qtdeLivrosDisponiveis = bibliotecaServiceMock.obtenhaQuantidadeExistente(livro.getIsbn10());
-
-        if (qtdeLivrosDisponiveis < qtdeLivrosNecessarios) {
-            Integer qtdeParaCotacao = qtdeLivrosNecessarios - qtdeLivrosDisponiveis;
-
-            return new LivroParaCotacao(quantidadeVagas, parametroMec,
-                    qtdeLivrosDisponiveis, qtdeParaCotacao, livro.getTitulo(), livro.getIsbn10());
-        } else {
-            throw new LivroParaCotacaoException("Existem livros em quantidade "
-                    + "suficiente para atender à todas as vagas");
-        }
-    }
 
     /**
      * Método que realiza a divisão com arrendondamento para cima.
@@ -181,13 +88,37 @@ public class LivroParaCotacaoService extends GenericService<LivroParaCotacao> {
      */
     @Override
     public DAO getDAO() {
-        return livroService.getDAO();
+        return livroDao;
     }
 
     public BibliografiaService getBibliografiaService() {
         return bibliografiaService;
     }
 
+    public ParametrosDAO getParametrosDao() {
+        return parametrosDao;
+    }
+
+    public void setParametrosDao(ParametrosDAO parametrosDao) {
+        this.parametrosDao = parametrosDao;
+    }
+
+    public LivrosBibliotecaDAO getBibliotecaDao() {
+        return bibliotecaDao;
+    }
+
+    public void setBibliotecaDao(LivrosBibliotecaDAO bibliotecaDao) {
+        this.bibliotecaDao = bibliotecaDao;
+    }
+
+    public LivroDAO getLivroDao() {
+        return livroDao;
+    }
+
+    public void setLivroDao(LivroDAO livroDao) {
+        this.livroDao = livroDao;
+    }
+    
     /**
      * Define o service da bibliografia
      *
@@ -234,34 +165,69 @@ public class LivroParaCotacaoService extends GenericService<LivroParaCotacao> {
     }
 
     /**
-     * obtem o service do livro
-     * @return
-     */
-    public LivroService getLivroService() {
-        return livroService;
-    }
-
-    /**
-     * Define um novo service para o livro
-     * @param livroService 
-     */
-    public void setLivroService(LivroService livroService) {
-        this.livroService = livroService;
-    }
-
-    /**
      * obtem o service dos parametros
      * @return 
      */
-    public ParametrosService getParametrosService() {
-        return parametrosService;
+    public ParametrosDAO getParametrosDAO() {
+        return parametrosDao;
     }
 
     /**
      * Define um novo service dos parametros
-     * @param parametrosService 
+     * @param parametrosDAO 
      */
-    public void setParametrosService(ParametrosService parametrosService) {
-        this.parametrosService = parametrosService;
+    public void setParametrosDAO(ParametrosDAO parametrosDAO) {
+        this.parametrosDao = parametrosDAO;
+    }
+    
+    public Collection<LivroParaCotacao> obtemLivrosParaCotacao(){
+        Collection<LivroParaCotacao> livrosParaCotacao = new ArrayList<LivroParaCotacao>();
+        try {
+            
+            List<Livro> livros = new ArrayList<Livro>(this.getLivroDao().list());
+            List<Parametros> param = new ArrayList<Parametros>(this.getParametrosDao().list());
+            
+            int quantidadeLivrosPorAlunos = 0;
+            
+            if(UtilObjeto.isReferencia(param) && param.size() > 0){
+                
+                quantidadeLivrosPorAlunos = param.get(0).getParametroMEC();
+            }
+            
+            for(Livro livro: livros) {
+            
+                Integer quantidadeBiblioteca = 0;
+                
+                Collection<LivroBiblioteca> livrosBiblioteca = this.getBibliotecaDao().getLivrosBibliotecaTitulo(livro.getTitulo());
+                
+                if(UtilObjeto.isReferencia(livrosBiblioteca) && livrosBiblioteca.size() > 0){
+                                      
+                    for(LivroBiblioteca livroBiblioteca : livrosBiblioteca){
+                        
+                        quantidadeBiblioteca += livroBiblioteca.getQuantidade();
+                    }                    
+                }
+                
+                Integer quantidadeAlunos = this.getLivroDao().obterQuantidadeDeAlunosPorLivro(livro.getId());
+                
+                LivroParaCotacao livroParaCotacao = new LivroParaCotacao();
+                livroParaCotacao.setLivro(livro);
+                livroParaCotacao.setParametroMec(quantidadeLivrosPorAlunos);
+                livroParaCotacao.setQuantidadeExigida(quantidadeAlunos / quantidadeLivrosPorAlunos);
+                livroParaCotacao.setQuantidadeLivrosDisponiveis(quantidadeBiblioteca);
+                livrosParaCotacao.add(livroParaCotacao);
+            }
+            
+        
+        } catch (NotFoundException nfe) {
+            
+            Logger.getAnonymousLogger().log(Level.SEVERE, "Livro não encontrado");
+        
+        } catch (SQLException sqle) {
+            
+            Logger.getAnonymousLogger().log(Level.SEVERE, sqle.getMessage(), sqle);
+        }
+        
+        return livrosParaCotacao;
     }
 }
