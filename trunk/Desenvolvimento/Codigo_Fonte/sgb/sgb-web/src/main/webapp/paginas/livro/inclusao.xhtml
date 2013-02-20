@@ -102,14 +102,14 @@
                 <p:spacer width="15px" height="50px"/>
 
 
-                    <p:commandButton update="@form" actionListener="#{livroController.salvarLivro()}" 
-                                     value="#{msg['cadastro.livro.button.cadastrar']}" 
-                                      icon="ui-icon-disk"/>
-
-                    <p:commandButton  ajax="false" immediate="true"  
-                                      action="#{livroController.openInitialPage()}" 
-                                      value="#{msg['cadastro.livro.button.back']}"
-                                       icon="ui-icon-arrowreturnthick-1-w"/>
+                <p:commandButton update="@form" actionListener="#{livroController.salvarLivro()}" 
+                                 value="#{msg['cadastro.livro.button.cadastrar']}" 
+                                 icon="ui-icon-disk"/>
+                                          
+                <p:commandButton  ajax="false" immediate="true"  
+                                  action="#{livroController.openInitialPage()}" 
+                                  value="#{msg['cadastro.livro.button.back']}"
+                                  icon="ui-icon-arrowreturnthick-1-w"/>
 
 
 

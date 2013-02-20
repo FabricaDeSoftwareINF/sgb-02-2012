@@ -21,7 +21,7 @@ public class Bibliografia extends AbstractEntityModel {
     /**
      * Campo livro
      */
-    @ManyToOne(optional = false, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "id_livro")
     private Livro livro;
     /**
