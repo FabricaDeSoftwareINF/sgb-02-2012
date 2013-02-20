@@ -16,6 +16,8 @@ import org.mockito.Mockito;
 
 /**
  *
+ * Testes para o servico de disciplina
+ * 
  * @author Victor Carvalho
  */
 public class DisciplinaServiceTest {
