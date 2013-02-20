@@ -48,7 +48,7 @@ public class DBBibliotecaConfigDAO extends GenericHibernateDAO<DBBibliotecaConfi
      */
     public DBBibliotecaConfig getBibliotecaCfg() {
 
-        Criteria criteria = this.getSession().createCriteria(DBBibliotecaConfig.class);
+        Criteria criteria = this.createCriteria();
 
         return (DBBibliotecaConfig) criteria.uniqueResult();
     }

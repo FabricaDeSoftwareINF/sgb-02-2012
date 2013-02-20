@@ -55,6 +55,11 @@ public enum DBDriver {
         this.driver = driver;
     }
 
+    /**
+     * Obtém o valor do campo<code>name</code>
+     *
+     * @return {@link String}
+     */
     public String getName() {
         return this.name();
     }
