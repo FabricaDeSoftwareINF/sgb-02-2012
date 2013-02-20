@@ -1,5 +1,6 @@
 package br.ufg.inf.es.model.dtos;
 
+import br.ufg.inf.es.model.Livro;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import org.junit.Before;
@@ -15,31 +16,22 @@ public class LivroParaCotacaoTest {
     private Integer quantidadeVagas = 50;
     private Integer parametroMec = 5;
     private Integer quantidadeLivrosDisponiveis = 5;
-    private Integer quantidadeLivrosFaltando = 5;
-    private String nomeLivro = "A";
-    private String isbn = "isbn";
+    private Integer quantidadeAComprar = 5;
+    private Livro livro;
 
     @Before
     public void setUp() {
+        livro = new Livro();
         livroParaCotacao = new LivroParaCotacao(quantidadeVagas, parametroMec,
-                quantidadeLivrosDisponiveis, quantidadeLivrosFaltando, nomeLivro, isbn);
+                quantidadeLivrosDisponiveis, quantidadeAComprar, livro);
     }
 
     /**
-     * Test of getIsbn method, of class LivroParaCotacao.
+     * Test of getLivro method, of class LivroParaCotacao.
      */
     @Test
-    public void testGetIsbn() {
-        assertEquals(isbn, livroParaCotacao.getIsbn());
-    }
-
-    /**
-     * Test of getNomeLivro method, of class LivroParaCotacao.
-     */
-    @Test
-    public void testGetNomeLivro() {
-        String result = livroParaCotacao.getNomeLivro();
-        assertEquals(nomeLivro, result);
+    public void testGetLivro() {
+        assertEquals(livro, livroParaCotacao.getLivro());
     }
 
     /**
@@ -61,22 +53,21 @@ public class LivroParaCotacaoTest {
     }
 
     /**
-     * Test of getQuantidadeLivrosFaltando method, of class LivroParaCotacao.
+     * Test of getQuantidadeExigida method, of class LivroParaCotacao.
      */
     @Test
-    public void testGetQuantidadeLivrosFaltando() {
-        Integer result = livroParaCotacao.getQuantidadeLivrosFaltando();
-        assertEquals(quantidadeLivrosFaltando, result);
-
-    }
-
-    /**
-     * Test of getQuantidadeVagas method, of class LivroParaCotacao.
-     */
-    @Test
-    public void testGetQuantidadeVagas() {
-        Integer result = livroParaCotacao.getQuantidadeVagas();
+    public void testGetQuantidadeExigida() {
+        Integer result = livroParaCotacao.getQuantidadeExigida();
         assertEquals(quantidadeVagas, result);
+    }
+    
+    /**
+     * Test of getQuantidadeAComprar method, of class LivroParaCotacao.
+     */
+    @Test
+    public void testGetQuantidadeAComprar() {
+        Integer result = livroParaCotacao.getQuantidadeAComprar();
+        assertEquals(quantidadeAComprar, result);
     }
 
     /**

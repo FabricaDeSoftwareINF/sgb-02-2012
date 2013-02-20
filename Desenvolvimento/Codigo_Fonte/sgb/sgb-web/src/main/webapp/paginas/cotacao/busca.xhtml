@@ -12,7 +12,6 @@
     <ui:composition template="/template/template.xhtml">
         <ui:define name="content">
 
-            <h:body>
                 <p:panel header="Livros para cotação">
                     <h:panelGrid columns="2" cellpadding="5">  
                         <h:outputText value="Parâmetro do mec: " />  
@@ -23,36 +22,71 @@
                         <p:messages />
                         <h:panelGrid columns="2" width="100%">
                             <p:dataTable id="listaLivrosParaCotacao" paginator="true" rows="10" 
-                                         value="#{livroParaCotacaoController.form.collectionEntities}" 
+                                         value="#{listaComprasController.form.livroDataModel}" 
                                          var="livroParaCotacao"
                                          emptyMessage="#{msg['arquitetura.label.nenhumregitro']}">
 
-                                <p:column headerText="Isbn" sortBy="#{livroParaCotacao.isbn}" filterBy="#{livroParaCotacao.isbn}" filterMatchMode="contains">
-                                    <h:outputText value="#{livroParaCotacao.isbn}" />
+                                <p:column headerText="#{msg['cadastro.livro.label.titulo']}"
+                                          filterBy="#{livroParaCotacao.livro.titulo}" filterMatchMode="contains">
+
+                                    <h:outputText value="#{livroParaCotacao.livro.titulo}" escape="false"/>
+
                                 </p:column>
 
-                                <p:column headerText="Titulo" sortBy="#{livroParaCotacao.nomeLivro}" filterBy="#{livroParaCotacao.nomeLivro}" filterMatchMode="contains">
-                                    <h:outputText value="#{livroParaCotacao.nomeLivro}" />
+                                <p:column headerText="#{msg['cadastro.livro.label.autor']}"
+                                          filterBy="#{livroParaCotacao.livro.autoresAsString}" filterMatchMode="contains">
+                                    <p:dataList value="#{livroParaCotacao.livro.autores}" var="autor">
+                                        <h:outputText value="#{autor.sobrenome.toUpperCase()},#{autor.nome}" escape="false"/>
+                                    </p:dataList>
                                 </p:column>
 
-                                <p:column headerText="Qtde vagas" sortBy="#{livroParaCotacao.quantidadeVagas}">
-                                    <h:outputText value="#{livroParaCotacao.quantidadeVagas}" />
+                                <p:column headerText="#{msg['cadastro.livro.label.edicao']}">
+                                    <h:outputText value="#{livroParaCotacao.livro.edicao}" escape="false"/>
                                 </p:column>
 
-                                <p:column headerText="Qtde na biblioteca" sortBy="#{livroParaCotacao.quantidadeLivrosDisponiveis}" >
+                                <p:column headerText="#{msg['cadastro.livro.label.ano']}">
+                                    <h:outputText value="#{livroParaCotacao.livro.ano}" />
+                                </p:column>
+
+                                <p:column headerText="#{msg['cadastro.livro.label.editora']}">
+                                    <h:outputText value="#{livroParaCotacao.livro.editora.nome}" />
+                                </p:column>
+
+                                <p:column headerText="#{msg['cadastro.livro.label.isbn13']}">
+                                    <h:outputText value="#{livroParaCotacao.livro.isbn13}" />
+                                </p:column>
+                                
+                                <p:column headerText="Qtde necessária" sortBy="#{listaComprasController.quantidadeExigida}">
+                                    <h:outputText value="#{livroParaCotacao.quantidadeExigida}" />
+                                </p:column>
+
+                                <p:column headerText="Qtde na biblioteca" sortBy="#{listaComprasController.quantidadeLivrosDisponiveis}" >
                                     <h:outputText value="#{livroParaCotacao.quantidadeLivrosDisponiveis}" />
                                 </p:column>
 
-                                <p:column headerText="Qtde faltando" sortBy="#{livroParaCotacao.quantidadeLivrosFaltando}">
+                                <p:column headerText="Qtde faltando" sortBy="#{listaComprasController.quantidadeLivrosFaltando}">
                                     <h:outputText value="#{livroParaCotacao.quantidadeLivrosFaltando}" />
                                 </p:column>
 
+                                <p:column headerText="#{msg['cadastro.livro.label.disciplinas']}"
+                                          filterBy="#{livroParaCotacao.disciplinasAsString}" filterMatchMode="contains">
+                                    <p:dataList value="#{livroParaCotacao.livro.bibliografias}" var="bibliografia">
+                                        <h:outputText value="#{bibliografia.disciplina.nome} - #{bibliografia.disciplina.curso.nome} - #{bibliografia.tipo.value}" 
+                                                      escape="false"
+                                                      title="#{bibliografia.disciplina.nome} - #{bibliografia.disciplina.curso.nome} - #{bibliografia.tipo.value}"/>
+                                    </p:dataList>
+                                </p:column>
+
+                                <p:column headerText="#{msg['cadastro.livro.label.estrangeiro']}"
+                                          filterBy="#{livroParaCotacao.livro.estrangeiro}" filterOptions="#{listaComprasController.estrangeiroOptions}"
+                                          filterMatchMode="exact">
+                                    <h:outputText value="#{livroParaCotacao.livro.estrangeiro ? 'Sim' : 'Não'}" />
+                                </p:column>
                             </p:dataTable>
                             <!--                            <p:spacer height="15"/>-->
                         </h:panelGrid>
                     </h:form>
                 </p:panel>        
-            </h:body>
         </ui:define>
     </ui:composition>
 </html>

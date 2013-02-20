@@ -13,9 +13,8 @@
 
                 <p:spacer width="15px" />
 
-                <ui:include src="novaListaCompra.xhtml"></ui:include>
                 <h:form id="form">  
-
+                    
                     <p:growl id="growl" showDetail="true"/>  
 
                     <p:dataTable id="listaComprasTable"
@@ -71,15 +70,6 @@
                                     <h:outputText value="#{livro.ano}" 
                                                   title="#{livro.ano}"/>  
                                 </p:column>
-
-
-                                <!--<p:column headerText="Isbn10">  
-                                    <h:outputText value="#{livro.isbn}" />  
-                                </p:column>
-    
-                                <p:column headerText="Isbn13">  
-                                    <h:outputText value="#{livro.isbn13}" />  
-                                </p:column>-->
                             </p:dataTable>  
 
                             <p:commandButton value="Cotar" 
@@ -97,9 +87,11 @@
                     <p:spacer height="10px"/>
                     <h:panelGrid columns="1">
                     <p:commandButton value="Novo"
-                                     onclick="novaListaCompra.show();" 
+                                     oncomplete="novaListaCompra.show();" 
                                      icon="ui-icon-document"/>
                     </h:panelGrid>
+                    
+                    <ui:include src="novaListaCompra.xhtml"></ui:include>
 
                 </h:form>  
             </p:panel>

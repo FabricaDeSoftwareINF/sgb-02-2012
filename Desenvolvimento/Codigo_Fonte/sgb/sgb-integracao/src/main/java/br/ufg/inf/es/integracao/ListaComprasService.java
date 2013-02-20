@@ -102,13 +102,13 @@ public class ListaComprasService extends GenericService<ListaCompras> {
         this.usuarioDao = usuarioDao;
     }
 
-    public void criaListaCompras(final Livro[] selectedLivros) {
+    public void criaListaCompras(Collection<Livro> livrosSelecionado) {
         
         ListaCompras listaCompras = new ListaCompras();
         
         listaCompras.setDataCriacao(new Date());
         
-        listaCompras.setLivrosDaListaCompras(Arrays.asList(selectedLivros));
+        listaCompras.setLivrosDaListaCompras(livrosSelecionado);
         
         listaCompras.setNome(listaCompras.getDataCriacao().toString());
         
