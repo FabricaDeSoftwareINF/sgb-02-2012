@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.ufg.inf.es.integracao;
 
 import br.ufg.inf.es.base.validation.ValidationException;
@@ -14,21 +10,23 @@ import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Component;
 
 /**
- * Classe de serviço para as operações de configuração dos parâmetros de 
+ * Classe de serviço para as operações de configuração dos parâmetros de
  * integração com sistema da Biblioteca
- * 
+ *
  * @author igor
  */
 @Component
 @Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
-public class DBBibliotecaConfigService extends GenericService<DBBibliotecaConfig>{
-    
-    /** Campo dao*/
+public class DBBibliotecaConfigService extends GenericService<DBBibliotecaConfig> {
+
+    /**
+     * Campo dao
+     */
     @Autowired
     private DBBibliotecaConfigDAO dao;
 
-    /** 
-     * {@inheritDoc} 
+    /**
+     * {@inheritDoc}
      */
     @Override
     public DBBibliotecaConfigDAO getDAO() {
@@ -49,8 +47,9 @@ public class DBBibliotecaConfigService extends GenericService<DBBibliotecaConfig
     /**
      * Método responsável por buscar a configuração de integração com o banco da
      * biblioteca.
+     *
      * @author Igor
-     * @return objeto de parâmetros de configuração de integração com o banco da 
+     * @return objeto de parâmetros de configuração de integração com o banco da
      * biblioteca
      */
     public DBBibliotecaConfig getBibliotecaCfg() {
@@ -60,14 +59,15 @@ public class DBBibliotecaConfigService extends GenericService<DBBibliotecaConfig
     }
 
     /**
-     * Método responsável por realizar a inserção das configurações de comunicação
-     * com o banco de dados da biblioteca
+     * Método responsável por realizar a inserção das configurações de
+     * comunicação com o banco de dados da biblioteca
+     *
      * @author Igor
-     * @param dbBibliotecaConfig instancia das classe dos parâmetros de conexão 
+     * @param dbBibliotecaConfig instancia das classe dos parâmetros de conexão
      * com banco de dados da biblioteca
      * @return id da nova entidade
-     * @throws ValidationException validação da instancia do objeto de coinfiguração
-     * de conexão com banco de dados da biblioteca
+     * @throws ValidationException validação da instancia do objeto de
+     * coinfiguração de conexão com banco de dados da biblioteca
      */
     @Override
     @RNG018
@@ -77,15 +77,16 @@ public class DBBibliotecaConfigService extends GenericService<DBBibliotecaConfig
     }
 
     /**
-     * Método reponsável por realizar a edição das configurações de integração 
+     * Método reponsável por realizar a edição das configurações de integração
      * com o banco de dados da biblioteca.
+     *
      * @author Igor
      * @param entidade
-     * @throws ValidationException 
+     * @throws ValidationException
      */
     @RNG018
     public void editar(DBBibliotecaConfig entidade) throws ValidationException {
-     
-        this.getDAO().update(entidade);        
+
+        this.getDAO().update(entidade);
     }
 }
