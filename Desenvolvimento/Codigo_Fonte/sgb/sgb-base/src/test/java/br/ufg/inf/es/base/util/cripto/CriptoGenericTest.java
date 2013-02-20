@@ -96,5 +96,12 @@ public class CriptoGenericTest extends TestCase {
        
         byte[] cipher = cript.criptografa(text);
         assertNotNull(cipher);
+        
+    }
+    public void testArquivoChaves(){
+        CriptoGeneric cript = new CriptoGeneric("RSA","sgb.dat");
+        assertNotNull(cript.getArquivoChaves());
+        cript.setArquivoChaves("a.txt");
+        assertEquals("a.txt",cript.getArquivoChaves());
     }
 }
