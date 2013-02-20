@@ -42,7 +42,7 @@ public class UtilFileTest extends TestCase {
         String nomeArquivo = "BB:/&&*(((..;;;::!@##$!@$@%@${}{}<><????!!";
         File result = UtilFile.crieArquivo(nomeArquivo);
         boolean arquivoGerado = result.exists();
-        
+        result.delete();
         assertFalse(arquivoGerado);
     }
      public void testCrieArquivoFalse() {
