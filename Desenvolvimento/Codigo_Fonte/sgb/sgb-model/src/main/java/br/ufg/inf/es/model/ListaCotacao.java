@@ -1,5 +1,7 @@
 package br.ufg.inf.es.model;
 
+import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -27,10 +29,7 @@ public class ListaCotacao extends AbstractEntityModel {
             joinColumns = @JoinColumn( name="id_lista_cotacao"),
             inverseJoinColumns = @JoinColumn( name="id_cotacoes_livro")
     )
-    private Collection<CotacoesLivro> cotacoesLivro;
-    
-    /** Campo valor*/
-    private double valor;
+    private Collection<CotacoesLivro> cotacoesLivro =  new ArrayList<CotacoesLivro>();
 
     /**
      * Obtém o valor do campo <code>nome</code>
@@ -88,31 +87,12 @@ public class ListaCotacao extends AbstractEntityModel {
             this.cotacoesLivro = cotacoesLivro;
     }
 
-    /**
-     * Obtém o valor do campo <code>valor</code>
-     *
-     * @return valor
-     */
-    public double getValor() {
-        return valor;
-    }
-
-    /**
-     * Define o campo <code>valor</code>.
-     *
-     * @param valor 
-     */
-    public void setValor(double valor) {
-        this.valor = valor;
-    }
-
     @Override
     public int hashCode() {
         int hash = 7;
         hash = 13 * hash + (this.nome != null ? this.nome.hashCode() : 0);
         hash = 13 * hash + (this.dataRealizada != null ? this.dataRealizada.hashCode() : 0);
         hash = 13 * hash + (this.cotacoesLivro != null ? this.cotacoesLivro.hashCode() : 0);
-        hash = 13 * hash + (int) (Double.doubleToLongBits(this.valor) ^ (Double.doubleToLongBits(this.valor) >>> 32));
         return hash;
     }
 
@@ -134,10 +114,22 @@ public class ListaCotacao extends AbstractEntityModel {
         if (this.cotacoesLivro != other.cotacoesLivro && (this.cotacoesLivro == null || !this.cotacoesLivro.equals(other.cotacoesLivro))) {
             return false;
         }
-        if (Double.doubleToLongBits(this.valor) != Double.doubleToLongBits(other.valor)) {
-            return false;
-        }
+
         return true;
     }
     
+    public double getValor() {
+
+        double valor = 0;
+        ArrayList<CotacoesLivro> cotacoes = 
+                new ArrayList<CotacoesLivro>(getCotacoesLivro());
+
+        for (int i = 0; i < cotacoes.size(); i++) {
+            valor += cotacoes.get(i).getValorMedio() * cotacoes.get(i).getQuantidade() ;
+        }
+
+        return valor;
+       
+    }
+       
 }

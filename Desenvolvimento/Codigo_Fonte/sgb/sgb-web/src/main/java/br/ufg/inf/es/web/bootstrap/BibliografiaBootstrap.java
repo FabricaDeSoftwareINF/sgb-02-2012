@@ -66,10 +66,6 @@ public class BibliografiaBootstrap {
         listaCotacao = new ListaCotacao();
         listaCotacao.setNome("Lista de Cotações 1");
         listaCotacao.setDataRealizada(Calendar.getInstance().getTime());
-        double valor = (QUANTIDADE1 * ((VALOR1 + VALOR2) / 2d))
-                + (QUANTIDADE2 * ((VALOR3 + VALOR4) / 2d));
-        crieCotacoesLivro();
-        listaCotacao.setValor(valor);
         listaCotacao.setCotacoesLivro(listaCotacoesLivro);
         listaCotacao.setId(salve(listaCotacao));
 

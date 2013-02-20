@@ -19,13 +19,6 @@ public class ListaCotacaoForm extends GenericForm<ListaCotacao> {
     private Collection<ListaCotacao> tabelaListaCotacoes;
     private ListaCotacaoDataModel listaCotacaoDataModel;
     private ListaCotacao[] listasCotacoesSelecionadas;
-    private double valorTotalAtual;
-
-    public ListaCotacaoForm() {
-        if (getEntity() != null) {
-            valorTotalAtual = getEntity().getValor();
-        }
-    }
 
     public ListaCotacaoDataModel getListaCotacaoDataModel() {
 
@@ -72,11 +65,4 @@ public class ListaCotacaoForm extends GenericForm<ListaCotacao> {
         this.tabelaListaCotacoes = tabelaListaCotacoes;
     }
 
-    public double getValorTotalAtual() {
-        return valorTotalAtual;
-    }
-
-    public void setValorTotalAtual(double valorTotalAtual) {
-        this.valorTotalAtual = valorTotalAtual;
-    }
 }
