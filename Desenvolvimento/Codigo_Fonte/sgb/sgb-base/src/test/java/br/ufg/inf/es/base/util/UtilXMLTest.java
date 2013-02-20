@@ -28,6 +28,16 @@ public class UtilXMLTest extends TestCase {
         assertEquals("O xml gerado a partir do objeto está diferente do esperado",
                 expResult, result);
     }
+    public void testConvertaObjetoParaXMLException() {
+        
+        boolean result = UtilXML.convertaObjetoParaXML(objeto, obtenhaParametrosPadroes(),"");
+        assertFalse(result);
+    }
+     public void testConvertaObjetoParaXMLNull() {
+        
+        boolean result = UtilXML.convertaObjetoParaXML(objeto, null,"");
+        assertFalse(result);
+    }
 
     /**
      * Test of convertaObjetoParaXML method, of class UtilXML.
