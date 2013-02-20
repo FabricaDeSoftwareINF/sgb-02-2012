@@ -59,8 +59,7 @@ public enum DBDriver {
         return this.name();
     }
 
-    public void setName(String driver) {
-    }
+    
 
     /**
      * Obtém o valor do campo
