@@ -85,13 +85,14 @@ public class CriptoGenericTest extends TestCase {
       * o dados.
       * @throws IOException 
       */
-     public void testCriptografaComExceptionSemArquivoChaves() throws IOException {
+     public void testCriptografaComExceptionSemArquivoChaves() throws IOException, InterruptedException {
         File file = new File("sgb.dat");
         file.delete();
 
         String text = "texto criptografado";
-        CriptoGeneric cript = new CriptoGeneric("RSA","");
+        CriptoGeneric cript = new CriptoGeneric("RSA","sgb.dat");
         
+        file.delete();
        
         byte[] cipher = cript.criptografa(text);
         assertNotNull(cipher);

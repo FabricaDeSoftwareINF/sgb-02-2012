@@ -27,9 +27,11 @@ import javax.crypto.NoSuchPaddingException;
  * @author igor
  */
 public class CriptoGeneric implements Serializable {
-    /** Nome da Cifra*/
-    private  static String nomeCifra = "RSA";
 
+    /**
+     * Nome da Cifra
+     */
+    private static String nomeCifra = "RSA";
     /**
      * Campo serialVersionUID
      */
@@ -58,12 +60,12 @@ public class CriptoGeneric implements Serializable {
         setUp();
     }
 
-    public CriptoGeneric(String cifra, String nomeArquivoChaves){
+    public CriptoGeneric(String cifra, String nomeArquivoChaves) {
         this.nomeCifra = cifra;
         this.nomeArquivoComChaves = nomeArquivoChaves;
         setUp();
     }
-    
+
     /**
      * Método que configura os dados das chaves de criptografia.
      *
@@ -144,14 +146,10 @@ public class CriptoGeneric implements Serializable {
      */
     private boolean isKeys() {
         boolean recove = false;
-        try {
-            File arquivo = new File(nomeArquivoComChaves);
-            if (arquivo.exists()) {
-                recove = true;
-            }
-        } catch (Exception e) {
 
-            Logger.getAnonymousLogger().log(Level.SEVERE, e.getMessage(), e.getCause());
+        File arquivo = new File(nomeArquivoComChaves);
+        if (arquivo.exists()) {
+            recove = true;
         }
 
         return recove;
@@ -195,23 +193,7 @@ public class CriptoGeneric implements Serializable {
             //mensagem codificada
             cipherText = cipher.doFinal(texto.getBytes());
 
-        } catch (InvalidKeyException e) {
-
-            Logger.getAnonymousLogger().log(Level.SEVERE, e.getMessage());
-
-        } catch (NoSuchAlgorithmException e1) {
-
-            Logger.getAnonymousLogger().log(Level.SEVERE, e1.getMessage());
-
-        } catch (NoSuchPaddingException e1) {
-
-            Logger.getAnonymousLogger().log(Level.SEVERE, e1.getMessage());
-
-        } catch (IllegalBlockSizeException e) {
-
-            Logger.getAnonymousLogger().log(Level.SEVERE, e.getMessage());
-
-        } catch (BadPaddingException e) {
+        } catch (Exception e) {
 
             Logger.getAnonymousLogger().log(Level.SEVERE, e.getMessage());
         }
@@ -236,25 +218,10 @@ public class CriptoGeneric implements Serializable {
             //mensagem decodificada
             plainText = cipher.doFinal(texto);
 
-        } catch (InvalidKeyException e) {
+        } catch (Exception e) {
 
             Logger.getAnonymousLogger().log(Level.SEVERE, e.getMessage());
 
-        } catch (NoSuchAlgorithmException e1) {
-
-            Logger.getAnonymousLogger().log(Level.SEVERE, e1.getMessage());
-
-        } catch (NoSuchPaddingException e1) {
-
-            Logger.getAnonymousLogger().log(Level.SEVERE, e1.getMessage());
-
-        } catch (IllegalBlockSizeException e) {
-
-            Logger.getAnonymousLogger().log(Level.SEVERE, e.getMessage());
-
-        } catch (BadPaddingException e) {
-
-            Logger.getAnonymousLogger().log(Level.SEVERE, e.getMessage());
         }
 
         return plainText;
@@ -262,6 +229,7 @@ public class CriptoGeneric implements Serializable {
 
     /**
      * Retorna o nome do arquivo com chaves
+     *
      * @return String com o nome do arquivo de chaves
      */
     public String getArquivoChaves() {
@@ -270,9 +238,20 @@ public class CriptoGeneric implements Serializable {
 
     /**
      * Seta o nome do arquivo com chaves
+     *
      * @param nomeArquivoComChaves Nome do arquivo com chaves
      */
     public void setArquivoChaves(String arquivoChaves) {
         this.nomeArquivoComChaves = arquivoChaves;
+    }
+
+    public static void main(String[] args) {
+        try {
+            File a = new File("4859234528345*(Ï**&*()");
+            System.out.println(a.exists());
+        } catch (Exception e) {
+            System.out.println("captrou");
+        }
+
     }
 }
