@@ -50,6 +50,14 @@ public class ValidationTest {
         assertEquals(expResult, result);
         
     }
+      @Test
+    public void testIsInvalid_StringNull() {
+        String value = null;
+        Validation instance = new ValidationImpl();
+        boolean expResult = true;
+        boolean result = instance.isInvalid(value);
+        assertEquals(expResult, result);
+      }
 
     /**
      * Test of isInvalid method, of class Validation.
@@ -71,6 +79,17 @@ public class ValidationTest {
         value.add("a");
         Validation instance = new ValidationImpl();
         boolean expResult = false;
+        boolean result = instance.isInvalid(value);
+        assertEquals(expResult, result);
+        
+    }
+      @Test
+    public void testIsInvalid_CollectionValidEmpty() {
+      
+        Collection value = new ArrayList();
+        
+        Validation instance = new ValidationImpl();
+        boolean expResult = true;
         boolean result = instance.isInvalid(value);
         assertEquals(expResult, result);
         
