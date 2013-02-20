@@ -41,6 +41,15 @@ public class ListaComprasService extends GenericService<ListaCompras> {
     public LivroDAO getLivroDao() {
         return livroDao;
     }
+    
+     /**
+     * Método que define o LivroDAO
+     *
+     * @param livroDao
+     */
+    public void setLivroDao(LivroDAO livroDao) {
+        this.livroDao = livroDao;
+    }
 
     /** 
      * {@inheritDoc} 
