@@ -1,7 +1,9 @@
 package br.ufg.inf.es.base.util;
 
 import java.io.File;
+import java.io.IOException;
 import junit.framework.TestCase;
+import org.junit.Test;
 
 /**
  *
@@ -18,6 +20,11 @@ public class UtilFileTest extends TestCase {
         assertEquals("O conteúdo lido do arquivo está diferente do esperado",
                 obtenhaConteudoEsperado(), result);
     }
+     public void testObtenhaConteudoDoArquivoException() {
+        String path = ";;//dfadsp034525*(*&%";
+        String result = UtilFile.obtenhaConteudoDoArquivo(path);
+        assertEquals("", result);
+    }
 
     /**
      * Test of crieArquivo method, of class UtilFile.
@@ -26,6 +33,21 @@ public class UtilFileTest extends TestCase {
         String nomeArquivo = "ARQUIVO_GERADO.txt";
         String pathArquivo = obtenhaPath(nomeArquivo);
         File result = UtilFile.crieArquivo(pathArquivo);
+        boolean arquivoGerado = result.exists();
+        result.delete();
+        assertTrue(arquivoGerado);
+    }
+    
+     public void testCrieArquivoException() {
+        String nomeArquivo = "BB:/&&*(((..;;;::!@##$!@$@%@${}{}<><????!!";
+        File result = UtilFile.crieArquivo(nomeArquivo);
+        boolean arquivoGerado = result.exists();
+        
+        assertFalse(arquivoGerado);
+    }
+     public void testCrieArquivoFalse() {
+        String nomeArquivo = "BB:";
+        File result = UtilFile.crieArquivo(nomeArquivo);
         boolean arquivoGerado = result.exists();
         result.delete();
         assertTrue(arquivoGerado);
