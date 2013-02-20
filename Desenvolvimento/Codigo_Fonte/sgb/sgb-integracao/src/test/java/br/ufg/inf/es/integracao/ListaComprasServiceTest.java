@@ -119,11 +119,6 @@ public class ListaComprasServiceTest {
      */
     @Test
     public void testCriaListaCompras() {
-        System.out.println("criaListaCompras");
-        Livro[] selectedLivros = null;
-        ListaComprasService instance = new ListaComprasService();
-        instance.criaListaCompras(selectedLivros);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
     }
 }
