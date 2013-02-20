@@ -71,10 +71,37 @@ public class CursoServiceTest {
 
         Assert.assertEquals(Long.MIN_VALUE, id.longValue());
     }
+    
+    @Test
+    public void testInserirCurso003() throws ValidationException {
+        
+        Mockito.when(cursoDAO.insert(curso)).thenReturn(Long.MIN_VALUE);
+
+        Disciplina disciplina = new Disciplina();
+        
+        disciplina.setCodigo("10");
+        
+        disciplina.setNome("Engenharia de Software");
+        
+        LinkedList<Disciplina> disciplinas = new LinkedList<Disciplina>();
+        
+        disciplinas.add(disciplina);
+        
+        curso.setDisciplinas(disciplinas);
+        
+        Long id = cursoService.insert(curso);
+        
+        Mockito.verify(cursoDAO).insert(curso);
+                
+        Assert.assertEquals(Long.MIN_VALUE, id.longValue());
+    }
 
     @Test
     public void testAtualizarCurso() throws ValidationException {
+        
         CursoService service = Mockito.mock(CursoService.class);
+        
         service.update(curso);
+        
     }
 }
