@@ -26,13 +26,25 @@ public class RealizarCotacaoServiceTest {
 
     private ListaCotacaoDAO dao;
     private RealizarCotacaoService service;
+    private LivroDAO livroDao; 
+    private CotacaoDAO cotacaoDao;
+    private LivrosBibliotecaDAO bibliotecaDao;
+    private ParametrosDAO parametrosDao; 
 
     @Before
     public void setUp() {
         service = new RealizarCotacaoService();
         dao = Mockito.mock(ListaCotacaoDAO.class);
+        livroDao = Mockito.mock(LivroDAO.class);
+        cotacaoDao = Mockito.mock(CotacaoDAO.class);
+        bibliotecaDao = Mockito.mock(LivrosBibliotecaDAO.class);
+        parametrosDao = Mockito.mock(ParametrosDAO.class);
 
         service.setDao(dao);
+        service.setLivroDao(livroDao);
+        service.setBibliotecaDao(bibliotecaDao);
+        service.setCotacaoDao(cotacaoDao);
+        service.setParametrosDao(parametrosDao);
     }
 
     /**
@@ -40,10 +52,8 @@ public class RealizarCotacaoServiceTest {
      */
     @Test
     public void testGetDAO() {
-        RealizarCotacaoService instance = new RealizarCotacaoService();
-
-        ListaCotacaoDAO result = instance.getDAO();
-        assertNull(result);
+        ListaCotacaoDAO result = service.getDAO();
+        assertEquals(dao, result);
     }
 
     /**
@@ -62,13 +72,8 @@ public class RealizarCotacaoServiceTest {
      */
     @Test
     public void testGetDao() {
-        System.out.println("getDao");
-        RealizarCotacaoService instance = new RealizarCotacaoService();
-        ListaCotacaoDAO expResult = null;
-        ListaCotacaoDAO result = instance.getDao();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        ListaCotacaoDAO result = service.getDao();
+        assertEquals(dao, result);
     }
 
     /**
@@ -76,13 +81,8 @@ public class RealizarCotacaoServiceTest {
      */
     @Test
     public void testGetLivroDao() {
-        System.out.println("getLivroDao");
-        RealizarCotacaoService instance = new RealizarCotacaoService();
-        LivroDAO expResult = null;
-        LivroDAO result = instance.getLivroDao();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        LivroDAO result = service.getLivroDao();
+        assertEquals(livroDao, result);
     }
 
     /**
@@ -90,13 +90,8 @@ public class RealizarCotacaoServiceTest {
      */
     @Test
     public void testGetCotacaoDao() {
-        System.out.println("getCotacaoDao");
-        RealizarCotacaoService instance = new RealizarCotacaoService();
-        CotacaoDAO expResult = null;
-        CotacaoDAO result = instance.getCotacaoDao();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        CotacaoDAO result = service.getCotacaoDao();
+        assertEquals(cotacaoDao, result);
     }
 
     /**
@@ -104,7 +99,6 @@ public class RealizarCotacaoServiceTest {
      */
     @Test
     public void testRealizarCotacao() {
-        System.out.println("realizarCotacao");
         Collection<Livro> livros = null;
         RealizarCotacaoService instance = new RealizarCotacaoService();
         ListaCotacao expResult = null;
@@ -119,13 +113,8 @@ public class RealizarCotacaoServiceTest {
      */
     @Test
     public void testGetBibliotecaDao() {
-        System.out.println("getBibliotecaDao");
-        RealizarCotacaoService instance = new RealizarCotacaoService();
-        LivrosBibliotecaDAO expResult = null;
-        LivrosBibliotecaDAO result = instance.getBibliotecaDao();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        LivrosBibliotecaDAO result = service.getBibliotecaDao();
+        assertEquals(bibliotecaDao, result);
     }
 
     /**
@@ -133,13 +122,8 @@ public class RealizarCotacaoServiceTest {
      */
     @Test
     public void testGetParametrosDao() {
-        System.out.println("getParametrosDao");
-        RealizarCotacaoService instance = new RealizarCotacaoService();
-        ParametrosDAO expResult = null;
-        ParametrosDAO result = instance.getParametrosDao();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        ParametrosDAO result = service.getParametrosDao();
+        assertEquals(parametrosDao, result);
     }
 
     /**

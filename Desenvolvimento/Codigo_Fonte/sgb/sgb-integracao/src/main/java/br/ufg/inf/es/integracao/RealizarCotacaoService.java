@@ -63,6 +63,22 @@ public class RealizarCotacaoService extends GenericService<ListaCotacao> {
         return this.dao;
     }
 
+    public void setBibliotecaDao(LivrosBibliotecaDAO bibliotecaDao) {
+        this.bibliotecaDao = bibliotecaDao;
+    }
+
+    public void setCotacaoDao(CotacaoDAO cotacaoDao) {
+        this.cotacaoDao = cotacaoDao;
+    }
+
+    public void setLivroDao(LivroDAO livroDao) {
+        this.livroDao = livroDao;
+    }
+
+    public void setParametrosDao(ParametrosDAO parametrosDao) {
+        this.parametrosDao = parametrosDao;
+    }
+    
     /**
      * Método que define o DAO do Livro.
      *
