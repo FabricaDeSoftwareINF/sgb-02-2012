@@ -1,10 +1,57 @@
 [
     {
         "titulo": "Engenharia de Software",
+        "editora": {
+            "nome": "Apress"
+        },
         "edicao": "3",
-        "anoPublicacao": "2000",
-        "autor": "Sommerville",
+        "ano": "2000",
         "isbn10": "12345678901",
-        "isbn13": "1234567890123"
-    } 
+        "isbn13": "1234567890123",
+        "estrangeiro": false,
+        "autores": [
+            {
+                "nome": "Ian",
+                "sobrenome": "Sommerville"
+            }
+        ]
+    }, 
+    {
+        "titulo": "Computer Networking, A Top-Down Approach",
+        "editora": {
+            "nome": "Addison Wesley"
+        },
+        "edicao": "5",
+        "ano": "2009",
+        "isbn10": "0136079679",
+        "isbn13": "9780136079675",
+        "estrangeiro": true,
+        "autores": [
+            {
+                "nome": "James",
+                "sobrenome": "F. Kurose"
+            },
+            {
+                "nome": "Keith",
+                "sobrenome": "W. Ross"
+            }
+        ]
+    },
+    {
+        "titulo": "The Definitive Guide to HTML5",
+        "editora": {
+            "nome": "Apress"
+        },
+        "edicao": "1",
+        "ano": "2011",
+        "isbn10": "1430239603",
+        "isbn13": "9781430239604",
+        "estrangeiro": true,
+        "autores": [
+            {
+                "nome": "Adam",
+                "sobrenome": "Freeman"
+            }
+        ]
+    }
 ]

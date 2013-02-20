@@ -1,4 +1,3 @@
-
 package br.ufg.inf.es.web.converters.stringconverters;
 
 import javax.faces.component.UIComponent;
@@ -44,7 +43,6 @@ public abstract class StringConverter implements Converter {
         final int tamanho = value.length();
 
         if (tamanho > limiteMaximo) {
-
             for (int i = 1; i <= tamanho; i++) {
 
                 if (i % limiteMaximo == 0) {

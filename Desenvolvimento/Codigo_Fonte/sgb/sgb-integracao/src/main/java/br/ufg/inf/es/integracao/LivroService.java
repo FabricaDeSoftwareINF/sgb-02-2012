@@ -102,4 +102,5 @@ public class LivroService extends GenericService<Livro> {
             throw new ValidationException("cadastro.livro.remocao.dependencia");
         }
     }
+    
 }

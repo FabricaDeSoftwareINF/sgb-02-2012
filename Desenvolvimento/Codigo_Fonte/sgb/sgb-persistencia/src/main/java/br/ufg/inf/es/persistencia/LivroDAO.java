@@ -4,6 +4,7 @@ import br.ufg.inf.es.base.util.UtilObjeto;
 import br.ufg.inf.es.model.Livro;
 import java.util.Collection;
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Projections;
@@ -127,5 +128,11 @@ public class LivroDAO extends GenericHibernateDAO<Livro> {
         criteria.setProjection(Projections.projectionList().add(Projections.sum("curs.vagas")));
         
         return UtilObjeto.isReferencia(criteria.uniqueResult()) ? (Integer) criteria.uniqueResult() : 0;
+    }
+    
+    @Override
+    public Collection<Livro> list() {
+        Query query = getSession().createQuery("FROM Livro l");
+        return query.list();
     }
 }

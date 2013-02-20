@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <f:view>
+        <p:dialog id="dialog_importados" widgetVar="dialogDetalhes"
+                  modal="true" header="#{msg['cadastro.livro.label.livro']}" resizable="false"
+                  showEffect="fade">
+            <p:dataTable value="#{integracaoSdbController.livrosEncontrados}" var="livro"
+                         rows="10" paginator="true" selection="#{integracaoSdbController.livrosSelecionados}">
+
+                <p:column selectionMode="multiple" style="width:18px" /> 
+
+                <p:column headerText="#{msg['cadastro.livro.label.titulo']}"
+                          filterBy="#{livro.titulo}" filterMatchMode="contains">
+
+                    <h:outputText value="#{livro.titulo}" escape="false"/>
+
+                </p:column>
+
+                <p:column headerText="#{msg['cadastro.livro.label.autor']}"
+                          filterBy="#{livro.autoresAsString}" filterMatchMode="contains">
+                    <p:dataList value="#{livro.autores}" var="autor">
+                        <h:outputText value="#{autor.sobrenome.toUpperCase()},#{autor.nome}" escape="false"/>
+                    </p:dataList>
+                </p:column>
+
+                <p:column headerText="#{msg['cadastro.livro.label.edicao']}">
+                    <h:outputText value="#{livro.edicao}" escape="false"/>
+                </p:column>
+
+                <p:column headerText="#{msg['cadastro.livro.label.ano']}">
+                    <h:outputText value="#{livro.ano}" />
+                </p:column>
+
+                <p:column headerText="#{msg['cadastro.livro.label.editora']}">
+                    <h:outputText value="#{livro.editora.nome}" />
+                </p:column>
+
+                <p:column headerText="#{msg['cadastro.livro.label.isbn13']}">
+                    <h:outputText value="#{livro.isbn13}" />
+                </p:column>
+
+            </p:dataTable>
+            <p:commandButton actionListener="#{integracaoSdbController.salvarLivros()}" 
+                             value="#{msg['cadastro.livro.button.cadastrar']}" 
+                             immediate="true"
+                             icon="ui-icon-disk"
+                             oncomplete="dialogDetalhes.hide()"/>
+
+        </p:dialog>
+    </f:view>
+</html>
+

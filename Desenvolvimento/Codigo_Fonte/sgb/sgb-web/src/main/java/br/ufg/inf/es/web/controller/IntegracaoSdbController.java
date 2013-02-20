@@ -1,16 +1,16 @@
 package br.ufg.inf.es.web.controller;
 
 import br.ufg.inf.es.base.validation.ValidationException;
-import br.ufg.inf.es.integracao.ParametrosService;
-import br.ufg.inf.es.integracao.importacaodados.ImportacaoDadosServiceImpl;
+import br.ufg.inf.es.integracao.importacaodados.ImportacaoLivrosServiceImpl;
 import br.ufg.inf.es.integracao.importacaodados.ImportacaoDadosService;
 import br.ufg.inf.es.integracao.importacaodados.ImportacaoLivro;
 import br.ufg.inf.es.model.Livro;
-import br.ufg.inf.es.model.Parametros;
 import br.ufg.inf.es.model.importacaobibliografia.TipoEntidade;
-import br.ufg.inf.es.web.controller.form.ParametrosForm;
+import br.ufg.inf.es.web.controller.form.IntegracaoSdbForm;
+import br.ufg.inf.es.web.datamodel.LivroDataModel;
+import java.util.ArrayList;
 import java.util.Collection;
-import org.hibernate.Hibernate;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -22,41 +22,35 @@ import org.springframework.stereotype.Component;
 @Component
 @Scope
 public class IntegracaoSdbController extends 
-        SGBController<Parametros, ParametrosForm, ParametrosService> {
+        SGBController<Livro, IntegracaoSdbForm, ImportacaoLivrosServiceImpl> {
 
     @Autowired
-    private ParametrosForm form;
+    private IntegracaoSdbForm form;
     @Autowired
-    private ParametrosService service;
+    private ImportacaoLivrosServiceImpl service;
     private String urlService;
     
-    private Collection<Livro> livrosEncontrados;
+    private LivroDataModel livrosEncontrados;
+    private Collection<Livro> livrosSelecionados;
     
     private TipoEntidade tipoEntidade;
 
     @Override
-    public ParametrosForm getForm() {
+    public IntegracaoSdbForm getForm() {
         return this.form;
     }
 
     @Override
-    public ParametrosService getService() {
+    public ImportacaoLivrosServiceImpl getService() {
         return this.service;
     }
 
     @Override
     public String openViewPage() {
-        try {
-            Parametros parametros = service.find();
-            this.getForm().setEntity(parametros);
-            if (parametros.getUrlSeviceBibliografico() != null && 
-                    (!parametros.getUrlSeviceBibliografico().equals(""))){
-                this.urlService = parametros.getUrlSeviceBibliografico();
-            }
-
-        } catch (Exception e) {
-        }
-        return "IntegracaoSdbController/initialPage";
+        this.getForm().clearInsertData();
+        this.livrosEncontrados = new LivroDataModel();
+        this.livrosSelecionados = new ArrayList<Livro>();
+        return super.openViewPage();
     }
 
     public String getUrlService() {
@@ -68,32 +62,10 @@ public class IntegracaoSdbController extends
     }
 
     public String importar() {
-        
-        save();
-        addSuccessMessage("Importação realizada com sucesso!");
+        importaGet();
         return "";
     }
-    
-    
-    public void save() {
-        try {
-            Parametros parametro = this.getForm().getEntity();
-            if (urlService != null && (!urlService.equals(""))){
-                parametro.setUrlSeviceBibliografico(urlService);
-            }
-            if (parametro.getId() == null){
-                Hibernate.initialize(parametro);
-                getService().insert(parametro);
-            } else {
-                Hibernate.initialize(parametro);
-                getService().update(parametro);
-            }
-        } catch (ValidationException ex) {
-            addWarningMessage(ex.getKeyMessage());
-        }
-        importaGet();
-    }
-    
+
     public String voltar() {
         return "/index.jsf";
 
@@ -112,19 +84,42 @@ public class IntegracaoSdbController extends
     }
     
     private void importaGet(){
-        ImportacaoDadosService<Livro> importacaoSipa = new ImportacaoDadosServiceImpl<Livro>();
+        ImportacaoDadosService<Livro> importacaoSipa = new ImportacaoLivrosServiceImpl();
         if (tipoEntidade.equals(TipoEntidade.Livros)){
             importacaoSipa.setImportacaoStrategy(new ImportacaoLivro());
-            livrosEncontrados = importacaoSipa.importar(urlService);
+            List<Livro> livros = new ArrayList<Livro>(importacaoSipa.importar(urlService));
+            livrosEncontrados = new LivroDataModel(livros);
         }
     }   
 
-    public Collection<Livro> getLivrosEncontrados() {
+    public LivroDataModel getLivrosEncontrados() {
         return livrosEncontrados;
     }
 
-    public void setLivrosEncontrados(Collection<Livro> cursosEncontrados) {
+    public void setLivrosEncontrados(LivroDataModel cursosEncontrados) {
         this.livrosEncontrados = cursosEncontrados;
+    }
+
+    public Collection<Livro> getLivrosSelecionados() {
+        return livrosSelecionados;
+    }
+
+    public void setLivrosSelecionados(Collection<Livro> livrosSelecionados) {
+        this.livrosSelecionados = livrosSelecionados;
+    }
+    
+    public String salvarLivros() {
+        if (livrosSelecionados == null) {
+            return null;
+        }
+        for (Livro livro : livrosSelecionados) {
+            try {
+                this.getService().salvarLivro(livro);
+            } catch (ValidationException ex) {
+                this.addErrorMessage("Não foi possível inserir o livro: " + livro);
+            }
+        }
+        return null;
     }
     
 }
