@@ -15,19 +15,12 @@
             <h:form id="formParamoIntegracaoSDB">
                 <p:messages  autoUpdate="true"/>
                 <p:panel header="Integração SDB - Sistema de Dados Bibliográfico"> 
-                    <h:panelGrid columns="2">  
-                        <h:outputLabel value="#{msg['parametros.integracao.metodo']}"  ></h:outputLabel>
-                        <p:selectOneMenu label="TipoMetodo" value="#{integracaoSdbController.metodoImportacao}"  
-                                         converter="enumMetodoImportacaoConverter">
-                            
-                            <f:selectItems  var="driver" value="#{integracaoSdbController.metodoImportacaoSelect}"
-                                            itemLabel="#{metodoImportacao}" itemValue="#{metodoImportacao}"/>
-                        </p:selectOneMenu>
-                        
+                    <h:panelGrid columns="2">
+
                         <h:outputLabel value="#{msg['parametros.integracao.entidadeimportacao']}"  ></h:outputLabel>
                         <p:selectOneMenu label="EntidadeImportar" value="#{integracaoSdbController.tipoEntidade}"  
                                          converter="enumTipoEntidadeConverter">
-                            
+
                             <f:selectItems  var="driver" value="#{integracaoSdbController.tipoEntidadeSelect}"
                                             itemLabel="#{tipoEntidade}" itemValue="#{tipoEntidade}"/>
                         </p:selectOneMenu>
@@ -36,19 +29,22 @@
                         <p:inputText label="URL Service"  
                                      value="#{integracaoSdbController.urlService}" 
                                      required="true" requiredMessage="Informe a 
-                                        URL do serviço para importar os dados 
-                                        Bibliográficos" size="50"/>
+                                     URL do serviço para importar os dados 
+                                     Bibliográficos" size="50"/>
                     </h:panelGrid>            
-                    
+
                 </p:panel> 
 
                 <div align="left">
                     <h:panelGrid columns="2">
-                        <p:commandButton update="@form" 
-                                         actionListener="#{integracaoSdbController.importar()}" 
+                        <p:commandButton update="dialog_importados" 
+                                         actionListener="#{integracaoSdbController.importar()}"
+                                         oncomplete="dialogDetalhes.show()"
                                          value="#{msg['parametros.integracao.importar']}" />
                     </h:panelGrid>
-                </div>       
+                </div>      
+                
+                <ui:include src="cursos_encontrados_dialog.xhtml"/>
             </h:form> 
 
             <h:form>

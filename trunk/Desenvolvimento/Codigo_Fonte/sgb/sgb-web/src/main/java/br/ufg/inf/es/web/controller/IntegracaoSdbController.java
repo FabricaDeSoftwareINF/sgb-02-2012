@@ -3,10 +3,13 @@ package br.ufg.inf.es.web.controller;
 import br.ufg.inf.es.base.validation.ValidationException;
 import br.ufg.inf.es.integracao.ParametrosService;
 import br.ufg.inf.es.integracao.importacaodados.ImportacaoDadosServiceImpl;
+import br.ufg.inf.es.integracao.importacaodados.ImportacaoDadosService;
+import br.ufg.inf.es.integracao.importacaodados.ImportacaoLivro;
+import br.ufg.inf.es.model.Livro;
 import br.ufg.inf.es.model.Parametros;
-import br.ufg.inf.es.model.importacaobibliografia.MetodoImportacao;
 import br.ufg.inf.es.model.importacaobibliografia.TipoEntidade;
 import br.ufg.inf.es.web.controller.form.ParametrosForm;
+import java.util.Collection;
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -27,11 +30,9 @@ public class IntegracaoSdbController extends
     private ParametrosService service;
     private String urlService;
     
-    private MetodoImportacao metodoImportacao;
-    private TipoEntidade tipoEntidade;
+    private Collection<Livro> livrosEncontrados;
     
-    @Autowired
-    private ImportacaoDadosServiceImpl importacaoSipa = new ImportacaoDadosServiceImpl();
+    private TipoEntidade tipoEntidade;
 
     @Override
     public ParametrosForm getForm() {
@@ -90,7 +91,6 @@ public class IntegracaoSdbController extends
         } catch (ValidationException ex) {
             addWarningMessage(ex.getKeyMessage());
         }
-        
         importaGet();
     }
     
@@ -98,23 +98,11 @@ public class IntegracaoSdbController extends
         return "/index.jsf";
 
     }
-    
-    public MetodoImportacao[] getMetodoImportacaoSelect(){        
-        return MetodoImportacao.values();
-    }
-    
+
     public TipoEntidade[] getTipoEntidadeSelect(){        
         return TipoEntidade.values();
     }
-
-    public MetodoImportacao getMetodoImportacao() {
-        return metodoImportacao;
-    }
-
-    public void setMetodoImportacao(MetodoImportacao metodoImportacao) {
-        this.metodoImportacao = metodoImportacao;
-    }
-
+    
     public TipoEntidade getTipoEntidade() {
         return tipoEntidade;
     }
@@ -124,15 +112,19 @@ public class IntegracaoSdbController extends
     }
     
     private void importaGet(){
-        this.importacaoSipa.setUrlServico(urlService);
-        if (tipoEntidade.equals(TipoEntidade.Cursos)){
-            importacaoSipa.importarCursos();
-            
-        } else if (tipoEntidade.equals(TipoEntidade.Disciplinas)){
-            importacaoSipa.importarDisciplinas();
-            
-        } else if (tipoEntidade.equals(TipoEntidade.Livros)){
-            importacaoSipa.importarLivros();
-        } 
+        ImportacaoDadosService<Livro> importacaoSipa = new ImportacaoDadosServiceImpl<Livro>();
+        if (tipoEntidade.equals(TipoEntidade.Livros)){
+            importacaoSipa.setImportacaoStrategy(new ImportacaoLivro());
+            livrosEncontrados = importacaoSipa.importar(urlService);
+        }
     }   
+
+    public Collection<Livro> getLivrosEncontrados() {
+        return livrosEncontrados;
+    }
+
+    public void setLivrosEncontrados(Collection<Livro> cursosEncontrados) {
+        this.livrosEncontrados = cursosEncontrados;
+    }
+    
 }
