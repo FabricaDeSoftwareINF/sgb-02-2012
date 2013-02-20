@@ -10,17 +10,24 @@ import junit.framework.TestCase;
  *
  * @author diogo
  */
-public class SgbCryptographyTest extends TestCase{
+public class SgbCryptographyTest extends TestCase {
+
     SgbCryptography cryptographer = new SgbCryptography();
     String text = "string_to_be_encrypted";
-    
-    public void testShouldReturnAnMD5String(){
+
+    public void testException() {
+        cryptographer.setAlgorithmEncrypt("AgoritmoInexistente");
+        String retorno = cryptographer.encrypt("£");
+        assertEquals("", retorno);
+    }
+
+    public void testShouldReturnAnMD5String() {
         String stringEncrypted = cryptographer.encrypt(text);
 
         assertNotNull(stringEncrypted);
     }
-    
-    public void testShouldReturnTheSameMD5StringForTheSameString(){
+
+    public void testShouldReturnTheSameMD5StringForTheSameString() {
         String stringEncrypted = cryptographer.encrypt(text);
         String stringEncrypted2 = cryptographer.encrypt(text);
 
@@ -29,8 +36,8 @@ public class SgbCryptographyTest extends TestCase{
 
         assertEquals("The generated hash md5 should be the same for the same string", stringEncrypted, stringEncrypted2);
     }
-    
-    public void testShouldReturnDifferentMD5StringsForDifferentStrings(){
+
+    public void testShouldReturnDifferentMD5StringsForDifferentStrings() {
         String stringEncrypted = cryptographer.encrypt(text);
         String stringEncrypted2 = cryptographer.encrypt("othe_text");
 

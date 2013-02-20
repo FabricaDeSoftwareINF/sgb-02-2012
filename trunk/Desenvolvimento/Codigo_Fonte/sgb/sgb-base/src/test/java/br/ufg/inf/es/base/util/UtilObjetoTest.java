@@ -16,8 +16,8 @@ public class UtilObjetoTest extends TestCase {
     public void testIsReferencia(){
         
         String texto = "Texto";
-        
-        assertEquals(UtilObjeto.isReferencia(texto), true);        
+        UtilObjeto util = new UtilObjeto();
+        assertEquals(util.isReferencia(texto), true);        
     }
     
     /**

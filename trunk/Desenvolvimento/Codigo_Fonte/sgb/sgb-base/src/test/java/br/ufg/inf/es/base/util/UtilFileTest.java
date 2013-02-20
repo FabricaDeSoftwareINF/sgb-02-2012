@@ -46,7 +46,8 @@ public class UtilFileTest extends TestCase {
         assertFalse(arquivoGerado);
     }
      public void testCrieArquivoFalse() {
-        String nomeArquivo = "BB:";
+        String nomeArquivo = "abc.txt";
+        File result2 = UtilFile.crieArquivo(nomeArquivo);
         File result = UtilFile.crieArquivo(nomeArquivo);
         boolean arquivoGerado = result.exists();
         result.delete();
