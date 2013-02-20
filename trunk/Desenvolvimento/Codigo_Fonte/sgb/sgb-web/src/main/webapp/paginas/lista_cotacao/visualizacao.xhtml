@@ -15,13 +15,12 @@
 
                 <h:form prependId="false">
 
-                    <p:messages />
+                    <p:messages id="messages"/>
                     <p:spacer width="15px" height="20px"/>
 
                     <p:dataTable id="cotacoes" value="#{listaCotacaoController.form.entity.cotacoesLivro}" 
                                  var="cotacaoLivro" paginator="true" rows="10" style="width: 100%"
-                                 resizableColumns="true"
-                                 ajax="true"
+                                 resizableColumns="true" 
                                  emptyMessage="#{msg['arquitetura.label.nenhumregitro']}"
                                  editable="true" editMode="row" >
 
@@ -152,16 +151,15 @@
                         </p:column>
 
                         <p:column style="width:4%">  
-                            <p:rowEditor />  
+                            <p:rowEditor/>
                         </p:column> 
-                        <p:ajax event="rowEdit" update="" />
 
-                        <p:columnGroup type="footer">
-                            <p:row>
-                                <p:column id="valor_total" colspan="11" 
-                                          footerText="TOTAL: #{listaCotacaoController.form.entity.valor}"/>
-                            </p:row>  
-                        </p:columnGroup>
+                        <f:facet id="footer" name="footer">  
+                            <h:outputText id="valor_total" 
+                                          value="TOTAL: #{listaCotacaoController.form.entity.valor}">
+                            </h:outputText>
+                        </f:facet> 
+                        <p:ajax event="rowEdit" update="valor_total"/>
 
                     </p:dataTable> 
 

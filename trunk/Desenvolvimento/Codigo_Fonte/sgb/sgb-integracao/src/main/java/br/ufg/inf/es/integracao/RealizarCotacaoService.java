@@ -226,11 +226,6 @@ public class RealizarCotacaoService extends GenericService<ListaCotacao> {
         listaCotacao.setCotacoesLivro(cotacoesSelecionadas);
         listaCotacao.setDataRealizada(new Date());
         listaCotacao.setNome(nome);
-        double valorTotal = 0.0;
-        for (CotacoesLivro cotacoesLivro : cotacoesSelecionadas) {
-            valorTotal += cotacoesLivro.getValorMedio() * cotacoesLivro.getQuantidade();
-        }
-        listaCotacao.setValor(valorTotal);
         this.getDAO().insert(listaCotacao);
     }
 
