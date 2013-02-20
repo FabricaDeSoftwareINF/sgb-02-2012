@@ -11,27 +11,38 @@ import org.springframework.stereotype.Component;
 
 /**
  * Classe Service para a entidade Comunicacao
+ *
  * @author igor
  */
 @Component
 @Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class ComunicacaoService extends GenericService<Comunicacao> {
- 
-    /** Campo dao*/
+
+    /**
+     * Campo dao
+     */
     @Autowired
     private ComunicacaoDAO dao;
 
-    /** 
-     * {@inheritDoc} 
+    /**
+     * {@inheritDoc}
      */
     @Override
     public ComunicacaoDAO getDAO() {
 
         return this.dao;
     }
-    
+
+    /**
+     * Define um novo dao para o servico
+     */
+    public void setDAO(ComunicacaoDAO dao) {
+        this.dao = dao;
+    }
+
     /**
      * Método responsável por buscar os parâmetros de comunicação do sistema
+     *
      * @author Igor
      * @return objeto de parâmetros de comunicação
      */
@@ -43,11 +54,12 @@ public class ComunicacaoService extends GenericService<Comunicacao> {
 
     /**
      * Método responsável por realizar a inserção dos parâmetros de comunicação
+     *
      * @author Igor
      * @param comunicacao instancia das classe dos parâmetros de comunicação
      * @return id da nova entidade
-     * @throws ValidationException validação da instancia do objeto de coinfiguração
-     * de comunicação
+     * @throws ValidationException validação da instancia do objeto de
+     * coinfiguração de comunicação
      */
     @Override
     @RNG001Parametros
@@ -58,14 +70,15 @@ public class ComunicacaoService extends GenericService<Comunicacao> {
 
     /**
      * Método reponsável por realizar a edição dos parâmetros de comunicação
+     *
      * @author Igor
      * @param entidade instância da classe dos parâmetros de comunicação
-     * @throws ValidationException validação da instancia do objeto de coinfiguração
-     * de comunicação
+     * @throws ValidationException validação da instancia do objeto de
+     * coinfiguração de comunicação
      */
     @RNG001Parametros
     public void editar(Comunicacao entidade) throws ValidationException {
-     
-        this.getDAO().update(entidade);        
+
+        this.getDAO().update(entidade);
     }
 }
