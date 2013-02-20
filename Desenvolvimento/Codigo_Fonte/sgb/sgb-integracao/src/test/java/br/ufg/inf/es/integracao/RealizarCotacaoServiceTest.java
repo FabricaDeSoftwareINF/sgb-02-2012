@@ -100,12 +100,9 @@ public class RealizarCotacaoServiceTest {
     @Test
     public void testRealizarCotacao() {
         Collection<Livro> livros = null;
-        RealizarCotacaoService instance = new RealizarCotacaoService();
         ListaCotacao expResult = null;
-        ListaCotacao result = instance.realizarCotacao(livros);
+        ListaCotacao result = service.realizarCotacao(livros);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
