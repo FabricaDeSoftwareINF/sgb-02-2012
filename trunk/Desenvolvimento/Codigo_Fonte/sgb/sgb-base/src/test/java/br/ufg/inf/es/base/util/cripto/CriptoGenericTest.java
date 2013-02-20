@@ -63,8 +63,7 @@ public class CriptoGenericTest extends TestCase {
         byte[] cipher = cript.criptografa(text);
         String textCiph = new String(cipher);
         assertNotSame(text, textCiph);
-        file = new File("sgb.bat");
-        file.createNewFile();
+        
     }
      public void testCriptografaComExceptionSemCifra() throws IOException {
         File file = new File("sgb.dat");
