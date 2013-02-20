@@ -245,13 +245,5 @@ public class CriptoGeneric implements Serializable {
         this.nomeArquivoComChaves = arquivoChaves;
     }
 
-    public static void main(String[] args) {
-        try {
-            File a = new File("4859234528345*(Ï**&*()");
-            System.out.println(a.exists());
-        } catch (Exception e) {
-            System.out.println("captrou");
-        }
-
-    }
+    
 }
