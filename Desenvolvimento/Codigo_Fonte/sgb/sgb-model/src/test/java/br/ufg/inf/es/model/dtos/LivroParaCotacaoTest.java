@@ -4,6 +4,7 @@ import br.ufg.inf.es.model.Livro;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -67,9 +68,10 @@ public class LivroParaCotacaoTest {
     }
 
     @Test
-    public void testGetQuantidadeFaltando(){
-        assertTrue(livroParaCotacao.getQuantidadeLivrosFaltando()>0);
+    public void testGetQuantidadeFaltando() {
+        assertTrue(livroParaCotacao.getQuantidadeLivrosFaltando() > 0);
     }
+
     /**
      * Test of getQuantidadeAComprar method, of class LivroParaCotacao.
      */
@@ -93,7 +95,7 @@ public class LivroParaCotacaoTest {
      */
     @Test
     public void testHashCode() {
-        int result = livroParaCotacao.hashCode ();
+        int result = livroParaCotacao.hashCode();
         assertTrue(result != 0);
 
     }
@@ -102,7 +104,7 @@ public class LivroParaCotacaoTest {
     public void testHashCodeNull() {
         LivroParaCotacao instance = new LivroParaCotacao();
         int result = instance.hashCode();
-        assertTrue(result !=0);
+        assertTrue(result != 0);
 
     }
 
@@ -112,9 +114,12 @@ public class LivroParaCotacaoTest {
     @Test
     public void testEqualsTrue() {
         boolean expResult = true;
-        boolean result = livroParaCotacao.equals(livroParaCotacao);
+        LivroParaCotacao livroParaCotacao2 = new LivroParaCotacao(quantidadeVagas, parametroMec,
+                quantidadeLivrosDisponiveis, quantidadeAComprar, livro);
+        boolean result = livroParaCotacao2.equals(livroParaCotacao);
         assertEquals(expResult, result);
     }
+
     @Test
     public void testEqualsFalse() {
         boolean expResult = false;
@@ -129,5 +134,33 @@ public class LivroParaCotacaoTest {
         boolean result = instance.equals(instance);
         assertEquals(expResult, result);
 
+    }
+
+    @Test
+    public void testEqualsGeral() {
+        LivroParaCotacao instance = new LivroParaCotacao();
+        assertFalse(instance.equals(null));
+        assertFalse(instance.equals(""));
+        assertFalse(instance.equals(null));
+        
+        LivroParaCotacao livroPCotacao = new LivroParaCotacao();
+        livroPCotacao.setQuantidadeExigida(quantidadeVagas);
+        assertFalse(instance.equals(livroPCotacao));
+
+        LivroParaCotacao livroPCotacao2 = new LivroParaCotacao();
+        livroPCotacao2.setParametroMec(parametroMec);
+        assertFalse(instance.equals(livroPCotacao2));
+        
+        LivroParaCotacao livroPCotacao3 = new LivroParaCotacao();
+        livroPCotacao3.setQuantidadeLivrosDisponiveis(quantidadeLivrosDisponiveis);
+        assertFalse(instance.equals(livroPCotacao3));
+        
+        LivroParaCotacao livroPCotacao4 = new LivroParaCotacao();
+        livroPCotacao4.setQuantidadeAComprar(quantidadeAComprar);
+        assertFalse(instance.equals(livroPCotacao4));
+
+
+
+        
     }
 }
