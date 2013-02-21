@@ -1,19 +1,14 @@
 package br.ufg.inf.es.integracao;
 
-import br.ufg.inf.es.model.CotacoesLivro;
 import br.ufg.inf.es.model.ListaCotacao;
 import br.ufg.inf.es.model.Livro;
 import br.ufg.inf.es.persistencia.CotacaoDAO;
-import br.ufg.inf.es.persistencia.ListaComprasDAO;
 import br.ufg.inf.es.persistencia.ListaCotacaoDAO;
 import br.ufg.inf.es.persistencia.LivroDAO;
 import br.ufg.inf.es.persistencia.ParametrosDAO;
 import br.ufg.inf.es.persistencia.biblioteca.LivrosBibliotecaDAO;
 import java.util.Collection;
-import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.mockito.Mockito;
@@ -26,10 +21,10 @@ public class RealizarCotacaoServiceTest {
 
     private ListaCotacaoDAO dao;
     private RealizarCotacaoService service;
-    private LivroDAO livroDao; 
+    private LivroDAO livroDao;
     private CotacaoDAO cotacaoDao;
     private LivrosBibliotecaDAO bibliotecaDao;
-    private ParametrosDAO parametrosDao; 
+    private ParametrosDAO parametrosDao;
 
     @Before
     public void setUp() {
@@ -127,13 +122,13 @@ public class RealizarCotacaoServiceTest {
      * Test of salvarListaCotacao method, of class RealizarCotacaoService.
      */
     @Test
-    public void testSalvarListaCotacao() {
-        System.out.println("salvarListaCotacao");
-        Collection<CotacoesLivro> cotacoesSelecionadas = null;
-        String nome = "";
-        RealizarCotacaoService instance = new RealizarCotacaoService();
-        instance.salvarListaCotacao(cotacoesSelecionadas, nome);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    public void testSalvarListaCotacao() throws Exception {
+        Long idEsperado = 1L;
+        ListaCotacao listaCotacao = new ListaCotacao();
+
+        Mockito.when(dao.insert(listaCotacao)).thenReturn(idEsperado);   
+        Long result = service.insert(listaCotacao);
+        
+        assertEquals(idEsperado, result);
     }
 }

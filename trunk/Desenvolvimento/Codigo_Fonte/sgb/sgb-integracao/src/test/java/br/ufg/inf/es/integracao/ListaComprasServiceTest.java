@@ -1,16 +1,14 @@
 package br.ufg.inf.es.integracao;
 
+import br.ufg.inf.es.model.Livro;
+import java.util.ArrayList;
 import org.mockito.Mockito;
 import br.ufg.inf.es.model.ListaCompras;
-import br.ufg.inf.es.model.Livro;
 import br.ufg.inf.es.persistencia.ListaComprasDAO;
 import br.ufg.inf.es.persistencia.LivroDAO;
 import br.ufg.inf.es.persistencia.UsuarioDAO;
 import java.util.Collection;
-import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -71,12 +69,7 @@ public class ListaComprasServiceTest {
      */
     @Test
     public void testCarregarLivrosDaListaCompras() {
-        System.out.println("carregarLivrosDaListaCompras");
-        Collection<ListaCompras> listaCompras = null;
-        ListaComprasService instance = new ListaComprasService();
-        instance.carregarLivrosDaListaCompras(listaCompras);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
     }
 
     /**
@@ -84,14 +77,13 @@ public class ListaComprasServiceTest {
      */
     @Test
     public void testBuscaTodosLivros() {
-        System.out.println("buscaTodosLivros");
-        String filtroTitulo = "";
-        ListaComprasService instance = new ListaComprasService();
-        Collection expResult = null;
-        Collection result = instance.buscaTodosLivros(filtroTitulo);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        String query = "query";
+        Collection<Livro> livros = new ArrayList<Livro>();
+        Mockito.when(livroDao.buscaLivroPorTitulo(query)).thenReturn(livros);
+        
+        Collection<Livro> result = service.buscaTodosLivros(query);
+        assertEquals("Deveria ter sido retornado livros com a query informada",
+                1, result.size());
     }
 
     /**
