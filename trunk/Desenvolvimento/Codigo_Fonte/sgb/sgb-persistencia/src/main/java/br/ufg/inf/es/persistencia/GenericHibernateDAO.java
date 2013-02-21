@@ -289,7 +289,7 @@ public abstract class GenericHibernateDAO<E extends Entity<Long>> implements DAO
     /** 
      * {@inheritDoc} 
      */
-    public Collection<E> search(String key, String... properties) {
+    public Collection<E> search(String key, String... properties) throws IllegalArgumentException {
 
         if (properties == null || properties.length == 0) {
             throw new IllegalArgumentException("properties must not be null");
@@ -373,7 +373,7 @@ public abstract class GenericHibernateDAO<E extends Entity<Long>> implements DAO
     }
 
     /**
-     * Método que cria a ordenação para o tipo de classe.
+     * Método que cria a ordenação para o tipo de classe. 
      *
      * @param clazzEntity
      * @return Order
@@ -421,8 +421,8 @@ public abstract class GenericHibernateDAO<E extends Entity<Long>> implements DAO
 
         try {
             
-            if (this.session.isOpen()) {
-                this.session.close();
+            if (session.isOpen()) {
+                session.close();
             }
 
         } catch (Exception e) {
