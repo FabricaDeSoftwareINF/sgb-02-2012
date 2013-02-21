@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.ufg.inf.es.persistencia;
 
 import br.ufg.inf.es.base.util.UtilObjeto;

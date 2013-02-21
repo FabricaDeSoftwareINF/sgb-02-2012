@@ -1,19 +1,13 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.ufg.inf.es.persistencia;
 
 import br.ufg.inf.es.base.model.Entity;
 import br.ufg.inf.es.model.AbstractEntityModel;
 import java.util.Collection;
-import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
 import org.hibernate.classic.Session;
 import org.junit.*;
 import static org.junit.Assert.*;
-import static org.mockito.Matchers.*;
 import static org.mockito.Mockito.*;
 import java.sql.Connection;
 

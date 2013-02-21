@@ -10,45 +10,48 @@ import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Classe para o DAO da entidade ListaCotacao
+ *
  * @author Bruno Marquete
  */
 @Repository
 @Transactional
 public class ListaCotacaoDAO extends GenericHibernateDAO<ListaCotacao> {
- 
-    /** Campo sessionFactory*/
+
+    /**
+     * Campo sessionFactory
+     */
     @Autowired
     private SessionFactory sessionFactory;
 
     /**
      * Construtor desta classe.
+     *
      * @param sessionFactory
      */
     public ListaCotacaoDAO(SessionFactory sessionFactory) {
-        
-    	this.sessionFactory = sessionFactory;
+
+        this.sessionFactory = sessionFactory;
     }
-    
+
     /**
      * Construtor desta classe.
      */
     public ListaCotacaoDAO() {
-        
     }
 
-    /** 
-     * {@inheritDoc} 
+    /**
+     * {@inheritDoc}
      */
     public void setSessionFactory(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
-     
-    /** 
-     * {@inheritDoc} 
+
+    /**
+     * {@inheritDoc}
      */
     @Override
     protected SessionFactory getSessionFactory() {
-        
+
         return this.sessionFactory;
     }
 
@@ -57,5 +60,4 @@ public class ListaCotacaoDAO extends GenericHibernateDAO<ListaCotacao> {
         Query query = getSession().createQuery("FROM ListaCotacao lc");
         return query.list();
     }
-    
 }

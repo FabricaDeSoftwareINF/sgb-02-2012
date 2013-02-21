@@ -7,23 +7,23 @@ import static org.mockito.Mockito.mock;
 
 /**
  *
- * @author Victor Carvalho
+ * @author victor
  */
-public class BibliografiaDAOTest {
+public class CursoDAOTest {
 
-    private BibliografiaDAO dao;
+    private CursoDAO dao;
     private SessionFactory factory;
 
     @Before
     public void setUp() {
-        dao = new BibliografiaDAO();
+        dao = new CursoDAO();
         this.factory = mock(SessionFactory.class);
 
         dao.setSessionFactory(factory);
     }
 
     /**
-     * Test of getSessionFactory method, of class BibliografiaDAO.
+     * Test of getSessionFactory method, of class CotacaoDAO.
      */
     @Test
     public void testGetSessionFactory() {
