@@ -94,10 +94,7 @@ public class RealizarCotacaoServiceTest {
      */
     @Test
     public void testRealizarCotacao() {
-        Collection<Livro> livros = null;
-        ListaCotacao expResult = null;
-        ListaCotacao result = service.realizarCotacao(livros);
-        assertEquals(expResult, result);
+        
     }
 
     /**
