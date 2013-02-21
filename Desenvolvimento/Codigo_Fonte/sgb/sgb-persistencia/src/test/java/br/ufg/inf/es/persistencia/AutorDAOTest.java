@@ -11,12 +11,10 @@ import org.hibernate.classic.Session;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.ProjectionList;
-import org.hibernate.criterion.PropertyProjection;
 import org.hibernate.transform.AliasToBeanResultTransformer;
 import org.hibernate.transform.ResultTransformer;
 import static org.junit.Assert.assertEquals;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import static org.mockito.Matchers.*;
 import static org.mockito.Mockito.mock;
@@ -43,7 +41,6 @@ public class AutorDAOTest {
         this.session = mock(Session.class);
         this.criteria = mock(Criteria.class);
 
-
         dao.setSessionFactory(factory);
 
         AutorDTO joao = new AutorDTO();
@@ -69,6 +66,38 @@ public class AutorDAOTest {
      */
     @Test
     public void testListarAutores() {
+        prepareMocks();
+
+        String filtroNome = "filtro";
+        Collection result = dao.listarAutores(filtroNome);
+        assertEquals(autores, result);
+    }
+
+    /**
+     * Test of listarAutores method, of class AutorDAO.
+     *
+     */
+    @Test
+    public void testListarAutoresFiltroNulo() {
+        prepareMocks();
+        String filtroNome = null;
+        Collection result = dao.listarAutores(filtroNome);
+        assertEquals(autores, result);
+    }
+
+    /**
+     * Test of listarAutores method, of class AutorDAO.
+     *
+     */
+    @Test
+    public void testListarAutoresFiltroVazio() {
+        prepareMocks();
+        String filtroNome = "";
+        Collection result = dao.listarAutores(filtroNome);
+        assertEquals(autores, result);
+    }
+
+    private void prepareMocks() {
         when(factory.openSession()).thenReturn(session);
         when(session.createCriteria(eq(Autor.class), anyString())).thenReturn(criteria);
         when(criteria.add(any(Criterion.class))).thenReturn(criteria);
@@ -77,9 +106,5 @@ public class AutorDAOTest {
         when(criteria.list()).thenReturn(autores);
         when(criteria.setResultTransformer(any(ResultTransformer.class))).thenReturn(criteria);
         when(criteria.setResultTransformer(any(AliasToBeanResultTransformer.class))).thenReturn(criteria);
-
-        String filtroNome = "filtro";
-        Collection result = dao.listarAutores(filtroNome);
-        assertEquals(autores, result);
     }
 }
