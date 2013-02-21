@@ -142,25 +142,42 @@ public class LivroParaCotacaoTest {
         assertFalse(instance.equals(null));
         assertFalse(instance.equals(""));
         assertFalse(instance.equals(null));
-        
+
         LivroParaCotacao livroPCotacao = new LivroParaCotacao();
         livroPCotacao.setQuantidadeExigida(quantidadeVagas);
         assertFalse(instance.equals(livroPCotacao));
 
+
+        LivroParaCotacao livroPCotacao1 = new LivroParaCotacao();
+        livroPCotacao1.setQuantidadeExigida(quantidadeVagas);
+        assertFalse(instance.equals(livroPCotacao1));
+        livroPCotacao1.setQuantidadeExigida(888);
+        assertFalse(instance.equals(livroPCotacao1));
+
         LivroParaCotacao livroPCotacao2 = new LivroParaCotacao();
         livroPCotacao2.setParametroMec(parametroMec);
         assertFalse(instance.equals(livroPCotacao2));
-        
+        livroPCotacao2.setParametroMec(0);
+        assertFalse(instance.equals(livroPCotacao2));
+
         LivroParaCotacao livroPCotacao3 = new LivroParaCotacao();
         livroPCotacao3.setQuantidadeLivrosDisponiveis(quantidadeLivrosDisponiveis);
+        assertFalse(instance.equals(livroPCotacao3));
+        livroPCotacao3.setQuantidadeLivrosDisponiveis(0);
         assertFalse(instance.equals(livroPCotacao3));
         
         LivroParaCotacao livroPCotacao4 = new LivroParaCotacao();
         livroPCotacao4.setQuantidadeAComprar(quantidadeAComprar);
         assertFalse(instance.equals(livroPCotacao4));
+        livroPCotacao4.setQuantidadeAComprar(0);
+        assertFalse(instance.equals(livroPCotacao4));
+
+        LivroParaCotacao livroPCotacao5 = new LivroParaCotacao();
+        livroPCotacao5.setLivro(livro);
+        assertFalse(instance.equals(livroPCotacao5));
+        livroPCotacao5.setLivro(new Livro());
+        assertFalse(instance.equals(livroPCotacao5));
 
 
-
-        
     }
 }
