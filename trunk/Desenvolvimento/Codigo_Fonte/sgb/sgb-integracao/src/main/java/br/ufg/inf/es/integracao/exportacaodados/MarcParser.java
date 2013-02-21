@@ -13,7 +13,8 @@ import org.marc4j.marc.impl.RecordImpl;
 import org.marc4j.marc.impl.SubfieldImpl;
 
 /**
- *
+ * Fornecer servi&ccedil;os que fazem o parse da entidade <code>Livro</code>
+ * para o formato <code>MARC</code>
  * @author vinicius
  */
 public class MarcParser implements Serializable {

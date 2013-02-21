@@ -8,7 +8,8 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- *
+ * Interface de regra de neg&oacute;cio para validar inser&ccedil;&atilde;o 
+ * e altera&ccedil;&atilde;o de <code>Parametros</code>.
  * @author Victor Carvalho
  */
 @Retention(RetentionPolicy.RUNTIME)

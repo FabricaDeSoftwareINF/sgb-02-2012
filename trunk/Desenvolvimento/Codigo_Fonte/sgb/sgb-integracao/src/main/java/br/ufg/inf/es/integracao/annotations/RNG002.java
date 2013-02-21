@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.ufg.inf.es.integracao.annotations;
 
 import br.ufg.inf.es.base.validation.annotations.Validator;
@@ -12,7 +8,8 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- *
+ * Interface de regra de neg&oacute;cio para validar inser&ccedil;&atilde;o da 
+ * quantidade m&iacute;nima de caracteres da senha de usu&aacute;rio.
  * @author Luã
  */
 @Retention(RetentionPolicy.RUNTIME)

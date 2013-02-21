@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 import org.springframework.stereotype.Component;
 
 /**
- *
+ * Classe de valida&ccedil;&atilde;o de parametros.
  * @author Victor Carvalho
  */
 @Component

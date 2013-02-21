@@ -1,14 +1,10 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.ufg.inf.es.integracao.cotacao;
 
 import com.google.gson.Gson;
 import java.util.Map;
 
 /**
- *
+ * Classe fornece servi&ccedil;os para a convers&atilde;o de moeda.
  * @author Inael
  */
 class ConversorMoeda {

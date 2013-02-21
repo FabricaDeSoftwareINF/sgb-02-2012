@@ -6,7 +6,7 @@ import br.ufg.inf.es.model.Disciplina;
 import org.springframework.stereotype.Component;
 
 /**
- *
+ * Regra de valida&ccedil;&atilde;o da entidade <code>Disciplina</code>
  * @author Rodrigo Andrade, Victor Carvalho
  */
 @Component
