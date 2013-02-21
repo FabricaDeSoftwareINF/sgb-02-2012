@@ -106,6 +106,20 @@ public class BibliografiaTest {
     @Test
     public void testEqualsParaObjetoNulo() {
         boolean expResult = false;
+        
+        Bibliografia other = new Bibliografia();
+        other.setLivro(livro);
+        Disciplina dis = new Disciplina();
+        dis.setId(898L);
+        other.setDisciplina(dis);
+        
+        boolean result = bibliografia.equals(other);
+        assertEquals(expResult, result);
+    }
+
+    @Test
+    public void testEqualsParaObjetoNulo2() {
+        boolean expResult = false;
         boolean result = bibliografia.equals(null);
         assertEquals(expResult, result);
     }
@@ -115,6 +129,14 @@ public class BibliografiaTest {
      */
     @Test
     public void testHashCode() {
+        assertTrue(bibliografia.hashCode() > 0);
+    }
+
+    @Test
+    public void testHashCodeNull() {
+        bibliografia.setDisciplina(null);
+        bibliografia.setLivro(null);
+
         assertTrue(bibliografia.hashCode() > 0);
     }
 }
