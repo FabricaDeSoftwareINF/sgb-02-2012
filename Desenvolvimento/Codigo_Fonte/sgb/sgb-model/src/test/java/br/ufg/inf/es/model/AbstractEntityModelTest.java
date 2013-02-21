@@ -34,6 +34,7 @@ public class AbstractEntityModelTest {
         int result = instance.hashCode();
         assertTrue(result > 0);
     }
+
     @Test
     public void testHashCodeNaoNulo() {
         AbstractEntityModel instance = new AbstractEntityModel();
@@ -53,29 +54,43 @@ public class AbstractEntityModelTest {
         boolean result = instance.equals(instance2);
         assertEquals(expResult, result);
     }
+
     @Test
     public void testEqualsNaoNulo() {
         AbstractEntityModel instance = new AbstractEntityModel();
         instance.setId(1L);
         AbstractEntityModel instance2 = new AbstractEntityModel();
-        boolean expResult = true;
+        boolean expResult = false;
         boolean result = instance.equals(instance2);
         assertEquals(expResult, result);
     }
+
     @Test
     public void testEqualsNaoNulo2() {
         AbstractEntityModel instance = new AbstractEntityModel();
-        
+
         AbstractEntityModel instance2 = new AbstractEntityModel();
         instance2.setId(1L);
-        boolean expResult = true;
+        boolean expResult = false;
         boolean result = instance.equals(instance2);
         assertEquals(expResult, result);
     }
+
     @Test
     public void testEqualsNaoNulo3() {
         AbstractEntityModel instance = new AbstractEntityModel();
         instance.setId(2L);
+        AbstractEntityModel instance2 = new AbstractEntityModel();
+        instance2.setId(1L);
+        boolean expResult = false;
+        boolean result = instance.equals(instance2);
+        assertEquals(expResult, result);
+    }
+
+    @Test
+    public void testEqualsNaoNulo4() {
+        AbstractEntityModel instance = new AbstractEntityModel();
+        instance.setId(1L);
         AbstractEntityModel instance2 = new AbstractEntityModel();
         instance2.setId(1L);
         boolean expResult = true;
@@ -128,11 +143,12 @@ public class AbstractEntityModelTest {
         boolean result = instance.isNew();
         assertEquals(expResult, result);
     }
-     @Test
+
+    @Test
     public void testIsNewFalse() {
         AbstractEntityModel instance = new AbstractEntityModel();
         instance.setId(1L);
-        boolean expResult = true;
+        boolean expResult = false;
         boolean result = instance.isNew();
         assertEquals(expResult, result);
     }
