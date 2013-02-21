@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import org.hibernate.Criteria;
+import org.hibernate.Hibernate;
 import org.hibernate.SessionFactory;
 import org.hibernate.classic.Session;
 import org.hibernate.criterion.Criterion;
@@ -14,14 +15,20 @@ import org.hibernate.criterion.Order;
 import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
-import static org.mockito.Matchers.*;
-import static org.mockito.Mockito.*;
+import org.junit.runner.RunWith;
+import org.mockito.Mockito;
+import static org.powermock.api.mockito.PowerMockito.*;
+import org.powermock.core.classloader.annotations.PowerMockIgnore;
+import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.modules.junit4.PowerMockRunner;
+
 
 /**
  * Classe de Teste da Classe Genérica de Persistência
  *
  * @author Cassio Augusto Silva de Freitas
  */
+@RunWith(PowerMockRunner.class)
 public class GenericHibernateDAOTest {
 
     private GenericHibernateDAOImpl genericDAO;
@@ -29,7 +36,8 @@ public class GenericHibernateDAOTest {
     private Session session;
     private Criteria criteria;
     private Connection connection;
-    private Example example;
+    
+    
 
     @Before
     public void setUp() {
@@ -38,7 +46,6 @@ public class GenericHibernateDAOTest {
         this.factory = mock(SessionFactory.class);
         this.session = mock(Session.class);
         this.criteria = mock(Criteria.class);
-        this.example = mock(Example.class);
         this.connection = mock(Connection.class);
         genericDAO.setSessionFactory(factory);
     }
@@ -142,7 +149,7 @@ public class GenericHibernateDAOTest {
         model.setId(Long.MIN_VALUE);
 
         preparaSessionFactoryMock();
-        when(session.get(any(genericDAO.getClassEntity().getClass()), anyLong())).thenReturn(model);
+        when(session.get(Mockito.any(genericDAO.getClassEntity().getClass()), Mockito.anyLong())).thenReturn(model);
 
         AbstractEntityModel result = genericDAO.find(Long.MIN_VALUE);
 
@@ -159,7 +166,7 @@ public class GenericHibernateDAOTest {
         AbstractEntityModel model = new AbstractEntityModel();
 
         preparaSessionFactoryMock();
-        when(session.save(any(AbstractEntityModel.class))).thenReturn(Long.MAX_VALUE);
+        when(session.save(Mockito.any(AbstractEntityModel.class))).thenReturn(Long.MAX_VALUE);
         Long insert = genericDAO.insert(model);
 
         assertEquals(Long.MAX_VALUE, insert.longValue());
@@ -178,9 +185,9 @@ public class GenericHibernateDAOTest {
 
         genericDAO.update(model);
 
-        verify(session).merge(model);
-        verify(session).flush();
-        verify(session).close();
+        Mockito.verify(session).merge(model);
+        Mockito.verify(session).flush();
+        Mockito.verify(session).close();
     }
 
     /**
@@ -196,9 +203,9 @@ public class GenericHibernateDAOTest {
 
         genericDAO.save(model);
 
-        verify(session).persist(model);
-        verify(session).flush();
-        verify(session).close();
+        Mockito.verify(session).persist(model);
+        Mockito.verify(session).flush();
+        Mockito.verify(session).close();
     }
 
     /**
@@ -213,9 +220,9 @@ public class GenericHibernateDAOTest {
 
         genericDAO.remove(model);
 
-        verify(session).delete(model);
-        verify(session).flush();
-        verify(session).close();
+        Mockito.verify(session).delete(model);
+        Mockito.verify(session).flush();
+        Mockito.verify(session).close();
     }
 
     /**
@@ -235,10 +242,10 @@ public class GenericHibernateDAOTest {
 
         genericDAO.removeAll(collectionToRemove);
 
-        verify(session, atLeast(UMA_INTERACAO)).delete(model1);
-        verify(session, atLeast(UMA_INTERACAO)).delete(model2);
-        verify(session, atLeast(TRES_INTERACAO)).flush();
-        verify(session, atLeast(TRES_INTERACAO)).close();
+        Mockito.verify(session, Mockito.atLeast(UMA_INTERACAO)).delete(model1);
+        Mockito.verify(session, Mockito.atLeast(UMA_INTERACAO)).delete(model2);
+        Mockito.verify(session, Mockito.atLeast(TRES_INTERACAO)).flush();
+        Mockito.verify(session, Mockito.atLeast(TRES_INTERACAO)).close();
 
     }
 
@@ -253,13 +260,13 @@ public class GenericHibernateDAOTest {
 
         preparaSessionFactoryMock();
         //when(example.create(any(AbstractEntityModel.class))).thenReturn(example);
-        when(session.createCriteria(eq(AbstractEntityModel.class))).thenReturn(criteria);
-        when(criteria.add(any(Example.class))).thenReturn(criteria);
+        when(session.createCriteria(Mockito.eq(AbstractEntityModel.class))).thenReturn(criteria);
+        when(criteria.add(Mockito.any(Example.class))).thenReturn(criteria);
         when(criteria.list()).thenReturn(collection);
 
         Collection<AbstractEntityModel> result = genericDAO.search(model);
 
-        verify(session).close();
+        Mockito.verify(session).close();
 
         assertEquals(Boolean.TRUE, result.contains(model));
     }
@@ -271,7 +278,7 @@ public class GenericHibernateDAOTest {
     public void testCreateCriteria() {
 
         preparaSessionFactoryMock();
-        when(session.createCriteria(eq(AbstractEntityModel.class))).thenReturn(criteria);
+        when(session.createCriteria(Mockito.eq(AbstractEntityModel.class))).thenReturn(criteria);
 
         Criteria result = genericDAO.createCriteria();
 
@@ -287,12 +294,12 @@ public class GenericHibernateDAOTest {
         AbstractEntityModel model = new AbstractEntityModel();
 
         preparaSessionFactoryMock();
-
-        when(session.get(any(genericDAO.getClassEntity().getClass()), anyLong())).thenReturn(model);
-
+        
+        when(session.get(Mockito.any(genericDAO.getClassEntity().getClass()), Mockito.anyLong())).thenReturn(model);
+        
         Collection<?> collection = genericDAO.getCollection(Long.MIN_VALUE, "id");
-
-        verify(session).get(any(genericDAO.getClassEntity().getClass()), anyLong());
+        
+        Mockito.verify(session).get(Mockito.any(genericDAO.getClassEntity().getClass()), Mockito.anyLong());
 
         assertEquals(null, collection);
 
@@ -308,8 +315,8 @@ public class GenericHibernateDAOTest {
         List collection = Arrays.asList(new AbstractEntityModel(), new AbstractEntityModel());
 
         preparaSessionFactoryMock();
-        when(session.createCriteria(eq(AbstractEntityModel.class))).thenReturn(criteria);
-        when(criteria.addOrder(any(Order.class))).thenReturn(criteria);
+        when(session.createCriteria(Mockito.eq(AbstractEntityModel.class))).thenReturn(criteria);
+        when(criteria.addOrder(Mockito.any(Order.class))).thenReturn(criteria);
         when(criteria.list()).thenReturn(collection);
 
         Collection<AbstractEntityModel> result = genericDAO.list();
@@ -327,9 +334,9 @@ public class GenericHibernateDAOTest {
         List collection = Arrays.asList(new AbstractEntityModel(), new AbstractEntityModel());
 
         preparaSessionFactoryMock();
-        when(session.createCriteria(eq(AbstractEntityModel.class))).thenReturn(criteria);
-        when(criteria.add(any(Criterion.class))).thenReturn(criteria);
-        when(criteria.addOrder(any(Order.class))).thenReturn(criteria);
+        when(session.createCriteria(Mockito.eq(AbstractEntityModel.class))).thenReturn(criteria);
+        when(criteria.add(Mockito.any(Criterion.class))).thenReturn(criteria);
+        when(criteria.addOrder(Mockito.any(Order.class))).thenReturn(criteria);
         when(criteria.list()).thenReturn(collection);
 
         Collection<AbstractEntityModel> result = this.genericDAO.search("key", "Joao", "joaquim", "Joao Joaquim");
@@ -347,9 +354,9 @@ public class GenericHibernateDAOTest {
         List collection = Arrays.asList(new AbstractEntityModel(), new AbstractEntityModel());
 
         preparaSessionFactoryMock();
-        when(session.createCriteria(eq(AbstractEntityModel.class))).thenReturn(criteria);
-        when(criteria.add(any(Criterion.class))).thenReturn(criteria);
-        when(criteria.addOrder(any(Order.class))).thenReturn(criteria);
+        when(session.createCriteria(Mockito.eq(AbstractEntityModel.class))).thenReturn(criteria);
+        when(criteria.add(Mockito.any(Criterion.class))).thenReturn(criteria);
+        when(criteria.addOrder(Mockito.any(Order.class))).thenReturn(criteria);
         when(criteria.list()).thenReturn(collection);
 
         Collection<AbstractEntityModel> result = this.genericDAO.search("key", "Joao", "joaquim joaquim", "Joao Joaquim Jose Jurandi");
@@ -402,9 +409,9 @@ public class GenericHibernateDAOTest {
         
         this.genericDAO.refresh(model);
 
-        verify(session).refresh(model);
+        Mockito.verify(session).refresh(model);
         
-        verify(session).close();
+        Mockito.verify(session).close();
     }
 
     /**
@@ -421,7 +428,7 @@ public class GenericHibernateDAOTest {
         
         this.genericDAO.closeSession();
         
-        verify(session).close();
+        Mockito.verify(session).close();
     }
 
     public class GenericHibernateDAOImpl extends GenericHibernateDAO<AbstractEntityModel> {
