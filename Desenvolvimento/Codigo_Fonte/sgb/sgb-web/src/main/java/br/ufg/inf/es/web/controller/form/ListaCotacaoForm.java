@@ -2,7 +2,6 @@ package br.ufg.inf.es.web.controller.form;
 
 import br.ufg.inf.es.model.ListaCotacao;
 import br.ufg.inf.es.web.datamodel.ListaCotacaoDataModel;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -19,7 +18,8 @@ public class ListaCotacaoForm extends GenericForm<ListaCotacao> {
 
     private Collection<ListaCotacao> tabelaListaCotacoes;
     private ListaCotacaoDataModel listaCotacaoDataModel;
-    private ListaCotacao[] listasCotacoesSelecionadas;
+    private Collection<ListaCotacao> listasSelecionadas = new ArrayList<ListaCotacao>();
+    private Boolean exibirDialogExclusao;
     
     private boolean tipoOtimizacao;
     
@@ -42,24 +42,12 @@ public class ListaCotacaoForm extends GenericForm<ListaCotacao> {
         this.listaCotacaoDataModel = listaCotacaoDataModel;
     }
 
-    public ListaCotacao[] getListasCotacoesSelecionadas() {
-
-        ListaCotacao[] retorno = null;
-
-        if (this.listasCotacoesSelecionadas != null) {
-
-            retorno = this.listasCotacoesSelecionadas.clone();
-        }
-
-        return retorno;
+    public Collection<ListaCotacao> getListasSelecionadas() {
+        return listasSelecionadas;
     }
 
-    public void setListasCotacoesSelecionadas(ListaCotacao[] listasCotacoesSelecionadas) {
-
-        if (listasCotacoesSelecionadas != null) {
-
-            this.listasCotacoesSelecionadas = (ListaCotacao[]) listasCotacoesSelecionadas.clone();
-        }
+    public void setListasSelecionadas(Collection<ListaCotacao> listasSelecionadas) {
+        this.listasSelecionadas = listasSelecionadas;
     }
 
     public Collection<ListaCotacao> getTabelaListaCotacoes() {
@@ -70,6 +58,15 @@ public class ListaCotacaoForm extends GenericForm<ListaCotacao> {
         this.tabelaListaCotacoes = tabelaListaCotacoes;
     }
 
+
+    public Boolean getExibirDialogExclusao() {
+        return exibirDialogExclusao;
+    }
+
+    public void setExibirDialogExclusao(Boolean exibirDialogExclusao) {
+        this.exibirDialogExclusao = exibirDialogExclusao;
+    }
+    
     public boolean isTipoOtimizacao() {
         return tipoOtimizacao;
     }

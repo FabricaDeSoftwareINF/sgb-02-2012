@@ -27,6 +27,12 @@
                                  style="text-align: center;"
                                  emptyMessage="#{msg['arquitetura.label.nenhumregitro']}">
 
+                        <p:column style="width: 18px;">  
+                            <p:selectBooleanCheckbox >
+                                <p:ajax listener="#{listaCotacaoController.selecionaLista(listaCotacao)}"  />
+                            </p:selectBooleanCheckbox>
+                        </p:column> 
+
                         <p:column headerText="#{msg['listaCotacao.label.nome']}"  
                                   filterBy="#{listaCotacao.nome}"
                                   filterMatchMode="contains">
@@ -42,89 +48,129 @@
                             <h:outputText value="#{listaCotacao.valor}" 
                                           title="#{listaCotacao.valor}" >
 
-                                <f:convertNumber maxFractionDigits="2"/> 
+                                <f:convertNumber maxFractionDigits="2"  minFractionDigits="2"/> 
 
                             </h:outputText>
-
 
                         </p:column>
 
                         <p:column headerText="#{msg['listaCotacao.label.cricadoem']}">
 
                             <h:outputText value="#{listaCotacao.dataRealizada}"
-                                          title="#{listaCotacao.dataRealizada}" />
+                                          title="#{listaCotacao.dataRealizada}" >
+
+                                <f:convertDateTime pattern="dd/MM/yyyy"/>  
+
+                            </h:outputText>
 
                         </p:column>
 
                         <p:column headerText="#{msg['listaCotacao.label.acoes']}" 
-                                  style="text-align: center">
+                                  style="text-align: center;" width="220">
+
 
                             <p:commandButton value="#{msg['listaCotacao.button.visualizar']}" 
                                              action="#{listaCotacaoController.openViewPage(listaCotacao)}"
                                              ajax="false" 
+                                             style="width: 200px;"
                                              icon="ui-icon-zoomin"/>
-                            
+
+                            <br/>
+                            <p:commandButton value="#{msg['listaCotacao.button.editar']}"
+                                             action="#{listaCotacaoController.openEditPage(listaCotacao)}"
+                                             style="width: 200px;"
+                                             icon="ui-icon-pencil"/>
+
+                            <br/>
                             <p:commandButton value="#{msg['listaCotacaoOtimizada.label.gerar']}" 
+                                             icon="ui-icon-calculator"
+                                             style="width: 200px;"
                                              onclick="dlgListaOtimizada.show();"/>
+
 
                         </p:column>
 
                     </p:dataTable>
 
-                    <p:spacer height="15"/>
+                    <p:spacer width="15px" height="50px"/>
+
+
+                    <p:commandButton action="#{realizarCotacaoController.openInitialPage()}" 
+                                     value="#{msg['listaCotacao.button.novo']}"
+                                     ajax="false"
+                                     icon="ui-icon-document"/>
+
+                    <p:commandButton value="#{msg['listaCotacao.button.remover']}"
+                                     onclick="dialogRemocao.show()" 
+                                     icon="ui-icon-trash"/>
+
+                    <p:confirmDialog id="dialog_remocao"
+                                     message="#{msg['arquitetura.label.confirmarconteudo']}"
+                                     header="#{msg['arquitetura.label.confirmar']}" 
+                                     severity="alert" 
+                                     widgetVar="dialogRemocao">
+                        <center>
+                            <p:commandButton value="#{msg['arquitetura.msg.sim']}" 
+                                             action="#{listaCotacaoController.removerListasSelecionadas()}" 
+                                             update="@form" oncomplete="dialogRemocao.hide()" />
+                            <p:commandButton value="#{msg['arquitetura.msg.nao']}" 
+                                             onclick="dialogRemocao.hide()"/>
+                        </center>
+                    </p:confirmDialog>
+
 
                     <p:dialog id="dialogOtimizacao" widgetVar="dlgListaOtimizada"
                               modal="true" resizable="false" closable="false"
                               header="Opções - Lista Otimizada">
-                        
+
                         <h:panelGrid columns="2">
-                            
+
                             <h:outputText value="Valor para orçamento:"/>
-                            
+
                             <p:inputText styleClass="numeric" value="#{listaCotacaoController.form.valorOrcamento}"/>
-                            
+
                             <h:outputText value="Piorizar Orçamento por:"/>
-                            
+
                             <p:selectOneMenu value="#{listaCotacaoController.form.tipoOtimizacao}">
-                                
+
                                 <f:selectItem itemLabel="Maior quantidade de livros" itemValue="true"/>
-                                
+
                                 <f:selectItem itemLabel="Usar máximo do orçamento disponível" itemValue="false"/>
-                                
+
                             </p:selectOneMenu>
-                            
+
                             <p:spacer height="15"/>
-                            
+
                             <h:panelGrid columns="2" style="text-align: right; width: 100%;">
-                                
+
                                 <p:commandButton value="#{msg['listaCotacaoOtimizada.button.gerar']}" 
                                                  ajax="false"/>
-                                
+
                                 <p:commandButton value="#{msg['listaCotacaoOtimizada.label.fechar']}" 
-                                             onclick="dlgListaOtimizada.hide();"/>
-                                
+                                                 onclick="dlgListaOtimizada.hide();"/>
+
                             </h:panelGrid>
-                            
+
                         </h:panelGrid>
-                        
+
                     </p:dialog>
-                    
+
                     <p:confirmDialog id="sucessoDialog" message="#{msg['listaCotacaoOtimizada.label.sucesso']}"  
-                            header="Sucesso!" widgetVar="dlgSucesso">  
+                                     header="Sucesso!" widgetVar="dlgSucesso">  
 
                         <p:commandButton id="confirmarBtn" value="Visualizar" oncomplete="dlgSucesso.hide();" />  
-                    
+
                     </p:confirmDialog>
-                    
+
                     <p:confirmDialog id="atencaoDialog" message="#{msg['listaCotacaoOtimizada.label.atencao']}"  
-                            header="Atenção!" widgetVar="dlgAtencao">  
+                                     header="Atenção!" widgetVar="dlgAtencao">  
 
                         <p:commandButton id="continarBtm" value="Sim" oncomplete="dlgSucesso.hide();" />  
-                        
+
                         <p:commandButton id="fecharBtn" value="Não" onclick="dlgSucesso.hide();" />  
-                    
+
                     </p:confirmDialog>
-                    
+
                 </h:form> 
 
             </p:panel>        
