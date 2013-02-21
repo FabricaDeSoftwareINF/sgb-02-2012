@@ -3,7 +3,6 @@ package br.ufg.inf.es.integracao;
 import br.ufg.inf.es.model.Livro;
 import java.util.ArrayList;
 import org.mockito.Mockito;
-import br.ufg.inf.es.model.ListaCompras;
 import br.ufg.inf.es.persistencia.ListaComprasDAO;
 import br.ufg.inf.es.persistencia.LivroDAO;
 import br.ufg.inf.es.persistencia.UsuarioDAO;
