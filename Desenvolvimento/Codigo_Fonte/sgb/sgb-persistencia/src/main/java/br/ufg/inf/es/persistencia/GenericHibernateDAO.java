@@ -289,7 +289,7 @@ public abstract class GenericHibernateDAO<E extends Entity<Long>> implements DAO
     /** 
      * {@inheritDoc} 
      */
-    public Collection<E> search(String key, String... properties) throws IllegalArgumentException {
+    public Collection<E> search(String key, String... properties) {
 
         if (properties == null || properties.length == 0) {
             throw new IllegalArgumentException("properties must not be null");

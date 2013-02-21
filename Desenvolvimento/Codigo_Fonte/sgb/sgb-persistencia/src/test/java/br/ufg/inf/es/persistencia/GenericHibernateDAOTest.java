@@ -1,21 +1,21 @@
 package br.ufg.inf.es.persistencia;
 
-import br.ufg.inf.es.base.model.Entity;
 import br.ufg.inf.es.model.AbstractEntityModel;
+import java.sql.Connection;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
 import org.hibernate.classic.Session;
-import org.junit.*;
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
-import java.sql.Connection;
-import java.util.Arrays;
-import java.util.List;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Example;
 import org.hibernate.criterion.Order;
-import org.hibernate.criterion.Restrictions;
+import static org.junit.Assert.*;
+import org.junit.Before;
+import org.junit.Test;
+import static org.mockito.Matchers.*;
+import static org.mockito.Mockito.*;
 
 /**
  * Classe de Teste da Classe Genérica de Persistência
@@ -337,6 +337,26 @@ public class GenericHibernateDAOTest {
         assertEquals(collection, result);
 
     }
+    
+     /**
+     * Test of search method, of class GenericHibernateDAO.
+     */
+    @Test
+    public void testSearch_String_StringArr1() {
+
+        List collection = Arrays.asList(new AbstractEntityModel(), new AbstractEntityModel());
+
+        preparaSessionFactoryMock();
+        when(session.createCriteria(eq(AbstractEntityModel.class))).thenReturn(criteria);
+        when(criteria.add(any(Criterion.class))).thenReturn(criteria);
+        when(criteria.addOrder(any(Order.class))).thenReturn(criteria);
+        when(criteria.list()).thenReturn(collection);
+
+        Collection<AbstractEntityModel> result = this.genericDAO.search("key", "Joao", "joaquim joaquim", "Joao Joaquim Jose Jurandi");
+
+        assertEquals(collection, result);
+
+    }
 
     /**
      * Test of search method, of class GenericHibernateDAO.
@@ -346,6 +366,17 @@ public class GenericHibernateDAOTest {
 
         genericDAO.search("", null);
 
+    }
+    
+    /**
+     * Test of search method, of class GenericHibernateDAO.
+     */
+    @Test
+    public void testSearch_String_StringArr_Key_Empty() {
+        
+        Collection<AbstractEntityModel> search = genericDAO.search("", new String[]{""});
+
+        assertNull(search);
     }
 
     /**
