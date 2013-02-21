@@ -1,6 +1,5 @@
 package br.ufg.inf.es.model;
 
-import com.sun.xml.internal.bind.v2.runtime.unmarshaller.IntArrayData;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
