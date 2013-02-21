@@ -65,7 +65,11 @@ public class LivroParaCotacaoTest {
         Integer result = livroParaCotacao.getQuantidadeExigida();
         assertEquals(quantidadeVagas, result);
     }
-    
+
+    @Test
+    public void testGetQuantidadeFaltando(){
+        assertTrue(livroParaCotacao.getQuantidadeLivrosFaltando()>0);
+    }
     /**
      * Test of getQuantidadeAComprar method, of class LivroParaCotacao.
      */
@@ -84,27 +88,46 @@ public class LivroParaCotacaoTest {
         assertNotNull(livroParaCotacao);
     }
 
-   
     /**
      * Test of hashCode method, of class LivroParaCotacao.
      */
     @Test
     public void testHashCode() {
+        int result = livroParaCotacao.hashCode ();
+        assertTrue(result != 0);
+
+    }
+
+    @Test
+    public void testHashCodeNull() {
         LivroParaCotacao instance = new LivroParaCotacao();
         int result = instance.hashCode();
-        assertTrue(result > 0);
-        
+        assertTrue(result !=0);
+
     }
 
     /**
      * Test of equals method, of class LivroParaCotacao.
      */
     @Test
-    public void testEquals() {
+    public void testEqualsTrue() {
+        boolean expResult = true;
+        boolean result = livroParaCotacao.equals(livroParaCotacao);
+        assertEquals(expResult, result);
+    }
+    @Test
+    public void testEqualsFalse() {
+        boolean expResult = false;
+        boolean result = livroParaCotacao.equals(new LivroParaCotacao());
+        assertEquals(expResult, result);
+    }
+
+    @Test
+    public void testEqualsTudoNull() {
         LivroParaCotacao instance = new LivroParaCotacao();
         boolean expResult = true;
         boolean result = instance.equals(instance);
         assertEquals(expResult, result);
-       
+
     }
 }
