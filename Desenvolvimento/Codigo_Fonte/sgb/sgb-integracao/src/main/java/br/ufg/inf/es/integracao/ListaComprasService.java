@@ -16,22 +16,25 @@ import org.springframework.stereotype.Component;
 
 /**
  * Classe Service para a ListaCompras.
+ *
  * @author Jackeline Neves
  */
 @Component
 @Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class ListaComprasService extends GenericService<ListaCompras> {
 
-    /** Campo dao*/
+    /**
+     * Campo dao
+     */
     @Autowired
     private ListaComprasDAO dao;
-    
-    /** Campo livroDao*/
+    /**
+     * Campo livroDao
+     */
     @Autowired
     private LivroDAO livroDao;
-    
     @Autowired
-    private UsuarioDAO usuarioDao;   
+    private UsuarioDAO usuarioDao;
 
     /**
      * Método que obtém o DAO do Livro.
@@ -41,8 +44,8 @@ public class ListaComprasService extends GenericService<ListaCompras> {
     public LivroDAO getLivroDao() {
         return livroDao;
     }
-    
-     /**
+
+    /**
      * Método que define o LivroDAO
      *
      * @param livroDao
@@ -51,8 +54,8 @@ public class ListaComprasService extends GenericService<ListaCompras> {
         this.livroDao = livroDao;
     }
 
-    /** 
-     * {@inheritDoc} 
+    /**
+     * {@inheritDoc}
      */
     @Override
     public ListaComprasDAO getDAO() {
@@ -70,31 +73,32 @@ public class ListaComprasService extends GenericService<ListaCompras> {
 
     /**
      * Método que obtém os livros das listas de compras.
-     * 
-     * @param listaCompras 
+     *
+     * @param listaCompras
      */
     public void carregarLivrosDaListaCompras(Collection<ListaCompras> listaCompras) {
+        if (listaCompras != null) {
+            for (ListaCompras lc : listaCompras) {
 
-        for (ListaCompras lc : listaCompras) {
-            
-            Collection<Livro> livros = this.getDAO().getLivros(lc.getId());
-            
-            //for(Livro l : livros) {
-                
-              //  l.setAutores(this.getLivroDao().getAutores(l.getId()));
-                
-            //}
-            
-            lc.setLivrosDaListaCompras(livros);
-        
+                Collection<Livro> livros = this.getDAO().getLivros(lc.getId());
+
+                //for(Livro l : livros) {
+
+                //  l.setAutores(this.getLivroDao().getAutores(l.getId()));
+
+                //}
+
+                lc.setLivrosDaListaCompras(livros);
+
+            }
         }
     }
-    
+
     /**
      * Método que busca todos os livros.
-     * 
+     *
      * @param filtroTitulo
-     * @return 
+     * @return
      * @author Jackeline
      */
     public Collection<Livro> buscaTodosLivros(String filtroTitulo) {
@@ -112,18 +116,17 @@ public class ListaComprasService extends GenericService<ListaCompras> {
     }
 
     public void criaListaCompras(Collection<Livro> livrosSelecionado) {
-        
+
         ListaCompras listaCompras = new ListaCompras();
-        
+
         listaCompras.setDataCriacao(new Date());
-        
+
         listaCompras.setLivrosDaListaCompras(livrosSelecionado);
-        
+
         listaCompras.setNome(listaCompras.getDataCriacao().toString());
-        
+
         listaCompras.setUser(this.getUsuarioDao().find(1l));
-        
+
         this.getDAO().insert(listaCompras);
     }
-    
 }

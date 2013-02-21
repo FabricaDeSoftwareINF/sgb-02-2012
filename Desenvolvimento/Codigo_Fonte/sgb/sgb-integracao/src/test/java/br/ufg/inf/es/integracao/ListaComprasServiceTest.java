@@ -93,10 +93,10 @@ public class ListaComprasServiceTest {
      */
     @Test
     public void testSetUsuarioDao() {
-        UsuarioDAO novoDao = new UsuarioDAO();
+       
         service.setUsuarioDao(usuarioDao);
         UsuarioDAO result = service.getUsuarioDao();
-        assertEquals(novoDao, result);
+        assertEquals(usuarioDao, result);
     }
 
     /**
