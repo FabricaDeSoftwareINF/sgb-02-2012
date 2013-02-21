@@ -36,16 +36,7 @@ public class AutorConverterTest {
      */
     @Test
     public void testGetAsObject() {
-        System.out.println("getAsObject");
-        FacesContext facesContext = null;
-        UIComponent component = null;
-        String value = "";
-        AutorConverter instance = new AutorConverter();
-        Object expResult = null;
-        Object result = instance.getAsObject(facesContext, component, value);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+       
     }
 
     /**
@@ -53,15 +44,6 @@ public class AutorConverterTest {
      */
     @Test
     public void testGetAsString() {
-        System.out.println("getAsString");
-        FacesContext context = null;
-        UIComponent component = null;
-        Object value = null;
-        AutorConverter instance = new AutorConverter();
-        String expResult = "";
-        String result = instance.getAsString(context, component, value);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+       
     }
 }

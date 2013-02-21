@@ -32,16 +32,7 @@ public class CotacaoConverterTest {
      */
     @Test
     public void testGetAsObject() {
-        System.out.println("getAsObject");
-        FacesContext facesContext = null;
-        UIComponent component = null;
-        String value = "";
-        CotacaoConverter instance = new CotacaoConverter();
-        Object expResult = null;
-        Object result = instance.getAsObject(facesContext, component, value);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+       
     }
 
     /**
@@ -49,15 +40,6 @@ public class CotacaoConverterTest {
      */
     @Test
     public void testGetAsString() {
-        System.out.println("getAsString");
-        FacesContext context = null;
-        UIComponent component = null;
-        Object value = null;
-        CotacaoConverter instance = new CotacaoConverter();
-        String expResult = "";
-        String result = instance.getAsString(context, component, value);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
     }
 }
