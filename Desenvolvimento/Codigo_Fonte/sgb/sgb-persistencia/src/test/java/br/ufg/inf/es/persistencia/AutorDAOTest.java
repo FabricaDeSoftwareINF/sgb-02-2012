@@ -12,7 +12,6 @@ import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.ProjectionList;
 import org.hibernate.transform.AliasToBeanResultTransformer;
-import org.hibernate.transform.ResultTransformer;
 import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
@@ -104,7 +103,6 @@ public class AutorDAOTest {
         when(criteria.setProjection(any(ProjectionList.class))).thenReturn(criteria);
         when(criteria.addOrder(any(Order.class))).thenReturn(criteria);
         when(criteria.list()).thenReturn(autores);
-        when(criteria.setResultTransformer(any(ResultTransformer.class))).thenReturn(criteria);
         when(criteria.setResultTransformer(any(AliasToBeanResultTransformer.class))).thenReturn(criteria);
     }
 }
