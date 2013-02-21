@@ -157,6 +157,26 @@ public class DisciplinaDAOTest {
         assertEquals(disciplinas, result);
     }
 
+    @Test
+    public void testSearch4() {
+
+        Disciplina d1 = new Disciplina();
+        d1.setCodigo("");
+        d1.setNome("");
+
+        List<Disciplina> disciplinas = Arrays.asList(new Disciplina(), new Disciplina());
+
+        preparaSessionFactoryMock();
+
+        when(session.createCriteria(eq(Disciplina.class))).thenReturn(criteria);
+        when(criteria.add(any(Criterion.class))).thenReturn(criteria);
+        when(criteria.list()).thenReturn(disciplinas);
+
+        Collection<Disciplina> result = this.dao.search(d1);
+
+        assertEquals(disciplinas, result);
+    }
+
     /**
      * Test of listarDisciplinasDeUmCurso method, of class DisciplinaDAO.
      */
@@ -166,15 +186,15 @@ public class DisciplinaDAOTest {
         Long idCurso = 1L;
 
         List<Disciplina> disciplinas = Arrays.asList(new Disciplina(), new Disciplina());
-        
+
         preparaSessionFactoryMock();
 
         when(session.createCriteria(eq(Disciplina.class))).thenReturn(criteria);
         when(criteria.add(any(Criterion.class))).thenReturn(criteria);
         when(criteria.list()).thenReturn(disciplinas);
-        
+
         Collection<Disciplina> result = this.dao.listarDisciplinasDeUmCurso(idCurso);
-        
+
         assertEquals(disciplinas, result);
     }
 }
