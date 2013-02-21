@@ -2,6 +2,7 @@ package br.ufg.inf.es.web.controller.form;
 
 import br.ufg.inf.es.model.ListaCotacao;
 import br.ufg.inf.es.web.datamodel.ListaCotacaoDataModel;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -19,6 +20,10 @@ public class ListaCotacaoForm extends GenericForm<ListaCotacao> {
     private Collection<ListaCotacao> tabelaListaCotacoes;
     private ListaCotacaoDataModel listaCotacaoDataModel;
     private ListaCotacao[] listasCotacoesSelecionadas;
+    
+    private boolean tipoOtimizacao;
+    
+    private Double valorOrcamento;
 
     public ListaCotacaoDataModel getListaCotacaoDataModel() {
 
@@ -63,6 +68,22 @@ public class ListaCotacaoForm extends GenericForm<ListaCotacao> {
 
     public void setTabelaListaCotacoes(Collection<ListaCotacao> tabelaListaCotacoes) {
         this.tabelaListaCotacoes = tabelaListaCotacoes;
+    }
+
+    public boolean isTipoOtimizacao() {
+        return tipoOtimizacao;
+    }
+
+    public void setTipoOtimizacao(boolean tipoOtimizacao) {
+        this.tipoOtimizacao = tipoOtimizacao;
+    }
+
+    public Double getValorOrcamento() {
+        return valorOrcamento;
+    }
+
+    public void setValorOrcamento(Double valorOrcamento) {
+        this.valorOrcamento = valorOrcamento;
     }
 
 }
