@@ -71,6 +71,19 @@ public class ListaComprasService extends GenericService<ListaCompras> {
         this.dao = dao;
     }
 
+    /** 
+     * {@inheritDoc} 
+     */
+    @Override
+    public Collection<ListaCompras> list() {
+        
+        Collection<ListaCompras> listaCompras = super.list();
+        
+        this.carregarLivrosDaListaCompras(listaCompras);
+        
+        return listaCompras;
+    }
+
     /**
      * Método que obtém os livros das listas de compras.
      *

@@ -7,6 +7,7 @@ import br.ufg.inf.es.model.Livro;
 import br.ufg.inf.es.model.dtos.LivroParaCotacao;
 import br.ufg.inf.es.persistencia.LivroDAO;
 import br.ufg.inf.es.web.controller.form.ListaComprasForm;
+import br.ufg.inf.es.web.datamodel.ListaComprasDataModel;
 import br.ufg.inf.es.web.datamodel.LivroDataModel;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -44,10 +45,9 @@ public class ListaComprasController extends SGBController<ListaCompras, ListaCom
     @Override
     public String openInitialPage() {
 
-        this.getForm().setListaCompras(this.service.list());
+        this.getForm().setListaCompras(this.getService().list());
         this.livroDataModel = new LivroDataModel((List) livroService.list());
 
-        this.getService().carregarLivrosDaListaCompras(this.getForm().getListaCompras());
         this.getForm().setTodosLivros(livroParaCotacaoService.obtemLivrosParaCotacao());
         buscaTodosLivros();
 
@@ -123,5 +123,25 @@ public class ListaComprasController extends SGBController<ListaCompras, ListaCom
         SelectItem nao = new SelectItem("false", naoLabel);
         return new SelectItem[]{vazio, sim, nao};
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void remove() {
+        
+        try {
+            
+            this.getService().remove(this.getForm().getListaComprasParaRemocao());
+            
+            this.getForm().setListaCompras(this.getService().list());
+            
+            this.addSuccessMessage("arquitetura.msg.sucesso");
+            
+        } catch (ValidationException ve){
+            
+            this.addErrorMessage("arquitetura.msg.erro");
+        }
+    }   
     
 }

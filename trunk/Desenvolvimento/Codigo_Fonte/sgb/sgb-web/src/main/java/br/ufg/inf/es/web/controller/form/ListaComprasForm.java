@@ -25,6 +25,8 @@ public class ListaComprasForm extends GenericForm<ListaCompras> {
     private LivroParaCotacaoDataModel livroDM;
     private ListaComprasDataModel listaComprasDM;
     private String filtroTitulo;
+    
+    private ListaCompras listaComprasParaRemocao; 
 
     public Collection<ListaCompras> getListaCompras() {
         return listaCompras;
@@ -81,5 +83,23 @@ public class ListaComprasForm extends GenericForm<ListaCompras> {
 
     public void setListaComprasDM(ListaComprasDataModel lcDM) {
         this.listaComprasDM = lcDM;
+    }
+
+    public LivroParaCotacaoDataModel getLivroDM() {
+        return livroDM;
+    }
+
+    public void setLivroDM(LivroParaCotacaoDataModel livroDM) {
+        this.livroDM = livroDM;
+    }
+
+    public ListaCompras getListaComprasParaRemocao() {
+        
+        return listaComprasParaRemocao;
+    }
+
+    public void setListaComprasParaRemocao(ListaCompras listaComprasParaRemocao) {
+        
+        this.listaComprasParaRemocao = listaComprasParaRemocao;
     }
 }
