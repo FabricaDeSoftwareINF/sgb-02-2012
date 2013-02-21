@@ -66,7 +66,6 @@ public class AutorDAOTest {
     /**
      * Test of listarAutores method, of class AutorDAO.
      *
-     * TODO - verificar o problema do mock
      */
     @Test
     public void testListarAutores() {
