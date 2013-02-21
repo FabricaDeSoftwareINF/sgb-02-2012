@@ -1,23 +1,16 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.ufg.inf.es.integracao.cotacao;
 
-import br.ufg.inf.es.base.validation.ValidationException;
 import br.ufg.inf.es.model.Livraria;
-import br.ufg.inf.es.model.Livro;
 import com.google.gson.Gson;
 import com.google.gson.internal.StringMap;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 
 /**
- *
+ * Fonercer os servi&ccedil;os para a cota&ccedil&atilde;o via GoogleShop
  * @author usuario
  */
 public class CotadorGoogleShop extends Cotador {
@@ -32,6 +25,11 @@ public class CotadorGoogleShop extends Cotador {
         return URL + "&q=" + isbn;
     }
 
+    /**
+     * Retorna uma cole&ccedil:&atilde;o de <code>ResultadoCotacao</code>
+     * @param isbn Isbn utilizado na cota&ccedil:&atilde;o
+     * @return 
+     */
     @Override
     public Collection<ResultadoCotacao> buscarOfertas(String isbn) {
         

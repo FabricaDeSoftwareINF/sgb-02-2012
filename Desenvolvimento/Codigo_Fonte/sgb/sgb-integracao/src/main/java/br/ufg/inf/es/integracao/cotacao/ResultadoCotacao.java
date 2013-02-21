@@ -4,7 +4,7 @@ import br.ufg.inf.es.model.Livraria;
 import br.ufg.inf.es.model.Livro;
 
 /**
- *
+ * Entidade para manipular o resultado de uma cota&ccedil&atilde;o
  * @author vinicius
  */
 public class ResultadoCotacao {

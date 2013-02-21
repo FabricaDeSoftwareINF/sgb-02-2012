@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.ufg.inf.es.integracao.cotacao;
 
 import java.io.BufferedReader;
@@ -17,7 +13,7 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 
 /**
- *
+ * Utilit&aacute;rio para requisi&ccedil;&otilde;es <code>Http</code>
  * @author Inael
  */
 public class HttpUtil {

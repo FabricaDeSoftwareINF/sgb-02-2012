@@ -9,6 +9,8 @@ import br.ufg.inf.es.base.validation.annotations.Validator;
 import br.ufg.inf.es.integracao.rng.DisciplinaValidator;
 
 /**
+ * Interface de regra de neg&oacute;cio para validar inser&ccedil;&atilde;o 
+ * e altera&ccedil;&atilde;o de <code>Disciplina</code>.
  * @author Rodrigo Andrade
  * 
  */

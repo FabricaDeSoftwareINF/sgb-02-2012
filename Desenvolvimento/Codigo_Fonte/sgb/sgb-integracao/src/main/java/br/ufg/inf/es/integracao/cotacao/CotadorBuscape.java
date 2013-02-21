@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.ufg.inf.es.integracao.cotacao;
 
 import br.ufg.inf.es.model.Livraria;
@@ -16,7 +12,7 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 
 /**
- *
+ * Fonercer os servi&ccedil;os para a cota&ccedil&atilde;o via Buscap&eacute;
  * @author Alunoinf_2
  */
 public class CotadorBuscape extends Cotador {
@@ -26,12 +22,17 @@ public class CotadorBuscape extends Cotador {
     public CotadorBuscape() {
         try {
             JAXBContext jc = JAXBContext.newInstance("com.buscape.developer.result.type");
-            this.u = jc.createUnmarshaller();
+            this.u = jc.createUnmarshaller(); 
         } catch (JAXBException ex) {
             Logger.getLogger(CotadorGoogleShop.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
+    /**
+     * Retorna uma cole&ccedil:&atilde;o de <code>ResultadoCotacao</code>
+     * @param isbn Isbn utilizado na cota&ccedil:&atilde;o
+     * @return 
+     */
     @Override
     public Collection<ResultadoCotacao> buscarOfertas(String isbn) {
         Collection<ResultadoCotacao> map = new ArrayList<ResultadoCotacao>();

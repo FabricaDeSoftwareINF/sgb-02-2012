@@ -6,7 +6,7 @@ import java.util.Collection;
 import java.util.Map;
 
 /**
- *
+ * Fonercer os servi&ccedil;os para a cota&ccedil&atilde;o
  * @author usuario
  */
 public abstract class Cotador {

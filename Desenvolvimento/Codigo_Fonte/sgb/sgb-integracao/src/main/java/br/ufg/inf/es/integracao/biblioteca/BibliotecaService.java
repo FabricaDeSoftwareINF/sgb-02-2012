@@ -17,6 +17,11 @@ import javassist.NotFoundException;
 //@Scope(BeanDefinition.SCOPE_SINGLETON)
 public class BibliotecaService implements Biblioteca {
 
+    /**
+     * Obter uma cole&ccedil;&atilde;o de livros do banco.
+     * Carrega todos itens do banco.
+     * @return Cole&ccedil;&atilde;o de <code>LivroBiblioteca</code>
+     */
     public Collection<LivroBiblioteca> obtenhaLivros() {
         LivrosBibliotecaDAO livrosBibliotecaDAO = new LivrosBibliotecaDAO();
         try {
@@ -30,6 +35,13 @@ public class BibliotecaService implements Biblioteca {
         }
     }
 
+    /**
+     * Obter uma cole&ccedil;&atilde;o de livros do banco.
+     * Carrega itens do banco filtrando pelo nome do livro.
+     * @return Cole&ccedil;&atilde;o de <code>LivroBiblioteca</code>
+     * @param nomeLivro
+     * @return 
+     */
     public Collection<LivroBiblioteca> obtenhaLivros(String nomeLivro) {
         LivrosBibliotecaDAO livrosBibliotecaDAO = new LivrosBibliotecaDAO();
         try {
@@ -43,6 +55,15 @@ public class BibliotecaService implements Biblioteca {
         }
     }
 
+    /**
+     * Obter uma cole&ccedil;&atilde;o de livros do banco.
+     * Carrega itens do banco filtrando pelo <code>nome do livro</code> e <code>isbn</code>
+     * @return Cole&ccedil;&atilde;o de <code>LivroBiblioteca</code>
+     * @param nomeLivro Nome do livro 
+     * @param isbn
+     * @return Cole&ccedil;&atilde;o de <code>LivroBiblioteca</code>
+     * @throws NotFoundException 
+     */
     public Collection<LivroBiblioteca> obtenhaLivros(String nomeLivro, String isbn) throws NotFoundException {
         LivrosBibliotecaDAO livrosBibliotecaDAO = new LivrosBibliotecaDAO();
         try {
@@ -54,6 +75,12 @@ public class BibliotecaService implements Biblioteca {
         }
     }
 
+    /**
+     * Obter a quantidade de livros existentes no banco utilizando o <code>isbn</code>
+     * no filtro.
+     * @param isbn
+     * @return Quantidade de livros contidos no banco.
+     */
     public int obtenhaQuantidadeExistente(String isbn) {
         Collection<LivroBiblioteca> livros = this.obtenhaLivros();
         int quantidade = 0;
