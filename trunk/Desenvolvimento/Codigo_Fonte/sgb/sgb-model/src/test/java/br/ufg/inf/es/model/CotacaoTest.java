@@ -1,6 +1,7 @@
 package br.ufg.inf.es.model;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -35,5 +36,15 @@ public class CotacaoTest {
     @Test
     public void testGetLivraria() {
         assertEquals(livraria, cotacao.getLivraria());
+    }
+    
+    @Test
+    public void testHashCode(){
+        assertTrue(cotacao.hashCode()!=0);
+    }
+    @Test
+    public void testHashCodeLivrariaNull(){
+        cotacao.setLivraria(null);
+        assertTrue(cotacao.hashCode()!=0);
     }
 }
