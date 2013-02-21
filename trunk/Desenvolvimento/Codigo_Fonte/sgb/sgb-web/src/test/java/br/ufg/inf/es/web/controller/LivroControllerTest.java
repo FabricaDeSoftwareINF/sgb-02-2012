@@ -24,6 +24,7 @@ import org.primefaces.model.StreamedContent;
  *
  * @author Alunoinf_2
  */
+@Ignore
 public class LivroControllerTest {
 
     public LivroControllerTest() {
