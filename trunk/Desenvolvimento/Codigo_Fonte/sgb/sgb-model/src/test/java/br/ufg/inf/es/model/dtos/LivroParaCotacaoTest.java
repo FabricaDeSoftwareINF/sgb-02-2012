@@ -3,6 +3,7 @@ package br.ufg.inf.es.model.dtos;
 import br.ufg.inf.es.model.Livro;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -22,8 +23,12 @@ public class LivroParaCotacaoTest {
     @Before
     public void setUp() {
         livro = new Livro();
-        livroParaCotacao = new LivroParaCotacao(quantidadeVagas, parametroMec,
-                quantidadeLivrosDisponiveis, quantidadeAComprar, livro);
+        livroParaCotacao = new LivroParaCotacao();
+        livroParaCotacao.setQuantidadeAComprar(quantidadeAComprar);
+        livroParaCotacao.setParametroMec(parametroMec);
+        livroParaCotacao.setQuantidadeLivrosDisponiveis(quantidadeLivrosDisponiveis);
+        livroParaCotacao.setLivro(livro);
+        livroParaCotacao.setQuantidadeExigida(quantidadeVagas);
     }
 
     /**
@@ -77,5 +82,29 @@ public class LivroParaCotacaoTest {
     public void testNewInstance() {
         livroParaCotacao = new LivroParaCotacao();
         assertNotNull(livroParaCotacao);
+    }
+
+   
+    /**
+     * Test of hashCode method, of class LivroParaCotacao.
+     */
+    @Test
+    public void testHashCode() {
+        LivroParaCotacao instance = new LivroParaCotacao();
+        int result = instance.hashCode();
+        assertTrue(result > 0);
+        
+    }
+
+    /**
+     * Test of equals method, of class LivroParaCotacao.
+     */
+    @Test
+    public void testEquals() {
+        LivroParaCotacao instance = new LivroParaCotacao();
+        boolean expResult = true;
+        boolean result = instance.equals(instance);
+        assertEquals(expResult, result);
+       
     }
 }
