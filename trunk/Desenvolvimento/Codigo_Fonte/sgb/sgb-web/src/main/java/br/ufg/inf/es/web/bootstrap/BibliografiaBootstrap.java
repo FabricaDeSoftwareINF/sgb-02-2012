@@ -67,6 +67,7 @@ public class BibliografiaBootstrap {
         listaCotacao.setNome("Lista de Cotações 1");
         listaCotacao.setDataRealizada(Calendar.getInstance().getTime());
         listaCotacao.setCotacoesLivro(listaCotacoesLivro);
+        crieCotacoesLivro();
         listaCotacao.setId(salve(listaCotacao));
 
     }

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<ui:component xmlns="http://www.w3.org/1999/xhtml"
+              xmlns:ui="http://java.sun.com/jsf/facelets"  
+              xmlns:h="http://java.sun.com/jsf/html"  
+              xmlns:p="http://primefaces.org/ui"
+              xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template/template.xhtml">
+        <ui:define name="content">
+            <h:body>   
+                <p:panel header="#{msg['listaCotacao.label.editarLista']}">
+                    <h:form >
+                        <h:panelGrid width="100%">
+
+                            <h:panelGrid columns="2">
+                                <h:outputLabel value="#{msg['listaCotacao.label.nome']}:" ></h:outputLabel>
+                                <p:inputText value="#{listaCotacaoController.form.entity.nome}"></p:inputText>
+
+                            </h:panelGrid>
+
+                            <h:panelGrid columns="2" cellpadding="1" style="margin-left: 25px;">
+                                <p:commandButton action="#{listaCotacaoController.editarListaCotacao()}"
+                                                 value="#{msg['arquitetura.label.salvar']}"
+                                                 ajax="false"
+                                                 icon="ui-icon-disk">
+                                </p:commandButton>
+                                
+                                <p:commandButton value="#{msg['arquitetura.label.cancelar']}"
+                                                 action="#{listaCotacaoController.openInitialPage()}" 
+                                                 ajax="false"
+                                                 icon="ui-icon-close">
+                                </p:commandButton>
+                            </h:panelGrid>
+
+                        </h:panelGrid>
+
+                    </h:form>
+                </p:panel>
+            </h:body>  
+        </ui:define>
+    </ui:composition>
+</ui:component>

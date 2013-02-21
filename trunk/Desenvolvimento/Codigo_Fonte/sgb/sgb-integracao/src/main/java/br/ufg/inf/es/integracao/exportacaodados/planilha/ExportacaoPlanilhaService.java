@@ -1,11 +1,13 @@
 package br.ufg.inf.es.integracao.exportacaodados.planilha;
 
 import br.ufg.inf.es.model.exportacaodados.planilha.ItemPlanilha;
+import br.ufg.inf.es.model.exportacaodados.planilha.Planilha;
 import java.io.*;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.apache.poi.hssf.usermodel.*;
+import org.apache.poi.hssf.util.Region;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Component;
@@ -51,35 +53,43 @@ public class ExportacaoPlanilhaService {
      * nacionais.
      */
     /**
-     * Gera planilha em formato XLS com base numa lista de itens de planilha dos
-     * livros nacionais e outra dos títulos estrangeiros. Cada ItemPlanilha é
-     * uma linha da planilha com suas devidas COLUNAs.
+     * Gera planilha em formato XLS com base numa planilha dos livros nacionais
+     * e outra dos títulos estrangeiros. Uma planilha contém uma lista de
+     * ItemPlanilha. Cada ItemPlanilha é uma linha da planilha com suas devidas
+     * colunas.
      *
-     * @param linhasPlanilhaNacionais Lista de itens da planilha de livros
-     * nacionais.
-     * @param linhasPlanilhaEstrangeiros Lista de itens da planilha de livros
-     * nacionais.
+     * @param nacionais Planilha de livros nacionais.
+     * @param estrangeiros Planilha de livros estrangeiros.
      * @return Array de bytes correspondente ao arquivo XLS gerado.
      */
-    public byte[] gerarPlanilhaXLS(List<ItemPlanilha> linhasPlanilhaNacionais,
-            List<ItemPlanilha> linhasPlanilhaEstrangeiros) {
+    public byte[] gerarPlanilhaXLS(Planilha planilhaNacionais, Planilha planilhaEstrangeiros) {
 
         FileOutputStream outputStream;
 
         try {
 
-            HSSFSheet planilhaNacionais;
-            HSSFSheet planilhaEstrangeiros;
+            HSSFSheet planilhaNacionaisPOI;
+            HSSFSheet planilhaEstrangeirosPOI;
             geradorPlanilha = new HSSFWorkbook();
 
-            planilhaNacionais = geradorPlanilha.createSheet("Títulos Nacionais");
-            planilhaEstrangeiros = geradorPlanilha.createSheet("Títulos Estrangeiros");
+            planilhaNacionaisPOI = geradorPlanilha.createSheet("Títulos Nacionais");
+            planilhaEstrangeirosPOI = geradorPlanilha.createSheet("Títulos Estrangeiros");
 
-            popularPlanilha(planilhaNacionais, linhasPlanilhaNacionais);
-            popularPlanilha(planilhaEstrangeiros, linhasPlanilhaEstrangeiros);
+            popularPlanilhaPOI(planilhaNacionaisPOI, planilhaNacionais);
+            popularPlanilhaPOI(planilhaEstrangeirosPOI, planilhaEstrangeiros);
 
-            ajustarTamanhoCelulas(planilhaNacionais, ItemPlanilha.getNumColunas());
-            ajustarTamanhoCelulas(planilhaEstrangeiros, ItemPlanilha.getNumColunas());
+            ajustarTamanhoCelulas(planilhaNacionaisPOI, ItemPlanilha.getNumColunas());
+            ajustarTamanhoCelulas(planilhaEstrangeirosPOI, ItemPlanilha.getNumColunas());
+
+            //Mescla colunas da primeira linha das planilhas (título do cabeçalho)
+            short linhaOrigemDestino = 0;
+            short colunaOrigem = 0;
+            short colunaDestino = (short) (ItemPlanilha.getNumColunas() - 1);
+            Region regiao = new Region(linhaOrigemDestino, colunaOrigem, linhaOrigemDestino, colunaDestino);
+            planilhaNacionaisPOI.addMergedRegion(regiao);
+            planilhaEstrangeirosPOI.addMergedRegion(regiao);
+            planilhaNacionaisPOI.getRow(0).getCell(0).setCellValue(planilhaNacionais.getTituloCabecalho());
+            planilhaEstrangeirosPOI.getRow(0).getCell(0).setCellValue(planilhaEstrangeiros.getTituloCabecalho());
 
             //Escreve o arquivo no disco rígido temporariamente
             outputStream = new FileOutputStream("planilha.xls");
@@ -132,57 +142,61 @@ public class ExportacaoPlanilhaService {
     }
 
     /**
-     * Popula objeto planilha com base numa lista de itens de planilha.
+     * Popula objeto planilha da API Jakarta POI com base na planilha do projeto
+     * SGB devidamente populada.
      *
-     * @param planilha Objeto de planilha a ser populado.
-     * @param linhasPlanilha Lista de itens de planilha.
-     * @return Objeto de planilha devidamente populado.
+     * @param planilhaPOI Objeto de planilha da API Jakarta POI a ser populado.
+     * @param planilha Objeto planilha do projeto SGB devidamente populado.
+     * @return Objeto de planilha da API Jakarta POI devidamente populado.
      */
-    private HSSFSheet popularPlanilha(HSSFSheet planilha, List<ItemPlanilha> linhasPlanilha) {
+    private HSSFSheet popularPlanilhaPOI(HSSFSheet planilhaPOI, Planilha planilha) {
 
         String strSimboloReal = "R$ ";
-        gerarCabecalho(planilha);
+        gerarCabecalho(planilhaPOI, planilha);
 
         int i;
-        for (i = 0; i < linhasPlanilha.size(); i++) {
+        for (i = 0; i < planilha.getLinhasPlanilha().size(); i++) {
 
-            HSSFRow linha = planilha.createRow(i + 1);
-            linha.createCell(COLUNA0).setCellValue(new HSSFRichTextString(String.valueOf(linhasPlanilha.get(i).getNumItem())));
-            linha.createCell(COLUNA1).setCellValue(new HSSFRichTextString(linhasPlanilha.get(i).getNomeAutor()));
-            linha.createCell(COLUNA2).setCellValue(new HSSFRichTextString(linhasPlanilha.get(i).getTituloObra()));
-            linha.createCell(COLUNA3).setCellValue(new HSSFRichTextString(linhasPlanilha.get(i).getEdicao()));
-            linha.createCell(COLUNA4).setCellValue(new HSSFRichTextString(linhasPlanilha.get(i).getEditora()));
-            linha.createCell(COLUNA5).setCellValue(new HSSFRichTextString(linhasPlanilha.get(i).getLocal()));
-            linha.createCell(COLUNA6).setCellValue(new HSSFRichTextString(linhasPlanilha.get(i).getAno()));
-            linha.createCell(COLUNA7).setCellValue(new HSSFRichTextString(linhasPlanilha.get(i).getColecao()));
-            linha.createCell(COLUNA8).setCellValue(new HSSFRichTextString(linhasPlanilha.get(i).getVolume()));
-            linha.createCell(COLUNA9).setCellValue(new HSSFRichTextString(linhasPlanilha.get(i).getMatriculaSophiaConselheiro()));
-            linha.createCell(COLUNA10).setCellValue(new HSSFRichTextString(linhasPlanilha.get(i).getCursoDestino().toString()));
-            linha.createCell(COLUNA11).setCellValue(new HSSFRichTextString(linhasPlanilha.get(i).getUnidadeMedida()));
-            linha.createCell(COLUNA12).setCellValue(new HSSFRichTextString(strSimboloReal.concat(String.valueOf(linhasPlanilha.get(i).getValorMedioUnitario()))));
-            linha.createCell(COLUNA13).setCellValue(new HSSFRichTextString(strSimboloReal.concat(String.valueOf(linhasPlanilha.get(i).getValorMedioUnitario()))));
-            linha.createCell(COLUNA14).setCellValue(new HSSFRichTextString(strSimboloReal.concat(String.valueOf(linhasPlanilha.get(i).getValorMedioUnitario()))));
-            linha.createCell(COLUNA15).setCellValue(new HSSFRichTextString(strSimboloReal.concat(String.valueOf(linhasPlanilha.get(i).getValorMedioUnitario()))));
-            double valorTotal = linhasPlanilha.get(i).getValorMedioUnitario() * linhasPlanilha.get(i).getQuantExemplares();
+            HSSFRow linha = planilhaPOI.createRow(i + 2);
+            linha.createCell(COLUNA0).setCellValue(new HSSFRichTextString(String.valueOf(planilha.getLinhasPlanilha().get(i).getNumItem())));
+            linha.createCell(COLUNA1).setCellValue(new HSSFRichTextString(planilha.getLinhasPlanilha().get(i).getNomeAutor()));
+            linha.createCell(COLUNA2).setCellValue(new HSSFRichTextString(planilha.getLinhasPlanilha().get(i).getTituloObra()));
+            linha.createCell(COLUNA3).setCellValue(new HSSFRichTextString(planilha.getLinhasPlanilha().get(i).getEdicao()));
+            linha.createCell(COLUNA4).setCellValue(new HSSFRichTextString(planilha.getLinhasPlanilha().get(i).getEditora()));
+            linha.createCell(COLUNA5).setCellValue(new HSSFRichTextString(planilha.getLinhasPlanilha().get(i).getLocal()));
+            linha.createCell(COLUNA6).setCellValue(new HSSFRichTextString(planilha.getLinhasPlanilha().get(i).getAno()));
+            linha.createCell(COLUNA7).setCellValue(new HSSFRichTextString(planilha.getLinhasPlanilha().get(i).getColecao()));
+            linha.createCell(COLUNA8).setCellValue(new HSSFRichTextString(planilha.getLinhasPlanilha().get(i).getVolume()));
+            linha.createCell(COLUNA9).setCellValue(new HSSFRichTextString(planilha.getLinhasPlanilha().get(i).getMatriculaSophiaConselheiro()));
+            linha.createCell(COLUNA10).setCellValue(new HSSFRichTextString(planilha.getLinhasPlanilha().get(i).getCursoDestino().toString()));
+            linha.createCell(COLUNA11).setCellValue(new HSSFRichTextString(planilha.getLinhasPlanilha().get(i).getUnidadeMedida()));
+            linha.createCell(COLUNA12).setCellValue(new HSSFRichTextString(strSimboloReal.concat(String.valueOf(planilha.getLinhasPlanilha().get(i).getValorMedioUnitario()))));
+            linha.createCell(COLUNA13).setCellValue(new HSSFRichTextString(strSimboloReal.concat(String.valueOf(planilha.getLinhasPlanilha().get(i).getValorMedioUnitario()))));
+            linha.createCell(COLUNA14).setCellValue(new HSSFRichTextString(strSimboloReal.concat(String.valueOf(planilha.getLinhasPlanilha().get(i).getValorMedioUnitario()))));
+            linha.createCell(COLUNA15).setCellValue(new HSSFRichTextString(strSimboloReal.concat(String.valueOf(planilha.getLinhasPlanilha().get(i).getValorMedioUnitario()))));
+            double valorTotal = planilha.getLinhasPlanilha().get(i).getValorMedioUnitario() * planilha.getLinhasPlanilha().get(i).getQuantExemplares();
             linha.createCell(COLUNA16).setCellValue(new HSSFRichTextString(strSimboloReal.concat(String.valueOf(valorTotal))));
-            linha.createCell(COLUNA17).setCellValue(new HSSFRichTextString(String.valueOf(linhasPlanilha.get(i).getQuantExemplares())));
-            linha.createCell(COLUNA18).setCellValue(new HSSFRichTextString(linhasPlanilha.get(i).getAreaConhecimento()));
+            linha.createCell(COLUNA17).setCellValue(new HSSFRichTextString(String.valueOf(planilha.getLinhasPlanilha().get(i).getQuantExemplares())));
+            linha.createCell(COLUNA18).setCellValue(new HSSFRichTextString(planilha.getLinhasPlanilha().get(i).getAreaConhecimento()));
 
         }
 
-        gerarRodape(planilha, linhasPlanilha);
+        gerarRodape(planilhaPOI, planilha);
 
-        return planilha;
+        return planilhaPOI;
     }
 
     /**
      * Gera o cabeçalho de um objeto de planilha com os devidos nomes das
      * COLUNAs.
      *
-     * @param planilha Objeto planilha a ter o cabeçalho gerado.
-     * @return Objeto planiha com o cabeçalho devidamente gerado.
+     * @param planilhaPOI Objeto planilha da API Jakarta POI a ter o cabeçalho
+     * gerado.
+     * @param planilha Objeto planilha do projeto SGB devidamente populada.
+     * @return Objeto planiha da API Jarkarta POI com o cabeçalho devidamente
+     * gerado.
      */
-    private HSSFSheet gerarCabecalho(HSSFSheet planilha) {
+    private HSSFSheet gerarCabecalho(HSSFSheet planilhaPOI, Planilha planilha) {
 
         //Cria o estiloCabecalho a ser aplicado nas células do cabeçalho
         HSSFCellStyle estiloCabecalho = geradorPlanilha.createCellStyle();
@@ -194,31 +208,35 @@ public class ExportacaoPlanilhaService {
         fonte.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);
         estiloCabecalho.setFont(fonte);
 
-        //Cria a linha do cabeçalho
-        HSSFRow linha = planilha.createRow(0);
+        //Cria a primeira linha do cabeçalho
+        HSSFRow linha1 = planilhaPOI.createRow(0);
+        montarCelula(linha1, estiloCabecalho, COLUNA0, planilha.getTituloCabecalho());
+
+        //Cria a segunda linha do cabeçalho
+        HSSFRow linha2 = planilhaPOI.createRow(1);
 
         //Cria as células da linha do cabeçalho, aplicando o estiloCabecalho
-        montarCelula(linha, estiloCabecalho, COLUNA0, "Item");
-        montarCelula(linha, estiloCabecalho, COLUNA1, "Nome do Autor");
-        montarCelula(linha, estiloCabecalho, COLUNA2, "Título da Obra");
-        montarCelula(linha, estiloCabecalho, COLUNA3, "Edição");
-        montarCelula(linha, estiloCabecalho, COLUNA4, "Editora");
-        montarCelula(linha, estiloCabecalho, COLUNA5, "Local");
-        montarCelula(linha, estiloCabecalho, COLUNA6, "Ano");
-        montarCelula(linha, estiloCabecalho, COLUNA7, "Coleção (S/N)");
-        montarCelula(linha, estiloCabecalho, COLUNA8, "Volume");
-        montarCelula(linha, estiloCabecalho, COLUNA9, "Matrícula Sophia do Solicitante (conselheiro)");
-        montarCelula(linha, estiloCabecalho, COLUNA10, "Curso de Destino");
-        montarCelula(linha, estiloCabecalho, COLUNA11, "Unidade de Medida (l, m, Kg, pct, cx, ...)");
-        montarCelula(linha, estiloCabecalho, COLUNA12, "Valor Unitário Orçamento 1 em Real R$");
-        montarCelula(linha, estiloCabecalho, COLUNA13, "Valor Unitário Orçamento 2 em Real R$");
-        montarCelula(linha, estiloCabecalho, COLUNA14, "Valor Unitário Orçamento 3 em Real R$");
-        montarCelula(linha, estiloCabecalho, COLUNA15, "Valor Médio Uniário em Real R$");
-        montarCelula(linha, estiloCabecalho, COLUNA16, "Valor Total em Real R$");
-        montarCelula(linha, estiloCabecalho, COLUNA17, "Quantidade de Exemplares");
-        montarCelula(linha, estiloCabecalho, COLUNA18, "Área do Conhecimento");
+        montarCelula(linha2, estiloCabecalho, COLUNA0, "Item");
+        montarCelula(linha2, estiloCabecalho, COLUNA1, "Nome do Autor");
+        montarCelula(linha2, estiloCabecalho, COLUNA2, "Título da Obra");
+        montarCelula(linha2, estiloCabecalho, COLUNA3, "Edição");
+        montarCelula(linha2, estiloCabecalho, COLUNA4, "Editora");
+        montarCelula(linha2, estiloCabecalho, COLUNA5, "Local");
+        montarCelula(linha2, estiloCabecalho, COLUNA6, "Ano");
+        montarCelula(linha2, estiloCabecalho, COLUNA7, "Coleção (S/N)");
+        montarCelula(linha2, estiloCabecalho, COLUNA8, "Volume");
+        montarCelula(linha2, estiloCabecalho, COLUNA9, "Matrícula Sophia do Solicitante (conselheiro)");
+        montarCelula(linha2, estiloCabecalho, COLUNA10, "Curso de Destino");
+        montarCelula(linha2, estiloCabecalho, COLUNA11, "Unidade de Medida (l, m, Kg, pct, cx, ...)");
+        montarCelula(linha2, estiloCabecalho, COLUNA12, "Valor Unitário Orçamento 1 em Real R$");
+        montarCelula(linha2, estiloCabecalho, COLUNA13, "Valor Unitário Orçamento 2 em Real R$");
+        montarCelula(linha2, estiloCabecalho, COLUNA14, "Valor Unitário Orçamento 3 em Real R$");
+        montarCelula(linha2, estiloCabecalho, COLUNA15, "Valor Médio Uniário em Real R$");
+        montarCelula(linha2, estiloCabecalho, COLUNA16, "Valor Total em Real R$");
+        montarCelula(linha2, estiloCabecalho, COLUNA17, "Quantidade de Exemplares");
+        montarCelula(linha2, estiloCabecalho, COLUNA18, "Área do Conhecimento");
 
-        return planilha;
+        return planilhaPOI;
     }
 
     /**
@@ -240,15 +258,16 @@ public class ExportacaoPlanilhaService {
     }
 
     /**
-     * Gera o rodapé de um objeto de planilha com os devidos subtotais
-     * calculados.
+     * Gera o rodapé de um objeto de planilha da API Jakarta POI com os devidos
+     * subtotais calculados.
      *
-     * @param planilha Objeto de planilha a ter o rodapé gerado.
-     * @param linhasPlanilha Lista de itens da planilha a ter o rodapé
-     * calculado.
-     * @return Objeto planilha com o rodapé devidamente gerado.
+     * @param planilhaPOI Objeto de planilha da API Jakarta POI a ter o rodapé
+     * gerado.
+     * @param planilha Objeto planilha do projeto SGB devidamente populado.
+     * @return Objeto planilha da API Jakarta POI com o rodapé devidamente
+     * gerado.
      */
-    private HSSFSheet gerarRodape(HSSFSheet planilha, List<ItemPlanilha> linhasPlanilha) {
+    private HSSFSheet gerarRodape(HSSFSheet planilhaPOI, Planilha planilha) {
 
         //Cria o estiloCabecalho a ser aplicado nas células do rodapé
         HSSFCellStyle estiloRodape = geradorPlanilha.createCellStyle();
@@ -257,7 +276,7 @@ public class ExportacaoPlanilhaService {
         estiloRodape.setFont(fonte);
 
         //Cria a linha do rodapé
-        HSSFRow linha = planilha.createRow(linhasPlanilha.size() + 1);
+        HSSFRow linha = planilhaPOI.createRow(planilha.getLinhasPlanilha().size() + 2);
 
         //Cria as células da linha do rodapé, aplicando o estiloCabecalho
         montarCelula(linha, estiloRodape, COLUNA0, "TOTAL");
@@ -272,16 +291,16 @@ public class ExportacaoPlanilhaService {
         linha.createCell(COLUNA9).setCellValue(new HSSFRichTextString(""));
         linha.createCell(COLUNA10).setCellValue(new HSSFRichTextString(""));
         linha.createCell(COLUNA11).setCellValue(new HSSFRichTextString(""));
-        double valorMedioUnitarioTotal = obterValorMedioUnitarioGeral(linhasPlanilha);
+        double valorMedioUnitarioTotal = obterValorMedioUnitarioGeral(planilha.getLinhasPlanilha());
         montarCelula(linha, estiloRodape, COLUNA12, String.valueOf(valorMedioUnitarioTotal));
         montarCelula(linha, estiloRodape, COLUNA13, String.valueOf(valorMedioUnitarioTotal));
         montarCelula(linha, estiloRodape, COLUNA14, String.valueOf(valorMedioUnitarioTotal));
         montarCelula(linha, estiloRodape, COLUNA15, String.valueOf(valorMedioUnitarioTotal));
-        montarCelula(linha, estiloRodape, COLUNA16, String.valueOf(obterValorTotalGeral(linhasPlanilha)));
+        montarCelula(linha, estiloRodape, COLUNA16, String.valueOf(obterValorTotalGeral(planilha.getLinhasPlanilha())));
         linha.createCell(COLUNA17).setCellValue(new HSSFRichTextString(""));
         linha.createCell(COLUNA18).setCellValue(new HSSFRichTextString(""));
 
-        return planilha;
+        return planilhaPOI;
 
     }
 
@@ -334,31 +353,34 @@ public class ExportacaoPlanilhaService {
      * Ajusta o a tamanho das células de uma planilha para caber o conteúdo que
      * possuem.
      *
-     * @param planilha Objeto planilha que terá suas células ajustadas.
-     * @return Objeto planilha com tamanho de células devidamente ajustadas.
+     * @param planilhaPOI Objeto planilha da API Jarkarta POI que terá suas
+     * células ajustadas.
+     * @return Objeto planilha da API Jakarta POI com tamanho de células
+     * devidamente ajustadas.
      */
-    private HSSFSheet ajustarTamanhoCelulas(HSSFSheet planilha, short numColunas) {
+    private HSSFSheet ajustarTamanhoCelulas(HSSFSheet planilhaPOI, short numColunas) {
 
         short i;
         for (i = 0; i <= numColunas; i++) {
-            planilha.autoSizeColumn(i);
+            planilhaPOI.autoSizeColumn(i);
         }
 
-        return planilha;
+        return planilhaPOI;
 
     }
 
     /**
      * *
-     * Gera planilha em formato CSV com base numa lista de itens de planilha.
-     * Cada ItemPlanilha é uma linha da planilha com suas devidas COLUNAs.
+     * Gera planilha em formato CSV com base numa planilha. Uma planilha tem uma
+     * lista de ItemPlanilha. Cada ItemPlanilha é uma linha da planilha com suas
+     * devidas COLUNAs.
      *
-     * @param linhasPlanilha Lista de itens da planilha.
+     * @param planilha Ojeto planilha.
      * @return Array de bytes correspondente ao arquivo CSV gerado.
      */
-    public byte[] gerarPlanilhaCSV(List<ItemPlanilha> linhasPlanilha) {
+    public byte[] gerarPlanilhaCSV(Planilha planilha) {
 
-        List<Map> planilhaListMap = obterListMap(linhasPlanilha);
+        List<Map> planilhaListMap = obterListMap(planilha.getLinhasPlanilha());
         String separadorCSV = ",";
 
         try {

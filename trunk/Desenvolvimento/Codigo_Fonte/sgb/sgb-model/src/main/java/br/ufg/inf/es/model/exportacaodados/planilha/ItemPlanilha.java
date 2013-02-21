@@ -51,6 +51,9 @@ public class ItemPlanilha {
     /** Campo areaConhecimento*/
     private String areaConhecimento = "";
     
+    /** Campo tituloCabecalho*/
+    private String tituloCabecalho = "";
+    
     /** Campo NUM_COLUNAS*/
     private static final short NUM_COLUNAS = 19;
 
@@ -323,6 +326,26 @@ public class ItemPlanilha {
     public void setAreaConhecimento(String areaConhecimento) {
             this.areaConhecimento = areaConhecimento;
     }
+
+    /**
+     * 
+     * Obtém o valor do campo <code>tituloCabecalho</code>
+     * 
+     * @return  {@link String}
+     */
+    public String getTituloCabecalho() {
+        return tituloCabecalho;
+    }
+
+    /**
+     * Define o campo <code>tituloCabecalho</code>.
+     * 
+     * @param tituloCabecalho 
+     */
+    public void setTituloCabecalho(String tituloCabecalho) {
+        this.tituloCabecalho = tituloCabecalho;
+    }
+    
 
     /**
      * Obtém o valor do campo <code>numColunas</code>
