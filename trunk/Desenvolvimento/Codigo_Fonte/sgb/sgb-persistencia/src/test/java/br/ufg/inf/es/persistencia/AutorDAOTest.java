@@ -11,6 +11,8 @@ import org.hibernate.classic.Session;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.ProjectionList;
+import org.hibernate.criterion.PropertyProjection;
+import org.hibernate.transform.AliasToBeanResultTransformer;
 import org.hibernate.transform.ResultTransformer;
 import static org.junit.Assert.assertEquals;
 import org.junit.Before;
@@ -23,7 +25,7 @@ import static org.mockito.Mockito.when;
 /**
  *
  * Testes para o DAO do autor
- * 
+ *
  * @author Victor Carvalho, Cassio
  */
 public class AutorDAOTest {
@@ -63,20 +65,20 @@ public class AutorDAOTest {
 
     /**
      * Test of listarAutores method, of class AutorDAO.
-     * 
+     *
      * TODO - verificar o problema do mock
      */
     @Test
-    @Ignore
     public void testListarAutores() {
         when(factory.openSession()).thenReturn(session);
-        when(session.createCriteria(eq(Autor.class),anyString())).thenReturn(criteria);
+        when(session.createCriteria(eq(Autor.class), anyString())).thenReturn(criteria);
         when(criteria.add(any(Criterion.class))).thenReturn(criteria);
         when(criteria.setProjection(any(ProjectionList.class))).thenReturn(criteria);
-        when(criteria.setResultTransformer(any(ResultTransformer.class))).thenReturn(criteria);
         when(criteria.addOrder(any(Order.class))).thenReturn(criteria);
         when(criteria.list()).thenReturn(autores);
-        
+        when(criteria.setResultTransformer(any(ResultTransformer.class))).thenReturn(criteria);
+        when(criteria.setResultTransformer(any(AliasToBeanResultTransformer.class))).thenReturn(criteria);
+
         String filtroNome = "filtro";
         Collection result = dao.listarAutores(filtroNome);
         assertEquals(autores, result);
