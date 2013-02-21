@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.ufg.inf.es.persistencia;
 
 import br.ufg.inf.es.model.ListaCompras;
@@ -51,11 +47,8 @@ public class ListaComprasDAO extends GenericHibernateDAO<ListaCompras> {
      * @return Collection<Livro>
      */
     public Collection<Livro> getLivros(Long id) {
-        
         Criteria criteria = this.getSession().createCriteria(Livro.class);
-        
         criteria.createAlias("listaCompras", "lc");
-    
         criteria.add(Restrictions.eq("lc.id", id));
         
         return criteria.list();

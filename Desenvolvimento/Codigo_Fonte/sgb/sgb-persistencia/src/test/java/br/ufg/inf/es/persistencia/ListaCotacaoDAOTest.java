@@ -1,7 +1,10 @@
 package br.ufg.inf.es.persistencia;
 
-import br.ufg.inf.es.model.Comunicacao;
-import org.hibernate.Criteria;
+import br.ufg.inf.es.model.ListaCotacao;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
+import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.hibernate.classic.Session;
 import org.junit.*;
@@ -12,30 +15,28 @@ import static org.mockito.Mockito.when;
 
 /**
  *
- * @author Victor Carvalho
+ * @author victor
  */
-public class ComunicacaoDAOTest {
+public class ListaCotacaoDAOTest {
 
-    private ComunicacaoDAO dao;
+    private ListaCotacaoDAO dao;
     private SessionFactory factory;
     private Session session;
-    private Criteria criteria;
-    private Comunicacao comunicacao;
+    private List cotacoes;
 
     @Before
     public void setUp() {
-        dao = new ComunicacaoDAO();
+        dao = new ListaCotacaoDAO();
         this.factory = mock(SessionFactory.class);
         this.session = mock(Session.class);
-        this.criteria = mock(Criteria.class);
 
         dao.setSessionFactory(factory);
 
-        comunicacao = new Comunicacao();
+        cotacoes = Arrays.asList(new ListaCotacao());
     }
 
     /**
-     * Test of getSessionFactory method, of class ComunicacaoDAO.
+     * Test of getSessionFactory method, of class ListaCotacaoDAO.
      */
     @Test
     public void testGetSessionFactory() {
@@ -43,15 +44,16 @@ public class ComunicacaoDAOTest {
     }
 
     /**
-     * Test of getComunicacao method, of class ComunicacaoDAO.
+     * Test of list method, of class ListaCotacaoDAO.
      */
     @Test
-    public void testGetComunicacao() {
+    public void testList() {
+        Query query = mock(Query.class);
         when(factory.openSession()).thenReturn(session);
-        when(session.createCriteria(eq(Comunicacao.class))).thenReturn(criteria);
-        when(criteria.uniqueResult()).thenReturn(comunicacao);
+        when(session.createQuery(anyString())).thenReturn(query);
+        when(query.list()).thenReturn(cotacoes);
 
-        Comunicacao result = dao.getComunicacao();
-        assertEquals(comunicacao, result);
+        Collection result = dao.list();
+        assertEquals(cotacoes, result);
     }
 }

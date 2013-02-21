@@ -9,21 +9,30 @@ import static org.mockito.Mockito.mock;
  *
  * @author Victor Carvalho
  */
-public class BibliografiaDAOTest {
+public class CotacoesLivroDAOTest {
 
-    private BibliografiaDAO dao;
+    private CotacoesLivroDAO dao;
     private SessionFactory factory;
 
     @Before
     public void setUp() {
-        dao = new BibliografiaDAO();
+        dao = new CotacoesLivroDAO();
         this.factory = mock(SessionFactory.class);
 
         dao.setSessionFactory(factory);
     }
 
     /**
-     * Test of getSessionFactory method, of class BibliografiaDAO.
+     * Test of comstructor
+     */
+    @Test
+    public void testCriarNovoDaoComSerssionFactory() {
+        CotacoesLivroDAO novoDao = new CotacoesLivroDAO(factory);
+        assertEquals(factory, novoDao.getSessionFactory());
+    }
+
+    /**
+     * Test of getSessionFactory method, of class CotacaoDAO.
      */
     @Test
     public void testGetSessionFactory() {

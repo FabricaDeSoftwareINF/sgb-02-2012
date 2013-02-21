@@ -8,48 +8,50 @@ import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Classe para o DAO da entidade Cotacao
+ *
  * @author Bruno Marquete
  */
 @Repository
 @Transactional
 public class CotacaoDAO extends GenericHibernateDAO<Cotacao> {
- 
-    /** Campo sessionFactory*/
+
+    /**
+     * Campo sessionFactory
+     */
     @Autowired
     private SessionFactory sessionFactory;
 
     /**
      * Construtor desta classe.
+     *
      * @param sessionFactory
      */
     public CotacaoDAO(SessionFactory sessionFactory) {
-        
-    	this.sessionFactory = sessionFactory;
+
+        this.sessionFactory = sessionFactory;
     }
-    
+
     /**
      * Construtor desta classe.
      */
     public CotacaoDAO() {
-        
     }
 
-    /** 
-     * {@inheritDoc} 
+    /**
+     * {@inheritDoc}
      */
     @Override
     public void setSessionFactory(SessionFactory sessionFactory) {
-        
-    	this.sessionFactory = sessionFactory;
+
+        this.sessionFactory = sessionFactory;
     }
-     
-    /** 
-     * {@inheritDoc} 
+
+    /**
+     * {@inheritDoc}
      */
     @Override
     protected SessionFactory getSessionFactory() {
-        
+
         return this.sessionFactory;
     }
-
 }
