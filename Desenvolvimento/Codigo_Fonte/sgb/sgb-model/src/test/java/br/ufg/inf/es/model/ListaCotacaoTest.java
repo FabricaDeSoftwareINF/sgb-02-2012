@@ -101,21 +101,19 @@ public class ListaCotacaoTest {
         assertFalse(listaCotacao.equals(listaCotacao2));
         listaCotacao2.setNome(null);
         assertFalse(listaCotacao.equals(listaCotacao2));
+        listaCotacao2.setNome(nome);
         
        
-        assertFalse(listaCotacao.equals(listaCotacao2));
         listaCotacao2.setCotacoesLivro(null);
         assertFalse(listaCotacao.equals(listaCotacao2));
+        listaCotacao2.setCotacoesLivro(cotacoesLivro);
         
-        assertFalse(listaCotacao.equals(listaCotacao2));
         listaCotacao2.setDataRealizada(null);
         assertFalse(listaCotacao.equals(listaCotacao2));
-        
-        assertFalse(listaCotacao.equals(listaCotacao2));
+        listaCotacao2.setDataRealizada(dataRealizada);        
         listaCotacao2.setCotacoesLivro(null);
-        
         assertFalse(listaCotacao.equals(listaCotacao2));
-        
+        listaCotacao2.setCotacoesLivro(cotacoesLivro);
     }
      @Test
     public void testHashCode()

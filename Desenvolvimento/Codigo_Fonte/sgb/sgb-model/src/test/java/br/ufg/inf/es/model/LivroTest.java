@@ -168,4 +168,67 @@ public class LivroTest {
     public void testGetCotacoesLivro() {
         assertEquals(cotacoesLivro, livro.getCotacoesLivro());
     }
+    
+    @Test
+    public void testEquals() {
+        assertFalse(livro.equals(""));
+        Livro livro2 = livro;
+        livro2.setTitulo("b");
+        assertFalse(livro.equals(livro2));
+        livro2.setTitulo(null);
+        assertFalse(livro.equals(livro2));
+        livro2.setAno(999L);
+        assertFalse(livro.equals(livro2));
+        livro2.setAno(null);
+        assertFalse(livro.equals(livro2));
+        livro2.setIsbn10("54545");
+        assertFalse(livro.equals(livro2));
+        livro2.setIsbn10(null);
+        assertFalse(livro.equals(livro2));
+        livro2.setIsbn13("8349534");
+        assertFalse(livro.equals(livro2));
+        livro2.setIsbn13(null);
+        assertFalse(livro.equals(livro2));
+        livro2.setEdicao("43254dfgaf");
+        assertFalse(livro.equals(livro2));
+        livro2.setEdicao(null);
+        assertFalse(livro.equals(livro2));
+        livro2.setEstrangeiro(false);
+        assertFalse(livro.equals(livro2));
+        livro2.setEdicao("9090");
+        assertFalse(livro.equals(livro2));
+        livro2.setEdicao(null);
+        assertFalse(livro.equals(livro2));
+        Editora ed = new Editora();
+        ed.setNome("teste");
+        livro2.setEditora(ed);
+        assertFalse(livro.equals(livro2));
+        livro2.setEditora(null);
+        assertFalse(livro.equals(livro2));
+        
+        
+    }
+    @Test
+    public void testHashCode() {
+        setUp();
+        assertTrue(livro.hashCode()!=0);
+        livro.setTitulo(null);
+        assertTrue(livro.hashCode()!=0);
+        livro.setAno(null);
+        assertTrue(livro.hashCode()!=0);
+        livro.setIsbn10(null);
+        assertTrue(livro.hashCode()!=0);
+        livro.setIsbn13(null);
+        assertTrue(livro.hashCode()!=0);
+        livro.setEdicao(null);
+        assertTrue(livro.hashCode()!=0);
+        livro.setEstrangeiro(false);
+        assertTrue(livro.hashCode()!=0);
+        livro.setEditora(null);
+        assertTrue(livro.hashCode()!=0);
+        livro.setEdicao(null);
+        assertTrue(livro.hashCode()!=0);
+       
+    }
+    
 }
