@@ -2,7 +2,6 @@ package br.ufg.inf.es.persistencia;
 
 import br.ufg.inf.es.base.model.Entity;
 import br.ufg.inf.es.model.AbstractEntityModel;
-import br.ufg.inf.es.model.Autor;
 import java.util.Collection;
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
@@ -16,8 +15,7 @@ import java.util.List;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Example;
 import org.hibernate.criterion.Order;
-import org.hibernate.criterion.ProjectionList;
-import org.hibernate.transform.AliasToBeanResultTransformer;
+import org.hibernate.criterion.Restrictions;
 
 /**
  * Classe de Teste da Classe Genérica de Persistência
@@ -83,6 +81,21 @@ public class GenericHibernateDAOTest {
         Session result = (Session) this.genericDAO.getSession();
 
         assertEquals(session, result);
+
+    }
+
+    /**
+     * Test of getSession method, of class GenericHibernateDAO.
+     */
+    @Test
+    public void testGetSession2() {
+
+
+        when(factory.openSession()).thenReturn(null);
+
+        Session result = (Session) this.genericDAO.getSession();
+
+        assertEquals(null, result);
 
     }
 
@@ -243,11 +256,11 @@ public class GenericHibernateDAOTest {
         when(session.createCriteria(eq(AbstractEntityModel.class))).thenReturn(criteria);
         when(criteria.add(any(Example.class))).thenReturn(criteria);
         when(criteria.list()).thenReturn(collection);
-        
+
         Collection<AbstractEntityModel> result = genericDAO.search(model);
-        
+
         verify(session).close();
-        
+
         assertEquals(Boolean.TRUE, result.contains(model));
     }
 
@@ -255,104 +268,129 @@ public class GenericHibernateDAOTest {
      * Test of createCriteria method, of class GenericHibernateDAO.
      */
     @Test
-    @Ignore
     public void testCreateCriteria() {
-        System.out.println("createCriteria");
-        GenericHibernateDAO instance = new GenericHibernateDAOImpl();
-        Criteria expResult = null;
-        Criteria result = instance.createCriteria();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+
+        preparaSessionFactoryMock();
+        when(session.createCriteria(eq(AbstractEntityModel.class))).thenReturn(criteria);
+
+        Criteria result = genericDAO.createCriteria();
+
+        assertEquals(criteria, result);
     }
 
     /**
      * Test of getCollection method, of class GenericHibernateDAO.
      */
     @Test
-    @Ignore
     public void testGetCollection() {
-        System.out.println("getCollection");
-        Long id = null;
-        String property = "";
-        GenericHibernateDAO instance = new GenericHibernateDAOImpl();
-        Collection expResult = null;
-        Collection result = instance.getCollection(id, property);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+
+        AbstractEntityModel model = new AbstractEntityModel();
+
+        preparaSessionFactoryMock();
+
+        when(session.get(any(genericDAO.getClassEntity().getClass()), anyLong())).thenReturn(model);
+
+        Collection<?> collection = genericDAO.getCollection(Long.MIN_VALUE, "id");
+
+        verify(session).get(any(genericDAO.getClassEntity().getClass()), anyLong());
+
+        assertEquals(null, collection);
+
+
     }
 
     /**
      * Test of list method, of class GenericHibernateDAO.
      */
     @Test
-    @Ignore
     public void testList() {
-        System.out.println("list");
-        GenericHibernateDAO instance = new GenericHibernateDAOImpl();
-        Collection expResult = null;
-        Collection result = instance.list();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+
+        List collection = Arrays.asList(new AbstractEntityModel(), new AbstractEntityModel());
+
+        preparaSessionFactoryMock();
+        when(session.createCriteria(eq(AbstractEntityModel.class))).thenReturn(criteria);
+        when(criteria.addOrder(any(Order.class))).thenReturn(criteria);
+        when(criteria.list()).thenReturn(collection);
+
+        Collection<AbstractEntityModel> result = genericDAO.list();
+
+        assertEquals(collection, result);
+
     }
 
     /**
      * Test of search method, of class GenericHibernateDAO.
      */
     @Test
-    @Ignore
     public void testSearch_String_StringArr() {
-        System.out.println("search");
-        String key = "";
-        String[] properties = null;
-        GenericHibernateDAO instance = new GenericHibernateDAOImpl();
-        Collection expResult = null;
-        Collection result = instance.search(key, properties);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+
+        List collection = Arrays.asList(new AbstractEntityModel(), new AbstractEntityModel());
+
+        preparaSessionFactoryMock();
+        when(session.createCriteria(eq(AbstractEntityModel.class))).thenReturn(criteria);
+        when(criteria.add(any(Criterion.class))).thenReturn(criteria);
+        when(criteria.addOrder(any(Order.class))).thenReturn(criteria);
+        when(criteria.list()).thenReturn(collection);
+
+        Collection<AbstractEntityModel> result = this.genericDAO.search("key", "Joao", "joaquim", "Joao Joaquim");
+
+        assertEquals(collection, result);
+
+    }
+
+    /**
+     * Test of search method, of class GenericHibernateDAO.
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public void testSearch_String_StringArr_properties_null() {
+
+        genericDAO.search("", null);
+
+    }
+
+    /**
+     * Test of search method, of class GenericHibernateDAO.
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public void testSearch_String_StringArr_key_empty() {
+
+        Collection<AbstractEntityModel> search = genericDAO.search("", new String[]{});
+
+        assertNull(search);
     }
 
     /**
      * Test of refresh method, of class GenericHibernateDAO.
      */
     @Test
-    @Ignore
     public void testRefresh() {
-        System.out.println("refresh");
-        Entity entidade = null;
-        GenericHibernateDAO instance = new GenericHibernateDAOImpl();
-        instance.refresh(entidade);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
+        AbstractEntityModel model = new AbstractEntityModel();
+        
+        preparaSessionFactoryMock();
+        
+        this.genericDAO.refresh(model);
+
+        verify(session).refresh(model);
+        
+        verify(session).close();
     }
 
     /**
      * Test of closeSession method, of class GenericHibernateDAO.
      */
     @Test
-    @Ignore
     public void testCloseSession() {
-        System.out.println("closeSession");
-        GenericHibernateDAO instance = new GenericHibernateDAOImpl();
-        instance.closeSession();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of finalize method, of class GenericHibernateDAO.
-     */
-    @Test
-    @Ignore
-    public void testFinalize() throws Throwable {
-        System.out.println("finalize");
-        GenericHibernateDAO instance = new GenericHibernateDAOImpl();
-        instance.finalize();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
+        preparaSessionFactoryMock();
+        
+        genericDAO.getSession();
+        
+        when(session.isOpen()).thenReturn(true);
+        
+        this.genericDAO.closeSession();
+        
+        verify(session).close();
     }
 
     public class GenericHibernateDAOImpl extends GenericHibernateDAO<AbstractEntityModel> {
