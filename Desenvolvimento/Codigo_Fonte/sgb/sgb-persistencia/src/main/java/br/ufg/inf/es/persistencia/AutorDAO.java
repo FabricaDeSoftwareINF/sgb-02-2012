@@ -7,6 +7,7 @@ import java.util.Collection;
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.*;
+import org.hibernate.transform.AliasToBeanResultTransformer;
 import org.hibernate.transform.Transformers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -35,7 +36,7 @@ public class AutorDAO extends GenericHibernateDAO<Autor> {
 
         return this.sessionFactory;
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -59,17 +60,13 @@ public class AutorDAO extends GenericHibernateDAO<Autor> {
         if (!(filtroNome == null || filtroNome.equals(""))) {
             criteria.add(Restrictions.ilike("autor.nome", filtroNome, MatchMode.ANYWHERE));
         }
-
-        criteria.setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY);
-        
         criteria.setProjection(
                 Projections.projectionList().
                 add(Projections.property("autor.id"), "id").
                 add(Projections.property("autor.nome"), "nome").
                 add(Projections.property("autor.sobrenome"), "sobrenome"));
-                
-         criteria.setResultTransformer(Transformers.aliasToBean(AutorDTO.class));
         
+        criteria.setResultTransformer(new AliasToBeanResultTransformer(AutorDTO.class));
         criteria.addOrder(Order.asc("nome"));
 
         return criteria.list();
