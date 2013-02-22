@@ -27,7 +27,7 @@ public class ListaCompras extends AbstractEntityModel {
     private Usuario user;
     
     /** Campo livrosDaListaCompras*/
-    @ManyToMany(cascade={CascadeType.ALL})
+    @OneToMany(cascade={CascadeType.ALL})
     @JoinTable(
         name="LISTA_COMPRAS_LIVRO_LISTA_COMPRAS",
         joinColumns=@JoinColumn(name="id_lista_compra"),

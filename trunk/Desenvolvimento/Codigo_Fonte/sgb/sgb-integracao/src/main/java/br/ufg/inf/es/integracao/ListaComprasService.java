@@ -32,7 +32,6 @@ public class ListaComprasService extends GenericService<ListaCompras> {
      */
     @Autowired
     private ItemListaComprasDAO livroDao;
-    
     @Autowired
     private UsuarioDAO usuarioDao;
 
@@ -92,7 +91,7 @@ public class ListaComprasService extends GenericService<ListaCompras> {
     public void carregarLivrosDaListaCompras(Collection<ListaCompras> listaCompras) {
         if (listaCompras != null) {
             for (ListaCompras lc : listaCompras) {
-                Collection<ItemListaCompras> livros = this.getDAO().findLivrosListaCotacao(lc.getId());
+                Collection<ItemListaCompras> livros = this.getDAO().findLivrosListaCompras(lc.getId());
                 lc.setLivrosDaListaCompras(livros);
 
             }
@@ -123,7 +122,7 @@ public class ListaComprasService extends GenericService<ListaCompras> {
     public void criaListaCompras(ListaCompras listaCompras) {
         this.getDAO().insert(listaCompras);
     }
-    
+
     public void removerLivros(Collection<ItemListaCompras> livros) {
         this.getLivroDao().removeAll(livros);
     }

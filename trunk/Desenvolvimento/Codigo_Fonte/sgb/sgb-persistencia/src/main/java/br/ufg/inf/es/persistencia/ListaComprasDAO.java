@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import br.ufg.inf.es.model.ItemListaCompras;
 import br.ufg.inf.es.model.ListaCompras;
+import org.hibernate.FetchMode;
 
 /**
  * Classe para o DAO da entidade ListaCompras
@@ -48,12 +49,12 @@ public class ListaComprasDAO extends GenericHibernateDAO<ListaCompras> {
      * @param id
      * @return Collection<Livro>
      */
-    public Collection<ItemListaCompras> findLivrosListaCotacao(Long id) {
-        Criteria criteria = this.getSession().createCriteria(ItemListaCompras.class);
-        criteria.createAlias("listaCompras", "lc");
-        criteria.add(Restrictions.eq("lc.id", id));
-        
-        return criteria.list();
+    public Collection<ItemListaCompras> findLivrosListaCompras(Long id) {
+        Criteria criteria = this.getSession().createCriteria(ListaCompras.class);
+        criteria.setFetchMode("livrosDaListaCompras", FetchMode.JOIN);
+        criteria.add(Restrictions.eq("id", id));
+        ListaCompras listaCompras = (ListaCompras) criteria.uniqueResult();
+        return listaCompras.getLivrosDaListaCompras();
     }
 
 }

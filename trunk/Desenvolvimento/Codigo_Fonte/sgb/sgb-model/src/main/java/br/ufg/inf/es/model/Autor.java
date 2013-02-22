@@ -98,4 +98,31 @@ public class Autor extends AbstractEntityModel {
     public String toString() {
         return nome + " " + sobrenome;
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 97 * hash + (this.nome != null ? this.nome.hashCode() : 0);
+        hash = 97 * hash + (this.sobrenome != null ? this.sobrenome.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Autor other = (Autor) obj;
+        if ((this.nome == null) ? (other.nome != null) : !this.nome.equals(other.nome)) {
+            return false;
+        }
+        if ((this.sobrenome == null) ? (other.sobrenome != null) : !this.sobrenome.equals(other.sobrenome)) {
+            return false;
+        }
+        return true;
+    }
+    
 }

@@ -143,10 +143,6 @@ public class ListaComprasController extends SGBController<ListaCompras, ListaCom
 
         listaCompras.setLivrosDaListaCompras(livros);
 
-        for (ItemListaCompras llc : livros) {
-            llc.getListaCompras().add(listaCompras);
-        }
-
         listaCompras.setUser(usuarioController.getUsuarioLogado());
         this.getService().criaListaCompras(listaCompras);
 
@@ -155,7 +151,10 @@ public class ListaComprasController extends SGBController<ListaCompras, ListaCom
         return this.openInitialPage();
     }
     
-    public String editarListaCompras() throws ValidationException {
+    public String editarListaCompras() throws ValidationException {        
+        ListaCompras listaCompras = this.getForm().getEntity();
+        listaCompras.setDataCriacao(new Date());
+        listaCompras.setUser(usuarioController.getUsuarioLogado());
         this.service.save(this.getForm().getEntity());
         return this.openInitialPage();
     }
@@ -204,4 +203,26 @@ public class ListaComprasController extends SGBController<ListaCompras, ListaCom
         this.getForm().setItemListaDataModel(new ItemListaCompraDataModel(itensList));
         this.getForm().setLivrosSelecionados(new ArrayList<ItemListaCompras>());
     }
+    
+    public void adicionarLivros() {
+        Collection<ItemListaCompras> livrosSelecionados = this.getForm().getLivrosAdicaoSelecionados();
+        Collection<ItemListaCompras> itens = this.getForm().getEntity().getLivrosDaListaCompras();
+        itens.addAll(livrosSelecionados);
+        List<ItemListaCompras> itensList = new ArrayList<ItemListaCompras>(itens);
+        this.getForm().setItemListaDataModel(new ItemListaCompraDataModel(itensList));
+        this.getForm().setLivrosSelecionados(new ArrayList<ItemListaCompras>());
+    }
+    
+    public void carregarLivrosAdicao() {
+        try {
+            this.getForm().setLivrosAdicaoSelecionados(new ArrayList<ItemListaCompras>());
+            Collection<ItemListaCompras> itens = itemListaCompraService.obtemLivrosParaCotacao();
+            itens.removeAll(this.getForm().getEntity().getLivrosDaListaCompras());
+            List<ItemListaCompras> itensList = new ArrayList<ItemListaCompras>(itens);
+            this.getForm().setItensListaAdicao(new ItemListaCompraDataModel(itensList));
+        } catch (ValidationException ex) {
+            Logger.getLogger(ListaComprasController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
 }
