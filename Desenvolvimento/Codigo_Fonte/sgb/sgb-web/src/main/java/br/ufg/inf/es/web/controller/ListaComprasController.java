@@ -10,6 +10,7 @@ import br.ufg.inf.es.web.datamodel.LivroDataModel;
 import br.ufg.inf.es.web.datamodel.ItemListaCompraDataModel;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -32,6 +33,9 @@ public class ListaComprasController extends SGBController<ListaCompras, ListaCom
     private ListaComprasService service;
     @Autowired
     private LivroService livroService;
+    
+    @Autowired
+    private UsuarioController usuarioController;
     @Autowired
     private ItemListaCompraService itemListaCompraService;
     
@@ -126,7 +130,19 @@ public class ListaComprasController extends SGBController<ListaCompras, ListaCom
             livroListaCotacao.setQuantidadeAComprar(livroListaCotacao.getQuantidadeAComprar());
             livros.add(livroListaCotacao);
         }
-        this.getService().criaListaCompras(livros, this.getForm().getNomeLista());
+        
+        ListaCompras listaCompras = this.getForm().getEntity();
+
+        listaCompras.setDataCriacao(new Date());
+
+        listaCompras.setLivrosDaListaCompras(livros);
+
+        for (ItemListaCompras llc : livros) {
+            llc.getListaCompras().add(listaCompras);
+        }
+
+        listaCompras.setUser(usuarioController.getUsuarioLogado());
+        this.getService().criaListaCompras(listaCompras);
 
         this.getForm().setListaCompras(this.getService().list());
 

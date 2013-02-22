@@ -120,22 +120,7 @@ public class ListaComprasService extends GenericService<ListaCompras> {
         this.usuarioDao = usuarioDao;
     }
 
-    public void criaListaCompras(Collection<ItemListaCompras> livrosSelecionado, String nome) {
-
-        ListaCompras listaCompras = new ListaCompras();
-
-        listaCompras.setDataCriacao(new Date());
-
-        listaCompras.setLivrosDaListaCompras(livrosSelecionado);
-
-        for (ItemListaCompras llc : livrosSelecionado) {
-            llc.getListaCompras().add(listaCompras);
-        }
-
-        listaCompras.setNome(nome);
-
-        listaCompras.setUser(this.getUsuarioDao().find(1l));
-
+    public void criaListaCompras(ListaCompras listaCompras) {
         this.getDAO().insert(listaCompras);
     }
     

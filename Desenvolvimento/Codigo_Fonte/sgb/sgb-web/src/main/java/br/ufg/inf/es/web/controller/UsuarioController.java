@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletRequest;
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -226,5 +228,11 @@ public class UsuarioController
         } else {
             this.usuarioSelecionado.addAll(this.getForm().getTabelaUsuarios());
         }
+    }
+    
+    public Usuario getUsuarioLogado() {
+        String nome = ((HttpServletRequest) FacesContext.getCurrentInstance().
+                getExternalContext().getRequest()).getUserPrincipal().getName();
+        return this.getService().findUsuarioByEmail(nome); 
     }
 }
