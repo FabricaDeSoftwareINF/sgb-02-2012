@@ -62,6 +62,41 @@ public class DataQuotationTest {
         
         assertEquals(data.getTotalCost(), BigDecimal.ZERO);
     }
-
     
+    /**
+     * Test of toString method, of class DataQuotation.
+     */
+    @Test
+    public void testToString() {
+        
+        String expected = "Quote{productId=1, price=0, amount=1}";
+        
+        String result = data.toString();
+        
+        assertEquals(result, expected);
+    }
+
+    /**
+     * Test of equals method, of class DataQuotation.
+     */
+    @Test
+    public void testEquals() {
+        
+        boolean igualdade = data.equals(new DataQuotation(5l, BigDecimal.ZERO, 5));
+        
+        assertEquals(false, igualdade);
+    }
+
+    /**
+     * Test of compareTo method, of class DataQuotation.
+     */
+    @Test
+    public void testCompareTo() {
+        
+        DataQuotation novaCotacao = new DataQuotation(2l, new BigDecimal(5), quantidade);
+        
+        int resultado = data.compareTo(novaCotacao);
+        
+        assertEquals(-1, resultado);
+    }    
 }
