@@ -85,7 +85,11 @@
                             <p:commandButton value="#{msg['listaCotacaoOtimizada.label.gerar']}" 
                                              icon="ui-icon-calculator"
                                              style="width: 200px;"
-                                             onclick="dlgListaOtimizada.show();"/>
+                                             onclick="dlgListaOtimizada.show();">
+                            
+                                <f:setPropertyActionListener value="#{listaCotacao}" target="#{listaCotacaoController.form.entity}" />
+                                
+                            </p:commandButton>
 
 
                         </p:column>
@@ -143,7 +147,7 @@
 
                             <h:panelGrid columns="2" style="text-align: right; width: 100%;">
 
-                                <p:commandButton value="#{msg['listaCotacaoOtimizada.button.gerar']}" 
+                                <p:commandButton action="#{listaCotacaoController.gerarListaOtimizada}" value="#{msg['listaCotacaoOtimizada.button.gerar']}" 
                                                  ajax="false"/>
 
                                 <p:commandButton value="#{msg['listaCotacaoOtimizada.label.fechar']}" 
