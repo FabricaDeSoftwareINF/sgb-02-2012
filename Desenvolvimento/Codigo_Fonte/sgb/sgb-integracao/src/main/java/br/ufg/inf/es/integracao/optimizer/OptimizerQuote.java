@@ -16,7 +16,7 @@ public class OptimizerQuote {
     private static class DataQuotationWrapper implements Quotation {
 
         private Quotation dataQuotation;
-        private Integer quantity;
+        private Integer quantity = 0;
 
         public DataQuotationWrapper(Quotation dataQuotation) {
 
@@ -31,12 +31,12 @@ public class OptimizerQuote {
         }
 
         public Integer getQuantity() {
-            
+
             return quantity;
         }
 
         public void setQuantity(Integer quantity) {
-            
+
             this.quantity = quantity;
         }
 
@@ -56,18 +56,40 @@ public class OptimizerQuote {
         }
 
         public BigDecimal getPrice() {
-            
+
             return this.dataQuotation.getPrice();
+        }
+
+        @Override
+        public int hashCode() {
+            int hash = 3;
+            hash = 97 * hash + (this.dataQuotation != null ? this.dataQuotation.hashCode() : 0);
+            return hash;
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (obj == null) {
+                return false;
+            }
+            if (getClass() != obj.getClass()) {
+                return false;
+            }
+            final DataQuotationWrapper other = (DataQuotationWrapper) obj;
+            if (this.dataQuotation != other.dataQuotation && (this.dataQuotation == null || !this.dataQuotation.equals(other.dataQuotation))) {
+                return false;
+            }
+            return true;
         }
     }
 
     /**
      * Realizar otimização alocando um produto de cada
-     * 
+     *
      * @param in cotações
      * @param amountInner custo a ser gasto
      * @param result lista que será atualizada como resultado
-     * 
+     *
      * @return quantidade que sobrou do custo a ser gasto
      */
     private static BigDecimal buyOneOfEach(List<Quotation> in, BigDecimal amountInner, List<Quotation> result) {
@@ -78,11 +100,17 @@ public class OptimizerQuote {
 
                 DataQuotationWrapper wrapper = new DataQuotationWrapper(quotation);
 
-                wrapper.setQuantity(wrapper.getQuantity() + 1);
-
                 if (!result.contains(wrapper)) {
 
+                    wrapper.setQuantity(1);
+
                     result.add(wrapper);
+
+                } else {
+
+                    wrapper = (DataQuotationWrapper) result.get(result.indexOf(wrapper));
+
+                    wrapper.setQuantity(wrapper.getQuantity() + 1);
                 }
 
                 amountInner = amountInner.subtract(wrapper.getPrice());
@@ -94,7 +122,7 @@ public class OptimizerQuote {
 
     /**
      * Comparador de cotações para redefinir a ordenação natural para utilizar
-     * 
+     *
      * o preço do produto.
      */
     private static class PriceOrderQuotation implements Comparator<Quotation> {
@@ -108,41 +136,41 @@ public class OptimizerQuote {
 
     /**
      * Otimiza uma lista de cotações com foco na quantidade
-     * 
+     *
      * @param quotations cotações a serem otimizadas
-     * 
+     *
      * @param amount quantia que deverá ser gasta
-     * 
+     *
      * @return lista das cotações contendo o maior número de produtos
      */
     public static List<Quotation> optimizeQuantity(final List<? extends Quotation> quotations, final BigDecimal amount) {
-        
+
         return OptimizerQuote.optimize(quotations, amount, false);
     }
 
     /**
      * Otimiza uma lista de cotações com foco em abranger o maior custo
-     * 
+     *
      * @param quotations cotações a serem otimizadas
-     * 
+     *
      * @param amount quantia que deverá ser gasta
-     * 
+     *
      * @return lista das cotações contendo o maior custo
      */
     public static List<Quotation> optimizeCost(final List<? extends Quotation> quotations, final BigDecimal amount) {
-        
+
         return OptimizerQuote.optimize(quotations, amount, true);
     }
-    
+
     /**
-     * Realiza as otimizações de cotação 
-     * 
+     * Realiza as otimizações de cotação
+     *
      * @param quotations cotações a serem otimizadas
-     * 
+     *
      * @param amount quantia que deverá ser gasta
-     * 
+     *
      * @param fullValue atender ao valor máximo
-     * 
+     *
      * @return lista das cotações otimizadas
      */
     private static List<Quotation> optimize(final List<? extends Quotation> quotations, final BigDecimal amount, boolean fullValue) {
@@ -171,7 +199,7 @@ public class OptimizerQuote {
             }
         }
 
-        if (fullValue) {
+        if (fullValue && in.size() > 0) {
 
             Collections.sort(in, new PriceOrderQuotation());
 
