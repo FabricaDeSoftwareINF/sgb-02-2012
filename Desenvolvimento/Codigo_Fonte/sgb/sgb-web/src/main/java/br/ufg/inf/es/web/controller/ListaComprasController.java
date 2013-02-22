@@ -75,6 +75,7 @@ public class ListaComprasController extends SGBController<ListaCompras, ListaCom
     @Override
     public String openInsertPage() {
         buscaTodosLivros();
+        this.getForm().setLivrosSelecionados(new ArrayList<ItemListaCompras>());
         try {
             parametroMec = parametrosService.obtenhaParametroMEC();
         } catch (ValidationException ex) {
@@ -86,6 +87,7 @@ public class ListaComprasController extends SGBController<ListaCompras, ListaCom
     @Override
     public String openEditPage(ListaCompras lista) {
         List<ItemListaCompras> itens = new ArrayList<ItemListaCompras>(lista.getLivrosDaListaCompras());
+        this.getForm().setLivrosSelecionados(new ArrayList<ItemListaCompras>());
         this.getForm().setLivroDM(new ItemListaCompraDataModel(itens));
         try {
             parametroMec = parametrosService.obtenhaParametroMEC();
@@ -196,7 +198,10 @@ public class ListaComprasController extends SGBController<ListaCompras, ListaCom
     
     public void removerLivros() {
         Collection<ItemListaCompras> livrosSelecionados = this.getForm().getLivrosSelecionados();
-        Collection<ItemListaCompras> livros = this.getForm().getEntity().getLivrosDaListaCompras();
-        livros.removeAll(livrosSelecionados);
+        Collection<ItemListaCompras> itens = this.getForm().getEntity().getLivrosDaListaCompras();
+        itens.removeAll(livrosSelecionados);
+        List<ItemListaCompras> itensList = new ArrayList<ItemListaCompras>(itens);
+        this.getForm().setItemListaDataModel(new ItemListaCompraDataModel(itensList));
+        this.getForm().setLivrosSelecionados(new ArrayList<ItemListaCompras>());
     }
 }

@@ -52,6 +52,8 @@ public class RealizarCotacaoController extends SGBController<ListaCotacao, Reali
     public String openInitialPage() {
 
         LivroDataModel livroDataModel = new LivroDataModel((List) livroService.list());
+        
+        this.getForm().setLivrosSelecionados(new Livro[] {});
 
         this.getForm().setLivroDataModel(livroDataModel);
 
