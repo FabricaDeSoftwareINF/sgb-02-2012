@@ -26,7 +26,6 @@ public class ListaComprasTest {
         listaCompras.setNome(nome);
         listaCompras.setDataCriacao(dataCriacao);
         listaCompras.setUser(user);
-        listaCompras.setLivrosDaListaCompras(livrosDaListaCompras);
     }
 
     /**

@@ -77,7 +77,7 @@ public class LivrosBibliotecaDAO implements Serializable {
      * @throws NotFoundException
      * @throws SQLException
      */
-    public List<LivroBiblioteca> getLivrosBibliotecaTitulo(String titulo) throws
+    public List<LivroBiblioteca> getLivrosBibliotecaTitulo(String titulo) throws 
             NotFoundException, SQLException {
     	
         List<LivroBiblioteca> livros = null;

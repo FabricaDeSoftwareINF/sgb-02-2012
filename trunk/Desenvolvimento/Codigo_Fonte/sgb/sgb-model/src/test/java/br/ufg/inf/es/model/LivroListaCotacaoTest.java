@@ -21,7 +21,7 @@ public class LivroListaCotacaoTest {
      */
     @Test
     public void testGetLivro() {
-        LivroListaCotacao instance = new LivroListaCotacao();
+        ItemListaCompras instance = new ItemListaCompras();
         Livro expResult = new Livro();
         expResult.setTitulo("A");
         instance.setLivro(expResult);
@@ -38,7 +38,7 @@ public class LivroListaCotacaoTest {
         Livro livro = new Livro();
         livro.setTitulo("A");
         
-        LivroListaCotacao instance = new LivroListaCotacao();
+        ItemListaCompras instance = new ItemListaCompras();
         instance.setLivro(livro);
         assertNotNull(instance.getLivro());
     }
@@ -48,7 +48,7 @@ public class LivroListaCotacaoTest {
      */
     @Test
     public void testGetQuantidadeAComprar() {
-        LivroListaCotacao instance = new LivroListaCotacao();
+        ItemListaCompras instance = new ItemListaCompras();
         instance.setQuantidadeAComprar(2);
         int expResult = 2;
         int result = instance.getQuantidadeAComprar();
@@ -62,7 +62,7 @@ public class LivroListaCotacaoTest {
     @Test
     public void testSetQuantidadeAComprar() {
         int quantidadeAComprar = 1;
-        LivroListaCotacao instance = new LivroListaCotacao();
+        ItemListaCompras instance = new ItemListaCompras();
         instance.setQuantidadeAComprar(quantidadeAComprar);
         assertEquals(quantidadeAComprar, instance.getQuantidadeAComprar());
         

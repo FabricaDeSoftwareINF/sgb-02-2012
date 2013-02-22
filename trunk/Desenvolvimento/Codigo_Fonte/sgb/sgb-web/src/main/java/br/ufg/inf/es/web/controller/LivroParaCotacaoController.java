@@ -1,8 +1,9 @@
 package br.ufg.inf.es.web.controller;
 
-import br.ufg.inf.es.integracao.LivroParaCotacaoService;
-import br.ufg.inf.es.model.dtos.LivroParaCotacao;
-import br.ufg.inf.es.web.controller.form.LivroParaCotacaoForm;
+import br.ufg.inf.es.base.validation.ValidationException;
+import br.ufg.inf.es.integracao.ItemListaCompraService;
+import br.ufg.inf.es.model.ItemListaCompras;
+import br.ufg.inf.es.web.controller.form.ItemListaCompraForm;
 import java.util.Collection;
 import java.util.Iterator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,12 +16,12 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @Scope("session")
-public class LivroParaCotacaoController extends SGBController<LivroParaCotacao, LivroParaCotacaoForm, LivroParaCotacaoService> {
+public class LivroParaCotacaoController extends SGBController<ItemListaCompras, ItemListaCompraForm, ItemListaCompraService> {
 
     @Autowired
-    private LivroParaCotacaoService livroParaCotacaoService;
+    private ItemListaCompraService livroParaCotacaoService;
     @Autowired
-    private LivroParaCotacaoForm form;
+    private ItemListaCompraForm form;
     private String parametroMec;
 
     public String getParametroMec() {
@@ -28,26 +29,25 @@ public class LivroParaCotacaoController extends SGBController<LivroParaCotacao, 
     }
 
     @Override
-    public LivroParaCotacaoService getService() {
+    public ItemListaCompraService getService() {
         return livroParaCotacaoService;
     }
 
     @Override
-    public LivroParaCotacaoForm getForm() {
+    public ItemListaCompraForm getForm() {
         return this.form;
     }
 
     @Override
     public void initData() {
         super.initData();
-        Collection<LivroParaCotacao> entidades = this.getService().obtemLivrosParaCotacao();
-        this.getForm().setTodosLivros(livroParaCotacaoService.obtemLivrosParaCotacao());
-        this.getForm().setCollectionEntities(entidades);
+        try {
+            Collection<ItemListaCompras> entidades = this.getService().obtemLivrosParaCotacao();
+            this.getForm().setTodosLivros(entidades);
 
-        Iterator it = entidades.iterator();
-        if (it.hasNext()) {
-            LivroParaCotacao primeiro = entidades.iterator().next();
-            parametroMec = primeiro.getParametroMec() + "";
+            this.getForm().setCollectionEntities(entidades);
+        } catch (ValidationException ve) {
+            this.addErrorMessage(ve.getKeyMessage());
         }
     }
 }

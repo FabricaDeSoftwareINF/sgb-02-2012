@@ -2,6 +2,8 @@ package br.ufg.inf.es.persistencia;
 
 import br.ufg.inf.es.model.ListaCompras;
 import br.ufg.inf.es.model.Livro;
+import br.ufg.inf.es.model.ItemListaCompras;
+import br.ufg.inf.es.model.ItemListaCompras;
 import java.util.Collection;
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
@@ -46,11 +48,12 @@ public class ListaComprasDAO extends GenericHibernateDAO<ListaCompras> {
      * @param id
      * @return Collection<Livro>
      */
-    public Collection<Livro> getLivros(Long id) {
-        Criteria criteria = this.getSession().createCriteria(Livro.class);
+    public Collection<ItemListaCompras> findLivrosListaCotacao(Long id) {
+        Criteria criteria = this.getSession().createCriteria(ItemListaCompras.class);
         criteria.createAlias("listaCompras", "lc");
         criteria.add(Restrictions.eq("lc.id", id));
         
         return criteria.list();
     }
+
 }

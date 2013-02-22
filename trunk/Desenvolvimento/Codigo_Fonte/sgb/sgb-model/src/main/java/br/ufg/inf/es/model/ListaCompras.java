@@ -1,5 +1,6 @@
 package br.ufg.inf.es.model;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import javax.persistence.*;
@@ -26,11 +27,13 @@ public class ListaCompras extends AbstractEntityModel {
     private Usuario user;
     
     /** Campo livrosDaListaCompras*/
-    @ManyToMany(targetEntity = Livro.class)
-    @JoinTable(name = "TB_LISTACOMPRAS_LIVRO", joinColumns =
-    @JoinColumn(name = "id_listaCompras"), inverseJoinColumns =
-    @JoinColumn(name = "id_livro"))
-    private Collection<Livro> livrosDaListaCompras;
+    @ManyToMany(cascade={CascadeType.ALL})
+    @JoinTable(
+        name="LISTA_COMPRAS_LIVRO_LISTA_COMPRAS",
+        joinColumns=@JoinColumn(name="id_lista_compra"),
+        inverseJoinColumns=@JoinColumn(name="id_livro")
+    )
+    private Collection<ItemListaCompras> livrosDaListaCompras = new ArrayList<ItemListaCompras>();
 
     /**
      * Obtém o valor do campo <code>nome</code>
@@ -97,8 +100,7 @@ public class ListaCompras extends AbstractEntityModel {
      *
      * @return {@link Collection<Livro>}
      */
-    public Collection<Livro> getLivrosDaListaCompras() {
-
+    public Collection<ItemListaCompras> getLivrosDaListaCompras() {
             return this.livrosDaListaCompras;
     }
 
@@ -107,8 +109,7 @@ public class ListaCompras extends AbstractEntityModel {
      *
      * @param livrosDaListaCompras 
      */
-    public void setLivrosDaListaCompras(Collection<Livro> livrosDaListaCompras) {
-
+    public void setLivrosDaListaCompras(Collection<ItemListaCompras> livrosDaListaCompras) {
             this.livrosDaListaCompras = livrosDaListaCompras;
     }
 

@@ -45,7 +45,6 @@ public class LivroTest {
         livro.setEditora(editora);
         livro.setAutores(autores);
         livro.setBibliografias(bibliografias);
-        livro.setListaCompras(listaCompras);
         livro.setCotacoesLivro(cotacoesLivro);
     }
 
@@ -135,14 +134,6 @@ public class LivroTest {
     @Test
     public void testGetBibliografias() {
         assertEquals(bibliografias, livro.getBibliografias());
-    }
-
-    /**
-     * Test of getListaCompras method, of class Livro.
-     */
-    @Test
-    public void testGetListaCompras() {
-        assertEquals(listaCompras, livro.getListaCompras());
     }
 
     /**

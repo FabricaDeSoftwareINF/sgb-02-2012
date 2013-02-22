@@ -14,8 +14,8 @@
                 <p:spacer width="15px" />
 
                 <h:form id="form">  
-                    
-                    <p:messages/>  
+
+                    <p:messages closable="true"/>  
 
                     <p:dataTable id="listaComprasTable"
                                  var="listaCompras"
@@ -23,7 +23,7 @@
                                  paginator="true" rows="10"
                                  resizableColumns="true"
                                  emptyMessage="#{msg['arquitetura.label.nenhumregitro']}">  
-                        
+
                         <f:facet name="header">  
                             #{msg['listaCompras.conteudo']}
                         </f:facet>  
@@ -45,44 +45,48 @@
                             </f:facet>  
                             <h:outputText value="#{listaCompras.dataCriacao}" />  
                         </p:column>  
-                        
+
                         <p:column>
-                               
+
                             <p:commandButton value="#{msg['listaCompras.apagarLista']}" 
-                                     onclick="dlgRemocao.show();"  icon="ui-icon-trash">
-                            
+                                             onclick="dlgRemocao.show();"  icon="ui-icon-trash">
+
                                 <f:setPropertyActionListener target="#{listaComprasController.form.listaComprasParaRemocao}"
                                                              value="#{listaCompras}"/>
-                                
+
+                            </p:commandButton>
+
+                            <p:commandButton value="#{msg['arquitetura.label.editar']}" 
+                                             action="#{listaComprasController.openEditPage(listaCompras)}"
+                                             ajax="false">
                             </p:commandButton>
 
                         </p:column>
 
                         <p:rowExpansion>  
-
-                            <p:dataTable var="livro" value="#{listaCompras.livrosDaListaCompras}"
+                            <p:dataTable var="livroCompra" value="#{listaCompras.livrosDaListaCompras}"
                                          resizableColumns="true"  >  
 
                                 <p:column headerText="Título">
-                                    <h:outputText value="#{livro.titulo}" 
-                                                  title="#{livro.titulo}"/>  
+                                    <h:outputText value="#{livroCompra.livro.titulo}" 
+                                                  title="#{livroCompra.livro.titulo}"/>  
                                 </p:column>  
 
                                 <p:column headerText="Edição">  
-                                    <h:outputText value="#{livro.edicao}" 
-                                                  title="#{livro.edicao}"/>  
+                                    <h:outputText value="#{livroCompra.livro.edicao}" 
+                                                  title="#{livroCompra.livro.edicao}"/>  
                                 </p:column>  
 
                                 <p:column headerText="Editora">  
-                                    <h:outputText value="#{livro.editora.nome}"
-                                                  title="#{livro.editora.nome}"/>  
+                                    <h:outputText value="#{livroCompra.livro.editora.nome}"
+                                                  title="#{livroCompra.livro.editora.nome}"/>  
                                 </p:column>  
 
                                 <p:column headerText="Ano">  
-                                    <h:outputText value="#{livro.ano}" 
-                                                  title="#{livro.ano}"/>  
+                                    <h:outputText value="#{livroCompra.livro.ano}" 
+                                                  title="#{livroCompra.livro.ano}"/>  
                                 </p:column>
-                                
+
                             </p:dataTable>  
 
                             <p:commandButton value="Cotar" 
@@ -98,17 +102,17 @@
                     </p:dataTable> 
 
                     <p:spacer height="10px"/>
-                    
+
                     <h:panelGrid columns="1">
-                        
+
                         <p:commandButton value="Novo"
-                                         oncomplete="novaListaCompra.show();" 
-                                     icon="ui-icon-document"/>
-                        
+                                         action="#{listaComprasController.openInsertPage()}" 
+                                         icon="ui-icon-document"/>
+
                     </h:panelGrid>
-                    
+
                     <p:dialog id="dialogRemocao" widgetVar="dlgRemocao" modal="true"
-                          resizable="false" closable="false">
+                              resizable="false" closable="false">
 
                         <h:panelGrid columns="1" style="text-align: center;">
 
@@ -129,9 +133,6 @@
                         </h:panelGrid>
 
                     </p:dialog>
-                    
-                    <ui:include src="novaListaCompra.xhtml"></ui:include>
-
                 </h:form>  
             </p:panel>
         </ui:define>

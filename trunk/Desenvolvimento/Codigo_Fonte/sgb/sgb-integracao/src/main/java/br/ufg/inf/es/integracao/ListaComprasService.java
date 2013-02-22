@@ -2,11 +2,10 @@ package br.ufg.inf.es.integracao;
 
 import br.ufg.inf.es.model.ListaCompras;
 import br.ufg.inf.es.model.Livro;
-import br.ufg.inf.es.model.Usuario;
+import br.ufg.inf.es.model.ItemListaCompras;
 import br.ufg.inf.es.persistencia.ListaComprasDAO;
-import br.ufg.inf.es.persistencia.LivroDAO;
+import br.ufg.inf.es.persistencia.ItemListaComprasDAO;
 import br.ufg.inf.es.persistencia.UsuarioDAO;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +31,8 @@ public class ListaComprasService extends GenericService<ListaCompras> {
      * Campo livroDao
      */
     @Autowired
-    private LivroDAO livroDao;
+    private ItemListaComprasDAO livroDao;
+    
     @Autowired
     private UsuarioDAO usuarioDao;
 
@@ -41,7 +41,7 @@ public class ListaComprasService extends GenericService<ListaCompras> {
      *
      * @return
      */
-    public LivroDAO getLivroDao() {
+    public ItemListaComprasDAO getLivroDao() {
         return livroDao;
     }
 
@@ -50,7 +50,7 @@ public class ListaComprasService extends GenericService<ListaCompras> {
      *
      * @param livroDao
      */
-    public void setLivroDao(LivroDAO livroDao) {
+    public void setLivroDao(ItemListaComprasDAO livroDao) {
         this.livroDao = livroDao;
     }
 
@@ -71,16 +71,16 @@ public class ListaComprasService extends GenericService<ListaCompras> {
         this.dao = dao;
     }
 
-    /** 
-     * {@inheritDoc} 
+    /**
+     * {@inheritDoc}
      */
     @Override
     public Collection<ListaCompras> list() {
-        
+
         Collection<ListaCompras> listaCompras = super.list();
-        
+
         this.carregarLivrosDaListaCompras(listaCompras);
-        
+
         return listaCompras;
     }
 
@@ -92,15 +92,7 @@ public class ListaComprasService extends GenericService<ListaCompras> {
     public void carregarLivrosDaListaCompras(Collection<ListaCompras> listaCompras) {
         if (listaCompras != null) {
             for (ListaCompras lc : listaCompras) {
-
-                Collection<Livro> livros = this.getDAO().getLivros(lc.getId());
-
-                //for(Livro l : livros) {
-
-                //  l.setAutores(this.getLivroDao().getAutores(l.getId()));
-
-                //}
-
+                Collection<ItemListaCompras> livros = this.getDAO().findLivrosListaCotacao(lc.getId());
                 lc.setLivrosDaListaCompras(livros);
 
             }
@@ -114,7 +106,7 @@ public class ListaComprasService extends GenericService<ListaCompras> {
      * @return
      * @author Jackeline
      */
-    public Collection<Livro> buscaTodosLivros(String filtroTitulo) {
+    public Collection<ItemListaCompras> buscaTodosLivros(String filtroTitulo) {
 
         return livroDao.list();
 
@@ -128,7 +120,7 @@ public class ListaComprasService extends GenericService<ListaCompras> {
         this.usuarioDao = usuarioDao;
     }
 
-    public void criaListaCompras(Collection<Livro> livrosSelecionado) {
+    public void criaListaCompras(Collection<ItemListaCompras> livrosSelecionado, String nome) {
 
         ListaCompras listaCompras = new ListaCompras();
 
@@ -136,10 +128,19 @@ public class ListaComprasService extends GenericService<ListaCompras> {
 
         listaCompras.setLivrosDaListaCompras(livrosSelecionado);
 
-        listaCompras.setNome(listaCompras.getDataCriacao().toString());
+        for (ItemListaCompras llc : livrosSelecionado) {
+            llc.getListaCompras().add(listaCompras);
+        }
+
+        listaCompras.setNome(nome);
 
         listaCompras.setUser(this.getUsuarioDao().find(1l));
 
         this.getDAO().insert(listaCompras);
     }
+    
+    public void removerLivros(Collection<ItemListaCompras> livros) {
+        this.getLivroDao().removeAll(livros);
+    }
+    
 }

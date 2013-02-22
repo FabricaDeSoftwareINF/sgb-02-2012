@@ -54,7 +54,7 @@ public class Livro extends AbstractEntityModel {
     /**
      * Campo autores
      */
-    @ManyToMany(fetch=FetchType.EAGER)
+    @ManyToMany
     @JoinTable(name = "LIVRO_AUTOR", joinColumns =
     @JoinColumn(name = "id_livro"), inverseJoinColumns =
     @JoinColumn(name = "id_autor"))
@@ -65,13 +65,7 @@ public class Livro extends AbstractEntityModel {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "livro")
     @Cascade(org.hibernate.annotations.CascadeType.DELETE_ORPHAN)
     private Collection<Bibliografia> bibliografias = new ArrayList<Bibliografia>();
-    /**
-     * Campo listaCompras
-     */
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE},
-    mappedBy = "livrosDaListaCompras",
-    targetEntity = ListaCompras.class)
-    private Collection<ListaCompras> listaCompras;
+    
     /**
      * Campo cotacoesLivro
      */
@@ -257,26 +251,6 @@ public class Livro extends AbstractEntityModel {
      */
     public void setBibliografias(Collection<Bibliografia> bibliografias) {
         this.bibliografias = bibliografias;
-    }
-
-    /**
-     * Obtém o valor do campo
-     * <code>listaCompras</code>
-     *
-     * @return {@link Collection<ListaCompras>}
-     */
-    public Collection<ListaCompras> getListaCompras() {
-        return this.listaCompras;
-    }
-
-    /**
-     * Define o campo
-     * <code>listaCompras</code>.
-     *
-     * @param listaCompras
-     */
-    public void setListaCompras(Collection<ListaCompras> listaCompras) {
-        this.listaCompras = listaCompras;
     }
 
     /**

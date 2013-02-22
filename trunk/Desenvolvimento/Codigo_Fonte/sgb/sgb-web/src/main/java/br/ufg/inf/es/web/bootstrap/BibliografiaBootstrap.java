@@ -1,7 +1,9 @@
 package br.ufg.inf.es.web.bootstrap;
 
+import br.ufg.inf.es.base.persistence.biblioteca.DBDriver;
 import br.ufg.inf.es.enuns.EnumTipoBibliografia;
 import br.ufg.inf.es.model.*;
+import br.ufg.inf.es.model.biblioteca.DBBibliotecaConfig;
 import java.util.*;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -33,6 +35,7 @@ public class BibliografiaBootstrap {
     private static Livraria livraria2;
     private static ListaCotacao listaCotacao;
     private static List<CotacoesLivro> listaCotacoesLivro;
+    private static DBBibliotecaConfig dbBibliotecaConfig;
 
     /**
      * Cria alguns dados para a verificação da lista de livros necessários para
@@ -59,6 +62,7 @@ public class BibliografiaBootstrap {
         crieBibliografia(disciplina2, livro4);
 
         crieListaCotacao();
+        crieConfiguracaoBibliotecaBD();
     }
 
     private static void crieListaCotacao() {
@@ -69,6 +73,27 @@ public class BibliografiaBootstrap {
         listaCotacao.setCotacoesLivro(listaCotacoesLivro);
         crieCotacoesLivro();
         listaCotacao.setId(salve(listaCotacao));
+
+    }
+    
+    private static void crieConfiguracaoBibliotecaBD() {
+
+        dbBibliotecaConfig = new DBBibliotecaConfig();
+        dbBibliotecaConfig.setCampoAnoLivro("ANO");
+        dbBibliotecaConfig.setCampoAutor("AUTOR");
+        dbBibliotecaConfig.setCampoEdicao("EDICAO");
+        dbBibliotecaConfig.setCampoEditora("EDITORA");
+        dbBibliotecaConfig.setCampoIdLivroBiblioteca("CODIGO");
+        dbBibliotecaConfig.setCampoIsbnLivro("ISBN");
+        dbBibliotecaConfig.setCampoQuantidadeLivro("CODIGO");
+        dbBibliotecaConfig.setCampoTituloLivro("TITULO");
+        dbBibliotecaConfig.setDriver(DBDriver.MySQL);
+        dbBibliotecaConfig.setNameDataBase("obras");
+        dbBibliotecaConfig.setPasswordDataBase("12345678".getBytes());
+        dbBibliotecaConfig.setPorta("3306");
+        dbBibliotecaConfig.setUrl("localhost");
+        dbBibliotecaConfig.setUserDataBase("root");
+        salve(dbBibliotecaConfig);
 
     }
 

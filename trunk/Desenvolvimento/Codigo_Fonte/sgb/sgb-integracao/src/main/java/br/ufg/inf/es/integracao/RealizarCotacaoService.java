@@ -26,6 +26,7 @@ import br.ufg.inf.es.integracao.cotacao.CotadorBuscape;
 import br.ufg.inf.es.integracao.cotacao.CotadorGoogleShop;
 import br.ufg.inf.es.integracao.cotacao.ResultadoCotacao;
 import br.ufg.inf.es.model.CotacoesLivro;
+import br.ufg.inf.es.model.ItemListaCompras;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -105,7 +106,7 @@ public class RealizarCotacaoService extends GenericService<ListaCotacao> {
     }
 
 
-    public ListaCotacao realizarCotacao(Collection<Livro> livros) {
+    public ListaCotacao realizarCotacao(Collection<ItemListaCompras> livros) {
         Collection<CotacoesLivro> cotacoes = new ArrayList<CotacoesLivro>();
         Map<Livro, Collection<ResultadoCotacao>> resultados = buscarOfertas(livros);
 
@@ -136,19 +137,19 @@ public class RealizarCotacaoService extends GenericService<ListaCotacao> {
         return media;
     }
 
-    private Map<Livro, Collection<ResultadoCotacao>> buscarOfertas(Collection<Livro> livros) {
+    private Map<Livro, Collection<ResultadoCotacao>> buscarOfertas(Collection<ItemListaCompras> livros) {
         Map<Livro, Collection<ResultadoCotacao>> resultados = new HashMap();
         CotadorBuscape cotadorBuscape = new CotadorBuscape();
         CotadorGoogleShop cotadorGoogleShop = new CotadorGoogleShop();
         Cotador cotador;
 
-        for (Livro livro : livros) {
-            if (livro.isEstrangeiro()) {
+        for (ItemListaCompras livroListaCotacao : livros) {
+            if (livroListaCotacao.getLivro().isEstrangeiro()) {
                 cotador = cotadorGoogleShop;
             } else {
                 cotador = cotadorBuscape;
             }
-            resultados.put(livro, cotador.buscarOfertas(livro));
+            resultados.put(livroListaCotacao.getLivro(), cotador.buscarOfertas(livroListaCotacao.getLivro()));
         }
         return resultados;
     }

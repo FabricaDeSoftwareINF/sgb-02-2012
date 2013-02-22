@@ -180,7 +180,7 @@ public class LivroParaCotacaoService extends GenericService<LivroParaCotacao> {
         this.parametrosDao = parametrosDAO;
     }
     
-    public Collection<LivroParaCotacao> obtemLivrosParaCotacao(){
+    public Collection<LivroParaCotacao> obtemLivrosParaCotacao() throws ValidationException {
         Collection<LivroParaCotacao> livrosParaCotacao = new ArrayList<LivroParaCotacao>();
         try {
             
@@ -220,11 +220,8 @@ public class LivroParaCotacaoService extends GenericService<LivroParaCotacao> {
             
         
         } catch (NotFoundException nfe) {
-            
-            Logger.getAnonymousLogger().log(Level.SEVERE, "Livro não encontrado");
-        
+            throw new ValidationException("A configuração com a visão do banco de dados da Biblioteca não foi encontrada.");
         } catch (SQLException sqle) {
-            
             Logger.getAnonymousLogger().log(Level.SEVERE, sqle.getMessage(), sqle);
         }
         
