@@ -1,6 +1,9 @@
 package br.ufg.inf.es.web.controller;
 
 import br.ufg.inf.es.base.controller.Controller;
+import br.ufg.inf.es.model.Usuario;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * @author Cézar Augusto Ferreira
@@ -36,4 +39,5 @@ public abstract class JSFController extends BaseController implements Controller
         
         return this.getClass().getSimpleName() + "/";
     }   
+    
 }

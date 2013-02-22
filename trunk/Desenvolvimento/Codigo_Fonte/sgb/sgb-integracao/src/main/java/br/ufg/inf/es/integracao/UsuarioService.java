@@ -145,4 +145,8 @@ public class UsuarioService extends GenericService<Usuario> {
     public void setDao(UsuarioDAO dao) {
         this.dao = dao;
     }
+    
+    public Usuario findUsuarioByEmail(String email) {
+        return this.dao.findUserByEmail(email);
+    }
 }
