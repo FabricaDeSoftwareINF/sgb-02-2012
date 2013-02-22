@@ -28,8 +28,13 @@ public class LivroParaCotacaoController extends SGBController<ItemListaCompras, 
     public String getParametroMec() {
         return parametroMec;
     }
+    
+    public void setParametroMec(String parametroMec) {
+		
+    	this.parametroMec = parametroMec;
+	}
 
-    @Override
+	@Override
     public ItemListaCompraService getService() {
         return livroParaCotacaoService;
     }

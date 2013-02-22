@@ -1,7 +1,14 @@
 package br.ufg.inf.es.model;
 
 import java.util.Collection;
-import javax.persistence.*;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 /**
  *
@@ -11,6 +18,10 @@ import javax.persistence.*;
 @Table(name = "COTACOES_LIVRO")
 public class CotacoesLivro extends AbstractEntityModel {
 
+	private static final int HASH = 7;
+	
+	private static final int SALTO = 19;
+	
     /**
      * Campo urlImagem
      */
@@ -151,12 +162,12 @@ public class CotacoesLivro extends AbstractEntityModel {
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 19 * hash + (this.urlImagem != null ? this.urlImagem.hashCode() : 0);
-        hash = 19 * hash + (int) (Double.doubleToLongBits(this.valorMedio) ^ (Double.doubleToLongBits(this.valorMedio) >>> 32));
-        hash = 19 * hash + (this.livro != null ? this.livro.hashCode() : 0);
-        hash = 19 * hash + (this.cotacoes != null ? this.cotacoes.hashCode() : 0);
-        hash = 19 * hash + this.quantidade;
+        int hash = HASH;
+        hash = SALTO * hash + (this.urlImagem != null ? this.urlImagem.hashCode() : 0);
+        hash = SALTO * hash + (int) (Double.doubleToLongBits(this.valorMedio) ^ (Double.doubleToLongBits(this.valorMedio) >>> 32));
+        hash = SALTO * hash + (this.livro != null ? this.livro.hashCode() : 0);
+        hash = SALTO * hash + (this.cotacoes != null ? this.cotacoes.hashCode() : 0);
+        hash = SALTO * hash + this.quantidade;
         return hash;
     }
 

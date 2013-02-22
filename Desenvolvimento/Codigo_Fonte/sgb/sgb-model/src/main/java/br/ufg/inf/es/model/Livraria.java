@@ -17,6 +17,8 @@ import javax.persistence.Table;
 @Table(name="LIVRARIA")
 public class Livraria extends AbstractEntityModel {
 
+	private static final int SITE_LENGTH = 2038;
+	
     /**
      * Campo nome
      */
@@ -24,7 +26,7 @@ public class Livraria extends AbstractEntityModel {
     /**
      * Campo site
      */
-    @Column(length=2083)
+    @Column(length=SITE_LENGTH)
     private String site;
     /**
      * Campo urlLogo

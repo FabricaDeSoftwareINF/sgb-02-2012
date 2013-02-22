@@ -22,6 +22,10 @@ import javax.persistence.Temporal;
 @Table(name = "LISTA_COTACAO")
 public class ListaCotacao extends AbstractEntityModel {
 
+	private static final int HASH = 7;
+	
+	private static final int SALTO = 13;
+	
     /** Campo nome*/
     private String nome;
     
@@ -120,10 +124,10 @@ public class ListaCotacao extends AbstractEntityModel {
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 13 * hash + (this.nome != null ? this.nome.hashCode() : 0);
-        hash = 13 * hash + (this.dataRealizada != null ? this.dataRealizada.hashCode() : 0);
-        hash = 13 * hash + (this.cotacoesLivro != null ? this.cotacoesLivro.hashCode() : 0);
+        int hash = HASH;
+        hash = SALTO * hash + (this.nome != null ? this.nome.hashCode() : 0);
+        hash = SALTO * hash + (this.dataRealizada != null ? this.dataRealizada.hashCode() : 0);
+        hash = SALTO * hash + (this.cotacoesLivro != null ? this.cotacoesLivro.hashCode() : 0);
         return hash;
     }
 

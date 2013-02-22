@@ -1,10 +1,21 @@
 package br.ufg.inf.es.model;
 
-import br.ufg.inf.es.base.util.UtilObjeto;
 import java.util.ArrayList;
 import java.util.Collection;
-import javax.persistence.*;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
 import org.hibernate.annotations.Cascade;
+
+import br.ufg.inf.es.base.util.UtilObjeto;
 
 /**
  * Classe que representa a entidade Livro
@@ -15,6 +26,10 @@ import org.hibernate.annotations.Cascade;
 @Table(name = "LIVRO")
 public class Livro extends AbstractEntityModel {
 
+	private static final int HASH = 3;
+	
+	private static final int SALTO = 71;
+	
     /**
      * Campo titulo
      */
@@ -303,26 +318,20 @@ public class Livro extends AbstractEntityModel {
     @Override
     public String toString() {
 
-//        if (this.isbn13 != null && this.isbn13.isEmpty() == false) {
-//            return titulo + "(ISBN13: " + this.isbn13 + ")";
-//        } else if (this.isbn10 != null && this.isbn10.isEmpty() == false) {
-//            return titulo + "(ISBN10: " + this.isbn10 + ")";
-//        } else {
-            return titulo;
-//        }
+        return titulo;
     }
 
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 71 * hash + (this.titulo != null ? this.titulo.hashCode() : 0);
-        hash = 71 * hash + (this.ano != null ? this.ano.hashCode() : 0);
-        hash = 71 * hash + (this.isbn10 != null ? this.isbn10.hashCode() : 0);
-        hash = 71 * hash + (this.isbn13 != null ? this.isbn13.hashCode() : 0);
-        hash = 71 * hash + (this.edicao != null ? this.edicao.hashCode() : 0);
-        hash = 71 * hash + (this.estrangeiro ? 1 : 0);
-        hash = 71 * hash + (this.editora != null ? this.editora.hashCode() : 0);
-        hash = 71 * hash + (this.autores != null ? this.autores.hashCode() : 0);
+        int hash = HASH;
+        hash = SALTO * hash + (this.titulo != null ? this.titulo.hashCode() : 0);
+        hash = SALTO * hash + (this.ano != null ? this.ano.hashCode() : 0);
+        hash = SALTO * hash + (this.isbn10 != null ? this.isbn10.hashCode() : 0);
+        hash = SALTO * hash + (this.isbn13 != null ? this.isbn13.hashCode() : 0);
+        hash = SALTO * hash + (this.edicao != null ? this.edicao.hashCode() : 0);
+        hash = SALTO * hash + (this.estrangeiro ? 1 : 0);
+        hash = SALTO * hash + (this.editora != null ? this.editora.hashCode() : 0);
+        hash = SALTO * hash + (this.autores != null ? this.autores.hashCode() : 0);
         return hash;
     }
 
