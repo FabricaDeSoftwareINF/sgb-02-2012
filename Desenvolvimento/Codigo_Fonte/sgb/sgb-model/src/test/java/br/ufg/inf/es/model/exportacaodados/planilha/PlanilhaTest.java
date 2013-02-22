@@ -4,9 +4,12 @@
  */
 package br.ufg.inf.es.model.exportacaodados.planilha;
 
+import static org.junit.Assert.assertEquals;
+
 import java.util.ArrayList;
-import org.junit.*;
-import static org.junit.Assert.*;
+import java.util.List;
+
+import org.junit.Test;
 
 /**
  *
@@ -21,8 +24,8 @@ public class PlanilhaTest {
     @Test
     public void testGetLinhasPlanilha() {
         Planilha instance = new Planilha();
-        ArrayList expResult = new ArrayList();
-        ArrayList result = instance.getLinhasPlanilha();
+        List expResult = new ArrayList();
+        List result = instance.getLinhasPlanilha();
         assertEquals(expResult, result);
         
     }
