@@ -1,14 +1,15 @@
 package br.ufg.inf.es.web.controller;
 
+import java.util.Collection;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
+
 import br.ufg.inf.es.base.validation.ValidationException;
 import br.ufg.inf.es.integracao.ItemListaCompraService;
 import br.ufg.inf.es.model.ItemListaCompras;
 import br.ufg.inf.es.web.controller.form.ItemListaCompraForm;
-import java.util.Collection;
-import java.util.Iterator;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
 
 /**
  *

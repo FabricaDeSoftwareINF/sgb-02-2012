@@ -1,12 +1,12 @@
 package br.ufg.inf.es.integracao;
 
-import br.ufg.inf.es.base.persistence.DAO;
-import br.ufg.inf.es.model.Bibliografia;
-import br.ufg.inf.es.persistencia.BibliografiaDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Component;
+
+import br.ufg.inf.es.model.Bibliografia;
+import br.ufg.inf.es.persistencia.BibliografiaDAO;
 
 /**
  * Service da bibliografia

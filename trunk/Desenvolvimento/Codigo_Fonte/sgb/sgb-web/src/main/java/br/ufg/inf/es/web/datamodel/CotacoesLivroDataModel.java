@@ -1,15 +1,14 @@
 
 package br.ufg.inf.es.web.datamodel;
 
-import br.ufg.inf.es.integracao.CotacaoService;
-import br.ufg.inf.es.model.Cotacao;
-import br.ufg.inf.es.model.CotacoesLivro;
-import br.ufg.inf.es.model.Livro;
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.List;
+
 import javax.faces.model.ListDataModel;
+
 import org.primefaces.model.SelectableDataModel;
+
+import br.ufg.inf.es.model.CotacoesLivro;
 
 /**
  *

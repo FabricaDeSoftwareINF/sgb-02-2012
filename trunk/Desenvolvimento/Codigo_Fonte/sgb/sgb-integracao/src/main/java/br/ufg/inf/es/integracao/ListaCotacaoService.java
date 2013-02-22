@@ -1,17 +1,18 @@
 
 package br.ufg.inf.es.integracao;
 
-import br.ufg.inf.es.base.persistence.DAO;
-import br.ufg.inf.es.base.validation.ValidationException;
-import br.ufg.inf.es.model.ListaCotacao;
-import br.ufg.inf.es.model.Usuario;
-import br.ufg.inf.es.persistencia.ListaCotacaoDAO;
 import java.util.ArrayList;
 import java.util.Collection;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Component;
+
+import br.ufg.inf.es.base.validation.ValidationException;
+import br.ufg.inf.es.model.ListaCotacao;
+import br.ufg.inf.es.model.Usuario;
+import br.ufg.inf.es.persistencia.ListaCotacaoDAO;
 
 /**
  * Classe Service para a entidade ListaCotacao

@@ -1,17 +1,17 @@
 package br.ufg.inf.es.integracao;
 
-import br.ufg.inf.es.model.ListaCompras;
-import br.ufg.inf.es.model.Livro;
-import br.ufg.inf.es.model.ItemListaCompras;
-import br.ufg.inf.es.persistencia.ListaComprasDAO;
-import br.ufg.inf.es.persistencia.ItemListaComprasDAO;
-import br.ufg.inf.es.persistencia.UsuarioDAO;
 import java.util.Collection;
-import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Component;
+
+import br.ufg.inf.es.model.ItemListaCompras;
+import br.ufg.inf.es.model.ListaCompras;
+import br.ufg.inf.es.persistencia.ItemListaComprasDAO;
+import br.ufg.inf.es.persistencia.ListaComprasDAO;
+import br.ufg.inf.es.persistencia.UsuarioDAO;
 
 /**
  * Classe Service para a ListaCompras.
