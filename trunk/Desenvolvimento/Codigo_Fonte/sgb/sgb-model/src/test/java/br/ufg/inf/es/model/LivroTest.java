@@ -172,7 +172,7 @@ public class LivroTest {
     @Test
     public void testEquals() {
         assertFalse(livro.equals(""));
-        Livro livro2 = livro;
+        Livro livro2 = new Livro();
         livro2.setTitulo("b");
         assertFalse(livro.equals(livro2));
         livro2.setTitulo(null);
