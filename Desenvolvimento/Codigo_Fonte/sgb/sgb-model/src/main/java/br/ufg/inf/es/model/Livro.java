@@ -362,10 +362,11 @@ public class Livro extends AbstractEntityModel {
         if (this.estrangeiro != other.estrangeiro) {
             return false;
         }
-        if (this.editora != other.editora && (this.editora == null || !this.editora.equals(other.editora))) {
+        if ((this.editora == null || !this.editora.equals(other.editora))) {
             return false;
         }
-        if (this.autores != other.autores && (this.autores == null || !this.autores.equals(other.autores))) {
+        if ((this.autores == null || !this.autores.containsAll(other.autores))
+                && !other.autores.containsAll(this.autores)) {
             return false;
         }
         return true;

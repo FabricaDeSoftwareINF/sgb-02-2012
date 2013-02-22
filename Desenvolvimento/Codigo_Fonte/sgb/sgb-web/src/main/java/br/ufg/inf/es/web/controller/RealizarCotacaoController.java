@@ -43,6 +43,9 @@ public class RealizarCotacaoController extends SGBController<ListaCotacao, Reali
     private RealizarCotacaoService service;
     @Autowired
     private LivroService livroService;
+    
+    @Autowired
+    private ListaCotacaoController listaCotacaoController;
     private List<CotacoesLivro> listaCotacoesLivro;
     
     @Autowired
@@ -107,8 +110,6 @@ public class RealizarCotacaoController extends SGBController<ListaCotacao, Reali
             
             CotacoesLivro[] cotacoesArray = cotacoes.toArray(new CotacoesLivro[cotacoes.size()]);
 
-            this.getForm().setCotacoesSelecionadas(cotacoesArray);
-
             return this.openInsertPage();
         }
 
@@ -122,6 +123,7 @@ public class RealizarCotacaoController extends SGBController<ListaCotacao, Reali
         this.getService().salvarListaCotacao(listaCotacoesLivro,
                 this.getForm().getNomeLista(), usuarioLogado);
 
+        //return this.listaCotacaoController.openInitialPage();
         return this.openInitialPage();
     }
 

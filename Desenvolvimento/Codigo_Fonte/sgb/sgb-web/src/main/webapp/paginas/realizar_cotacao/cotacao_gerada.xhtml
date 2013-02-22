@@ -17,7 +17,7 @@
                 <p:panel header="#{msg['label.cotacao.cotarLivro']}">
 
                     <p:spacer height="15" width="5"/>
-                    
+
                     <p:dataTable id="tabelaCotacoes" paginator="true" rows="10"
                                  value="#{realizarCotacaoController.form.cotacoesDataModel}" 
                                  var="cotacesLivro" style="text-align: center;" editable="true" editMode="row" 
@@ -132,7 +132,7 @@
                             </p:cellEditor>    
 
                         </p:column>
-                         
+
                         <p:column headerText="Preço Total(R$)" width="110">
 
                             <h:outputText value="#{cotacesLivro.valorMedio * cotacesLivro.quantidade}">
@@ -161,17 +161,17 @@
                     <p:commandButton value="#{msg['arquitetura.label.remover']}"
                                      onclick="dialogRemocao.show()"
                                      icon="ui-icon-trash"/>
-
-                    <p:commandButton value="#{msg['acao.salvar']}" 
-                                     style="width: 120px"
-                                     onclick="salvarDialog.show()"
-                                      icon="ui-icon-disk"/>
-
-                    <p:commandButton value="#{msg['acao.voltar']}" ajax="false" 
-                                     action="#{realizarCotacaoController.openInitialPage()}"
-                                     style="width: 120px" 
-                                      icon="ui-icon-arrowreturnthick-1-w"/>
                 </p:panel>
+
+                <p:commandButton value="#{msg['acao.salvar']}" 
+                                 style="width: 120px"
+                                 onclick="salvarDialog.show()"
+                                 icon="ui-icon-disk"/>
+
+                <p:commandButton value="#{msg['acao.voltar']}" ajax="false" 
+                                 action="#{realizarCotacaoController.openInitialPage()}"
+                                 style="width: 120px" 
+                                 icon="ui-icon-arrowreturnthick-1-w"/>
 
                 <p:dialog widgetVar="salvarDialog" header="Salvar" modal="true">
                     <h:outputLabel id="nome_lista" value="Nome: "/>

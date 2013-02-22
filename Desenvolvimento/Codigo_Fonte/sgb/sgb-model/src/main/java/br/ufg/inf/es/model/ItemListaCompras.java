@@ -21,7 +21,7 @@ public class ItemListaCompras extends AbstractEntityModel {
 	
 	private static final int SALTO = 11;	
 	
-    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinColumn(name = "id_livro")
     private Livro livro;
     
@@ -37,15 +37,6 @@ public class ItemListaCompras extends AbstractEntityModel {
      * Campo quantidadeLivrosFaltando
      */
     private int quantidadeAComprar;
-    
-    /**
-     * Campo listaCompras
-     */
-    @ManyToMany(
-        cascade = {CascadeType.PERSIST, CascadeType.MERGE},
-        mappedBy = "livrosDaListaCompras"
-    )
-    private Collection<ListaCompras> listaCompras = new ArrayList<ListaCompras>();
 
     public Livro getLivro() {
         return livro;
@@ -78,32 +69,11 @@ public class ItemListaCompras extends AbstractEntityModel {
     public void setQuantidadeLivrosDisponiveis(Integer quantidadeLivrosDisponiveis) {
         this.quantidadeLivrosDisponiveis = quantidadeLivrosDisponiveis;
     }
-    
-       /**
-     * Obtém o valor do campo
-     * <code>listaCompras</code>
-     *
-     * @return {@link Collection<ListaCompras>}
-     */
-    public Collection<ListaCompras> getListaCompras() {
-        return this.listaCompras;
-    }
-
-    /**
-     * Define o campo
-     * <code>listaCompras</code>.
-     *
-     * @param listaCompras
-     */
-    public void setListaCompras(Collection<ListaCompras> listaCompras) {
-        this.listaCompras = listaCompras;
-    }
 
     @Override
     public int hashCode() {
-        int hash = HASH;
-        hash = SALTO * hash + (this.livro != null ? this.livro.hashCode() : 0);
-        hash = SALTO * hash + this.quantidadeAComprar;
+        int hash = 5;
+        hash = 71 * hash + (this.livro != null ? this.livro.hashCode() : 0);
         return hash;
     }
 
@@ -116,10 +86,7 @@ public class ItemListaCompras extends AbstractEntityModel {
             return false;
         }
         final ItemListaCompras other = (ItemListaCompras) obj;
-        if (this.livro != other.livro && (this.livro == null || !this.livro.equals(other.livro))) {
-            return false;
-        }
-        if (this.quantidadeAComprar != other.quantidadeAComprar) {
+        if ((this.livro == null || !this.livro.equals(other.livro))) {
             return false;
         }
         return true;

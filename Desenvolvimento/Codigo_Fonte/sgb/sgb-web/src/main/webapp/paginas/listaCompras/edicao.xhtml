@@ -81,6 +81,11 @@
                     <p:commandButton value="#{msg['cadastro.livro.button.remover']}"
                                  onclick="dlgRemocao.show()"
                                  icon="ui-icon-trash" type="reset"/>
+                    <p:commandButton value="#{msg['listaCompras.adicionaritem']}"
+                                 oncomplete="adicionarLivrosDialog.show()"
+                                 actionListener="#{listaComprasController.carregarLivrosAdicao()}"
+                                 icon="ui-icon-plusthick"
+                                 update="adicionar_livros_dialog"/>
                 </p:panel>  
                 <p:spacer height="10px"/>
                 
@@ -117,6 +122,8 @@
                     </h:panelGrid>
 
                 </p:dialog>
+                
+                <ui:include src="adicionar_livros_dialog.xhtml"/>
 
             </h:form>
         </ui:define>

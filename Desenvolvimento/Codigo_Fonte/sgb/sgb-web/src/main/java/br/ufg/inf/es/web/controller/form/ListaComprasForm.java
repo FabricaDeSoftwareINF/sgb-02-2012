@@ -20,8 +20,10 @@ public class ListaComprasForm extends GenericForm<ListaCompras> {
 
     private Collection<ListaCompras> listaCompras;
     private Collection<ItemListaCompras> livrosSelecionados;
+    private Collection<ItemListaCompras> livrosAdicaoSelecionados;
     private Collection<ItemListaCompras> todosLivros;
     private ItemListaCompraDataModel itemListaComprasDataModel;
+    private ItemListaCompraDataModel itensListaAdicao;
     private ListaComprasDataModel listaComprasDM;
     private String filtroTitulo;
     private String nomeLista;    
@@ -44,6 +46,14 @@ public class ListaComprasForm extends GenericForm<ListaCompras> {
         this.livrosSelecionados = selectedLivros;
     }
 
+    public Collection<ItemListaCompras> getLivrosAdicaoSelecionados() {
+        return livrosAdicaoSelecionados;
+    }
+
+    public void setLivrosAdicaoSelecionados(Collection<ItemListaCompras> livrosAdicaoSelecionados) {
+        this.livrosAdicaoSelecionados = livrosAdicaoSelecionados;
+    }
+    
     public Collection<ItemListaCompras> getTodosLivros() {
 
         return todosLivros;
@@ -60,6 +70,14 @@ public class ListaComprasForm extends GenericForm<ListaCompras> {
 
     public void setItemListaDataModel(ItemListaCompraDataModel livroDM) {
         this.itemListaComprasDataModel = livroDM;
+    }
+    
+    public ItemListaCompraDataModel getItensListaAdicao() {
+        return itensListaAdicao;
+    }
+
+    public void setItensListaAdicao(ItemListaCompraDataModel livroDM) {
+        this.itensListaAdicao = livroDM;
     }
 
     public String getFiltroTitulo() {
