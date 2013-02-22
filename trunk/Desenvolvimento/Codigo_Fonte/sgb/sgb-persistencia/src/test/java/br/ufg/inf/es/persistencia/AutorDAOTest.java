@@ -146,4 +146,39 @@ public class AutorDAOTest {
         assertEquals(expResult, result);
 
     }
+    
+         /**
+     * Test of listarAutores method, of class AutorDAO.
+     */
+    @Test
+    public void testListarAutores3() {
+        String filtroNome = null;
+        AutorDAO instance = new AutorDAO();
+
+        instance.setSessionFactory(factory);
+
+        AutorDTO autor1 = new AutorDTO();
+        autor1.setId(1L);
+        autor1.setNome("Cássio");
+        AutorDTO autor2 = new AutorDTO();
+        autor1.setId(2L);
+        autor2.setNome("Cássio 2");
+
+        List<AutorDTO> autores = new ArrayList<AutorDTO>();
+        autores.add(autor2);
+        autores.add(autor1);
+
+        when(factory.openSession()).thenReturn(session);
+        when(session.createCriteria(eq(Autor.class), anyString())).thenReturn(criteria);
+        when(criteria.add(any(Criterion.class))).thenReturn(criteria);
+        when(criteria.setProjection(any(ProjectionList.class))).thenReturn(criteria);
+        when(criteria.setResultTransformer(any(ResultTransformer.class))).thenReturn(criteria);
+        when(criteria.list()).thenReturn(autores);
+
+        Collection<AutorDTO> expResult = autores;
+
+        Collection result = instance.listarAutores(filtroNome);
+        assertEquals(expResult, result);
+
+    }
 }
