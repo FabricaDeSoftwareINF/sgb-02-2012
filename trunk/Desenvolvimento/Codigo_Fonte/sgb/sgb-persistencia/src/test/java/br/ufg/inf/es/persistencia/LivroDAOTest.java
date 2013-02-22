@@ -11,6 +11,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.hibernate.classic.Session;
 import org.hibernate.criterion.Criterion;
@@ -208,14 +209,18 @@ public class LivroDAOTest {
      * Test of list method, of class LivroDAO.
      */
     @Test
-    @Ignore
     public void testList() {
-        System.out.println("list");
-        LivroDAO instance = new LivroDAO();
-        Collection expResult = null;
-        Collection result = instance.list();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+       
+        List listaLivro = Arrays.asList(new Livro());
+       
+        preparaSessionFactoryMock();
+       
+        Query query =  mock(Query.class);  
+        when(session.createQuery(anyString())).thenReturn(query);
+        when(query.list()).thenReturn(listaLivro);
+        
+        Collection<Livro> result = this.dao.list();
+        
+        assertEquals(listaLivro, result);
     }
 }

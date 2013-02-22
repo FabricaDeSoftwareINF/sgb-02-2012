@@ -56,4 +56,15 @@ public class ListaCotacaoDAOTest {
         Collection result = dao.list();
         assertEquals(cotacoes, result);
     }
+
+    /**
+     * Teste do Construtor
+     */
+    @Test
+    public void testConstrutor() {
+
+        ListaCotacaoDAO listaCotacaoDAO = new ListaCotacaoDAO(factory);
+
+        assertEquals(factory, listaCotacaoDAO.getSessionFactory());
+    }
 }

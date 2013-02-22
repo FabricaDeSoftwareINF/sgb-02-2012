@@ -84,24 +84,6 @@ public class LivroDAO extends GenericHibernateDAO<Livro> {
         return criteria.list();
     }
 
-    /** 
-     * {@inheritDoc} 
-     */
-    @Override
-    public void update(Livro livro) {
-        try {
-            isReferencia(livro);
-
-            this.getSession().merge(livro);
-
-            this.getSession().flush();
-
-        } finally {
-
-            this.getSession().close();
-        }
-    }
-
     /**
      * Método que obtém a quantidade de alunos de acordo com as disciplinas 
      * que utilizam o determinado livro.
