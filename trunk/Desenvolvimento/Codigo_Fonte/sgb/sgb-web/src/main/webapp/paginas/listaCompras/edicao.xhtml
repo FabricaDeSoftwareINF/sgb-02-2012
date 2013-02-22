@@ -77,19 +77,18 @@
                                 </p:dataList>
                             </p:column>
                         </p:dataTable>
-
                     </h:panelGrid>
+                    <p:commandButton value="#{msg['cadastro.livro.button.remover']}"
+                                 onclick="dlgRemocao.show()"
+                                 icon="ui-icon-trash" type="reset"/>
                 </p:panel>  
                 <p:spacer height="10px"/>
-                <p:commandButton value="#{msg['cadastro.livro.button.remover']}"
-                                 onclick="dlgRemocao.show()"
-                                 icon="ui-icon-trash"/>
                 
                 <p:commandButton value="#{msg['arquitetura.label.salvar']}" 
                                  action="#{listaComprasController.editarListaCompras()}"
                                  ajax="false"
                                  icon="ui-icon-disk"/>
-
+                <p:spacer height="10px"/>
                 <p:commandButton value="#{msg['arquitetura.label.voltar']}" 
                                  immediate="true"
                                  action="#{listaComprasController.openInitialPage()}"
@@ -106,9 +105,9 @@
 
                         <h:panelGrid columns="2" style="margin-left: 30%;">
 
-                            <p:commandButton value="#{msg['cadastro.autor.label.sim']}" update="@form"
+                            <p:commandButton value="#{msg['cadastro.autor.label.sim']}" update="listaLivrosParaCotacao"
                                              action="#{listaComprasController.removerLivros}" 
-                                             oncomplete="dlgRemocao.hide()" process="@form" immediate="true"/>
+                                             oncomplete="dlgRemocao.hide();"/>
 
                             <p:commandButton value="#{msg['cadastro.autor.label.nao']}"
                                              onclick="dlgRemocao.hide();"/>

@@ -213,9 +213,9 @@ public class ItemListaCompraService extends GenericService<ItemListaCompras> {
                 }
 
             } catch (NotFoundException ex) {
-                Logger.getLogger(ItemListaCompraService.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ItemListaCompraService.class.getName()).log(Level.SEVERE, null, ex.getMessage());
             } catch (SQLException ex) {
-                Logger.getLogger(ItemListaCompraService.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ItemListaCompraService.class.getName()).log(Level.SEVERE, null, ex.getMessage());
             }
 
             Integer quantidadeAlunos = this.getLivroDao().obterQuantidadeDeAlunosPorLivro(livro.getId());
