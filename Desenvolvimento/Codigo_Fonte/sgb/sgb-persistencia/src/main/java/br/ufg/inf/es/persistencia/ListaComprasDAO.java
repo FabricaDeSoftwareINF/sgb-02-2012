@@ -1,16 +1,16 @@
 package br.ufg.inf.es.persistencia;
 
-import br.ufg.inf.es.model.ListaCompras;
-import br.ufg.inf.es.model.Livro;
-import br.ufg.inf.es.model.ItemListaCompras;
-import br.ufg.inf.es.model.ItemListaCompras;
 import java.util.Collection;
+
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+
+import br.ufg.inf.es.model.ItemListaCompras;
+import br.ufg.inf.es.model.ListaCompras;
 
 /**
  * Classe para o DAO da entidade ListaCompras

@@ -1,9 +1,8 @@
 package br.ufg.inf.es.integracao.cotacao;
 
-import br.ufg.inf.es.model.Livraria;
-import br.ufg.inf.es.model.Livro;
 import java.util.Collection;
-import java.util.Map;
+
+import br.ufg.inf.es.model.Livro;
 
 /**
  * Fonercer os servi&ccedil;os para a cota&ccedil&atilde;o

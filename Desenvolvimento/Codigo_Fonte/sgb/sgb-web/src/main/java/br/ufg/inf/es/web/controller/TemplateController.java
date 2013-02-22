@@ -1,20 +1,21 @@
 package br.ufg.inf.es.web.controller;
 
-import br.ufg.inf.es.integracao.LivroService;
-import br.ufg.inf.es.integracao.cotacao.CotadorBuscape;
-import br.ufg.inf.es.integracao.cotacao.CotadorGoogleShop;
-import br.ufg.inf.es.integracao.cotacao.ResultadoCotacao;
-import br.ufg.inf.es.model.CotacoesLivro;
-import br.ufg.inf.es.model.Livro;
-import br.ufg.inf.es.web.controller.form.LivroForm;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collection;
+
 import org.primefaces.event.SelectEvent;
 import org.primefaces.event.UnselectEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
+
+import br.ufg.inf.es.integracao.LivroService;
+import br.ufg.inf.es.integracao.cotacao.CotadorBuscape;
+import br.ufg.inf.es.integracao.cotacao.CotadorGoogleShop;
+import br.ufg.inf.es.integracao.cotacao.ResultadoCotacao;
+import br.ufg.inf.es.model.Livro;
+import br.ufg.inf.es.web.controller.form.LivroForm;
 
 /**
  *

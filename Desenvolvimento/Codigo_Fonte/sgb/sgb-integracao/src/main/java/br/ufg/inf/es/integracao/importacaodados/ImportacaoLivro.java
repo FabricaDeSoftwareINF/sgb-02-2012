@@ -1,14 +1,12 @@
 package br.ufg.inf.es.integracao.importacaodados;
 
-import br.ufg.inf.es.model.Bibliografia;
-import br.ufg.inf.es.model.Curso;
-import br.ufg.inf.es.model.Disciplina;
-import br.ufg.inf.es.model.Livro;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-import java.lang.reflect.Method;
 import java.lang.reflect.Type;
 import java.util.Collection;
+
+import br.ufg.inf.es.model.Livro;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 /**
  *

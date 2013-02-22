@@ -1,23 +1,27 @@
 package br.ufg.inf.es.web.controller;
 
-import br.ufg.inf.es.base.validation.ValidationException;
-import br.ufg.inf.es.integracao.*;
-import br.ufg.inf.es.model.ListaCompras;
-import br.ufg.inf.es.model.ItemListaCompras;
-import br.ufg.inf.es.model.Livro;
-import br.ufg.inf.es.web.controller.form.ListaComprasForm;
-import br.ufg.inf.es.web.datamodel.LivroDataModel;
-import br.ufg.inf.es.web.datamodel.ItemListaCompraDataModel;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.faces.model.SelectItem;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
+
+import br.ufg.inf.es.base.validation.ValidationException;
+import br.ufg.inf.es.integracao.ItemListaCompraService;
+import br.ufg.inf.es.integracao.ListaComprasService;
+import br.ufg.inf.es.integracao.LivroService;
+import br.ufg.inf.es.integracao.ParametrosService;
+import br.ufg.inf.es.model.ItemListaCompras;
+import br.ufg.inf.es.model.ListaCompras;
+import br.ufg.inf.es.web.controller.form.ListaComprasForm;
+import br.ufg.inf.es.web.datamodel.ItemListaCompraDataModel;
 
 /**
  *

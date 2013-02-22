@@ -1,13 +1,5 @@
 package br.ufg.inf.es.web.controller;
 
-import br.ufg.inf.es.base.util.UtilObjeto;
-import br.ufg.inf.es.base.validation.ValidationException;
-import br.ufg.inf.es.integracao.RealizarCotacaoService;
-import br.ufg.inf.es.integracao.LivroService;
-import br.ufg.inf.es.model.*;
-import br.ufg.inf.es.web.controller.form.RealizarCotacaoForm;
-import br.ufg.inf.es.web.datamodel.LivroDataModel;
-import br.ufg.inf.es.web.datamodel.CotacoesLivroDataModel;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -15,13 +7,27 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
+
+import br.ufg.inf.es.base.util.UtilObjeto;
+import br.ufg.inf.es.integracao.LivroService;
+import br.ufg.inf.es.integracao.RealizarCotacaoService;
+import br.ufg.inf.es.model.CotacoesLivro;
+import br.ufg.inf.es.model.ItemListaCompras;
+import br.ufg.inf.es.model.ListaCotacao;
+import br.ufg.inf.es.model.Livro;
+import br.ufg.inf.es.model.Usuario;
+import br.ufg.inf.es.web.controller.form.RealizarCotacaoForm;
+import br.ufg.inf.es.web.datamodel.CotacoesLivroDataModel;
+import br.ufg.inf.es.web.datamodel.LivroDataModel;
 
 /**
  *

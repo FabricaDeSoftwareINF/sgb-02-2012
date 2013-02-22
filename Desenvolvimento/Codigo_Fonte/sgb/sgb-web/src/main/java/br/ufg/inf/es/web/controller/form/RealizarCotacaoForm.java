@@ -1,14 +1,14 @@
 package br.ufg.inf.es.web.controller.form;
 
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
+
 import br.ufg.inf.es.model.CotacoesLivro;
 import br.ufg.inf.es.model.ListaCompras;
 import br.ufg.inf.es.model.ListaCotacao;
 import br.ufg.inf.es.model.Livro;
 import br.ufg.inf.es.web.datamodel.CotacoesLivroDataModel;
 import br.ufg.inf.es.web.datamodel.LivroDataModel;
-import java.util.List;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
 
 /**
  *

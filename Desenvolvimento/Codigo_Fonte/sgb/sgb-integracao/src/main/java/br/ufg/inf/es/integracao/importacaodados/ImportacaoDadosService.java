@@ -1,9 +1,10 @@
 package br.ufg.inf.es.integracao.importacaodados;
 
+import java.util.Collection;
+
 import br.ufg.inf.es.integracao.GenericService;
 import br.ufg.inf.es.model.AbstractEntityModel;
 import br.ufg.inf.es.model.Livro;
-import java.util.Collection;
 
 /**
  * Interface de comunicação com Serviços de Importação

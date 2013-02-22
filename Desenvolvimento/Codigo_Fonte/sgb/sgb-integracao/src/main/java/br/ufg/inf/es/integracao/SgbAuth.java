@@ -1,12 +1,13 @@
 package br.ufg.inf.es.integracao;
 
-import br.ufg.inf.es.base.service.Auth;
-import br.ufg.inf.es.model.Usuario;
-import br.ufg.inf.es.model.UsuarioPerfil;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+
 import org.springframework.beans.factory.annotation.Autowired;
+
+import br.ufg.inf.es.base.service.Auth;
+import br.ufg.inf.es.model.Usuario;
 
 /**
  * Classe para Autenticação.

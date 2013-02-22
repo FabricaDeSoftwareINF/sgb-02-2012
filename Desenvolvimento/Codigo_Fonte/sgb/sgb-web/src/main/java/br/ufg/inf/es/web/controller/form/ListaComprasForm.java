@@ -1,14 +1,14 @@
 package br.ufg.inf.es.web.controller.form;
 
-import br.ufg.inf.es.model.ListaCompras;
-import br.ufg.inf.es.model.ItemListaCompras;
-import br.ufg.inf.es.web.datamodel.ListaComprasDataModel;
-import br.ufg.inf.es.web.datamodel.ItemListaCompraDataModel;
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
+
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
+
+import br.ufg.inf.es.model.ItemListaCompras;
+import br.ufg.inf.es.model.ListaCompras;
+import br.ufg.inf.es.web.datamodel.ItemListaCompraDataModel;
+import br.ufg.inf.es.web.datamodel.ListaComprasDataModel;
 
 /**
  *
