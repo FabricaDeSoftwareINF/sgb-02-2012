@@ -274,10 +274,10 @@ public class Livro extends AbstractEntityModel {
      * @return Todos os autores em uma única String separada por vírgulas
      */
     public String getAutoresAsString() {
-        Collection<Autor> autores = getAutores();
+        Collection<Autor> autoresCollection = this.getAutores();
         String autoresAsString = "";
-        if (UtilObjeto.isReferencia(autores)) {
-            autoresAsString = autores.toString().replace("[", "").
+        if (UtilObjeto.isReferencia(autoresCollection)) {
+            autoresAsString = autoresCollection.toString().replace("[", "").
                     replace("]", "");
         }
         return autoresAsString;
@@ -293,10 +293,10 @@ public class Livro extends AbstractEntityModel {
      * curso a que pertence a disciplina.
      */
     public String getDisciplinasAsString() {
-        Collection<Bibliografia> bibliografias = getBibliografias();
+        Collection<Bibliografia> bibliografiasCollection = this.getBibliografias();
         StringBuilder sb = new StringBuilder();
-        if (UtilObjeto.isReferencia(bibliografias)) {
-            for (Bibliografia bibliografia : bibliografias) {
+        if (UtilObjeto.isReferencia(bibliografiasCollection)) {
+            for (Bibliografia bibliografia : bibliografiasCollection) {
                 sb.append(bibliografia.getDisciplina().getNome());
                 sb.append(" - ");
                 sb.append(bibliografia.getDisciplina().getCurso().getNome());

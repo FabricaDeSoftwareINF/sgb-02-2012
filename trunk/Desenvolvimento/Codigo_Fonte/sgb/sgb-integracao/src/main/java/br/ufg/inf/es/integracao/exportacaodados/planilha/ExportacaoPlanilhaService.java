@@ -165,7 +165,7 @@ public class ExportacaoPlanilhaService implements Serializable {
             Logger.getLogger(ExportacaoPlanilhaService.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
             Logger.getLogger(ExportacaoPlanilhaService.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        } 
 
         return buffer;
 

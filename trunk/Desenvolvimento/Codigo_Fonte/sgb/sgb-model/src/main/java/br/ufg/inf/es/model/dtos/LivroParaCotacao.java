@@ -170,13 +170,13 @@ public class LivroParaCotacao extends AbstractEntityModel {
         if (this.quantidadeExigida != other.quantidadeExigida && (this.quantidadeExigida == null || !this.quantidadeExigida.equals(other.quantidadeExigida))) {
             return false;
         }
-        if (this.parametroMec != other.parametroMec && (this.parametroMec == null || !this.parametroMec.equals(other.parametroMec))) {
+        if (!this.parametroMec.equals(other.parametroMec) && (this.parametroMec == null || !this.parametroMec.equals(other.parametroMec))) {
             return false;
         }
-        if (this.quantidadeLivrosDisponiveis != other.quantidadeLivrosDisponiveis && (this.quantidadeLivrosDisponiveis == null || !this.quantidadeLivrosDisponiveis.equals(other.quantidadeLivrosDisponiveis))) {
+        if (!this.quantidadeLivrosDisponiveis.equals(other.quantidadeLivrosDisponiveis) && (this.quantidadeLivrosDisponiveis == null || !this.quantidadeLivrosDisponiveis.equals(other.quantidadeLivrosDisponiveis))) {
             return false;
         }
-        if (this.quantidadeAComprar != other.quantidadeAComprar && (this.quantidadeAComprar == null || !this.quantidadeAComprar.equals(other.quantidadeAComprar))) {
+        if (!this.quantidadeAComprar.equals(other.quantidadeAComprar) && (this.quantidadeAComprar == null || !this.quantidadeAComprar.equals(other.quantidadeAComprar))) {
             return false;
         }
         if (this.livro != other.livro && (this.livro == null || !this.livro.equals(other.livro))) {

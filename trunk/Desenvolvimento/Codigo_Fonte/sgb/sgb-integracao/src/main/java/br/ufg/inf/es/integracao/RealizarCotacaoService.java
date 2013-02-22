@@ -175,7 +175,7 @@ public class RealizarCotacaoService extends GenericService<ListaCotacao> {
             try {
                 preco = Double.parseDouble(resultadoCotacao.getOfertaLivro().getPrecoLivro());
             } catch (NumberFormatException nfe) {
-                System.err.println(nfe.getMessage());
+                Logger.getAnonymousLogger().log(Level.SEVERE, nfe.getMessage(), nfe);
             }
             cotacao.setValor(preco);
             cotacoes.add(cotacao);

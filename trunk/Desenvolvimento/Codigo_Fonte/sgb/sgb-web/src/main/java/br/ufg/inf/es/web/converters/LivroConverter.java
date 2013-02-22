@@ -40,7 +40,7 @@ public class LivroConverter implements Converter {
 
     @Override
     public String getAsString(FacesContext context, UIComponent component, Object value) {
-        if (value != null && value instanceof Livro) {
+        if (value instanceof Livro) {
             return String.valueOf(((Livro) value).getId());  
         }
         return "";

@@ -151,7 +151,7 @@ public class ListaCotacaoController extends SGBController<ListaCotacao, ListaCot
             ItemPlanilha itemPlanilha = montarItemPlanilha(cotacoesLivro.get(i), i + 1);
 
             boolean isEstrangeiro = cotacoesLivro.get(i).getLivro().isEstrangeiro();
-            if (isEstrangeiro == false) {
+            if (!isEstrangeiro) {
                 planilhaNacionais.getLinhasPlanilha().add(itemPlanilha);
             } else {
                 planilhaEstrangeiros.getLinhasPlanilha().add(itemPlanilha);
@@ -179,7 +179,7 @@ public class ListaCotacaoController extends SGBController<ListaCotacao, ListaCot
         for (int i = 0; i < form.getEntity().getCotacoesLivro().size(); i++) {
 
             boolean isEstrangeiro = cotacoesLivro.get(i).getLivro().isEstrangeiro();
-            if (isEstrangeiro == false) {
+            if (!isEstrangeiro) {
 
                 ItemPlanilha itemPlanilha = montarItemPlanilha(cotacoesLivro.get(i), i + 1);
                 planilhaNacionais.getLinhasPlanilha().add(itemPlanilha);
@@ -206,7 +206,7 @@ public class ListaCotacaoController extends SGBController<ListaCotacao, ListaCot
         for (int i = 0; i < form.getEntity().getCotacoesLivro().size(); i++) {
 
             boolean isEstrangeiro = cotacoesLivro.get(i).getLivro().isEstrangeiro();
-            if (isEstrangeiro == true) {
+            if (isEstrangeiro) {
 
                 ItemPlanilha itemPlanilha = montarItemPlanilha(cotacoesLivro.get(i), i + 1);
                 planilhaEstrangeiros.getLinhasPlanilha().add(itemPlanilha);
@@ -230,22 +230,19 @@ public class ListaCotacaoController extends SGBController<ListaCotacao, ListaCot
      */
     private ItemPlanilha montarItemPlanilha(CotacoesLivro cotacoesLivro, int numItem) {
 
-        StringBuilder builder;
+        StringBuilder nomeAutor = new StringBuilder();
         ItemPlanilha itemPlanilha = new ItemPlanilha();
         itemPlanilha.setNumItem(numItem);
         itemPlanilha.setTituloObra(cotacoesLivro.getLivro().getTitulo());
 
-        String nomeAutor = "";
         List<Autor> autores = new ArrayList<Autor>(cotacoesLivro.getLivro().getAutores());
         for (int i = 0; i < autores.size(); i++) {
 
-            builder = new StringBuilder();
-            builder.append(autores.get(i).getSobrenome().toUpperCase()).append(",").
+            nomeAutor.append(autores.get(i).getSobrenome().toUpperCase()).append(",").
                     append(autores.get(i).getNome()).append(System.getProperty("line.separator"));
 
-            nomeAutor += builder.toString();
         }
-        itemPlanilha.setNomeAutor(nomeAutor);
+        itemPlanilha.setNomeAutor(nomeAutor.toString());
 
         itemPlanilha.setEdicao(cotacoesLivro.getLivro().getEdicao());
         itemPlanilha.setEditora(cotacoesLivro.getLivro().getEditora().getNome());
@@ -255,11 +252,11 @@ public class ListaCotacaoController extends SGBController<ListaCotacao, ListaCot
         List<Bibliografia> bibliografias = new ArrayList<Bibliografia>(cotacoesLivro.getLivro().getBibliografias());
         for (int i = 0; i < bibliografias.size(); i++) {
 
-            builder = new StringBuilder();
-            builder.append(bibliografias.get(i).getDisciplina().getCurso().getNome()).
+            nomeAutor = new StringBuilder();
+            nomeAutor.append(bibliografias.get(i).getDisciplina().getCurso().getNome()).
                     append(System.getProperty("line.separator"));
 
-            cursoDestino += builder.toString();
+            cursoDestino += nomeAutor.toString();
 
         }
         itemPlanilha.setCursoDestino(cursoDestino);

@@ -30,8 +30,7 @@ public class ImportacaoLivrosServiceImpl extends ImportacaoDadosService<Livro> {
     private AutorDAO autorDao;
 
     public Collection<Livro> importar(String urlServico) {
-        Collection<Livro> livros = importacaoStrategy.importarDados(urlServico);
-        return livros;
+        return importacaoStrategy.importarDados(urlServico);
     }
 
     public void setImportacaoStrategy(ImportacaoStrategy<Livro> strategy) {

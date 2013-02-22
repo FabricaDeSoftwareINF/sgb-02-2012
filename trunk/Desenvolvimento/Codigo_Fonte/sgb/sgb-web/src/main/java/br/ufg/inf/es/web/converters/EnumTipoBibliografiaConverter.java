@@ -32,7 +32,7 @@ public class EnumTipoBibliografiaConverter implements Converter {
 
     @Override
     public String getAsString(FacesContext context, UIComponent component, Object value) {
-        if (value != null && value instanceof EnumTipoBibliografia){
+        if (value instanceof EnumTipoBibliografia){
             return ((EnumTipoBibliografia) value).name();
         }
         return null;
