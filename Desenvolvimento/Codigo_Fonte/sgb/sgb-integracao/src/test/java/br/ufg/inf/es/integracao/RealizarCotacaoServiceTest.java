@@ -1,10 +1,7 @@
 package br.ufg.inf.es.integracao;
 
 import br.ufg.inf.es.integracao.cotacao.*;
-import br.ufg.inf.es.model.ListaCotacao;
-import br.ufg.inf.es.model.Livraria;
-import br.ufg.inf.es.model.Livro;
-import br.ufg.inf.es.model.Parametros;
+import br.ufg.inf.es.model.*;
 import br.ufg.inf.es.model.biblioteca.LivroBiblioteca;
 import br.ufg.inf.es.persistencia.CotacaoDAO;
 import br.ufg.inf.es.persistencia.ListaCotacaoDAO;
@@ -103,7 +100,8 @@ public class RealizarCotacaoServiceTest {
      */
     @Test
     public void testRealizarCotacaoEstrangeira() throws NotFoundException, SQLException {
-        Collection livros = prepareMocks(false);
+        
+        Collection<ItemListaCompras> livros =prepareMocks(false);
         ListaCotacao lista = service.realizarCotacao(livros);
         assertNotNull(lista);
         assertEquals(1, lista.getCotacoesLivro().size());
@@ -146,7 +144,9 @@ public class RealizarCotacaoServiceTest {
         when(bibliotecaDao.getLivrosBibliotecaTitulo(livro.getTitulo())).thenReturn(Arrays.asList(livroBiblioteca));
 
         when(livroDao.obterQuantidadeDeAlunosPorLivro(idLivro)).thenReturn(60);
-        return Arrays.asList(livro);
+        ItemListaCompras item = new ItemListaCompras();
+        item.setLivro(livro);
+        return Arrays.asList(item);
     }
 
     /**
