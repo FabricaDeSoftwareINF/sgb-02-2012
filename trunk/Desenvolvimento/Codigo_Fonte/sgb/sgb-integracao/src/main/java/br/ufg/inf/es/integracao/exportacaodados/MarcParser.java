@@ -19,6 +19,10 @@ import org.marc4j.marc.impl.SubfieldImpl;
  */
 public class MarcParser implements Serializable {
     
+	private MarcParser(){
+		
+	}
+	
     /**
      * Realiza o parser de um livro para o formato MARC 21. Apenas as 
      * informações básicas são adicionadas ao MARC. Uma descrição detalhada
@@ -65,7 +69,7 @@ public class MarcParser implements Serializable {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         MarcStreamWriter writer = new MarcStreamWriter(baos);
         writer.write(record);
-        
-        return baos.toString();
+
+        return baos.toString("UTF-8");
     }
 }

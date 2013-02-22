@@ -8,6 +8,10 @@ import java.util.Map;
  * @author Inael
  */
 class ConversorMoeda {
+	
+	private ConversorMoeda(){
+		
+	}
 
     private static final String URL = "http://www.google.com/ig/calculator?hl=en&q=%sUSD=?BRL";
 

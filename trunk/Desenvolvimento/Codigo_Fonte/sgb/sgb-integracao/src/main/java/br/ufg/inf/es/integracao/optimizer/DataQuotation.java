@@ -121,12 +121,10 @@ public final class DataQuotation implements Quotation<DataQuotation> {
 
         final DataQuotation other = (DataQuotation) obj;
 
-        //if (!Objects.equals(this.productId, other.productId)) { 
         if (!this.productId.equals( other.productId)) {
             return false;
         }
 
-       // if (!Objects.equals(this.price, other.price)) {
         if (!this.price.equals( other.price)) {
             return false;
         }
@@ -145,10 +143,8 @@ public final class DataQuotation implements Quotation<DataQuotation> {
         objeto 'OBjects' é do java 1.7
         */
         
-       //hash = 11 * hash + Objects.hashCode(this.productId); 
          hash = DataQuotation.SALTO * hash + this.productId.hashCode();
         
-        //hash = 11 * hash + Objects.hashCode(this.price);
          hash = DataQuotation.SALTO * hash + this.price.hashCode();
          
         return hash;

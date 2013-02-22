@@ -10,6 +10,10 @@ import java.util.*;
  */
 public class OptimizerQuote {
 
+	private OptimizerQuote(){
+		
+	}
+	
     /**
      * Classe decoração/wrapper de uma DataQuotation
      */

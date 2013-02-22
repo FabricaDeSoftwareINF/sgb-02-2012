@@ -28,7 +28,7 @@ public class TipoEntidadeConverter implements Converter {
 
     @Override
     public String getAsString(FacesContext context, UIComponent component, Object value) {
-        if (value != null){// && value instanceof EnumType) {
+        if (value != null){
             return ((TipoEntidade) value).name();
         }
         return null;

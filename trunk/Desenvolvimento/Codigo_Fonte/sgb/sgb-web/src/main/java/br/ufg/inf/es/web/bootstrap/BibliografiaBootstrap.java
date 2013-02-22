@@ -4,6 +4,8 @@ import br.ufg.inf.es.base.persistence.biblioteca.DBDriver;
 import br.ufg.inf.es.enuns.EnumTipoBibliografia;
 import br.ufg.inf.es.model.*;
 import br.ufg.inf.es.model.biblioteca.DBBibliotecaConfig;
+
+import java.nio.charset.Charset;
 import java.util.*;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -36,6 +38,10 @@ public class BibliografiaBootstrap {
     private static ListaCotacao listaCotacao;
     private static List<CotacoesLivro> listaCotacoesLivro;
     private static DBBibliotecaConfig dbBibliotecaConfig;
+    
+    private BibliografiaBootstrap(){
+    	
+    }
 
     /**
      * Cria alguns dados para a verificação da lista de livros necessários para
@@ -89,7 +95,7 @@ public class BibliografiaBootstrap {
         dbBibliotecaConfig.setCampoTituloLivro("TITULO");
         dbBibliotecaConfig.setDriver(DBDriver.MySQL);
         dbBibliotecaConfig.setNameDataBase("obras");
-        dbBibliotecaConfig.setPasswordDataBase("12345678".getBytes());
+        dbBibliotecaConfig.setPasswordDataBase("12345678".getBytes(Charset.forName("UTF-8")));
         dbBibliotecaConfig.setPorta("3306");
         dbBibliotecaConfig.setUrl("localhost");
         dbBibliotecaConfig.setUserDataBase("root");
