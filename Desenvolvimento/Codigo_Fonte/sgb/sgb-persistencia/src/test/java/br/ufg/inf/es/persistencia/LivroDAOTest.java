@@ -85,9 +85,9 @@ public class LivroDAOTest {
         Collection autores = Arrays.asList(new Autor());
 
         when(spyDAO.getCollection(anyLong(), anyString())).thenReturn(autores);
-        
+
         Collection<?> result = spyDAO.getAutores(1L);
-        
+
         verify(spyDAO).getCollection(1L, "autores");
 
         assertEquals(autores, result);
@@ -98,13 +98,13 @@ public class LivroDAOTest {
      */
     @Test
     public void testGetBibliografia() {
-        
+
         Collection bibliografias = Arrays.asList(new Autor());
 
         when(spyDAO.getCollection(anyLong(), anyString())).thenReturn(bibliografias);
-        
+
         Collection<?> result = spyDAO.getBibliografia(1L);
-        
+
         verify(spyDAO).getCollection(1L, "bibliografias");
 
         assertEquals(bibliografias, result);
@@ -117,18 +117,18 @@ public class LivroDAOTest {
     public void testBuscaLivroPorTitulo1() {
 
         List livros = Arrays.asList(new Livro(), new Livro());
-        
+
         preparaSessionFactoryMock();
-        
+
         when(session.createCriteria(eq(Livro.class))).thenReturn(criteria);
         when(criteria.add(any(Criterion.class))).thenReturn(criteria);
         when(criteria.list()).thenReturn(livros);
-        
+
         Collection<Livro> result = this.dao.buscaLivroPorTitulo("");
-        
+
         assertEquals(livros, result);
     }
-    
+
     /**
      * Test of buscaLivroPorTitulo method, of class LivroDAO.
      */
@@ -136,18 +136,18 @@ public class LivroDAOTest {
     public void testBuscaLivroPorTitulo2() {
 
         List livros = Arrays.asList(new Livro(), new Livro());
-        
+
         preparaSessionFactoryMock();
-        
+
         when(session.createCriteria(eq(Livro.class))).thenReturn(criteria);
         when(criteria.add(any(Criterion.class))).thenReturn(criteria);
         when(criteria.list()).thenReturn(livros);
-        
+
         Collection<Livro> result = this.dao.buscaLivroPorTitulo(null);
-        
+
         assertEquals(livros, result);
     }
-    
+
     /**
      * Test of buscaLivroPorTitulo method, of class LivroDAO.
      */
@@ -155,15 +155,15 @@ public class LivroDAOTest {
     public void testBuscaLivroPorTitulo3() {
 
         List livros = Arrays.asList(new Livro(), new Livro());
-        
+
         preparaSessionFactoryMock();
-        
+
         when(session.createCriteria(eq(Livro.class))).thenReturn(criteria);
         when(criteria.add(any(Criterion.class))).thenReturn(criteria);
         when(criteria.list()).thenReturn(livros);
-        
+
         Collection<Livro> result = this.dao.buscaLivroPorTitulo("Livro 2");
-        
+
         assertEquals(livros, result);
     }
 
@@ -172,36 +172,52 @@ public class LivroDAOTest {
      */
     @Test
     public void testObterQuantidadeDeAlunosPorLivro1() {
-        
+
         this.preparaSessionFactoryMock();
-        
+
         when(session.createCriteria(eq(Livro.class))).thenReturn(criteria);
         when(criteria.add(any(Criterion.class))).thenReturn(criteria);
         when(criteria.createAlias(anyString(), anyString())).thenReturn(criteria);
         when(criteria.setProjection(any(Projection.class))).thenReturn(criteria);
         when(criteria.uniqueResult()).thenReturn(5);
-        
+
         Integer result = this.dao.obterQuantidadeDeAlunosPorLivro(1L);
-        
+
         assertEquals(result.intValue(), 5);
     }
-    
+
     /**
      * Test of obterQuantidadeDeAlunosPorLivro method, of class LivroDAO.
      */
     @Test
     public void testObterQuantidadeDeAlunosPorLivro2() {
-        
+
         this.preparaSessionFactoryMock();
-        
+
         when(session.createCriteria(eq(Livro.class))).thenReturn(criteria);
         when(criteria.add(any(Criterion.class))).thenReturn(criteria);
         when(criteria.createAlias(anyString(), anyString())).thenReturn(criteria);
         when(criteria.setProjection(any(Projection.class))).thenReturn(criteria);
         when(criteria.uniqueResult()).thenReturn(0);
-        
+
         Integer result = this.dao.obterQuantidadeDeAlunosPorLivro(0L);
-        
+
+        assertEquals(result.intValue(), 0);
+    }
+
+    @Test
+    public void testObterQuantidadeDeAlunosPorLivro3() {
+
+        this.preparaSessionFactoryMock();
+
+        when(session.createCriteria(eq(Livro.class))).thenReturn(criteria);
+        when(criteria.add(any(Criterion.class))).thenReturn(criteria);
+        when(criteria.createAlias(anyString(), anyString())).thenReturn(criteria);
+        when(criteria.setProjection(any(Projection.class))).thenReturn(criteria);
+        when(criteria.uniqueResult()).thenReturn(null);
+
+        Integer result = this.dao.obterQuantidadeDeAlunosPorLivro(0L);
+
         assertEquals(result.intValue(), 0);
     }
 
@@ -210,17 +226,17 @@ public class LivroDAOTest {
      */
     @Test
     public void testList() {
-       
+
         List listaLivro = Arrays.asList(new Livro());
-       
+
         preparaSessionFactoryMock();
-       
-        Query query =  mock(Query.class);  
+
+        Query query = mock(Query.class);
         when(session.createQuery(anyString())).thenReturn(query);
         when(query.list()).thenReturn(listaLivro);
-        
+
         Collection<Livro> result = this.dao.list();
-        
+
         assertEquals(listaLivro, result);
     }
 }

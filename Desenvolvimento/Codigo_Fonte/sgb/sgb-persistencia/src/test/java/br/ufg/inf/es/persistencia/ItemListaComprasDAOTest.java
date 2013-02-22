@@ -82,4 +82,15 @@ public class ItemListaComprasDAOTest {
     
         assertEquals(itens, result);
     }
+    
+    /**
+     * Teste do Construtor
+     */
+    @Test
+    public void testConstrutor() {
+
+        ItemListaComprasDAO itemListaComprasDAO = new ItemListaComprasDAO(factory);
+
+        assertEquals(factory, itemListaComprasDAO.getSessionFactory());
+    }
 }
