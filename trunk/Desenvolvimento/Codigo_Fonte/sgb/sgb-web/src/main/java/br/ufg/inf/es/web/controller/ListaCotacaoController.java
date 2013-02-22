@@ -13,6 +13,7 @@ import br.ufg.inf.es.web.controller.form.ListaCotacaoForm;
 import java.io.ByteArrayInputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import org.hibernate.exception.ConstraintViolationException;
 import org.primefaces.model.DefaultStreamedContent;
@@ -69,6 +70,15 @@ public class ListaCotacaoController extends SGBController<ListaCotacao, ListaCot
         }
     }
 
+    public String gerarListaOtimizada() {
+
+        List<CotacoesLivro> listaOtimizada = this.getService().gerarListaOtimizada(this.getForm().getValorOrcamento(), this.getForm().getEntity(), this.getForm().isTipoOtimizacao());
+
+        this.getForm().setListaOtimizada(listaOtimizada);
+
+        return this.getRootNavigation() + "listaOtimizada";
+    }
+
     public String removerListasSelecionadas() {
 
         if (!this.form.getListasSelecionadas().isEmpty()) {
@@ -121,11 +131,11 @@ public class ListaCotacaoController extends SGBController<ListaCotacao, ListaCot
      * disponibilizando-a para download. São inclusos tantos os livros nacionais
      * quanto estrangeiros, cada qual em uma planilha do arquivo.
      */
-    public void exportarXLS() {
+    public void templateExportarXLS(Collection<CotacoesLivro> cotacoes) {
 
         Planilha planilhaNacionais = new Planilha();
         Planilha planilhaEstrangeiros = new Planilha();
-        List<CotacoesLivro> cotacoesLivro = new ArrayList(form.getEntity().getCotacoesLivro());
+        List<CotacoesLivro> cotacoesLivro = new ArrayList(cotacoes);
         StringBuilder builder = new StringBuilder();
 
         //Monta o título do cabeçalho da planilha
@@ -146,7 +156,7 @@ public class ListaCotacaoController extends SGBController<ListaCotacao, ListaCot
         planilhaNacionais.setTituloCabecalho(tituloPlanilhaNacionais);
         planilhaEstrangeiros.setTituloCabecalho(tituloPlanilhaEstrangeiros);
 
-        for (int i = 0; i < form.getEntity().getCotacoesLivro().size(); i++) {
+        for (int i = 0; i < cotacoesLivro.size(); i++) {
 
             ItemPlanilha itemPlanilha = montarItemPlanilha(cotacoesLivro.get(i), i + 1);
 
@@ -166,20 +176,31 @@ public class ListaCotacaoController extends SGBController<ListaCotacao, ListaCot
 
     }
 
+    public void exportarXLS() {
+
+        this.templateExportarXLS(this.getForm().getEntity().getCotacoesLivro());
+    }
+
+    public void exportarListaOtimizadaXLS() {
+
+        this.templateExportarXLS(this.getForm().getListaOtimizada());
+    }
+
     /**
      * *
      * Permite exportar os livros nacionais da lista de cotações para o formato
      * CSV, disponibilizando-os para download.
      */
-    public void exportarCSVNacionais() {
+    public void templateExportarCSV(Collection<CotacoesLivro> cotacoes, boolean nacional) {
 
         Planilha planilhaNacionais = new Planilha();
-        List<CotacoesLivro> cotacoesLivro = new ArrayList(form.getEntity().getCotacoesLivro());
+        List<CotacoesLivro> cotacoesLivro = new ArrayList(cotacoes);
 
-        for (int i = 0; i < form.getEntity().getCotacoesLivro().size(); i++) {
+        for (int i = 0; i < cotacoes.size(); i++) {
 
             boolean isEstrangeiro = cotacoesLivro.get(i).getLivro().isEstrangeiro();
-            if (!isEstrangeiro) {
+
+            if ((nacional && !isEstrangeiro) || (!nacional && isEstrangeiro)) {
 
                 ItemPlanilha itemPlanilha = montarItemPlanilha(cotacoesLivro.get(i), i + 1);
                 planilhaNacionais.getLinhasPlanilha().add(itemPlanilha);
@@ -193,6 +214,16 @@ public class ListaCotacaoController extends SGBController<ListaCotacao, ListaCot
 
     }
 
+    public void exportarCSVNacionais() {
+
+        this.templateExportarCSV(this.getForm().getEntity().getCotacoesLivro(), true);
+    }
+
+    public void exportarListaOtimizadaCSVNacionais() {
+
+        this.templateExportarCSV(this.getForm().getListaOtimizada(), true);
+    }
+
     /**
      * *
      * Permite exportar os livros estrangeiros da lista de cotações para o
@@ -200,24 +231,12 @@ public class ListaCotacaoController extends SGBController<ListaCotacao, ListaCot
      */
     public void exportarCSVEstrangeiros() {
 
-        Planilha planilhaEstrangeiros = new Planilha();
-        List<CotacoesLivro> cotacoesLivro = new ArrayList(form.getEntity().getCotacoesLivro());
+        this.templateExportarCSV(this.getForm().getEntity().getCotacoesLivro(), false);
+    }
 
-        for (int i = 0; i < form.getEntity().getCotacoesLivro().size(); i++) {
+    public void exportarListaOtimizadaCSVEstrangeiros() {
 
-            boolean isEstrangeiro = cotacoesLivro.get(i).getLivro().isEstrangeiro();
-            if (isEstrangeiro) {
-
-                ItemPlanilha itemPlanilha = montarItemPlanilha(cotacoesLivro.get(i), i + 1);
-                planilhaEstrangeiros.getLinhasPlanilha().add(itemPlanilha);
-            }
-
-        }
-
-        arrayBytes = exportador.gerarPlanilhaCSV(planilhaEstrangeiros);
-        stream = new ByteArrayInputStream(arrayBytes);
-        arquivoCSVEstrangeiros = new DefaultStreamedContent(stream, "text/csv", "planilha.csv");
-
+        this.templateExportarCSV(this.getForm().getListaOtimizada(), false);
     }
 
     /**
