@@ -101,7 +101,7 @@ public class ListaCotacao extends AbstractEntityModel {
      */
     public void setDataRealizada(Date dataRealizada) {
         
-            this.dataRealizada = dataRealizada != null ? (Date) dataRealizada.clone() : this.dataRealizada;
+            this.dataRealizada = dataRealizada != null ? (Date) dataRealizada.clone() : dataRealizada;
     }
 
     /**
