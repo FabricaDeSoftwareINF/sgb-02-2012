@@ -17,8 +17,7 @@ public class ImportacaoLivro implements ImportacaoStrategy<Livro> {
     public Collection<Livro> importarDados(String url) {
         Conexao conexao = new Conexao();
         String resposta = conexao.httpGet(url, null);
-        Collection<Livro> livros = livroParser(resposta);
-        return livros;
+        return livroParser(resposta);
     }
 
     private Collection<Livro> livroParser(String jsonCurso) {

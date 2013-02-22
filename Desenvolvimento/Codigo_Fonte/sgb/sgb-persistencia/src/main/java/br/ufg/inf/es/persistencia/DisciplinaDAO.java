@@ -52,15 +52,17 @@ public class DisciplinaDAO extends GenericHibernateDAO<Disciplina> {
         
         Criteria criteria = this.createCriteria();
         
+        String propertyNome = "nome";
+        
         criteria.add(Restrictions.isNull("curso.id"));
         
         criteria.setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY);
         
-        criteria.addOrder(Order.asc("nome"));
+        criteria.addOrder(Order.asc(propertyNome));
         
         criteria.setProjection(Projections.projectionList()
                 .add(Projections.property("id"), "id")
-                .add(Projections.property("nome"), "nome"))
+                .add(Projections.property(propertyNome), propertyNome))
                 .setResultTransformer(new AliasToBeanResultTransformer(Disciplina.class)); 
                 
         return criteria.list();

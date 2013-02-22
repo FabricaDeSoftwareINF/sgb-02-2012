@@ -59,9 +59,7 @@ public class ListaCotacaoService extends GenericService<ListaCotacao> {
         List<DataQuotation> dadosCotacao = this.adapterDadosCotacao(entity.getCotacoesLivro());
         
         List<Quotation> listaOtimizada;
-        
-        List<CotacoesLivro> retorno = null;
-        
+               
         if (!tipoOtimizacao) {
         
             listaOtimizada = OptimizerQuote.optimizeCost(dadosCotacao, BigDecimal.valueOf(orcamento));

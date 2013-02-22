@@ -50,8 +50,8 @@ public class BibliografiaBootstrap {
      * @param sessionFactory Session factory inicializada no bootstrap
      * @see Bootstrap
      */
-    public static void crieBibliografias(SessionFactory _sessionFactory) {
-        sessionFactory = _sessionFactory;
+    public static void crieBibliografias(SessionFactory fabricaSessoes) {
+        sessionFactory = fabricaSessoes;
         crieAutorEditoraECurso();
 
         Disciplina disciplina1 = crieDisciplina("int", "integracao");

@@ -82,7 +82,7 @@ public class TemplateController extends SGBController<Livro, LivroForm, LivroSer
 
         double mediaCotacoes = 0;
 
-        if (this.getForm().getEntity().isEstrangeiro() == false) {
+        if (!this.getForm().getEntity().isEstrangeiro()) {
             mediaCotacoes = getValorMedioNacional();
         } else {
             mediaCotacoes = getValorMedioEstrangeiro();
@@ -104,9 +104,9 @@ public class TemplateController extends SGBController<Livro, LivroForm, LivroSer
         double somaCotacoesNacionais = 0;
         double valorMedioNacional = 0;
 
-        Livro livro = (Livro) this.getForm().getEntity();
+        Livro livroParaCotacao = (Livro) this.getForm().getEntity();
         ArrayList<ResultadoCotacao> cotacoesBuscape =
-                new ArrayList<ResultadoCotacao>(cotadorBuscape.buscarOfertas(livro.getIsbn13()));
+                new ArrayList<ResultadoCotacao>(cotadorBuscape.buscarOfertas(livroParaCotacao.getIsbn13()));
 
         if (cotacoesBuscape.size() > 0) {
 
@@ -126,9 +126,9 @@ public class TemplateController extends SGBController<Livro, LivroForm, LivroSer
         double somaCotacoesEstrageiras = 0;
         double valorMedioEstrangeiro = 0;
 
-        Livro livro = (Livro) this.getForm().getEntity();
+        Livro livroParaCotacao = (Livro) this.getForm().getEntity();
         ArrayList<ResultadoCotacao> cotacoesGoogleShop =
-                new ArrayList<ResultadoCotacao>(cotadorGoogleShop.buscarOfertas(livro.getIsbn13()));
+                new ArrayList<ResultadoCotacao>(cotadorGoogleShop.buscarOfertas(livroParaCotacao.getIsbn13()));
 
         if (cotacoesGoogleShop.size() > 0) {
 

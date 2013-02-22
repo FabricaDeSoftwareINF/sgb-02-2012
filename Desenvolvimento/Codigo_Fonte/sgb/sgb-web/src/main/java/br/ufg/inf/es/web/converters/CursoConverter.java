@@ -4,6 +4,9 @@
  */
 package br.ufg.inf.es.web.converters;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import br.ufg.inf.es.model.Curso;
 import br.ufg.inf.es.persistencia.CursoDAO;
 import javax.faces.component.UIComponent;
@@ -43,7 +46,8 @@ public class CursoConverter implements Converter {
             try {
                 curso = dao.find(Long.parseLong(value));
             } catch (NumberFormatException nfe) {
-                nfe.printStackTrace();
+                
+            	Logger.getAnonymousLogger().log(Level.SEVERE, nfe.getMessage(), nfe);
             }
         }  
         return curso;
@@ -58,7 +62,7 @@ public class CursoConverter implements Converter {
      */
     @Override
     public String getAsString(FacesContext context, UIComponent component, Object value) {
-        if (value != null && value instanceof Curso) {
+        if (value instanceof Curso) {
             return String.valueOf(((Curso) value).getId());  
         }  
         return "";
