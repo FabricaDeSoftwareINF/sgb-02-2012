@@ -361,6 +361,26 @@ public class GenericHibernateDAOTest {
         assertEquals(collection, result);
 
     }
+    
+    /**
+     * Test of search method, of class GenericHibernateDAO.
+     */
+    @Test
+    public void testSearch_String_StringArr2() {
+
+        List collection = Arrays.asList(new AbstractEntityModel(), new AbstractEntityModel());
+
+        preparaSessionFactoryMock();
+        when(session.createCriteria(Mockito.eq(AbstractEntityModel.class))).thenReturn(criteria);
+        when(criteria.add(Mockito.any(Criterion.class))).thenReturn(criteria);
+        when(criteria.addOrder(Mockito.any(Order.class))).thenReturn(criteria);
+        when(criteria.list()).thenReturn(collection);
+
+        Collection<AbstractEntityModel> result = this.genericDAO.search("Vinicius Silva", "Joao", "joaquim joaquim", "Joao Joaquim Jose Jurandi");
+
+        assertEquals(collection, result);
+
+    }
 
     /**
      * Test of search method, of class GenericHibernateDAO.
