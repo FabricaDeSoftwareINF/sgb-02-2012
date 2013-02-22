@@ -5,7 +5,6 @@
 package br.ufg.inf.es.model.exportacaodados.planilha;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Entidade Planilha.
@@ -15,13 +14,13 @@ public class Planilha {
     
     private String tituloCabecalho;
     
-    private List<ItemPlanilha> linhasPlanilha = new ArrayList<ItemPlanilha>();
+    private ArrayList<ItemPlanilha> linhasPlanilha = new ArrayList<ItemPlanilha>();
 
-    public List<ItemPlanilha> getLinhasPlanilha() {
+    public ArrayList<ItemPlanilha> getLinhasPlanilha() {
         return linhasPlanilha;
     }
 
-    public void setLinhasPlanilha(List<ItemPlanilha> linhasPlanilha) {
+    public void setLinhasPlanilha(ArrayList<ItemPlanilha> linhasPlanilha) {
         this.linhasPlanilha = linhasPlanilha;
     }
 
