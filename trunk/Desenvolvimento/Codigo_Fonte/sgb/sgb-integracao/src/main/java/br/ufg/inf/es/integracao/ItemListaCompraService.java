@@ -1,18 +1,5 @@
 package br.ufg.inf.es.integracao;
 
-import br.ufg.inf.es.base.persistence.DAO;
-import br.ufg.inf.es.base.util.UtilObjeto;
-import br.ufg.inf.es.base.validation.ValidationException;
-import br.ufg.inf.es.integracao.biblioteca.BibliotecaServiceMock;
-import br.ufg.inf.es.model.Curso;
-import br.ufg.inf.es.model.ItemListaCompras;
-import br.ufg.inf.es.model.Livro;
-import br.ufg.inf.es.model.Parametros;
-import br.ufg.inf.es.model.biblioteca.LivroBiblioteca;
-import br.ufg.inf.es.model.dtos.LivroParaCotacao;
-import br.ufg.inf.es.persistencia.LivroDAO;
-import br.ufg.inf.es.persistencia.ParametrosDAO;
-import br.ufg.inf.es.persistencia.biblioteca.LivrosBibliotecaDAO;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.sql.SQLException;
@@ -23,11 +10,26 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javassist.NotFoundException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Component;
+
+import br.ufg.inf.es.base.persistence.DAO;
+import br.ufg.inf.es.base.util.UtilObjeto;
+import br.ufg.inf.es.base.validation.ValidationException;
+import br.ufg.inf.es.integracao.biblioteca.BibliotecaServiceMock;
+import br.ufg.inf.es.model.Curso;
+import br.ufg.inf.es.model.ItemListaCompras;
+import br.ufg.inf.es.model.Livro;
+import br.ufg.inf.es.model.Parametros;
+import br.ufg.inf.es.model.biblioteca.LivroBiblioteca;
+import br.ufg.inf.es.persistencia.LivroDAO;
+import br.ufg.inf.es.persistencia.ParametrosDAO;
+import br.ufg.inf.es.persistencia.biblioteca.LivrosBibliotecaDAO;
 
 /**
  *

@@ -17,6 +17,10 @@ import javax.persistence.Table;
 @Table(name = "ITEM_LISTA_COMPRA")
 public class ItemListaCompras extends AbstractEntityModel {
     
+	private static final int HASH = 5;
+	
+	private static final int SALTO = 11;	
+	
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "id_livro")
     private Livro livro;
@@ -97,9 +101,9 @@ public class ItemListaCompras extends AbstractEntityModel {
 
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 11 * hash + (this.livro != null ? this.livro.hashCode() : 0);
-        hash = 11 * hash + this.quantidadeAComprar;
+        int hash = HASH;
+        hash = SALTO * hash + (this.livro != null ? this.livro.hashCode() : 0);
+        hash = SALTO * hash + this.quantidadeAComprar;
         return hash;
     }
 

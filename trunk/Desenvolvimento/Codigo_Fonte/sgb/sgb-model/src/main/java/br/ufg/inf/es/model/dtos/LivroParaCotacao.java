@@ -10,6 +10,10 @@ import br.ufg.inf.es.model.Livro;
  */
 public class LivroParaCotacao extends AbstractEntityModel {
 
+	private static final int HASH = 5;
+	
+	private static final int SALTO = 41;
+	
     /**
      * Campo quantidadeVagas
      */
@@ -145,12 +149,12 @@ public class LivroParaCotacao extends AbstractEntityModel {
 
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 41 * hash + (this.quantidadeExigida != null ? this.quantidadeExigida.hashCode() : 0);
-        hash = 41 * hash + (this.parametroMec != null ? this.parametroMec.hashCode() : 0);
-        hash = 41 * hash + (this.quantidadeLivrosDisponiveis != null ? this.quantidadeLivrosDisponiveis.hashCode() : 0);
-        hash = 41 * hash + (this.quantidadeAComprar != null ? this.quantidadeAComprar.hashCode() : 0);
-        hash = 41 * hash + (this.livro != null ? this.livro.hashCode() : 0);
+        int hash = HASH;
+        hash = SALTO * hash + (this.quantidadeExigida != null ? this.quantidadeExigida.hashCode() : 0);
+        hash = SALTO * hash + (this.parametroMec != null ? this.parametroMec.hashCode() : 0);
+        hash = SALTO * hash + (this.quantidadeLivrosDisponiveis != null ? this.quantidadeLivrosDisponiveis.hashCode() : 0);
+        hash = SALTO * hash + (this.quantidadeAComprar != null ? this.quantidadeAComprar.hashCode() : 0);
+        hash = SALTO * hash + (this.livro != null ? this.livro.hashCode() : 0);
         return hash;
     }
 

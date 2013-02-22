@@ -15,6 +15,12 @@ import javax.persistence.Table;
 @Table(name = "COTACAO")
 public class Cotacao extends AbstractEntityModel {
 
+	private static final int HASH = 5;
+	
+	private static final int SALTO = 67;
+	
+	private static final int VALOR_BITS = 32;
+	
     /**
      * Campo valor
      */
@@ -72,9 +78,9 @@ public class Cotacao extends AbstractEntityModel {
 
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 67 * hash + (int) (Double.doubleToLongBits(this.valor) ^ (Double.doubleToLongBits(this.valor) >>> 32));
-        hash = 67 * hash + (this.livraria != null ? this.livraria.hashCode() : 0);
+        int hash = HASH;
+        hash = SALTO * hash + (int) (Double.doubleToLongBits(this.valor) ^ (Double.doubleToLongBits(this.valor) >>> VALOR_BITS));
+        hash = SALTO * hash + (this.livraria != null ? this.livraria.hashCode() : 0);
         return hash;
     }
 
