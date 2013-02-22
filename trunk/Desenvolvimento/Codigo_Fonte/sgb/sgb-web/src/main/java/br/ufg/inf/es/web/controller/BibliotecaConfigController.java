@@ -11,8 +11,11 @@ import br.ufg.inf.es.web.controller.form.DBBibliotecaConfigForm;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.InputStream;
 import java.io.ObjectOutputStream;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
 import java.nio.charset.Charset;
 import java.sql.SQLException;
 import java.util.List;
@@ -93,9 +96,7 @@ public class BibliotecaConfigController extends SGBController<DBBibliotecaConfig
     public String salvarDBBibliotecaConfig() {
 
         try {
-            if (this.getForm().getEntity() == null
-                    && this.getForm().getEntity().getId() == null
-                    && this.getForm().getEntity().getId() == 0) {
+            if (this.service.getBibliotecaCfg() == null || service.getBibliotecaCfg().getId() == 0l) {
                 this.form.getEntity().setDriver(this.form.getDriver());
                 this.form.getEntity().setPasswordDataBase(new CriptoGeneric().criptografa(password));
                 this.service.insert(this.form.getEntity());
@@ -148,8 +149,6 @@ public class BibliotecaConfigController extends SGBController<DBBibliotecaConfig
      */
     private void geraArquivo(List<LivroBiblioteca> livrosBiblioteca) {
         try {
-            FileOutputStream arquivoGrav = new FileOutputStream("livros.txt");
-            ObjectOutputStream objGravar = new ObjectOutputStream(arquivoGrav);
 
             String livros = "<Não foi encontrado nenhum registro>";
 
@@ -176,13 +175,15 @@ public class BibliotecaConfigController extends SGBController<DBBibliotecaConfig
                 }
                 livros = livroStrBuilder.toString();
             }
-
+            
             //Grava o objeto cliente no arquivo
-            objGravar.writeObject(livros);
-            objGravar.flush();
-            objGravar.close();
-            arquivoGrav.flush();
-            arquivoGrav.close();
+            OutputStreamWriter out = new OutputStreamWriter (new FileOutputStream ("livros.txt"), "UTF-8");
+            out.write(livros);
+            PrintWriter pw = new PrintWriter (out); 
+            out.flush();
+            out.close();
+            pw.flush();
+            pw.close();
 
         } catch (Exception e) {
             
