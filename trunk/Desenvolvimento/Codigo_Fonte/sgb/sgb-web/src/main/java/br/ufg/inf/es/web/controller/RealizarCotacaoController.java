@@ -4,10 +4,7 @@ import br.ufg.inf.es.base.util.UtilObjeto;
 import br.ufg.inf.es.base.validation.ValidationException;
 import br.ufg.inf.es.integracao.RealizarCotacaoService;
 import br.ufg.inf.es.integracao.LivroService;
-import br.ufg.inf.es.model.CotacoesLivro;
-import br.ufg.inf.es.model.ListaCotacao;
-import br.ufg.inf.es.model.Livro;
-import br.ufg.inf.es.model.ItemListaCompras;
+import br.ufg.inf.es.model.*;
 import br.ufg.inf.es.web.controller.form.RealizarCotacaoForm;
 import br.ufg.inf.es.web.datamodel.LivroDataModel;
 import br.ufg.inf.es.web.datamodel.CotacoesLivroDataModel;
@@ -34,17 +31,16 @@ import org.springframework.stereotype.Component;
 @Scope("session")
 public class RealizarCotacaoController extends SGBController<ListaCotacao, RealizarCotacaoForm, RealizarCotacaoService> {
 
-    /**
-     * Campo CotacaoForm
-     */
     @Autowired
     private RealizarCotacaoForm form;
     @Autowired
     private RealizarCotacaoService service;
     @Autowired
     private LivroService livroService;
+    private List<CotacoesLivro> listaCotacoesLivro;
     
-    List<CotacoesLivro> listaCotacoesLivro;
+    @Autowired
+    private UsuarioController usuarioController;
 
     @Override
     public String openInitialPage() {
@@ -112,8 +108,11 @@ public class RealizarCotacaoController extends SGBController<ListaCotacao, Reali
     }
 
     public String salvarListaCotacao() {
+        
+        Usuario usuarioLogado = usuarioController.getUsuarioLogado();
+        
         this.getService().salvarListaCotacao(listaCotacoesLivro,
-                this.getForm().getNomeLista());
+                this.getForm().getNomeLista(), usuarioLogado);
 
         return this.openInitialPage();
     }

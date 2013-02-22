@@ -4,7 +4,10 @@ package br.ufg.inf.es.integracao;
 import br.ufg.inf.es.base.persistence.DAO;
 import br.ufg.inf.es.base.validation.ValidationException;
 import br.ufg.inf.es.model.ListaCotacao;
+import br.ufg.inf.es.model.Usuario;
 import br.ufg.inf.es.persistencia.ListaCotacaoDAO;
+import java.util.ArrayList;
+import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
@@ -46,6 +49,24 @@ public class ListaCotacaoService extends GenericService<ListaCotacao> {
 
         this.getDAO().update(listaCotacao);
 
+    }
+    
+     public Collection<ListaCotacao> listByUser(Usuario user) {
+
+         Collection<ListaCotacao> listasCotacaoUserLogado =
+                 new ArrayList<ListaCotacao>();
+         ArrayList<ListaCotacao> todasListasCotacao =
+                 new ArrayList<ListaCotacao>(this.getDAO().list());
+         
+         for(ListaCotacao listaCotacao : todasListasCotacao) {
+             
+             if (listaCotacao.getUser().getEmail().equals(user.getEmail())) {
+                 listasCotacaoUserLogado.add(listaCotacao);
+             }
+             
+         }
+         
+        return (Collection) listasCotacaoUserLogado;
     }
     
 }
