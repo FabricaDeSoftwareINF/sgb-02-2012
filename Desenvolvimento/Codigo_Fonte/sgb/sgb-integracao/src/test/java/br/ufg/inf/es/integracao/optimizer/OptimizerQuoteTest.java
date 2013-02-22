@@ -76,6 +76,8 @@ public class OptimizerQuoteTest {
         
         quotations.add(cotacao3);
         
+        quotations.add(cotacao1);
+        
         List<Quotation> result = OptimizerQuote.optimizeCost(cotacoes, new BigDecimal(540));
         
         List<DataQuotation> quotations2 = new ArrayList<DataQuotation>();
