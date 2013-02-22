@@ -62,10 +62,6 @@ public class LivroDAO extends GenericHibernateDAO<Livro> {
      */
     public Collection<?> getBibliografia(Long id) {
 
-        //Criteria criteria = this.getSession().createCriteria(Bibliografia.class);
-
-        //criteria.add(Restrictions.eq("livro.id", id));
-
         return this.getCollection(id, "bibliografias");
     }
 

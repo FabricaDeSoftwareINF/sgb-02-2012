@@ -12,6 +12,10 @@ import java.util.logging.Logger;
  * @author igor
  */
 class Conecta {
+	
+	private Conecta(){
+		
+	}
 
     /**
      * Método que recupera uma sessão de conexão dom banco de dados via JDBC

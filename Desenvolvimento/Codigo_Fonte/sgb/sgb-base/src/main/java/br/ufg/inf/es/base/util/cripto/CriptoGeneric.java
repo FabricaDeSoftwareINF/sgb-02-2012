@@ -6,6 +6,7 @@ import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.nio.charset.Charset;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
 import java.security.NoSuchAlgorithmException;
@@ -188,7 +189,7 @@ public class CriptoGeneric implements Serializable {
             cipher = Cipher.getInstance(nomeCifra);
             cipher.init(Cipher.ENCRYPT_MODE, this.keys.getPubKey(), this.random);
             //mensagem codificada
-            cipherText = cipher.doFinal(texto.getBytes());
+            cipherText = cipher.doFinal(texto.getBytes(Charset.forName("UTF-8")));
 
         } catch (Exception e) {
 

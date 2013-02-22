@@ -6,6 +6,7 @@ import br.ufg.inf.es.base.validation.ValidationException;
 import br.ufg.inf.es.model.biblioteca.DBBibliotecaConfig;
 import br.ufg.inf.es.model.biblioteca.LivroBiblioteca;
 import java.io.Serializable;
+import java.nio.charset.Charset;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -53,9 +54,8 @@ public class LivrosBibliotecaDAO implements Serializable {
 
         }
 
-        String pass = new String(new CriptoGeneric().decriptografa(dbConfig.getPasswordDataBase()));
+        String pass = new String(new CriptoGeneric().decriptografa(dbConfig.getPasswordDataBase()), Charset.forName("UTF-8"));
 
-        //pass = "root";
         this.connection = Conecta.getSessionConnection(dbConfig.getDriver(),
                 dbConfig.getUrl(), dbConfig.getPorta(), dbConfig.getNameDataBase(),
                 dbConfig.getUserDataBase(), pass);

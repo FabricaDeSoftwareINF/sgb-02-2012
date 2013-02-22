@@ -17,13 +17,17 @@ import org.apache.http.impl.client.DefaultHttpClient;
  * @author Inael
  */
 public class HttpUtil {
-    /**
+    
+	private HttpUtil(){
+		
+	}
+	
+	/**
      * Faz requisição http GET em uma determinada URL.
      *
      * @param url Url String que se deseja requisitar
      * @return Json com o resultado da requisição.
-     */
-    
+     */    
     public static String fazerRequisicaoHttpGet(String url) {
         StringBuilder sb = new StringBuilder();
         BufferedReader rd;

@@ -22,6 +22,8 @@ public class CotacoesLivro extends AbstractEntityModel {
 	
 	private static final int SALTO = 19;
 	
+	private static final int TAMANHO_BITS = 32;
+	
     /**
      * Campo urlImagem
      */
@@ -164,7 +166,7 @@ public class CotacoesLivro extends AbstractEntityModel {
     public int hashCode() {
         int hash = HASH;
         hash = SALTO * hash + (this.urlImagem != null ? this.urlImagem.hashCode() : 0);
-        hash = SALTO * hash + (int) (Double.doubleToLongBits(this.valorMedio) ^ (Double.doubleToLongBits(this.valorMedio) >>> 32));
+        hash = SALTO * hash + (int) (Double.doubleToLongBits(this.valorMedio) ^ (Double.doubleToLongBits(this.valorMedio) >>> TAMANHO_BITS));
         hash = SALTO * hash + (this.livro != null ? this.livro.hashCode() : 0);
         hash = SALTO * hash + (this.cotacoes != null ? this.cotacoes.hashCode() : 0);
         hash = SALTO * hash + this.quantidade;
