@@ -164,32 +164,42 @@ public class LivroTest {
     public void testEquals() {
         assertFalse(livro.equals(""));
         Livro livro2 = new Livro();
+        
         livro2.setTitulo("b");
         assertFalse(livro.equals(livro2));
         livro2.setTitulo(null);
         assertFalse(livro.equals(livro2));
+        livro2.setTitulo(titulo);
+        
         livro2.setAno(999L);
         assertFalse(livro.equals(livro2));
         livro2.setAno(null);
         assertFalse(livro.equals(livro2));
+        livro2.setAno(ano);
+        
         livro2.setIsbn10("54545");
         assertFalse(livro.equals(livro2));
         livro2.setIsbn10(null);
         assertFalse(livro.equals(livro2));
+        livro2.setIsbn10(isbn10);
+        
         livro2.setIsbn13("8349534");
         assertFalse(livro.equals(livro2));
         livro2.setIsbn13(null);
         assertFalse(livro.equals(livro2));
+        livro2.setIsbn13(isbn13);
+        
         livro2.setEdicao("43254dfgaf");
         assertFalse(livro.equals(livro2));
         livro2.setEdicao(null);
         assertFalse(livro.equals(livro2));
-        livro2.setEstrangeiro(false);
+        livro2.setEdicao(edicao);
+        
+        livro2.setEstrangeiro(true);
         assertFalse(livro.equals(livro2));
-        livro2.setEdicao("9090");
-        assertFalse(livro.equals(livro2));
-        livro2.setEdicao(null);
-        assertFalse(livro.equals(livro2));
+        livro2.setEstrangeiro(estrangeiro);
+        
+      
         Editora ed = new Editora();
         ed.setNome("teste");
         livro2.setEditora(ed);
