@@ -35,59 +35,6 @@
 
                     <p:spacer width="10" height="15"/>
 
-                    <h:panelGrid width="100%">
-
-                        <p:fieldset id="fieldsetAssociacao" legend="#{msg['cadastro.curso.associacao']}">
-
-                            <h:panelGrid columns="3" cellspacing="10">
-
-                                <h:outputLabel value="#{msg['cadastro.disciplina']}:" for="disciplinaEditar" />
-
-                                <p:selectOneMenu id="disciplinaEditar" value="#{cursoController.form.disciplinaSelecionada}"  
-                                                 style="width: 500px" converter="disciplinaConverter">
-
-                                    <f:selectItem itemLabel="Selecione" itemValue="null"/>
-
-                                    <f:selectItems value="#{cursoController.form.listaDisciplinaComboBox}" var="disciplinaList"
-                                                   itemLabel="#{disciplinaList.nome}" itemValue="#{disciplinaList}"/>
-
-                                </p:selectOneMenu>
-
-                                <p:commandButton value="#{msg['cadastro.associar.disciplina']}" 
-                                                 action="#{cursoController.addDisciplinaAssociacao}" 
-                                                 update="fieldsetAssociacao" ajax="false"
-                                                 icon="ui-icon-plusthick"/>
-                            </h:panelGrid>
-
-                            <p:dataTable id="tabelaAssociacao" var="disciplina" 
-                                         value="#{cursoController.form.listaDisciplinaAssociacao}">
-
-                                <p:column headerText="#{msg['cadastro.disciplina']}">  
-
-                                    <h:outputText value="#{disciplina.nome}" />  
-
-                                </p:column>
-
-                                <p:column headerText="#{msg['cadastro.acao']}" width="120">  
-
-                                    <p:commandButton id="linkRemoverDisciplina" 
-                                                   value="Remover" update=":formEditarCurso:fieldsetAssociacao" 
-                                                   action="#{cursoController.removeDisciplina()}"
-                                                   style="width: 110px;"
-                                                   icon="ui-icon-trash">
-
-                                        <f:setPropertyActionListener value="#{disciplina}" target="#{cursoController.form.disciplinaToRemove}"/>
-
-                                    </p:commandButton>
-
-                                </p:column> 
-
-                            </p:dataTable>
-
-                        </p:fieldset>
-
-                    </h:panelGrid>
-
                     <p:remoteCommand name="abrePaginaInicial" action="#{cursoController.openSearchPage()}"/>
 
                     <p:spacer width="15px" height="50px"/>
@@ -123,6 +70,7 @@
                     </p:dialog>
 
                 </h:form>
+                
             </p:panel>
 
             <p:spacer height="50"/> 
