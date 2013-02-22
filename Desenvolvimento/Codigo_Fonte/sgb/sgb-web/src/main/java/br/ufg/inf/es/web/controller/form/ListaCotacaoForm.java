@@ -1,5 +1,6 @@
 package br.ufg.inf.es.web.controller.form;
 
+import br.ufg.inf.es.model.CotacoesLivro;
 import br.ufg.inf.es.model.ListaCotacao;
 import br.ufg.inf.es.web.datamodel.ListaCotacaoDataModel;
 import java.util.ArrayList;
@@ -20,9 +21,8 @@ public class ListaCotacaoForm extends GenericForm<ListaCotacao> {
     private ListaCotacaoDataModel listaCotacaoDataModel;
     private Collection<ListaCotacao> listasSelecionadas = new ArrayList<ListaCotacao>();
     private Boolean exibirDialogExclusao;
-    
+    private List<CotacoesLivro> listaOtimizada;
     private boolean tipoOtimizacao;
-    
     private Double valorOrcamento;
 
     public ListaCotacaoDataModel getListaCotacaoDataModel() {
@@ -83,4 +83,11 @@ public class ListaCotacaoForm extends GenericForm<ListaCotacao> {
         this.valorOrcamento = valorOrcamento;
     }
 
+    public List<CotacoesLivro> getListaOtimizada() {
+        return listaOtimizada;
+    }
+
+    public void setListaOtimizada(List<CotacoesLivro> listaOtimizada) {
+        this.listaOtimizada = listaOtimizada;
+    }
 }
