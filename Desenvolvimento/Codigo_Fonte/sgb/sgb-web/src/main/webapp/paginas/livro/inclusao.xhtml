@@ -90,7 +90,7 @@
                             <h:outputText value="#{bibliografia.disciplina.nome}"/>
                         </p:column>
                         <p:column headerText="Ação" width="120">
-                            <p:commandButton value="Remover" 
+                            <p:commandButton value="#{msg['arquitetura.label.remover']}" 
                                              action="#{livroController.form.setBibliografiaRemocao(bibliografia)}"
                                            oncomplete="dlgRemocao.show()"
                                            style="width: 110px;"

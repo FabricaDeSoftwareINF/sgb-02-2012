@@ -12,79 +12,89 @@ import javax.persistence.*;
 @Table(name = "AUTOR")
 public class Autor extends AbstractEntityModel {
 
-    /** Campo nome*/
+    /**
+     * Campo nome
+     */
     @Column(name = "nome")
     private String nome;
-    
-    /** Campo sobrenome*/
+    /**
+     * Campo sobrenome
+     */
     @Column(name = "sobrenome")
     private String sobrenome;
-    
-    /** Campo livros*/
+    /**
+     * Campo livros
+     */
     @ManyToMany(mappedBy = "autores", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private Collection<Livro> livros; 
+    private Collection<Livro> livros;
 
     /**
-	 * Obtém o valor do campo <code>nome</code>
-	 *
-	 * @return {@link String}
-	 */
-	public String getNome() {
-		
-		return this.nome;
-	}
+     * Obtém o valor do campo
+     * <code>nome</code>
+     *
+     * @return {@link String}
+     */
+    public String getNome() {
 
-	/**
-	 * Define o campo <code>nome</code>.
-	 *
-	 * @param nome 
-	 */
-	public void setNome(String nome) {
-		
-		this.nome = nome;
-	}
+        return this.nome;
+    }
 
-	/**
-	 * Obtém o valor do campo <code>sobrenome</code>
-	 *
-	 * @return {@link String}
-	 */
-	public String getSobrenome() {
-		
-		return this.sobrenome;
-	}
+    /**
+     * Define o campo
+     * <code>nome</code>.
+     *
+     * @param nome
+     */
+    public void setNome(String nome) {
 
-	/**
-	 * Define o campo <code>sobrenome</code>.
-	 *
-	 * @param sobrenome 
-	 */
-	public void setSobrenome(String sobrenome) {
-		
-		this.sobrenome = sobrenome;
-	}
+        this.nome = nome;
+    }
 
-	/**
-	 * Obtém o valor do campo <code>livros</code>
-	 *
-	 * @return {@link Collection<Livro>}
-	 */
-	public Collection<Livro> getLivros() {
-		
-		return this.livros;
-	}
+    /**
+     * Obtém o valor do campo
+     * <code>sobrenome</code>
+     *
+     * @return {@link String}
+     */
+    public String getSobrenome() {
 
-	/**
-	 * Define o campo <code>livros</code>.
-	 *
-	 * @param livros 
-	 */
-	public void setLivros(Collection<Livro> livros) {
-		
-		this.livros = livros;
-	}
+        return this.sobrenome;
+    }
 
-	@Override
+    /**
+     * Define o campo
+     * <code>sobrenome</code>.
+     *
+     * @param sobrenome
+     */
+    public void setSobrenome(String sobrenome) {
+
+        this.sobrenome = sobrenome;
+    }
+
+    /**
+     * Obtém o valor do campo
+     * <code>livros</code>
+     *
+     * @return {@link Collection<Livro>}
+     */
+    public Collection<Livro> getLivros() {
+
+        return this.livros;
+    }
+
+    /**
+     * Define o campo
+     * <code>livros</code>.
+     *
+     * @param livros
+     */
+    public void setLivros(Collection<Livro> livros) {
+
+        this.livros = livros;
+    }
+
+    @Override
     public String toString() {
         return nome + " " + sobrenome;
     }

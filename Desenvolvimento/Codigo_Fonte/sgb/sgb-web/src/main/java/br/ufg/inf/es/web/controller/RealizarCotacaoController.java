@@ -7,6 +7,7 @@ import br.ufg.inf.es.integracao.LivroService;
 import br.ufg.inf.es.model.CotacoesLivro;
 import br.ufg.inf.es.model.ListaCotacao;
 import br.ufg.inf.es.model.Livro;
+import br.ufg.inf.es.model.ItemListaCompras;
 import br.ufg.inf.es.web.controller.form.RealizarCotacaoForm;
 import br.ufg.inf.es.web.datamodel.LivroDataModel;
 import br.ufg.inf.es.web.datamodel.CotacoesLivroDataModel;
@@ -70,8 +71,16 @@ public class RealizarCotacaoController extends SGBController<ListaCotacao, Reali
     public String realizarCotacao() {
 
         Livro[] livrosSelecionados = this.getForm().getLivrosSelecionados();
+        
+        List<ItemListaCompras> listaLivroListaCotacoes = new ArrayList<ItemListaCompras>();
+        
+        for (Livro livro : livrosSelecionados) {
+            ItemListaCompras livroListaCotacao = new ItemListaCompras();
+            livroListaCotacao.setLivro(livro);
+            listaLivroListaCotacoes.add(livroListaCotacao);
+        }
 
-        ListaCotacao listaCotacao = this.getService().realizarCotacao(Arrays.asList(livrosSelecionados));
+        ListaCotacao listaCotacao = this.getService().realizarCotacao(listaLivroListaCotacoes);
 
         List<CotacoesLivro> cotacoes = new ArrayList<CotacoesLivro>(listaCotacao.getCotacoesLivro());
 

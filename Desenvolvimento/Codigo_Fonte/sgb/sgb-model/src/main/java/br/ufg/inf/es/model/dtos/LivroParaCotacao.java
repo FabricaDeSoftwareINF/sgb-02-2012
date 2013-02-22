@@ -181,5 +181,4 @@ public class LivroParaCotacao extends AbstractEntityModel {
         return true;
     }
     
-    
 }

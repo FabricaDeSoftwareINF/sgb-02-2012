@@ -1,12 +1,9 @@
 package br.ufg.inf.es.integracao;
 
-import br.ufg.inf.es.model.Livro;
-import java.util.ArrayList;
 import org.mockito.Mockito;
 import br.ufg.inf.es.persistencia.ListaComprasDAO;
-import br.ufg.inf.es.persistencia.LivroDAO;
+import br.ufg.inf.es.persistencia.ItemListaComprasDAO;
 import br.ufg.inf.es.persistencia.UsuarioDAO;
-import java.util.Collection;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -18,7 +15,7 @@ import static org.junit.Assert.*;
 public class ListaComprasServiceTest {
 
     private ListaComprasDAO dao;
-    private LivroDAO livroDao;
+    private ItemListaComprasDAO livroDao;
     private UsuarioDAO usuarioDao;
     private ListaComprasService service;
 
@@ -26,7 +23,7 @@ public class ListaComprasServiceTest {
     public void setUp() {
         service = new ListaComprasService();
         dao = Mockito.mock(ListaComprasDAO.class);
-        livroDao = Mockito.mock(LivroDAO.class);
+        livroDao = Mockito.mock(ItemListaComprasDAO.class);
         usuarioDao = Mockito.mock(UsuarioDAO.class);
 
         service.setDao(dao);
@@ -39,7 +36,7 @@ public class ListaComprasServiceTest {
      */
     @Test
     public void testGetLivroDao() {
-        LivroDAO result = service.getLivroDao();
+        ItemListaComprasDAO result = service.getLivroDao();
         assertEquals(livroDao, result);
     }
 

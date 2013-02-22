@@ -1,10 +1,9 @@
 package br.ufg.inf.es.web.controller.form;
 
 import br.ufg.inf.es.model.ListaCompras;
-import br.ufg.inf.es.model.Livro;
-import br.ufg.inf.es.model.dtos.LivroParaCotacao;
+import br.ufg.inf.es.model.ItemListaCompras;
 import br.ufg.inf.es.web.datamodel.ListaComprasDataModel;
-import br.ufg.inf.es.web.datamodel.LivroParaCotacaoDataModel;
+import br.ufg.inf.es.web.datamodel.ItemListaCompraDataModel;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -20,13 +19,14 @@ import org.springframework.stereotype.Component;
 public class ListaComprasForm extends GenericForm<ListaCompras> {
 
     private Collection<ListaCompras> listaCompras;
-    private Collection<LivroParaCotacao> livrosSelecionados;
-    private Collection<LivroParaCotacao> todosLivros;
-    private LivroParaCotacaoDataModel livroDM;
+    private Collection<ItemListaCompras> livrosSelecionados;
+    private Collection<ItemListaCompras> todosLivros;
+    private ItemListaCompraDataModel itemListaComprasDataModel;
     private ListaComprasDataModel listaComprasDM;
     private String filtroTitulo;
-    
+    private String nomeLista;    
     private ListaCompras listaComprasParaRemocao; 
+
 
     public Collection<ListaCompras> getListaCompras() {
         return listaCompras;
@@ -36,35 +36,30 @@ public class ListaComprasForm extends GenericForm<ListaCompras> {
         this.listaCompras = listaCompras;
     }
 
-    public Collection<LivroParaCotacao> getLivrosSelecionados() {
+    public Collection<ItemListaCompras> getLivrosSelecionados() {
         return this.livrosSelecionados;
     }
 
-    public void setLivrosSelecionados(Collection<LivroParaCotacao> selectedLivros) {
+    public void setLivrosSelecionados(Collection<ItemListaCompras> selectedLivros) {
         this.livrosSelecionados = selectedLivros;
     }
 
-    public Collection<LivroParaCotacao> getTodosLivros() {
+    public Collection<ItemListaCompras> getTodosLivros() {
 
         return todosLivros;
     }
 
-    public void setTodosLivros(Collection<LivroParaCotacao> todosLivros) {
+    public void setTodosLivros(Collection<ItemListaCompras> todosLivros) {
 
         this.todosLivros = todosLivros;
     }
 
-    public LivroParaCotacaoDataModel getLivroDataModel() {
-
-        List<LivroParaCotacao> livros = new ArrayList<LivroParaCotacao>(this.getTodosLivros());
-
-        livroDM = new LivroParaCotacaoDataModel(livros);
-
-        return livroDM;
+    public ItemListaCompraDataModel getItemListaDataModel() {
+        return itemListaComprasDataModel;
     }
 
-    public void setLivroDataModel(LivroParaCotacaoDataModel livroDM) {
-        this.livroDM = livroDM;
+    public void setItemListaDataModel(ItemListaCompraDataModel livroDM) {
+        this.itemListaComprasDataModel = livroDM;
     }
 
     public String getFiltroTitulo() {
@@ -85,12 +80,21 @@ public class ListaComprasForm extends GenericForm<ListaCompras> {
         this.listaComprasDM = lcDM;
     }
 
-    public LivroParaCotacaoDataModel getLivroDM() {
-        return livroDM;
+    public String getNomeLista() {
+        return nomeLista;
     }
 
-    public void setLivroDM(LivroParaCotacaoDataModel livroDM) {
-        this.livroDM = livroDM;
+    public void setNomeLista(String nomeLista) {
+        this.nomeLista = nomeLista;
+    }
+    
+
+    public ItemListaCompraDataModel getLivroDM() {
+        return itemListaComprasDataModel;
+    }
+
+    public void setLivroDM(ItemListaCompraDataModel livroDM) {
+        this.itemListaComprasDataModel = livroDM;
     }
 
     public ListaCompras getListaComprasParaRemocao() {
@@ -102,4 +106,5 @@ public class ListaComprasForm extends GenericForm<ListaCompras> {
         
         this.listaComprasParaRemocao = listaComprasParaRemocao;
     }
+
 }
