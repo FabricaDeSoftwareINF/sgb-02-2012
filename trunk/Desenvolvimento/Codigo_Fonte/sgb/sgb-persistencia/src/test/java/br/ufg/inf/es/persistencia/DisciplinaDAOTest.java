@@ -30,7 +30,6 @@ public class DisciplinaDAOTest {
     private SessionFactory factory;
     private Session session;
     private Criteria criteria;
-    private Connection connection;
     private DisciplinaDAO dao;
 
     @Before
@@ -40,7 +39,6 @@ public class DisciplinaDAOTest {
         this.factory = mock(SessionFactory.class);
         this.session = mock(Session.class);
         this.criteria = mock(Criteria.class);
-        this.connection = mock(Connection.class);
         dao.setSessionFactory(factory);
     }
 
