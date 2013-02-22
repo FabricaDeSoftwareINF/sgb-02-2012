@@ -1,6 +1,7 @@
 
 package br.ufg.inf.es.integracao.optimizer;
 
+import br.ufg.inf.es.base.util.UtilObjeto;
 import java.math.BigDecimal;
 import org.junit.*;
 import static org.junit.Assert.*;
@@ -86,6 +87,38 @@ public class DataQuotationTest {
         
         assertEquals(false, igualdade);
     }
+    /**
+     * Test of equals method, of class DataQuotation.
+     */
+    @Test
+    public void testEqualsPreco() {
+        
+        boolean igualdade = data.equals(new DataQuotation(5l, new BigDecimal(6), 5));
+        
+        assertEquals(false, igualdade);
+    }
+    
+    /**
+     * Test of equals method, of class DataQuotation.
+     */
+    @Test
+    public void testEqualsNulo() {
+        
+        boolean igualdade = data.equals(null);
+        
+        assertEquals(false, igualdade);
+    }
+    
+    /**
+     * Test of equals method, of class DataQuotation.
+     */
+    @Test
+    public void testEqualsClasseDiferentes() {
+        
+        boolean igualdade = data.equals(new Long(5));
+        
+        assertEquals(false, igualdade);
+    }
 
     /**
      * Test of compareTo method, of class DataQuotation.
@@ -99,4 +132,16 @@ public class DataQuotationTest {
         
         assertEquals(-1, resultado);
     }    
+    
+    @Test
+    public void testConstrutor(){
+        
+        Object[] dadosCotacao = new Object[]{2l, new BigDecimal(5), quantidade};
+        
+        DataQuotation cotacao = DataQuotation.create(dadosCotacao);
+        
+        boolean resultado = UtilObjeto.isReferencia(cotacao);
+        
+        assertEquals(resultado, true);
+    }
 }
