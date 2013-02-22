@@ -25,8 +25,7 @@ import br.ufg.inf.es.integracao.cotacao.Cotador;
 import br.ufg.inf.es.integracao.cotacao.CotadorBuscape;
 import br.ufg.inf.es.integracao.cotacao.CotadorGoogleShop;
 import br.ufg.inf.es.integracao.cotacao.ResultadoCotacao;
-import br.ufg.inf.es.model.CotacoesLivro;
-import br.ufg.inf.es.model.ItemListaCompras;
+import br.ufg.inf.es.model.*;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -237,12 +236,12 @@ public class RealizarCotacaoService extends GenericService<ListaCotacao> {
         return null;
     }
 
-    public void salvarListaCotacao(Collection<CotacoesLivro> cotacoesSelecionadas, String nome) {
-        System.err.println(cotacoesSelecionadas);
+    public void salvarListaCotacao(Collection<CotacoesLivro> cotacoesSelecionadas, String nome, Usuario autor) {
         ListaCotacao listaCotacao = new ListaCotacao();
         listaCotacao.setCotacoesLivro(cotacoesSelecionadas);
         listaCotacao.setDataRealizada(new Date());
         listaCotacao.setNome(nome);
+        listaCotacao.setUser(autor);
         this.getDAO().insert(listaCotacao);
     }
 

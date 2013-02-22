@@ -11,6 +11,7 @@ import br.ufg.inf.es.model.exportacaodados.planilha.ItemPlanilha;
 import br.ufg.inf.es.model.exportacaodados.planilha.Planilha;
 import br.ufg.inf.es.web.controller.form.ListaCotacaoForm;
 import java.io.ByteArrayInputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.exception.ConstraintViolationException;
@@ -40,11 +41,14 @@ public class ListaCotacaoController extends SGBController<ListaCotacao, ListaCot
     private byte[] arrayBytes;
     private ByteArrayInputStream stream;
     private static final String AREA_CONHECIMENTO = "Ciências Exatas e da Terra";
+    @Autowired
+    private UsuarioController usuarioController = new UsuarioController();
 
     @Override
     public void initData() {
         this.getForm().setTabelaListaCotacoes(new ArrayList<ListaCotacao>());
-        this.getForm().getTabelaListaCotacoes().addAll(this.getService().list());
+        this.getForm().getTabelaListaCotacoes().addAll(this.getService().
+                listByUser(usuarioController.getUsuarioLogado()));
     }
 
     @Override
@@ -123,12 +127,22 @@ public class ListaCotacaoController extends SGBController<ListaCotacao, ListaCot
         Planilha planilhaEstrangeiros = new Planilha();
         List<CotacoesLivro> cotacoesLivro = new ArrayList(form.getEntity().getCotacoesLivro());
         StringBuilder builder = new StringBuilder();
-        
-        String anoCotacao = String.valueOf(form.getEntity().getDataRealizada().getYear());     
+
+        //Monta o título do cabeçalho da planilha
+        SimpleDateFormat formatadorData = new SimpleDateFormat("yyyy");
+        String anoCotacao = formatadorData.format(form.getEntity().getDataRealizada());
+        String nomeAutor = this.getForm().getEntity().getUser().getNome();
+        String sobreNomeAutor = this.getForm().getEntity().getUser().getSobrenome();
+
         String tituloPlanilhaNacionais = builder.append("LISTA DOS TÍTULOS NACIONAIS A SEREM ADQUIRIDOS EM ").
-                append(anoCotacao).append( " - BIBLIOTECA CENTRAL").toString();
+                append(anoCotacao).append(" - BIBLIOTECA CENTRAL ").append("/ ").append(nomeAutor.toUpperCase()).
+                append(" ").append(sobreNomeAutor.toUpperCase()).toString();
+        builder = new StringBuilder();
+
         String tituloPlanilhaEstrangeiros = builder.append("LISTA DOS TÍTULOS ESTRANGEIROS A SEREM ADQUIRIDOS EM ").
-                append(anoCotacao).append( " - BIBLIOTECA CENTRAL").toString();
+                append(anoCotacao).append(" - BIBLIOTECA CENTRAL ").append("/ ").append(nomeAutor.toUpperCase()).
+                append(" ").append(sobreNomeAutor.toUpperCase()).toString();
+
         planilhaNacionais.setTituloCabecalho(tituloPlanilhaNacionais);
         planilhaEstrangeiros.setTituloCabecalho(tituloPlanilhaEstrangeiros);
 

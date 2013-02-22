@@ -1,6 +1,5 @@
 package br.ufg.inf.es.model;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -21,6 +20,11 @@ public class ListaCotacao extends AbstractEntityModel {
     /** Campo dataRealizada*/
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date dataRealizada;
+    
+    /** Campo user*/
+    @JoinColumn(name="id_usuario")
+    @ManyToOne(optional = false)
+    private Usuario user;
     
     /** Campo cotacoes*/
     @OneToMany(fetch=FetchType.EAGER, cascade={CascadeType.ALL})
@@ -58,6 +62,25 @@ public class ListaCotacao extends AbstractEntityModel {
         
             return dataRealizada != null ? (Date) dataRealizada.clone() : dataRealizada;
     }
+
+    /**
+     * Obtém o valor do campo <code>user</code>
+     *
+     * @return {@link Usuario}
+     */
+    public Usuario getUser() {
+        return user;
+    }
+
+    /**
+     * Define o campo <code>user</code>.
+     *
+     * @param user 
+     */
+    public void setUser(Usuario user) {
+        this.user = user;
+    }
+    
 
     /**
      * Define o campo <code>dataRealizada</code>.

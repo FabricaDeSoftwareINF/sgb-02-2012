@@ -141,12 +141,11 @@
 
                         </p:column>
 
-                        <p:column headerText="#{msg['listaCotacao.label.area']}"
+                        <p:column headerText="#{msg['listaCotacao.label.estrangeiro']}"
                                   style="text-align: center;width: 10%">
 
-                            <h:outputText value="Ciências Exatas"/><br/>
-                            <h:outputText value="e da Terra"
-                                          title="Ciências Exatas e da Terra"/>
+                            <h:outputText value="#{cotacaoLivro.livro.estrangeiro ? msg['arquitetura.msg.sim']
+                                       : msg['arquitetura.msg.nao']}"/>
 
                         </p:column>
 
