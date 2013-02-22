@@ -208,6 +208,35 @@ public class LivroTest {
         assertFalse(livro.equals(livro2));
         
         
+        
+    }
+    
+    public void testIgual() {
+        Livro livro2 = novoLivro();
+        assertFalse(livro.equals(livro2));
+        livro2.setAutores(autores);
+        assertTrue(livro.equals(livro2));
+        Autor aut = new Autor();
+        aut.setNome("Autor de teste");
+        livro2.getAutores().add(aut);
+        assertFalse(livro.equals(livro2));
+    }
+    
+    private Livro novoLivro() {
+        Livro livro2 = new Livro();
+
+        prepareBibliografias();
+
+        livro2.setTitulo(titulo);
+        livro2.setAno(ano);
+        livro2.setIsbn10(isbn10);
+        livro2.setIsbn13(isbn13);
+        livro2.setEdicao(edicao);
+        livro2.setEstrangeiro(estrangeiro);
+        livro2.setEditora(editora);
+        livro2.setBibliografias(bibliografias);
+        livro2.setCotacoesLivro(cotacoesLivro);
+        return livro2;
     }
     @Test
     public void testHashCode() {
