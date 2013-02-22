@@ -201,6 +201,14 @@
             
         </navigation-case>
         
+        <navigation-case>
+            
+            <from-outcome>ListaCotacaoController/listaOtimizada</from-outcome>
+            
+            <to-view-id>/paginas/lista_cotacao/listaOtimizada.xhtml</to-view-id>
+            
+        </navigation-case>
+        
         <!-- Estória 09: Manter Lista de Compras -->
         <navigation-case>
             
