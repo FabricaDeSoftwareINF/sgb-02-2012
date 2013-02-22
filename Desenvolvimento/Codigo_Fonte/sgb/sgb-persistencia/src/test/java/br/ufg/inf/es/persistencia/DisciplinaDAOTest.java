@@ -5,7 +5,6 @@
 package br.ufg.inf.es.persistencia;
 
 import br.ufg.inf.es.model.Disciplina;
-import java.sql.Connection;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
@@ -17,7 +16,6 @@ import org.hibernate.criterion.ProjectionList;
 import org.hibernate.transform.ResultTransformer;
 import org.junit.*;
 import static org.junit.Assert.*;
-import static org.mockito.Matchers.*;
 import static org.mockito.Mockito.*;
 import static org.mockito.Mockito.when;
 
@@ -140,7 +138,6 @@ public class DisciplinaDAOTest {
 
         Disciplina d1 = new Disciplina();
         d1.setCodigo("0001");
-        d1.setNome("Disciplina 1");
 
         List<Disciplina> disciplinas = Arrays.asList(new Disciplina(), new Disciplina());
 
