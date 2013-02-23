@@ -80,7 +80,8 @@ public class LivroDAOTest {
      * Test of getAutores method, of class LivroDAO.
      */
     @Test
-    public void testGetAutOores() {
+    @Ignore
+    public void testGetAutores() {
 
         Collection autores = Arrays.asList(new Autor());
 

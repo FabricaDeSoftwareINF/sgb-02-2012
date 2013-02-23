@@ -104,7 +104,7 @@ public class RealizarCotacaoServiceTest {
         Collection<ItemListaCompras> livros =prepareMocks(false);
         ListaCotacao lista = service.realizarCotacao(livros);
         assertNotNull(lista);
-        assertEquals(1, lista.getCotacoesLivro().size());
+        assertEquals(1, lista.getItensListaCotacao().size());
     }
 
     @Test
@@ -112,7 +112,7 @@ public class RealizarCotacaoServiceTest {
         Collection livros = prepareMocks(true);
         ListaCotacao lista = service.realizarCotacao(livros);
         assertNotNull(lista);
-        assertEquals(1, lista.getCotacoesLivro().size());
+        assertEquals(1, lista.getItensListaCotacao().size());
     }
 
     private Collection prepareMocks(boolean isNacional) throws NotFoundException, SQLException {

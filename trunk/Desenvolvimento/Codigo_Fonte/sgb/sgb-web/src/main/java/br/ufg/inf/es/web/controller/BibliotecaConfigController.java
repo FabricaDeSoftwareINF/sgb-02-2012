@@ -6,7 +6,6 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
-import java.nio.charset.Charset;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
@@ -28,6 +27,7 @@ import br.ufg.inf.es.model.biblioteca.DBBibliotecaConfig;
 import br.ufg.inf.es.model.biblioteca.LivroBiblioteca;
 import br.ufg.inf.es.persistencia.biblioteca.LivrosBibliotecaDAO;
 import br.ufg.inf.es.web.controller.form.DBBibliotecaConfigForm;
+import java.nio.charset.Charset;
 
 /**
  * Controlador da página de parâmetros de Integração com a Biblioteca
@@ -66,10 +66,13 @@ public class BibliotecaConfigController extends SGBController<DBBibliotecaConfig
         }
 
         if (this.form.getEntity().getPasswordDataBase() != null) {
-            this.password = new String(new CriptoGeneric().decriptografa(
-                    this.form.getEntity().getPasswordDataBase()), Charset.forName("UTF-8"));
+            byte[] pass = new CriptoGeneric().decriptografa(
+                    this.form.getEntity().getPasswordDataBase());
+            if (pass != null) {  
+                this.password = new String(pass, Charset.forName("UTF-8"));
+            }
         }
-        return "BibliotecaConfigController/initialPage";
+        return super.openInitialPage();
     }
 
     public void setForm(DBBibliotecaConfigForm form) {

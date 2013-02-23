@@ -106,7 +106,7 @@ public class RealizarCotacaoService extends GenericService<ListaCotacao> {
 
 
     public ListaCotacao realizarCotacao(Collection<ItemListaCompras> livros) {
-        Collection<CotacoesLivro> cotacoes = new ArrayList<CotacoesLivro>();
+        Collection<ItemListaCotacao> cotacoes = new ArrayList<ItemListaCotacao>();
         Map<Livro, Collection<ResultadoCotacao>> resultados = buscarOfertas(livros);
 
         for (Livro livro : resultados.keySet()) {
@@ -116,11 +116,11 @@ public class RealizarCotacaoService extends GenericService<ListaCotacao> {
         this.obtemQuantidadeNecessariaLivros(cotacoes);
         
         ListaCotacao listaCotacao = new ListaCotacao();
-        listaCotacao.setCotacoesLivro(cotacoes);
+        listaCotacao.setItensListaCotacao(cotacoes);
         return listaCotacao;
     }
 
-    private double calculaPrecoMedio(CotacoesLivro cotacoesLivro) {
+    private double calculaPrecoMedio(ItemListaCotacao cotacoesLivro) {
         double somatorioPrecos = 0.0;
         double media = 0.0;
         if (cotacoesLivro != null) {
@@ -165,9 +165,9 @@ public class RealizarCotacaoService extends GenericService<ListaCotacao> {
     }
         
 
-    private CotacoesLivro extraiCotacao(Livro livro, Collection<ResultadoCotacao> resultadosCotacao) {
+    private ItemListaCotacao extraiCotacao(Livro livro, Collection<ResultadoCotacao> resultadosCotacao) {
         Collection<Cotacao> cotacoes = new ArrayList<Cotacao>();
-        CotacoesLivro cotacoesLivro = new CotacoesLivro();
+        ItemListaCotacao cotacoesLivro = new ItemListaCotacao();
         for (ResultadoCotacao resultadoCotacao : resultadosCotacao) {
             Cotacao cotacao = new Cotacao();
             cotacao.setLivraria(resultadoCotacao.getLivraria());
@@ -191,7 +191,7 @@ public class RealizarCotacaoService extends GenericService<ListaCotacao> {
     }
 
     
-    private Collection<Cotacao> obtemQuantidadeNecessariaLivros(Collection<CotacoesLivro> cotacoes){
+    private Collection<Cotacao> obtemQuantidadeNecessariaLivros(Collection<ItemListaCotacao> cotacoes){
         
         try {
             
@@ -204,7 +204,7 @@ public class RealizarCotacaoService extends GenericService<ListaCotacao> {
                 quantidadeLivrosPorAlunos = param.get(0).getParametroMEC();
             }
             
-            for(CotacoesLivro cotacao: cotacoes) {
+            for(ItemListaCotacao cotacao: cotacoes) {
             
                 Integer quantidadeBiblioteca = 0;
                 
@@ -236,9 +236,9 @@ public class RealizarCotacaoService extends GenericService<ListaCotacao> {
         return null;
     }
 
-    public void salvarListaCotacao(Collection<CotacoesLivro> cotacoesSelecionadas, String nome, Usuario autor) {
+    public void salvarListaCotacao(Collection<ItemListaCotacao> cotacoesSelecionadas, String nome, Usuario autor) {
         ListaCotacao listaCotacao = new ListaCotacao();
-        listaCotacao.setCotacoesLivro(cotacoesSelecionadas);
+        listaCotacao.setItensListaCotacao(cotacoesSelecionadas);
         listaCotacao.setDataRealizada(new Date());
         listaCotacao.setNome(nome);
         listaCotacao.setUser(autor);

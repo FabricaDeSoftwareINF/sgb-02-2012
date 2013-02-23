@@ -20,13 +20,13 @@ import org.springframework.stereotype.Component;
 import br.ufg.inf.es.base.util.UtilObjeto;
 import br.ufg.inf.es.integracao.LivroService;
 import br.ufg.inf.es.integracao.RealizarCotacaoService;
-import br.ufg.inf.es.model.CotacoesLivro;
+import br.ufg.inf.es.model.ItemListaCotacao;
 import br.ufg.inf.es.model.ItemListaCompras;
 import br.ufg.inf.es.model.ListaCotacao;
 import br.ufg.inf.es.model.Livro;
 import br.ufg.inf.es.model.Usuario;
 import br.ufg.inf.es.web.controller.form.RealizarCotacaoForm;
-import br.ufg.inf.es.web.datamodel.CotacoesLivroDataModel;
+import br.ufg.inf.es.web.datamodel.ItemListaCotacaoDataModel;
 import br.ufg.inf.es.web.datamodel.LivroDataModel;
 
 /**
@@ -46,7 +46,7 @@ public class RealizarCotacaoController extends SGBController<ListaCotacao, Reali
     
     @Autowired
     private ListaCotacaoController listaCotacaoController;
-    private List<CotacoesLivro> listaCotacoesLivro;
+    private List<ItemListaCotacao> listaItemListaCotacao;
     
     @Autowired
     private UsuarioController usuarioController;
@@ -89,11 +89,11 @@ public class RealizarCotacaoController extends SGBController<ListaCotacao, Reali
 
         ListaCotacao listaCotacao = this.getService().realizarCotacao(listaLivroListaCotacoes);
 
-        List<CotacoesLivro> cotacoes = new ArrayList<CotacoesLivro>(listaCotacao.getCotacoesLivro());
+        List<ItemListaCotacao> cotacoes = new ArrayList<ItemListaCotacao>(listaCotacao.getItensListaCotacao());
 
-        this.listaCotacoesLivro = cotacoes;
+        this.listaItemListaCotacao = cotacoes;
         
-        this.getForm().setCotacoesDataModel(new CotacoesLivroDataModel(cotacoes));
+        this.getForm().setCotacoesDataModel(new ItemListaCotacaoDataModel(cotacoes));
 
         return this.openInsertPage();
     }
@@ -104,11 +104,11 @@ public class RealizarCotacaoController extends SGBController<ListaCotacao, Reali
 
             ListaCotacao listaCotacao = this.getService().realizarCotacao(this.getForm().getListaCompras().getLivrosDaListaCompras());
 
-            List<CotacoesLivro> cotacoes = new ArrayList<CotacoesLivro>(listaCotacao.getCotacoesLivro());
+            List<ItemListaCotacao> cotacoes = new ArrayList<ItemListaCotacao>(listaCotacao.getItensListaCotacao());
 
-            this.getForm().setCotacoesDataModel(new CotacoesLivroDataModel(cotacoes));
+            this.getForm().setCotacoesDataModel(new ItemListaCotacaoDataModel(cotacoes));
             
-            CotacoesLivro[] cotacoesArray = cotacoes.toArray(new CotacoesLivro[cotacoes.size()]);
+            ItemListaCotacao[] cotacoesArray = cotacoes.toArray(new ItemListaCotacao[cotacoes.size()]);
 
             return this.openInsertPage();
         }
@@ -120,7 +120,7 @@ public class RealizarCotacaoController extends SGBController<ListaCotacao, Reali
         
         Usuario usuarioLogado = usuarioController.getUsuarioLogado();
         
-        this.getService().salvarListaCotacao(listaCotacoesLivro,
+        this.getService().salvarListaCotacao(listaItemListaCotacao,
                 this.getForm().getNomeLista(), usuarioLogado);
 
         //return this.listaCotacaoController.openInitialPage();
@@ -139,8 +139,8 @@ public class RealizarCotacaoController extends SGBController<ListaCotacao, Reali
         return sc;
     }
     
-    public void removerCotacoesLivro() {
-        List<CotacoesLivro> remover = Arrays.asList(this.getForm().getCotacoesSelecionadas());
-        listaCotacoesLivro.removeAll(remover);
+    public void removerItemListaCotacao() {
+        List<ItemListaCotacao> remover = Arrays.asList(this.getForm().getCotacoesSelecionadas());
+        listaItemListaCotacao.removeAll(remover);
     }
 }

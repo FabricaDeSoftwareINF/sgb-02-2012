@@ -1,6 +1,6 @@
 package br.ufg.inf.es.integracao;
 
-import br.ufg.inf.es.persistencia.CotacoesLivroDAO;
+import br.ufg.inf.es.persistencia.ItemListaCotacaoDAO;
 import br.ufg.inf.es.persistencia.LivroDAO;
 import br.ufg.inf.es.model.Livro;
 import java.util.Arrays;
@@ -18,7 +18,7 @@ import static org.mockito.Mockito.*;
 public class CotacaoServiceTest {
 
     private CotacaoService cotacaoService;
-    private CotacoesLivroDAO cotacoesLivroDAO;
+    private ItemListaCotacaoDAO cotacoesLivroDAO;
     private LivroDAO livroDao;
     private Collection<Livro> livros = Arrays.asList(new Livro());
 
@@ -27,7 +27,7 @@ public class CotacaoServiceTest {
      */
     @Before
     public void setUp() {
-        cotacoesLivroDAO = mock(CotacoesLivroDAO.class);
+        cotacoesLivroDAO = mock(ItemListaCotacaoDAO.class);
         livroDao = mock(LivroDAO.class);
 
         cotacaoService = new CotacaoService();

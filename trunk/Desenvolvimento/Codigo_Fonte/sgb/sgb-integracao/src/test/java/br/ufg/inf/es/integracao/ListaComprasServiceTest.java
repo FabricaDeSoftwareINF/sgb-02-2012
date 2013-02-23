@@ -4,6 +4,7 @@ import org.mockito.Mockito;
 import br.ufg.inf.es.persistencia.ListaComprasDAO;
 import br.ufg.inf.es.persistencia.ItemListaComprasDAO;
 import br.ufg.inf.es.persistencia.UsuarioDAO;
+import br.ufg.inf.es.persistencia.LivroDAO;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -15,7 +16,7 @@ import static org.junit.Assert.*;
 public class ListaComprasServiceTest {
 
     private ListaComprasDAO dao;
-    private ItemListaComprasDAO livroDao;
+    private LivroDAO livroDao;
     private UsuarioDAO usuarioDao;
     private ListaComprasService service;
 
@@ -23,7 +24,7 @@ public class ListaComprasServiceTest {
     public void setUp() {
         service = new ListaComprasService();
         dao = Mockito.mock(ListaComprasDAO.class);
-        livroDao = Mockito.mock(ItemListaComprasDAO.class);
+        livroDao = Mockito.mock(LivroDAO.class);
         usuarioDao = Mockito.mock(UsuarioDAO.class);
 
         service.setDao(dao);
@@ -36,7 +37,7 @@ public class ListaComprasServiceTest {
      */
     @Test
     public void testGetLivroDao() {
-        ItemListaComprasDAO result = service.getLivroDao();
+        LivroDAO result = service.getLivroDao();
         assertEquals(livroDao, result);
     }
 

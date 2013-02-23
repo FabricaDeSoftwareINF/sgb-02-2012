@@ -1,9 +1,16 @@
 package br.ufg.inf.es.persistencia;
 
 import br.ufg.inf.es.base.util.UtilObjeto;
+import br.ufg.inf.es.base.validation.ValidationException;
+import br.ufg.inf.es.model.Autor;
+import br.ufg.inf.es.model.ItemListaCompras;
+import br.ufg.inf.es.model.ItemListaCotacao;
 import br.ufg.inf.es.model.Livro;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import org.hibernate.Criteria;
+import org.hibernate.FetchMode;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.MatchMode;
@@ -48,9 +55,12 @@ public class LivroDAO extends GenericHibernateDAO<Livro> {
      * @param id
      * @return Colecao de Atoures
      */
-    public Collection<?> getAutores(Long id) {
-
-        return this.getCollection(id, "autores");
+    public Collection<Autor> getAutores(Long id) {
+        Criteria criteria = getSession().createCriteria(Livro.class);
+        criteria.add(Restrictions.eq("id", id));
+        criteria.setFetchMode("autores", FetchMode.JOIN);
+        Livro livro = (Livro) criteria.uniqueResult();
+        return livro.getAutores();
     }
 
     
@@ -113,4 +123,26 @@ public class LivroDAO extends GenericHibernateDAO<Livro> {
         Query query = getSession().createQuery("FROM Livro l");
         return query.list();
     }
+    
+    public void removeLivros(Collection<Livro> livros) throws ValidationException {
+        List<Livro> livrosNaoRemovidos = new ArrayList<Livro>();
+        for (Livro livro : livros) {
+            Criteria criteriaCompra = this.getSession().createCriteria(ItemListaCompras.class);
+            criteriaCompra.add(Restrictions.eq("livro", livro));
+            Collection<ItemListaCompras> itensCompra = criteriaCompra.list();
+            Criteria criteriaCotacao = this.getSession().createCriteria(ItemListaCotacao.class);
+            criteriaCotacao.add(Restrictions.eq("livro", livro));
+            Collection<ItemListaCotacao> itensCotacao = criteriaCotacao.list();
+            if ((itensCompra == null ||  itensCompra.isEmpty())
+                    && (itensCotacao == null || itensCotacao.isEmpty())) {
+                this.remove(livro);
+            } else {
+                livrosNaoRemovidos.add(livro);
+            }
+        }
+        if (!livrosNaoRemovidos.isEmpty()) {
+            throw new ValidationException("cadastro.livro.remocao.dependencia");
+        }
+    }
+    
 }

@@ -2,9 +2,9 @@
 package br.ufg.inf.es.web.controller.form;
 
 import br.ufg.inf.es.model.Cotacao;
-import br.ufg.inf.es.model.CotacoesLivro;
+import br.ufg.inf.es.model.ItemListaCotacao;
 import br.ufg.inf.es.model.Livro;
-import br.ufg.inf.es.web.datamodel.CotacoesLivroDataModel;
+import br.ufg.inf.es.web.datamodel.ItemListaCotacaoDataModel;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -17,28 +17,28 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @Scope("session")
-public class CotacaoForm extends GenericForm<CotacoesLivro> {
+public class CotacaoForm extends GenericForm<ItemListaCotacao> {
 
-    private Collection<CotacoesLivro> tabelaCotacoes;
+    private Collection<ItemListaCotacao> tabelaCotacoes;
     
     private Collection<Livro> livrosCotacao;
     
     private Livro[] livrosParaCotacao;
     
-    private CotacoesLivroDataModel cotacaoDataModel;
+    private ItemListaCotacaoDataModel cotacaoDataModel;
     
     private Cotacao[] cotacoesSelecionadas;
 
-    public CotacoesLivroDataModel getCotacaoDataModel() {
+    public ItemListaCotacaoDataModel getCotacaoDataModel() {
 
-        List<CotacoesLivro> cotacoes = new ArrayList<CotacoesLivro>(this.getTabelaCotacoes());
+        List<ItemListaCotacao> cotacoes = new ArrayList<ItemListaCotacao>(this.getTabelaCotacoes());
         
-        cotacaoDataModel = new CotacoesLivroDataModel(cotacoes);
+        cotacaoDataModel = new ItemListaCotacaoDataModel(cotacoes);
 
         return cotacaoDataModel;
     }
 
-    public void setCotacaoDataModel(CotacoesLivroDataModel cotacaoDataModel) {
+    public void setCotacaoDataModel(ItemListaCotacaoDataModel cotacaoDataModel) {
     
         this.cotacaoDataModel = cotacaoDataModel;
     }
@@ -63,11 +63,11 @@ public class CotacaoForm extends GenericForm<CotacoesLivro> {
         }
     }
 
-    public Collection<CotacoesLivro> getTabelaCotacoes() {
+    public Collection<ItemListaCotacao> getTabelaCotacoes() {
         return tabelaCotacoes;
     }
 
-    public void setTabelaCotacoes(Collection<CotacoesLivro> tabelaCotacoes) {
+    public void setTabelaCotacoes(Collection<ItemListaCotacao> tabelaCotacoes) {
         this.tabelaCotacoes = tabelaCotacoes;
     }
 

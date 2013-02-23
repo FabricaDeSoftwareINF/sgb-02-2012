@@ -2,7 +2,7 @@
 package br.ufg.inf.es.web.controller;
 
 import br.ufg.inf.es.integracao.CotacaoService;
-import br.ufg.inf.es.model.CotacoesLivro;
+import br.ufg.inf.es.model.ItemListaCotacao;
 import br.ufg.inf.es.web.controller.form.CotacaoForm;
 import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @Scope("session")
-public class CotacaoController extends SGBController<CotacoesLivro, CotacaoForm, CotacaoService> {
+public class CotacaoController extends SGBController<ItemListaCotacao, CotacaoForm, CotacaoService> {
 
     /** Campo CotacaoForm */
     @Autowired
@@ -27,7 +27,7 @@ public class CotacaoController extends SGBController<CotacoesLivro, CotacaoForm,
     @Override
     public void openInitialView() {
         
-        this.getForm().setTabelaCotacoes(new ArrayList<CotacoesLivro>());
+        this.getForm().setTabelaCotacoes(new ArrayList<ItemListaCotacao>());
         
         this.getForm().getTabelaCotacoes().addAll(this.getService().list());
         
