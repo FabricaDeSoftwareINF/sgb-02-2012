@@ -9,21 +9,22 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import org.hibernate.annotations.Cascade;
 
 /**
  *
  * @author vinicius
  */
 @Entity
-@Table(name = "COTACOES_LIVRO")
-public class CotacoesLivro extends AbstractEntityModel {
+@Table(name = "ITEM_LISTA_COTACAO")
+public class ItemListaCotacao extends AbstractEntityModel {
 
-	private static final int HASH = 7;
-	
-	private static final int SALTO = 19;
-	
-	private static final int TAMANHO_BITS = 32;
-	
+    private static final int HASH = 7;
+        
+        private static final int SALTO = 19;
+        
+        private static final int TAMANHO_BITS = 32;
+        
     /**
      * Campo urlImagem
      */
@@ -43,10 +44,11 @@ public class CotacoesLivro extends AbstractEntityModel {
      */
     @OneToMany(cascade= CascadeType.ALL)
     @JoinTable(
-            name="COTACOESLIVRO_COTACAO",
-            joinColumns = @JoinColumn( name="id_cotacoeslivro"),
+            name="ITEM_LISTA_COTACAO_COTACAO",
+            joinColumns = @JoinColumn( name="id_item_lista_cotacao"),
             inverseJoinColumns = @JoinColumn( name="id_cotacao")
     )
+    @Cascade(org.hibernate.annotations.CascadeType.DELETE_ORPHAN)
     private Collection<Cotacao> cotacoes;
     
     /**
@@ -181,7 +183,7 @@ public class CotacoesLivro extends AbstractEntityModel {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final CotacoesLivro other = (CotacoesLivro) obj;
+        final ItemListaCotacao other = (ItemListaCotacao) obj;
         if ((this.urlImagem == null) ? (other.urlImagem != null) : !this.urlImagem.equals(other.urlImagem)) {
             return false;
         }

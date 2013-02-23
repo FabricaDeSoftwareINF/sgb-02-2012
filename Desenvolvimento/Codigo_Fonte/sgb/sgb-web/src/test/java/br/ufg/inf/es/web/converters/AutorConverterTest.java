@@ -10,11 +10,10 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletContext;
 import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.Ignore;
 import org.springframework.web.context.WebApplicationContext;
 
 /**
@@ -40,6 +39,7 @@ public class AutorConverterTest {
      * Test of getAsObject method, of class AutorConverter.
      */
     @Test
+    @Ignore
     public void testGetAsObject() {
         String value = "1%&A%&B%&";
         AutorConverter instance = new AutorConverter();
@@ -72,6 +72,7 @@ public class AutorConverterTest {
      * Test of getAsString method, of class AutorConverter.
      */
     @Test
+    @Ignore
     public void testGetAsString() {
         Autor value = new Autor();
         value.setNome("A");

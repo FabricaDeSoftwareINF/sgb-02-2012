@@ -9,14 +9,14 @@ import static org.mockito.Mockito.mock;
  *
  * @author Victor Carvalho
  */
-public class CotacoesLivroDAOTest {
+public class ItemListaCotacaoDAOTest {
 
-    private CotacoesLivroDAO dao;
+    private ItemListaCotacaoDAO dao;
     private SessionFactory factory;
 
     @Before
     public void setUp() {
-        dao = new CotacoesLivroDAO();
+        dao = new ItemListaCotacaoDAO();
         this.factory = mock(SessionFactory.class);
 
         dao.setSessionFactory(factory);
@@ -27,7 +27,7 @@ public class CotacoesLivroDAOTest {
      */
     @Test
     public void testCriarNovoDaoComSerssionFactory() {
-        CotacoesLivroDAO novoDao = new CotacoesLivroDAO(factory);
+        ItemListaCotacaoDAO novoDao = new ItemListaCotacaoDAO(factory);
         assertEquals(factory, novoDao.getSessionFactory());
     }
 

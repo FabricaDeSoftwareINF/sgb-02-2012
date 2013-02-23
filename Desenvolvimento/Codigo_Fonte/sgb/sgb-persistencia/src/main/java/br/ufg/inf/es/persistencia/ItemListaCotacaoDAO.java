@@ -1,6 +1,6 @@
 package br.ufg.inf.es.persistencia;
 
-import br.ufg.inf.es.model.CotacoesLivro;
+import br.ufg.inf.es.model.ItemListaCotacao;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Repository
 @Transactional
-public class CotacoesLivroDAO extends GenericHibernateDAO<CotacoesLivro> {
+public class ItemListaCotacaoDAO extends GenericHibernateDAO<ItemListaCotacao> {
  
     /** Campo sessionFactory*/
     @Autowired
@@ -22,7 +22,7 @@ public class CotacoesLivroDAO extends GenericHibernateDAO<CotacoesLivro> {
      * Construtor desta classe.
      * @param sessionFactory
      */
-    public CotacoesLivroDAO(SessionFactory sessionFactory) {
+    public ItemListaCotacaoDAO(SessionFactory sessionFactory) {
         
     	this.sessionFactory = sessionFactory;
     }
@@ -30,7 +30,7 @@ public class CotacoesLivroDAO extends GenericHibernateDAO<CotacoesLivro> {
     /**
      * Construtor desta classe.
      */
-    public CotacoesLivroDAO() {
+    public ItemListaCotacaoDAO() {
         
     }
 

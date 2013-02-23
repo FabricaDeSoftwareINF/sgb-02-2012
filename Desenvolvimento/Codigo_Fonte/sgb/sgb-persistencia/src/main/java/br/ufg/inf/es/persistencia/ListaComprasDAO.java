@@ -15,26 +15,29 @@ import org.hibernate.FetchMode;
 
 /**
  * Classe para o DAO da entidade ListaCompras
+ *
  * @author Jackeline Neves
  */
 @Repository
 @Transactional
 public class ListaComprasDAO extends GenericHibernateDAO<ListaCompras> {
 
-    /** Campo sessionFactory*/
+    /**
+     * Campo sessionFactory
+     */
     @Autowired
     private SessionFactory sessionFactory;
 
-    /** 
-     * {@inheritDoc} 
+    /**
+     * {@inheritDoc}
      */
     public void setSessionFactory(SessionFactory sessionFactory) {
-        
-    	this.sessionFactory = sessionFactory;
+
+        this.sessionFactory = sessionFactory;
     }
 
-    /** 
-     * {@inheritDoc} 
+    /**
+     * {@inheritDoc}
      */
     @Override
     protected SessionFactory getSessionFactory() {
@@ -42,7 +45,6 @@ public class ListaComprasDAO extends GenericHibernateDAO<ListaCompras> {
 
     }
 
-    
     /**
      * Método que retorna os livros de uma lista de compras.
      *
@@ -57,4 +59,13 @@ public class ListaComprasDAO extends GenericHibernateDAO<ListaCompras> {
         return listaCompras.getLivrosDaListaCompras();
     }
 
+    @Override
+    public void save(ListaCompras listaCompras) {
+        try {
+            this.getSession().saveOrUpdate(listaCompras);
+            this.getSession().flush();
+        } finally {
+            this.getSession().close();
+        }
+    }
 }

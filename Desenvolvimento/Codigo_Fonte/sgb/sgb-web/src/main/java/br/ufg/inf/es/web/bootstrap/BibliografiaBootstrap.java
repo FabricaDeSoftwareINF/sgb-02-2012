@@ -1,12 +1,14 @@
 package br.ufg.inf.es.web.bootstrap;
 
 import br.ufg.inf.es.base.persistence.biblioteca.DBDriver;
+import br.ufg.inf.es.base.util.cripto.CriptoGeneric;
 import br.ufg.inf.es.enuns.EnumTipoBibliografia;
 import br.ufg.inf.es.model.*;
 import br.ufg.inf.es.model.biblioteca.DBBibliotecaConfig;
 
 import java.nio.charset.Charset;
 import java.util.*;
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
@@ -36,7 +38,7 @@ public class BibliografiaBootstrap {
     private static Livraria livraria1;
     private static Livraria livraria2;
     private static ListaCotacao listaCotacao;
-    private static List<CotacoesLivro> listaCotacoesLivro;
+    private static List<ItemListaCotacao> listaItemListaCotacao;
     private static DBBibliotecaConfig dbBibliotecaConfig;
     
     private BibliografiaBootstrap(){
@@ -76,8 +78,10 @@ public class BibliografiaBootstrap {
         listaCotacao = new ListaCotacao();
         listaCotacao.setNome("Lista de Cotações 1");
         listaCotacao.setDataRealizada(Calendar.getInstance().getTime());
-        listaCotacao.setCotacoesLivro(listaCotacoesLivro);
-        crieCotacoesLivro();
+        listaCotacao.setItensListaCotacao(listaItemListaCotacao);
+        List<Usuario> usuarios = new ArrayList<Usuario>(list(sessionFactory, Usuario.class));
+        listaCotacao.setUser(usuarios.get(0));
+        crieItemListaCotacao();
         listaCotacao.setId(salve(listaCotacao));
 
     }
@@ -95,20 +99,21 @@ public class BibliografiaBootstrap {
         dbBibliotecaConfig.setCampoTituloLivro("TITULO");
         dbBibliotecaConfig.setDriver(DBDriver.MySQL);
         dbBibliotecaConfig.setNameDataBase("obras");
-        dbBibliotecaConfig.setPasswordDataBase("12345678".getBytes(Charset.forName("UTF-8")));
+        dbBibliotecaConfig.setPasswordDataBase(new CriptoGeneric().criptografa("12345678"));
         dbBibliotecaConfig.setPorta("3306");
         dbBibliotecaConfig.setUrl("localhost");
         dbBibliotecaConfig.setUserDataBase("root");
+        dbBibliotecaConfig.setTabela("obras");
         salve(dbBibliotecaConfig);
 
     }
 
-    private static void crieCotacoesLivro() {
+    private static void crieItemListaCotacao() {
 
-        listaCotacoesLivro = new ArrayList<CotacoesLivro>();
+        listaItemListaCotacao = new ArrayList<ItemListaCotacao>();
         crieLivrarias();
 
-        CotacoesLivro cotacaoLivro1 = new CotacoesLivro();
+        ItemListaCotacao cotacaoLivro1 = new ItemListaCotacao();
         cotacaoLivro1.setLivro(livro1);
         cotacaoLivro1.setQuantidade(QUANTIDADE1);
         cotacaoLivro1.setValorMedio((VALOR1 + VALOR2) / 2d);
@@ -126,7 +131,7 @@ public class BibliografiaBootstrap {
         cotacaoLivro1.setCotacoes(cotacoes1);
         cotacaoLivro1.setId(salve(cotacaoLivro1));
 
-        CotacoesLivro cotacaoLivro2 = new CotacoesLivro();
+        ItemListaCotacao cotacaoLivro2 = new ItemListaCotacao();
         cotacaoLivro2.setLivro(livro2);
         cotacaoLivro2.setQuantidade(QUANTIDADE2);
         cotacaoLivro2.setValorMedio((VALOR3 + VALOR4) / 2d);
@@ -144,8 +149,8 @@ public class BibliografiaBootstrap {
         cotacaoLivro2.setCotacoes(cotacoes2);
         cotacaoLivro2.setId(salve(cotacaoLivro2));
 
-        listaCotacoesLivro.add(cotacaoLivro1);
-        listaCotacoesLivro.add(cotacaoLivro2);
+        listaItemListaCotacao.add(cotacaoLivro1);
+        listaItemListaCotacao.add(cotacaoLivro2);
 
     }
 
@@ -238,4 +243,10 @@ public class BibliografiaBootstrap {
     private static Session getSession() {
         return sessionFactory.openSession();
     }
+    
+    private static Collection list(SessionFactory sessionFactory, Class clazz) {
+        Criteria criteria = sessionFactory.openSession().createCriteria(clazz);
+        return criteria.list();
+    }
+    
 }

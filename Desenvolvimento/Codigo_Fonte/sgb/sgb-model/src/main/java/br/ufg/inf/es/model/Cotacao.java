@@ -1,4 +1,3 @@
-
 package br.ufg.inf.es.model;
 
 import javax.persistence.CascadeType;
@@ -15,23 +14,18 @@ import javax.persistence.Table;
 @Table(name = "COTACAO")
 public class Cotacao extends AbstractEntityModel {
 
-	private static final int HASH = 5;
-	
-	private static final int SALTO = 67;
-	
-	private static final int VALOR_BITS = 32;
-	
+    private static final int HASH = 5;
+    private static final int SALTO = 67;
+    private static final int VALOR_BITS = 32;
     /**
      * Campo valor
      */
     private double valor;
-
     /**
      * Campo livraria
      */
-    @OneToOne(cascade= CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL)
     private Livraria livraria;
-
 
     /**
      * Obtém o valor do campo
@@ -101,5 +95,4 @@ public class Cotacao extends AbstractEntityModel {
         }
         return true;
     }
-    
 }

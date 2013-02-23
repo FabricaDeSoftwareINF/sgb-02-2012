@@ -5,7 +5,7 @@ import br.ufg.inf.es.integracao.ListaCotacaoService;
 import br.ufg.inf.es.integracao.exportacaodados.planilha.ExportacaoPlanilhaService;
 import br.ufg.inf.es.model.Autor;
 import br.ufg.inf.es.model.Bibliografia;
-import br.ufg.inf.es.model.CotacoesLivro;
+import br.ufg.inf.es.model.ItemListaCotacao;
 import br.ufg.inf.es.model.ListaCotacao;
 import br.ufg.inf.es.model.exportacaodados.planilha.ItemPlanilha;
 import br.ufg.inf.es.model.exportacaodados.planilha.Planilha;
@@ -72,7 +72,7 @@ public class ListaCotacaoController extends SGBController<ListaCotacao, ListaCot
 
     public String gerarListaOtimizada() {
 
-        List<CotacoesLivro> listaOtimizada = this.getService().gerarListaOtimizada(this.getForm().getValorOrcamento(), this.getForm().getEntity(), this.getForm().isTipoOtimizacao());
+        List<ItemListaCotacao> listaOtimizada = this.getService().gerarListaOtimizada(this.getForm().getValorOrcamento(), this.getForm().getEntity(), this.getForm().isTipoOtimizacao());
 
         this.getForm().setListaOtimizada(listaOtimizada);
 
@@ -131,11 +131,11 @@ public class ListaCotacaoController extends SGBController<ListaCotacao, ListaCot
      * disponibilizando-a para download. São inclusos tantos os livros nacionais
      * quanto estrangeiros, cada qual em uma planilha do arquivo.
      */
-    public void templateExportarXLS(Collection<CotacoesLivro> cotacoes) {
+    public void templateExportarXLS(Collection<ItemListaCotacao> cotacoes) {
 
         Planilha planilhaNacionais = new Planilha();
         Planilha planilhaEstrangeiros = new Planilha();
-        List<CotacoesLivro> cotacoesLivro = new ArrayList(cotacoes);
+        List<ItemListaCotacao> cotacoesLivro = new ArrayList(cotacoes);
         StringBuilder builder = new StringBuilder();
 
         //Monta o título do cabeçalho da planilha
@@ -178,7 +178,7 @@ public class ListaCotacaoController extends SGBController<ListaCotacao, ListaCot
 
     public void exportarXLS() {
 
-        this.templateExportarXLS(this.getForm().getEntity().getCotacoesLivro());
+        this.templateExportarXLS(this.getForm().getEntity().getItensListaCotacao());
     }
 
     public void exportarListaOtimizadaXLS() {
@@ -191,10 +191,10 @@ public class ListaCotacaoController extends SGBController<ListaCotacao, ListaCot
      * Permite exportar os livros nacionais da lista de cotações para o formato
      * CSV, disponibilizando-os para download.
      */
-    public void templateExportarCSV(Collection<CotacoesLivro> cotacoes, boolean nacional) {
+    public void templateExportarCSV(Collection<ItemListaCotacao> cotacoes, boolean nacional) {
 
         Planilha planilhaNacionais = new Planilha();
-        List<CotacoesLivro> cotacoesLivro = new ArrayList(cotacoes);
+        List<ItemListaCotacao> cotacoesLivro = new ArrayList(cotacoes);
 
         for (int i = 0; i < cotacoes.size(); i++) {
 
@@ -216,7 +216,7 @@ public class ListaCotacaoController extends SGBController<ListaCotacao, ListaCot
 
     public void exportarCSVNacionais() {
 
-        this.templateExportarCSV(this.getForm().getEntity().getCotacoesLivro(), true);
+        this.templateExportarCSV(this.getForm().getEntity().getItensListaCotacao(), true);
     }
 
     public void exportarListaOtimizadaCSVNacionais() {
@@ -231,7 +231,7 @@ public class ListaCotacaoController extends SGBController<ListaCotacao, ListaCot
      */
     public void exportarCSVEstrangeiros() {
 
-        this.templateExportarCSV(this.getForm().getEntity().getCotacoesLivro(), false);
+        this.templateExportarCSV(this.getForm().getEntity().getItensListaCotacao(), false);
     }
 
     public void exportarListaOtimizadaCSVEstrangeiros() {
@@ -247,7 +247,7 @@ public class ListaCotacaoController extends SGBController<ListaCotacao, ListaCot
      * @param numItem Número do item de planilha, identificador único desta.
      * @return Objteo ItemPlanilha devidamente montado.
      */
-    private ItemPlanilha montarItemPlanilha(CotacoesLivro cotacoesLivro, int numItem) {
+    private ItemPlanilha montarItemPlanilha(ItemListaCotacao cotacoesLivro, int numItem) {
 
         StringBuilder nomeAutor = new StringBuilder();
         ItemPlanilha itemPlanilha = new ItemPlanilha();

@@ -87,6 +87,7 @@ public class LivroController extends SGBController<Livro, LivroForm, LivroServic
      */
     @Override
     public String openInsertPage() {
+        this.initData();
         this.cursos = this.cursoService.list();
         return super.openInsertPage();
     }
@@ -108,6 +109,7 @@ public class LivroController extends SGBController<Livro, LivroForm, LivroServic
         this.getForm().clearInsertData();
         this.getForm().clearSearchData();
         this.getForm().setTipoBibliografia(null);
+        this.setLivrosSelecionados(new Livro[] {});
         this.getForm().setAutoresAdicionados(new ArrayList<Autor>());
         this.getForm().setBibliografiaRemocao(new Bibliografia());
         this.getForm().setBibliografiaTemp(new Bibliografia());
@@ -319,7 +321,7 @@ public class LivroController extends SGBController<Livro, LivroForm, LivroServic
             Hibernate.isInitialized(this.getForm().getEntity());
 
             Hibernate.initialize(this.getForm().getEntity());
-            this.getService().update(this.getForm().getEntity());
+            this.getService().insert(this.getForm().getEntity());
             this.getForm().clearInsertData();
             this.addSuccessMessage("arquitetura.msg.sucesso");
 

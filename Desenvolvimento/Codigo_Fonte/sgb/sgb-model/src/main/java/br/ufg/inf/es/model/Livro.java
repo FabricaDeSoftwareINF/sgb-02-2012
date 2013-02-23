@@ -16,6 +16,7 @@ import javax.persistence.Table;
 import org.hibernate.annotations.Cascade;
 
 import br.ufg.inf.es.base.util.UtilObjeto;
+import javax.persistence.FetchType;
 
 /**
  * Classe que representa a entidade Livro
@@ -26,10 +27,8 @@ import br.ufg.inf.es.base.util.UtilObjeto;
 @Table(name = "LIVRO")
 public class Livro extends AbstractEntityModel {
 
-	private static final int HASH = 3;
-	
-	private static final int SALTO = 71;
-	
+    private static final int HASH = 3;
+    private static final int SALTO = 71;
     /**
      * Campo titulo
      */
@@ -80,13 +79,12 @@ public class Livro extends AbstractEntityModel {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "livro")
     @Cascade(org.hibernate.annotations.CascadeType.DELETE_ORPHAN)
     private Collection<Bibliografia> bibliografias = new ArrayList<Bibliografia>();
-    
     /**
      * Campo cotacoesLivro
      */
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE},
-    mappedBy = "livro")
-    private Collection<CotacoesLivro> cotacoesLivro;
+        mappedBy = "livro")
+    private Collection<ItemListaCotacao> itensListaCotacao;
 
     /**
      * Obtém o valor do campo
@@ -307,12 +305,12 @@ public class Livro extends AbstractEntityModel {
         return sb.toString();
     }
 
-    public Collection<CotacoesLivro> getCotacoesLivro() {
-        return cotacoesLivro;
+    public Collection<ItemListaCotacao> getItensListaCotacao() {
+        return itensListaCotacao;
     }
 
-    public void setCotacoesLivro(Collection<CotacoesLivro> cotacoesLivro) {
-        this.cotacoesLivro = cotacoesLivro;
+    public void setItensListaCotacao(Collection<ItemListaCotacao> cotacoesLivro) {
+        this.itensListaCotacao = cotacoesLivro;
     }
 
     @Override
@@ -370,5 +368,4 @@ public class Livro extends AbstractEntityModel {
         }
         return true;
     }
-    
 }

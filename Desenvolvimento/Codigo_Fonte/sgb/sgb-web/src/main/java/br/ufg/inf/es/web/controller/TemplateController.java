@@ -14,8 +14,9 @@ import br.ufg.inf.es.integracao.LivroService;
 import br.ufg.inf.es.integracao.cotacao.CotadorBuscape;
 import br.ufg.inf.es.integracao.cotacao.CotadorGoogleShop;
 import br.ufg.inf.es.integracao.cotacao.ResultadoCotacao;
+import br.ufg.inf.es.model.Autor;
 import br.ufg.inf.es.model.Livro;
-import br.ufg.inf.es.web.controller.form.LivroForm;
+import br.ufg.inf.es.web.controller.form.TemplateForm;
 
 /**
  *
@@ -23,26 +24,26 @@ import br.ufg.inf.es.web.controller.form.LivroForm;
  */
 @Component
 @Scope("session")
-public class TemplateController extends SGBController<Livro, LivroForm, LivroService> {
+public class TemplateController extends SGBController<Livro, TemplateForm, LivroService> {
 
     @Autowired
-    private LivroForm form;
+    private TemplateForm form;
     @Autowired
     private LivroService service;
     private Livro livro;
 
     public TemplateController() {
-        form = new LivroForm();
+        form = new TemplateForm();
         service = new LivroService();
         livro = new Livro();
     }
 
     @Autowired
-    public LivroForm getForm() {
+    public TemplateForm getForm() {
         return form;
     }
 
-    public void setForm(LivroForm form) {
+    public void setForm(TemplateForm form) {
         this.form = form;
     }
 
@@ -74,6 +75,7 @@ public class TemplateController extends SGBController<Livro, LivroForm, LivroSer
     public void addLivroOnSelect(SelectEvent event) {
 
         Livro livroSelecionado = (Livro) event.getObject();
+        Collection<Autor> autores = this.getService().getDAO().getAutores(livroSelecionado.getId());
         this.getForm().setLivroSelecionado(livroSelecionado);
 
     }

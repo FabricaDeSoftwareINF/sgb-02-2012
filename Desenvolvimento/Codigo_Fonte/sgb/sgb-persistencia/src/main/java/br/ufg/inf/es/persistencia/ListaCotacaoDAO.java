@@ -1,6 +1,7 @@
 package br.ufg.inf.es.persistencia;
 
 import br.ufg.inf.es.model.ListaCotacao;
+import br.ufg.inf.es.model.Usuario;
 import java.util.Collection;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
@@ -60,4 +61,11 @@ public class ListaCotacaoDAO extends GenericHibernateDAO<ListaCotacao> {
         Query query = getSession().createQuery("FROM ListaCotacao lc");
         return query.list();
     }
+    
+    public Collection<ListaCotacao> findListaByUser(Usuario user) {
+        Query query = getSession().createQuery("FROM ListaCotacao lc WHERE lc.user=:user");
+        query.setParameter("user", user);
+        return query.list();
+    }
+    
 }

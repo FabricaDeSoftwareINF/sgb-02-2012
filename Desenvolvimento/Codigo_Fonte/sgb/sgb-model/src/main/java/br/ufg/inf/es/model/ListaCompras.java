@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import javax.persistence.*;
+import org.hibernate.annotations.Cascade;
 
 /**
  * Entidade ListaCompras
@@ -27,12 +28,13 @@ public class ListaCompras extends AbstractEntityModel {
     private Usuario user;
     
     /** Campo livrosDaListaCompras*/
-    @OneToMany(cascade={CascadeType.ALL})
+    @OneToMany(cascade= CascadeType.ALL)
     @JoinTable(
-        name="LISTA_COMPRAS_LIVRO_LISTA_COMPRAS",
+        name="LISTA_COMPRAS_ITEM_LISTA_COMPRAS",
         joinColumns=@JoinColumn(name="id_lista_compra"),
-        inverseJoinColumns=@JoinColumn(name="id_livro")
+        inverseJoinColumns=@JoinColumn(name="id_item_lista_compra")
     )
+    @Cascade(org.hibernate.annotations.CascadeType.DELETE_ORPHAN)
     private Collection<ItemListaCompras> livrosDaListaCompras = new ArrayList<ItemListaCompras>();
 
     /**

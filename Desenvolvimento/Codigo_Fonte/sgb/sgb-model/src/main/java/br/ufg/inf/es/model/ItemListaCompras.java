@@ -16,15 +16,12 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "ITEM_LISTA_COMPRA")
 public class ItemListaCompras extends AbstractEntityModel {
-    
-	private static final int HASH = 5;
-	
-	private static final int SALTO = 11;	
-	
-    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+
+    private static final int HASH = 5;
+    private static final int SALTO = 11;
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "id_livro")
     private Livro livro;
-    
     /**
      * Campo quantidadeVagas
      */
@@ -91,5 +88,4 @@ public class ItemListaCompras extends AbstractEntityModel {
         }
         return true;
     }
-    
 }

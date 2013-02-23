@@ -25,7 +25,7 @@ public class LivroTest {
     private Collection<Autor> autores = Arrays.asList(new Autor());
     private Collection<Bibliografia> bibliografias;
     private Collection<ListaCompras> listaCompras = Arrays.asList(new ListaCompras());
-    private Collection<CotacoesLivro> cotacoesLivro = Arrays.asList(new CotacoesLivro());
+    private Collection<ItemListaCotacao> cotacoesLivro = Arrays.asList(new ItemListaCotacao());
 
     /**
      * setup
@@ -45,7 +45,7 @@ public class LivroTest {
         livro.setEditora(editora);
         livro.setAutores(autores);
         livro.setBibliografias(bibliografias);
-        livro.setCotacoesLivro(cotacoesLivro);
+        livro.setItensListaCotacao(cotacoesLivro);
     }
 
     /**
@@ -153,11 +153,11 @@ public class LivroTest {
     }
 
     /**
-     * Test of getCotacoesLivro method, of class Livro.
+     * Test of getItemListaCotacao method, of class Livro.
      */
     @Test
-    public void testGetCotacoesLivro() {
-        assertEquals(cotacoesLivro, livro.getCotacoesLivro());
+    public void testGetItemListaCotacao() {
+        assertEquals(cotacoesLivro, livro.getItensListaCotacao());
     }
     
     @Test
@@ -235,7 +235,7 @@ public class LivroTest {
         livro2.setEstrangeiro(estrangeiro);
         livro2.setEditora(editora);
         livro2.setBibliografias(bibliografias);
-        livro2.setCotacoesLivro(cotacoesLivro);
+        livro2.setItensListaCotacao(cotacoesLivro);
         return livro2;
     }
     @Test

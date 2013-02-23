@@ -13,6 +13,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
+import org.hibernate.annotations.Cascade;
 
 /**
  * Entidade ListaCotacao
@@ -41,11 +42,12 @@ public class ListaCotacao extends AbstractEntityModel {
     /** Campo cotacoes*/
     @OneToMany(fetch=FetchType.EAGER, cascade={CascadeType.ALL})
     @JoinTable(
-            name="LISTACOTACAO_COTACOESLIVRO",
+            name="LISTA_COTACAO_ITEM_LISTA_COTACAO",
             joinColumns = @JoinColumn( name="id_lista_cotacao"),
-            inverseJoinColumns = @JoinColumn( name="id_cotacoes_livro")
+            inverseJoinColumns = @JoinColumn( name="id_item_lista_cotacao")
     )
-    private Collection<CotacoesLivro> cotacoesLivro =  new ArrayList<CotacoesLivro>();
+    @Cascade(org.hibernate.annotations.CascadeType.DELETE_ORPHAN)
+    private Collection<ItemListaCotacao> itensListaCotacao =  new ArrayList<ItemListaCotacao>();
 
     /**
      * Obtém o valor do campo <code>nome</code>
@@ -109,8 +111,8 @@ public class ListaCotacao extends AbstractEntityModel {
      *
      * @return {@link List<Cotacao>}
      */
-    public Collection<CotacoesLivro> getCotacoesLivro() {
-            return this.cotacoesLivro;
+    public Collection<ItemListaCotacao> getItensListaCotacao() {
+            return this.itensListaCotacao;
     }
 
     /**
@@ -118,8 +120,8 @@ public class ListaCotacao extends AbstractEntityModel {
      *
      * @param cotacoes 
      */
-    public void setCotacoesLivro(Collection<CotacoesLivro> cotacoesLivro) {
-            this.cotacoesLivro = cotacoesLivro;
+    public void setItensListaCotacao(Collection<ItemListaCotacao> cotacoesLivro) {
+            this.itensListaCotacao = cotacoesLivro;
     }
 
     @Override
@@ -127,7 +129,7 @@ public class ListaCotacao extends AbstractEntityModel {
         int hash = HASH;
         hash = SALTO * hash + (this.nome != null ? this.nome.hashCode() : 0);
         hash = SALTO * hash + (this.dataRealizada != null ? this.dataRealizada.hashCode() : 0);
-        hash = SALTO * hash + (this.cotacoesLivro != null ? this.cotacoesLivro.hashCode() : 0);
+        hash = SALTO * hash + (this.itensListaCotacao != null ? this.itensListaCotacao.hashCode() : 0);
         return hash;
     }
 
@@ -146,7 +148,7 @@ public class ListaCotacao extends AbstractEntityModel {
         if (this.dataRealizada != other.dataRealizada && (this.dataRealizada == null || !this.dataRealizada.equals(other.dataRealizada))) {
             return false;
         }
-        if (this.cotacoesLivro != other.cotacoesLivro && (this.cotacoesLivro == null || !this.cotacoesLivro.equals(other.cotacoesLivro))) {
+        if (this.itensListaCotacao != other.itensListaCotacao && (this.itensListaCotacao == null || !this.itensListaCotacao.equals(other.itensListaCotacao))) {
             return false;
         }
 
@@ -156,8 +158,8 @@ public class ListaCotacao extends AbstractEntityModel {
     public double getValor() {
 
         double valor = 0;
-        ArrayList<CotacoesLivro> cotacoes = 
-                new ArrayList<CotacoesLivro>(getCotacoesLivro());
+        ArrayList<ItemListaCotacao> cotacoes = 
+                new ArrayList<ItemListaCotacao>(getItensListaCotacao());
 
         for (int i = 0; i < cotacoes.size(); i++) {
             valor += cotacoes.get(i).getValorMedio() * cotacoes.get(i).getQuantidade() ;

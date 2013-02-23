@@ -132,7 +132,8 @@
                             <h:panelGrid columns="2" style="margin-left: 30%;">
 
                                 <p:commandButton value="#{msg['cadastro.autor.label.sim']}" update="lista_livros_form"
-                                                 action="#{livroController.removerLivros}" oncomplete="dlgRemocao.hide()"/>
+                                                 action="#{livroController.removerLivros}" oncomplete="dlgRemocao.hide()"
+                                                 ajax="false"/>
 
                                 <p:commandButton value="#{msg['cadastro.autor.label.nao']}"
                                                  onclick="dlgRemocao.hide();"/>

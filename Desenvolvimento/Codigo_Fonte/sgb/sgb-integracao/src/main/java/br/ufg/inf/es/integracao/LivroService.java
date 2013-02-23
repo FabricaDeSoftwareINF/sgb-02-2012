@@ -96,11 +96,6 @@ public class LivroService extends GenericService<Livro> {
 
     @Override
     public void removeAll(Collection<Livro> livros) throws ValidationException {
-        try {
-            super.removeAll(livros);
-        } catch (org.hibernate.exception.ConstraintViolationException e) {
-            throw new ValidationException("cadastro.livro.remocao.dependencia");
-        }
+        this.getDAO().removeLivros(livros);
     }
-    
 }

@@ -1,5 +1,6 @@
 package br.ufg.inf.es.integracao;
 
+import br.ufg.inf.es.base.util.UtilObjeto;
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,9 +10,21 @@ import org.springframework.stereotype.Component;
 
 import br.ufg.inf.es.model.ItemListaCompras;
 import br.ufg.inf.es.model.ListaCompras;
+import br.ufg.inf.es.model.Livro;
+import br.ufg.inf.es.model.Parametros;
+import br.ufg.inf.es.model.biblioteca.LivroBiblioteca;
 import br.ufg.inf.es.persistencia.ItemListaComprasDAO;
 import br.ufg.inf.es.persistencia.ListaComprasDAO;
+import br.ufg.inf.es.persistencia.LivroDAO;
+import br.ufg.inf.es.persistencia.ParametrosDAO;
 import br.ufg.inf.es.persistencia.UsuarioDAO;
+import br.ufg.inf.es.persistencia.biblioteca.LivrosBibliotecaDAO;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javassist.NotFoundException;
 
 /**
  * Classe Service para a ListaCompras.
@@ -31,16 +44,52 @@ public class ListaComprasService extends GenericService<ListaCompras> {
      * Campo livroDao
      */
     @Autowired
-    private ItemListaComprasDAO livroDao;
+    private ItemListaComprasDAO itemListaComprasDao;
     @Autowired
     private UsuarioDAO usuarioDao;
+    
+    /**
+     * Campo parametrosDao
+     */
+    @Autowired
+    private ParametrosDAO parametrosDao;
+    
+    /**
+     * Campo bibliotecaDao
+     */
+    @Autowired
+    private LivrosBibliotecaDAO bibliotecaDao;
+    
+    /**
+     * Campo livroDao
+     */
+    @Autowired
+    private LivroDAO livroDao;
 
+    /**
+     * Método que obtém o DAO do ItemListaCompras.
+     *
+     * @return itemListaComprasDao
+     */
+    public ItemListaComprasDAO getItemListaComprasDao() {
+        return itemListaComprasDao;
+    }
+
+    /**
+     * Método que define o ItemListaComprasDAO
+     *
+     * @param itemListaComprasDao
+     */
+    public void getItemListaComprasDao(ItemListaComprasDAO livroDao) {
+        this.itemListaComprasDao = livroDao;
+    }
+    
     /**
      * Método que obtém o DAO do Livro.
      *
      * @return
      */
-    public ItemListaComprasDAO getLivroDao() {
+    public LivroDAO getLivroDao() {
         return livroDao;
     }
 
@@ -49,7 +98,7 @@ public class ListaComprasService extends GenericService<ListaCompras> {
      *
      * @param livroDao
      */
-    public void setLivroDao(ItemListaComprasDAO livroDao) {
+    public void setLivroDao(LivroDAO livroDao) {
         this.livroDao = livroDao;
     }
 
@@ -93,7 +142,6 @@ public class ListaComprasService extends GenericService<ListaCompras> {
             for (ListaCompras lc : listaCompras) {
                 Collection<ItemListaCompras> livros = this.getDAO().findLivrosListaCompras(lc.getId());
                 lc.setLivrosDaListaCompras(livros);
-
             }
         }
     }
@@ -107,7 +155,7 @@ public class ListaComprasService extends GenericService<ListaCompras> {
      */
     public Collection<ItemListaCompras> buscaTodosLivros(String filtroTitulo) {
 
-        return livroDao.list();
+        return itemListaComprasDao.list();
 
     }
 
@@ -124,7 +172,58 @@ public class ListaComprasService extends GenericService<ListaCompras> {
     }
 
     public void removerLivros(Collection<ItemListaCompras> livros) {
-        this.getLivroDao().removeAll(livros);
+        this.getItemListaComprasDao().removeAll(livros);
+    }
+
+    public ParametrosDAO getParametrosDao() {
+        return parametrosDao;
+    }
+
+    public void setParametrosDao(ParametrosDAO parametrosDao) {
+        this.parametrosDao = parametrosDao;
+    }
+
+    public LivrosBibliotecaDAO getBibliotecaDao() {
+        return bibliotecaDao;
+    }
+
+    public void setBibliotecaDao(LivrosBibliotecaDAO bibliotecaDao) {
+        this.bibliotecaDao = bibliotecaDao;
+    }
+    
+    public void atualizarItens(Collection<ItemListaCompras> itens) {
+        List<Parametros> param = new ArrayList<Parametros>(this.getParametrosDao().list());
+        int quantidadeLivrosPorAlunos = 0;
+        if (UtilObjeto.isReferencia(param) && param.size() > 0) {
+            quantidadeLivrosPorAlunos = param.get(0).getParametroMEC();
+        }
+        for (ItemListaCompras item : itens) {
+
+            Integer quantidadeBiblioteca = 0;
+
+            try {
+                Collection<LivroBiblioteca> livrosBiblioteca = this.getBibliotecaDao().
+                        getLivrosBibliotecaTitulo(item.getLivro().getTitulo());
+
+                if (UtilObjeto.isReferencia(livrosBiblioteca) && livrosBiblioteca.size() > 0) {
+
+                    for (LivroBiblioteca livroBiblioteca : livrosBiblioteca) {
+
+                        quantidadeBiblioteca += livroBiblioteca.getQuantidade();
+                    }
+                }
+
+            } catch (NotFoundException ex) {
+                Logger.getLogger(ItemListaCompraService.class.getName()).log(Level.SEVERE, null, ex.getMessage());
+            } catch (SQLException ex) {
+                Logger.getLogger(ItemListaCompraService.class.getName()).log(Level.SEVERE, null, ex.getMessage());
+            }
+
+            Integer quantidadeAlunos = this.getLivroDao().obterQuantidadeDeAlunosPorLivro(item.getLivro().getId());
+
+            item.setQuantidadeExigida(quantidadeAlunos / quantidadeLivrosPorAlunos);
+            item.setQuantidadeLivrosDisponiveis(quantidadeBiblioteca);
+        }
     }
     
 }

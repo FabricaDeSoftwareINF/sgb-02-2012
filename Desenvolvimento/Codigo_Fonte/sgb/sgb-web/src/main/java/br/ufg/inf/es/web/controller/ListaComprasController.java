@@ -37,17 +37,13 @@ public class ListaComprasController extends SGBController<ListaCompras, ListaCom
     private ListaComprasService service;
     @Autowired
     private LivroService livroService;
-    
     @Autowired
     private UsuarioController usuarioController;
     @Autowired
     private ItemListaCompraService itemListaCompraService;
-    
     @Autowired
     private ParametrosService parametrosService;
-            
     private int parametroMec;
-    
     private Collection<ItemListaCompras> itensListaCompra;
 
     /**
@@ -59,7 +55,7 @@ public class ListaComprasController extends SGBController<ListaCompras, ListaCom
     @Override
     public String openInitialPage() {
         this.getForm().setListaCompras(this.getService().list());
-        
+
         List<ItemListaCompras> itens = new ArrayList<ItemListaCompras>();
         try {
             if (itensListaCompra == null) {
@@ -71,10 +67,11 @@ public class ListaComprasController extends SGBController<ListaCompras, ListaCom
         this.getForm().setItemListaDataModel(new ItemListaCompraDataModel(itens));
         return super.openInitialPage();
     }
-    
+
     @Override
     public String openInsertPage() {
         buscaTodosLivros();
+        this.getForm().setEntity(new ListaCompras());
         this.getForm().setLivrosSelecionados(new ArrayList<ItemListaCompras>());
         try {
             parametroMec = parametrosService.obtenhaParametroMEC();
@@ -83,7 +80,7 @@ public class ListaComprasController extends SGBController<ListaCompras, ListaCom
         }
         return super.openInsertPage();
     }
-    
+
     @Override
     public String openEditPage(ListaCompras lista) {
         List<ItemListaCompras> itens = new ArrayList<ItemListaCompras>(lista.getLivrosDaListaCompras());
@@ -114,7 +111,7 @@ public class ListaComprasController extends SGBController<ListaCompras, ListaCom
     public void setParametroMec(int parametroMec) {
         this.parametroMec = parametroMec;
     }
-    
+
     /**
      * @author Jackeline
      */
@@ -128,20 +125,11 @@ public class ListaComprasController extends SGBController<ListaCompras, ListaCom
 
     public String salvarListaCompras() throws ValidationException {
 
-        List<ItemListaCompras> livros = new ArrayList<ItemListaCompras>();
-
-        for (ItemListaCompras livroParaCotacao : this.getForm().getLivrosSelecionados()) {
-            ItemListaCompras livroListaCotacao = new ItemListaCompras();
-            livroListaCotacao.setLivro(livroParaCotacao.getLivro());
-            livroListaCotacao.setQuantidadeAComprar(livroListaCotacao.getQuantidadeAComprar());
-            livros.add(livroListaCotacao);
-        }
-        
         ListaCompras listaCompras = this.getForm().getEntity();
 
         listaCompras.setDataCriacao(new Date());
 
-        listaCompras.setLivrosDaListaCompras(livros);
+        listaCompras.setLivrosDaListaCompras(this.getForm().getLivrosSelecionados());
 
         listaCompras.setUser(usuarioController.getUsuarioLogado());
         this.getService().criaListaCompras(listaCompras);
@@ -150,12 +138,12 @@ public class ListaComprasController extends SGBController<ListaCompras, ListaCom
 
         return this.openInitialPage();
     }
-    
-    public String editarListaCompras() throws ValidationException {        
+
+    public String editarListaCompras() throws ValidationException {
         ListaCompras listaCompras = this.getForm().getEntity();
         listaCompras.setDataCriacao(new Date());
         listaCompras.setUser(usuarioController.getUsuarioLogado());
-        this.service.save(this.getForm().getEntity());
+        this.service.save(listaCompras);
         return this.openInitialPage();
     }
 
@@ -180,21 +168,21 @@ public class ListaComprasController extends SGBController<ListaCompras, ListaCom
      */
     @Override
     public void remove() {
-        
+
         try {
-            
+
             this.getService().remove(this.getForm().getListaComprasParaRemocao());
-            
+
             this.getForm().setListaCompras(this.getService().list());
-            
+
             this.addSuccessMessage("arquitetura.msg.sucesso");
-            
-        } catch (ValidationException ve){
-            
+
+        } catch (ValidationException ve) {
+
             this.addErrorMessage("arquitetura.msg.erro");
         }
-    }   
-    
+    }
+
     public void removerLivros() {
         Collection<ItemListaCompras> livrosSelecionados = this.getForm().getLivrosSelecionados();
         Collection<ItemListaCompras> itens = this.getForm().getEntity().getLivrosDaListaCompras();
@@ -203,7 +191,7 @@ public class ListaComprasController extends SGBController<ListaCompras, ListaCom
         this.getForm().setItemListaDataModel(new ItemListaCompraDataModel(itensList));
         this.getForm().setLivrosSelecionados(new ArrayList<ItemListaCompras>());
     }
-    
+
     public void adicionarLivros() {
         Collection<ItemListaCompras> livrosSelecionados = this.getForm().getLivrosAdicaoSelecionados();
         Collection<ItemListaCompras> itens = this.getForm().getEntity().getLivrosDaListaCompras();
@@ -212,7 +200,7 @@ public class ListaComprasController extends SGBController<ListaCompras, ListaCom
         this.getForm().setItemListaDataModel(new ItemListaCompraDataModel(itensList));
         this.getForm().setLivrosSelecionados(new ArrayList<ItemListaCompras>());
     }
-    
+
     public void carregarLivrosAdicao() {
         try {
             this.getForm().setLivrosAdicaoSelecionados(new ArrayList<ItemListaCompras>());
@@ -224,5 +212,10 @@ public class ListaComprasController extends SGBController<ListaCompras, ListaCom
             Logger.getLogger(ListaComprasController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
+    public void atualizarItens() {
+        Collection<ItemListaCompras> itens = this.getForm().getEntity().getLivrosDaListaCompras();
+        this.service.atualizarItens(itens);
+        this.getForm().setLivrosSelecionados(new ArrayList<ItemListaCompras>());
+    }
 }

@@ -11,9 +11,9 @@ import org.junit.Test;
  *
  * @author Victor Carvalho
  */
-public class CotacoesLivroTest {
+public class ItemListaCotacaoTest {
 
-    private CotacoesLivro cotacoesLivro;
+    private ItemListaCotacao cotacoesLivro;
     private String urlImagem = "url";
     private double valorMedio = 10;
     private Date dataCadastro = new Date();
@@ -26,7 +26,7 @@ public class CotacoesLivroTest {
      */
     @Before
     public void setUp() {
-        cotacoesLivro = new CotacoesLivro();
+        cotacoesLivro = new ItemListaCotacao();
         cotacoesLivro.setValorMedio(valorMedio);
         cotacoesLivro.setLivro(livro);
         cotacoesLivro.setCotacoes(cotacoes);
@@ -35,7 +35,7 @@ public class CotacoesLivroTest {
     }
 
     /**
-     * Test of getValorMedio method, of class CotacoesLivro.
+     * Test of getValorMedio method, of class ItemListaCotacao.
      */
     @Test
     public void testGetValorMedio() {
@@ -43,7 +43,7 @@ public class CotacoesLivroTest {
     }
 
     /**
-     * Test of getLivro method, of class CotacoesLivro.
+     * Test of getLivro method, of class ItemListaCotacao.
      */
     @Test
     public void testGetLivro() {
@@ -51,7 +51,7 @@ public class CotacoesLivroTest {
     }
 
     /**
-     * Test of getCotacoes method, of class CotacoesLivro.
+     * Test of getCotacoes method, of class ItemListaCotacao.
      */
     @Test
     public void testGetCotacoes() {
@@ -59,7 +59,7 @@ public class CotacoesLivroTest {
     }
 
     /**
-     * Test of getQuantidade method, of class CotacoesLivro.
+     * Test of getQuantidade method, of class ItemListaCotacao.
      */
     @Test
     public void testGetQuantidade() {
@@ -67,7 +67,7 @@ public class CotacoesLivroTest {
     }
 
     /**
-     * Test of getUrlImagem method, of class CotacoesLivro.
+     * Test of getUrlImagem method, of class ItemListaCotacao.
      */
     @Test
     public void testGetUrlImagem() {
@@ -75,18 +75,18 @@ public class CotacoesLivroTest {
     }
 
     /**
-     * Test of hashCode method, of class CotacoesLivro.
+     * Test of hashCode method, of class ItemListaCotacao.
      */
     @Test
     public void testHashCode() {
-        CotacoesLivro instance = new CotacoesLivro();
+        ItemListaCotacao instance = new ItemListaCotacao();
         assertTrue(instance.hashCode() != 0);
     }
 
     
     @Test
     public void testHashCodeNulo() {
-        CotacoesLivro instance = cotacoesLivro;
+        ItemListaCotacao instance = cotacoesLivro;
         instance.setLivro(null);
         assertTrue(instance.hashCode() != 0);
         instance.setLivro(livro);
@@ -95,17 +95,17 @@ public class CotacoesLivroTest {
         
     }
     /**
-     * Test of equals method, of class CotacoesLivro.
+     * Test of equals method, of class ItemListaCotacao.
      */
     @Test
     public void testEquals() {
-        CotacoesLivro instance = cotacoesLivro;
+        ItemListaCotacao instance = cotacoesLivro;
         assertTrue(instance.equals(cotacoesLivro));
     }
     
     @Test
     public void testEqualsFalse() {
-        CotacoesLivro instance = new CotacoesLivro();
+        ItemListaCotacao instance = new ItemListaCotacao();
         assertFalse(instance.equals(null));
         assertFalse(instance.equals(""));
         assertFalse(instance.equals(cotacoesLivro));

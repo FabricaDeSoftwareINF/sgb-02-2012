@@ -17,8 +17,8 @@ public class ListaCotacaoTest {
     private ListaCotacao listaCotacao;
     private String nome = "nome";
     private Date dataRealizada = new Date();
-     CotacoesLivro cotacao = new CotacoesLivro();
-    private Collection<CotacoesLivro> cotacoesLivro =new ArrayList<CotacoesLivro>();
+     ItemListaCotacao cotacao = new ItemListaCotacao();
+    private Collection<ItemListaCotacao> cotacoesLivro =new ArrayList<ItemListaCotacao>();
 
     /**
      * setup
@@ -33,7 +33,7 @@ public class ListaCotacaoTest {
        
         listaCotacao.setNome(nome);
         listaCotacao.setDataRealizada(dataRealizada);
-        listaCotacao.setCotacoesLivro(cotacoesLivro);
+        listaCotacao.setItensListaCotacao(cotacoesLivro);
         cotacoesLivro.add(cotacao);
     }
 
@@ -72,11 +72,11 @@ public class ListaCotacaoTest {
     }
 
     /**
-     * Test of getCotacoesLivro method, of class ListaCotacao.
+     * Test of getItemListaCotacao method, of class ListaCotacao.
      */
     @Test
-    public void testGetCotacoesLivro() {
-        assertEquals(cotacoesLivro, listaCotacao.getCotacoesLivro());
+    public void testGetItemListaCotacao() {
+        assertEquals(cotacoesLivro, listaCotacao.getItensListaCotacao());
     }
 
     @Test
@@ -95,8 +95,8 @@ public class ListaCotacaoTest {
         ListaCotacao listaCotacao2 = new ListaCotacao();
         listaCotacao2.setNome("b");
         listaCotacao2.setDataRealizada(new Date());
-        cotacoesLivro.add(new CotacoesLivro());
-        listaCotacao2.setCotacoesLivro(cotacoesLivro);
+        cotacoesLivro.add(new ItemListaCotacao());
+        listaCotacao2.setItensListaCotacao(cotacoesLivro);
         
         assertFalse(listaCotacao.equals(listaCotacao2));
         listaCotacao2.setNome(null);
@@ -104,16 +104,16 @@ public class ListaCotacaoTest {
         listaCotacao2.setNome(nome);
         
        
-        listaCotacao2.setCotacoesLivro(null);
+        listaCotacao2.setItensListaCotacao(null);
         assertFalse(listaCotacao.equals(listaCotacao2));
-        listaCotacao2.setCotacoesLivro(cotacoesLivro);
+        listaCotacao2.setItensListaCotacao(cotacoesLivro);
         
         listaCotacao2.setDataRealizada(null);
         assertFalse(listaCotacao.equals(listaCotacao2));
         listaCotacao2.setDataRealizada(dataRealizada);        
-        listaCotacao2.setCotacoesLivro(null);
+        listaCotacao2.setItensListaCotacao(null);
         assertFalse(listaCotacao.equals(listaCotacao2));
-        listaCotacao2.setCotacoesLivro(cotacoesLivro);
+        listaCotacao2.setItensListaCotacao(cotacoesLivro);
     }
      @Test
     public void testHashCode()
@@ -126,9 +126,9 @@ public class ListaCotacaoTest {
         assertTrue(listaCotacao.hashCode()!=0);
         listaCotacao.setDataRealizada(null);
         assertTrue(listaCotacao.hashCode()!=0);
-        listaCotacao.setCotacoesLivro(cotacoesLivro);
+        listaCotacao.setItensListaCotacao(cotacoesLivro);
         assertTrue(listaCotacao.hashCode()!=0);
-        listaCotacao.setCotacoesLivro(null);
+        listaCotacao.setItensListaCotacao(null);
         assertTrue(listaCotacao.hashCode()!=0);
     }
 }
