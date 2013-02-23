@@ -127,12 +127,13 @@ public class RealizarCotacaoServiceTest {
         Livro livro = new Livro();
         livro.setId(idLivro);
         livro.setTitulo("titulo");
-        livro.setEstrangeiro(true);
 
         Cotador cotadorGoogleShop;
         if (isNacional) {
+            livro.setEstrangeiro(false);
             cotadorGoogleShop = mock(CotadorBuscape.class);
         } else {
+            livro.setEstrangeiro(true);
             cotadorGoogleShop = mock(CotadorGoogleShop.class);
         }
         when(cotadorGoogleShop.buscarOfertas(livro)).thenReturn(Arrays.asList(rc));
