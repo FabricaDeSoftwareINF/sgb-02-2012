@@ -5,6 +5,7 @@ import br.ufg.inf.es.model.Autor;
 import br.ufg.inf.es.model.Bibliografia;
 import br.ufg.inf.es.model.Curso;
 import br.ufg.inf.es.model.Livro;
+import br.ufg.inf.es.model.biblioteca.LivroBiblioteca;
 
 import br.ufg.inf.es.web.datamodel.LivroDataModel;
 import java.util.ArrayList;
@@ -32,6 +33,10 @@ public class LivroForm extends GenericForm<Livro> {
     private Curso cursoSelecionado;   
     private Collection<Autor> autoresAdicionados = new ArrayList<Autor>();
     private Bibliografia bibliografiaRemocao = new Bibliografia();
+    
+    private LivroBiblioteca livroBiblioteca = new LivroBiblioteca();
+    private LivroBiblioteca livroBibliotecaRemocao = new LivroBiblioteca();
+    private Collection<LivroBiblioteca> livrosAssociados = new ArrayList<LivroBiblioteca>();
     
     public Bibliografia getBibliografiaTemp() {
         return bibliografiaTemp;
@@ -125,4 +130,28 @@ public class LivroForm extends GenericForm<Livro> {
         this.bibliografiaRemocao = bibliografiaRemocao;
     }
 
+    public LivroBiblioteca getLivroBiblioteca() {
+        return livroBiblioteca;
+    }
+
+    public void setLivroBiblioteca(LivroBiblioteca livroBiblioteca) {
+        this.livroBiblioteca = livroBiblioteca;
+    }
+
+    public LivroBiblioteca getLivroBibliotecaRemocao() {
+        return livroBibliotecaRemocao;
+    }
+
+    public void setLivroBibliotecaRemocao(LivroBiblioteca livroBibliotecaRemocao) {
+        this.livroBibliotecaRemocao = livroBibliotecaRemocao;
+    }
+
+    public Collection<LivroBiblioteca> getLivrosAssociados() {
+        return livrosAssociados;
+    }
+
+    public void setLivrosAssociados(Collection<LivroBiblioteca> livrosAssociados) {
+        this.livrosAssociados = livrosAssociados;
+    }
+        
 }
