@@ -14,10 +14,23 @@ public abstract class StringConverter implements Converter {
 
     private int limiteMaximo;
 
+    /**
+     * Construtor
+     *
+     * @param limiteMaximo
+     */
     public StringConverter(int limiteMaximo) {
         this.limiteMaximo = limiteMaximo;
     }
 
+    /**
+     * Obtem o valor como um objeto
+     *
+     * @param facesContext
+     * @param component
+     * @param value
+     * @return
+     */
     @Override
     public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
 
@@ -28,6 +41,14 @@ public abstract class StringConverter implements Converter {
         }
     }
 
+    /**
+     * Obtem uma string adicionando quebras de linha se necessário
+     *
+     * @param context
+     * @param component
+     * @param value
+     * @return
+     */
     @Override
     public String getAsString(FacesContext context, UIComponent component, Object value) {
         if (value == null || value.equals("")) {
@@ -37,6 +58,12 @@ public abstract class StringConverter implements Converter {
         }
     }
 
+    /**
+     * Adiciona as quebras de liha se necessário
+     *
+     * @param value
+     * @return
+     */
     private String estruturarString(String value) {
 
         StringBuilder builder = new StringBuilder();
