@@ -8,13 +8,16 @@ import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javassist.NotFoundException;
+import org.springframework.beans.factory.config.BeanDefinition;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
 /**
  *
  * @author Igor
  */
-//@Component
-//@Scope(BeanDefinition.SCOPE_SINGLETON)
+@Component
+@Scope(BeanDefinition.SCOPE_SINGLETON)
 public class BibliotecaService implements Biblioteca {
 
     /**
