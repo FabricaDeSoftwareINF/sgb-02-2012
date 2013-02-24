@@ -33,7 +33,7 @@ public class ComunicacaoController extends SGBController<Comunicacao,
     
     @Override
     public String openInitialPage() {
-        Comunicacao comunicacao = service.getComunicacao();
+       Comunicacao comunicacao = service.getComunicacao();
         if (comunicacao != null) {
 
             form.setEntity(comunicacao);

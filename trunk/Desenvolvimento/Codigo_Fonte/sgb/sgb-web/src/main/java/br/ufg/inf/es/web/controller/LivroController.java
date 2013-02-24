@@ -15,6 +15,8 @@ import br.ufg.inf.es.model.Curso;
 import br.ufg.inf.es.model.Disciplina;
 import br.ufg.inf.es.model.Editora;
 import br.ufg.inf.es.model.Livro;
+import br.ufg.inf.es.model.biblioteca.LivroBiblioteca;
+import br.ufg.inf.es.persistencia.biblioteca.LivrosBibliotecaDAO;
 import br.ufg.inf.es.web.controller.form.LivroForm;
 import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
@@ -27,8 +29,14 @@ import org.springframework.stereotype.Component;
 import org.hibernate.Hibernate;
 import br.ufg.inf.es.web.datamodel.LivroDataModel;
 import java.nio.charset.Charset;
+import java.sql.SQLException;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javassist.NotFoundException;
 import javax.faces.model.SelectItem;
 import org.primefaces.event.SelectEvent;
 import org.primefaces.event.UnselectEvent;
@@ -53,6 +61,8 @@ public class LivroController extends SGBController<Livro, LivroForm, LivroServic
     private EditoraService editoraService;
     @Autowired
     private AutorService autorService;
+    @Autowired
+    private LivrosBibliotecaDAO livrosBibliotecaDAO;
     private Autor autor;
     private Editora editora;
     private EnumTipoBibliografia tipoBibliografia;
@@ -77,7 +87,8 @@ public class LivroController extends SGBController<Livro, LivroForm, LivroServic
         this.editora = new Editora();
 
         this.getForm().setTodosLivros(new ArrayList<Livro>());
-
+        
+        this.form.setLivrosAssociados(new ArrayList<LivroBiblioteca>());
 
         return super.openInitialPage();
     }
@@ -99,9 +110,36 @@ public class LivroController extends SGBController<Livro, LivroForm, LivroServic
         if (autoresAdicionados != null) {
             this.getForm().setAutoresAdicionados(autoresAdicionados);
         }
+
+        if (this.getForm().getEntity().getCodigosLivrosBiblioteca() != null
+                && (!this.getForm().getEntity().getCodigosLivrosBiblioteca().isEmpty())) {
+
+            for (Long codigoLivro : this.getForm().getEntity().getCodigosLivrosBiblioteca()) {
+                try {
+                    LivroBiblioteca livroBiblioteca = this.livrosBibliotecaDAO.
+                            getLivroBibliotecaCodigo(codigoLivro);
+                    
+                    if (this.getForm().getLivrosAssociados() == null){
+                        this.getForm().setLivrosAssociados(new ArrayList<LivroBiblioteca>());
+                    }
+                    
+                    this.getForm().getLivrosAssociados().add(livroBiblioteca);
+                    
+                } catch (NotFoundException ex) {
+                    this.addWarningMessage("arquitetura.msg.notfound");
+                } catch (SQLException ex) {
+                    StringBuilder exception = new StringBuilder();
+                    exception.append("arquitetura.msg.connectionexception");
+                    exception.append("\n");
+                    exception.append(ex.getMessage());
+                    this.addWarningMessage("arquitetura.msg.connectionexception");
+                }
+            }
+        }
+
         return super.openEditPage();
     }
-    
+
     @Override
     public void initData() {
         this.getForm().setCursoSelecionado(new Curso());
@@ -113,6 +151,13 @@ public class LivroController extends SGBController<Livro, LivroForm, LivroServic
         this.getForm().setAutoresAdicionados(new ArrayList<Autor>());
         this.getForm().setBibliografiaRemocao(new Bibliografia());
         this.getForm().setBibliografiaTemp(new Bibliografia());
+        this.getForm().setLivroBiblioteca(new LivroBiblioteca());
+    }
+
+    @Override
+    public String openSearchPage() {
+        this.form.setLivrosAssociados(new ArrayList<LivroBiblioteca>());
+        return super.openSearchPage();
     }
 
     public LivroDataModel getLivroModel() {
@@ -265,6 +310,39 @@ public class LivroController extends SGBController<Livro, LivroForm, LivroServic
         }
     }
 
+    public void associarLivroBiblioteca() {
+
+        if (UtilObjeto.isReferencia(this.getForm().getLivroBiblioteca())) {
+            Livro livro = this.form.getEntity();
+
+            if (livro != null) {
+                Collection<Long> codigosLivrosBiblioteca = livro.getCodigosLivrosBiblioteca();
+                if (this.form.getLivroBiblioteca().getId() != null) {
+                    if (codigosLivrosBiblioteca == null) {
+                        codigosLivrosBiblioteca = new ArrayList<Long>();
+                    }
+
+                    if (!codigosLivrosBiblioteca.contains(this.form.getLivroBiblioteca().getId())) {
+                        codigosLivrosBiblioteca.add(this.form.getLivroBiblioteca().getId());
+                        this.form.getEntity().setCodigosLivrosBiblioteca(codigosLivrosBiblioteca);
+                    } else {
+                        this.addWarningMessage("Livro já associado. Verifique!");
+                    }
+
+                } else {
+                    this.addErrorMessage("Não foi selecionado um Livro da Biblioteca. Verifique!");
+                }
+            } else {
+                this.addWarningMessage("Para associar um livro da biblioteca, "
+                        + "primeiro deve ser selecione um livro do sistema.");
+            }
+            this.form.getLivrosAssociados().add(this.form.getLivroBiblioteca());
+            this.form.setLivroBiblioteca(null);
+        } else {
+            this.addWarningMessage("cadastro.livro.validacao.associacaolivrobiblioteca");
+        }
+    }
+
     public Collection<Livro> complete(String query) {
 
         return this.service.searchByAttributes(query, "titulo");
@@ -298,6 +376,97 @@ public class LivroController extends SGBController<Livro, LivroForm, LivroServic
         return results;
     }
 
+    public Collection<LivroBiblioteca> completeLivroBiblioteca(String query) {
+
+        Collection<LivroBiblioteca> livroBibliotecas = new ArrayList<LivroBiblioteca>();
+
+        Map<String, String> keysQuery = getKeyQuery(query.trim());
+        try {
+            if (keysQuery.containsKey("CODIGO")) {
+                Long codigoLivro = 0l;
+                try {
+                    codigoLivro = new Long(keysQuery.get("CODIGO"));
+                } catch (NumberFormatException ex) {
+                    this.addErrorMessage("Código informado na pesquisa de livros "
+                            + "na biblioteca deve ser número inteiro longo.");
+                }
+
+                Collection<LivroBiblioteca> livrosBibl = new ArrayList<LivroBiblioteca>();
+                livrosBibl.add(this.livrosBibliotecaDAO.
+                        getLivroBibliotecaCodigo(codigoLivro));
+
+                livroBibliotecas = livrosBibl;
+
+            } else if (keysQuery.containsKey("CÓDIGO")) {
+
+                Long codigoLivro = 0l;
+                try {
+                    codigoLivro = new Long(keysQuery.get("CÓDIGO"));
+                } catch (NumberFormatException ex) {
+                    this.addErrorMessage("Código informado na pesquisa de livros "
+                            + "na biblioteca deve ser número inteiro longo.");
+                }
+
+                Collection<LivroBiblioteca> livrosBibl = new ArrayList<LivroBiblioteca>();
+                livrosBibl.add(this.livrosBibliotecaDAO.
+                        getLivroBibliotecaCodigo(codigoLivro));
+
+                livroBibliotecas = livrosBibl;
+
+            } else if (keysQuery.containsKey("ISBN")) {
+
+                livroBibliotecas = this.livrosBibliotecaDAO.
+                        getLivrosBibliotecaIsbn(keysQuery.get("ISBN"));
+
+            } else if (keysQuery.containsKey("AUTOR")) {
+
+                livroBibliotecas = this.livrosBibliotecaDAO.
+                        getLivrosBibliotecaAutor(keysQuery.get("AUTOR"));
+
+            } else {
+                livroBibliotecas = this.livrosBibliotecaDAO.
+                        getLivrosBibliotecaTitulo(query);
+            }
+
+        } catch (NotFoundException ex) {
+            this.addWarningMessage("arquitetura.msg.notfound");
+        } catch (SQLException ex) {
+            StringBuilder exception = new StringBuilder();
+            exception.append("arquitetura.msg.connectionexception");
+            exception.append("\n");
+            exception.append(ex.getMessage());
+            this.addWarningMessage("arquitetura.msg.connectionexception");
+        }
+        return livroBibliotecas;
+    }
+
+    private Map<String, String> getKeyQuery(String query) {
+        final int POSICAO_UM = 1;
+
+        Map<String, String> keyQuery = new HashMap<String, String>();
+
+        int posicaoIgualdade = 0;
+        String key = null;
+        String conteudo = null;
+
+        boolean isIgualdade = false;
+
+        for (int i = POSICAO_UM; i <= query.length(); i++) {
+
+            if (query.substring(i - POSICAO_UM, i).equals("=")) {
+                posicaoIgualdade = i;
+                isIgualdade = true;
+            }
+        }
+
+        if (isIgualdade) {
+            key = query.substring(0, posicaoIgualdade - 1).toUpperCase();
+            conteudo = query.substring(posicaoIgualdade, query.length());
+            keyQuery.put(key.toUpperCase(), conteudo);
+        }
+        return keyQuery;
+    }
+
     private Collection<Disciplina> buscaDisciplinasAssociadas() {
         Collection<Bibliografia> bibliografias =
                 this.getForm().getEntity().getBibliografias();
@@ -310,9 +479,9 @@ public class LivroController extends SGBController<Livro, LivroForm, LivroServic
     }
 
     public String salvarLivro() throws ValidationException {
-        
+
         super.insert();
-        return super.openSearchPage();
+        return openSearchPage();
     }
 
     public String editarLivro() throws ValidationException {
@@ -371,6 +540,12 @@ public class LivroController extends SGBController<Livro, LivroForm, LivroServic
         bibliografia.getDisciplina().getBibliografias().remove(bibliografia);
     }
 
+    public void removerReferenciaBiblioteca() {
+        LivroBiblioteca livroBiblioteca = this.getForm().getLivroBibliotecaRemocao();
+        this.getForm().getLivrosAssociados().remove(livroBiblioteca);
+        this.getForm().getEntity().getCodigosLivrosBiblioteca().remove(livroBiblioteca.getId());
+    }
+
     public String voltar() {
         return "/index.jsf";
     }
@@ -422,5 +597,4 @@ public class LivroController extends SGBController<Livro, LivroForm, LivroServic
         SelectItem nao = new SelectItem("false", naoLabel);
         return new SelectItem[]{vazio, sim, nao};
     }
-
 }
