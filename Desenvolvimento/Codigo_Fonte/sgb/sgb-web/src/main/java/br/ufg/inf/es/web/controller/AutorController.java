@@ -35,9 +35,7 @@ public class AutorController
      */
     @Override
     public String openInitialPage() {
-
         this.getForm().setExibirDialogExclusao(Boolean.FALSE);
-
         this.getForm().setTodosAutores(new ArrayList<AutorDTO>());
 
         buscaTodosAutores();
@@ -53,7 +51,6 @@ public class AutorController
      */
     @Override
     public String openEditPage() {
-
         return this.getRootNavigation() + "editPage";
     }
 
@@ -64,9 +61,9 @@ public class AutorController
      * @author Cássio Augusto Silva de Freitas
      */
     public void buscaTodosAutores() {
-
-        this.getForm().setTodosAutores(this.getService().buscaTodosAutores(this.getForm().getFiltroNome()));
-
+        this.getForm().setTodosAutores(this.getService().
+                buscaTodosAutores(this.getForm().getFiltroNome()));
+        
         this.getForm().setFiltroNome("");
 
         limpaEntidadeDeCadastro();
@@ -78,9 +75,7 @@ public class AutorController
      * @author Cássio Augusto Silva de Freitas
      */
     public void prepararInsercao() {
-
         limpaEntidadeDeCadastro();
-
     }
 
     /**
@@ -90,7 +85,6 @@ public class AutorController
      */
     public void insereAutor() {
         try {
-
             this.getService().insert(this.getForm().getEntity());
 
             this.addSuccessMessage("arquitetura.msg.sucesso");
@@ -98,9 +92,7 @@ public class AutorController
             buscaTodosAutores();
 
         } catch (ValidationException ex) {
-
             this.addWarningMessage(ex.getKeyMessage());
-
         }
     }
 
@@ -111,13 +103,10 @@ public class AutorController
      * @author Cássio Augusto Silva de Freitas
      */
     public void prepararExclusao() {
-
         if (this.getForm().getAutoresSelecionados().length == 0) {
 
             this.getForm().setExibirDialogExclusao(Boolean.FALSE);
-
             this.addWarningMessage("Nenhum Autor foi selecionado!!");
-
 
         } else {
             this.getForm().setExibirDialogExclusao(Boolean.TRUE);
@@ -131,7 +120,6 @@ public class AutorController
      * @author Cássio Augusto Silva de Freitas
      */
     public void removerAutoresSelecionados() {
-
         Collection<Autor> autores = new ArrayList<Autor>();
 
         for (int i = 0; i < this.getForm().getAutoresSelecionados().length; i++) {
@@ -140,12 +128,10 @@ public class AutorController
         }
 
         try {
-
             this.getService().removeAll(autores);
-
             this.addSuccessMessage("arquitetura.msg.sucesso");
-
             buscaTodosAutores();
+            
         } catch (ValidationException ex) {
             this.addWarningMessage(ex.getKeyMessage());
         } catch (ConstraintViolationException cve) {
@@ -162,7 +148,6 @@ public class AutorController
      * @author Cássio Augusto Silva de Freitas
      */
     public String editarAutor() {
-
         try {
             Hibernate.isInitialized(this.getForm().getEntity());
 
@@ -172,13 +157,9 @@ public class AutorController
             this.addSuccessMessage("arquitetura.msg.sucesso");
 
         } catch (ValidationException ex) {
-
             this.addWarningMessage(ex.getKeyMessage());
-
         }
-
         return this.openInitialPage();
-
     }
 
     /**
@@ -187,25 +168,20 @@ public class AutorController
      * @author Cássio Augusto Silva de Freitas
      */
     private void limpaEntidadeDeCadastro() {
-
         this.getForm().setEntity(new Autor());
-
     }
 
     @Override
     public AutorForm getForm() {
-
         return this.form;
     }
 
     @Override
     public AutorService getService() {
-
         return this.service;
     }
 
     public void setForm(AutorForm form) {
-
         this.form = form;
     }
 
