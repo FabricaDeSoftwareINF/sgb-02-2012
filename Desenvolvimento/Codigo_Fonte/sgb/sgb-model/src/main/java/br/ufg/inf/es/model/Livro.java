@@ -14,6 +14,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CollectionOfElements;
 
 import br.ufg.inf.es.base.util.UtilObjeto;
 import javax.persistence.FetchType;
@@ -85,7 +86,14 @@ public class Livro extends AbstractEntityModel {
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE},
         mappedBy = "livro")
     private Collection<ItemListaCotacao> itensListaCotacao;
-
+    
+    /**
+     * Campo Referencia do Livro na Biblioteca
+     */
+    @CollectionOfElements
+    @JoinTable(name="LIVRO_REF_BIBLIOTECA")
+    private Collection<Long> codigosLivrosBiblioteca;
+    
     /**
      * Obtém o valor do campo
      * <code>titulo</code>
@@ -312,6 +320,16 @@ public class Livro extends AbstractEntityModel {
     public void setItensListaCotacao(Collection<ItemListaCotacao> cotacoesLivro) {
         this.itensListaCotacao = cotacoesLivro;
     }
+
+    public Collection<Long> getCodigosLivrosBiblioteca() {
+        return codigosLivrosBiblioteca;
+    }
+
+    public void setCodigosLivrosBiblioteca(Collection<Long> codigosLivrosBiblioteca) {
+        this.codigosLivrosBiblioteca = codigosLivrosBiblioteca;
+    }
+
+       
 
     @Override
     public String toString() {
