@@ -116,7 +116,7 @@ public class LivroDAO extends GenericHibernateDAO<Livro> {
         criteria.setProjection(Projections.projectionList().add(Projections.sum("curs.vagas")));
         
         return UtilObjeto.isReferencia(criteria.uniqueResult()) ? (Integer) criteria.uniqueResult() : 0;
-    }
+    }  
     
     @Override
     public Collection<Livro> list() {
