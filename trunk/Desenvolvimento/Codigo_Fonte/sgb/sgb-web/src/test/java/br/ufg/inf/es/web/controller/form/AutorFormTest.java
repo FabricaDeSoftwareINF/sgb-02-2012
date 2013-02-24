@@ -98,7 +98,7 @@ public class AutorFormTest {
     @Test
     public void testGetModel() {
         AutorDataModel result = form.getModel();
-        assertEquals(model, result);
+        assertTrue(result instanceof AutorDataModel);
     }
 
     /**
