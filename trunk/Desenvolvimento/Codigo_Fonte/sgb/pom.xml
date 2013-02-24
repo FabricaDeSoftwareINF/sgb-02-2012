@@ -125,7 +125,7 @@
             <artifactId>slf4j-api</artifactId>
             <version>1.6.4</version>
         </dependency>
-       <!-- Fim de dependências do Spring -->
+        <!-- Fim de dependências do Spring -->
 
         <dependency>
             <groupId>javax.inject</groupId>
@@ -162,7 +162,7 @@
             <artifactId>poi-scratchpad</artifactId>
             <version>3.2-FINAL</version>
         </dependency>
-        
+                 
         <dependency>
             <groupId>org.powermock</groupId>
             <artifactId>powermock-module-junit4</artifactId>
@@ -188,6 +188,28 @@
             <version>4.10</version>
             <scope>test</scope>
         </dependency>
+        
+        <!--  Dependências Oracle  -->
+        <!--
+        <dependency>
+            <groupId>ojdbc6_g</groupId>
+            <artifactId>ojdbc6_g</artifactId>
+            <version>ojdbc6_g</version>
+        </dependency>        
+        <dependency>
+            <groupId>simplefan</groupId>
+            <artifactId>simplefan</artifactId>
+            <version>simplefan</version>
+        </dependency>
+        -->
+        <!--  Fim dependências Oracle  -->
+        
+        <dependency>
+            <groupId>postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>9.1-901.jdbc4</version>
+        </dependency>            
+        
     </dependencies>
     
     <distributionManagement>
