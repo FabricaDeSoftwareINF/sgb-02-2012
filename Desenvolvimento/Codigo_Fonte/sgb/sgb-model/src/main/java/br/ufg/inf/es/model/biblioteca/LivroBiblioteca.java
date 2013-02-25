@@ -6,9 +6,7 @@ package br.ufg.inf.es.model.biblioteca;
  * @author Victor Ribeiro de Carvalho
  */
 public class LivroBiblioteca {
-
-    private final int INICIO_TEXTO = 0;
-    private final int TAMANHO_MAX_TITULO = 50;
+    
     /**
      * Campo id
      */
@@ -221,6 +219,8 @@ public class LivroBiblioteca {
     }
 
     public String getNomeMax() {
+        final int INICIO_TEXTO = 0;
+        final int TAMANHO_MAX_TITULO = 50;
         if (nome.length() > TAMANHO_MAX_TITULO) {
             return nome.substring(INICIO_TEXTO, TAMANHO_MAX_TITULO);
         } else {
@@ -229,6 +229,8 @@ public class LivroBiblioteca {
     }
     
     public String getDescricaoLivro() {
+        final int INICIO_TEXTO = 0;
+        final int TAMANHO_MAX_TITULO = 50;
         StringBuffer descricao = new StringBuffer();
 
         if (nome != null) {
