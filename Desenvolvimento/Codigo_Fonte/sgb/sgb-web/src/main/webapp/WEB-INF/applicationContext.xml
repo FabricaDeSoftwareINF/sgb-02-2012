@@ -35,10 +35,12 @@
         <sec:form-login login-page="/login.jsf" login-processing-url="/j_spring_security_check" authentication-failure-url="/login.jsf?error=true" default-target-url="/paginas/index.jsf" />
         
         <sec:logout logout-success-url="/login.jsf" invalidate-session="true"/>
+        
+        <sec:intercept-url pattern="/paginas/*" access="hasAnyRole('ADM', 'CONSELHEIRO', 'DOCENTE')" />
+        <sec:intercept-url pattern="/paginas/comum/**" access="hasAnyRole('ADM', 'CONSELHEIRO', 'DOCENTE')" />
+        <sec:intercept-url pattern="/paginas/admin/**" access="hasRole('ADM')" />
 
-        <sec:intercept-url pattern="/paginas/**" access="hasAnyRole('ADM', 'CONSELHEIRO', 'DOCENTE')" />
-
-        <sec:access-denied-handler error-page="/login.jsf" />
+        <sec:access-denied-handler error-page="/denied.jsf"/>
 
         <sec:session-management invalid-session-url="/login.jsf" session-authentication-error-url="/login.jsf" />
         
@@ -58,19 +60,19 @@
         </property>
         <property name="packagesToScan" value="br.ufg.inf.es.model" />
         <property name="hibernateProperties">
-            <!--<props>
+            <props>
                 <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
                 <prop key="hibernate.hbm2ddl.auto">update</prop>
                 <prop key="hibernate.show_sql">true</prop>
                 <prop key="hibernate.current_session_context_class">thread</prop>
-            </props>-->
+            </props>
             <!-- Para rodar no laboratorio da universidade com banco do derby do netbeans -->
-            <props> 
+            <!--<props> 
                 <prop key="hibernate.dialect">org.hibernate.dialect.DerbyDialect</prop>
                 <prop key="hibernate.hbm2ddl.auto">update</prop>
                 <prop key="hibernate.show_sql">true</prop>
                 <prop key="hibernate.current_session_context_class">thread</prop>
-            </props>
+            </props>-->
         </property>
     </bean>
 
@@ -80,15 +82,15 @@
     </bean>
 
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-        <!--<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+        <property name="driverClassName" value="com.mysql.jdbc.Driver" />
         <property name="url" value="jdbc:mysql://localhost:3306/sgb" />
         <property name="username" value="root" />
-        <property name="password" value="root" />-->
+        <property name="password" value="12345678" />
         <!-- Para rodar no laboratorio da universidade com banco do derby do netbeans -->
-        <property name="driverClassName" value="org.apache.derby.jdbc.ClientDriver" />
+        <!--<property name="driverClassName" value="org.apache.derby.jdbc.ClientDriver" />
         <property name="url" value="jdbc:derby://localhost:1527/sgb" />
         <property name="username" value="app" />
-        <property name="password" value="app" />
+        <property name="password" value="app" />-->
     </bean>
     
     <bean id="sgbAuth" class="br.ufg.inf.es.web.controller.LoginController">

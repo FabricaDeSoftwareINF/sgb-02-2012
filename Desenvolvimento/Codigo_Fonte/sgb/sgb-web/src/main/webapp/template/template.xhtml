@@ -125,7 +125,7 @@
                 </h:panelGrid>
 
                 <p:menubar > 
-                    <p:menuitem value="Início" action="/index.xhtml"/>
+                    <p:menuitem value="Início" action="/index.xhtml" ajax="false"/>
 
                     <p:submenu label="Cadastros">
                         <p:menuitem value="#{msg['cadastro.curso']}" action="#{cursoController.openSearchPage()}" ajax="false"/>
@@ -144,12 +144,12 @@
                         <p:menuitem value="Lista de cotações" action="#{listaCotacaoController.openInitialPage()}" ajax="false"/>
                         <p:submenu label="Cotação">  
                             <p:menuitem value="Ad hoc" action="#{realizarCotacaoController.openInitialPage()}" ajax="false"/>
-                            <p:menuitem value="Lista de Compras" action="#{listaComprasController.openInitialPage()}"/>  
+                            <p:menuitem value="Lista de Compras" action="#{listaComprasController.openInitialPage()}" ajax="false"/>  
                         </p:submenu>
                     </p:submenu>
 
                     <p:submenu label="Configurações">                    
-                        <p:menuitem value="#{msg['configuracao.geral']}" action="#{parametrosController.openViewPage()}"/>
+                        <p:menuitem value="#{msg['configuracao.geral']}" action="#{parametrosController.openViewPage()}" ajax="false"/>
 
                         <p:menuitem value="#{msg['configuracao.biblioteca']}" action="#{bibliotecaConfigController.openInitialPage()}" ajax="false"/>
 
@@ -166,7 +166,7 @@
 
                         </ui:insert>  
 
-                    </div>  
+                    </div>
 
                     <p:menuitem value="" action="#" style="float: right">
 

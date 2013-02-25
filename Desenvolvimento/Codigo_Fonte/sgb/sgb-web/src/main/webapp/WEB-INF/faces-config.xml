@@ -14,31 +14,35 @@
             
             <from-outcome>EditoraController/initialPage</from-outcome>
             
-            <to-view-id>/paginas/editora/manterEditora.xhtml</to-view-id>
+            <to-view-id>/paginas/comum/editora/manterEditora.xhtml</to-view-id>
             
+            <redirect/>
         </navigation-case>
         
         <navigation-case>
             
             <from-outcome>EditoraController/editPage</from-outcome>
             
-            <to-view-id>/paginas/editora/editarEditora.xhtml</to-view-id>
+            <to-view-id>/paginas/comum/editora/editarEditora.xhtml</to-view-id>
             
+            <redirect/>
         </navigation-case>
         
         <navigation-case>
             
             <from-outcome>EditoraController/insertPage</from-outcome>
             
-            <to-view-id>/paginas/editora/inclusaoEditora.xhtml</to-view-id>
+            <to-view-id>/paginas/comum/editora/inclusaoEditora.xhtml</to-view-id>
             
+            <redirect/>
         </navigation-case>
         
         <navigation-case>
             <from-outcome>EditoraController/searchPage</from-outcome>
             
-            <to-view-id>/paginas/editora/manterEditora.xhtml</to-view-id>
+            <to-view-id>/paginas/comum/editora/manterEditora.xhtml</to-view-id>
             
+            <redirect/>
         </navigation-case>
         
         <!-- ESTÓRIA DE USUÁRIO 02-->
@@ -47,24 +51,27 @@
             
             <from-outcome>LivroController/insertPage</from-outcome>
             
-            <to-view-id>/paginas/livro/inclusao.xhtml</to-view-id>
+            <to-view-id>/paginas/comum/livro/inclusao.xhtml</to-view-id>
                         
+            <redirect/>
         </navigation-case>
         
         <navigation-case>
       
             <from-outcome>LivroController/initialPage</from-outcome>
             
-            <to-view-id>/paginas/livro/inicial.xhtml</to-view-id>
+            <to-view-id>/paginas/comum/livro/inicial.xhtml</to-view-id>
             
+            <redirect/>
         </navigation-case>
         
         <navigation-case>
             
             <from-outcome>LivroController/editPage</from-outcome>
             
-            <to-view-id>/paginas/livro/edicao.xhtml</to-view-id>
+            <to-view-id>/paginas/comum/livro/edicao.xhtml</to-view-id>
             
+            <redirect/>
         </navigation-case>
         
         <!-- ESTÓRIA DE USUÁRIO 03-->
@@ -73,16 +80,18 @@
             
             <from-outcome>UsuarioController/initialPage</from-outcome>
             
-            <to-view-id>/paginas/usuario/inicial.xhtml</to-view-id>
+            <to-view-id>/paginas/admin/usuario/inicial.xhtml</to-view-id>
             
+            <redirect/>
         </navigation-case>
         
         <navigation-case>
             
             <from-outcome>UsuarioController/insertPage</from-outcome>
             
-            <to-view-id>/paginas/usuario/inclusao.xhtml</to-view-id>
+            <to-view-id>/paginas/admin/usuario/inclusao.xhtml</to-view-id>
             
+            <redirect/>
         </navigation-case>
        
         <navigation-case>
@@ -91,22 +100,25 @@
        
             <to-view-id>/recuperar-senha.xhtml</to-view-id>
      
+            <redirect/>
         </navigation-case>  
         
         <navigation-case>
             
             <from-outcome>UsuarioController/editPage</from-outcome>
             
-            <to-view-id>/paginas/usuario/edicao.xhtml</to-view-id>
+            <to-view-id>/paginas/admin/usuario/edicao.xhtml</to-view-id>
             
+            <redirect/>
         </navigation-case>
         
         <navigation-case>
             
             <from-outcome>UsuarioController/viewPage</from-outcome>
             
-            <to-view-id>/paginas/usuario/visualizacao.xhtml</to-view-id>
+            <to-view-id>/paginas/admin/usuario/visualizacao.xhtml</to-view-id>
             
+            <redirect/>
         </navigation-case>
         
         <!-- ESTÓRIA DE USUÁRIO 05-->
@@ -114,24 +126,27 @@
             
             <from-outcome>DisciplinaController/initialPage</from-outcome>
             
-            <to-view-id>/paginas/disciplina/inicial.xhtml</to-view-id>
+            <to-view-id>/paginas/comum/disciplina/inicial.xhtml</to-view-id>
             
+            <redirect/>
         </navigation-case>
         
         <navigation-case>
             
             <from-outcome>DisciplinaController/insertPage</from-outcome>
             
-            <to-view-id>/paginas/disciplina/inclusao.xhtml</to-view-id>
+            <to-view-id>/paginas/comum/disciplina/inclusao.xhtml</to-view-id>
             
+            <redirect/>
         </navigation-case>
         
         <navigation-case>
             
             <from-outcome>DisciplinaController/editPage</from-outcome>
             
-            <to-view-id>/paginas/disciplina/inclusao.xhtml</to-view-id>
+            <to-view-id>/paginas/comum/disciplina/inclusao.xhtml</to-view-id>
             
+            <redirect/>
         </navigation-case>
         
         <!-- ESTÓRIA DE USUÁRIO 03-->
@@ -139,40 +154,45 @@
             
             <from-outcome>CursoController/insertPage</from-outcome>
             
-            <to-view-id>/paginas/curso/incluirCurso.xhtml</to-view-id>
+            <to-view-id>/paginas/comum/curso/incluirCurso.xhtml</to-view-id>
             
+            <redirect/>
         </navigation-case>
         
         <navigation-case>
             
             <from-outcome>CursoController/searchPage</from-outcome>
             
-            <to-view-id>/paginas/curso/manterCurso.xhtml</to-view-id>
+            <to-view-id>/paginas/comum/curso/manterCurso.xhtml</to-view-id>
             
+            <redirect/>
         </navigation-case>
         
         <navigation-case>
             
             <from-outcome>CursoController/editPage</from-outcome>
             
-            <to-view-id>/paginas/curso/editarCurso.xhtml</to-view-id>
+            <to-view-id>/paginas/comum/curso/editarCurso.xhtml</to-view-id>
             
+            <redirect/>
         </navigation-case>
         
         <navigation-case>
             
             <from-outcome>LivroController/insertPage</from-outcome>
             
-            <to-view-id>/paginas/livro/inclusao.xhtml</to-view-id>
+            <to-view-id>/paginas/comum/livro/inclusao.xhtml</to-view-id>
             
+            <redirect/>
         </navigation-case>
 
         <navigation-case>
             
             <from-outcome>ParametrosController/viewPage</from-outcome>
             
-            <to-view-id>/paginas/parametros/show.xhtml</to-view-id>
+            <to-view-id>/paginas/comum/parametros/show.xhtml</to-view-id>
 
+            <redirect/>
         </navigation-case>
         
         <!-- ESTÓRIA 15: Lista de Cotação --> 
@@ -181,32 +201,36 @@
             
             <from-outcome>ListaCotacaoController/initialPage</from-outcome>
             
-            <to-view-id>/paginas/lista_cotacao/inicial.xhtml</to-view-id>
+            <to-view-id>/paginas/comum/lista_cotacao/inicial.xhtml</to-view-id>
             
+            <redirect/>
         </navigation-case> 
         
         <navigation-case>
             
             <from-outcome>ListaCotacaoController/editPage</from-outcome>
             
-            <to-view-id>/paginas/lista_cotacao/editarLista.xhtml</to-view-id>
+            <to-view-id>/paginas/comum/lista_cotacao/editarLista.xhtml</to-view-id>
             
+            <redirect/>
         </navigation-case>
         
         <navigation-case>
             
             <from-outcome>ListaCotacaoController/viewPage</from-outcome>
             
-            <to-view-id>/paginas/lista_cotacao/visualizacao.xhtml</to-view-id>
+            <to-view-id>/paginas/comum/lista_cotacao/visualizacao.xhtml</to-view-id>
             
+            <redirect/>
         </navigation-case>
         
         <navigation-case>
             
             <from-outcome>ListaCotacaoController/listaOtimizada</from-outcome>
             
-            <to-view-id>/paginas/lista_cotacao/listaOtimizada.xhtml</to-view-id>
+            <to-view-id>/paginas/comum/lista_cotacao/listaOtimizada.xhtml</to-view-id>
             
+            <redirect/>
         </navigation-case>
         
         <!-- Estória 09: Manter Lista de Compras -->
@@ -214,24 +238,27 @@
             
             <from-outcome>ListaComprasController/initialPage</from-outcome>
             
-            <to-view-id>/paginas/listaCompras/inicial.xhtml</to-view-id>
+            <to-view-id>/paginas/comum/listaCompras/inicial.xhtml</to-view-id>
         
+            <redirect/>
         </navigation-case>
         
         <navigation-case>
             
             <from-outcome>ListaComprasController/insertPage</from-outcome>
             
-            <to-view-id>/paginas/listaCompras/inclusao.xhtml</to-view-id>
+            <to-view-id>/paginas/comum/listaCompras/inclusao.xhtml</to-view-id>
         
+            <redirect/>
         </navigation-case>
         
         <navigation-case>
             
             <from-outcome>ListaComprasController/editPage</from-outcome>
             
-            <to-view-id>/paginas/listaCompras/edicao.xhtml</to-view-id>
+            <to-view-id>/paginas/comum/listaCompras/edicao.xhtml</to-view-id>
         
+            <redirect/>
         </navigation-case>
         
         <!-- Estória 10: Gerar Cotação-->
@@ -239,16 +266,18 @@
             
             <from-outcome>RealizarCotacaoController/initialPage</from-outcome>
             
-            <to-view-id>/paginas/realizar_cotacao/inicial.xhtml</to-view-id>
+            <to-view-id>/paginas/comum/realizar_cotacao/inicial.xhtml</to-view-id>
         
+            <redirect/>
         </navigation-case>
         
         <navigation-case>
             
             <from-outcome>RealizarCotacaoController/insertPage</from-outcome>
             
-            <to-view-id>/paginas/realizar_cotacao/cotacao_gerada.xhtml</to-view-id>
+            <to-view-id>/paginas/comum/realizar_cotacao/cotacao_gerada.xhtml</to-view-id>
         
+            <redirect/>
         </navigation-case>
         
         <!-- ESTÓRIA 12: Manter Autor  -->
@@ -256,32 +285,36 @@
             
             <from-outcome>AutorController/initialPage</from-outcome>
             
-            <to-view-id>/paginas/autor/inicial.xhtml</to-view-id>
+            <to-view-id>/paginas/comum/autor/inicial.xhtml</to-view-id>
         
+            <redirect/>
         </navigation-case>
         
         <navigation-case>
             
             <from-outcome>AutorController/insertPage</from-outcome>
             
-            <to-view-id>/paginas/autor/cadastroAutor.xhtml</to-view-id>
+            <to-view-id>/paginas/comum/autor/cadastroAutor.xhtml</to-view-id>
         
+            <redirect/>
         </navigation-case>
         
         <navigation-case>
             
             <from-outcome>AutorController/editPage</from-outcome>
             
-            <to-view-id>/paginas/autor/editarAutor.xhtml</to-view-id>
+            <to-view-id>/paginas/comum/autor/editarAutor.xhtml</to-view-id>
         
+            <redirect/>
         </navigation-case>
         
         <navigation-case>
             
             <from-outcome>LivroParaCotacaoController/initialPage</from-outcome>
                 
-            <to-view-id>/paginas/cotacao/busca.xhtml</to-view-id>
+            <to-view-id>/paginas/comum/cotacao/busca.xhtml</to-view-id>
             
+            <redirect/>
         </navigation-case>
         
         <!-- ESTÓRIA 18: Integração com Sophia - BC -->
@@ -289,16 +322,18 @@
             
             <from-outcome>BibliotecaConfigController/initialPage</from-outcome>
             
-            <to-view-id>/paginas/parametros/biblioteca.xhtml</to-view-id>
+            <to-view-id>/paginas/comum/parametros/biblioteca.xhtml</to-view-id>
             
+            <redirect/>
         </navigation-case>
         
         <navigation-case>
             
             <from-outcome>ComunicacaoController/initialPage</from-outcome>
             
-            <to-view-id>/paginas/parametros/comunicacao.xhtml</to-view-id>
+            <to-view-id>/paginas/comum/parametros/comunicacao.xhtml</to-view-id>
             
+            <redirect/>
         </navigation-case>
         
         <!-- ESTÓRIA 17: Integração com SDB - Sistema de Dados Bibliográficos -->
@@ -306,8 +341,9 @@
             
             <from-outcome>IntegracaoSdbController/initialPage</from-outcome>
             
-            <to-view-id>/paginas/parametros/integracaoSDB.xhtml</to-view-id>
+            <to-view-id>/paginas/comum/parametros/integracaoSDB.xhtml</to-view-id>
             
+            <redirect/>
         </navigation-case>
         
     </navigation-rule>
