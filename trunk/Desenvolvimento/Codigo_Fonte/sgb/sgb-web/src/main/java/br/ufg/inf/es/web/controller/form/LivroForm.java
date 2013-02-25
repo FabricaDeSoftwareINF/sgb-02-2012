@@ -30,14 +30,13 @@ public class LivroForm extends GenericForm<Livro> {
     private LivroDataModel livroDM;
     private Collection<Livro> todosLivros;
     private String filtroTitulo;
-    private Curso cursoSelecionado;   
+    private Curso cursoSelecionado;
     private Collection<Autor> autoresAdicionados = new ArrayList<Autor>();
     private Bibliografia bibliografiaRemocao = new Bibliografia();
-    
     private LivroBiblioteca livroBiblioteca = new LivroBiblioteca();
     private LivroBiblioteca livroBibliotecaRemocao = new LivroBiblioteca();
     private Collection<LivroBiblioteca> livrosAssociados = new ArrayList<LivroBiblioteca>();
-    
+
     public Bibliografia getBibliografiaTemp() {
         return bibliografiaTemp;
     }
@@ -67,9 +66,9 @@ public class LivroForm extends GenericForm<Livro> {
     public void setLivroSelecionado(Livro livroSelecionado) {
         this.livroSelecionado = livroSelecionado;
     }
-    
-    public LivroDataModel getLivroDM() {        
-        List<Livro> livros =  new ArrayList<Livro>(this.getTodosLivros());        
+
+    public LivroDataModel getLivroDM() {
+        List<Livro> livros = new ArrayList<Livro>(this.getTodosLivros());
         livroDM = new LivroDataModel(livros);
         return livroDM;
     }
@@ -105,7 +104,7 @@ public class LivroForm extends GenericForm<Livro> {
     public EnumTipoBibliografia getTipoBibliografia() {
         return bibliografiaTemp.getTipo();
     }
-    
+
     public Curso getCursoSelecionado() {
         return this.cursoSelecionado;
     }
@@ -121,7 +120,7 @@ public class LivroForm extends GenericForm<Livro> {
     public void setAutoresAdicionados(Collection<Autor> autoresAdicionados) {
         this.autoresAdicionados = autoresAdicionados;
     }
-    
+
     public Bibliografia getBibliografiaRemocao() {
         return bibliografiaRemocao;
     }
@@ -153,5 +152,4 @@ public class LivroForm extends GenericForm<Livro> {
     public void setLivrosAssociados(Collection<LivroBiblioteca> livrosAssociados) {
         this.livrosAssociados = livrosAssociados;
     }
-        
 }
