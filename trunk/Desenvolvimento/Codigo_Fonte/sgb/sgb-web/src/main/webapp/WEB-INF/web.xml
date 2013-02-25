@@ -91,17 +91,17 @@
     </listener>
     <!-- Fim da configuração do Spring Security-->
     
-<!--    <error-page>
+    <error-page>
         <exception-type>java.lang.Exception</exception-type>
-        <location>/pages/error_pages/erro.jsf</location>
+        <location>/erro.jsf</location>
     </error-page>
     
     <error-page>
         <error-code>404</error-code>
-        <location>/pages/error_pages/404.jsf</location>
+        <location>/404.jsf</location>
     </error-page>
     <error-page>
         <error-code>500</error-code>
-        <location>/pages/error_pages/500.jsf</location>
-    </error-page>-->
+        <location>/500.jsf</location>
+    </error-page>
 </web-app>
