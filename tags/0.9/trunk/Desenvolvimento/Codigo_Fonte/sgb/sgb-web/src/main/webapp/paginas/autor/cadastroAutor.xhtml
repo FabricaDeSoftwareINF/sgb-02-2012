@@ -1,0 +1,55 @@
+<ui:component xmlns="http://www.w3.org/1999/xhtml"
+              xmlns:h="http://java.sun.com/jsf/html"
+              xmlns:p="http://primefaces.org/ui"
+              xmlns:f="http://java.sun.com/jsf/core"
+              xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <ui:composition template="/template/template.xhtml">
+
+        <ui:define name="content">
+
+            <h:form id="formCadastroAutor" >
+
+                <p:panel header="#{msg['cadastro.autor.label.cadastrar']}">
+
+                    <p:panelGrid styleClass="semborda" style="width: 40%;">
+
+                        <p:row>
+                            <p:column>
+                                <h:outputLabel value="#{msg['cadastro.autor.label.nome']}:" style="float: right;"></h:outputLabel>
+                            </p:column><p:column>
+                                <p:inputText value="#{autorController.form.entity.nome}"  style="width: 100%;"></p:inputText>
+                            </p:column>
+                        </p:row>
+
+                        <p:row>
+                            <p:column>
+                                <h:outputLabel value="#{msg['cadastro.autor.label.sobrenome']}:" style="float: right;" ></h:outputLabel>
+                            </p:column>
+                            <p:column>
+                                <p:inputText value="#{autorController.form.entity.sobrenome}"  style="width: 100%;"></p:inputText>
+                            </p:column>
+                        </p:row>
+
+                    </p:panelGrid>
+
+                        <p:commandButton actionListener="#{autorController.insereAutor()}" 
+                                         value="#{msg['cadastro.autor.label.cadastrar']}"  
+                                         ajax="false" 
+                                         action="#{autorController.openInitialPage()}"
+                                         icon="ui-icon-disk"/>
+
+                        <p:commandButton action="#{autorController.openInitialPage()}"
+                                         value="#{msg['cadastro.autor.label.cancelar']}"
+                                         ajax="false"
+                                         icon="ui-icon-close"/>
+
+                </p:panel>
+                
+            </h:form>
+            
+        </ui:define>
+
+    </ui:composition>
+
+</ui:component>

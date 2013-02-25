@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <f:view>
+        <p:dialog id="cadastro_autor_dialog" widgetVar="cadastroAutorDialog" closable="true"
+                  header="#{msg['cadastro.livro.label.autor']}">
+
+            <h:form id="cadastro_autor_dialog_form" onsubmit="cadastroAutorDialog.close()" >
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{msg['cadastro.autor.label.nome']}:"/>
+                    <p:inputText value="#{livroController.autor.nome}"/>
+                    
+                    <h:outputLabel value="#{msg['cadastro.autor.label.sobrenome']}:"></h:outputLabel>
+                    <p:inputText value="#{livroController.autor.sobrenome}"></p:inputText>
+
+                    <p:commandButton action="#{livroController.salvarAutor()}" 
+                                     value="#{msg['cadastro.autor.label.cadastrar']}" 
+                                     onclick="cadastroAutorDialog.hide()" update=":form_livro:autorCompleteAutor"/>
+
+                    <p:commandButton onclick="cadastroAutorDialog.hide()"
+                                     value="#{msg['cadastro.autor.label.cancelar']}"/>
+                </h:panelGrid>
+            </h:form>
+        </p:dialog>
+    </f:view>
+</html>
+

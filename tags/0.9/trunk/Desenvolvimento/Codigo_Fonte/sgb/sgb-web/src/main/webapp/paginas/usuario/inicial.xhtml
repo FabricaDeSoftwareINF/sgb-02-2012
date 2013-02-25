@@ -1,0 +1,90 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html >
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <ui:composition template="/template/template.xhtml">
+
+        <ui:define name="content">
+
+            <h:form prependId="false">
+
+                <p:panel header="#{msg['usuario.label.usuario']}">
+
+                    <p:messages />
+                    <p:spacer width="15px" height="20px"/>
+
+                    <p:dataTable id="listaUsuarios" value="#{usuarioController.form.userDataModel}" 
+                                 var="usuario" paginator="true" rows="10" style="width: 100%" 
+                                 selection="#{usuarioController.form.usuariosSelecionados}"
+                                 emptyMessage="#{msg['arquitetura.label.nenhumregitro']}">
+
+                        <p:column style="width: 18px;" selectionMode="multiple"/>
+
+                        <p:column headerText="#{msg['cadastro.usuario.label.nome']}" filterBy="#{usuario.nome}" filterMatchMode="contains">
+                            <h:outputText value="#{usuario.nome} #{usuario.sobrenome}" />
+                        </p:column>
+
+                        <p:column headerText="#{msg['cadastro.usuario.label.email']}" filterBy="#{usuario.email}" filterMatchMode="contains">
+                            <h:outputText value="#{usuario.email}" />
+                        </p:column>
+
+                        <p:column headerText="#{msg['cadastro.usuario.label.perfil']}">
+                            <h:outputText value="#{usuario.getPerfil()}" />
+                        </p:column>
+
+                        <p:column headerText="#{msg['usuario.label.acoes']}" 
+                                  style="text-align: center;" width="120">
+
+                            <p:commandButton value="#{msg['cadastro.usuario.button.edit']}"
+                                             action="#{usuarioController.openEditPage(usuario)}"
+                                             ajax="false"
+                                             style="width: 110px;"
+                                             icon="ui-icon-pencil"/>
+                            <br/>
+                            <p:commandButton value="#{msg['usuario.label.detalhe']}" 
+                                             action="#{usuarioController.openViewPage(usuario)}" 
+                                             ajax="false"
+                                             style="width: 110px;"
+                                             icon="ui-icon-contact"/>
+
+                        </p:column>
+
+                    </p:dataTable>
+
+                    <p:spacer width="15px" height="50px"/>
+
+
+                    <p:commandButton value="#{msg['usuario.label.novo']}"
+                                     action="#{usuarioController.openInsertPage()}" 
+                                     ajax="false"
+                                     icon="ui-icon-document"/>
+                    
+                    <p:commandButton value="#{msg['usuario.label.remover']}" 
+                                     action="#{usuarioController.prepararExclusao}"
+                                     update="@form"
+                                     icon="ui-icon-trash"/>
+
+                    <p:confirmDialog id="dialogRemocao" message="#{msg['arquitetura.label.confirmarconteudo']}"
+                                     header="#{msg['arquitetura.label.remover']}" severity="alert" 
+                                     widgetVar="confirmation" visible="#{usuarioController.form.exibirDialogExclusao}">
+
+                        <center>
+                            <p:commandButton value="#{msg['arquitetura.msg.sim']}" 
+                                             action="#{usuarioController.removerUsuarioSelecionados()}" update="@form" />
+
+                            <p:commandButton value="#{msg['arquitetura.msg.nao']}" 
+                                             action="#{usuarioController.openInitialPage()}" ajax="false"/>
+                        </center>
+
+                    </p:confirmDialog>
+
+                </p:panel>     
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</html>

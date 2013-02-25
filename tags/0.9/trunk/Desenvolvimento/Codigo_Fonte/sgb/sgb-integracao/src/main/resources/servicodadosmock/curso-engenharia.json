@@ -1,0 +1,54 @@
+{
+    "nome": "Engenharia de Software",
+    "vagas": 60,
+    "disciplinas": [
+    {
+        "nome": "Introdução a Engenharia de Software",
+        "bibliografias":  [
+            {
+                "livro" : {
+                    "tipo" : "BASICA",
+                    "titulo": "Engenharia de Software",
+                    "edicao": "3",
+                    "anoPublicacao": "2000",
+                    "editora": {
+                        "nome": "Moderna"    
+                    }, 
+                    "autores": [
+                        {
+                            "nome": "Ian",
+                            "sobrenome": "Sommerville"
+                        }
+                    ],
+                    "isbn10": "12345678901",
+                    "isbn13": "1234567890123"
+                }
+            } 
+        ]
+    },
+    {
+        "nome": "Introdução a Programação",
+        "bibliografias":  [
+            {
+                "livro" : {
+                    "tipo" : "BASICA",
+                    "titulo": "Engenharia de Software",
+                    "edicao": "3",
+                    "anoPublicacao": "2000",
+                    "editora": {
+                        "nome": "Moderna"    
+                    }, 
+                    "autores": [
+                        {
+                            "nome": "Ian",
+                            "sobrenome": "Sommerville"
+                        }
+                    ],
+                    "isbn10": "12345678901",
+                    "isbn13": "1234567890123"
+                }
+            } 
+        ]
+    }
+    ]
+}

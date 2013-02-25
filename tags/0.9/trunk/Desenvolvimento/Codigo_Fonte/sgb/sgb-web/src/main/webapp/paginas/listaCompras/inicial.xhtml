@@ -1,0 +1,142 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html >
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template/template.xhtml">
+
+        <ui:define name="content">
+
+            <p:panel header="Lista de Compras" >
+
+                <p:spacer width="15px" />
+
+                <h:form id="form">  
+
+                    <p:messages closable="true"/>  
+
+                    <p:dataTable id="listaComprasTable"
+                                 var="listaCompras"
+                                 value="#{listaComprasController.form.listaCompras}"
+                                 paginator="true" rows="10"
+                                 resizableColumns="true"
+                                 emptyMessage="#{msg['arquitetura.label.nenhumregitro']}">  
+
+                        <f:facet name="header">  
+                            #{msg['listaCompras.conteudo']}
+                        </f:facet>  
+
+                        <p:column style="width:18px;">  
+                            <p:rowToggler />  
+                        </p:column>  
+
+                        <p:column>  
+                            <f:facet name="header">  
+                                #{msg['listaCompras.nome']} 
+                            </f:facet>  
+                            <h:outputText value="#{listaCompras.nome}" />  
+                        </p:column>  
+
+                        <p:column>  
+                            <f:facet name="header">  
+                                #{msg['listaCompras.gravacao']} 
+                            </f:facet>  
+                            <h:outputText value="#{listaCompras.dataCriacao}" />  
+                        </p:column>  
+
+                        <p:column>
+
+                            <p:commandButton value="#{msg['listaCompras.apagarLista']}" 
+                                             onclick="dlgRemocao.show();"  icon="ui-icon-trash">
+
+                                <f:setPropertyActionListener target="#{listaComprasController.form.listaComprasParaRemocao}"
+                                                             value="#{listaCompras}"/>
+
+                            </p:commandButton>
+
+                            <p:commandButton value="#{msg['arquitetura.label.editar']}" 
+                                             action="#{listaComprasController.openEditPage(listaCompras)}"
+                                             ajax="false">
+                            </p:commandButton>
+
+                        </p:column>
+
+                        <p:rowExpansion>  
+                            <p:dataTable var="livroCompra" value="#{listaCompras.livrosDaListaCompras}"
+                                         resizableColumns="true"  >  
+
+                                <p:column headerText="Título">
+                                    <h:outputText value="#{livroCompra.livro.titulo}" 
+                                                  title="#{livroCompra.livro.titulo}"/>  
+                                </p:column>  
+
+                                <p:column headerText="Edição">  
+                                    <h:outputText value="#{livroCompra.livro.edicao}" 
+                                                  title="#{livroCompra.livro.edicao}"/>  
+                                </p:column>  
+
+                                <p:column headerText="Editora">  
+                                    <h:outputText value="#{livroCompra.livro.editora.nome}"
+                                                  title="#{livroCompra.livro.editora.nome}"/>  
+                                </p:column>  
+
+                                <p:column headerText="Ano">  
+                                    <h:outputText value="#{livroCompra.livro.ano}" 
+                                                  title="#{livroCompra.livro.ano}"/>  
+                                </p:column>
+
+                            </p:dataTable>  
+
+                            <p:commandButton value="Cotar" 
+                                             action="#{realizarCotacaoController.realizarCotacaoListaCompras}"
+                                             ajax="false"
+                                             icon="ui-icon-cart">
+
+                                <f:setPropertyActionListener value="#{listaCompras}" target="#{realizarCotacaoController.form.listaCompras}"/>
+
+                            </p:commandButton>
+
+                        </p:rowExpansion>  
+                    </p:dataTable> 
+
+                    <p:spacer height="10px"/>
+
+                    <h:panelGrid columns="1">
+
+                        <p:commandButton value="#{msg['listaCompras.nova']}"
+                                         action="#{listaComprasController.openInsertPage()}" 
+                                         icon="ui-icon-document"/>
+
+                    </h:panelGrid>
+
+                    <p:dialog id="dialogRemocao" widgetVar="dlgRemocao" modal="true"
+                              resizable="false" closable="false">
+
+                        <h:panelGrid columns="1" style="text-align: center;">
+
+                            <h:outputText value="#{msg['listaCompras.label.remocao']}"/>
+
+                            <p:spacer height="10"/>
+
+                            <h:panelGrid columns="2" style="margin-left: 30%;">
+
+                                <p:commandButton value="#{msg['cadastro.autor.label.sim']}" ajax="false" update="@form"
+                                                 action="#{listaComprasController.remove()}" oncomplete="dlgRemocao.hide();"/>
+
+                                <p:commandButton value="#{msg['cadastro.autor.label.nao']}"
+                                                 onclick="dlgRemocao.hide();"/>
+
+                            </h:panelGrid>
+
+                        </h:panelGrid>
+
+                    </p:dialog>
+                </h:form>  
+            </p:panel>
+        </ui:define>
+
+    </ui:composition>
+</html>
+

@@ -1,0 +1,22 @@
+[
+    {
+        "nome": "Introdução a Programação",
+        "code":"ADSC",
+        "bibliografia": {
+            "basica": [
+                {
+                    "titulo": "Java: Como Programar",
+                    "edicao": "3",
+                    "anoPublicacao": "2000",
+                    "autor": "Sommerville",
+                    "isbn10": "12345678901",
+                    "isbn13": "1234567890123"
+                } 
+            ]
+        }
+    },
+    {
+        "nome": "Introdução a Engenharia de Software",
+        "bibliografia": {}
+    }
+]

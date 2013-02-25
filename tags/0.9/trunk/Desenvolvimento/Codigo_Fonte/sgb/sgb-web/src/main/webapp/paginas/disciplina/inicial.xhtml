@@ -1,0 +1,106 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets">
+
+
+    <ui:composition template="/template/template.xhtml">
+
+        <ui:define name="title">
+            Busca de Disciplina - SGB
+        </ui:define>
+
+        <ui:define name="content">
+
+            <h:form prependId="false">
+
+                <p:panel header="#{msg['disciplina.manter']}">
+
+                    <p:messages id="message" autoUpdate="true"/>
+                    <p:spacer width="15px" height="20px"/>
+
+                    <p:dataTable id="disciplinas_datatable" value="#{disciplinaController.form.dataModelDisciplina}" var="disciplina" selection="#{disciplinaController.form.disciplinasSelecionadas}"
+                                 emptyMessage="#{msg['arquitetura.label.nenhumregitro']}" paginator="true" rows="10">
+
+                        <p:column selectionMode="multiple" style="width: 18px;">
+
+                        </p:column>
+
+                        <p:column headerText="Código" sortBy="#{disciplina.codigo}">
+                            <h:outputText value="#{disciplina.codigo}" />
+                        </p:column>
+
+                        <p:column headerText="Nome" sortBy="#{disciplina.nome}">
+                            <h:outputText value="#{disciplina.nome}"
+                                          converter="string20Converter" escape="false"/>
+                        </p:column>
+
+                        <p:column headerText="Curso" sortBy="#{disciplina.curso.nome}">
+                            <h:outputText value="#{disciplina.curso.nome}" />
+                        </p:column>
+
+                        <p:column headerText="Ações" width="120">
+
+                                <p:commandButton value="#{msg['acao.editar']}"
+                                               action="#{disciplinaController.openEditPage()}" 
+                                               update="@all"
+                                               style="width: 110px;"
+                                               icon="ui-icon-pencil">
+
+                                    <f:setPropertyActionListener value="#{disciplina}" target="#{disciplinaController.form.disciplinaEdicao}" />
+
+                                    <f:param name="entityID" value="#{disciplina.id}" />
+
+                                </p:commandButton>
+                                <br/>
+                                <p:commandButton value="#{msg['acao.detalhes']}"
+                                               oncomplete="detalharDisciplina();"
+                                               actionListener="#{disciplinaController.form.setDisciplinaDetalhe(disciplina)}"
+                                               style="width: 110px;"
+                                               icon="ui-icon-contact"/>
+
+                        </p:column>
+
+                    </p:dataTable>
+                    <p:spacer width="15px" height="40px"/>
+
+                    <p:commandButton value="#{msg['cadastro.acao.novo']}" 
+                                     action="#{disciplinaController.openInsertPage()}"
+                                     ajax="false"
+                                     icon="ui-icon-document"/>
+
+                    <p:commandButton value="#{msg['cadastro.acao.remover']}"
+                                     onclick="dialogRemocao.show()"
+                                     icon="ui-icon-trash"/>
+
+                    <p:confirmDialog id="dialog_remocao" message="#{msg['disciplina.label.remocao']}"
+                                     header="#{msg['disciplina.label.remocaoTitulo']}" severity="alert" 
+                                     widgetVar="dialogRemocao">
+
+                        <center>
+                            <p:commandButton value="#{msg['arquitetura.msg.sim']}" 
+                                             action="#{disciplinaController.removerDisciplinasSelecionadas}"
+                                             update="disciplinas_datatable , message"
+                                             oncomplete="dialogRemocao.hide()"/>
+
+                            <p:commandButton value="#{msg['arquitetura.msg.nao']}"
+                                             onclick="dialogRemocao.hide()"/>
+                        </center>
+
+                    </p:confirmDialog>
+
+                </p:panel>
+
+                <p:remoteCommand name="detalharDisciplina" action="#{disciplinaController.exibirDetalhes}" update="@form"/>
+
+                <p:remoteCommand name="openInitialPage" action="#{disciplinaController.openInitialPage()}" ajax="false"/>
+
+                <ui:include src="/paginas/disciplina/visualizacao.xhtml" />
+
+            </h:form>
+
+        </ui:define>
+
+    </ui:composition>
+
+</html>

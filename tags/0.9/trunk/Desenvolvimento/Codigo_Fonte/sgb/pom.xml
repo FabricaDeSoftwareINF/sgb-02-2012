@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>br.ufg.inf.es</groupId>
+    <artifactId>sgb</artifactId>
+    <version>1.2-SNAPSHOT</version>
+    <packaging>pom</packaging>
+    <name>sgb</name>
+
+    <modules>
+        
+        <!--
+            PROJETO PARA DEFINIÇÃO DE ARTEFATOS REUTILIZÁVEIS, POR EXEMPLO, 
+            
+            CLASSES UTILITÁRIAS.
+        -->
+        <module>buscape-java-wrapper</module>
+        
+        <!--
+            PROJETO PARA DEFINIÇÃO DE ARTEFATOS REUTILIZÁVEIS, POR EXEMPLO, 
+            
+            CLASSES UTILITÁRIAS.
+        -->
+        <module>sgb-base</module>
+
+        <!--
+            PROJETO ESPECÍFICO PARA TRATAR INTEGRAÇÃO DA APLICAÇÃO COM OUTRAS 
+            
+            APLICAÇÕES, POR EXEMPLO, UM WEB-SERVICE
+        -->
+        <module>sgb-integracao</module>
+
+        <!--
+            PROJETO NO QUAL SERÁ ALOCADO AS CLASSES DE DOMÍNIO DA APLICAÇÃO
+        -->
+        <module>sgb-model</module>
+        
+        <!--
+            PROJETO ESPECÍFICO PARA CLASSES REPONSÁVEIS PELA PERSISTENCIA COMO,
+            
+            POR EXEMPLO, DAOS E REPOSITÓRIOS.
+        -->
+        <module>sgb-persistencia</module>
+        
+        <!--
+            PROJETO WEB.
+        -->
+        <module>sgb-web</module>
+        
+    </modules>
+    
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.source>1.6</project.source>
+        <project.target>1.6</project.target>
+        <jersey.version>1.12</jersey.version>
+        <spring.version>3.1.0.RELEASE</spring.version>
+    </properties>
+    
+    <dependencies>
+        
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-aop</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context-support</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-beans</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-orm</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-asm</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-expression</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-tx</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.6.4</version>
+        </dependency>
+        <!-- Fim de dependências do Spring -->
+
+        <dependency>
+            <groupId>javax.inject</groupId>
+            <artifactId>javax.inject</artifactId>
+            <version>1</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>5.1.19</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>aspectj</groupId>
+            <artifactId>aspectjrt</artifactId>
+            <version>1.5.4</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.apache.derby</groupId>
+            <artifactId>derbyclient</artifactId>
+            <version>10.9.1.0</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+            <version>3.2-FINAL</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-scratchpad</artifactId>
+            <version>3.2-FINAL</version>
+        </dependency>
+                 
+        <dependency>
+            <groupId>org.powermock</groupId>
+            <artifactId>powermock-module-junit4</artifactId>
+            <version>1.5</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.powermock</groupId>
+            <artifactId>powermock-api-mockito</artifactId>
+            <version>1.5</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-all</artifactId>
+            <version>1.9.5</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <artifactId>junit</artifactId>
+            <groupId>junit</groupId>
+            <type>jar</type>
+            <version>4.10</version>
+            <scope>test</scope>
+        </dependency>
+        
+        <!--  Dependências Oracle  -->
+        <!--
+        <dependency>
+            <groupId>ojdbc6_g</groupId>
+            <artifactId>ojdbc6_g</artifactId>
+            <version>ojdbc6_g</version>
+        </dependency>        
+        <dependency>
+            <groupId>simplefan</groupId>
+            <artifactId>simplefan</artifactId>
+            <version>simplefan</version>
+        </dependency>
+        -->
+        <!--  Fim dependências Oracle  -->
+        
+        <dependency>
+            <groupId>postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>9.1-901.jdbc4</version>
+        </dependency>            
+        
+    </dependencies>
+    
+    <distributionManagement>
+        <snapshotRepository>
+            <id>linux-by69</id>
+            <name>linux-by69-snapshots</name>
+            <url>http://fs.inf.ufg.br:8080/artifactory/sgb-02-2012-snapshot</url>
+        </snapshotRepository>
+    </distributionManagement>
+    
+</project>

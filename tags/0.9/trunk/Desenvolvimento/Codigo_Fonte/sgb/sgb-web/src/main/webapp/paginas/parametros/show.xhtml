@@ -1,0 +1,62 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core" 
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <ui:define name="title">
+        #{msg['parametros.visualisar.title']}
+    </ui:define>
+
+    <ui:composition template="/template/template.xhtml">
+        
+        <ui:define name="content">
+            
+            <h:body>
+
+                <p:panel header="#{msg['parametros.panel.header']}">
+                    
+                    <h:form prependId="false">  
+                        
+                        <p:messages/>  
+                        
+                        <h:panelGrid id="panelParametros" columns="2" columnClasses="column" cellpadding="5">  
+                            
+                            <h:outputText value="#{msg['parametros.label.valorfrete']}: "/>
+                            
+                            <h:panelGroup>
+                                
+                                <h:outputLabel value="R$" style="margin-right: 5px;"/>
+
+                                <p:inputText required="true" value="#{parametrosController.form.entity.valorFrete}">
+
+                                    <f:convertNumber minFractionDigits="2"
+                                                     groupingUsed="true"
+                                                     pattern="####.##"/>
+                                </p:inputText>
+
+                            </h:panelGroup>
+                            
+                            <h:outputText id="labelValorMEC" value="#{msg['parametros.label.mec']}: "/>
+                                                                                      
+                            <p:inputText id="paramMec" required="true" value="#{parametrosController.form.entity.parametroMEC}"/>
+                                
+                        </h:panelGrid>  
+                    
+                        <p:spacer width="15px" height="50px"/>
+
+                        <p:commandButton value="#{msg['cadastro.curso.button.insert']}" 
+                                     action="#{parametrosController.edit()}" ajax="false"
+                                     icon="ui-icon-disk"/>
+                                         
+                    </h:form>  
+                    
+                </p:panel>   
+                
+            </h:body>
+            
+        </ui:define>
+        
+    </ui:composition>
+
+</html>

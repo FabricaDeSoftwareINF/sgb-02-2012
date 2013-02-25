@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--@autor: wilker de jesus machado-->
+<!DOCTYPE html>
+<ui:component xmlns="http://www.w3.org/1999/xhtml"
+              xmlns:ui="http://java.sun.com/jsf/facelets"  
+              xmlns:h="http://java.sun.com/jsf/html"  
+              xmlns:p="http://primefaces.org/ui"
+              xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template/template.xhtml">
+        <ui:define name="content">
+            <h:form id="manterEditora">
+                <p:panel header="#{msg['cadastro.editora.label.manterEditora']}">
+
+                    <p:messages id="messages" autoUpdate="true"></p:messages>
+                    <p:spacer width="15px" height="20px"/>
+
+                    <p:dataTable id="associationTable" var="assTab" paginator="true" rows="10"
+                                 emptyMessage="#{msg['arquitetura.label.nenhumregitro']}"
+                                 value="#{editoraController.form.collectionEntities}">
+
+                        <p:column style="width: 18px;">  
+                            <p:selectBooleanCheckbox >
+                                <p:ajax listener="#{editoraController.selecionaEditora(assTab)}"  />
+                            </p:selectBooleanCheckbox>
+                        </p:column> 
+
+                        <p:column sortBy="#{assTab.nome}" filterBy="#{assTab.nome}" styleClass="widthFilterBy">  
+                            <f:facet name="header">  
+                                <h:outputText value="#{msg['cadastro.editora.label.nome']}" />  
+                            </f:facet>  
+                            <h:outputText value="#{assTab.nome}" />  
+                        </p:column> 
+
+                        <p:column style="text-align: center;" width="120">  
+
+                            <f:facet name="header">  
+                                <h:outputText value="#{msg['cadastro.acao']}" />  
+                            </f:facet>  
+
+                            <p:commandButton id="linkAcaoEditar" 
+                                             value="#{msg['acao.editar']}"
+                                             action="#{editoraController.openEditPage(assTab)}"
+                                             style="width: 110px;"
+                                             icon="ui-icon-pencil"/>
+                        </p:column> 
+
+                    </p:dataTable>
+
+                    <p:spacer width="15px" height="50px"/>
+
+                    <p:commandButton action="#{editoraController.openInsertPage()}" 
+                                     value="Novo" ajax="false"
+                                     icon="ui-icon-document"/>
+
+                    <p:commandButton value="#{msg['arquitetura.label.remover']}"
+                                     onclick="dialogRemocao.show()" 
+                                     icon="ui-icon-trash"/>
+
+                    <p:confirmDialog id="dialog_remocao" message="#{msg['arquitetura.label.confirmarconteudo']}"
+                                     header="#{msg['arquitetura.label.confirmar']}" severity="alert" 
+                                     widgetVar="dialogRemocao">
+                        <center>
+                            <p:commandButton value="#{msg['cadastro.autor.label.sim']}" 
+                                             action="#{editoraController.removerEditoraSelecionadas()}" 
+                                             update="@form" oncomplete="dialogRemocao.hide()" />
+                            <p:commandButton value="#{msg['cadastro.autor.label.nao']}" onclick="dialogRemocao.hide()"/>
+                        </center>
+                    </p:confirmDialog>
+
+                </p:panel>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</ui:component>

@@ -1,0 +1,49 @@
+<mockup version="1.0" skin="sketch" fontFace="Balsamiq Sans" measuredW="900" measuredH="704" mockupW="885" mockupH="698">
+  <controls>
+    <control controlID="112" controlTypeID="com.balsamiq.mockups::Canvas" x="15" y="6" w="885" h="698" measuredW="100" measuredH="70" zOrder="0" locked="false" isInGroup="-1"/>
+    <control controlID="113" controlTypeID="com.balsamiq.mockups::Label" x="43" y="33" w="-1" h="-1" measuredW="124" measuredH="26" zOrder="1" locked="false" isInGroup="-1">
+      <controlProperties>
+        <bold>true</bold>
+        <size>18</size>
+        <text>Configura%E7%F5es</text>
+      </controlProperties>
+    </control>
+    <control controlID="114" controlTypeID="com.balsamiq.mockups::FieldSet" x="43" y="103" w="793" h="184" measuredW="200" measuredH="170" zOrder="2" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Par%E2metros%20do%20Sistema</text>
+      </controlProperties>
+    </control>
+    <control controlID="115" controlTypeID="com.balsamiq.mockups::Label" x="59" y="146" w="-1" h="-1" measuredW="93" measuredH="21" zOrder="3" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Valor%20do%20Frete%3A</text>
+      </controlProperties>
+    </control>
+    <control controlID="116" controlTypeID="com.balsamiq.mockups::TextInput" x="269" y="143" w="148" h="-1" measuredW="74" measuredH="27" zOrder="4" locked="false" isInGroup="-1">
+      <controlProperties>
+        <align>right</align>
+        <text>R%24%20%2030%2C00</text>
+      </controlProperties>
+    </control>
+    <control controlID="117" controlTypeID="com.balsamiq.mockups::Button" x="737" y="620" w="99" h="27" measuredW="58" measuredH="27" zOrder="5" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Voltar</text>
+      </controlProperties>
+    </control>
+    <control controlID="118" controlTypeID="com.balsamiq.mockups::TextInput" x="557" y="620" w="-1" h="-1" measuredW="148" measuredH="27" zOrder="6" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Atualizar%20Configura%E7%F5es</text>
+      </controlProperties>
+    </control>
+    <control controlID="119" controlTypeID="com.balsamiq.mockups::Label" x="59" y="185" w="195" h="25" measuredW="189" measuredH="21" zOrder="7" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Quantidade%20de%20Alunos%20por%20Livro%3A</text>
+      </controlProperties>
+    </control>
+    <control controlID="120" controlTypeID="com.balsamiq.mockups::TextInput" x="269" y="182" w="148" h="-1" measuredW="22" measuredH="27" zOrder="8" locked="false" isInGroup="-1">
+      <controlProperties>
+        <align>right</align>
+        <text>5</text>
+      </controlProperties>
+    </control>
+  </controls>
+</mockup>

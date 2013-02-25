@@ -1,0 +1,154 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+    <ui:composition template="/template/template.xhtml">
+
+        <ui:define name="title">
+            Gerenciamento de Livros - SGB
+        </ui:define>
+
+        <ui:define name="content">
+
+            <ui:include src="exportacao_dialog.xhtml"/>
+            <ui:include src="detalhes_dialog.xhtml"/>
+
+            <p:panel header="#{msg['cadastro.livro.manter']}">
+
+                <p:messages autoUpdate="true" closable="true"/>
+                <p:spacer width="15px" height="20px"/>
+
+                <h:form id="lista_livros_form">
+
+                    <p:dataTable id="livros_datatable" value="#{livroController.livroModel}" var="livro"
+                                 rows="10" paginator="true" selection="#{livroController.livrosSelecionados}"
+                                 resizableColumns="true">
+
+                        <p:column selectionMode="multiple" style="width:18px" /> 
+
+                        <p:column headerText="#{msg['cadastro.livro.label.titulo']}"
+                                  filterBy="#{livro.titulo}" filterMatchMode="contains">
+
+                            <h:outputText value="#{livro.titulo}" escape="false"/>
+
+                        </p:column>
+
+                        <p:column headerText="#{msg['cadastro.livro.label.autor']}"
+                                  filterBy="#{livro.autoresAsString}" filterMatchMode="contains">
+                            <p:dataList value="#{livro.autores}" var="autor">
+                                <h:outputText value="#{autor.sobrenome.toUpperCase()},#{autor.nome}" escape="false"/>
+                            </p:dataList>
+                        </p:column>
+
+                        <p:column headerText="#{msg['cadastro.livro.label.edicao']}">
+                            <h:outputText value="#{livro.edicao}" escape="false"/>
+                        </p:column>
+
+                        <p:column headerText="#{msg['cadastro.livro.label.ano']}">
+                            <h:outputText value="#{livro.ano}" />
+                        </p:column>
+
+                        <p:column headerText="#{msg['cadastro.livro.label.editora']}">
+                            <h:outputText value="#{livro.editora.nome}" />
+                        </p:column>
+
+                        <p:column headerText="#{msg['cadastro.livro.label.isbn13']}">
+                            <h:outputText value="#{livro.isbn13}" />
+                        </p:column>
+
+                        <p:column headerText="#{msg['cadastro.livro.label.disciplinas']}"
+                                  filterBy="#{livro.disciplinasAsString}" filterMatchMode="contains">
+                            <p:dataList value="#{livro.bibliografias}" var="bibliografia">
+                                <h:outputText value="#{bibliografia.disciplina.nome} - #{bibliografia.disciplina.curso.nome} - #{bibliografia.tipo.value}" 
+                                              escape="false"
+                                              title="#{bibliografia.disciplina.nome} - #{bibliografia.disciplina.curso.nome} - #{bibliografia.tipo.value}"/>
+                            </p:dataList>
+                        </p:column>
+
+                        <p:column headerText="#{msg['cadastro.livro.label.estrangeiro']}"
+                                  filterBy="#{livro.estrangeiro}" filterOptions="#{livroController.estrangeiroOptions}"
+                                  filterMatchMode="exact">
+                            <h:outputText value="#{livro.estrangeiro ? 'Sim' : 'Não'}" />
+                        </p:column>
+
+                        <p:column headerText="#{msg['cadastro.livro.label.acoes']}" width="120">
+
+                            <p:commandButton id="acao_editar_livro" 
+                                             value="#{msg['acao.editar']}" 
+                                             action="#{livroController.openEditPage()}"
+                                             style="width: 110px;"
+                                             icon="ui-icon-pencil">
+                                <f:setPropertyActionListener target="#{livroController.form.entity}"
+                                                             value="#{livro}"/>
+                            </p:commandButton>   
+                            <br/>
+                            <p:commandButton id="acao_detalhes_livro" 
+                                             value="#{msg['acao.detalhes']}" 
+                                             oncomplete="dialogDetalhes.show()" 
+                                             actionListener="#{livroController.form.setEntity(livro)}"
+                                             update=":dialog_detalhes"
+                                             style="width: 110px"
+                                             icon="ui-icon-contact">
+                            </p:commandButton>
+                            <br/>
+                            <p:commandButton id="exportar_button" value="#{msg['cadastro.livro.button.exportar']}"
+                                             oncomplete="geracaoPlanilhaDialog.show()"
+                                             style="width: 110px"
+                                             icon="ui-icon-note">
+
+                                <f:setPropertyActionListener value="#{livro}" target="#{livroController.form.entity}" />
+
+                                <f:param name="entityID" value="#{livro.id}" />
+
+                            </p:commandButton>
+
+                        </p:column>
+
+                    </p:dataTable>
+
+                    <p:spacer width="15px" height="50px"/>
+
+                    <p:commandButton value="#{msg['cadastro.livro.button.novo']}" 
+                                     action="#{livroController.openInsertPage()}" 
+                                     ajax="false" style="margin-right: 1em"
+                                     icon="ui-icon-document"/>
+
+                    <p:commandButton value="#{msg['cadastro.livro.button.remover']}"
+                                     onclick="dlgRemocao.show()"
+                                     icon="ui-icon-trash"/>
+
+                    <p:dialog id="dialogRemocao" widgetVar="dlgRemocao" modal="true"
+                              resizable="false" closable="false">
+
+                        <h:panelGrid columns="1" style="text-align: center;">
+
+                            <h:outputText value="#{msg['cadastro.autor.label.remocao']}"/>
+
+                            <p:spacer height="10"/>
+
+                            <h:panelGrid columns="2" style="margin-left: 30%;">
+
+                                <p:commandButton value="#{msg['cadastro.autor.label.sim']}" update="lista_livros_form"
+                                                 action="#{livroController.removerLivros}" oncomplete="dlgRemocao.hide()"
+                                                 ajax="false"/>
+
+                                <p:commandButton value="#{msg['cadastro.autor.label.nao']}"
+                                                 onclick="dlgRemocao.hide();"/>
+
+                            </h:panelGrid>
+
+                        </h:panelGrid>
+
+                    </p:dialog>
+
+                </h:form>
+
+            </p:panel>
+
+        </ui:define>
+    </ui:composition>
+
+</html>

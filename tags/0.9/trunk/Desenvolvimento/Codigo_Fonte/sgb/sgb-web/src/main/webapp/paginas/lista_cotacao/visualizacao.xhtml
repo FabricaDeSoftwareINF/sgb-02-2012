@@ -1,0 +1,199 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html >
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <ui:composition template="/template/template.xhtml">
+
+        <ui:define name="content">
+
+            <p:panel id="panel_cotacoes" header="#{listaCotacaoController.form.entity.nome}">
+
+                <h:form prependId="false">
+
+                    <p:messages id="messages"/>
+                    <p:spacer width="15px" height="20px"/>
+
+                    <p:dataTable id="cotacoes" value="#{listaCotacaoController.form.entity.itensListaCotacao}" 
+                                 var="cotacaoLivro" paginator="true" rows="10" style="width: 100%"
+                                 resizableColumns="true" 
+                                 emptyMessage="#{msg['arquitetura.label.nenhumregitro']}"
+                                 editable="true" editMode="row" >
+
+                        <p:column headerText="#{msg['listaCotacao.label.autor']}" style="width: 15%">
+
+                            <p:dataList value="#{cotacaoLivro.livro.autores}"
+                                        var="autor" >  
+                                <h:outputText value=" #{autor.sobrenome.toUpperCase()}, #{autor.nome}"
+                                              title="#{autor.sobrenome.toUpperCase()}, #{autor.nome}"/>
+                            </p:dataList> 
+
+                        </p:column>
+
+                        <p:column headerText="#{msg['listaCotacao.label.titulo']}" 
+                                  filterBy="#{cotacaoLivro.livro.titulo}" 
+                                  filterMatchMode="contains" 
+                                  sortBy="#{cotacaoLivro.livro.titulo}" 
+                                  style="width: 15%">
+
+                            <h:outputText value="#{cotacaoLivro.livro.titulo}" 
+                                          title="#{cotacaoLivro.livro.titulo}"/>
+
+                        </p:column>
+
+                        <p:column headerText="#{msg['listaCotacao.label.edicao']}" 
+                                  sortBy="#{cotacaoLivro.livro.edicao}"  
+                                  style="text-align: center;width: 10%">
+
+                            <h:outputText value="#{cotacaoLivro.livro.edicao}"
+                                          title="#{cotacaoLivro.livro.edicao}"/>
+
+                        </p:column>
+
+                        <p:column headerText="#{msg['listaCotacao.label.editora']}" 
+                                  sortBy="#{cotacaoLivro.livro.editora.nome}"
+                                  style="text-align: center;width: 10%">
+
+                            <h:outputText value="#{cotacaoLivro.livro.editora.nome}"
+                                          title="#{cotacaoLivro.livro.editora.nome}"/>
+
+                        </p:column>
+
+                        <p:column headerText="#{msg['listaCotacao.label.ano']}" 
+                                  sortBy="#{cotacaoLivro.livro.ano}" 
+                                  style="text-align: center;width: 5%">
+
+                            <h:outputText value="#{cotacaoLivro.livro.ano}"
+                                          title="#{cotacaoLivro.livro.ano}"/>
+
+                        </p:column>
+
+                        <p:column headerText="#{msg['listaCotacao.label.curso']}" 
+                                  style="text-align: center;width: 15%">
+
+                            <p:dataList value="#{cotacaoLivro.livro.bibliografias}"
+                                        var="bibliografia">  
+                                <h:outputText value="#{bibliografia.disciplina.curso.nome}"
+                                              title="#{bibliografia.disciplina.curso.nome}" />
+                            </p:dataList> 
+
+                        </p:column>
+
+                        <p:column headerText="#{msg['listaCotacao.label.valormedio']}"
+                                  sortBy="#{cotacaoLivro.valorMedio}" 
+                                  width="120">
+
+                            <p:cellEditor>  
+
+                                <f:facet name="output">
+                                    <h:outputText value="#{cotacaoLivro.valorMedio}"
+                                                  title="#{cotacaoLivro.valorMedio}"  >
+
+                                        <f:convertNumber maxFractionDigits="2"/> 
+
+                                    </h:outputText>
+                                </f:facet>
+                                <f:facet name="input">
+                                    <p:inputText value="#{cotacaoLivro.valorMedio}"
+                                                 styleClass="numeric" 
+                                                 style="width: 80px;margin-left: 20px"/>
+                                </f:facet>
+
+                            </p:cellEditor>
+
+                        </p:column>
+
+                        <p:column headerText="#{msg['listaCotacao.label.valortotal']}" 
+                                  style="text-align: center;width: 10%">
+
+                            <h:outputText value="#{cotacaoLivro.valorMedio * cotacaoLivro.quantidade}" 
+                                          title="#{cotacaoLivro.valorMedio * cotacaoLivro.quantidade}" >
+
+                                <f:convertNumber maxFractionDigits="2"/> 
+
+                            </h:outputText>
+
+                        </p:column>
+
+                        <p:column headerText="#{msg['listaCotacao.label.quantidade']}" 
+                                  sortBy="#{cotacaoLivro.quantidade}" 
+                                  width="80">
+
+                            <p:cellEditor>  
+
+                                <f:facet name="output">
+                                    <h:outputText value="#{cotacaoLivro.quantidade}" 
+                                                  title="#{cotacaoLivro.quantidade}"/>
+
+
+                                </f:facet>
+                                <f:facet name="input">
+                                    <p:inputText value="#{cotacaoLivro.quantidade}"
+                                                 styleClass="numeric" 
+                                                 style="width: 40px;margin-left: 10px"/>
+                                </f:facet>
+
+                            </p:cellEditor>
+
+                        </p:column>
+
+                        <p:column headerText="#{msg['listaCotacao.label.estrangeiro']}"
+                                  style="text-align: center;width: 10%">
+
+                            <h:outputText value="#{cotacaoLivro.livro.estrangeiro ? msg['arquitetura.msg.sim']
+                                       : msg['arquitetura.msg.nao']}"/>
+
+                        </p:column>
+
+                        <p:column style="width:4%">  
+                            <p:rowEditor/>
+                        </p:column> 
+
+                        <f:facet id="footer" name="footer">  
+                            <h:outputText id="valor_total" 
+                                          value="TOTAL: #{listaCotacaoController.form.entity.valor}">
+                            </h:outputText>
+                        </f:facet> 
+                        <p:ajax event="rowEdit" update="valor_total"/>
+
+                    </p:dataTable> 
+
+                    <p:spacer width="15px" height="50px"/>
+
+                    <p:commandButton id="gerar_xls_btn"
+                                     value="#{msg['listaCotacao.button.exportarXLS']}" 
+                                     ajax="false"
+                                     actionListener="#{listaCotacaoController.exportarXLS()}"
+                                     icon="ui-icon-note">
+                        <p:fileDownload value="#{listaCotacaoController.arquivoXLS}" />  
+                    </p:commandButton>
+
+                    <p:commandButton id="gerar_csv_nac_btn"
+                                     value="#{msg['listaCotacao.button.exportarCSVNacionais']}" 
+                                     ajax="false"
+                                     actionListener="#{listaCotacaoController.exportarCSVNacionais()}"
+                                     icon="ui-icon-note">
+                        <p:fileDownload value="#{listaCotacaoController.arquivoCSVNacionais}" />  
+                    </p:commandButton> 
+
+                    <p:commandButton id="gerar_csv_estran_btn"
+                                     value="#{msg['listaCotacao.button.exportarCSVEstrangeiros']}"
+                                     ajax="false"
+                                     actionListener="#{listaCotacaoController.exportarCSVEstrangeiros()}"
+                                     icon="ui-icon-note">
+                        <p:fileDownload value="#{listaCotacaoController.arquivoCSVEstrangeiros}" />  
+                    </p:commandButton> 
+
+                </h:form>
+
+            </p:panel>   
+
+        </ui:define>
+
+    </ui:composition>
+
+</html>

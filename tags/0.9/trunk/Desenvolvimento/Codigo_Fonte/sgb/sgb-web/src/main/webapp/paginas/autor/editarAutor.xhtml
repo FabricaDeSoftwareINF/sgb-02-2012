@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<ui:component xmlns="http://www.w3.org/1999/xhtml"
+              xmlns:h="http://java.sun.com/jsf/html"
+              xmlns:p="http://primefaces.org/ui"
+              xmlns:f="http://java.sun.com/jsf/core"
+              xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <ui:composition template="/template/template.xhtml">
+
+        <ui:define name="content">
+
+            <h:form id="formEdicaoAutor" >
+
+                <p:panel header="#{msg['cadastro.autor.label.editarAutor']}">
+                        
+                        <p:panelGrid styleClass="semborda" style="width: 40%;">
+                            
+                            <p:row>
+                                <p:column style="width: auto;">
+                                    <h:outputLabel value="#{msg['cadastro.autor.label.nome']}:" style="float: right;"></h:outputLabel>
+                                </p:column>
+                                <p:column style="width: 80%;">
+                                    <p:inputText value="#{autorController.form.autorEdicao.nome}" style="width: 100%;"></p:inputText>
+                                </p:column>
+                            </p:row>
+                            
+                            <p:row>
+                                <p:column>
+                                    <h:outputLabel value="#{msg['cadastro.autor.label.sobrenome']}:" style="float: right;" ></h:outputLabel>
+                                </p:column>
+                                <p:column>
+                                    <p:inputText value="#{autorController.form.autorEdicao.sobrenome}" style="width: 100%;"></p:inputText>
+                                </p:column>
+                            </p:row>
+                            
+                        </p:panelGrid>
+
+                            <p:commandButton action="#{autorController.editarAutor}" 
+                                             value="#{msg['cadastro.autor.label.atualizar']}"
+                                             ajax="false"
+                                             icon="ui-icon-disk">
+
+                                <f:setPropertyActionListener target="#{autorController.form.entity.nome}" value="#{autorController.form.autorEdicao.nome}"/>
+
+                                <f:setPropertyActionListener target="#{autorController.form.entity.sobrenome}" value="#{autorController.form.autorEdicao.sobrenome}"/>
+
+                                <f:setPropertyActionListener target="#{autorController.form.entity.id}" value="#{autorController.form.autorEdicao.id}"/>
+
+                            </p:commandButton>
+
+                            <p:commandButton action="#{autorController.openInitialPage()}"  
+                                             value="#{msg['arquitetura.label.cancelar']}" 
+                                             ajax="false"
+                                             icon="ui-icon-close"/>
+
+                </p:panel>
+
+            </h:form>
+
+        </ui:define>
+
+    </ui:composition>
+
+</ui:component>
+

@@ -1,0 +1,83 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html >
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template/template.xhtml">
+
+        <ui:define name="content">
+
+            <h:form id="formManterAutor">
+
+                <p:panel header="#{msg['cadastro.autor.label.manterAutor']}">
+
+                        <p:messages id="messages" autoUpdate="true"></p:messages>
+                        <p:spacer width="15px" height="20px"/>
+
+                        <p:dataTable id="dtTable" value="#{autorController.form.model}" 
+                                     style=" width: 100%" paginator="true" rows="10" var="autor" 
+                                     selection="#{autorController.form.autoresSelecionados}" 
+                                     emptyMessage="#{msg['arquitetura.label.nenhumregitro']}" >
+
+                            <p:column selectionMode="multiple" style="width: 18px;"></p:column>
+
+                            <p:column headerText="#{msg['cadastro.autor.label.nome']}" filterBy="#{autor.nome}" filterMatchMode="contains" styleClass="widthFilterBy">
+                                <h:outputLabel value="#{autor.nome}"></h:outputLabel>
+                            </p:column>
+
+                            <p:column headerText="#{msg['cadastro.autor.label.sobrenome']}" filterBy="#{autor.sobrenome}" filterMatchMode="contains" style="width: 50%">
+                                <h:outputLabel value="#{autor.sobrenome}"></h:outputLabel>
+                            </p:column> O
+
+                            <p:column headerText="#{msg['cadastro.autor.label.acoes']}" style="text-align: center"
+                                      width="120">             
+
+                                <p:commandButton value="#{msg['cadastro.autor.label.editar']}" 
+                                                 action="#{autorController.openEditPage}"
+                                                 style="width: 110px;"
+                                                 icon="ui-icon-pencil">
+
+                                    <f:setPropertyActionListener value="#{autor}" 
+                                                                 target="#{autorController.form.autorEdicao}"/>
+
+                                </p:commandButton>
+
+                            </p:column>
+
+                        </p:dataTable>
+
+                        <p:spacer width="15px" height="50px"/>
+
+                        <p:commandButton value="#{msg['cadastro.autor.label.novo']}"  
+                                         action="#{autorController.openInsertPage()}" 
+                                         ajax="false" style="width: 100px;margin-right: 1em"
+                                         icon="ui-icon-document"/>
+
+                        <p:commandButton value="#{msg['cadastro.autor.label.remover']}" 
+                                         action="#{autorController.prepararExclusao}" update="@form" 
+                                         icon="ui-icon-trash"/>                    
+
+                    <p:confirmDialog id="dialogRemocao" message="#{msg['cadastro.autor.label.remocao']}"
+                                     header="#{msg['cadastro.autor.label.remocaoTitulo']}" severity="alert" 
+                                     widgetVar="confirmation" visible="#{autorController.form.exibirDialogExclusao}">
+
+                        <center>
+                            <p:commandButton value="#{msg['cadastro.autor.label.sim']}" 
+                                             action="#{autorController.removerAutoresSelecionados()}" update="@form" />
+
+                            <p:commandButton value="#{msg['cadastro.autor.label.nao']}" 
+                                             action="#{autorController.openInitialPage()}" ajax="false"/>
+                        </center>
+
+                    </p:confirmDialog>
+
+                </p:panel>
+
+            </h:form>      
+
+        </ui:define>
+
+    </ui:composition>
+</html>
