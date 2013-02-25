@@ -7,32 +7,57 @@ import org.springframework.stereotype.Component;
 
 /**
  * Classe que representa a entidade de parâmetro de Integralção com a Biblioteca
+ *
  * @author igor
  */
 @Component
 @Scope("session")
-public class DBBibliotecaConfigForm extends GenericForm<DBBibliotecaConfig>{
-    
+public class DBBibliotecaConfigForm extends GenericForm<DBBibliotecaConfig> {
+
     private Boolean exibirDialogExclusao;
-    
     private DBDriver driver;
-    
-    public DBDriver[] getDrivers(){        
+
+    /**
+     * Obtem os drivers
+     *
+     * @return
+     */
+    public DBDriver[] getDrivers() {
         return DBDriver.values();
     }
-    
+
+    /**
+     * Obtem o valor para exibir o dialog de exclusao
+     *
+     * @return
+     */
     public Boolean getExibirDialogExclusao() {
         return exibirDialogExclusao;
     }
-    
-     public void setExibirDialogExclusao(Boolean exibirDialogExclusao) {
+
+    /**
+     * Define um novo valor para a flag
+     *
+     * @param exibirDialogExclusao
+     */
+    public void setExibirDialogExclusao(Boolean exibirDialogExclusao) {
         this.exibirDialogExclusao = exibirDialogExclusao;
     }
 
+    /**
+     * Obtem o driver
+     *
+     * @return
+     */
     public DBDriver getDriver() {
         return driver;
     }
 
+    /**
+     * Define um novo driver
+     *
+     * @param driver
+     */
     public void setDriver(DBDriver driver) {
         this.driver = driver;
     }

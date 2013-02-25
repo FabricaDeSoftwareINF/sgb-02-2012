@@ -20,23 +20,23 @@ public class ItemListaCompraForm extends GenericForm<ItemListaCompras> {
 
     private Collection<ItemListaCompras> todosLivros;
     private ItemListaCompraDataModel livroDM;
-    
+
     public Collection<ItemListaCompras> getTodosLivros() {
-        
+
         return todosLivros;
     }
 
     public void setTodosLivros(Collection<ItemListaCompras> todosLivros) {
-        
+
         this.todosLivros = todosLivros;
     }
-    
+
     public ItemListaCompraDataModel getLivroDataModel() {
-        
-        List<ItemListaCompras> livros =  new ArrayList<ItemListaCompras>(this.getTodosLivros());
-        
+
+        List<ItemListaCompras> livros = new ArrayList<ItemListaCompras>(this.getTodosLivros());
+
         livroDM = new ItemListaCompraDataModel(livros);
-        
+
         return livroDM;
     }
 
