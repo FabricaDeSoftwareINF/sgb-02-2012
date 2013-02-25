@@ -107,18 +107,6 @@
 
                         </p:column>
 
-                        <p:column headerText="#{msg['listaCotacao.label.valortotal']}" 
-                                  style="text-align: center;width: 10%">
-
-                            <h:outputText value="#{cotacaoLivro.valorMedio * cotacaoLivro.quantidade}" 
-                                          title="#{cotacaoLivro.valorMedio * cotacaoLivro.quantidade}" >
-
-                                <f:convertNumber maxFractionDigits="2"/> 
-
-                            </h:outputText>
-
-                        </p:column>
-
                         <p:column headerText="#{msg['listaCotacao.label.quantidade']}" 
                                   sortBy="#{cotacaoLivro.quantidade}" 
                                   width="80">
@@ -138,6 +126,18 @@
                                 </f:facet>
 
                             </p:cellEditor>
+
+                        </p:column>
+                        
+                        <p:column headerText="#{msg['listaCotacao.label.valortotal']}" 
+                                  style="text-align: center;width: 10%">
+
+                            <h:outputText value="#{cotacaoLivro.valorMedio * cotacaoLivro.quantidade}" 
+                                          title="#{cotacaoLivro.valorMedio * cotacaoLivro.quantidade}" >
+
+                                <f:convertNumber maxFractionDigits="2"/> 
+
+                            </h:outputText>
 
                         </p:column>
 

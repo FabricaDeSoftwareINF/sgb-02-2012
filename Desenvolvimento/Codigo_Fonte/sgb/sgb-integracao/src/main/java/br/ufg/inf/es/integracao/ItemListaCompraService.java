@@ -40,12 +40,6 @@ import br.ufg.inf.es.persistencia.biblioteca.LivrosBibliotecaDAO;
 public class ItemListaCompraService extends GenericService<ItemListaCompras> {
 
     /**
-     * TODO Remover o mock pelo serviço real da biblioteca Campo
-     * bibliotecaService
-     */
-    @Autowired
-    private BibliotecaServiceMock bibliotecaServiceMock;
-    /**
      * Campo parametrosDao
      */
     @Autowired
@@ -128,24 +122,6 @@ public class ItemListaCompraService extends GenericService<ItemListaCompras> {
      */
     public void setBibliografiaService(BibliografiaService bibliografiaService) {
         this.bibliografiaService = bibliografiaService;
-    }
-
-    /**
-     * obtem o service da biblioteca
-     *
-     * @return service da biblioteca
-     */
-    public BibliotecaServiceMock getBibliotecaService() {
-        return bibliotecaServiceMock;
-    }
-
-    /**
-     * define o service da biblioteca
-     *
-     * @param bibliotecaService
-     */
-    public void setBibliotecaService(BibliotecaServiceMock bibliotecaService) {
-        this.bibliotecaServiceMock = bibliotecaService;
     }
 
     /**

@@ -86,6 +86,7 @@ public class ListaCotacaoController extends SGBController<ListaCotacao, ListaCot
             try {
                 this.service.getDAO().removeAll(this.form.getListasSelecionadas());
             } catch (ConstraintViolationException cve) {
+                cve.printStackTrace();
                 this.addWarningMessage(cve.getMessage());
             } catch (Exception e) {
                 this.addWarningMessage(e.getMessage());
