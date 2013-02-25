@@ -8,57 +8,65 @@ import org.hibernate.annotations.Cascade;
 
 /**
  * Entidade ListaCompras
+ *
  * @author Jackeline Neves
  */
 @Entity
 @Table(name = "LISTA_COMPRAS")
 public class ListaCompras extends AbstractEntityModel {
 
-    /** Campo nome*/
+    /**
+     * Campo nome
+     */
     @Column(name = "nome")
     private String nome;
-    
-    /** Campo dataCriacao*/
+    /**
+     * Campo dataCriacao
+     */
     @Column(name = "data_criacao")
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date dataCriacao;
-    
-    @JoinColumn(name="id_usuario")
+    @JoinColumn(name = "id_usuario")
     @ManyToOne(optional = false)
     private Usuario user;
-    
-    /** Campo livrosDaListaCompras*/
-    @OneToMany(cascade= CascadeType.ALL)
+    /**
+     * Campo livrosDaListaCompras
+     */
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinTable(
-        name="LISTA_COMPRAS_ITEM_LISTA_COMPRAS",
-        joinColumns=@JoinColumn(name="id_lista_compra"),
-        inverseJoinColumns=@JoinColumn(name="id_item_lista_compra")
-    )
+        name = "LISTA_COMPRAS_ITEM_LISTA_COMPRAS",
+    joinColumns =
+    @JoinColumn(name = "id_lista_compra"),
+    inverseJoinColumns =
+    @JoinColumn(name = "id_item_lista_compra"))
     @Cascade(org.hibernate.annotations.CascadeType.DELETE_ORPHAN)
     private Collection<ItemListaCompras> livrosDaListaCompras = new ArrayList<ItemListaCompras>();
 
     /**
-     * Obtém o valor do campo <code>nome</code>
+     * Obtém o valor do campo
+     * <code>nome</code>
      *
      * @return {@link String}
      */
     public String getNome() {
 
-            return this.nome;
+        return this.nome;
     }
 
     /**
-     * Define o campo <code>nome</code>.
+     * Define o campo
+     * <code>nome</code>.
      *
-     * @param nome 
+     * @param nome
      */
     public void setNome(String nome) {
 
-            this.nome = nome;
+        this.nome = nome;
     }
 
     /**
-     * Obtém o valor do campo <code>dataCriacao</code>
+     * Obtém o valor do campo
+     * <code>dataCriacao</code>
      *
      * @return {@link Date}
      */
@@ -68,51 +76,55 @@ public class ListaCompras extends AbstractEntityModel {
     }
 
     /**
-     * Define o campo <code>dataCriacao</code>.
+     * Define o campo
+     * <code>dataCriacao</code>.
      *
-     * @param dataCriacao 
+     * @param dataCriacao
      */
     public void setDataCriacao(Date dataCriacao) {
 
-            this.dataCriacao = this.dataCriacao != null ? (Date) dataCriacao.clone() : dataCriacao;
+        this.dataCriacao = this.dataCriacao != null ? (Date) dataCriacao.clone() : dataCriacao;
     }
 
     /**
-     * Obtém o valor do campo <code>user</code>
+     * Obtém o valor do campo
+     * <code>user</code>
      *
      * @return {@link Usuario}
      */
     public Usuario getUser() {
 
-            return this.user;
+        return this.user;
     }
 
     /**
-     * Define o campo <code>user</code>.
+     * Define o campo
+     * <code>user</code>.
      *
-     * @param user 
+     * @param user
      */
     public void setUser(Usuario user) {
 
-            this.user = user;
+        this.user = user;
     }
 
     /**
-     * Obtém o valor do campo <code>livrosDaListaCompras</code>
+     * Obtém o valor do campo
+     * <code>livrosDaListaCompras</code>
      *
      * @return {@link Collection<Livro>}
      */
     public Collection<ItemListaCompras> getLivrosDaListaCompras() {
-            return this.livrosDaListaCompras;
+        return this.livrosDaListaCompras;
     }
 
     /**
-     * Define o campo <code>livrosDaListaCompras</code>.
+     * Define o campo
+     * <code>livrosDaListaCompras</code>.
      *
-     * @param livrosDaListaCompras 
+     * @param livrosDaListaCompras
      */
     public void setLivrosDaListaCompras(Collection<ItemListaCompras> livrosDaListaCompras) {
-            this.livrosDaListaCompras = livrosDaListaCompras;
+        this.livrosDaListaCompras = livrosDaListaCompras;
     }
-
 }

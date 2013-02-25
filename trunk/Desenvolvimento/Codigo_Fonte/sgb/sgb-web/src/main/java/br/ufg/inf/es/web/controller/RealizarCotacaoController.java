@@ -123,8 +123,7 @@ public class RealizarCotacaoController extends SGBController<ListaCotacao, Reali
         this.getService().salvarListaCotacao(listaItemListaCotacao,
                 this.getForm().getNomeLista(), usuarioLogado);
 
-        //return this.listaCotacaoController.openInitialPage();
-        return this.openInitialPage();
+        return this.listaCotacaoController.openInitialPage();
     }
 
     public StreamedContent buscaImagem() {
@@ -139,7 +138,7 @@ public class RealizarCotacaoController extends SGBController<ListaCotacao, Reali
         return sc;
     }
     
-    public void removerItemListaCotacao() {
+    public void removerItensListaCotacao() {
         List<ItemListaCotacao> remover = Arrays.asList(this.getForm().getCotacoesSelecionadas());
         listaItemListaCotacao.removeAll(remover);
     }

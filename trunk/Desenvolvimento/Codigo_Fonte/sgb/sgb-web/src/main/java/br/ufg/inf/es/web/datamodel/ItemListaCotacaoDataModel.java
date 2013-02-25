@@ -55,6 +55,6 @@ public class ItemListaCotacaoDataModel extends ListDataModel<ItemListaCotacao>
      */
     @Override
     public Object getRowKey(ItemListaCotacao cotacoesLivro) {
-        return cotacoesLivro.getLivro();
+        return cotacoesLivro.getLivro().getId();
     }
 }

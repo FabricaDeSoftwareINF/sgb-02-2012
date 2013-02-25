@@ -54,6 +54,7 @@ public class ListaComprasController extends SGBController<ListaCompras, ListaCom
      */
     @Override
     public String openInitialPage() {
+        this.getService().getDAO().closeSession();
         this.getForm().setListaCompras(this.getService().list());
 
         List<ItemListaCompras> itens = new ArrayList<ItemListaCompras>();

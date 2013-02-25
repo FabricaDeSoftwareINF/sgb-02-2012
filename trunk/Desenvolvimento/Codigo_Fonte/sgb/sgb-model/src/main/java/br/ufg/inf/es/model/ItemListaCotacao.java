@@ -1,5 +1,6 @@
 package br.ufg.inf.es.model;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.persistence.CascadeType;
@@ -20,11 +21,8 @@ import org.hibernate.annotations.Cascade;
 public class ItemListaCotacao extends AbstractEntityModel {
 
     private static final int HASH = 7;
-        
-        private static final int SALTO = 19;
-        
-        private static final int TAMANHO_BITS = 32;
-        
+    private static final int SALTO = 19;
+    private static final int TAMANHO_BITS = 32;
     /**
      * Campo urlImagem
      */
@@ -33,30 +31,24 @@ public class ItemListaCotacao extends AbstractEntityModel {
      * Campo valor
      */
     private double valorMedio;
-
     /**
      * Campo livro
      */
-    @ManyToOne(cascade= CascadeType.REFRESH)
+    @ManyToOne(optional=false)
     private Livro livro;
     /**
      * Campo livraria
      */
-    @OneToMany(cascade= CascadeType.ALL)
-    @JoinTable(
-            name="ITEM_LISTA_COTACAO_COTACAO",
-            joinColumns = @JoinColumn( name="id_item_lista_cotacao"),
-            inverseJoinColumns = @JoinColumn( name="id_cotacao")
-    )
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "ITEM_LISTA_COTACAO_COTACAO",
+            joinColumns =@JoinColumn( name = "id_item_lista_cotacao"),
+            inverseJoinColumns =@JoinColumn( name = "id_cotacao"))
     @Cascade(org.hibernate.annotations.CascadeType.DELETE_ORPHAN)
-    private Collection<Cotacao> cotacoes;
-    
+    private Collection<Cotacao> cotacoes = new ArrayList<Cotacao>();
     /**
      * Campo quantidade
      */
     private int quantidade;
-
-    
 
     /**
      * Obtém o valor do campo
@@ -77,7 +69,6 @@ public class ItemListaCotacao extends AbstractEntityModel {
     public void setUrlImagem(String urlImagem) {
         this.urlImagem = urlImagem;
     }
-    
 
     /**
      * Obtém o valor do campo
@@ -201,5 +192,4 @@ public class ItemListaCotacao extends AbstractEntityModel {
         }
         return true;
     }
-    
 }

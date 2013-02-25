@@ -6,7 +6,6 @@ package br.ufg.inf.es.web.converters;
 
 import br.ufg.inf.es.model.Autor;
 import br.ufg.inf.es.persistencia.AutorDAO;
-import java.util.Collection;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
@@ -22,30 +21,22 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
 @FacesConverter("autorConverter")
 public class AutorConverter implements Converter {
 
-    private static final String SEPARATOR = "%&";
     private WebApplicationContext webApplicationContext;
 
     @Override
     public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
-        WebApplicationContext context = getWebApplicationContext();
-        if (value.trim().equals("")) {
-            return null;
-        } else {
-            ServletContext servletContext = (ServletContext) facesContext.getExternalContext().getContext();
-            
-            if (context == null) {
-                context = WebApplicationContextUtils.getWebApplicationContext(servletContext);
-            }
-        }
-        AutorDAO dao = context.getBean(AutorDAO.class);
-
-        String[] atributos = value.split(SEPARATOR);
         Autor autor = new Autor();
-        autor.setId(Long.parseLong(atributos[0]));
-        autor.setNome(atributos[1]);
-        autor.setSobrenome(atributos[2]);
-        Collection<Autor> lista = dao.search(autor);
-        return lista.toArray()[0];
+        if (value != null && !value.isEmpty() && !value.equals("null")) {  
+            
+            ServletContext servletContext = (ServletContext)facesContext.getExternalContext().getContext();
+            
+            WebApplicationContext context = WebApplicationContextUtils.getWebApplicationContext(servletContext);
+            
+            AutorDAO dao = context.getBean(AutorDAO.class);
+            
+            autor = dao.find(Long.parseLong(value));
+        }  
+        return autor;
     }
 
     public WebApplicationContext getWebApplicationContext() {
@@ -59,15 +50,10 @@ public class AutorConverter implements Converter {
 
     @Override
     public String getAsString(FacesContext context, UIComponent component, Object value) {
-        if (value == null || value.equals("")) {
-            return "";
-        } else {
+        if (value != null && value instanceof Autor) {
             Autor autor = (Autor) value;
-            StringBuilder sb = new StringBuilder();
-            sb.append(autor.getId()).append(SEPARATOR);
-            sb.append(autor.getNome()).append(SEPARATOR);
-            sb.append(autor.getSobrenome()).append(SEPARATOR);
-            return String.valueOf(sb.toString());
+            return String.valueOf(autor.getId());
         }
+        return "";
     }
 }

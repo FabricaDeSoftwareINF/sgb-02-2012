@@ -54,7 +54,7 @@ public class ItemListaCotacaoDataModelTest {
     @Test
     public void testGetRowKey() {
         Object result = dataModel.getRowKey(object);
-        assertEquals(object.getLivro(), result);
+        assertEquals(object.getLivro().getId(), result);
     }
 
     /**

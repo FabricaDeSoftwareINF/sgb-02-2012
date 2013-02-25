@@ -21,18 +21,15 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @Scope
-public class IntegracaoSdbController extends 
-        SGBController<Livro, IntegracaoSdbForm, ImportacaoLivrosServiceImpl> {
+public class IntegracaoSdbController extends SGBController<Livro, IntegracaoSdbForm, ImportacaoLivrosServiceImpl> {
 
     @Autowired
     private IntegracaoSdbForm form;
     @Autowired
     private ImportacaoLivrosServiceImpl service;
     private String urlService;
-    
     private LivroDataModel livrosEncontrados;
     private Collection<Livro> livrosSelecionados;
-    
     private TipoEntidade tipoEntidade;
 
     @Override
@@ -62,7 +59,11 @@ public class IntegracaoSdbController extends
     }
 
     public String importar() {
-        importaGet();
+        try {
+            importaGet();
+        } catch (Exception e) {
+            this.addWarningMessage("parametros.integracao.erroimportacao");
+        }
         return "";
     }
 
@@ -71,10 +72,10 @@ public class IntegracaoSdbController extends
 
     }
 
-    public TipoEntidade[] getTipoEntidadeSelect(){        
+    public TipoEntidade[] getTipoEntidadeSelect() {
         return TipoEntidade.values();
     }
-    
+
     public TipoEntidade getTipoEntidade() {
         return tipoEntidade;
     }
@@ -82,15 +83,14 @@ public class IntegracaoSdbController extends
     public void setTipoEntidade(TipoEntidade tipoEntidade) {
         this.tipoEntidade = tipoEntidade;
     }
-    
-    private void importaGet(){
+
+    private void importaGet() {
         ImportacaoDadosService<Livro> importacaoSipa = new ImportacaoLivrosServiceImpl();
-        if (tipoEntidade.equals(TipoEntidade.Livros)){
-            importacaoSipa.setImportacaoStrategy(new ImportacaoLivro());
-            List<Livro> livros = new ArrayList<Livro>(importacaoSipa.importar(urlService));
-            livrosEncontrados = new LivroDataModel(livros);
-        }
-    }   
+        importacaoSipa.setImportacaoStrategy(new ImportacaoLivro());
+        List<Livro> livros = new ArrayList<Livro>(importacaoSipa.importar(urlService));
+        livrosEncontrados = new LivroDataModel(livros);
+
+    }
 
     public LivroDataModel getLivrosEncontrados() {
         return livrosEncontrados;
@@ -107,7 +107,7 @@ public class IntegracaoSdbController extends
     public void setLivrosSelecionados(Collection<Livro> livrosSelecionados) {
         this.livrosSelecionados = livrosSelecionados;
     }
-    
+
     public String salvarLivros() {
         if (livrosSelecionados == null) {
             return null;
@@ -121,5 +121,4 @@ public class IntegracaoSdbController extends
         }
         return null;
     }
-    
 }
