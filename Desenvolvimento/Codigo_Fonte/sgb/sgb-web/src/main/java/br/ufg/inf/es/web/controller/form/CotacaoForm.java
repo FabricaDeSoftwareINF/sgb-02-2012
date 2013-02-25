@@ -1,4 +1,3 @@
-
 package br.ufg.inf.es.web.controller.form;
 
 import br.ufg.inf.es.model.Cotacao;
@@ -20,45 +19,41 @@ import org.springframework.stereotype.Component;
 public class CotacaoForm extends GenericForm<ItemListaCotacao> {
 
     private Collection<ItemListaCotacao> tabelaCotacoes;
-    
     private Collection<Livro> livrosCotacao;
-    
     private Livro[] livrosParaCotacao;
-    
     private ItemListaCotacaoDataModel cotacaoDataModel;
-    
     private Cotacao[] cotacoesSelecionadas;
 
     public ItemListaCotacaoDataModel getCotacaoDataModel() {
 
         List<ItemListaCotacao> cotacoes = new ArrayList<ItemListaCotacao>(this.getTabelaCotacoes());
-        
+
         cotacaoDataModel = new ItemListaCotacaoDataModel(cotacoes);
 
         return cotacaoDataModel;
     }
 
     public void setCotacaoDataModel(ItemListaCotacaoDataModel cotacaoDataModel) {
-    
+
         this.cotacaoDataModel = cotacaoDataModel;
     }
-    
+
     public Cotacao[] getCotacoesSelecionadas() {
-        
+
         Cotacao[] retorno = null;
-        
-        if(this.cotacoesSelecionadas != null) {
-            
-             retorno = this.cotacoesSelecionadas.clone();
+
+        if (this.cotacoesSelecionadas != null) {
+
+            retorno = this.cotacoesSelecionadas.clone();
         }
-        
+
         return retorno;
     }
 
     public void setCotacoesSelecionadas(Cotacao[] cotacoesSelecionadas) {
-        
-        if(cotacoesSelecionadas != null) {
-        
+
+        if (cotacoesSelecionadas != null) {
+
             this.cotacoesSelecionadas = (Cotacao[]) cotacoesSelecionadas.clone();
         }
     }
@@ -72,12 +67,12 @@ public class CotacaoForm extends GenericForm<ItemListaCotacao> {
     }
 
     public Collection<Livro> getLivrosCotacao() {
-        
+
         return livrosCotacao;
     }
 
     public void setLivrosCotacao(Collection<Livro> livrosCotacao) {
-     
+
         this.livrosCotacao = livrosCotacao;
     }
 
@@ -88,5 +83,4 @@ public class CotacaoForm extends GenericForm<ItemListaCotacao> {
     public void setLivrosParaCotacao(Livro[] livrosParaCotacao) {
         this.livrosParaCotacao = livrosParaCotacao.clone();
     }
-    
 }

@@ -11,5 +11,4 @@ import org.springframework.stereotype.Component;
 @Component
 @Scope("session")
 public class ComunicacaoForm extends GenericForm<Comunicacao> {
-    
 }
