@@ -58,7 +58,6 @@ public class ListaCotacaoForm extends GenericForm<ListaCotacao> {
         this.tabelaListaCotacoes = tabelaListaCotacoes;
     }
 
-
     public Boolean getExibirDialogExclusao() {
         return exibirDialogExclusao;
     }
@@ -66,7 +65,7 @@ public class ListaCotacaoForm extends GenericForm<ListaCotacao> {
     public void setExibirDialogExclusao(Boolean exibirDialogExclusao) {
         this.exibirDialogExclusao = exibirDialogExclusao;
     }
-    
+
     public boolean isTipoOtimizacao() {
         return tipoOtimizacao;
     }

@@ -174,4 +174,13 @@ public class LivroFormTest {
         Collection result = form.getLivrosAssociados();
         assertEquals(livrosAssociados, result);
     }
+
+    /**
+     * Test of getBibliografiaTemp method, of class LivroForm.
+     */
+    @Test
+    public void testGetBibliografiaTemp() {
+        Bibliografia result = form.getBibliografiaTemp();
+        assertEquals(bibliografiaTemp, result);
+    }
 }
