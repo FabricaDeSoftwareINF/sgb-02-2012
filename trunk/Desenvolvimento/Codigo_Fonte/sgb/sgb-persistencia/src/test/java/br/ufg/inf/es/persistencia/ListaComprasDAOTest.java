@@ -33,14 +33,14 @@ public class ListaComprasDAOTest {
 
     @Before
     public void setUp() {
-        
+
         dao = new ListaComprasDAO();
         this.factory = mock(SessionFactory.class);
         this.session = mock(Session.class);
         this.criteria = mock(Criteria.class);
         dao.setSessionFactory(factory);
     }
-    
+
     /**
      * Método responsável por definir o retorno do Método openSesison() do mock
      * SessionFactory
@@ -73,10 +73,10 @@ public class ListaComprasDAOTest {
      */
     @Test
     public void testFindLivrosListaCompras() {
-        
+
         preparaSessionFactoryMock();
-        
-        ListaCompras listaCompras =  new ListaCompras();
+
+        ListaCompras listaCompras = new ListaCompras();
         List<ItemListaCompras> listaItens = Arrays.asList(new ItemListaCompras());
         listaCompras.setLivrosDaListaCompras(listaItens);
 
@@ -84,10 +84,25 @@ public class ListaComprasDAOTest {
         when(criteria.setFetchMode(anyString(), any(FetchMode.class))).thenReturn(criteria);
         when(criteria.add(any(Criterion.class))).thenReturn(criteria);
         when(criteria.uniqueResult()).thenReturn(listaCompras);
-        
+
         Collection<ItemListaCompras> result = this.dao.findLivrosListaCompras(Long.MIN_VALUE);
-        
+
         assertEquals(listaItens, result);
+
+    }
+
+    @Test
+    public void testSave() {
+
+        preparaSessionFactoryMock();
         
+        ListaCompras lc =  new ListaCompras();
+        this.dao.save(lc);
+        
+        verify(session).saveOrUpdate(lc);
+        verify(session).close();
+        verify(session).flush();
+        
+
     }
 }
