@@ -64,27 +64,53 @@
                         </p:column>
 
                         <p:rowExpansion>  
-                            <p:dataTable var="livroCompra" value="#{listaCompras.livrosDaListaCompras}"
+                            <p:dataTable var="itemListaCompra" value="#{listaCompras.livrosDaListaCompras}"
                                          resizableColumns="true"  >  
 
-                                <p:column headerText="Título">
-                                    <h:outputText value="#{livroCompra.livro.titulo}" 
-                                                  title="#{livroCompra.livro.titulo}"/>  
-                                </p:column>  
+                                <p:column headerText="#{msg['cadastro.livro.label.titulo']}"
+                                          filterBy="#{itemListaCompra.livro.titulo}" filterMatchMode="contains">
+                                    <h:outputText value="#{itemListaCompra.livro.titulo}"/>
+                                </p:column>
 
-                                <p:column headerText="Edição">  
-                                    <h:outputText value="#{livroCompra.livro.edicao}" 
-                                                  title="#{livroCompra.livro.edicao}"/>  
-                                </p:column>  
+                                <p:column headerText="#{msg['cadastro.livro.label.autor']}"
+                                          filterBy="#{itemListaCompra.livro.autoresAsString}" filterMatchMode="contains">
+                                    <p:dataList value="#{itemListaCompra.livro.autores}" var="autor">
+                                        <h:outputText value="#{autor.sobrenome.toUpperCase()},#{autor.nome}"/>
+                                    </p:dataList>
+                                </p:column>
 
-                                <p:column headerText="Editora">  
-                                    <h:outputText value="#{livroCompra.livro.editora.nome}"
-                                                  title="#{livroCompra.livro.editora.nome}"/>  
-                                </p:column>  
+                                <p:column headerText="#{msg['cadastro.livro.label.editora']}">
+                                    <h:outputText value="#{itemListaCompra.livro.editora.nome}" />
+                                </p:column>
 
-                                <p:column headerText="Ano">  
-                                    <h:outputText value="#{livroCompra.livro.ano}" 
-                                                  title="#{livroCompra.livro.ano}"/>  
+                                <p:column headerText="#{msg['cadastro.livro.label.isbn13']}" width="120">
+                                    <h:outputText value="#{itemListaCompra.livro.isbn13}"
+                                                  title="#{itemListaCompra.livro.isbn13}"/>
+                                </p:column>
+
+                                <p:column headerText="Qtde necessária" sortBy="#{itemListaCompra.quantidadeExigida}">
+                                    <h:outputText value="#{itemListaCompra.quantidadeExigida}" />
+                                </p:column>
+
+                                <p:column headerText="Qtde na biblioteca" sortBy="#{itemListaCompra.quantidadeLivrosDisponiveis}" >
+                                    <h:outputText value="#{itemListaCompra.quantidadeLivrosDisponiveis}" />
+                                </p:column>
+
+                                <p:column headerText="Qtde faltando">
+                                    <h:outputText value="#{(itemListaCompra.quantidadeExigida - itemListaCompra.quantidadeLivrosDisponiveis) lt 0 ? 0 
+                                                           : (itemListaCompra.quantidadeExigida - itemListaCompra.quantidadeLivrosDisponiveis)}" />
+                                </p:column>
+
+                                <p:column headerText="Qtde a Comprar">
+                                    <h:outputText value="#{itemListaCompra.quantidadeAComprar}" />
+                                </p:column>
+
+                                <p:column headerText="#{msg['cadastro.livro.label.disciplinas']}"
+                                          filterBy="#{itemListaCompra.disciplinasAsString}" filterMatchMode="contains">
+                                    <p:dataList value="#{itemListaCompra.livro.bibliografias}" var="bibliografia">
+                                        <h:outputText value="#{bibliografia.disciplina.nome} - #{bibliografia.disciplina.curso.nome} - #{bibliografia.tipo.value}" 
+                                                      title="#{bibliografia.disciplina.nome} - #{bibliografia.disciplina.curso.nome} - #{bibliografia.tipo.value}"/>
+                                    </p:dataList>
                                 </p:column>
 
                             </p:dataTable>  

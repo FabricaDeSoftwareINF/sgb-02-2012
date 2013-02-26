@@ -5,7 +5,8 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"  
       xmlns:h="http://java.sun.com/jsf/html" 
       xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:sec="http://www.springframework.org/security/facelets/tags">
 
     <f:view contentType="text/html">
         <h:head>  
@@ -133,7 +134,9 @@
                         <p:menuitem value="#{msg['cadastro.livro.label.livro']}" action="#{livroController.openInitialPage()}" ajax="false"/>
                         <p:menuitem value="#{msg['cadastro.autor.label.autor']}" action="#{autorController.openInitialPage()}" ajax="false"/>
                         <p:menuitem value="#{msg['cadastro.disciplina.label.disciplina']}" action="#{disciplinaController.openInitialPage()}" ajax="false"/>
-                        <p:menuitem value="#{msg['usuario.label.usuarios']}" action="#{usuarioController.openInitialPage()}" ajax="false" />
+                        <sec:ifAllGranted roles="ADM">
+                            <p:menuitem value="#{msg['usuario.label.usuarios']}" action="#{usuarioController.openInitialPage()}" ajax="false" />
+                        </sec:ifAllGranted>
                     </p:submenu>
 
                     <p:menuitem value="#{msg['listaCompras.inicial']}" action="#{listaComprasController.openInitialPage()}" ajax="false">

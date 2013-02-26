@@ -202,8 +202,16 @@ public class ListaComprasService extends GenericService<ListaCompras> {
             Integer quantidadeBiblioteca = 0;
 
             try {
-                Collection<LivroBiblioteca> livrosBiblioteca = this.getBibliotecaDao().
-                        getLivrosBibliotecaTitulo(item.getLivro().getTitulo());
+                Collection<LivroBiblioteca> livrosBiblioteca = new ArrayList<LivroBiblioteca>();
+                Livro livro = item.getLivro();
+                Collection<Long> idLivrosBibliotecaRelacionados = livro.getCodigosLivrosBiblioteca();
+                
+                for (Long idLivroBiblioteca : idLivrosBibliotecaRelacionados){
+                    LivroBiblioteca livroBiblioteca = this.getBibliotecaDao().getLivroBibliotecaCodigo(idLivroBiblioteca);
+                    if (UtilObjeto.isReferencia(livroBiblioteca) ){
+                        livrosBiblioteca.add(livroBiblioteca);
+                    }
+                }
 
                 if (UtilObjeto.isReferencia(livrosBiblioteca) && livrosBiblioteca.size() > 0) {
 

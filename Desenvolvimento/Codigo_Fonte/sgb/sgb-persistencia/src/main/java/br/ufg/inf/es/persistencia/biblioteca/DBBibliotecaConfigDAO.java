@@ -4,6 +4,7 @@ package br.ufg.inf.es.persistencia.biblioteca;
 import br.ufg.inf.es.base.validation.ValidationException;
 import br.ufg.inf.es.model.biblioteca.DBBibliotecaConfig;
 import br.ufg.inf.es.persistencia.GenericHibernateDAO;
+import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,9 +48,11 @@ public class DBBibliotecaConfigDAO extends GenericHibernateDAO<DBBibliotecaConfi
      * @return configurador do banco de dados da biblioteca
      */
     public DBBibliotecaConfig getBibliotecaCfg() {
-
         Criteria criteria = this.createCriteria();
-
-        return (DBBibliotecaConfig) criteria.uniqueResult();
+        List results = criteria.list();
+        if (results != null && !results.isEmpty()) {
+            return (DBBibliotecaConfig) results.get(0);
+        }
+        return new DBBibliotecaConfig();
     }
 }

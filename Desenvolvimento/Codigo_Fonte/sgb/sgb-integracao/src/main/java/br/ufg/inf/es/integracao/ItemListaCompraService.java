@@ -21,7 +21,6 @@ import org.springframework.stereotype.Component;
 import br.ufg.inf.es.base.persistence.DAO;
 import br.ufg.inf.es.base.util.UtilObjeto;
 import br.ufg.inf.es.base.validation.ValidationException;
-import br.ufg.inf.es.integracao.biblioteca.BibliotecaServiceMock;
 import br.ufg.inf.es.model.Curso;
 import br.ufg.inf.es.model.ItemListaCompras;
 import br.ufg.inf.es.model.Livro;
@@ -210,6 +209,9 @@ public class ItemListaCompraService extends GenericService<ItemListaCompras> {
             livroParaCotacao.setLivro(livro);
             livroParaCotacao.setQuantidadeExigida(quantidadeAlunos / quantidadeLivrosPorAlunos);
             livroParaCotacao.setQuantidadeLivrosDisponiveis(quantidadeBiblioteca);
+            int quantidadeAComprar = Math.max(0, livroParaCotacao.getQuantidadeExigida() 
+                    - livroParaCotacao.getQuantidadeLivrosDisponiveis());
+            livroParaCotacao.setQuantidadeAComprar(quantidadeAComprar);
             livrosParaCotacao.add(livroParaCotacao);
         }
         return livrosParaCotacao;

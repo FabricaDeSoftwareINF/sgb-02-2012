@@ -1,11 +1,13 @@
 package br.ufg.inf.es.model.biblioteca;
 
+import java.io.Serializable;
+
 /**
  * Representacao dos dados retornados da biblioteca
  *
  * @author Victor Ribeiro de Carvalho
  */
-public class LivroBiblioteca {
+public class LivroBiblioteca implements Serializable {
     
     /**
      * Campo id

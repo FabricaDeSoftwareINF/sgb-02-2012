@@ -26,14 +26,12 @@
                             
                             <h:panelGroup>
                                 
-                                <h:outputLabel value="R$" style="margin-right: 5px;"/>
-
                                 <p:inputText required="true" value="#{parametrosController.form.entity.valorFrete}">
-
                                     <f:convertNumber minFractionDigits="2"
                                                      groupingUsed="true"
                                                      pattern="####.##"/>
                                 </p:inputText>
+                                <h:outputLabel value="R$" style="margin-right: 5px;"/>
 
                             </h:panelGroup>
                             

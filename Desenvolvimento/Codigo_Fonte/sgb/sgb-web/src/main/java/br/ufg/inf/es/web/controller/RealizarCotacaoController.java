@@ -46,6 +46,7 @@ public class RealizarCotacaoController extends SGBController<ListaCotacao, Reali
     
     @Autowired
     private ListaCotacaoController listaCotacaoController;
+    
     private List<ItemListaCotacao> listaItemListaCotacao;
     
     @Autowired
@@ -108,7 +109,7 @@ public class RealizarCotacaoController extends SGBController<ListaCotacao, Reali
 
             this.getForm().setCotacoesDataModel(new ItemListaCotacaoDataModel(cotacoes));
             
-            ItemListaCotacao[] cotacoesArray = cotacoes.toArray(new ItemListaCotacao[cotacoes.size()]);
+            this.listaItemListaCotacao = cotacoes;
 
             return this.openInsertPage();
         }
