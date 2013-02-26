@@ -4,13 +4,14 @@ import br.ufg.inf.es.model.Usuario;
 import org.hibernate.Criteria;
 import org.hibernate.classic.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Criterion;
 import org.junit.*;
 import org.mockito.Mockito;
 import static org.junit.Assert.*;
 
 /**
  *
- * @author alunoufg
+ * @author Cássio Augusto, Victor
  */
 public class UsuarioDAOTest {
 
@@ -69,15 +70,23 @@ public class UsuarioDAOTest {
      */
     @Test
     public void testFindUserByEmailAndPassword() {
+        
+        Usuario usuario = new Usuario();
 
-        String user = "a";
-        String password = "123";
-        UsuarioDAO instance = Mockito.mock(UsuarioDAO.class);
-        Usuario expResult = new Usuario();
-        expResult.setNome(user);
-        expResult.setSenha(password);
-        Mockito.when(instance.findUserByEmailAndPassword(user, password)).thenReturn(expResult);
-        Usuario result = instance.findUserByEmailAndPassword(user, password);
-        assertEquals(expResult, result);
+        UsuarioDAO dao = new UsuarioDAO();
+        
+        SessionFactory factory = Mockito.mock(SessionFactory.class);
+        Session session =  Mockito.mock(Session.class);
+        Criteria criteria =  Mockito.mock(Criteria.class);
+        dao.setSessionFactory(factory);
+        
+        Mockito.when(factory.openSession()).thenReturn(session);
+        Mockito.when(session.createCriteria(Mockito.eq(Usuario.class))).thenReturn(criteria);
+        Mockito.when(criteria.add(Mockito.any(Criterion.class))).thenReturn(criteria);
+        Mockito.when(criteria.uniqueResult()).thenReturn(usuario);
+        
+        Usuario result = dao.findUserByEmailAndPassword("", "");
+
+        assertEquals(usuario, result);
     }
 }
