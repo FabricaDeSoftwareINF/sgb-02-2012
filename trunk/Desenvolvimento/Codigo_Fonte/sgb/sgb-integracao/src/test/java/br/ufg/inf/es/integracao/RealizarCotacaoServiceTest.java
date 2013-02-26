@@ -1,5 +1,6 @@
 package br.ufg.inf.es.integracao;
 
+import br.ufg.inf.es.base.validation.ValidationException;
 import br.ufg.inf.es.integracao.cotacao.*;
 import br.ufg.inf.es.model.*;
 import br.ufg.inf.es.model.biblioteca.LivroBiblioteca;
@@ -8,6 +9,7 @@ import br.ufg.inf.es.persistencia.ListaCotacaoDAO;
 import br.ufg.inf.es.persistencia.LivroDAO;
 import br.ufg.inf.es.persistencia.ParametrosDAO;
 import br.ufg.inf.es.persistencia.biblioteca.LivrosBibliotecaDAO;
+import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.Collection;
@@ -30,22 +32,25 @@ public class RealizarCotacaoServiceTest {
     private LivroDAO livroDao;
     private CotacaoDAO cotacaoDao;
     private LivrosBibliotecaDAO bibliotecaDao;
-    private ParametrosDAO parametrosDao;
+    private ParametrosService parametrosService;
 
     @Before
-    public void setUp() {
+    public void setUp() throws ValidationException {
         service = new RealizarCotacaoService();
         dao = mock(ListaCotacaoDAO.class);
         livroDao = mock(LivroDAO.class);
         cotacaoDao = mock(CotacaoDAO.class);
         bibliotecaDao = mock(LivrosBibliotecaDAO.class);
-        parametrosDao = mock(ParametrosDAO.class);
+        parametrosService = mock(ParametrosService.class);
+        Parametros parametros = new Parametros();
+        parametros.setValorFrete(new BigDecimal(100));
+        when(parametrosService.find()).thenReturn(parametros);
 
         service.setDao(dao);
         service.setLivroDao(livroDao);
         service.setBibliotecaDao(bibliotecaDao);
         service.setCotacaoDao(cotacaoDao);
-        service.setParametrosDao(parametrosDao);
+        service.setParametrosService(parametrosService);
     }
 
     /**
@@ -141,7 +146,7 @@ public class RealizarCotacaoServiceTest {
         LivroBiblioteca livroBiblioteca = new LivroBiblioteca();
         livroBiblioteca.setQuantidade(1);
 
-        when(parametrosDao.list()).thenReturn(Arrays.asList(new Parametros()));
+        when(parametrosService.list()).thenReturn(Arrays.asList(new Parametros()));
         when(bibliotecaDao.getLivrosBibliotecaTitulo(livro.getTitulo())).thenReturn(Arrays.asList(livroBiblioteca));
 
         when(livroDao.obterQuantidadeDeAlunosPorLivro(idLivro)).thenReturn(60);
@@ -164,8 +169,8 @@ public class RealizarCotacaoServiceTest {
      */
     @Test
     public void testGetParametrosDao() {
-        ParametrosDAO result = service.getParametrosDao();
-        assertEquals(parametrosDao, result);
+        ParametrosService result = service.getParametrosService();
+        assertEquals(parametrosService, result);
     }
 
     /**

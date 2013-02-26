@@ -1,6 +1,7 @@
 package br.ufg.inf.es.integracao;
 
 import br.ufg.inf.es.base.util.UtilObjeto;
+import br.ufg.inf.es.base.validation.ValidationException;
 import br.ufg.inf.es.model.Cotacao;
 import br.ufg.inf.es.model.ListaCotacao;
 import br.ufg.inf.es.model.Livro;
@@ -9,7 +10,6 @@ import br.ufg.inf.es.model.biblioteca.LivroBiblioteca;
 import br.ufg.inf.es.persistencia.CotacaoDAO;
 import br.ufg.inf.es.persistencia.ListaCotacaoDAO;
 import br.ufg.inf.es.persistencia.LivroDAO;
-import br.ufg.inf.es.persistencia.ParametrosDAO;
 import br.ufg.inf.es.persistencia.biblioteca.LivrosBibliotecaDAO;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -26,6 +26,7 @@ import br.ufg.inf.es.integracao.cotacao.CotadorBuscape;
 import br.ufg.inf.es.integracao.cotacao.CotadorGoogleShop;
 import br.ufg.inf.es.integracao.cotacao.ResultadoCotacao;
 import br.ufg.inf.es.model.*;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -51,7 +52,7 @@ public class RealizarCotacaoService extends GenericService<ListaCotacao> {
     @Autowired
     private LivrosBibliotecaDAO bibliotecaDao;
     @Autowired
-    private ParametrosDAO parametrosDao;
+    private ParametrosService parametrosService;
 
     /**
      * {@inheritDoc}
@@ -73,8 +74,8 @@ public class RealizarCotacaoService extends GenericService<ListaCotacao> {
         this.livroDao = livroDao;
     }
 
-    public void setParametrosDao(ParametrosDAO parametrosDao) {
-        this.parametrosDao = parametrosDao;
+    public void setParametrosService(ParametrosService parametrosDao) {
+        this.parametrosService = parametrosDao;
     }
 
     /**
@@ -105,9 +106,16 @@ public class RealizarCotacaoService extends GenericService<ListaCotacao> {
     public ListaCotacao realizarCotacao(Collection<ItemListaCompras> livros) {
         Collection<ItemListaCotacao> cotacoes = new ArrayList<ItemListaCotacao>();
         Map<Livro, Collection<ResultadoCotacao>> resultados = buscarOfertas(livros);
+        BigDecimal valorFrete = new BigDecimal(0.0);
+        try {
+            Parametros parametros = this.getParametrosService().find();
+            valorFrete = parametros.getValorFrete();
+        } catch (ValidationException ex) {
+            Logger.getLogger(RealizarCotacaoService.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
         for (Livro livro : resultados.keySet()) {
-            cotacoes.add(extraiCotacao(livro, resultados.get(livro)));
+            cotacoes.add(extraiCotacao(livro, resultados.get(livro), valorFrete));
         }
 
         this.obtemQuantidadeNecessariaLivros(cotacoes);
@@ -115,22 +123,6 @@ public class RealizarCotacaoService extends GenericService<ListaCotacao> {
         ListaCotacao listaCotacao = new ListaCotacao();
         listaCotacao.setItensListaCotacao(cotacoes);
         return listaCotacao;
-    }
-
-    private double calculaPrecoMedio(ItemListaCotacao cotacoesLivro) {
-        double somatorioPrecos = 0.0;
-        double media = 0.0;
-        if (cotacoesLivro != null) {
-            Collection<Cotacao> cotacoes = cotacoesLivro.getCotacoes();
-            for (Cotacao cotacao : cotacoes) {
-                somatorioPrecos += cotacao.getValor();
-            }
-            media = somatorioPrecos / cotacoes.size();
-        }
-        if (Double.isNaN(media)) {
-            media = 0.0;
-        }
-        return media;
     }
 
     private Map<Livro, Collection<ResultadoCotacao>> buscarOfertas(Collection<ItemListaCompras> livros) {
@@ -155,12 +147,11 @@ public class RealizarCotacaoService extends GenericService<ListaCotacao> {
         return this.bibliotecaDao;
     }
 
-    public ParametrosDAO getParametrosDao() {
-
-        return this.parametrosDao;
+    public ParametrosService getParametrosService() {
+        return this.parametrosService;
     }
 
-    private ItemListaCotacao extraiCotacao(Livro livro, Collection<ResultadoCotacao> resultadosCotacao) {
+    private ItemListaCotacao extraiCotacao(Livro livro, Collection<ResultadoCotacao> resultadosCotacao, BigDecimal valorFrete) {
         Collection<Cotacao> cotacoes = new ArrayList<Cotacao>();
         ItemListaCotacao cotacoesLivro = new ItemListaCotacao();
         for (ResultadoCotacao resultadoCotacao : resultadosCotacao) {
@@ -181,15 +172,35 @@ public class RealizarCotacaoService extends GenericService<ListaCotacao> {
         }
         cotacoesLivro.setLivro(livro);
         cotacoesLivro.setCotacoes(cotacoes);
-        cotacoesLivro.setValorMedio(calculaPrecoMedio(cotacoesLivro));
+        if (livro.isEstrangeiro()) {
+            cotacoesLivro.setValorMedio(calculaPrecoMedio(cotacoesLivro) + valorFrete.doubleValue());
+        } else {
+            cotacoesLivro.setValorMedio(calculaPrecoMedio(cotacoesLivro));
+        }
         return cotacoesLivro;
+    }
+    
+    private double calculaPrecoMedio(ItemListaCotacao cotacoesLivro) {
+        double somatorioPrecos = 0.0;
+        double media = 0.0;
+        if (cotacoesLivro != null) {
+            Collection<Cotacao> cotacoes = cotacoesLivro.getCotacoes();
+            for (Cotacao cotacao : cotacoes) {
+                somatorioPrecos += cotacao.getValor();
+            }
+            media = somatorioPrecos / cotacoes.size();
+        }
+        if (Double.isNaN(media)) {
+            media = 0.0;
+        }
+        return media;
     }
 
     private Collection<Cotacao> obtemQuantidadeNecessariaLivros(Collection<ItemListaCotacao> cotacoes) {
 
         try {
 
-            List<Parametros> param = new ArrayList<Parametros>(this.getParametrosDao().list());
+            List<Parametros> param = new ArrayList<Parametros>(this.getParametrosService().list());
 
             int quantidadeLivrosPorAlunos = 0;
 
