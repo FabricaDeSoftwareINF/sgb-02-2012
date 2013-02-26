@@ -325,9 +325,12 @@ public class LivroController extends SGBController<Livro, LivroForm, LivroServic
                     if (!codigosLivrosBiblioteca.contains(this.form.getLivroBiblioteca().getId())) {
                         codigosLivrosBiblioteca.add(this.form.getLivroBiblioteca().getId());
                         this.form.getEntity().setCodigosLivrosBiblioteca(codigosLivrosBiblioteca);
+                        
+                        this.form.getLivrosAssociados().add(this.form.getLivroBiblioteca());
+                        this.form.setLivroBiblioteca(null);
                     } else {
                         this.addWarningMessage("Livro já associado. Verifique!");
-                    }
+                    }                  
 
                 } else {
                     this.addErrorMessage("Não foi selecionado um Livro da Biblioteca. Verifique!");
@@ -336,8 +339,7 @@ public class LivroController extends SGBController<Livro, LivroForm, LivroServic
                 this.addWarningMessage("Para associar um livro da biblioteca, "
                         + "primeiro deve ser selecione um livro do sistema.");
             }
-            this.form.getLivrosAssociados().add(this.form.getLivroBiblioteca());
-            this.form.setLivroBiblioteca(null);
+            
         } else {
             this.addWarningMessage("cadastro.livro.validacao.associacaolivrobiblioteca");
         }
