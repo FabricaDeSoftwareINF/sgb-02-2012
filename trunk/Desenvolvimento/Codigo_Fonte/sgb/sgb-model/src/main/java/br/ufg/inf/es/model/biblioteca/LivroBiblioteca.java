@@ -8,7 +8,7 @@ import java.io.Serializable;
  * @author Victor Ribeiro de Carvalho
  */
 public class LivroBiblioteca implements Serializable {
-    
+    private static final int MAX_SHORT = 100;
     /**
      * Campo id
      */
@@ -80,7 +80,11 @@ public class LivroBiblioteca implements Serializable {
      * @return {@link String}
      */
     public String getShortNome() {
-        return this.nome.substring(0, 100);
+        String nomeCurto = nome;
+        if(nome.length()> MAX_SHORT){
+            nomeCurto = this.nome.substring(0, MAX_SHORT);
+        }
+        return nomeCurto;
     }
 
     /**

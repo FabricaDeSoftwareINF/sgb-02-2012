@@ -12,10 +12,11 @@ import static org.junit.Assert.*;
  * @author Alunoinf_2
  */
 public class LivroBibliotecaTest {
-    
+
     public LivroBibliotecaTest() {
     }
-static LivroBiblioteca instance = new LivroBiblioteca();
+    static LivroBiblioteca instance = new LivroBiblioteca();
+
     @BeforeClass
     public static void setUpClass() throws Exception {
     }
@@ -23,10 +24,10 @@ static LivroBiblioteca instance = new LivroBiblioteca();
     @AfterClass
     public static void tearDownClass() throws Exception {
     }
-    
+
     @Before
     public void setUp() {
-           
+
         instance.setAno("2012");
         instance.setAutor("Autor");
         instance.setEdicao(5);
@@ -35,9 +36,9 @@ static LivroBiblioteca instance = new LivroBiblioteca();
         instance.setIsbn("Isbn");
         instance.setNome("Livro");
         instance.setQuantidade(10);
-        
+
     }
-    
+
     @After
     public void tearDown() {
     }
@@ -47,12 +48,12 @@ static LivroBiblioteca instance = new LivroBiblioteca();
      */
     @Test
     public void testGetAno() {
-       
-     
+
+
         String expResult = "2012";
         String result = instance.getAno();
         assertEquals(expResult, result);
-       
+
     }
 
     /**
@@ -60,7 +61,7 @@ static LivroBiblioteca instance = new LivroBiblioteca();
      */
     @Test
     public void testSetAno() {
-       
+
         String expResult = "2012";
         String result = instance.getAno();
         assertEquals(expResult, result);
@@ -71,11 +72,11 @@ static LivroBiblioteca instance = new LivroBiblioteca();
      */
     @Test
     public void testGetAutor() {
-       
+
         String expResult = "Autor";
         String result = instance.getAutor();
         assertEquals(expResult, result);
-      
+
     }
 
     /**
@@ -83,11 +84,11 @@ static LivroBiblioteca instance = new LivroBiblioteca();
      */
     @Test
     public void testSetAutor() {
-        
+
         String expResult = "Autor";
         String result = instance.getAutor();
         assertEquals(expResult, result);
-      
+
     }
 
     /**
@@ -95,11 +96,11 @@ static LivroBiblioteca instance = new LivroBiblioteca();
      */
     @Test
     public void testGetEdicao() {
-       
+
         Integer expResult = 5;
         Integer result = instance.getEdicao();
         assertEquals(expResult, result);
-       
+
     }
 
     /**
@@ -107,8 +108,8 @@ static LivroBiblioteca instance = new LivroBiblioteca();
      */
     @Test
     public void testSetEdicao() {
-       
-       Integer expResult = 5;
+
+        Integer expResult = 5;
         Integer result = instance.getEdicao();
         assertEquals(expResult, result);
     }
@@ -118,11 +119,11 @@ static LivroBiblioteca instance = new LivroBiblioteca();
      */
     @Test
     public void testGetEditora() {
-      
+
         String expResult = "Editora";
         String result = instance.getEditora();
         assertEquals(expResult, result);
-       
+
     }
 
     /**
@@ -140,11 +141,11 @@ static LivroBiblioteca instance = new LivroBiblioteca();
      */
     @Test
     public void testGetId() {
-       
+
         Long expResult = 1L;
         Long result = instance.getId();
         assertEquals(expResult, result);
-       
+
     }
 
     /**
@@ -152,8 +153,8 @@ static LivroBiblioteca instance = new LivroBiblioteca();
      */
     @Test
     public void testSetId() {
-       
-      Long expResult = 1L;
+
+        Long expResult = 1L;
         Long result = instance.getId();
         assertEquals(expResult, result);
     }
@@ -163,11 +164,11 @@ static LivroBiblioteca instance = new LivroBiblioteca();
      */
     @Test
     public void testGetIsbn() {
-      
+
         String expResult = "Isbn";
         String result = instance.getIsbn();
         assertEquals(expResult, result);
-        
+
     }
 
     /**
@@ -175,10 +176,10 @@ static LivroBiblioteca instance = new LivroBiblioteca();
      */
     @Test
     public void testSetIsbn() {
-     String expResult = "Isbn";
+        String expResult = "Isbn";
         String result = instance.getIsbn();
         assertEquals(expResult, result);
-        
+
     }
 
     /**
@@ -186,11 +187,11 @@ static LivroBiblioteca instance = new LivroBiblioteca();
      */
     @Test
     public void testGetNome() {
-       
+
         String expResult = "Livro";
         String result = instance.getNome();
         assertEquals(expResult, result);
-        
+
     }
 
     /**
@@ -208,11 +209,77 @@ static LivroBiblioteca instance = new LivroBiblioteca();
      */
     @Test
     public void testGetQuantidade() {
-        
+
         Integer expResult = 10;
         Integer result = instance.getQuantidade();
         assertEquals(expResult, result);
-        
+
+    }
+
+    @Test
+    public void testGetShortNome() {
+        String menor = "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII";
+        instance.setNome(menor);
+        String nome = instance.getShortNome();
+        assertEquals(menor, nome);
+    }
+
+    @Test
+    public void testGetShortNome2() {
+        String maior = "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII"
+                + "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII"
+                + "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII";
+        instance.setNome(maior);
+        String nomeCurto = instance.getShortNome();
+        assertTrue(maior.length() > nomeCurto.length());
+    }
+
+    @Test
+    public void testGetNomeMax() {
+        String menor = "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII";
+        instance.setNome(menor);
+        String nomeGrande = instance.getNomeMax();
+        assertTrue(nomeGrande.length() < 50);
+    }
+
+    @Test
+    public void testGetNomeMax2() {
+        String maior = "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII"
+                + "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII"
+                + "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII";
+        instance.setNome(maior);
+        String nomeGrande = instance.getNomeMax();
+        assertTrue(nomeGrande.length() == 50);
+    }
+
+    @Test
+    public void testGetDescricaoDoLivro() {
+        String descricao = instance.getDescricaoLivro();
+        assertTrue(descricao.length() == 50);
+    }
+
+    @Test
+    public void testGetDescricaoDoLivroComISBNNULL() {
+        setUp();
+        instance.setIsbn(null);
+        String descricao = instance.getDescricaoLivro();
+        assertTrue(descricao.length() < 50);
+    }
+
+    @Test
+    public void testGetDescricaoDoLivroComAutorNULL() {
+        setUp();
+        instance.setAutor(null);
+        String descricao = instance.getDescricaoLivro();
+        assertTrue(descricao.length() < 50);
+    }
+
+    @Test
+    public void testGetDescricaoDoLivroComAnoNULL() {
+        setUp();
+        instance.setAno(null);
+        String descricao = instance.getDescricaoLivro();
+        assertTrue(descricao.length() < 50);
     }
 
     /**
@@ -220,8 +287,8 @@ static LivroBiblioteca instance = new LivroBiblioteca();
      */
     @Test
     public void testSetQuantidade() {
-        
-         Integer expResult = 10;
+
+        Integer expResult = 10;
         Integer result = instance.getQuantidade();
         assertEquals(expResult, result);
     }
@@ -231,10 +298,10 @@ static LivroBiblioteca instance = new LivroBiblioteca();
      */
     @Test
     public void testToString() {
-       
+
         String expResult = "LivroBiblioteca{id=1, nome=Livro, isbn=Isbn, ano=2012, edicao=5, editora=Editora, autor=Autor, quantidade=10}";
         String result = instance.toString();
         assertEquals(expResult, result);
-        
+
     }
 }
