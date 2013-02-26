@@ -27,7 +27,6 @@ public class ConectaTest {
     
      private Connection conn;
      
-     private Conecta conecta;
     
     @Before
     public void setUp() {
@@ -46,7 +45,7 @@ public class ConectaTest {
         
         when(DriverManager.getConnection(Mockito.anyString(), Mockito.anyString(), Mockito.anyString())).thenReturn(conn);
         
-        Connection result = conecta.getSessionConnection(DBDriver.Oracle, "", "", "", "", "");
+        Connection result = Conecta.getSessionConnection(DBDriver.Oracle, "", "", "", "", "");
        
         assertNull(result);
     }
@@ -60,6 +59,21 @@ public class ConectaTest {
         when(DriverManager.getConnection(Mockito.anyString(), Mockito.anyString(), Mockito.anyString())).thenReturn(conn);
         
         verifyStatic();
+        
+    }
+    
+    @Test
+    public void testGetSessionConnection03() throws SQLException, Exception {
+        
+        mockStatic(DriverManager.class);
+       
+        when(DriverManager.getConnection(Mockito.anyString(), Mockito.anyString(), Mockito.anyString())).thenReturn(conn);
+
+        verifyStatic();
+        
+        Connection sessionConnection = Conecta.getSessionConnection(DBDriver.MySQL, "localhost", "3306", "sgb", "admin", "root");
+       
+        assertNull(sessionConnection);
         
     }
 }
