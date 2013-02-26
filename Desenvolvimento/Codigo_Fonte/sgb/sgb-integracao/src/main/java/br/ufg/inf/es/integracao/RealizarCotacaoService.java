@@ -48,15 +48,13 @@ public class RealizarCotacaoService extends GenericService<ListaCotacao> {
     private LivroDAO livroDao;
     @Autowired
     private CotacaoDAO cotacaoDao;
-    
     @Autowired
     private LivrosBibliotecaDAO bibliotecaDao;
-    
     @Autowired
-    private ParametrosDAO parametrosDao; 
-    
-    /** 
-     * {@inheritDoc} 
+    private ParametrosDAO parametrosDao;
+
+    /**
+     * {@inheritDoc}
      */
     @Override
     public ListaCotacaoDAO getDAO() {
@@ -78,7 +76,7 @@ public class RealizarCotacaoService extends GenericService<ListaCotacao> {
     public void setParametrosDao(ParametrosDAO parametrosDao) {
         this.parametrosDao = parametrosDao;
     }
-    
+
     /**
      * Método que define o DAO do Livro.
      *
@@ -104,7 +102,6 @@ public class RealizarCotacaoService extends GenericService<ListaCotacao> {
         return this.cotacaoDao;
     }
 
-
     public ListaCotacao realizarCotacao(Collection<ItemListaCompras> livros) {
         Collection<ItemListaCotacao> cotacoes = new ArrayList<ItemListaCotacao>();
         Map<Livro, Collection<ResultadoCotacao>> resultados = buscarOfertas(livros);
@@ -112,9 +109,9 @@ public class RealizarCotacaoService extends GenericService<ListaCotacao> {
         for (Livro livro : resultados.keySet()) {
             cotacoes.add(extraiCotacao(livro, resultados.get(livro)));
         }
-        
+
         this.obtemQuantidadeNecessariaLivros(cotacoes);
-        
+
         ListaCotacao listaCotacao = new ListaCotacao();
         listaCotacao.setItensListaCotacao(cotacoes);
         return listaCotacao;
@@ -153,17 +150,15 @@ public class RealizarCotacaoService extends GenericService<ListaCotacao> {
         return resultados;
     }
 
-
     public LivrosBibliotecaDAO getBibliotecaDao() {
-        
+
         return this.bibliotecaDao;
     }
 
     public ParametrosDAO getParametrosDao() {
-    
+
         return this.parametrosDao;
     }
-        
 
     private ItemListaCotacao extraiCotacao(Livro livro, Collection<ResultadoCotacao> resultadosCotacao) {
         Collection<Cotacao> cotacoes = new ArrayList<Cotacao>();
@@ -190,49 +185,64 @@ public class RealizarCotacaoService extends GenericService<ListaCotacao> {
         return cotacoesLivro;
     }
 
-    
-    private Collection<Cotacao> obtemQuantidadeNecessariaLivros(Collection<ItemListaCotacao> cotacoes){
-        
+    private Collection<Cotacao> obtemQuantidadeNecessariaLivros(Collection<ItemListaCotacao> cotacoes) {
+
         try {
-            
+
             List<Parametros> param = new ArrayList<Parametros>(this.getParametrosDao().list());
-            
+
             int quantidadeLivrosPorAlunos = 0;
-            
-            if(UtilObjeto.isReferencia(param) && param.size() > 0){
-                
+
+            if (UtilObjeto.isReferencia(param) && param.size() > 0) {
+
                 quantidadeLivrosPorAlunos = param.get(0).getParametroMEC();
             }
-            
-            for(ItemListaCotacao cotacao: cotacoes) {
-            
+
+            for (ItemListaCotacao cotacao : cotacoes) {
+
                 Integer quantidadeBiblioteca = 0;
-                
-                Collection<LivroBiblioteca> livros = this.getBibliotecaDao().getLivrosBibliotecaTitulo(cotacao.getLivro().getTitulo());
-                
-                if(UtilObjeto.isReferencia(livros) && livros.size() > 0){
-                                      
-                    for(LivroBiblioteca livro : livros){
-                        
-                        quantidadeBiblioteca += livro.getQuantidade();
-                    }                    
+
+                Collection<LivroBiblioteca> livrosBiblioteca = new ArrayList<LivroBiblioteca>();
+
+                Livro livro = cotacao.getLivro();
+
+                Collection<Long> idLivrosBibliotecaRelacionados = livro.getCodigosLivrosBiblioteca();
+
+                for (Long idLivroBiblioteca : idLivrosBibliotecaRelacionados) {
+                    LivroBiblioteca livroBiblioteca = this.getBibliotecaDao().getLivroBibliotecaCodigo(idLivroBiblioteca);
+                    if (UtilObjeto.isReferencia(livroBiblioteca)) {
+                        livrosBiblioteca.add(livroBiblioteca);
+                    }
                 }
-                
+
+                if (UtilObjeto.isReferencia(livrosBiblioteca) && livrosBiblioteca.size() > 0) {
+
+                    for (LivroBiblioteca livroBiblioteca : livrosBiblioteca) {
+
+                        quantidadeBiblioteca += livroBiblioteca.getQuantidade();
+                    }
+                }
+
                 Integer quantidadeAlunos = this.getLivroDao().obterQuantidadeDeAlunosPorLivro(cotacao.getLivro().getId());
-                
-                cotacao.setQuantidade((quantidadeAlunos / quantidadeLivrosPorAlunos) - quantidadeBiblioteca);
+
+                int quantidadeExigida = 0;
+                if (quantidadeLivrosPorAlunos > 0) {
+                    quantidadeExigida = (int) Math.ceil(((double) quantidadeAlunos) / quantidadeLivrosPorAlunos);
+                }
+
+                cotacao.setQuantidade(Math.max(0, quantidadeExigida));
             }
-            
-        
+
+
         } catch (NotFoundException nfe) {
-            
+
             Logger.getAnonymousLogger().log(Level.SEVERE, "Livro não encontrado");
-        
+
         } catch (SQLException sqle) {
-            
+
             Logger.getAnonymousLogger().log(Level.SEVERE, sqle.getMessage(), sqle);
         }
-        
+
         return null;
     }
 
@@ -244,5 +254,4 @@ public class RealizarCotacaoService extends GenericService<ListaCotacao> {
         listaCotacao.setUser(autor);
         this.getDAO().insert(listaCotacao);
     }
-
 }

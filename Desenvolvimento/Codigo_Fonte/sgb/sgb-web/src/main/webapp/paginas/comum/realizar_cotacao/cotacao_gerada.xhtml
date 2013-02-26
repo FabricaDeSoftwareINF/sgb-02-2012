@@ -77,8 +77,10 @@
                                         </h:outputLink>
                                     </p:column>
 
-                                    <p:column headerText="#{msg['label.cotacao.valor']}">
-                                        <h:outputText value="#{cotacao.valor}"/>
+                                    <p:column headerText="#{msg['label.cotacao.valor']} (R$)">
+                                        <h:outputText value="#{cotacao.valor}">
+                                            <f:convertNumber maxFractionDigits="2"/> 
+                                        </h:outputText>
                                     </p:column>
 
                                 </p:dataTable>

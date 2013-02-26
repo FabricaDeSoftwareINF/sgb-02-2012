@@ -22,7 +22,7 @@
 
                         <p:selectOneMenu label="SGBD" value="#{bibliotecaConfigController.form.driver}"  
                                          converter="dbDriverConverter">
-                            
+
                             <f:selectItems  var="driver" value="#{bibliotecaConfigController.form.drivers}"
                                             itemLabel="#{driver}" itemValue="#{driver}"/>
                         </p:selectOneMenu>
@@ -109,16 +109,7 @@
                         </p:commandButton>
                     </h:panelGrid>
                 </div>       
-            </h:form> 
-
-            <h:form>
-                <div align="left">
-                    <p:commandButton  update="@form"  
-                                      actionListener="#{bibliotecaConfigController.voltar()}" 
-                                      value="#{msg['parametros.bc.voltar']}" />
-                </div>
-            </h:form>   
-
+            </h:form>
         </ui:define>
     </ui:composition>
 
