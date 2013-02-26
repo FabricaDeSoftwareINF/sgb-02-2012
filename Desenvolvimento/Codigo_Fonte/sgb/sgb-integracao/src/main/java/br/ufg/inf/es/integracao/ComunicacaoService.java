@@ -1,9 +1,15 @@
 package br.ufg.inf.es.integracao;
 
+import br.ufg.inf.es.base.util.cripto.CriptoGeneric;
 import br.ufg.inf.es.base.validation.ValidationException;
 import br.ufg.inf.es.integracao.annotations.RNG001Parametros;
 import br.ufg.inf.es.model.Comunicacao;
+import br.ufg.inf.es.model.Usuario;
 import br.ufg.inf.es.persistencia.ComunicacaoDAO;
+import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.apache.commons.mail.HtmlEmail;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
@@ -80,5 +86,43 @@ public class ComunicacaoService extends GenericService<Comunicacao> {
     public void editar(Comunicacao entidade) throws ValidationException {
 
         this.getDAO().update(entidade);
+    }
+    
+    public void enviarNovaSenha(Usuario usuario){
+        HtmlEmail email = new HtmlEmail();
+        Properties properties = new Properties();
+        
+        Comunicacao comunicacao = getDAO().getComunicacao();
+        
+        if (comunicacao != null) {
+            try {
+                //properties.load(EmailService.class.getResourceAsStream("/resources/email.properties"));
+
+                String server = comunicacao.getService();//properties.getProperty("email.server");
+                Boolean usarSsl = comunicacao.isSsl();//Boolean.valueOf(properties.getProperty("email.ssl"));
+                Boolean usarTsl = comunicacao.isTsl();//Boolean.valueOf(properties.getProperty("email.tsl"));
+                String porta = comunicacao.getPort();//properties.getProperty("email.port");
+                String emailUsuario = comunicacao.getUsuario();//properties.getProperty("email.usuario");
+
+                String senhaDecript = new String(new CriptoGeneric().decriptografa(comunicacao.getSenha()));
+
+                String senha = senhaDecript;//properties.getProperty("email.senha");
+
+                email.setAuthentication(emailUsuario, senha);
+                email.setSmtpPort(Integer.parseInt(porta));
+                email.setHostName(server);
+                email.setSSL(usarSsl);
+                email.setTLS(usarTsl);
+                email.setSubject("Nova Senha");
+                email.setFrom(usuario.getEmail());
+                email.addTo(usuario.getEmail(), usuario.getNome());
+                email.setMsg("Nova senha: " + usuario.getSenha());
+                email.setDebug(true);
+                email.send();
+
+            } catch (Exception ex) {
+                Logger.getAnonymousLogger().log(Level.SEVERE, ex.getLocalizedMessage());
+            }
+        }
     }
 }

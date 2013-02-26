@@ -1,11 +1,18 @@
 package br.ufg.inf.es.integracao;
 
 import br.ufg.inf.es.base.util.SgbCryptography;
+import br.ufg.inf.es.base.util.cripto.CriptoGeneric;
 import br.ufg.inf.es.base.validation.ValidationException;
+import br.ufg.inf.es.model.Comunicacao;
 import br.ufg.inf.es.model.Usuario;
+import br.ufg.inf.es.persistencia.ComunicacaoDAO;
 import br.ufg.inf.es.persistencia.UsuarioDAO;
 import java.security.SecureRandom;
 import java.util.Date;
+import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.apache.commons.mail.HtmlEmail;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
@@ -20,6 +27,8 @@ import org.springframework.stereotype.Component;
 @Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class UsuarioService extends GenericService<Usuario> {
 
+    @Autowired
+    ComunicacaoService comunicacaoService;
     /**
      * Atributo UsuarioDAO
      */
@@ -106,7 +115,8 @@ public class UsuarioService extends GenericService<Usuario> {
         Usuario usuario = dao.findUserByEmail(emailUsuario);
 
         if (usuario == null) {
-            throw new ValidationException("E-mail não cadastrado");
+            //throw new ValidationException("E-mail não cadastrado");
+            return;
         }
 
         String letters = "abcdefghjkmnpqrstuvwxyzABCDEFGHJKMNPQRSTUVWXYZ23456789_-";
@@ -120,10 +130,10 @@ public class UsuarioService extends GenericService<Usuario> {
 
         newPass = newPasswordBuilder.toString();
         usuario.setSenha(newPass);
-        EmailService.enviarNovaSenha(usuario);
+        getComunicacaoService().enviarNovaSenha(usuario);
         usuario.setSenha(cryptography.encrypt(newPass));
         dao.update(usuario);
-    }
+    }   
 
     /**
      * Método Responsável por obter o usuário DAO
@@ -149,4 +159,12 @@ public class UsuarioService extends GenericService<Usuario> {
     public Usuario findUsuarioByEmail(String email) {
         return this.dao.findUserByEmail(email);
     }
+
+    public ComunicacaoService getComunicacaoService() {
+        return comunicacaoService;
+    }
+
+    public void setComunicacaoService(ComunicacaoService comunicacaoService) {
+        this.comunicacaoService = comunicacaoService;
+    }   
 }

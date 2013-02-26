@@ -19,7 +19,6 @@ import org.powermock.modules.junit4.PowerMockRunner;
  * @author alunoufg, Victor Carvalho
  */
 @RunWith(PowerMockRunner.class)
-@PrepareForTest(EmailService.class)
 public class UsuarioServiceTest {
 
     private Usuario usuario;
@@ -147,32 +146,5 @@ public class UsuarioServiceTest {
     @Test
     public void testSave() throws Exception {
         usuarioService.save(usuario);
-    }
-
-    /**
-     * Test of recuperarSenha method, of class UsuarioService. Para usuario
-     * inexistente
-     */
-    @Test(expected = ValidationException.class)
-    public void testRecuperarSenhaParaUsuarioNaoCadastrado() throws Exception {
-        when(usuarioDAO.findUserByEmail("")).thenReturn(null);
-        usuarioService.recuperarSenha("");
-    }
-
-    /**
-     * Test of recuperarSenha method, of class UsuarioService. Para usuario
-     * existente
-     */
-    @Test
-    public void testRecuperarSenhaParaUsuarioExistente() throws Exception {
-        String email = "email";
-        usuario.setEmail(email);
-        when(usuarioDAO.findUserByEmail(email)).thenReturn(usuario);
-
-        mockStatic(EmailService.class);
-
-        usuarioService.recuperarSenha(email);
-        
-        verifyStatic();
     }
 }
