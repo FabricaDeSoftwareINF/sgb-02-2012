@@ -229,7 +229,11 @@ public class ListaComprasService extends GenericService<ListaCompras> {
 
             Integer quantidadeAlunos = this.getLivroDao().obterQuantidadeDeAlunosPorLivro(item.getLivro().getId());
 
-            item.setQuantidadeExigida(quantidadeAlunos / quantidadeLivrosPorAlunos);
+            int quantidadeExigida = 0;
+            if (quantidadeLivrosPorAlunos > 0) {
+                quantidadeExigida = (int) Math.ceil(((double) quantidadeAlunos) / quantidadeLivrosPorAlunos);
+            }
+            item.setQuantidadeExigida(quantidadeExigida);
             item.setQuantidadeLivrosDisponiveis(quantidadeBiblioteca);
         }
     }

@@ -115,9 +115,5 @@ public class ComunicacaoController extends SGBController<Comunicacao,
     public void setSslPage(boolean sslPage) {
         this.sslPage = sslPage;
     }
-    
-    public String voltar() {
-        return "/index.jsf";
 
-    }
 }

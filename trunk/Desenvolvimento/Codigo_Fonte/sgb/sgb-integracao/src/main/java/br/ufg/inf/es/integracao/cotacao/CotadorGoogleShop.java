@@ -71,8 +71,9 @@ public class CotadorGoogleShop extends Cotador {
             List<StringMap> invetories = (List<StringMap>) produto.get("inventories");
            
             for (StringMap stringMap : invetories) {
-               
                 precoLivro = (String) stringMap.get("price").toString();
+                
+                precoLivro = ConversorMoeda.converterDolarParaReal(precoLivro);
                 
                 moeda = (String) stringMap.get("currency");
             }

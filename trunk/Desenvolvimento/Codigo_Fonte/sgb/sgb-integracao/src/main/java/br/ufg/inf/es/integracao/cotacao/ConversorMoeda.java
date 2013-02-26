@@ -28,7 +28,7 @@ class ConversorMoeda {
         
         Map map = gson.fromJson(resultadoJson, Map.class);
         
-        return map.get("rhs").toString();
+        return map.get("rhs").toString().replaceAll("[a-zA-Z\\s]", "");
     }
     /**
      * Converte um valor em dolar para um valor em real usando a api do google.

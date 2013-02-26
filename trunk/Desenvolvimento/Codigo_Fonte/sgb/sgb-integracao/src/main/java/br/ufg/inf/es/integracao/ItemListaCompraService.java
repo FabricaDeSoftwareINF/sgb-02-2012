@@ -177,7 +177,7 @@ public class ItemListaCompraService extends GenericService<ItemListaCompras> {
             Integer quantidadeBiblioteca = 0;
 
             try {
-                //Collection<LivroBiblioteca> livrosBiblioteca = this.getBibliotecaDao().getLivrosBibliotecaTitulo(livro.getTitulo());
+                
                 Collection<LivroBiblioteca> livrosBiblioteca = new ArrayList<LivroBiblioteca>();
                 
                 Collection<Long> idLivrosBibliotecaRelacionados = livro.getCodigosLivrosBiblioteca();
@@ -207,11 +207,16 @@ public class ItemListaCompraService extends GenericService<ItemListaCompras> {
 
             ItemListaCompras livroParaCotacao = new ItemListaCompras();
             livroParaCotacao.setLivro(livro);
-            livroParaCotacao.setQuantidadeExigida(quantidadeAlunos / quantidadeLivrosPorAlunos);
+            int quantidadeExigida = 0;
+            if (quantidadeLivrosPorAlunos > 0) {
+                quantidadeExigida = (int) Math.ceil(((double) quantidadeAlunos) / quantidadeLivrosPorAlunos);
+            }
+            livroParaCotacao.setQuantidadeExigida(quantidadeExigida);
             livroParaCotacao.setQuantidadeLivrosDisponiveis(quantidadeBiblioteca);
-            int quantidadeAComprar = Math.max(0, livroParaCotacao.getQuantidadeExigida() 
-                    - livroParaCotacao.getQuantidadeLivrosDisponiveis());
-            livroParaCotacao.setQuantidadeAComprar(quantidadeAComprar);
+            
+            int quantidadeAComprar = quantidadeExigida - quantidadeBiblioteca;
+            
+            livroParaCotacao.setQuantidadeAComprar(Math.max(0, quantidadeAComprar));
             livrosParaCotacao.add(livroParaCotacao);
         }
         return livrosParaCotacao;

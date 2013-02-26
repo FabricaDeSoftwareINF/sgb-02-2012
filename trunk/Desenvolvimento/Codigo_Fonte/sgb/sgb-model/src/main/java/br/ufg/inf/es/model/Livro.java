@@ -73,7 +73,7 @@ public class Livro extends AbstractEntityModel {
     @JoinTable(name = "LIVRO_AUTOR", joinColumns =
     @JoinColumn(name = "id_livro"), inverseJoinColumns =
     @JoinColumn(name = "id_autor"))
-    private Collection<Autor> autores;
+    private Collection<Autor> autores = new ArrayList<Autor>();
     /**
      * Campo bibliografias
      */
@@ -85,14 +85,14 @@ public class Livro extends AbstractEntityModel {
      */
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE},
         mappedBy = "livro")
-    private Collection<ItemListaCotacao> itensListaCotacao;
+    private Collection<ItemListaCotacao> itensListaCotacao = new ArrayList<ItemListaCotacao>();
     
     /**
      * Campo Referencia do Livro na Biblioteca
      */
     @CollectionOfElements
     @JoinTable(name="LIVRO_REF_BIBLIOTECA")
-    private Collection<Long> codigosLivrosBiblioteca;
+    private Collection<Long> codigosLivrosBiblioteca = new ArrayList<Long>();
     
     /**
      * Obtém o valor do campo
