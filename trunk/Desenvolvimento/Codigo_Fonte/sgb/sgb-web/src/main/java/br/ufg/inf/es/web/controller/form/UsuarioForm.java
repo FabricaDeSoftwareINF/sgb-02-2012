@@ -44,7 +44,8 @@ public class UsuarioForm extends GenericForm<Usuario> {
 
     /**
      * define um valor booleano para a flag do dialog de exclusao
-     * @param exibirDialogExclusao 
+     *
+     * @param exibirDialogExclusao
      */
     public void setExibirDialogExclusao(Boolean exibirDialogExclusao) {
         this.exibirDialogExclusao = exibirDialogExclusao;
@@ -108,7 +109,7 @@ public class UsuarioForm extends GenericForm<Usuario> {
         if (usuariosSelecionados != null) {
 
             this.usuariosSelecionados = (Usuario[]) usuariosSelecionados.clone();
-            
-        } 
+
+        }
     }
 }
