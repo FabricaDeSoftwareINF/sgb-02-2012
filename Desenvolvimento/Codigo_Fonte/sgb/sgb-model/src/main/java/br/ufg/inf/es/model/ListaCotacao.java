@@ -168,34 +168,37 @@ public class ListaCotacao extends AbstractEntityModel {
     }
 
     public double getValor() {
-
         double valorTotalLista = 0.0;
         DecimalFormat formatador = new DecimalFormat("0.00");
         String strValorComVirgula;
         String[] strPartesValor;
         String strValorComPonto;
-        ArrayList<ItemListaCotacao> cotacoes =
-                new ArrayList<ItemListaCotacao>(getItensListaCotacao());
 
-        for (int i = 0; i < cotacoes.size(); i++) {
+        try {
 
-            double valorTotalItem;
-            valorTotalItem = cotacoes.get(i).getValorMedio()
-                    * cotacoes.get(i).getQuantidade();
+            ArrayList<ItemListaCotacao> cotacoes = new ArrayList<ItemListaCotacao>(getItensListaCotacao());
 
-            strValorComVirgula = formatador.format(valorTotalItem);
+            for (int i = 0; i < cotacoes.size(); i++) {
+
+                double valorTotalItem;
+                valorTotalItem = cotacoes.get(i).getValorMedio()
+                        * cotacoes.get(i).getQuantidade();
+
+                strValorComVirgula = formatador.format(valorTotalItem);
+                strPartesValor = strValorComVirgula.split("[,]");
+                strValorComPonto = strPartesValor[0] + "." + strPartesValor[1];
+
+                valorTotalLista += Double.parseDouble(strValorComPonto);
+            }
+
+            strValorComVirgula = formatador.format(valorTotalLista);
             strPartesValor = strValorComVirgula.split("[,]");
             strValorComPonto = strPartesValor[0] + "." + strPartesValor[1];
 
-            valorTotalLista += Double.parseDouble(strValorComPonto);
+            valorTotalLista = Double.parseDouble(strValorComPonto);
+        } catch (Exception ex) {
+            return 0.0;
         }
-
-        strValorComVirgula = formatador.format(valorTotalLista);
-        strPartesValor = strValorComVirgula.split("[,]");
-        strValorComPonto = strPartesValor[0] + "." + strPartesValor[1];
-
-        valorTotalLista = Double.parseDouble(strValorComPonto);
-
         return valorTotalLista;
 
     }
