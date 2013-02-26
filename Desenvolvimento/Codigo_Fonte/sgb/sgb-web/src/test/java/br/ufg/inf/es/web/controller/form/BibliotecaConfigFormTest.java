@@ -8,9 +8,9 @@ import static org.junit.Assert.*;
  *
  * @author victor
  */
-public class DBBibliotecaConfigFormTest {
+public class BibliotecaConfigFormTest {
 
-    private DBBibliotecaConfigForm form;
+    private BibliotecaConfigForm form;
     private Boolean exibirDialogExclusao;
     private DBDriver driver;
 
@@ -19,7 +19,7 @@ public class DBBibliotecaConfigFormTest {
         driver = DBDriver.Derby;
         exibirDialogExclusao = true;
 
-        form = new DBBibliotecaConfigForm();
+        form = new BibliotecaConfigForm();
         form.setDriver(driver);
         form.setExibirDialogExclusao(exibirDialogExclusao);
     }
