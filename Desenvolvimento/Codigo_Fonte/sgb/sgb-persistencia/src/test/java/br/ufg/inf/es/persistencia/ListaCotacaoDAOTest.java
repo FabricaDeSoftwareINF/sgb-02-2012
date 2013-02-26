@@ -1,6 +1,7 @@
 package br.ufg.inf.es.persistencia;
 
 import br.ufg.inf.es.model.ListaCotacao;
+import br.ufg.inf.es.model.Usuario;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
@@ -66,5 +67,18 @@ public class ListaCotacaoDAOTest {
         ListaCotacaoDAO listaCotacaoDAO = new ListaCotacaoDAO(factory);
 
         assertEquals(factory, listaCotacaoDAO.getSessionFactory());
+    }
+
+    @Test
+    public void testFindListaByUser() {
+        Query query = mock(Query.class);
+        when(factory.openSession()).thenReturn(session);
+        when(session.createQuery(anyString())).thenReturn(query);
+        when(query.list()).thenReturn(cotacoes);
+        
+        Collection<ListaCotacao> result = this.dao.findListaByUser(new Usuario());
+        
+        assertEquals(cotacoes, result);
+
     }
 }
