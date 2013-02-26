@@ -3,7 +3,6 @@ package br.ufg.inf.es.persistencia.biblioteca;
 import br.ufg.inf.es.base.util.UtilObjeto;
 import br.ufg.inf.es.base.util.cripto.CriptoGeneric;
 import br.ufg.inf.es.base.validation.ValidationException;
-import br.ufg.inf.es.model.Disciplina;
 import br.ufg.inf.es.model.biblioteca.DBBibliotecaConfig;
 import br.ufg.inf.es.model.biblioteca.LivroBiblioteca;
 import java.io.Serializable;
@@ -18,8 +17,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javassist.NotFoundException;
-import org.hibernate.Criteria;
-import org.hibernate.criterion.Restrictions;
+import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -46,6 +44,29 @@ public class LivrosBibliotecaDAO implements Serializable {
      */
     @Autowired
     private DBBibliotecaConfigDAO bBibliotecaConfigDAO;
+    private String tabelaBiblioteca;
+    private String colunaId;
+    private String colunaTitulo;
+    private String colunaISBN;
+    private String colunaAno;
+    private String colunaEdicao;
+    private String colunaEditora;
+    private String colunaAutor;
+    private String colunaQuantidade;
+
+    @PostConstruct
+    public void initData() {
+        this.dbConfig = bBibliotecaConfigDAO.getBibliotecaCfg();
+        tabelaBiblioteca = this.dbConfig.getTabela();
+        colunaId = this.dbConfig.getCampoIdLivroBiblioteca();
+        colunaTitulo = this.dbConfig.getCampoTituloLivro().toUpperCase();
+        colunaISBN = this.dbConfig.getCampoIsbnLivro().toUpperCase();
+        colunaAno = this.dbConfig.getCampoAnoLivro().toUpperCase();
+        colunaEdicao = this.dbConfig.getCampoEdicao().toUpperCase();
+        colunaEditora = this.dbConfig.getCampoEditora().toUpperCase();
+        colunaAutor = this.dbConfig.getCampoAutor().toUpperCase();
+        colunaQuantidade = this.dbConfig.getCampoQuantidadeLivro().toUpperCase();
+    }
 
     /**
      * Método que cria a conexão do banco de dados.
@@ -55,26 +76,29 @@ public class LivrosBibliotecaDAO implements Serializable {
      */
     private void createConnection() throws NotFoundException, SQLException {
 
-        this.dbConfig = bBibliotecaConfigDAO.getBibliotecaCfg();
-
         if (dbConfig == null) {
             throw new NotFoundException("Instância da classe DBBibliotecaConfig "
                     + "passada como parâmetro não instanciada.");
 
         }
 
-        String pass = new String(new CriptoGeneric().decriptografa(dbConfig.getPasswordDataBase()), Charset.forName("UTF-8"));
+        byte[] senha = new CriptoGeneric().decriptografa(dbConfig.getPasswordDataBase());
 
-        this.connection = Conecta.getSessionConnection(dbConfig.getDriver(),
-                dbConfig.getUrl(), dbConfig.getPorta(), dbConfig.getNameDataBase(),
-                dbConfig.getUserDataBase(), pass);
-        if (this.connection == null) {
-            StringBuilder exception = new StringBuilder();
-            exception.append("Conexão não estabelecida com o servidor: ");
-            exception.append(dbConfig.getUrl());
-            exception.append(":");
-            exception.append(dbConfig.getPorta());
-            throw new SQLException(exception.toString());
+        if (senha != null) {
+            String pass = new String(senha, Charset.forName("UTF-8"));
+
+
+            this.connection = Conecta.getSessionConnection(dbConfig.getDriver(),
+                    dbConfig.getUrl(), dbConfig.getPorta(), dbConfig.getNameDataBase(),
+                    dbConfig.getUserDataBase(), pass);
+            if (this.connection == null) {
+                StringBuilder exception = new StringBuilder();
+                exception.append("Conexão não estabelecida com o servidor: ");
+                exception.append(dbConfig.getUrl());
+                exception.append(":");
+                exception.append(dbConfig.getPorta());
+                throw new SQLException(exception.toString());
+            }
         }
     }
 
@@ -86,23 +110,14 @@ public class LivrosBibliotecaDAO implements Serializable {
      * @throws NotFoundException
      * @throws SQLException
      */
-    public List<LivroBiblioteca> getLivrosBibliotecaTitulo(String titulo) throws 
+    public List<LivroBiblioteca> getLivrosBibliotecaTitulo(String titulo) throws
             NotFoundException, SQLException {
 
         List<LivroBiblioteca> livros = null;
 
         createConnection();
 
-        String tabelaBiblioteca = this.dbConfig.getTabela();
-
-        String colunaId = this.dbConfig.getCampoIdLivroBiblioteca().toUpperCase();
-        String colunaTitulo = this.dbConfig.getCampoTituloLivro().toUpperCase();
-        String colunaISBN = this.dbConfig.getCampoIsbnLivro().toUpperCase();
-        String colunaAno = this.dbConfig.getCampoAnoLivro().toUpperCase();
-        String colunaEdicao = this.dbConfig.getCampoEdicao().toUpperCase();
-        String colunaEditora = this.dbConfig.getCampoEditora().toUpperCase();
-        String colunaAutor = this.dbConfig.getCampoAutor().toUpperCase();
-        String colunaQuantidade = this.dbConfig.getCampoQuantidadeLivro().toUpperCase();
+        initData();
 
         StringBuilder sb = new StringBuilder();
         sb.append("SELECT ").
@@ -168,7 +183,9 @@ public class LivrosBibliotecaDAO implements Serializable {
                 stant.close();
             }
 
-            this.connection.close();
+            if (this.connection != null && !this.connection.isClosed()) {
+                this.connection.close();
+            }
         }
 
         return livros;
@@ -190,16 +207,8 @@ public class LivrosBibliotecaDAO implements Serializable {
 
         createConnection();
 
-        String tabelaBiblioteca = this.dbConfig.getTabela();
+        initData();
 
-        String colunaId = this.dbConfig.getCampoIdLivroBiblioteca();
-        String colunaTitulo = this.dbConfig.getCampoTituloLivro();
-        String colunaISBN = this.dbConfig.getCampoIsbnLivro();
-        String colunaAno = this.dbConfig.getCampoAnoLivro();
-        String colunaEdicao = this.dbConfig.getCampoEdicao();
-        String colunaEditora = this.dbConfig.getCampoEditora();
-        String colunaAutor = this.dbConfig.getCampoAutor();
-        String colunaQuantidade = this.dbConfig.getCampoQuantidadeLivro();
         StringBuilder sb = new StringBuilder();
         sb.append("SELECT ").
                 append(colunaId).append(", ").
@@ -267,7 +276,9 @@ public class LivrosBibliotecaDAO implements Serializable {
                 stant.close();
             }
 
-            this.connection.close();
+            if (this.connection != null && !this.connection.isClosed()) {
+                this.connection.close();
+            }
 
         }
 
@@ -286,16 +297,8 @@ public class LivrosBibliotecaDAO implements Serializable {
         List<LivroBiblioteca> livros = null;
 
         createConnection();
-        String tabelaBiblioteca = this.dbConfig.getTabela();
 
-        String colunaId = this.dbConfig.getCampoIdLivroBiblioteca();
-        String colunaTitulo = this.dbConfig.getCampoTituloLivro();
-        String colunaISBN = this.dbConfig.getCampoIsbnLivro();
-        String colunaAno = this.dbConfig.getCampoAnoLivro();
-        String colunaEdicao = this.dbConfig.getCampoEdicao();
-        String colunaEditora = this.dbConfig.getCampoEditora();
-        String colunaAutor = this.dbConfig.getCampoAutor();
-        String colunaQuantidade = this.dbConfig.getCampoQuantidadeLivro();
+        initData();
 
         StringBuilder sb = new StringBuilder();
         sb.append("SELECT ").
@@ -353,7 +356,9 @@ public class LivrosBibliotecaDAO implements Serializable {
                 stant.close();
             }
 
-            this.connection.close();
+            if (this.connection != null && !this.connection.isClosed()) {
+                this.connection.close();
+            }
         }
 
         return livros;
@@ -375,16 +380,8 @@ public class LivrosBibliotecaDAO implements Serializable {
 
         createConnection();
 
-        String tabelaBiblioteca = this.dbConfig.getTabela();
+        initData();
 
-        String colunaId = this.dbConfig.getCampoIdLivroBiblioteca();
-        String colunaTitulo = this.dbConfig.getCampoTituloLivro();
-        String colunaISBN = this.dbConfig.getCampoIsbnLivro();
-        String colunaAno = this.dbConfig.getCampoAnoLivro();
-        String colunaEdicao = this.dbConfig.getCampoEdicao();
-        String colunaEditora = this.dbConfig.getCampoEditora();
-        String colunaAutor = this.dbConfig.getCampoAutor();
-        String colunaQuantidade = this.dbConfig.getCampoQuantidadeLivro();
         StringBuilder sb = new StringBuilder();
         sb.append("SELECT ").
                 append(colunaId).append(", ").
@@ -439,19 +436,20 @@ public class LivrosBibliotecaDAO implements Serializable {
                 stant.close();
             }
 
-            this.connection.close();
+            if (this.connection != null && !this.connection.isClosed()) {
+                this.connection.close();
+            }
 
         }
 
         return livro;
     }
-    
-    
+
     public Collection<LivroBiblioteca> search(LivroBiblioteca entidade) {
-        
+
         Collection<LivroBiblioteca> livroBibliotecas = new ArrayList<LivroBiblioteca>();
-        
-        if(UtilObjeto.isReferencia(entidade.getId())){            
+
+        if (UtilObjeto.isReferencia(entidade.getId())) {
             try {
                 livroBibliotecas.add(getLivroBibliotecaCodigo(entidade.getId()));
             } catch (NotFoundException ex) {
@@ -460,8 +458,8 @@ public class LivrosBibliotecaDAO implements Serializable {
                 Logger.getLogger(LivrosBibliotecaDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        
-        if(UtilObjeto.isReferencia(entidade.getNome()) && !entidade.getNome().isEmpty()){
+
+        if (UtilObjeto.isReferencia(entidade.getNome()) && !entidade.getNome().isEmpty()) {
             try {
                 livroBibliotecas = getLivrosBibliotecaTitulo(entidade.getNome());
             } catch (NotFoundException ex) {
@@ -469,11 +467,11 @@ public class LivrosBibliotecaDAO implements Serializable {
             } catch (SQLException ex) {
                 Logger.getLogger(LivrosBibliotecaDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
-        }       
-        
-        return  livroBibliotecas;
+        }
+
+        return livroBibliotecas;
     }
-    
+
     /**
      * Método que obtém os livros pelo isbn.
      *
@@ -489,16 +487,7 @@ public class LivrosBibliotecaDAO implements Serializable {
 
         createConnection();
 
-        String tabelaBiblioteca = this.dbConfig.getTabela();
-
-        String colunaId = this.dbConfig.getCampoIdLivroBiblioteca();
-        String colunaTitulo = this.dbConfig.getCampoTituloLivro();
-        String colunaISBN = this.dbConfig.getCampoIsbnLivro();
-        String colunaAno = this.dbConfig.getCampoAnoLivro();
-        String colunaEdicao = this.dbConfig.getCampoEdicao();
-        String colunaEditora = this.dbConfig.getCampoEditora();
-        String colunaAutor = this.dbConfig.getCampoAutor();
-        String colunaQuantidade = this.dbConfig.getCampoQuantidadeLivro();
+        initData();
 
         StringBuilder sb = new StringBuilder();
         sb.append("SELECT ").
@@ -561,12 +550,14 @@ public class LivrosBibliotecaDAO implements Serializable {
                 stant.close();
             }
 
-            this.connection.close();
+            if (this.connection != null && !this.connection.isClosed()) {
+                this.connection.close();
+            }
         }
 
         return livros;
     }
-    
+
     /**
      * Método que obtém os livros pelo autor.
      *
@@ -582,16 +573,7 @@ public class LivrosBibliotecaDAO implements Serializable {
 
         createConnection();
 
-        String tabelaBiblioteca = this.dbConfig.getTabela();
-
-        String colunaId = this.dbConfig.getCampoIdLivroBiblioteca();
-        String colunaTitulo = this.dbConfig.getCampoTituloLivro();
-        String colunaISBN = this.dbConfig.getCampoIsbnLivro();
-        String colunaAno = this.dbConfig.getCampoAnoLivro();
-        String colunaEdicao = this.dbConfig.getCampoEdicao();
-        String colunaEditora = this.dbConfig.getCampoEditora();
-        String colunaAutor = this.dbConfig.getCampoAutor();
-        String colunaQuantidade = this.dbConfig.getCampoQuantidadeLivro();
+        initData();
 
         StringBuilder sb = new StringBuilder();
         sb.append("SELECT ").
@@ -656,8 +638,9 @@ public class LivrosBibliotecaDAO implements Serializable {
 
                 stant.close();
             }
-
-            this.connection.close();
+            if (this.connection != null && !this.connection.isClosed()) {
+                this.connection.close();
+            }
         }
 
         return livros;

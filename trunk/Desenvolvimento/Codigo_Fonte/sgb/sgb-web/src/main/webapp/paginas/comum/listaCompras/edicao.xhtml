@@ -65,7 +65,8 @@
                             </p:column>
 
                             <p:column headerText="Qtde faltando">
-                                <h:outputText value="#{itemListaCompra.quantidadeExigida - itemListaCompra.quantidadeLivrosDisponiveis}" />
+                                <h:outputText value="#{(itemListaCompra.quantidadeExigida - itemListaCompra.quantidadeLivrosDisponiveis) lt 0 ? 0 
+                                                       : (itemListaCompra.quantidadeExigida - itemListaCompra.quantidadeLivrosDisponiveis)}" />
                             </p:column>
                             
                             <p:column headerText="Qtde a Comprar">
