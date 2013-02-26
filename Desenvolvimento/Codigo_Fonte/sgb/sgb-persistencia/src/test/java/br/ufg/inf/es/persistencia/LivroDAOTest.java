@@ -10,6 +10,7 @@ import br.ufg.inf.es.model.ItemListaCompras;
 import br.ufg.inf.es.model.ItemListaCotacao;
 import br.ufg.inf.es.model.Livro;
 import java.sql.Connection;
+import java.util.AbstractList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
@@ -345,6 +346,39 @@ public class LivroDAOTest {
         when(criteriaCotacao.list()).thenReturn(itensCotacao);
         
         this.dao.removeLivros(livrosToRemove);
+    }
+    
+       /**
+     * Testes do método removeLivros02
+     */
+    @Test
+    public void testRemoveLivros4() throws ValidationException {
+        
+        preparaSessionFactoryMock();
+        
+        Livro livroComun =  new Livro();
+        Collection<Livro> livrosToRemove =  Arrays.asList(livroComun);      
+
+        List<ItemListaCompras> itensCompras = null;
+        
+        when(session.createCriteria(eq(ItemListaCompras.class))).thenReturn(criteria);
+        when(criteria.add(any(Criterion.class))).thenReturn(criteria);
+        when(criteria.list()).thenReturn(itensCompras);  
+                
+        List<ItemListaCotacao> itensCotacao = Arrays.asList();
+        
+        Criteria criteriaCotacao = mock(Criteria.class);
+        
+        when(session.createCriteria(eq(ItemListaCotacao.class))).thenReturn(criteriaCotacao);
+        when(criteriaCotacao.add(any(Criterion.class))).thenReturn(criteriaCotacao);
+        when(criteriaCotacao.list()).thenReturn(itensCotacao);
+        
+        this.dao.removeLivros(livrosToRemove);
+        
+        verify(session).createCriteria(ItemListaCompras.class);
+        verify(session).createCriteria(ItemListaCotacao.class);
+        verify(criteria).list();
+        verify(criteriaCotacao).list();
     }
             
 //            public void removeLivros(Collection<Livro> livros) throws ValidationException {
