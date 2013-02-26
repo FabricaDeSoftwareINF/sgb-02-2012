@@ -31,6 +31,7 @@ import org.springframework.stereotype.Component;
 
 import br.ufg.inf.es.model.exportacaodados.planilha.ItemPlanilha;
 import br.ufg.inf.es.model.exportacaodados.planilha.Planilha;
+import java.text.DecimalFormat;
 
 /**
  * Classe de serviços de exportação da planilha de cotação.
@@ -165,7 +166,7 @@ public class ExportacaoPlanilhaService implements Serializable {
             Logger.getLogger(ExportacaoPlanilhaService.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
             Logger.getLogger(ExportacaoPlanilhaService.class.getName()).log(Level.SEVERE, null, ex);
-        } 
+        }
 
         return buffer;
 
@@ -205,6 +206,7 @@ public class ExportacaoPlanilhaService implements Serializable {
             linha.createCell(VALOR14).setCellValue(new HSSFRichTextString(SIMBOLO_REAL.concat(String.valueOf(planilha.getLinhasPlanilha().get(i).getValorMedioUnitario()))));
             linha.createCell(VALOR15).setCellValue(new HSSFRichTextString(SIMBOLO_REAL.concat(String.valueOf(planilha.getLinhasPlanilha().get(i).getValorMedioUnitario()))));
             double valorTotal = planilha.getLinhasPlanilha().get(i).getValorMedioUnitario() * planilha.getLinhasPlanilha().get(i).getQuantExemplares();
+            valorTotal = formatarDouble(valorTotal);
             linha.createCell(VALOR16).setCellValue(new HSSFRichTextString(SIMBOLO_REAL.concat(String.valueOf(valorTotal))));
             linha.createCell(VALOR17).setCellValue(new HSSFRichTextString(String.valueOf(planilha.getLinhasPlanilha().get(i).getQuantExemplares())));
             linha.createCell(VALOR18).setCellValue(new HSSFRichTextString(planilha.getLinhasPlanilha().get(i).getAreaConhecimento()));
@@ -214,6 +216,29 @@ public class ExportacaoPlanilhaService implements Serializable {
         gerarRodape(planilhaPOI, planilha);
 
         return planilhaPOI;
+    }
+
+    /***
+     * Formata um double para 2 casas decimais.
+     * @param valor
+     * Valor a ser formatado.
+     * @return 
+     * Valor formatado em 2 casas decimais.
+     */
+    private double formatarDouble(double valor) {
+
+        double valorFormatado;
+        DecimalFormat formatador = new DecimalFormat("0.00");
+        String strValorComVirgula;
+        String[] strPartesValor;
+        String strValorComPonto;
+
+        strValorComVirgula = formatador.format(valor);
+        strPartesValor = strValorComVirgula.split("[,]");
+        strValorComPonto = strPartesValor[0] + "." + strPartesValor[1];
+        valorFormatado = Double.parseDouble(strValorComPonto);
+        
+        return valorFormatado;
     }
 
     /**
@@ -367,8 +392,8 @@ public class ExportacaoPlanilhaService implements Serializable {
         for (i = 0; i < linhasPlanilha.size(); i++) {
             valorMedioUnitarioGeral += linhasPlanilha.get(i).getValorMedioUnitario();
         }
-        
-        return valorMedioUnitarioGeral;
+
+        return formatarDouble(valorMedioUnitarioGeral);
 
     }
 
@@ -390,8 +415,8 @@ public class ExportacaoPlanilhaService implements Serializable {
             valorTotalGeral += linhasPlanilha.get(i).getValorMedioUnitario()
                     * linhasPlanilha.get(i).getQuantExemplares();
         }
-       
-        return valorTotalGeral;
+
+        return formatarDouble(valorTotalGeral);
 
     }
 
