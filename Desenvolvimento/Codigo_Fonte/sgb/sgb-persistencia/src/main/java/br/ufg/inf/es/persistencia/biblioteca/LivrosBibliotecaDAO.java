@@ -93,7 +93,7 @@ public class LivrosBibliotecaDAO implements Serializable {
 
         createConnection();
 
-        String tabelaBiblioteca = this.dbConfig.getTabela().toUpperCase();
+        String tabelaBiblioteca = this.dbConfig.getTabela();
 
         String colunaId = this.dbConfig.getCampoIdLivroBiblioteca().toUpperCase();
         String colunaTitulo = this.dbConfig.getCampoTituloLivro().toUpperCase();
@@ -190,16 +190,16 @@ public class LivrosBibliotecaDAO implements Serializable {
 
         createConnection();
 
-        String tabelaBiblioteca = this.dbConfig.getTabela().toUpperCase();
+        String tabelaBiblioteca = this.dbConfig.getTabela();
 
-        String colunaId = this.dbConfig.getCampoIdLivroBiblioteca().toUpperCase();
-        String colunaTitulo = this.dbConfig.getCampoTituloLivro().toUpperCase();
-        String colunaISBN = this.dbConfig.getCampoIsbnLivro().toUpperCase();
-        String colunaAno = this.dbConfig.getCampoAnoLivro().toUpperCase();
-        String colunaEdicao = this.dbConfig.getCampoEdicao().toUpperCase();
-        String colunaEditora = this.dbConfig.getCampoEditora().toUpperCase();
-        String colunaAutor = this.dbConfig.getCampoAutor().toUpperCase();
-        String colunaQuantidade = this.dbConfig.getCampoQuantidadeLivro().toUpperCase();
+        String colunaId = this.dbConfig.getCampoIdLivroBiblioteca();
+        String colunaTitulo = this.dbConfig.getCampoTituloLivro();
+        String colunaISBN = this.dbConfig.getCampoIsbnLivro();
+        String colunaAno = this.dbConfig.getCampoAnoLivro();
+        String colunaEdicao = this.dbConfig.getCampoEdicao();
+        String colunaEditora = this.dbConfig.getCampoEditora();
+        String colunaAutor = this.dbConfig.getCampoAutor();
+        String colunaQuantidade = this.dbConfig.getCampoQuantidadeLivro();
         StringBuilder sb = new StringBuilder();
         sb.append("SELECT ").
                 append(colunaId).append(", ").
@@ -286,16 +286,16 @@ public class LivrosBibliotecaDAO implements Serializable {
         List<LivroBiblioteca> livros = null;
 
         createConnection();
-        String tabelaBiblioteca = this.dbConfig.getTabela().toUpperCase();
+        String tabelaBiblioteca = this.dbConfig.getTabela();
 
-        String colunaId = this.dbConfig.getCampoIdLivroBiblioteca().toUpperCase();
-        String colunaTitulo = this.dbConfig.getCampoTituloLivro().toUpperCase();
-        String colunaISBN = this.dbConfig.getCampoIsbnLivro().toUpperCase();
-        String colunaAno = this.dbConfig.getCampoAnoLivro().toUpperCase();
-        String colunaEdicao = this.dbConfig.getCampoEdicao().toUpperCase();
-        String colunaEditora = this.dbConfig.getCampoEditora().toUpperCase();
-        String colunaAutor = this.dbConfig.getCampoAutor().toUpperCase();
-        String colunaQuantidade = this.dbConfig.getCampoQuantidadeLivro().toUpperCase();
+        String colunaId = this.dbConfig.getCampoIdLivroBiblioteca();
+        String colunaTitulo = this.dbConfig.getCampoTituloLivro();
+        String colunaISBN = this.dbConfig.getCampoIsbnLivro();
+        String colunaAno = this.dbConfig.getCampoAnoLivro();
+        String colunaEdicao = this.dbConfig.getCampoEdicao();
+        String colunaEditora = this.dbConfig.getCampoEditora();
+        String colunaAutor = this.dbConfig.getCampoAutor();
+        String colunaQuantidade = this.dbConfig.getCampoQuantidadeLivro();
 
         StringBuilder sb = new StringBuilder();
         sb.append("SELECT ").
@@ -375,16 +375,16 @@ public class LivrosBibliotecaDAO implements Serializable {
 
         createConnection();
 
-        String tabelaBiblioteca = this.dbConfig.getTabela().toUpperCase();
+        String tabelaBiblioteca = this.dbConfig.getTabela();
 
-        String colunaId = this.dbConfig.getCampoIdLivroBiblioteca().toUpperCase();
-        String colunaTitulo = this.dbConfig.getCampoTituloLivro().toUpperCase();
-        String colunaISBN = this.dbConfig.getCampoIsbnLivro().toUpperCase();
-        String colunaAno = this.dbConfig.getCampoAnoLivro().toUpperCase();
-        String colunaEdicao = this.dbConfig.getCampoEdicao().toUpperCase();
-        String colunaEditora = this.dbConfig.getCampoEditora().toUpperCase();
-        String colunaAutor = this.dbConfig.getCampoAutor().toUpperCase();
-        String colunaQuantidade = this.dbConfig.getCampoQuantidadeLivro().toUpperCase();
+        String colunaId = this.dbConfig.getCampoIdLivroBiblioteca();
+        String colunaTitulo = this.dbConfig.getCampoTituloLivro();
+        String colunaISBN = this.dbConfig.getCampoIsbnLivro();
+        String colunaAno = this.dbConfig.getCampoAnoLivro();
+        String colunaEdicao = this.dbConfig.getCampoEdicao();
+        String colunaEditora = this.dbConfig.getCampoEditora();
+        String colunaAutor = this.dbConfig.getCampoAutor();
+        String colunaQuantidade = this.dbConfig.getCampoQuantidadeLivro();
         StringBuilder sb = new StringBuilder();
         sb.append("SELECT ").
                 append(colunaId).append(", ").
@@ -489,16 +489,16 @@ public class LivrosBibliotecaDAO implements Serializable {
 
         createConnection();
 
-        String tabelaBiblioteca = this.dbConfig.getTabela().toUpperCase();
+        String tabelaBiblioteca = this.dbConfig.getTabela();
 
-        String colunaId = this.dbConfig.getCampoIdLivroBiblioteca().toUpperCase();
-        String colunaTitulo = this.dbConfig.getCampoTituloLivro().toUpperCase();
-        String colunaISBN = this.dbConfig.getCampoIsbnLivro().toUpperCase();
-        String colunaAno = this.dbConfig.getCampoAnoLivro().toUpperCase();
-        String colunaEdicao = this.dbConfig.getCampoEdicao().toUpperCase();
-        String colunaEditora = this.dbConfig.getCampoEditora().toUpperCase();
-        String colunaAutor = this.dbConfig.getCampoAutor().toUpperCase();
-        String colunaQuantidade = this.dbConfig.getCampoQuantidadeLivro().toUpperCase();
+        String colunaId = this.dbConfig.getCampoIdLivroBiblioteca();
+        String colunaTitulo = this.dbConfig.getCampoTituloLivro();
+        String colunaISBN = this.dbConfig.getCampoIsbnLivro();
+        String colunaAno = this.dbConfig.getCampoAnoLivro();
+        String colunaEdicao = this.dbConfig.getCampoEdicao();
+        String colunaEditora = this.dbConfig.getCampoEditora();
+        String colunaAutor = this.dbConfig.getCampoAutor();
+        String colunaQuantidade = this.dbConfig.getCampoQuantidadeLivro();
 
         StringBuilder sb = new StringBuilder();
         sb.append("SELECT ").
@@ -582,16 +582,16 @@ public class LivrosBibliotecaDAO implements Serializable {
 
         createConnection();
 
-        String tabelaBiblioteca = this.dbConfig.getTabela().toUpperCase();
+        String tabelaBiblioteca = this.dbConfig.getTabela();
 
-        String colunaId = this.dbConfig.getCampoIdLivroBiblioteca().toUpperCase();
-        String colunaTitulo = this.dbConfig.getCampoTituloLivro().toUpperCase();
-        String colunaISBN = this.dbConfig.getCampoIsbnLivro().toUpperCase();
-        String colunaAno = this.dbConfig.getCampoAnoLivro().toUpperCase();
-        String colunaEdicao = this.dbConfig.getCampoEdicao().toUpperCase();
-        String colunaEditora = this.dbConfig.getCampoEditora().toUpperCase();
-        String colunaAutor = this.dbConfig.getCampoAutor().toUpperCase();
-        String colunaQuantidade = this.dbConfig.getCampoQuantidadeLivro().toUpperCase();
+        String colunaId = this.dbConfig.getCampoIdLivroBiblioteca();
+        String colunaTitulo = this.dbConfig.getCampoTituloLivro();
+        String colunaISBN = this.dbConfig.getCampoIsbnLivro();
+        String colunaAno = this.dbConfig.getCampoAnoLivro();
+        String colunaEdicao = this.dbConfig.getCampoEdicao();
+        String colunaEditora = this.dbConfig.getCampoEditora();
+        String colunaAutor = this.dbConfig.getCampoAutor();
+        String colunaQuantidade = this.dbConfig.getCampoQuantidadeLivro();
 
         StringBuilder sb = new StringBuilder();
         sb.append("SELECT ").
