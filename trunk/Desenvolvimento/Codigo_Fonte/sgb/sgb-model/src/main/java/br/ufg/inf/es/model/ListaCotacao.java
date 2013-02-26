@@ -1,5 +1,6 @@
 package br.ufg.inf.es.model;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -17,68 +18,76 @@ import org.hibernate.annotations.Cascade;
 
 /**
  * Entidade ListaCotacao
+ *
  * @author GeovaneFilho
  */
 @Entity
 @Table(name = "LISTA_COTACAO")
 public class ListaCotacao extends AbstractEntityModel {
 
-	private static final int HASH = 7;
-	
-	private static final int SALTO = 13;
-	
-    /** Campo nome*/
+    private static final int HASH = 7;
+    private static final int SALTO = 13;
+    /**
+     * Campo nome
+     */
     private String nome;
-    
-    /** Campo dataRealizada*/
+    /**
+     * Campo dataRealizada
+     */
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date dataRealizada;
-    
-    /** Campo user*/
-    @JoinColumn(name="id_usuario")
+    /**
+     * Campo user
+     */
+    @JoinColumn(name = "id_usuario")
     @ManyToOne(optional = false)
     private Usuario user;
-    
-    /** Campo cotacoes*/
-    @OneToMany(fetch=FetchType.EAGER, cascade={CascadeType.ALL})
-    @JoinTable(
-            name="LISTA_COTACAO_ITEM_LISTA_COTACAO",
-            joinColumns = @JoinColumn( name="id_lista_cotacao"),
-            inverseJoinColumns = @JoinColumn( name="id_item_lista_cotacao")
-    )
+    /**
+     * Campo cotacoes
+     */
+    @OneToMany(fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
+    @JoinTable(name = "LISTA_COTACAO_ITEM_LISTA_COTACAO",
+    joinColumns =
+    @JoinColumn(name = "id_lista_cotacao"),
+    inverseJoinColumns =
+    @JoinColumn(name = "id_item_lista_cotacao"))
     @Cascade(org.hibernate.annotations.CascadeType.DELETE_ORPHAN)
-    private Collection<ItemListaCotacao> itensListaCotacao =  new ArrayList<ItemListaCotacao>();
+    private Collection<ItemListaCotacao> itensListaCotacao = new ArrayList<ItemListaCotacao>();
 
     /**
-     * Obtém o valor do campo <code>nome</code>
+     * Obtém o valor do campo
+     * <code>nome</code>
      *
      * @return {@link String}
      */
     public String getNome() {
-            return this.nome;
+        return this.nome;
     }
 
     /**
-     * Define o campo <code>nome</code>.
+     * Define o campo
+     * <code>nome</code>.
      *
-     * @param nome 
+     * @param nome
      */
     public void setNome(String nome) {
-            this.nome = nome;
+        this.nome = nome;
     }
 
     /**
-     * Obtém o valor do campo <code>dataRealizada</code>
+     * Obtém o valor do campo
+     * <code>dataRealizada</code>
      *
      * @return {@link Date}
      */
     public Date getDataRealizada() {
-        
-            return dataRealizada != null ? (Date) dataRealizada.clone() : dataRealizada;
+
+        return dataRealizada != null ? (Date) dataRealizada.clone() : dataRealizada;
     }
 
     /**
-     * Obtém o valor do campo <code>user</code>
+     * Obtém o valor do campo
+     * <code>user</code>
      *
      * @return {@link Usuario}
      */
@@ -87,41 +96,44 @@ public class ListaCotacao extends AbstractEntityModel {
     }
 
     /**
-     * Define o campo <code>user</code>.
+     * Define o campo
+     * <code>user</code>.
      *
-     * @param user 
+     * @param user
      */
     public void setUser(Usuario user) {
         this.user = user;
     }
-    
 
     /**
-     * Define o campo <code>dataRealizada</code>.
+     * Define o campo
+     * <code>dataRealizada</code>.
      *
-     * @param dataRealizada 
+     * @param dataRealizada
      */
     public void setDataRealizada(Date dataRealizada) {
-        
-            this.dataRealizada = dataRealizada != null ? (Date) dataRealizada.clone() : dataRealizada;
+
+        this.dataRealizada = dataRealizada != null ? (Date) dataRealizada.clone() : dataRealizada;
     }
 
     /**
-     * Obtém o valor do campo <code>cotacoes</code>
+     * Obtém o valor do campo
+     * <code>cotacoes</code>
      *
      * @return {@link List<Cotacao>}
      */
     public Collection<ItemListaCotacao> getItensListaCotacao() {
-            return this.itensListaCotacao;
+        return this.itensListaCotacao;
     }
 
     /**
-     * Define o campo <code>cotacoes</code>.
+     * Define o campo
+     * <code>cotacoes</code>.
      *
-     * @param cotacoes 
+     * @param cotacoes
      */
     public void setItensListaCotacao(Collection<ItemListaCotacao> cotacoesLivro) {
-            this.itensListaCotacao = cotacoesLivro;
+        this.itensListaCotacao = cotacoesLivro;
     }
 
     @Override
@@ -154,19 +166,37 @@ public class ListaCotacao extends AbstractEntityModel {
 
         return true;
     }
-    
+
     public double getValor() {
 
-        double valor = 0;
-        ArrayList<ItemListaCotacao> cotacoes = 
+        double valorTotalLista = 0.0;
+        DecimalFormat formatador = new DecimalFormat("0.00");
+        String strValorComVirgula;
+        String[] strPartesValor;
+        String strValorComPonto;
+        ArrayList<ItemListaCotacao> cotacoes =
                 new ArrayList<ItemListaCotacao>(getItensListaCotacao());
 
         for (int i = 0; i < cotacoes.size(); i++) {
-            valor += cotacoes.get(i).getValorMedio() * cotacoes.get(i).getQuantidade() ;
+
+            double valorTotalItem;
+            valorTotalItem = cotacoes.get(i).getValorMedio()
+                    * cotacoes.get(i).getQuantidade();
+
+            strValorComVirgula = formatador.format(valorTotalItem);
+            strPartesValor = strValorComVirgula.split("[,]");
+            strValorComPonto = strPartesValor[0] + "." + strPartesValor[1];
+
+            valorTotalLista += Double.parseDouble(strValorComPonto);
         }
 
-        return valor;
-       
+        strValorComVirgula = formatador.format(valorTotalLista);
+        strPartesValor = strValorComVirgula.split("[,]");
+        strValorComPonto = strPartesValor[0] + "." + strPartesValor[1];
+
+        valorTotalLista = Double.parseDouble(strValorComPonto);
+
+        return valorTotalLista;
+
     }
-       
 }
