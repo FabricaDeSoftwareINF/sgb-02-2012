@@ -289,6 +289,63 @@ public class LivroDAOTest {
         this.dao.removeLivros(livrosToRemove);
     }
             
+    
+    /**
+     * Testes do método removeLivros02
+     */
+    @Test
+    public void testRemoveLivros2() throws ValidationException {
+        
+        preparaSessionFactoryMock();
+        
+        Livro livroComun =  new Livro();
+        Collection<Livro> livrosToRemove =  Arrays.asList(livroComun);
+        
+        List<ItemListaCompras> itensCompras = Arrays.asList();
+        
+        when(session.createCriteria(eq(ItemListaCompras.class))).thenReturn(criteria);
+        when(criteria.add(any(Criterion.class))).thenReturn(criteria);
+        when(criteria.list()).thenReturn(itensCompras);
+                
+        List<ItemListaCotacao> itensCotacao = Arrays.asList();
+        
+        Criteria criteriaCotacao = mock(Criteria.class);
+        
+        when(session.createCriteria(eq(ItemListaCotacao.class))).thenReturn(criteriaCotacao);
+        when(criteriaCotacao.add(any(Criterion.class))).thenReturn(criteriaCotacao);
+        when(criteriaCotacao.list()).thenReturn(itensCotacao);
+        
+        this.dao.removeLivros(livrosToRemove);
+    }
+    
+    
+    /**
+     * Testes do método removeLivros02
+     */
+    @Test
+    public void testRemoveLivros3() throws ValidationException {
+        
+        preparaSessionFactoryMock();
+        
+        Livro livroComun =  new Livro();
+        Collection<Livro> livrosToRemove =  Arrays.asList(livroComun);      
+
+        List<ItemListaCompras> itensCompras = null;
+        
+        when(session.createCriteria(eq(ItemListaCompras.class))).thenReturn(criteria);
+        when(criteria.add(any(Criterion.class))).thenReturn(criteria);
+        when(criteria.list()).thenReturn(itensCompras);  
+                
+        List<ItemListaCotacao> itensCotacao = null;
+        
+        Criteria criteriaCotacao = mock(Criteria.class);
+        
+        when(session.createCriteria(eq(ItemListaCotacao.class))).thenReturn(criteriaCotacao);
+        when(criteriaCotacao.add(any(Criterion.class))).thenReturn(criteriaCotacao);
+        when(criteriaCotacao.list()).thenReturn(itensCotacao);
+        
+        this.dao.removeLivros(livrosToRemove);
+    }
             
 //            public void removeLivros(Collection<Livro> livros) throws ValidationException {
 //        List<Livro> livrosNaoRemovidos = new ArrayList<Livro>();
