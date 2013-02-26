@@ -4,13 +4,17 @@
  */
 package br.ufg.inf.es.persistencia;
 
+import br.ufg.inf.es.base.validation.ValidationException;
 import br.ufg.inf.es.model.Autor;
+import br.ufg.inf.es.model.ItemListaCompras;
+import br.ufg.inf.es.model.ItemListaCotacao;
 import br.ufg.inf.es.model.Livro;
 import java.sql.Connection;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import org.hibernate.Criteria;
+import org.hibernate.FetchMode;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.hibernate.classic.Session;
@@ -80,18 +84,26 @@ public class LivroDAOTest {
      * Test of getAutores method, of class LivroDAO.
      */
     @Test
-    @Ignore
     public void testGetAutores() {
 
-        Collection autores = Arrays.asList(new Autor());
-
-        when(spyDAO.getCollection(anyLong(), anyString())).thenReturn(autores);
-
-        Collection<?> result = spyDAO.getAutores(1L);
-
-        verify(spyDAO).getCollection(1L, "autores");
-
-        assertEquals(autores, result);
+        preparaSessionFactoryMock();
+        
+        Livro livro =  new Livro();
+        livro.setTitulo("Titulo1");
+        Autor autor1 =  new Autor();
+        Autor autor2 =  new Autor();
+        autor1.setNome("autor1");
+        autor2.setNome("autor2");
+        List<Autor> autores = Arrays.asList(autor1, autor2);
+        livro.setAutores(autores);
+        
+        when(session.createCriteria(eq(Livro.class))).thenReturn(criteria);
+        when(criteria.add(any(Criterion.class))).thenReturn(criteria);
+        when(criteria.setFetchMode(anyString(), any(FetchMode.class))).thenReturn(criteria);
+        when(criteria.uniqueResult()).thenReturn(livro);
+        
+        Collection<Autor> result = this.dao.getAutores(Long.MIN_VALUE);
+        assertEquals(result, autores);
     }
 
     /**
@@ -240,4 +252,62 @@ public class LivroDAOTest {
 
         assertEquals(listaLivro, result);
     }
+    
+    /**
+     * Testes do método removeLivros
+     */
+    @Test(expected=ValidationException.class)
+    public void testRemoveLivros() throws ValidationException {
+        
+        preparaSessionFactoryMock();
+        
+        Livro livroComun =  new Livro();
+        Collection<Livro> livrosToRemove =  Arrays.asList(livroComun);
+        
+        ItemListaCompras ic = new ItemListaCompras();
+        ic.setId(1L);
+        ic.setLivro(livroComun);
+        
+        List<ItemListaCompras> itensCompras = Arrays.asList(ic);
+        
+        when(session.createCriteria(eq(ItemListaCompras.class))).thenReturn(criteria);
+        when(criteria.add(any(Criterion.class))).thenReturn(criteria);
+        when(criteria.list()).thenReturn(itensCompras);
+        
+        ItemListaCotacao iCotacao = new ItemListaCotacao();
+        iCotacao.setId(1L);
+        iCotacao.setLivro(livroComun); 
+                
+        List<ItemListaCotacao> itensCotacao = Arrays.asList(iCotacao);
+        
+        Criteria criteriaCotacao = mock(Criteria.class);
+        
+        when(session.createCriteria(eq(ItemListaCotacao.class))).thenReturn(criteriaCotacao);
+        when(criteriaCotacao.add(any(Criterion.class))).thenReturn(criteriaCotacao);
+        when(criteriaCotacao.list()).thenReturn(itensCotacao);
+        
+        this.dao.removeLivros(livrosToRemove);
+    }
+            
+            
+//            public void removeLivros(Collection<Livro> livros) throws ValidationException {
+//        List<Livro> livrosNaoRemovidos = new ArrayList<Livro>();
+//        for (Livro livro : livros) {
+//            Criteria criteriaCompra = this.getSession().createCriteria(ItemListaCompras.class);
+//            criteriaCompra.add(Restrictions.eq("livro", livro));
+//            Collection<ItemListaCompras> itensCompra = criteriaCompra.list();
+//            Criteria criteriaCotacao = this.getSession().createCriteria(ItemListaCotacao.class);
+//            criteriaCotacao.add(Restrictions.eq("livro", livro));
+//            Collection<ItemListaCotacao> itensCotacao = criteriaCotacao.list();
+//            if ((itensCompra == null ||  itensCompra.isEmpty())
+//                    && (itensCotacao == null || itensCotacao.isEmpty())) {
+//                this.remove(livro);
+//            } else {
+//                livrosNaoRemovidos.add(livro);
+//            }
+//        }
+//        if (!livrosNaoRemovidos.isEmpty()) {
+//            throw new ValidationException("cadastro.livro.remocao.dependencia");
+//        }
+//    }
 }
