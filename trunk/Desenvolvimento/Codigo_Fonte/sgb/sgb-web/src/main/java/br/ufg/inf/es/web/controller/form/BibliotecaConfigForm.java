@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @Scope("session")
-public class DBBibliotecaConfigForm extends GenericForm<DBBibliotecaConfig> {
+public class BibliotecaConfigForm extends GenericForm<DBBibliotecaConfig> {
 
     private Boolean exibirDialogExclusao;
     private DBDriver driver;

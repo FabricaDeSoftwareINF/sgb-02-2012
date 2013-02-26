@@ -77,7 +77,7 @@ public class LivroController extends SGBController<Livro, LivroForm, LivroServic
      * Método responsável por retornar a string de navegação para a pagina
      * incial da Estória de usuário buscar todos os livros.
      *
-     * @return string de navegação
+     * @return string de navegação  
      */
     @Override
     public String openInitialPage() {

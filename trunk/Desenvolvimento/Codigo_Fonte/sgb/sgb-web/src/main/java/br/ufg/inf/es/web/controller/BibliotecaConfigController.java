@@ -26,7 +26,7 @@ import br.ufg.inf.es.integracao.DBBibliotecaConfigService;
 import br.ufg.inf.es.model.biblioteca.DBBibliotecaConfig;
 import br.ufg.inf.es.model.biblioteca.LivroBiblioteca;
 import br.ufg.inf.es.persistencia.biblioteca.LivrosBibliotecaDAO;
-import br.ufg.inf.es.web.controller.form.DBBibliotecaConfigForm;
+import br.ufg.inf.es.web.controller.form.BibliotecaConfigForm;
 import java.nio.charset.Charset;
 
 /**
@@ -37,10 +37,10 @@ import java.nio.charset.Charset;
 @Component
 @Scope("session")
 public class BibliotecaConfigController extends SGBController<DBBibliotecaConfig, 
-        DBBibliotecaConfigForm, DBBibliotecaConfigService> {
+        BibliotecaConfigForm, DBBibliotecaConfigService> {
 
     @Autowired
-    private DBBibliotecaConfigForm form;
+    private BibliotecaConfigForm form;
     
     @Autowired
     private DBBibliotecaConfigService service;
@@ -72,15 +72,15 @@ public class BibliotecaConfigController extends SGBController<DBBibliotecaConfig
                 this.password = new String(pass, Charset.forName("UTF-8"));
             }
         }
-        return super.openInitialPage();
+        return "BibliotecaConfigController/initialPage";
     }
 
-    public void setForm(DBBibliotecaConfigForm form) {
+    public void setForm(BibliotecaConfigForm form) {
         this.form = form;
     }
 
     @Override
-    public DBBibliotecaConfigForm getForm() {
+    public BibliotecaConfigForm getForm() {
         return form;
     }
 
@@ -94,7 +94,7 @@ public class BibliotecaConfigController extends SGBController<DBBibliotecaConfig
     }
 
     public void limpar() {
-        this.form = new DBBibliotecaConfigForm();
+        this.form = new BibliotecaConfigForm();
     }
 
     public String salvarDBBibliotecaConfig() {

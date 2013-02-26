@@ -40,9 +40,8 @@ public class BibliografiaBootstrap {
     private static ListaCotacao listaCotacao;
     private static List<ItemListaCotacao> listaItemListaCotacao;
     private static DBBibliotecaConfig dbBibliotecaConfig;
-    
-    private BibliografiaBootstrap(){
-    	
+
+    private BibliografiaBootstrap() {
     }
 
     /**
@@ -85,26 +84,30 @@ public class BibliografiaBootstrap {
         listaCotacao.setId(salve(listaCotacao));
 
     }
-    
+
     private static void crieConfiguracaoBibliotecaBD() {
 
-        dbBibliotecaConfig = new DBBibliotecaConfig();
-        dbBibliotecaConfig.setCampoAnoLivro("ANO");
-        dbBibliotecaConfig.setCampoAutor("AUTOR");
-        dbBibliotecaConfig.setCampoEdicao("EDICAO");
-        dbBibliotecaConfig.setCampoEditora("EDITORA");
-        dbBibliotecaConfig.setCampoIdLivroBiblioteca("CODIGO");
-        dbBibliotecaConfig.setCampoIsbnLivro("ISBN");
-        dbBibliotecaConfig.setCampoQuantidadeLivro("CODIGO");
-        dbBibliotecaConfig.setCampoTituloLivro("TITULO");
-        dbBibliotecaConfig.setDriver(DBDriver.MySQL);
-        dbBibliotecaConfig.setNameDataBase("obras");
-        dbBibliotecaConfig.setPasswordDataBase(new CriptoGeneric().criptografa("12345678"));
-        dbBibliotecaConfig.setPorta("3306");
-        dbBibliotecaConfig.setUrl("localhost");
-        dbBibliotecaConfig.setUserDataBase("root");
-        dbBibliotecaConfig.setTabela("obras");
-        salve(dbBibliotecaConfig);
+//        Collection<DBBibliotecaConfig> bibliotecaConfig = list(getSession().getSessionFactory(), DBBibliotecaConfig.class);
+//
+//        if (bibliotecaConfig.isEmpty()) {
+            dbBibliotecaConfig = new DBBibliotecaConfig();
+            dbBibliotecaConfig.setCampoAnoLivro("ANO");
+            dbBibliotecaConfig.setCampoAutor("AUTOR");
+            dbBibliotecaConfig.setCampoEdicao("EDICAO");
+            dbBibliotecaConfig.setCampoEditora("EDITORA");
+            dbBibliotecaConfig.setCampoIdLivroBiblioteca("CODIGO");
+            dbBibliotecaConfig.setCampoIsbnLivro("ISBN");
+            dbBibliotecaConfig.setCampoQuantidadeLivro("CODIGO");
+            dbBibliotecaConfig.setCampoTituloLivro("TITULO");
+            dbBibliotecaConfig.setDriver(DBDriver.MySQL);
+            dbBibliotecaConfig.setNameDataBase("obras");
+            dbBibliotecaConfig.setPasswordDataBase(new CriptoGeneric().criptografa("12345678"));
+            dbBibliotecaConfig.setPorta("3306");
+            dbBibliotecaConfig.setUrl("localhost");
+            dbBibliotecaConfig.setUserDataBase("root");
+            dbBibliotecaConfig.setTabela("obras");
+            salve(dbBibliotecaConfig);
+//        }
 
     }
 
@@ -243,10 +246,9 @@ public class BibliografiaBootstrap {
     private static Session getSession() {
         return sessionFactory.openSession();
     }
-    
+
     private static Collection list(SessionFactory sessionFactory, Class clazz) {
         Criteria criteria = sessionFactory.openSession().createCriteria(clazz);
         return criteria.list();
     }
-    
 }
