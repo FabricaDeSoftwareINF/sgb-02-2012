@@ -242,7 +242,7 @@ public class LivroBiblioteca {
         }
 
         if (isbn != null) {
-            descricao.append(", ISBN: ").append(autor);
+            descricao.append(", ISBN: ").append(isbn);
         }
         
         if (autor != null) {
