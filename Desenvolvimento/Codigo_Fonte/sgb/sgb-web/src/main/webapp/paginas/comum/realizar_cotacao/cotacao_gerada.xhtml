@@ -79,7 +79,7 @@
 
                                     <p:column headerText="#{msg['label.cotacao.valor']} (R$)">
                                         <h:outputText value="#{cotacao.valor}">
-                                            <f:convertNumber maxFractionDigits="2"/> 
+                                            <f:convertNumber maxFractionDigits="2"  minFractionDigits="2"/>
                                         </h:outputText>
                                     </p:column>
 
@@ -122,7 +122,9 @@
 
                                 <f:facet name="input">
                                     <p:inputText id="precoInput" value="#{cotacesLivro.valorMedio}" styleClass="numeric"
-                                                 style="width: 90px"/>
+                                                 style="width: 90px">
+                                        <f:convertNumber maxFractionDigits="2"  minFractionDigits="2"/>
+                                    </p:inputText>
                                 </f:facet>  
 
                             </p:cellEditor>    
