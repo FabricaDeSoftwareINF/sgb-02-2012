@@ -166,7 +166,7 @@ public class UsuarioController
      *
      * @return string de navegação
      */
-    public String editarUsuario() {
+    public String editarUsuario() throws ValidationException{
 
         super.edit();
 

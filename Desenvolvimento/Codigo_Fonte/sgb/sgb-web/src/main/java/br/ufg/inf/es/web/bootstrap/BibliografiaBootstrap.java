@@ -91,20 +91,20 @@ public class BibliografiaBootstrap {
 //
 //        if (bibliotecaConfig.isEmpty()) {
             dbBibliotecaConfig = new DBBibliotecaConfig();
-            dbBibliotecaConfig.setCampoAnoLivro("ANO");
+            dbBibliotecaConfig.setCampoAnoLivro("ANO_INICIO");
             dbBibliotecaConfig.setCampoAutor("AUTOR");
             dbBibliotecaConfig.setCampoEdicao("EDICAO");
             dbBibliotecaConfig.setCampoEditora("EDITORA");
             dbBibliotecaConfig.setCampoIdLivroBiblioteca("CODIGO");
             dbBibliotecaConfig.setCampoIsbnLivro("ISBN");
-            dbBibliotecaConfig.setCampoQuantidadeLivro("CODIGO");
+            dbBibliotecaConfig.setCampoQuantidadeLivro("QUANTIDADE");
             dbBibliotecaConfig.setCampoTituloLivro("TITULO");
             dbBibliotecaConfig.setDriver(DBDriver.MySQL);
-            dbBibliotecaConfig.setNameDataBase("obras");
-            dbBibliotecaConfig.setPasswordDataBase(new CriptoGeneric().criptografa("12345678"));
+            dbBibliotecaConfig.setNameDataBase("obras_sgb022012");
+            dbBibliotecaConfig.setPasswordDataBase(new CriptoGeneric().criptografa("sgb022012"));
             dbBibliotecaConfig.setPorta("3306");
             dbBibliotecaConfig.setUrl("localhost");
-            dbBibliotecaConfig.setUserDataBase("root");
+            dbBibliotecaConfig.setUserDataBase("sgb022012");
             dbBibliotecaConfig.setTabela("obras");
             salve(dbBibliotecaConfig);
 //        }

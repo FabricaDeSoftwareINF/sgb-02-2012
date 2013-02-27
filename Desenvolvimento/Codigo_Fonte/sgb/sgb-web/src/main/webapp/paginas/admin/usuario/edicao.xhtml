@@ -12,45 +12,62 @@
 
                 <h:form>
 
-                    <p:messages />
+                    <p:messages autoUpdate="true"/>
 
                     <h:panelGrid columns="2">
 
-                        <h:outputLabel value="#{msg['cadastro.usuario.label.nome']}:" for="usuarioNome" />
+                        <h:outputLabel value="#{msg['cadastro.usuario.label.nome']}:" 
+                                       for="usuarioNome" />
 
-                        <p:inputText value="#{usuarioController.form.entity.nome}" id="usuarioNome" autocomplete="off" />
+                        <p:inputText value="#{usuarioController.form.entity.nome}" 
+                                     id="usuarioNome" />
 
-                        <h:outputLabel value="#{msg['cadastro.usuario.label.sobrenome']}:" for="usuarioSobrenome" />
+                        <h:outputLabel value="#{msg['cadastro.usuario.label.sobrenome']}:" 
+                                       for="usuarioSobrenome" />
 
-                        <p:inputText value="#{usuarioController.form.entity.sobrenome}" id="usuarioSobrenome" autocomplete="off" />
+                        <p:inputText value="#{usuarioController.form.entity.sobrenome}" 
+                                     id="usuarioSobrenome" />
 
-                        <h:outputLabel value="#{msg['cadastro.usuario.label.email']}:" for="usuarioEmail" />
+                        <h:outputLabel value="#{msg['cadastro.usuario.label.email']}:" 
+                                       for="usuarioEmail" />
 
-                        <p:inputText value="#{usuarioController.form.entity.email}" id="usuarioEmail" autocomplete="off" />
+                        <p:inputText value="#{usuarioController.form.entity.email}" 
+                                     id="usuarioEmail" />
 
-                        <h:outputLabel value="#{msg['cadastro.usuario.label.confirmacaoemail']}:" for="usuarioConfirmacaoEmail" />
+                        <h:outputLabel value="#{msg['cadastro.usuario.label.confirmacaoemail']}:" 
+                                       for="usuarioConfirmacaoEmail" />
 
-                        <p:inputText value="#{usuarioController.form.entity.confirmacaoEmail}" id="usuarioConfirmacaoEmail" autocomplete="off" />
+                        <p:inputText value="#{usuarioController.form.entity.confirmacaoEmail}" 
+                                     id="usuarioConfirmacaoEmail" />
 
-                        <h:outputLabel value="#{msg['cadastro.usuario.label.password']}:" for="usuarioPassword" />
+                        <h:outputLabel value="#{msg['cadastro.usuario.label.password']}:" 
+                                       for="usuarioPassword" />
 
-                        <p:password value="#{usuarioController.form.entity.senha}" id="usuarioPassword" match="usuarioConfirmacaoPassword" autocomplete="off" />
+                        <p:password value="#{usuarioController.form.entity.senha}" 
+                                    id="usuarioPassword" 
+                                    match="usuarioConfirmacaoPassword" />
 
-                        <h:outputLabel value="#{msg['cadastro.usuario.label.confirmacaopassword']}:" for="usuarioConfirmacaoPassword" />
+                        <h:outputLabel value="#{msg['cadastro.usuario.label.confirmacaopassword']}:" 
+                                       for="usuarioConfirmacaoPassword" />
 
-                        <p:password value="#{usuarioController.form.entity.senha}" id="usuarioConfirmacaoPassword" autocomplete="off" />
+                        <p:password value="#{usuarioController.form.entity.senha}" 
+                                    id="usuarioConfirmacaoPassword" 
+                                    validatorMessage="Confirma senha diferendes da senha informada."/>
 
                         <h:outputLabel value="#{msg['cadastro.usuario.label.perfil']}:" />
                         
-                        <p:selectOneRadio value="#{usuarioController.form.entity.perfil}" layout="pageDirection" converter="perfilConverter">  
-                            <f:selectItems value="#{usuarioController.perfil}" var="perfil" itemLabel="#{perfil.name}" itemValue="#{perfil}" /> 
+                        <p:selectOneRadio value="#{usuarioController.form.entity.perfil}" 
+                                          layout="pageDirection" converter="perfilConverter">  
+                            <f:selectItems value="#{usuarioController.perfil}" 
+                                           var="perfil" itemLabel="#{perfil.name}" 
+                                           itemValue="#{perfil}" /> 
                         </p:selectOneRadio>  
 
                     </h:panelGrid>
 
                     <h:panelGrid columns="2">
                         
-                        <p:commandButton action="#{usuarioController.editarUsuario()}"
+                        <p:commandButton actionListener="#{usuarioController.editarUsuario()}"
                                          value="#{msg['cadastro.usuario.button.edit']}" ajax="false"
                                             icon="ui-icon-disk"/>
 
