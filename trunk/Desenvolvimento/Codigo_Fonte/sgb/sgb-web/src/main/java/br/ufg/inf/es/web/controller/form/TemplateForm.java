@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
  * @author vinicius
  */
 @Component
-@Scope("session")
+@Scope("request")
 public class TemplateForm extends GenericForm<Livro> {
 
     private Livro livroSelecionado;

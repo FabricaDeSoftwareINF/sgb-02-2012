@@ -60,7 +60,11 @@ public class LivroDAO extends GenericHibernateDAO<Livro> {
         criteria.add(Restrictions.eq("id", id));
         criteria.setFetchMode("autores", FetchMode.JOIN);
         Livro livro = (Livro) criteria.uniqueResult();
-        return livro.getAutores();
+        Collection<Autor> autores = new ArrayList<Autor>();
+        if (livro != null) {
+            autores = livro.getAutores();
+        }
+        return autores;
     }
 
     
