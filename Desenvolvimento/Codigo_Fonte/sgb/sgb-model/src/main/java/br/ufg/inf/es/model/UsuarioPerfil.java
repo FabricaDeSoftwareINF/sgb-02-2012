@@ -17,6 +17,10 @@ public enum UsuarioPerfil implements Serializable {
     /**
      * Campo DOCENTE
      */
+    COORDENADOR("COORDENADOR"),
+    /**
+     * Campo DOCENTE
+     */
     DOCENTE("DOCENTE"),
     /**
      * Campo CONSELHEIRO
@@ -25,30 +29,8 @@ public enum UsuarioPerfil implements Serializable {
     /**
      * Campo TECNICO
      */
-    TECNICO("TECNICO"),
-    /**
-     * Campo DOCENTE_CONSELHEIRO
-     */
-    DOCENTE_CONSELHEIRO("DOCENTE_CONSELHEIRO"),
-    /**
-     * Campo DOCENTE_ADM
-     */
-    DOCENTE_ADM("DOCENTE_ADM"),
-    /**
-     * Campo CONSELHEIRO_ADM
-     */
-    CONSELHEIRO_ADM("CONSELHEIRO_ADM"),
-    /**
-     * Campo TECNICO_ADM
-     */
-    TECNICO_ADM("TECNICO_ADM"),
-    /**
-     * Campo DOCENTE_CONSELHEIRO_ADM
-     */
-    DOCENTE_CONSELHEIRO_ADM("DOCENTE_CONSELHEIRO_ADM");
-    /**
-     * Campo name
-     */
+    TECNICO("TECNICO");
+    
     private String name;
 
     /**
@@ -92,21 +74,6 @@ public enum UsuarioPerfil implements Serializable {
                 break;
             case TECNICO:
                 roles = Arrays.asList(TECNICO.name());
-                break;
-            case DOCENTE_CONSELHEIRO:
-                roles = Arrays.asList(DOCENTE.name(), CONSELHEIRO.name());
-                break;
-            case DOCENTE_ADM:
-                roles = Arrays.asList(DOCENTE.name(), ADM.name());
-                break;
-            case CONSELHEIRO_ADM:
-                roles = Arrays.asList(CONSELHEIRO.name(), ADM.name());
-                break;
-            case TECNICO_ADM:
-                roles = Arrays.asList(TECNICO.name(), ADM.name());
-                break;
-            case DOCENTE_CONSELHEIRO_ADM:
-                roles = Arrays.asList(DOCENTE.name(), CONSELHEIRO.name(), ADM.name());
                 break;
         }
 
