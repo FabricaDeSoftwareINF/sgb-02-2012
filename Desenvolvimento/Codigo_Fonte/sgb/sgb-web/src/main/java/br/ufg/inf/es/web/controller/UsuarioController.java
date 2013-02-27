@@ -178,7 +178,7 @@ public class UsuarioController
      *
      * @return String de navegação para página inicial.
      */
-    public String criarUsuario() {
+    public String criarUsuario() throws ValidationException{
 
         super.insert();
 

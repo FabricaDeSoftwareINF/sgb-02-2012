@@ -83,7 +83,7 @@ public class AutorController
      *
      * @author Cássio Augus1to Silva de Freitas
      */
-    public void insereAutor() {
+    public void insereAutor(){
         try {
             this.getService().insert(this.getForm().getEntity());
 
@@ -94,6 +94,7 @@ public class AutorController
         } catch (ValidationException ex) {
             this.addWarningMessage(ex.getKeyMessage());
         }
+        //return super.openSearchPage();
     }
 
     /**

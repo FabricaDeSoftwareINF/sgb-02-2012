@@ -380,7 +380,7 @@ public class LivroController extends SGBController<Livro, LivroForm, LivroServic
 
     public Collection<LivroBiblioteca> completeLivroBiblioteca(String query) {
 
-        Collection<LivroBiblioteca> livroBibliotecas = new ArrayList<LivroBiblioteca>();
+        Collection<LivroBiblioteca> livrosBiblioteca = new ArrayList<LivroBiblioteca>();
 
         Map<String, String> keysQuery = getKeyQuery(query.trim());
         try {
@@ -397,7 +397,7 @@ public class LivroController extends SGBController<Livro, LivroForm, LivroServic
                 livrosBibl.add(this.livrosBibliotecaDAO.
                         getLivroBibliotecaCodigo(codigoLivro));
 
-                livroBibliotecas = livrosBibl;
+                livrosBiblioteca = livrosBibl;
 
             } else if (keysQuery.containsKey("CÓDIGO")) {
 
@@ -413,20 +413,20 @@ public class LivroController extends SGBController<Livro, LivroForm, LivroServic
                 livrosBibl.add(this.livrosBibliotecaDAO.
                         getLivroBibliotecaCodigo(codigoLivro));
 
-                livroBibliotecas = livrosBibl;
+                livrosBiblioteca = livrosBibl;
 
             } else if (keysQuery.containsKey("ISBN")) {
 
-                livroBibliotecas = this.livrosBibliotecaDAO.
+                livrosBiblioteca = this.livrosBibliotecaDAO.
                         getLivrosBibliotecaIsbn(keysQuery.get("ISBN"));
 
             } else if (keysQuery.containsKey("AUTOR")) {
 
-                livroBibliotecas = this.livrosBibliotecaDAO.
+                livrosBiblioteca = this.livrosBibliotecaDAO.
                         getLivrosBibliotecaAutor(keysQuery.get("AUTOR"));
 
             } else {
-                livroBibliotecas = this.livrosBibliotecaDAO.
+                livrosBiblioteca = this.livrosBibliotecaDAO.
                         getLivrosBibliotecaTitulo(query);
             }
 
@@ -439,7 +439,34 @@ public class LivroController extends SGBController<Livro, LivroForm, LivroServic
             exception.append(ex.getMessage());
             this.addWarningMessage("arquitetura.msg.connectionexception");
         }
-        return livroBibliotecas;
+        
+        Collection<LivroBiblioteca> livrosAssociados = getLivrosBibliotecaAssociados(this.form.getEntity().getCodigosLivrosBiblioteca());
+        
+        for (LivroBiblioteca livroBiblioteca : livrosAssociados){
+            boolean retirou = livrosBiblioteca.remove(livroBiblioteca);
+            System.out.println(retirou);
+        }
+        
+        return livrosBiblioteca;
+    }
+    
+    private Collection<LivroBiblioteca> getLivrosBibliotecaAssociados(Collection<Long> codigoLivrosAssociados){
+        Collection<LivroBiblioteca> livrosAssociados = new ArrayList<LivroBiblioteca>();
+        
+        if (codigoLivrosAssociados != null && (!codigoLivrosAssociados.isEmpty())){
+            for (Long codigo : codigoLivrosAssociados){
+                try {
+                    LivroBiblioteca livroBiblioteca = this.livrosBibliotecaDAO.getLivroBibliotecaCodigo(codigo);
+                    livrosAssociados.add(livroBiblioteca);
+                } catch (NotFoundException ex) {
+                    Logger.getLogger(LivroController.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (SQLException ex) {
+                    Logger.getLogger(LivroController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+        
+        return livrosAssociados;
     }
 
     private Map<String, String> getKeyQuery(String query) {

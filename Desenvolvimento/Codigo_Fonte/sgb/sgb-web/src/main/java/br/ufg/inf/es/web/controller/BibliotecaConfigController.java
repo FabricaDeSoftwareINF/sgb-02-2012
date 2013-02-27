@@ -100,7 +100,7 @@ public class BibliotecaConfigController extends SGBController<DBBibliotecaConfig
     public String salvarDBBibliotecaConfig() {
 
         try {
-            if (this.service.getBibliotecaCfg() == null || service.getBibliotecaCfg().getId() == 0l) {
+            if (this.service.getBibliotecaCfg() == null || service.getBibliotecaCfg().isNew()) {
                 this.form.getEntity().setDriver(this.form.getDriver());
                 this.form.getEntity().setPasswordDataBase(new CriptoGeneric().criptografa(password));
                 this.service.insert(this.form.getEntity());
