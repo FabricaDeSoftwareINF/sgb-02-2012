@@ -26,10 +26,12 @@ public class AutorValidator extends Validation<Autor> {
         if (nomeInvalido && sobrenomeInvalido) {
             throw new ValidationException("cadastro.autor.label.RNG012.nomeEsobreNome");
 
-        } else if (nomeInvalido) {
+        } 
+        if (nomeInvalido) {
             throw new ValidationException("cadastro.autor.label.RNG012.nome");
 
-        } else if (sobrenomeInvalido) {
+        } 
+        if (sobrenomeInvalido) {
             throw new ValidationException("cadastro.autor.label.RNG012.sobrenome");
 
         }

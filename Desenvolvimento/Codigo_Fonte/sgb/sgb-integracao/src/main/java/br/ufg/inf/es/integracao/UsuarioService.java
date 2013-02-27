@@ -3,6 +3,7 @@ package br.ufg.inf.es.integracao;
 import br.ufg.inf.es.base.util.SgbCryptography;
 import br.ufg.inf.es.base.util.cripto.CriptoGeneric;
 import br.ufg.inf.es.base.validation.ValidationException;
+import br.ufg.inf.es.integracao.annotations.RNG003Cadastro;
 import br.ufg.inf.es.model.Comunicacao;
 import br.ufg.inf.es.model.Usuario;
 import br.ufg.inf.es.persistencia.ComunicacaoDAO;
@@ -55,6 +56,7 @@ public class UsuarioService extends GenericService<Usuario> {
      * @throws ValidationException
      */
     @Override
+    @RNG003Cadastro
     public Long insert(Usuario entity) throws ValidationException {
         entity.setDataCadastro(new Date());
         String oldPass = entity.getSenha();
@@ -72,6 +74,7 @@ public class UsuarioService extends GenericService<Usuario> {
      * @throws ValidationException
      */
     @Override
+    @RNG003Cadastro
     public void update(Usuario entity) throws ValidationException {
         String oldPass = entity.getSenha();
         String passEncrypted = cryptography.encrypt(oldPass);
@@ -87,6 +90,7 @@ public class UsuarioService extends GenericService<Usuario> {
      * @throws ValidationException
      */
     @Override
+    @RNG003Cadastro
     public void save(Usuario entity) throws ValidationException {
         String oldPass = entity.getSenha();
         String passEncrypted = cryptography.encrypt(oldPass);

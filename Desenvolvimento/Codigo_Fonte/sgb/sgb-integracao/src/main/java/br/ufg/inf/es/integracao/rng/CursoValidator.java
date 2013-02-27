@@ -28,7 +28,8 @@ public class CursoValidator extends Validation<Curso> {
         if (isInvalid(curso.getNome())) {
             throw new ValidationException("cadastro.curso.msg.RNG004.nome");
 
-        } else if (curso.getVagas() <= 0) {
+        } 
+        if (curso.getVagas() <= 0) {
             throw new ValidationException("cadastro.curso.msg.RNG004.vagas");
         }
     }

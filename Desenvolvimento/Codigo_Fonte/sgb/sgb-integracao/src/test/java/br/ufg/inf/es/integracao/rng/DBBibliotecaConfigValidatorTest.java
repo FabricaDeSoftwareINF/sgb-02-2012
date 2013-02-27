@@ -40,6 +40,7 @@ public class DBBibliotecaConfigValidatorTest {
     public void objetoComUrlServiceEmBrancoDeveLancarExcecao() throws ValidationException {
         object.setDriver(DBDriver.Oracle);
         object.setUrl("  ");
+        object.setCampoIsbnLivro("isbn");
 
         validator.validate(object);
     }
@@ -48,6 +49,8 @@ public class DBBibliotecaConfigValidatorTest {
     public void objetoSemPortaDeveLancarExcecao() throws ValidationException {
         object.setDriver(DBDriver.Oracle);
         object.setUrl("url");
+        object.setCampoIsbnLivro("isbn");
+        object.setCampoIsbnLivro("isbn");
 
         validator.validate(object);
     }
@@ -57,6 +60,7 @@ public class DBBibliotecaConfigValidatorTest {
         object.setDriver(DBDriver.Oracle);
         object.setUrl("url");
         object.setPorta("  ");
+        object.setCampoIsbnLivro("isbn");
 
         validator.validate(object);
     }
@@ -66,6 +70,7 @@ public class DBBibliotecaConfigValidatorTest {
         object.setDriver(DBDriver.Oracle);
         object.setUrl("url");
         object.setPorta("porta");
+        object.setCampoIsbnLivro("isbn");
 
         validator.validate(object);
     }
@@ -76,6 +81,7 @@ public class DBBibliotecaConfigValidatorTest {
         object.setUrl("url");
         object.setPorta("porta");
         object.setNameDataBase("  ");
+        object.setCampoIsbnLivro("isbn");
         validator.validate(object);
     }
 
@@ -85,6 +91,7 @@ public class DBBibliotecaConfigValidatorTest {
         object.setUrl("url");
         object.setPorta("porta");
         object.setNameDataBase("banco");
+        object.setCampoIsbnLivro("isbn");
 
         validator.validate(object);
     }
@@ -96,6 +103,7 @@ public class DBBibliotecaConfigValidatorTest {
         object.setPorta("porta");
         object.setNameDataBase("banco");
         object.setUserDataBase("  ");
+        object.setCampoIsbnLivro("isbn");
 
         validator.validate(object);
     }
@@ -107,6 +115,7 @@ public class DBBibliotecaConfigValidatorTest {
         object.setPorta("porta");
         object.setNameDataBase("banco");
         object.setUserDataBase("usuario");
+        object.setCampoIsbnLivro("isbn");
 
         validator.validate(object);
     }
@@ -119,6 +128,7 @@ public class DBBibliotecaConfigValidatorTest {
         object.setNameDataBase("banco");
         object.setUserDataBase("user");
         object.setPasswordDataBase(SENHA);
+        object.setCampoIsbnLivro("isbn");
 
         validator.validate(object);
     }
@@ -132,6 +142,7 @@ public class DBBibliotecaConfigValidatorTest {
         object.setUserDataBase("user");
         object.setPasswordDataBase(SENHA);
         object.setTabela("  ");
+        object.setCampoIsbnLivro("isbn");
 
         validator.validate(object);
     }
@@ -145,6 +156,7 @@ public class DBBibliotecaConfigValidatorTest {
         object.setUserDataBase("user");
         object.setPasswordDataBase(SENHA);
         object.setTabela("tabela");
+        object.setCampoIsbnLivro("isbn");
 
         validator.validate(object);
     }
@@ -159,6 +171,7 @@ public class DBBibliotecaConfigValidatorTest {
         object.setPasswordDataBase(SENHA);
         object.setTabela("tabela");
         object.setCampoTituloLivro("  ");
+        object.setCampoIsbnLivro("isbn");
 
         validator.validate(object);
     }
@@ -173,6 +186,7 @@ public class DBBibliotecaConfigValidatorTest {
         object.setPasswordDataBase(SENHA);
         object.setTabela("tabela");
         object.setCampoTituloLivro("livro");
+        object.setCampoIsbnLivro("isbn");
 
         validator.validate(object);
     }
@@ -187,6 +201,7 @@ public class DBBibliotecaConfigValidatorTest {
         object.setPasswordDataBase(SENHA);
         object.setTabela("tabela");
         object.setCampoTituloLivro("livro");
+        object.setCampoIsbnLivro("isbn");
         object.setCampoIdLivroBiblioteca("  ");
 
         validator.validate(object);
@@ -202,6 +217,7 @@ public class DBBibliotecaConfigValidatorTest {
         object.setPasswordDataBase(SENHA);
         object.setTabela("tabela");
         object.setCampoTituloLivro("livro");
+        object.setCampoIsbnLivro("isbn");
         object.setCampoIdLivroBiblioteca("idlivro");
 
         validator.validate(object);
@@ -217,6 +233,7 @@ public class DBBibliotecaConfigValidatorTest {
         object.setPasswordDataBase(SENHA);
         object.setTabela("tabela");
         object.setCampoTituloLivro("livro");
+        object.setCampoIsbnLivro("isbn");
         object.setCampoIdLivroBiblioteca("idlivro");
         object.setCampoAnoLivro("  ");
 
@@ -233,6 +250,7 @@ public class DBBibliotecaConfigValidatorTest {
         object.setPasswordDataBase(SENHA);
         object.setTabela("tabela");
         object.setCampoTituloLivro("livro");
+        object.setCampoIsbnLivro("isbn");
         object.setCampoIdLivroBiblioteca("idlivro");
         object.setCampoAnoLivro("ano");
 
@@ -249,6 +267,7 @@ public class DBBibliotecaConfigValidatorTest {
         object.setPasswordDataBase(SENHA);
         object.setTabela("tabela");
         object.setCampoTituloLivro("livro");
+        object.setCampoIsbnLivro("isbn");
         object.setCampoIdLivroBiblioteca("idlivro");
         object.setCampoAnoLivro("ano");
         object.setCampoEdicao("  ");
@@ -266,6 +285,7 @@ public class DBBibliotecaConfigValidatorTest {
         object.setPasswordDataBase(SENHA);
         object.setTabela("tabela");
         object.setCampoTituloLivro("livro");
+        object.setCampoIsbnLivro("isbn");
         object.setCampoIdLivroBiblioteca("idlivro");
         object.setCampoAnoLivro("ano");
         object.setCampoEdicao("edicao");
@@ -283,6 +303,7 @@ public class DBBibliotecaConfigValidatorTest {
         object.setPasswordDataBase(SENHA);
         object.setTabela("tabela");
         object.setCampoTituloLivro("livro");
+        object.setCampoIsbnLivro("isbn");
         object.setCampoIdLivroBiblioteca("idlivro");
         object.setCampoAnoLivro("ano");
         object.setCampoEdicao("edicao");
@@ -301,6 +322,7 @@ public class DBBibliotecaConfigValidatorTest {
         object.setPasswordDataBase(SENHA);
         object.setTabela("tabela");
         object.setCampoTituloLivro("livro");
+        object.setCampoIsbnLivro("isbn");
         object.setCampoIdLivroBiblioteca("idlivro");
         object.setCampoAnoLivro("ano");
         object.setCampoEdicao("edicao");
@@ -319,6 +341,7 @@ public class DBBibliotecaConfigValidatorTest {
         object.setPasswordDataBase(SENHA);
         object.setTabela("tabela");
         object.setCampoTituloLivro("livro");
+        object.setCampoIsbnLivro("isbn");
         object.setCampoIdLivroBiblioteca("idlivro");
         object.setCampoAnoLivro("ano");
         object.setCampoEdicao("edicao");
@@ -338,6 +361,7 @@ public class DBBibliotecaConfigValidatorTest {
         object.setPasswordDataBase(SENHA);
         object.setTabela("tabela");
         object.setCampoTituloLivro("livro");
+        object.setCampoIsbnLivro("isbn");
         object.setCampoIdLivroBiblioteca("idlivro");
         object.setCampoAnoLivro("ano");
         object.setCampoEdicao("edicao");
@@ -357,12 +381,53 @@ public class DBBibliotecaConfigValidatorTest {
         object.setPasswordDataBase(SENHA);
         object.setTabela("tabela");
         object.setCampoTituloLivro("livro");
+        object.setCampoIsbnLivro("isbn");
         object.setCampoIdLivroBiblioteca("idlivro");
         object.setCampoAnoLivro("ano");
         object.setCampoEdicao("edicao");
         object.setCampoEditora("editora");
         object.setCampoAutor("autor");
         object.setCampoQuantidadeLivro(" ");
+
+        validator.validate(object);
+    }
+    
+    @Test(expected = ValidationException.class)
+    public void objetoSemCampoIsbnLivroDeveLancarExcecao() throws ValidationException {
+        object.setDriver(DBDriver.Oracle);
+        object.setUrl("url");
+        object.setPorta("porta");
+        object.setNameDataBase("banco");
+        object.setUserDataBase("user");
+        object.setPasswordDataBase(SENHA);
+        object.setTabela("tabela");
+        object.setCampoTituloLivro("livro");
+        object.setCampoIdLivroBiblioteca("idlivro");
+        object.setCampoAnoLivro("ano");
+        object.setCampoEdicao("edicao");
+        object.setCampoEditora("editora");
+        object.setCampoAutor("autor");
+
+        validator.validate(object);
+    }
+
+    @Test(expected = ValidationException.class)
+    public void objetoComCamIsbnEmBrancoDeveLancarExcecao() throws ValidationException {
+        object.setDriver(DBDriver.Oracle);
+        object.setUrl("url");
+        object.setPorta("porta");
+        object.setNameDataBase("banco");
+        object.setUserDataBase("user");
+        object.setPasswordDataBase(SENHA);
+        object.setTabela("tabela");
+        object.setCampoTituloLivro("livro");
+        object.setCampoIsbnLivro("  ");
+        object.setCampoIdLivroBiblioteca("idlivro");
+        object.setCampoAnoLivro("ano");
+        object.setCampoEdicao("edicao");
+        object.setCampoEditora("editora");
+        object.setCampoAutor("autor");
+        object.setCampoQuantidadeLivro("quantidade");
 
         validator.validate(object);
     }
@@ -377,6 +442,7 @@ public class DBBibliotecaConfigValidatorTest {
         object.setPasswordDataBase(SENHA);
         object.setTabela("tabela");
         object.setCampoTituloLivro("livro");
+        object.setCampoIsbnLivro("isbn");
         object.setCampoIdLivroBiblioteca("idlivro");
         object.setCampoAnoLivro("ano");
         object.setCampoEdicao("edicao");

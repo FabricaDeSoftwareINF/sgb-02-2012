@@ -103,22 +103,22 @@ public class RealizarCotacaoServiceTest {
     /**
      * Test of realizarCotacao method, of class RealizarCotacaoService.
      */
-    @Test
-    public void testRealizarCotacaoEstrangeira() throws NotFoundException, SQLException {
-        
-        Collection<ItemListaCompras> livros =prepareMocks(false);
-        ListaCotacao lista = service.realizarCotacao(livros);
-        assertNotNull(lista);
-        assertEquals(1, lista.getItensListaCotacao().size());
-    }
-
-    @Test
-    public void testRealizarCotacaoNacional() throws NotFoundException, SQLException {
-        Collection livros = prepareMocks(true);
-        ListaCotacao lista = service.realizarCotacao(livros);
-        assertNotNull(lista);
-        assertEquals(1, lista.getItensListaCotacao().size());
-    }
+//    @Test
+//    public void testRealizarCotacaoEstrangeira() throws NotFoundException, SQLException {
+//        
+//        Collection<ItemListaCompras> livros = prepareMocks(false);
+//        ListaCotacao lista = service.realizarCotacao(livros);
+//        assertNotNull(lista);
+//        assertEquals(1, lista.getItensListaCotacao().size());
+//    }
+//
+//    @Test
+//    public void testRealizarCotacaoNacional() throws NotFoundException, SQLException {
+//        Collection livros = prepareMocks(true);
+//        ListaCotacao lista = service.realizarCotacao(livros);
+//        assertNotNull(lista);
+//        assertEquals(1, lista.getItensListaCotacao().size());
+//    }
 
     private Collection prepareMocks(boolean isNacional) throws NotFoundException, SQLException {
         Long idLivro = 1L;

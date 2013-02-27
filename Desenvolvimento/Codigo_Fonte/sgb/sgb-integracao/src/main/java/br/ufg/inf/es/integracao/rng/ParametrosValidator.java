@@ -19,10 +19,12 @@ public class ParametrosValidator extends Validation<Parametros> {
      * @throws ValidationException 
      */
     public void validate(Parametros parametros) throws ValidationException {
-        if (parametros.getValorFrete() == null
-                || parametros.getValorFrete().compareTo(BigDecimal.ZERO) == -1
-                || parametros.getParametroMEC() <= 0) {
+        if (parametros.getValorFrete() == null){
             throw new ValidationException("validacao.parametros.frete");
+        } else if ( parametros.getValorFrete().compareTo(BigDecimal.ZERO) == -1){
+            throw new ValidationException("validacao.parametros.frete");
+        } else if (parametros.getParametroMEC() <= 0){
+           throw new ValidationException("validacao.parametros.mec");
         }
     }
 }
