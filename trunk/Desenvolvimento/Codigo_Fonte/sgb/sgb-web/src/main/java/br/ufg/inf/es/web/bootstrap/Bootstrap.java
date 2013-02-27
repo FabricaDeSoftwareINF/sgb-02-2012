@@ -4,7 +4,9 @@ import br.ufg.inf.es.base.util.SgbCryptography;
 import br.ufg.inf.es.base.util.cripto.CriptoGeneric;
 import br.ufg.inf.es.model.*;
 import java.math.BigDecimal;
+import java.util.Calendar;
 import java.util.Collection;
+import java.util.GregorianCalendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletContextEvent;
@@ -67,10 +69,12 @@ public class Bootstrap implements ServletContextListener {
 
                 Usuario user = new Usuario();
                 user.setNome("Administrador");
+                user.setSobrenome("do Sistema");
                 user.setEmail("admin@email.com");
                 user.setSenha(new SgbCryptography().encrypt("123456"));
                 user.setStatus(true);
                 user.setPerfil(UsuarioPerfil.ADM);
+                user.setDataCadastro(Calendar.getInstance().getTime());
 
                 Long idUser = insert(sessionFactory, user);
                 user.setId(idUser);
