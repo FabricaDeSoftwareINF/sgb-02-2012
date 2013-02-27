@@ -42,22 +42,22 @@
 
                         <h:panelGrid columns="2">
                             <p:autoComplete id="pesquisaLivro"
-                                            value="#{templateController.livro}"
+                                            value="#{templateController.form.entity}"
                                             completeMethod="#{templateController.completeLivro}"  
                                             var="livro" 
                                             itemLabel="#{livro.toString()}" 
                                             itemValue="#{livro}"
-                                            converter="livroConverter">
+                                            converter="livroConverter" global="false">
 
                                 <p:ajax event="itemUnselect" listener="#{templateController.handleUnselectLivro}" /> 
-                                <p:ajax event="itemSelect" listener="#{templateController.addLivroOnSelect}" />
+                                <p:ajax event="itemSelect" listener="#{templateController.addLivroOnSelect}" oncomplete="dialogDadosLivro.show()"
+                                        update="dialog_dados_livro"/>
 
                             </p:autoComplete>  
                             <p:commandButton value="Acessar" 
                                              icon="ui-icon-circle-check"
                                              id="btn_dados_livro" 
                                              oncomplete="dialogDadosLivro.show()" 
-                                             actionListener="#{templateController.form.setEntity(templateController.form.livroSelecionado)}"
                                              update="dialog_dados_livro"/>
 
                             <p:dialog id="dialog_dados_livro" 
@@ -109,8 +109,8 @@
                                 <center>
 
                                     <p:commandButton id="btnFechar" value="Fechar" 
-                                                     action="dialogDadosLivro.close()"
-                                                     ajax="false" />
+                                                     onclick="dialogDadosLivro.hide()"
+                                                     immediate="true" global="false"/>
                                 </center>
 
                             </p:dialog>
@@ -183,15 +183,19 @@
                 </ui:insert>  
             </div>  
 
-            <p:ajaxStatus style="width:64px;height:64px;position:fixed;right:5px;bottom:5px">  
-                <f:facet name="start">  
-                    <p:graphicImage value="/resources/images/loading.gif" />  
-                </f:facet>  
+            <p:ajaxStatus onstart="statusDialog.show();" onsuccess="statusDialog.hide();" 
+                          />
 
-                <f:facet name="complete">  
-                    <h:outputText value="" />  
-                </f:facet>  
-            </p:ajaxStatus> 
+            <p:dialog modal="true" widgetVar="statusDialog" header="Status"
+                      draggable="false" closable="false">
+                <h:form>
+                    <h:outputText value="#{msg['arquitetura.msg.processando']}"/><br/>
+                    <p:graphicImage value="/resources/images/ajaxloadingbar.gif" /><br/>
+                    <p:commandButton value="Cancelar" oncomplete="statusDialog.hide()" >
+                        <p:ajax onstart="false" process="@none" />
+                    </p:commandButton>
+                </h:form>
+            </p:dialog>
         </h:body>
     </f:view>
 </html>  

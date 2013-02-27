@@ -118,6 +118,26 @@ public class LivroDAO extends GenericHibernateDAO<Livro> {
         return UtilObjeto.isReferencia(criteria.uniqueResult()) ? (Integer) criteria.uniqueResult() : 0;
     }  
     
+    /**
+     * Método que obtém a quantidade de alunos de acordo com as disciplinas 
+     * que utilizam o determinado livro.
+     * 
+     * @param id Identificador do livro.
+     * @return Quantidade de alunos 
+     */
+    public Collection<Long> findLivrosBiblioteca(Long id) {
+        
+        Criteria criteria = this.createCriteria();
+        
+        criteria.add(Restrictions.eq("id", id));
+        
+        criteria.setFetchMode("codigosLivrosBiblioteca", FetchMode.JOIN);
+        
+        Livro livro = (Livro) criteria.uniqueResult();
+        
+        return livro.getCodigosLivrosBiblioteca();
+    } 
+    
     @Override
     public Collection<Livro> list() {
         Query query = getSession().createQuery("FROM Livro l");

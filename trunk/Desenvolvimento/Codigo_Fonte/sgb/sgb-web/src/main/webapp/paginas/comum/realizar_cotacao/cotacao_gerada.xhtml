@@ -64,7 +64,7 @@
 
                         <p:column style="width:110px">
 
-                            <p:commandButton value="Livrarias" id="btnLivrarias"/>
+                            <p:commandButton value="Livrarias" id="btnLivrarias" global="false"/>
 
                             <p:overlayPanel for="btnLivrarias">
 
@@ -158,13 +158,13 @@
 
                     <p:commandButton value="#{msg['arquitetura.label.remover']}"
                                      onclick="dialogRemocao.show()"
-                                     icon="ui-icon-trash"/>
+                                     icon="ui-icon-trash" global="false"/>
                 </p:panel>
 
                 <p:commandButton value="#{msg['acao.salvar']}" 
                                  style="width: 120px"
                                  onclick="salvarDialog.show()"
-                                 icon="ui-icon-disk"/>
+                                 icon="ui-icon-disk" global="false"/>
 
                 <p:commandButton value="#{msg['acao.voltar']}" ajax="false" 
                                  action="#{realizarCotacaoController.openInitialPage()}"
@@ -191,10 +191,11 @@
                         <h:panelGrid columns="2" style="margin-left: 30%;">
 
                             <p:commandButton value="#{msg['cadastro.autor.label.sim']}" update="@form"
-                                             action="#{realizarCotacaoController.removerItensListaCotacao}" oncomplete="dialogRemocao.hide()"/>
+                                             action="#{realizarCotacaoController.removerItensListaCotacao}" oncomplete="dialogRemocao.hide()"
+                                             global="false"/>
 
                             <p:commandButton value="#{msg['cadastro.autor.label.nao']}"
-                                             onclick="dialogRemocao.hide();"/>
+                                             onclick="dialogRemocao.hide();" global="false"/>
 
                         </h:panelGrid>
 
