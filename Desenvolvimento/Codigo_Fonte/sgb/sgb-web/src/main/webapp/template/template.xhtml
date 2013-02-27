@@ -69,50 +69,45 @@
                                              style="width: 100%; margin-left: auto; margin-right: auto">
 
                                     <h:outputLabel value="#{msg['cadastro.livro.label.titulo']}:" style="font-weight: bold"/>
-                                    <h:outputText value="#{templateController.form.entity.titulo}" style="margin-left: 10px;"/>
+                                    <h:outputText value="#{templateController.itemListaCotacao.livro.titulo}" style="margin-left: 10px;"/>
 
                                     <h:outputLabel value="#{msg['cadastro.livro.label.autor']}:" style="font-weight: bold"/>
-                                    <p:dataList value="#{templateController.form.entity.autores}" var="autor">
+                                    <p:dataList value="#{templateController.buscaAutores()}" var="autor">
                                         <h:outputText value="#{autor}" style="margin-left: 10px;"/>
                                     </p:dataList>
 
                                     <h:outputLabel value="#{msg['cadastro.livro.label.edicao']}:" style="font-weight: bold"/>
 
-                                    <h:outputText value="#{templateController.form.entity.edicao}" style="margin-left: 10px;"/>
+                                    <h:outputText value="#{templateController.itemListaCotacao.livro.edicao}" style="margin-left: 10px;"/>
 
                                     <h:outputLabel value="#{msg['cadastro.livro.label.ano']}:" style="font-weight: bold"/>
 
-                                    <h:outputText value="#{templateController.form.entity.ano}" style="margin-left: 10px;"/>
+                                    <h:outputText value="#{templateController.itemListaCotacao.livro.ano}" style="margin-left: 10px;"/>
 
                                     <h:outputLabel value="#{msg['cadastro.livro.label.editora']}:" style="font-weight: bold"/>
 
-                                    <h:outputText value="#{templateController.form.entity.editora.nome}" style="margin-left: 10px;"/>
+                                    <h:outputText value="#{templateController.itemListaCotacao.livro.editora.nome}" style="margin-left: 10px;"/>
 
                                     <h:outputLabel value="#{msg['cadastro.livro.label.isbn10']}:" style="font-weight: bold"/>
 
-                                    <h:outputText value="#{templateController.form.entity.isbn10}" style="margin-left: 10px;"/>
+                                    <h:outputText value="#{templateController.itemListaCotacao.livro.isbn10}" style="margin-left: 10px;"/>
 
                                     <h:outputLabel value="#{msg['cadastro.livro.label.isbn13']}:" style="font-weight: bold"/>
 
-                                    <h:outputText value="#{templateController.form.entity.isbn13}" style="margin-left: 10px;"/>
+                                    <h:outputText value="#{templateController.itemListaCotacao.livro.isbn13}" style="margin-left: 10px;"/>
 
                                     <h:outputLabel value="#{msg['cadastro.livro.label.estrangeiro']}:" style="font-weight: bold"/>
 
-                                    <h:outputText value="#{templateController.form.entity.estrangeiro ? msg['arquitetura.msg.sim']
+                                    <h:outputText value="#{templateController.itemListaCotacao.livro.estrangeiro ? msg['arquitetura.msg.sim']
                                                            : msg['arquitetura.msg.nao']}" style="margin-left: 10px;"/>
 
                                     <h:outputLabel value="Valor Médio Atual (R$):" style="font-weight: bold"/>
-                                    <h:outputText value="#{templateController.valorMedio}" style="margin-left: 10px;"/>
+                                    <h:outputText value="#{(templateController.itemListaCotacao.valorMedio eq 0) ? 'Indisponível' : 
+                                                           templateController.itemListaCotacao.valorMedio}" style="margin-left: 10px;">
+                                        <f:convertNumber maxFractionDigits="2"/> 
+                                    </h:outputText>
 
                                 </h:panelGrid>
-
-                                <center>
-
-                                    <p:commandButton id="btnFechar" value="Fechar" 
-                                                     onclick="dialogDadosLivro.hide()"
-                                                     immediate="true" global="false"/>
-                                </center>
-
                             </p:dialog>
 
                         </h:panelGrid>
@@ -187,7 +182,7 @@
                           />
 
             <p:dialog modal="true" widgetVar="statusDialog" header="Status"
-                      draggable="false" closable="false">
+                      draggable="false" closable="false" resizable="false">
                 <h:form>
                     <h:outputText value="#{msg['arquitetura.msg.processando']}"/><br/>
                     <p:graphicImage value="/resources/images/ajaxloadingbar.gif" /><br/>
