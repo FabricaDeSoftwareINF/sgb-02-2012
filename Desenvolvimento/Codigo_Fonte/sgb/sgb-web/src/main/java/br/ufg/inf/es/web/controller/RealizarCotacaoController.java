@@ -63,6 +63,15 @@ public class RealizarCotacaoController extends SGBController<ListaCotacao, Reali
 
         return super.openInitialPage();
     }
+    
+    @Override
+    public String openInsertPage() {
+
+        this.getForm().setCotacoesSelecionadas(new ItemListaCotacao[] {});
+
+        return super.openInsertPage();
+    }
+
 
     @Override
     public RealizarCotacaoForm getForm() {

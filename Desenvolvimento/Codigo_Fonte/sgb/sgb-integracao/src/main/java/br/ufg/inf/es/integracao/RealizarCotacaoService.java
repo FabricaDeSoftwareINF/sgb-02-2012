@@ -216,8 +216,8 @@ public class RealizarCotacaoService extends GenericService<ListaCotacao> {
                 Collection<LivroBiblioteca> livrosBiblioteca = new ArrayList<LivroBiblioteca>();
 
                 Livro livro = cotacao.getLivro();
-
-                Collection<Long> idLivrosBibliotecaRelacionados = livro.getCodigosLivrosBiblioteca();
+                
+                Collection<Long> idLivrosBibliotecaRelacionados = this.livroDao.findLivrosBiblioteca(livro.getId());
 
                 for (Long idLivroBiblioteca : idLivrosBibliotecaRelacionados) {
                     LivroBiblioteca livroBiblioteca = this.getBibliotecaDao().getLivroBibliotecaCodigo(idLivroBiblioteca);
