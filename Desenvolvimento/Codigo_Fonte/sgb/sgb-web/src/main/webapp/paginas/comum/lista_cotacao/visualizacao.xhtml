@@ -93,7 +93,7 @@
                                     <h:outputText value="#{cotacaoLivro.valorMedio}"
                                                   title="#{cotacaoLivro.valorMedio}"  >
 
-                                        <f:convertNumber maxFractionDigits="2" minFractionDigits="2"/> 
+                                        <f:convertNumber  maxFractionDigits="2" minFractionDigits="2"/> 
 
                                     </h:outputText>
                                 </f:facet>
@@ -101,9 +101,9 @@
                                     <p:inputText value="#{cotacaoLivro.valorMedio}"
                                                  styleClass="numeric" 
                                                  style="width: 80px;margin-left: 20px"> 
-                                        
+
                                         <f:convertNumber maxFractionDigits="2"  minFractionDigits="2"/>
-                                        
+
                                     </p:inputText>
                                 </f:facet>
 
@@ -132,7 +132,7 @@
                             </p:cellEditor>
 
                         </p:column>
-                        
+
                         <p:column headerText="#{msg['listaCotacao.label.valortotal']}" 
                                   style="text-align: center;width: 10%">
 
@@ -149,7 +149,7 @@
                                   style="text-align: center;width: 10%">
 
                             <h:outputText value="#{cotacaoLivro.livro.estrangeiro ? msg['arquitetura.msg.sim']
-                                       : msg['arquitetura.msg.nao']}"/>
+                                                   : msg['arquitetura.msg.nao']}"/>
 
                         </p:column>
 
@@ -160,9 +160,6 @@
                         <f:facet id="footer" name="footer">  
                             <h:outputText id="valor_total" 
                                           value="TOTAL: #{listaCotacaoController.form.entity.valor}">
-                                
-                                <f:convertNumber minFractionDigits="2"/>
-                                
                             </h:outputText>
                         </f:facet> 
                         <p:ajax event="rowEdit" update="valor_total"/>
