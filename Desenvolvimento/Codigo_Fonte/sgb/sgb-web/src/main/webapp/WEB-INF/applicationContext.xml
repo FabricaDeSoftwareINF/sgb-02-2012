@@ -36,11 +36,12 @@
         
         <sec:logout logout-success-url="/login.jsf" invalidate-session="true"/>
         
+        <sec:intercept-url pattern="/login.jsf" access="anonymous"/>
         <sec:intercept-url pattern="/paginas/*" access="hasAnyRole('ADM', 'CONSELHEIRO', 'DOCENTE')" />
         <sec:intercept-url pattern="/paginas/comum/**" access="hasAnyRole('ADM', 'CONSELHEIRO', 'DOCENTE')" />
         <sec:intercept-url pattern="/paginas/admin/**" access="hasRole('ADM')" />
 
-        <sec:access-denied-handler error-page="/denied.jsf"/>
+        <sec:access-denied-handler error-page="/paginas/index.jsf"/>
 
         <sec:session-management invalid-session-url="/login.jsf" session-authentication-error-url="/login.jsf" />
         
