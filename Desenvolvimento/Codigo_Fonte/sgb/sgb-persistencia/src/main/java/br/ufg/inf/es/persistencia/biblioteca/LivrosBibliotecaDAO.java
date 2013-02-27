@@ -158,7 +158,7 @@ public class LivrosBibliotecaDAO implements Serializable {
                     livroBiblioteca.setNome(result.getString(colunaTitulo));
                     livroBiblioteca.setIsbn(result.getString(colunaISBN));
                     livroBiblioteca.setAno(result.getString(colunaAno));
-                    livroBiblioteca.setEdicao(result.getInt(colunaEdicao));
+                    livroBiblioteca.setEdicao(result.getString(colunaEdicao));
                     livroBiblioteca.setEditora(result.getString(colunaEditora));
                     livroBiblioteca.setAutor(result.getString(colunaAutor));
                     livroBiblioteca.setQuantidade(result.getInt(colunaQuantidade));
@@ -252,7 +252,7 @@ public class LivrosBibliotecaDAO implements Serializable {
                     livroBiblioteca.setNome(result.getString(colunaTitulo));
                     livroBiblioteca.setIsbn(result.getString(colunaISBN));
                     livroBiblioteca.setAno(result.getString(colunaAno));
-                    livroBiblioteca.setEdicao(result.getInt(colunaEdicao));
+                    livroBiblioteca.setEdicao(result.getString(colunaEdicao));
                     livroBiblioteca.setEditora(result.getString(colunaEditora));
                     livroBiblioteca.setAutor(result.getString(colunaAutor));
                     livroBiblioteca.setQuantidade(result.getInt(colunaQuantidade));
@@ -331,7 +331,7 @@ public class LivrosBibliotecaDAO implements Serializable {
                     livroBiblioteca.setNome(result.getString(colunaTitulo));
                     livroBiblioteca.setIsbn(result.getString(colunaISBN));
                     livroBiblioteca.setAno(result.getString(colunaAno));
-                    livroBiblioteca.setEdicao(result.getInt(colunaEdicao));
+                    livroBiblioteca.setEdicao(result.getString(colunaEdicao));
                     livroBiblioteca.setEditora(result.getString(colunaEditora));
                     livroBiblioteca.setAutor(result.getString(colunaAutor));
                     livroBiblioteca.setQuantidade(result.getInt(colunaQuantidade));
@@ -413,7 +413,7 @@ public class LivrosBibliotecaDAO implements Serializable {
                 livro.setNome(result.getString(colunaTitulo));
                 livro.setIsbn(result.getString(colunaISBN));
                 livro.setAno(result.getString(colunaAno));
-                livro.setEdicao(result.getInt(colunaEdicao));
+                livro.setEdicao(result.getString(colunaEdicao));
                 livro.setEditora(result.getString(colunaEditora));
                 livro.setAutor(result.getString(colunaAutor));
                 livro.setQuantidade(result.getInt(colunaQuantidade));
@@ -525,7 +525,7 @@ public class LivrosBibliotecaDAO implements Serializable {
                     livroBiblioteca.setNome(result.getString(colunaTitulo));
                     livroBiblioteca.setIsbn(result.getString(colunaISBN));
                     livroBiblioteca.setAno(result.getString(colunaAno));
-                    livroBiblioteca.setEdicao(result.getInt(colunaEdicao));
+                    livroBiblioteca.setEdicao(result.getString(colunaEdicao));
                     livroBiblioteca.setEditora(result.getString(colunaEditora));
                     livroBiblioteca.setAutor(result.getString(colunaAutor));
                     livroBiblioteca.setQuantidade(result.getInt(colunaQuantidade));
@@ -614,7 +614,7 @@ public class LivrosBibliotecaDAO implements Serializable {
                     livroBiblioteca.setNome(result.getString(colunaTitulo));
                     livroBiblioteca.setIsbn(result.getString(colunaISBN));
                     livroBiblioteca.setAno(result.getString(colunaAno));
-                    livroBiblioteca.setEdicao(result.getInt(colunaEdicao));
+                    livroBiblioteca.setEdicao(result.getString(colunaEdicao));
                     livroBiblioteca.setEditora(result.getString(colunaEditora));
                     livroBiblioteca.setAutor(result.getString(colunaAutor));
                     livroBiblioteca.setQuantidade(result.getInt(colunaQuantidade));
