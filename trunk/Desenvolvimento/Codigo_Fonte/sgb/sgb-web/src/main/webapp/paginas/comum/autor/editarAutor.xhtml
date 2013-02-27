@@ -10,6 +10,8 @@
         <ui:define name="content">
 
             <h:form id="formEdicaoAutor" >
+                
+                <p:messages autoUpdate="true"/>
 
                 <p:panel header="#{msg['cadastro.autor.label.editarAutor']}">
                         
@@ -35,7 +37,7 @@
                             
                         </p:panelGrid>
 
-                            <p:commandButton action="#{autorController.editarAutor}" 
+                            <p:commandButton actionListener="#{autorController.editarAutor}" 
                                              value="#{msg['cadastro.autor.label.atualizar']}"
                                              ajax="false"
                                              icon="ui-icon-disk">

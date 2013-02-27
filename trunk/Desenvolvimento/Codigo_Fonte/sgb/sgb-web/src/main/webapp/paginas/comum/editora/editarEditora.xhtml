@@ -12,6 +12,9 @@
             <h:body>   
                 <p:panel header="#{msg['cadastro.editora.label.editar']}">
                     <h:form >
+                        
+                        <p:messages autoUpdate="true"/>
+                        
                         <h:panelGrid width="100%">
 
                             <h:panelGrid columns="2">
@@ -21,7 +24,7 @@
                             </h:panelGrid>
 
                             <h:panelGrid columns="2" cellpadding="1" style="margin-left: 25px;">
-                                <p:commandButton action="#{editoraController.editarEditora()}"
+                                <p:commandButton actionListener="#{editoraController.editarEditora()}"
                                                  value="#{msg['arquitetura.label.salvar']}"
                                                  ajax="false"
                                                  icon="ui-icon-disk">

@@ -10,8 +10,10 @@
         <ui:define name="content"> 
                 <p:panel header="#{msg['cadastro.editora.label.cadastrar']}">
                     <h:form id="formInclusao" prependId="false">
-                        <p:remoteCommand name="openInitialPage" action="#{editoraController.openInitialPage()}"/>
+                        
                         <p:messages autoUpdate="true"/>
+                        
+                        <p:remoteCommand name="openInitialPage" action="#{editoraController.openInitialPage()}"/>
                         <h:panelGrid width="100%">
                             <h:panelGrid columns="2" cellpadding="5">
                                 <h:outputLabel value="#{msg['cadastro.editora.label.nome']}:" />
@@ -20,7 +22,7 @@
 
                             <h:panelGrid columns="2" cellpadding="1" style="margin-left: 25px;">
 
-                                <p:commandButton action="#{editoraController.salvarEditora()}"
+                                <p:commandButton actionListener="#{editoraController.salvarEditora()}"
                                                  value="#{msg['arquitetura.label.salvar']}" 
                                                  icon="ui-icon-disk" 
                                                  process="@form" update="@this"/>

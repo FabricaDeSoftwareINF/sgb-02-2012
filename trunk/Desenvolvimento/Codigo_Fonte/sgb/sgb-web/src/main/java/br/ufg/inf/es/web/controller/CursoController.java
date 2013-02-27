@@ -90,7 +90,7 @@ public class CursoController extends SGBController<Curso, CursoForm, CursoServic
      * @author Allan Vieira Ribeiro
      * @author Diogo Gonçalves Teodoro
      */
-    public String inserir() {
+    public String inserir() throws ValidationException{
         
         try {
             

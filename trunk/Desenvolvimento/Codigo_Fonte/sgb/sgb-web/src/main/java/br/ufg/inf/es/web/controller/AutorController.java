@@ -63,7 +63,7 @@ public class AutorController
     public void buscaTodosAutores() {
         this.getForm().setTodosAutores(this.getService().
                 buscaTodosAutores(this.getForm().getFiltroNome()));
-        
+
         this.getForm().setFiltroNome("");
 
         limpaEntidadeDeCadastro();
@@ -83,18 +83,20 @@ public class AutorController
      *
      * @author Cássio Augus1to Silva de Freitas
      */
-    public void insereAutor(){
+    public String insereAutor() throws ValidationException {
+
         try {
+            Hibernate.isInitialized(this.getForm().getEntity());
+
+            Hibernate.initialize(this.getForm().getEntity());
             this.getService().insert(this.getForm().getEntity());
 
             this.addSuccessMessage("arquitetura.msg.sucesso");
 
-            buscaTodosAutores();
-
         } catch (ValidationException ex) {
             this.addWarningMessage(ex.getKeyMessage());
         }
-        //return super.openSearchPage();
+        return this.openInitialPage();
     }
 
     /**
@@ -132,7 +134,7 @@ public class AutorController
             this.getService().removeAll(autores);
             this.addSuccessMessage("arquitetura.msg.sucesso");
             buscaTodosAutores();
-            
+
         } catch (ValidationException ex) {
             this.addWarningMessage(ex.getKeyMessage());
         } catch (ConstraintViolationException cve) {

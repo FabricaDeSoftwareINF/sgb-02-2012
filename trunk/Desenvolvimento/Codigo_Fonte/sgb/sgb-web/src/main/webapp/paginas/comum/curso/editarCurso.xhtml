@@ -11,6 +11,9 @@
             <p:panel header="#{msg['cadastro.curso.panel.editar']}">
 
                 <h:form id="formEditarCurso" style="font-size: 14px;">
+                    
+                    <p:messages autoUpdate="true"/>
+                    
                     <h:panelGrid width="100%" style="float: left" columns="1" >
 
                         <p:messages/>
@@ -40,7 +43,7 @@
                     <p:spacer width="15px" height="50px"/>
 
                     <p:commandButton value="#{msg['cadastro.curso.button.edit']}"
-                                     action="#{cursoController.editar()}"
+                                     actionListener="#{cursoController.editar()}"
                                      ajax="false"
                                      icon="ui-icon-pencil"/>
 
