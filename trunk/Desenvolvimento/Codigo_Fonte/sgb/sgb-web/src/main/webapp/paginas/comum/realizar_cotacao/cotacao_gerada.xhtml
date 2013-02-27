@@ -97,7 +97,9 @@
 
                                 <f:facet name="input">
                                     <p:inputText id="modelInput" style="width: 90px"
-                                                 value="#{cotacesLivro.quantidade}"/>
+                                                 styleClass="numeric" 
+                                                 value="#{cotacesLivro.quantidade}">
+                                    </p:inputText>
                                 </f:facet>  
 
                             </p:cellEditor>    
@@ -114,14 +116,15 @@
                                                            or cotacesLivro.valorMedio > 0.0 )
                                                            ? cotacesLivro.valorMedio : msg['cotacao.msg.valorindisponivel']}">
 
-                                        <f:convertNumber maxFractionDigits="2"/> 
+                                        <f:convertNumber maxFractionDigits="2"  minFractionDigits="2"/>
 
                                     </h:outputText>
 
                                 </f:facet>  
 
                                 <f:facet name="input">
-                                    <p:inputText id="precoInput" value="#{cotacesLivro.valorMedio}" styleClass="numeric"
+                                    <p:inputText id="precoInput" value="#{cotacesLivro.valorMedio}" 
+                                                 styleClass="numeric"
                                                  style="width: 90px">
                                         <f:convertNumber maxFractionDigits="2"  minFractionDigits="2"/>
                                     </p:inputText>
