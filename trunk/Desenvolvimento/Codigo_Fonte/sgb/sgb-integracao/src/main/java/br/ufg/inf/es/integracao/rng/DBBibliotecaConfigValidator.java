@@ -42,10 +42,13 @@ public class DBBibliotecaConfigValidator extends Validation<DBBibliotecaConfig> 
         } else if (isInvalid(object.getTabela())) {
             throw new ValidationException("parametros.biblioteca.label.RNG018.tabela");
 
+        } else if (isInvalid(object.getCampoIdLivroBiblioteca())) {
+            throw new ValidationException("parametros.biblioteca.label.RNG018.campoCodigoLivro");
+
         } else if (isInvalid(object.getCampoTituloLivro())) {
             throw new ValidationException("parametros.biblioteca.label.RNG018.campoTituloLivro");
 
-        } else if (isInvalid(object.getCampoIdLivroBiblioteca())) {
+        } else if (isInvalid(object.getCampoIsbnLivro())) {
             throw new ValidationException("parametros.biblioteca.label.RNG018.campoISBNLivro");
 
         } else if (isInvalid(object.getCampoAnoLivro())) {
