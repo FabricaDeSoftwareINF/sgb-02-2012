@@ -12,17 +12,15 @@
             <h:form id="manterEditora">
                 <p:panel header="#{msg['cadastro.editora.label.manterEditora']}">
 
-                    <p:messages id="messages" autoUpdate="true"></p:messages>
+
                     <p:spacer width="15px" height="20px"/>
-
+                    <p:messages   autoUpdate="true" ></p:messages>
                     <p:dataTable id="associationTable" var="assTab" paginator="true" rows="10"
-                                 emptyMessage="#{msg['arquitetura.label.nenhumregitro']}"
-                                 value="#{editoraController.form.collectionEntities}">
+                                 emptyMessage="#{msg['arquitetura.label.nenhumregitro']}" 
+                                 value="#{editoraController.form.model}" selection="#{editoraController.form.colecaoRemocao}">
 
-                        <p:column style="width: 18px;">  
-                            <p:selectBooleanCheckbox >
-                                <p:ajax listener="#{editoraController.selecionaEditora(assTab)}"  />
-                            </p:selectBooleanCheckbox>
+                        <p:column style="width: 18px;" selectionMode="multiple" >  
+                            
                         </p:column> 
 
                         <p:column sortBy="#{assTab.nome}" filterBy="#{assTab.nome}" styleClass="widthFilterBy">  
