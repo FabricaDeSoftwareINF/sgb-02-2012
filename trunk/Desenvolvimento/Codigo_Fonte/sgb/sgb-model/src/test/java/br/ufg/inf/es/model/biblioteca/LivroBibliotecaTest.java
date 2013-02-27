@@ -30,7 +30,7 @@ public class LivroBibliotecaTest {
 
         instance.setAno("2012");
         instance.setAutor("Autor");
-        instance.setEdicao(5);
+        instance.setEdicao("5");
         instance.setEditora("Editora");
         instance.setId(1L);
         instance.setIsbn("Isbn");
@@ -97,8 +97,8 @@ public class LivroBibliotecaTest {
     @Test
     public void testGetEdicao() {
 
-        Integer expResult = 5;
-        Integer result = instance.getEdicao();
+        String expResult = "5";
+        String result = instance.getEdicao();
         assertEquals(expResult, result);
 
     }
@@ -109,8 +109,8 @@ public class LivroBibliotecaTest {
     @Test
     public void testSetEdicao() {
 
-        Integer expResult = 5;
-        Integer result = instance.getEdicao();
+        String expResult = "5";
+        String result = instance.getEdicao();
         assertEquals(expResult, result);
     }
 
@@ -214,72 +214,6 @@ public class LivroBibliotecaTest {
         Integer result = instance.getQuantidade();
         assertEquals(expResult, result);
 
-    }
-
-    @Test
-    public void testGetShortNome() {
-        String menor = "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII";
-        instance.setNome(menor);
-        String nome = instance.getShortNome();
-        assertEquals(menor, nome);
-    }
-
-    @Test
-    public void testGetShortNome2() {
-        String maior = "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII"
-                + "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII"
-                + "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII";
-        instance.setNome(maior);
-        String nomeCurto = instance.getShortNome();
-        assertTrue(maior.length() > nomeCurto.length());
-    }
-
-    @Test
-    public void testGetNomeMax() {
-        String menor = "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII";
-        instance.setNome(menor);
-        String nomeGrande = instance.getNomeMax();
-        assertTrue(nomeGrande.length() < 50);
-    }
-
-    @Test
-    public void testGetNomeMax2() {
-        String maior = "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII"
-                + "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII"
-                + "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII";
-        instance.setNome(maior);
-        String nomeGrande = instance.getNomeMax();
-        assertTrue(nomeGrande.length() == 50);
-    }
-
-    @Test
-    public void testGetDescricaoDoLivro() {
-        String descricao = instance.getDescricaoLivro();
-        assertTrue(descricao.length() == 50);
-    }
-
-    @Test
-    public void testGetDescricaoDoLivroComISBNNULL() {
-        setUp();
-        instance.setIsbn(null);
-        String descricao = instance.getDescricaoLivro();
-        assertTrue(descricao.length() < 50);
-    }
-
-    @Test
-    public void testGetDescricaoDoLivroComAutorNULL() {
-        setUp();
-        instance.setAutor(null);
-        String descricao = instance.getDescricaoLivro();
-        assertTrue(descricao.length() < 50);
-    }
-
-    @Test
-    public void testGetDescricaoDoLivroComAnoNULL() {
-        setUp();
-        instance.setAno(null);
-        String descricao = instance.getDescricaoLivro();
-        assertTrue(descricao.length() < 50);
     }
 
     /**
