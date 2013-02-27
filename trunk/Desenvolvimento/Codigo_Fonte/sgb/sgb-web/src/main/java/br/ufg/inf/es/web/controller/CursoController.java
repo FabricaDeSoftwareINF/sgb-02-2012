@@ -99,7 +99,7 @@ public class CursoController extends SGBController<Curso, CursoForm, CursoServic
             addSuccessMessage("arquitetura.msg.sucesso");
             
         } catch (ValidationException ve) {
-            
+                        
             this.getForm().setExibirDialog(true);             
             
         } finally {
