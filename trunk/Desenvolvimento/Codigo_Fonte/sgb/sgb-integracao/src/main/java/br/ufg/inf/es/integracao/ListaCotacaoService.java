@@ -6,8 +6,10 @@ import br.ufg.inf.es.integracao.optimizer.OptimizerQuote;
 import br.ufg.inf.es.integracao.optimizer.Quotation;
 import br.ufg.inf.es.model.ItemListaCotacao;
 import br.ufg.inf.es.model.ListaCotacao;
+import br.ufg.inf.es.model.Livro;
 import br.ufg.inf.es.model.Usuario;
 import br.ufg.inf.es.persistencia.ItemListaCotacaoDAO;
+import br.ufg.inf.es.persistencia.LivroDAO;
 import br.ufg.inf.es.persistencia.ListaCotacaoDAO;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -34,6 +36,9 @@ public class ListaCotacaoService extends GenericService<ListaCotacao> {
     private ListaCotacaoDAO dao;
     @Autowired
     private ItemListaCotacaoDAO cotacoesLivroDao;
+    
+    @Autowired
+    private LivroDAO livroDao;
 
     /**
      * {@inheritDoc}
@@ -92,7 +97,13 @@ public class ListaCotacaoService extends GenericService<ListaCotacao> {
         for (Quotation cotacao : listaOtimizada) {
 
             ItemListaCotacao cl = this.cotacoesLivroDao.find((Long) cotacao.getProductId());
-
+            
+            Livro livro = cl.getLivro();
+            
+            livro.setAutores(this.livroDao.getAutores(livro.getId()));
+            
+            livro.setBibliografias(this.livroDao.getBibliografia(livro.getId()));
+            
             cl.setQuantidade(cotacao.getQuantity());
 
             cotacoes.add(cl);

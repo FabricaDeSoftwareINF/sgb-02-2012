@@ -206,8 +206,7 @@ public class ExportacaoPlanilhaService implements Serializable {
             linha.createCell(VALOR14).setCellValue(new HSSFRichTextString(SIMBOLO_REAL.concat(String.valueOf(planilha.getLinhasPlanilha().get(i).getValorMedioUnitario()))));
             linha.createCell(VALOR15).setCellValue(new HSSFRichTextString(SIMBOLO_REAL.concat(String.valueOf(planilha.getLinhasPlanilha().get(i).getValorMedioUnitario()))));
             double valorTotal = planilha.getLinhasPlanilha().get(i).getValorMedioUnitario() * planilha.getLinhasPlanilha().get(i).getQuantExemplares();
-            valorTotal = formatarDouble(valorTotal);
-            linha.createCell(VALOR16).setCellValue(new HSSFRichTextString(SIMBOLO_REAL.concat(String.valueOf(valorTotal))));
+            linha.createCell(VALOR16).setCellValue(new HSSFRichTextString(SIMBOLO_REAL.concat(formatarDouble(valorTotal))));
             linha.createCell(VALOR17).setCellValue(new HSSFRichTextString(String.valueOf(planilha.getLinhasPlanilha().get(i).getQuantExemplares())));
             linha.createCell(VALOR18).setCellValue(new HSSFRichTextString(planilha.getLinhasPlanilha().get(i).getAreaConhecimento()));
 
@@ -225,9 +224,7 @@ public class ExportacaoPlanilhaService implements Serializable {
      * @return 
      * Valor formatado em 2 casas decimais.
      */
-    private double formatarDouble(double valor) {
-
-        double valorFormatado;
+    private String formatarDouble(double valor) {
         DecimalFormat formatador = new DecimalFormat("0.00");
         String strValorComVirgula;
         String[] strPartesValor;
@@ -235,10 +232,8 @@ public class ExportacaoPlanilhaService implements Serializable {
 
         strValorComVirgula = formatador.format(valor);
         strPartesValor = strValorComVirgula.split("[,]");
-        strValorComPonto = strPartesValor[0] + "." + strPartesValor[1];
-        valorFormatado = Double.parseDouble(strValorComPonto);
-        
-        return valorFormatado;
+        strValorComPonto = strPartesValor[0] + "." + strPartesValor[1];        
+        return strValorComPonto;
     }
 
     /**
@@ -362,12 +357,12 @@ public class ExportacaoPlanilhaService implements Serializable {
         linha.createCell(VALOR9).setCellValue(new HSSFRichTextString(""));
         linha.createCell(VALOR10).setCellValue(new HSSFRichTextString(""));
         linha.createCell(VALOR11).setCellValue(new HSSFRichTextString(""));
-        double valorMedioUnitarioTotal = obterValorMedioUnitarioGeral(planilha.getLinhasPlanilha());
-        montarCelula(linha, estiloRodape, VALOR12, SIMBOLO_REAL.concat(String.valueOf(valorMedioUnitarioTotal)));
-        montarCelula(linha, estiloRodape, VALOR13, SIMBOLO_REAL.concat(String.valueOf(valorMedioUnitarioTotal)));
-        montarCelula(linha, estiloRodape, VALOR14, SIMBOLO_REAL.concat(String.valueOf(valorMedioUnitarioTotal)));
-        montarCelula(linha, estiloRodape, VALOR15, SIMBOLO_REAL.concat(String.valueOf(valorMedioUnitarioTotal)));
-        montarCelula(linha, estiloRodape, VALOR16, SIMBOLO_REAL.concat(String.valueOf(obterValorTotalGeral(planilha.getLinhasPlanilha()))));
+        String valorMedioUnitarioTotal = obterValorMedioUnitarioGeral(planilha.getLinhasPlanilha());
+        montarCelula(linha, estiloRodape, VALOR12, SIMBOLO_REAL.concat(valorMedioUnitarioTotal));
+        montarCelula(linha, estiloRodape, VALOR13, SIMBOLO_REAL.concat(valorMedioUnitarioTotal));
+        montarCelula(linha, estiloRodape, VALOR14, SIMBOLO_REAL.concat(valorMedioUnitarioTotal));
+        montarCelula(linha, estiloRodape, VALOR15, SIMBOLO_REAL.concat(valorMedioUnitarioTotal));
+        montarCelula(linha, estiloRodape, VALOR16, SIMBOLO_REAL.concat(obterValorTotalGeral(planilha.getLinhasPlanilha())));
         linha.createCell(VALOR17).setCellValue(new HSSFRichTextString(""));
         linha.createCell(VALOR18).setCellValue(new HSSFRichTextString(""));
 
@@ -384,7 +379,7 @@ public class ExportacaoPlanilhaService implements Serializable {
      * unitário geral calculado.
      * @return Valor médio unitário geral da planilha.
      */
-    private double obterValorMedioUnitarioGeral(List<ItemPlanilha> linhasPlanilha) {
+    private String obterValorMedioUnitarioGeral(List<ItemPlanilha> linhasPlanilha) {
 
         double valorMedioUnitarioGeral = 0.0;
 
@@ -406,8 +401,7 @@ public class ExportacaoPlanilhaService implements Serializable {
      * geral calculado.
      * @return Valor total geral da planilha.
      */
-    private double obterValorTotalGeral(List<ItemPlanilha> linhasPlanilha) {
-
+    private String obterValorTotalGeral(List<ItemPlanilha> linhasPlanilha) {
         double valorTotalGeral = 0.0;
 
         int i;

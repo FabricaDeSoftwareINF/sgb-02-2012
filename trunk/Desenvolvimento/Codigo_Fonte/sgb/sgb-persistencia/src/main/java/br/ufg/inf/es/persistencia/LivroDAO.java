@@ -3,6 +3,7 @@ package br.ufg.inf.es.persistencia;
 import br.ufg.inf.es.base.util.UtilObjeto;
 import br.ufg.inf.es.base.validation.ValidationException;
 import br.ufg.inf.es.model.Autor;
+import br.ufg.inf.es.model.Bibliografia;
 import br.ufg.inf.es.model.ItemListaCompras;
 import br.ufg.inf.es.model.ItemListaCotacao;
 import br.ufg.inf.es.model.Livro;
@@ -74,9 +75,9 @@ public class LivroDAO extends GenericHibernateDAO<Livro> {
      * @param id
      * @return Collection<Bibliografia>
      */
-    public Collection<?> getBibliografia(Long id) {
+    public Collection<Bibliografia> getBibliografia(Long id) {
 
-        return this.getCollection(id, "bibliografias");
+        return (Collection<Bibliografia>) this.getCollection(id, "bibliografias");
     }
 
     /**
