@@ -126,6 +126,7 @@ public class LivroController extends SGBController<Livro, LivroForm, LivroServic
                     this.getForm().getLivrosAssociados().add(livroBiblioteca);
                     
                 } catch (NotFoundException ex) {
+                    
                     this.addWarningMessage("arquitetura.msg.notfound");
                 } catch (SQLException ex) {
                     StringBuilder exception = new StringBuilder();
