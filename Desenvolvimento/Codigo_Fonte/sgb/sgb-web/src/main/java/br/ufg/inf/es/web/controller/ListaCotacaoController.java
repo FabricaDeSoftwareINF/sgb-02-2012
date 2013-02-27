@@ -142,8 +142,10 @@ public class ListaCotacaoController extends SGBController<ListaCotacao, ListaCot
         //Monta o título do cabeçalho da planilha
         SimpleDateFormat formatadorData = new SimpleDateFormat("yyyy");
         String anoCotacao = formatadorData.format(form.getEntity().getDataRealizada());
-        String nomeAutor = this.getForm().getEntity().getUser().getNome();
-        String sobreNomeAutor = this.getForm().getEntity().getUser().getSobrenome();
+        String nomeAutor = this.getForm().getEntity().getUser().getNome() == null ?
+                            "" : this.getForm().getEntity().getUser().getNome();
+        String sobreNomeAutor = this.getForm().getEntity().getUser().getSobrenome() == null ?
+                                "" : this.getForm().getEntity().getUser().getSobrenome();
 
         String tituloPlanilhaNacionais = builder.append("LISTA DOS TÍTULOS NACIONAIS A SEREM ADQUIRIDOS EM ").
                 append(anoCotacao).append(" - BIBLIOTECA CENTRAL ").append("/ ").append(nomeAutor.toUpperCase()).
