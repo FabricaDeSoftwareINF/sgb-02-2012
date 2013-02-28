@@ -1,14 +1,11 @@
 package br.ufg.inf.es.integracao.exportacaodados.planilha;
 
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStreamWriter;
 import java.io.Serializable;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -31,6 +28,7 @@ import org.springframework.stereotype.Component;
 
 import br.ufg.inf.es.model.exportacaodados.planilha.ItemPlanilha;
 import br.ufg.inf.es.model.exportacaodados.planilha.Planilha;
+import java.nio.charset.Charset;
 import java.text.DecimalFormat;
 
 /**
@@ -217,12 +215,12 @@ public class ExportacaoPlanilhaService implements Serializable {
         return planilhaPOI;
     }
 
-    /***
+    /**
+     * *
      * Formata um double para 2 casas decimais.
-     * @param valor
-     * Valor a ser formatado.
-     * @return 
-     * Valor formatado em 2 casas decimais.
+     *
+     * @param valor Valor a ser formatado.
+     * @return Valor formatado em 2 casas decimais.
      */
     private String formatarDouble(double valor) {
         DecimalFormat formatador = new DecimalFormat("0.00");
@@ -232,7 +230,7 @@ public class ExportacaoPlanilhaService implements Serializable {
 
         strValorComVirgula = formatador.format(valor);
         strPartesValor = strValorComVirgula.split("[\\.,]");
-        strValorComPonto = strPartesValor[0] + "." + strPartesValor[1];        
+        strValorComPonto = strPartesValor[0] + "." + strPartesValor[1];
         return strValorComPonto;
     }
 
@@ -447,53 +445,25 @@ public class ExportacaoPlanilhaService implements Serializable {
 
         List<Map> planilhaListMap = obterListMap(planilha.getLinhasPlanilha());
         String separadorCSV = ",";
+        StringBuilder linha = new StringBuilder();
 
-        try {
+        for (Map itemListMap : planilhaListMap) {
 
-            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(
-                    new FileOutputStream("planilha.csv"), "UTF-8"));
+            Iterator iterador = itemListMap.values().iterator();
 
-            for (Map itemListMap : planilhaListMap) {
+            while (iterador.hasNext()) {
+                Object value = iterador.next();
 
-                StringBuilder linha = new StringBuilder();
-                Iterator iterador = itemListMap.values().iterator();
-
-                while (iterador.hasNext()) {
-                    Object value = iterador.next();
-
-                    if (value != null) {
-                        linha.append(value.toString());
-                    }
-
-                    if (iterador.hasNext()) {
-                        linha.append(separadorCSV);
-                    }
+                if (value != null) {
+                    linha.append(value.toString());
                 }
 
-                writer.write(linha.toString());
-                writer.newLine();
+                if (iterador.hasNext()) {
+                    linha.append(separadorCSV);
+                }
             }
-
-            writer.flush();
-            writer.close();
-
-            File file = new File("planilha.csv");
-            byte[] arrayBytes = getBytes(file);
-            file.delete();
-
-            return arrayBytes;
-
-        } catch (UnsupportedEncodingException e) {
-            Logger.getLogger(ExportacaoPlanilhaService.class.getName()).log(Level.SEVERE, null, e);
-            return null;
-        } catch (FileNotFoundException e) {
-            Logger.getLogger(ExportacaoPlanilhaService.class.getName()).log(Level.SEVERE, null, e);
-            return null;
-        } catch (IOException e) {
-            Logger.getLogger(ExportacaoPlanilhaService.class.getName()).log(Level.SEVERE, null, e);
-            return null;
         }
-
+        return linha.toString().getBytes(Charset.forName("UTF-8"));
     }
 
     /**

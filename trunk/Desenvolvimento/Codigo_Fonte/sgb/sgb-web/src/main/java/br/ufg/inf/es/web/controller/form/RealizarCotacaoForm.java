@@ -90,7 +90,7 @@ public class RealizarCotacaoForm extends GenericForm<ListaCotacao> {
         double valorTotal = 0;
         if (cotacoesSelecionadas != null) {
             for (ItemListaCotacao cotacoesLivro : cotacoesSelecionadas) {
-                valorTotal += cotacoesLivro.getValorMedio() * cotacoesLivro.getQuantidade();
+                valorTotal += cotacoesLivro.getValorMedio() * cotacoesLivro.getQuantidadeAComprar();
             }
         }
         return valorTotal;

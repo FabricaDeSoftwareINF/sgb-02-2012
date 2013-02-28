@@ -46,9 +46,17 @@ public class ItemListaCotacao extends AbstractEntityModel {
     @Cascade(org.hibernate.annotations.CascadeType.DELETE_ORPHAN)
     private Collection<Cotacao> cotacoes = new ArrayList<Cotacao>();
     /**
-     * Campo quantidade
+     * Campo quantidadeVagas
      */
-    private int quantidade;
+    private Integer quantidadeExigida;
+    /**
+     * Campo quantidadeLivrosDisponiveis
+     */
+    private Integer quantidadeLivrosDisponiveis;
+    /**
+     * Campo quantidadeLivrosFaltando
+     */
+    private Integer quantidadeAComprar;
 
     /**
      * Obtém o valor do campo
@@ -133,36 +141,38 @@ public class ItemListaCotacao extends AbstractEntityModel {
         this.cotacoes = cotacoes;
     }
 
-    /**
-     * Obtém o valor do campo
-     * <code>quantidade</code>
-     *
-     * @return {@link int}
-     */
-    public int getQuantidade() {
-
-        return this.quantidade;
+    public Integer getQuantidadeExigida() {
+        return quantidadeExigida;
     }
 
-    /**
-     * Define o campo
-     * <code>quantidade</code>.
-     *
-     * @param quantidade
-     */
-    public void setQuantidade(int quantidade) {
+    public void setQuantidadeExigida(Integer quantidadeExigida) {
+        this.quantidadeExigida = quantidadeExigida;
+    }
 
-        this.quantidade = quantidade;
+    public Integer getQuantidadeLivrosDisponiveis() {
+        return quantidadeLivrosDisponiveis;
+    }
+
+    public void setQuantidadeLivrosDisponiveis(Integer quantidadeLivrosDisponiveis) {
+        this.quantidadeLivrosDisponiveis = quantidadeLivrosDisponiveis;
+    }
+
+    public Integer getQuantidadeAComprar() {
+        return quantidadeAComprar;
+    }
+
+    public void setQuantidadeAComprar(Integer quantidadeAComprar) {
+        this.quantidadeAComprar = quantidadeAComprar;
     }
 
     @Override
     public int hashCode() {
-        int hash = HASH;
-        hash = SALTO * hash + (this.urlImagem != null ? this.urlImagem.hashCode() : 0);
-        hash = SALTO * hash + (int) (Double.doubleToLongBits(this.valorMedio) ^ (Double.doubleToLongBits(this.valorMedio) >>> TAMANHO_BITS));
-        hash = SALTO * hash + (this.livro != null ? this.livro.hashCode() : 0);
-        hash = SALTO * hash + (this.cotacoes != null ? this.cotacoes.hashCode() : 0);
-        hash = SALTO * hash + this.quantidade;
+        int hash = 5;
+        hash = 59 * hash + (this.urlImagem != null ? this.urlImagem.hashCode() : 0);
+        hash = 59 * hash + (int) (Double.doubleToLongBits(this.valorMedio) ^ (Double.doubleToLongBits(this.valorMedio) >>> 32));
+        hash = 59 * hash + (this.livro != null ? this.livro.hashCode() : 0);
+        hash = 59 * hash + (this.quantidadeExigida != null ? this.quantidadeExigida.hashCode() : 0);
+        hash = 59 * hash + (this.quantidadeLivrosDisponiveis != null ? this.quantidadeLivrosDisponiveis.hashCode() : 0);
         return hash;
     }
 
@@ -184,12 +194,13 @@ public class ItemListaCotacao extends AbstractEntityModel {
         if (this.livro != other.livro && (this.livro == null || !this.livro.equals(other.livro))) {
             return false;
         }
-        if (this.cotacoes != other.cotacoes && (this.cotacoes == null || !this.cotacoes.equals(other.cotacoes))) {
+        if (this.quantidadeExigida != other.quantidadeExigida && (this.quantidadeExigida == null || !this.quantidadeExigida.equals(other.quantidadeExigida))) {
             return false;
         }
-        if (this.quantidade != other.quantidade) {
+        if (this.quantidadeLivrosDisponiveis != other.quantidadeLivrosDisponiveis && (this.quantidadeLivrosDisponiveis == null || !this.quantidadeLivrosDisponiveis.equals(other.quantidadeLivrosDisponiveis))) {
             return false;
         }
         return true;
     }
+
 }

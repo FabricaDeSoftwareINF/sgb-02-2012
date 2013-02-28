@@ -84,7 +84,7 @@ public class ListaCotacaoService extends GenericService<ListaCotacao> {
 
         for (ItemListaCotacao cotacao : cotacoesLivro) {
 
-            dataQuotation.add(DataQuotation.create(cotacao.getId(), BigDecimal.valueOf(cotacao.getValorMedio()), cotacao.getQuantidade()));
+            dataQuotation.add(DataQuotation.create(cotacao.getId(), BigDecimal.valueOf(cotacao.getValorMedio()), cotacao.getQuantidadeAComprar()));
         }
 
         return dataQuotation;
@@ -104,7 +104,7 @@ public class ListaCotacaoService extends GenericService<ListaCotacao> {
             
             livro.setBibliografias(this.livroDao.getBibliografia(livro.getId()));
             
-            cl.setQuantidade(cotacao.getQuantity());
+            cl.setQuantidadeAComprar(cotacao.getQuantity());
 
             cotacoes.add(cl);
         }

@@ -200,26 +200,31 @@ public class ListaCotacaoController extends SGBController<ListaCotacao, ListaCot
      * Permite exportar os livros nacionais da lista de cotações para o formato
      * CSV, disponibilizando-os para download.
      */
-    public void templateExportarCSV(Collection<ItemListaCotacao> cotacoes, boolean nacional) {
+    public void templateExportarCSV(Collection<ItemListaCotacao> cotacoes, boolean isNacional) {
 
-        Planilha planilhaNacionais = new Planilha();
+        Planilha planilha = new Planilha();
         List<ItemListaCotacao> cotacoesLivro = new ArrayList(cotacoes);
 
-        for (int i = 0; i < cotacoes.size(); i++) {
+        for (int i = 0; i < cotacoesLivro.size(); i++) {
 
             boolean isEstrangeiro = cotacoesLivro.get(i).getLivro().isEstrangeiro();
 
-            if ((nacional && !isEstrangeiro) || (!nacional && isEstrangeiro)) {
+            if ((isNacional && !isEstrangeiro) || (!isNacional && isEstrangeiro)) {
 
                 ItemPlanilha itemPlanilha = montarItemPlanilha(cotacoesLivro.get(i), i + 1);
-                planilhaNacionais.getLinhasPlanilha().add(itemPlanilha);
+                planilha.getLinhasPlanilha().add(itemPlanilha);
             }
 
         }
 
-        arrayBytes = exportador.gerarPlanilhaCSV(planilhaNacionais);
+        arrayBytes = exportador.gerarPlanilhaCSV(planilha);
         stream = new ByteArrayInputStream(arrayBytes);
-        arquivoCSVNacionais = new DefaultStreamedContent(stream, "text/csv", "planilha.csv");
+
+        if (isNacional) {
+            arquivoCSVNacionais = new DefaultStreamedContent(stream, "text/csv", "planilhaNacionais.csv");
+        } else {
+            arquivoCSVEstrangeiros = new DefaultStreamedContent(stream, "text/csv", "planilhaEstrangeiros.csv");
+        }
 
     }
 
@@ -292,7 +297,7 @@ public class ListaCotacaoController extends SGBController<ListaCotacao, ListaCot
         itemPlanilha.setCursoDestino(nomeCurso.toString());
 
         itemPlanilha.setValorMedioUnitario(cotacoesLivro.getValorMedio());
-        itemPlanilha.setQuantExemplares(cotacoesLivro.getQuantidade());
+        itemPlanilha.setQuantExemplares(cotacoesLivro.getQuantidadeAComprar());
         itemPlanilha.setAreaConhecimento(AREA_CONHECIMENTO);
 
         return itemPlanilha;

@@ -89,16 +89,25 @@
 
                         </p:column>
 
-                        <p:column headerText="Quantidade"  style="width:120px">
+                        <p:column headerText="Qtd. Exigida"  style="width:120px">
+                            <h:outputText value="#{cotacesLivro.quantidadeExigida}" />
+                        </p:column>
+                        
+                        <p:column headerText="Qtd. Disponível"  style="width:120px">
+                            <h:outputText value="#{cotacesLivro.quantidadeLivrosDisponiveis}" />
+                        </p:column>
+                        
+                        
+                        <p:column headerText="Qtd. a Comprar"  style="width:120px">
 
                             <p:cellEditor>  
 
-                                <f:facet name="output"><h:outputText value="#{cotacesLivro.quantidade}" /></f:facet>  
+                                <f:facet name="output"><h:outputText value="#{cotacesLivro.quantidadeAComprar}" /></f:facet>  
 
                                 <f:facet name="input">
                                     <p:inputText id="modelInput" style="width: 90px"
                                                  styleClass="numeric" 
-                                                 value="#{cotacesLivro.quantidade}">
+                                                 value="#{cotacesLivro.quantidadeAComprar}">
                                     </p:inputText>
                                 </f:facet>  
 
@@ -136,7 +145,7 @@
 
                         <p:column headerText="Preço Total(R$)" style="width:110px">
 
-                            <h:outputText value="#{cotacesLivro.valorMedio * cotacesLivro.quantidade}">
+                            <h:outputText value="#{cotacesLivro.valorMedio * cotacesLivro.quantidadeAComprar}">
 
                                 <f:convertNumber maxFractionDigits="2"/> 
 

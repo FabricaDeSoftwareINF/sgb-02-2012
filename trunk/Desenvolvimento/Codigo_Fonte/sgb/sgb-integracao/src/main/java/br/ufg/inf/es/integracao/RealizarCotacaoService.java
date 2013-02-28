@@ -241,7 +241,9 @@ public class RealizarCotacaoService extends GenericService<ListaCotacao> {
                     quantidadeExigida = (int) Math.ceil(((double) quantidadeAlunos) / quantidadeLivrosPorAlunos);
                 }
 
-                cotacao.setQuantidade(Math.max(0, quantidadeExigida));
+                cotacao.setQuantidadeAComprar(Math.max(0, quantidadeExigida - quantidadeBiblioteca));
+                cotacao.setQuantidadeExigida(Math.max(0, quantidadeExigida));
+                cotacao.setQuantidadeLivrosDisponiveis(quantidadeBiblioteca);
             }
 
 

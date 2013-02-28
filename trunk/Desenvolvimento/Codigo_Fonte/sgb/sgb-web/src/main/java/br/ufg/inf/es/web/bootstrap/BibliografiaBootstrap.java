@@ -118,7 +118,7 @@ public class BibliografiaBootstrap {
 
         ItemListaCotacao cotacaoLivro1 = new ItemListaCotacao();
         cotacaoLivro1.setLivro(livro1);
-        cotacaoLivro1.setQuantidade(QUANTIDADE1);
+        cotacaoLivro1.setQuantidadeExigida(QUANTIDADE1);
         cotacaoLivro1.setValorMedio((VALOR1 + VALOR2) / 2d);
         List<Cotacao> cotacoes1 = new ArrayList<Cotacao>();
         Cotacao cotacao1 = new Cotacao();
@@ -136,7 +136,7 @@ public class BibliografiaBootstrap {
 
         ItemListaCotacao cotacaoLivro2 = new ItemListaCotacao();
         cotacaoLivro2.setLivro(livro2);
-        cotacaoLivro2.setQuantidade(QUANTIDADE2);
+        cotacaoLivro2.setQuantidadeExigida(QUANTIDADE2);
         cotacaoLivro2.setValorMedio((VALOR3 + VALOR4) / 2d);
         List<Cotacao> cotacoes2 = new ArrayList<Cotacao>();
         Cotacao cotacao3 = new Cotacao();

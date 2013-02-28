@@ -19,7 +19,7 @@ public class ItemListaCotacaoTest {
     private Date dataCadastro = new Date();
     private Livro livro = new Livro();
     private Collection<Cotacao> cotacoes = Arrays.asList(new Cotacao());
-    private int quantidade = 1;
+    private Integer quantidade = 1;
 
     /**
      * setup
@@ -30,7 +30,7 @@ public class ItemListaCotacaoTest {
         cotacoesLivro.setValorMedio(valorMedio);
         cotacoesLivro.setLivro(livro);
         cotacoesLivro.setCotacoes(cotacoes);
-        cotacoesLivro.setQuantidade(quantidade);
+        cotacoesLivro.setQuantidadeExigida(quantidade);
         cotacoesLivro.setUrlImagem(urlImagem);
     }
 
@@ -63,7 +63,7 @@ public class ItemListaCotacaoTest {
      */
     @Test
     public void testGetQuantidade() {
-        assertEquals(quantidade, cotacoesLivro.getQuantidade());
+        assertEquals(quantidade, cotacoesLivro.getQuantidadeExigida());
     }
 
     /**
@@ -117,9 +117,9 @@ public class ItemListaCotacaoTest {
         assertFalse(instance.equals(cotacoesLivro));
         instance.setCotacoes(cotacoes);
         assertFalse(instance.equals(cotacoesLivro));
-        instance.setQuantidade(quantidade);
+        instance.setQuantidadeExigida(quantidade);
         assertTrue(instance.equals(cotacoesLivro));
-        instance.setQuantidade(898);
+        instance.setQuantidadeExigida(898);
         assertFalse(instance.equals(cotacoesLivro));
         
     }
