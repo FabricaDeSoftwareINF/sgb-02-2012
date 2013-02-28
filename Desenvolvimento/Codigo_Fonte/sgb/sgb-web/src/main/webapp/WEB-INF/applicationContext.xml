@@ -86,9 +86,9 @@
 
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="com.mysql.jdbc.Driver" />
-        <property name="url" value="jdbc:mysql://localhost:3306/sgb" />
-        <property name="username" value="root" />
-        <property name="password" value="12345678" />
+        <property name="url" value="jdbc:mysql://fs.inf.ufg.br:3306/sgb022012?autoReconnect=true" />
+        <property name="username" value="sgb022012" />
+        <property name="password" value="sgb022012" />
         <!-- Para rodar no laboratorio da universidade com banco do derby do netbeans -->
         <!--<property name="driverClassName" value="org.apache.derby.jdbc.ClientDriver" />
         <property name="url" value="jdbc:derby://localhost:1527/sgb" />
