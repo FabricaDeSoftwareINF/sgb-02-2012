@@ -145,6 +145,10 @@ public class LivrosBibliotecaDAO implements Serializable {
 
         try {
 
+            if (connection == null) {
+                return new ArrayList<LivroBiblioteca>();
+            }
+            
             stant = this.connection.prepareStatement(sb.toString());
 
             result = stant.executeQuery();
@@ -239,6 +243,10 @@ public class LivrosBibliotecaDAO implements Serializable {
         ResultSet result = null;
 
         try {
+            
+            if (connection == null) {
+                return new ArrayList<LivroBiblioteca>();
+            }
 
             stant = this.connection.prepareStatement(sb.toString());
 
@@ -318,6 +326,11 @@ public class LivrosBibliotecaDAO implements Serializable {
         ResultSet result = null;
 
         try {
+            
+            if (connection == null) {
+                return new ArrayList<LivroBiblioteca>();
+            }
+            
             stant = this.connection.prepareStatement(sb.toString());
 
             result = stant.executeQuery();
@@ -402,6 +415,10 @@ public class LivrosBibliotecaDAO implements Serializable {
         ResultSet result = null;
 
         try {
+            
+            if (connection == null) {
+                return new LivroBiblioteca();
+            }
 
             stant = this.connection.prepareStatement(sb.toString());
 
@@ -511,6 +528,10 @@ public class LivrosBibliotecaDAO implements Serializable {
         ResultSet result = null;
 
         try {
+            
+            if (connection == null) {
+                return new ArrayList<LivroBiblioteca>();
+            }
 
             stant = this.connection.prepareStatement(sb.toString());
 
@@ -600,6 +621,10 @@ public class LivrosBibliotecaDAO implements Serializable {
         ResultSet result = null;
 
         try {
+            
+            if (connection == null) {
+                return new ArrayList<LivroBiblioteca>();
+            }
 
             stant = this.connection.prepareStatement(sb.toString());
 
