@@ -76,6 +76,8 @@ public class ListaCotacaoController extends SGBController<ListaCotacao, ListaCot
 
         this.getForm().setListaOtimizada(listaOtimizada);
 
+        exibirTotalListaOtimizada();
+        
         return this.getRootNavigation() + "listaOtimizada";
     }
 
@@ -294,5 +296,14 @@ public class ListaCotacaoController extends SGBController<ListaCotacao, ListaCot
     public void atualizaTotal() {
         
         this.getForm().getEntity().getValor();
+    }
+    
+    public void exibirTotalListaOtimizada() {
+        
+        ListaCotacao lc = new ListaCotacao();
+        
+        lc.setItensListaCotacao(this.getForm().getListaOtimizada());
+        
+        this.getForm().setValorTotalListaOtimizada(lc.getValor());
     }
 }

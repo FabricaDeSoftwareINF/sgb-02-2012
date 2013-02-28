@@ -24,6 +24,15 @@ public class ListaCotacaoForm extends GenericForm<ListaCotacao> {
     private List<ItemListaCotacao> listaOtimizada;
     private boolean tipoOtimizacao;
     private Double valorOrcamento;
+    private Double valorTotalListaOtimizada;
+
+    public Double getValorTotalListaOtimizada() {
+        return valorTotalListaOtimizada;
+    }
+
+    public void setValorTotalListaOtimizada(Double valorTotalListaOtimizada) {
+        this.valorTotalListaOtimizada = valorTotalListaOtimizada;
+    }
 
     public ListaCotacaoDataModel getListaCotacaoDataModel() {
 

@@ -154,7 +154,16 @@
                             <p:rowEditor/>
                         </p:column> 
 
+                        <f:facet id="footer" name="footer">  
+                            <h:outputText id="valor_total" 
+                                          value="TOTAL: #{listaCotacaoController.form.valorTotalListaOtimizada}">
+                            </h:outputText>
+                        </f:facet> 
+
+                        <p:ajax event="rowEdit" oncomplete="updateFooter()" listener="#{listaCotacaoController.exibirTotalListaOtimizada}" />
                     </p:dataTable> 
+
+                    <p:remoteCommand name="updateFooter" update="cotacoes"/>
 
                     <p:spacer width="15px" height="50px"/>
 
