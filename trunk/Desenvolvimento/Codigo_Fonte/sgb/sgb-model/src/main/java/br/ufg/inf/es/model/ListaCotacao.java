@@ -191,14 +191,14 @@ public class ListaCotacao extends AbstractEntityModel {
                         * cotacoes.get(i).getQuantidade();
 
                 strValorComVirgula = formatador.format(valorTotalItem);
-                strPartesValor = strValorComVirgula.split("[,]");
+                strPartesValor = strValorComVirgula.split("[\\,.]");
                 strValorComPonto = strPartesValor[0] + "." + strPartesValor[1];
 
                 valorTotalLista += Double.parseDouble(strValorComPonto);
             }
 
             strValorComVirgula = formatador.format(valorTotalLista);
-            strPartesValor = strValorComVirgula.split("[,]");
+            strPartesValor = strValorComVirgula.split("[\\,.]");
             strValorComPonto = strPartesValor[0] + "." + strPartesValor[1];
 
             valorTotalLista = Double.parseDouble(strValorComPonto);

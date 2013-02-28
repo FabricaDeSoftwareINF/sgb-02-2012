@@ -231,7 +231,7 @@ public class ExportacaoPlanilhaService implements Serializable {
         String strValorComPonto;
 
         strValorComVirgula = formatador.format(valor);
-        strPartesValor = strValorComVirgula.split("[,]");
+        strPartesValor = strValorComVirgula.split("[\\.,]");
         strValorComPonto = strPartesValor[0] + "." + strPartesValor[1];        
         return strValorComPonto;
     }
