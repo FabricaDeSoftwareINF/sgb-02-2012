@@ -124,11 +124,13 @@
                     <p:menuitem value="Início" action="/paginas/index.xhtml" ajax="false"/>
 
                     <p:submenu label="Cadastros">
-                        <p:menuitem value="#{msg['cadastro.curso']}" action="#{cursoController.openSearchPage()}" ajax="false"/>
+                        <sec:ifAnyGranted roles="ADM, COORDENADOR, TECNICO">
+                            <p:menuitem value="#{msg['cadastro.curso']}" action="#{cursoController.openSearchPage()}" ajax="false"/>
+                            <p:menuitem value="#{msg['cadastro.disciplina.label.disciplina']}" action="#{disciplinaController.openInitialPage()}" ajax="false"/>
+                        </sec:ifAnyGranted>
                         <p:menuitem value="#{msg['cadastro.editora.label.editora']}" action="#{editoraController.openInitialPage()}"  ajax="false"/>
                         <p:menuitem value="#{msg['cadastro.livro.label.livro']}" action="#{livroController.openInitialPage()}" ajax="false"/>
                         <p:menuitem value="#{msg['cadastro.autor.label.autor']}" action="#{autorController.openInitialPage()}" ajax="false"/>
-                        <p:menuitem value="#{msg['cadastro.disciplina.label.disciplina']}" action="#{disciplinaController.openInitialPage()}" ajax="false"/>
                         <sec:ifAllGranted roles="ADM">
                             <p:menuitem value="#{msg['usuario.label.usuarios']}" action="#{usuarioController.openInitialPage()}" ajax="false" />
                         </sec:ifAllGranted>
@@ -146,15 +148,18 @@
                         </p:submenu>
                     </p:submenu>
 
-                    <p:submenu label="Configurações">                    
-                        <p:menuitem value="#{msg['configuracao.geral']}" action="#{parametrosController.openViewPage()}" ajax="false"/>
 
-                        <p:menuitem value="#{msg['configuracao.biblioteca']}" action="#{bibliotecaConfigController.openInitialPage()}" ajax="false"/>
+                    <sec:ifAnyGranted roles="ADM, CONSELHEIRO">
+                        <p:submenu label="Configurações">                    
+                            <p:menuitem value="#{msg['configuracao.geral']}" action="#{parametrosController.openViewPage()}" ajax="false"/>
 
-                        <p:menuitem value="#{msg['configuracao.comunicacao']}" action="#{comunicacaoController.openInitialPage()}" ajax="false"/>
-
-                        <p:menuitem value="#{msg['parametros.integracao']}" action="#{integracaoSdbController.openInitialPage()}" ajax="false"/>
-                    </p:submenu>
+                            <p:menuitem value="#{msg['configuracao.biblioteca']}" action="#{bibliotecaConfigController.openInitialPage()}" ajax="false"/>
+                            <sec:ifAllGranted roles="ADM">
+                                <p:menuitem value="#{msg['configuracao.comunicacao']}" action="#{comunicacaoController.openInitialPage()}" ajax="false"/>
+                            </sec:ifAllGranted>
+                            <p:menuitem value="#{msg['parametros.integracao']}" action="#{integracaoSdbController.openInitialPage()}" ajax="false"/>
+                        </p:submenu>
+                    </sec:ifAnyGranted>
                     <p:menuitem value="Ajuda" ajax="false" url="http://goo.gl/ivF3j" target="_blank"/> 
                     <div id="content">  
 

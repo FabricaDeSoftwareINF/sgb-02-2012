@@ -65,11 +65,12 @@
 
                     <p:commandButton actionListener="#{usuarioController.criarUsuario()}"
                                      value="#{msg['cadastro.usuario.button.insert']}"
-                                       icon="ui-icon-disk"/>
+                                     icon="ui-icon-disk"/>
 
-                    <p:commandButton action="#{usuarioController.openInitialPage()}" 
-                                     value="#{msg['cadastro.usuario.button.voltar']}" 
-                                        icon="ui-icon-arrowreturnthick-1-w"/>
+                    <p:commandButton  ajax="false" immediate="true"  
+                                      action="#{usuarioController.openInitialPage()}" 
+                                      value="#{msg['cadastro.livro.button.back']}"
+                                      icon="ui-icon-arrowreturnthick-1-w"/>
 
                 </h:form>
 

@@ -5,6 +5,7 @@ import br.ufg.inf.es.integracao.UsuarioService;
 import br.ufg.inf.es.model.Usuario;
 import br.ufg.inf.es.model.UsuarioPerfil;
 import br.ufg.inf.es.web.controller.form.UsuarioForm;
+import br.ufg.inf.es.web.datamodel.UsuarioDataModel;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -38,11 +39,22 @@ public class UsuarioController
      */
     @Autowired
     private UsuarioService service;
-    /**
-     * Atributo coleção de usuários selecionados
-     */
-    private Collection<Usuario> usuarioSelecionado = new ArrayList<Usuario>();
-
+    
+    @Override
+    public String openInsertPage() {
+        this.getForm().setUsuariosSelecionados(new ArrayList<Usuario>());
+        this.getForm().setEntity(new Usuario());
+        return super.openInsertPage();
+    }
+    
+    @Override
+    public String openInitialPage() {
+        List<Usuario> usuarios = new ArrayList<Usuario>(this.getService().list());
+        this.getForm().setUserDataModel(new UsuarioDataModel(usuarios));
+        return super.openInitialPage();
+    }
+    
+    
     /**
      * Método responsável por obter o formulário de usuário
      *
@@ -76,77 +88,23 @@ public class UsuarioController
     }
 
     /**
-     * Método responsável obter a coleção de usuários selecionados.
-     *
-     * @return
-     */
-    public Collection<Usuario> getUsuarioSelecionado() {
-        return usuarioSelecionado;
-    }
-
-    /**
-     * Método responsável por setar uma nova coleção de usuários selecionados.
-     *
-     * @param usuarioSelecionado
-     */
-    public void setUsuarioSelecionado(Collection<Usuario> usuarioSelecionado) {
-        this.usuarioSelecionado = usuarioSelecionado;
-    }
-
-    /**
-     * Método responsável por adicionar um usuário na Coleção de Usuários
-     * Selecionados.
-     *
-     * @param usuario
-     */
-    public void selecionaUsuario(Usuario usuario) {
-        if (usuarioSelecionado.contains(usuario)) {
-            usuarioSelecionado.remove(usuario);
-
-        } else {
-            this.usuarioSelecionado.add(usuario);
-        }
-    }
-
-    /**
-     * Método responsável por validar se pode haver uma exclusão ou não,
-     * verificando se há a necessidade de exibir o dialog de confirmação.
-     */
-    public void prepararExclusao() {
-
-        if (this.getForm().getUsuariosSelecionados().length == 0) {
-            this.getForm().setExibirDialogExclusao(Boolean.FALSE);
-            this.addWarningMessage("Nenhum usuário foi selecionado!");
-
-        } else {
-            this.getForm().setExibirDialogExclusao(Boolean.TRUE);
-        }
-    }
-
-    /**
      * Método responsável por remover os usuários selecionados.
      */
     public void removerUsuarioSelecionados() {
-        this.usuarioSelecionado.clear();
-        this.usuarioSelecionado.addAll(Arrays.asList(this.getForm().getUsuariosSelecionados()));
-
-        for (Usuario u : this.usuarioSelecionado) {
+        Collection<Usuario> usuarios = this.getForm().getUsuariosSelecionados();
+        for (Usuario u : usuarios) {
             if (u.getNome().equalsIgnoreCase("administrador")) {
                 this.addWarningMessage("Não é possível remover o usuário administrador");
-                this.getForm().setExibirDialogExclusao(Boolean.FALSE);
                 return;
             }
         }
-
         try {
-            this.service.getDAO().removeAll(usuarioSelecionado);
+            this.service.getDAO().removeAll(usuarios);
             this.addSuccessMessage("arquitetura.msg.sucesso");
 
             openInitialView();
         } catch (ConstraintViolationException cve) {
             this.addWarningMessage("O usuário está vinculado a outros registros. Não é possível remove-lo.");
-        } finally {
-            this.getForm().setExibirDialogExclusao(Boolean.FALSE);
         }
     }
 
@@ -155,10 +113,7 @@ public class UsuarioController
      */
     @Override
     public void initData() {
-        this.getForm().setExibirDialogExclusao(Boolean.FALSE);
-        this.getForm().setTabelaUsuarios(new ArrayList<Usuario>());
-        this.getForm().setPerfis(Arrays.asList(UsuarioPerfil.values()));
-        this.getForm().getTabelaUsuarios().addAll(this.getService().list());
+        this.getForm().setPerfis(Arrays.asList(UsuarioPerfil.values()));        
     }
 
     /**
@@ -213,23 +168,6 @@ public class UsuarioController
         return "/login.xhtml";
     }
 
-    /**
-     * Seleciona todos os usuários da grid
-     */
-    public void selecionaTodos() {
-        if (this.usuarioSelecionado.size() == this.getForm().getTabelaUsuarios().size()) {
-            this.usuarioSelecionado.clear();
-
-        }
-        if (!this.usuarioSelecionado.isEmpty()) {
-            this.usuarioSelecionado.clear();
-            this.usuarioSelecionado.addAll(this.getForm().getTabelaUsuarios());
-            
-        } else {
-            this.usuarioSelecionado.addAll(this.getForm().getTabelaUsuarios());
-        }
-    }
-    
     public Usuario getUsuarioLogado() {
         String nome = ((HttpServletRequest) FacesContext.getCurrentInstance().
                 getExternalContext().getRequest()).getUserPrincipal().getName();
