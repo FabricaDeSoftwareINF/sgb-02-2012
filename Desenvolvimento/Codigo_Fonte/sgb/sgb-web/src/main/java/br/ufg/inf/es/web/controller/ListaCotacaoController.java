@@ -2,6 +2,7 @@ package br.ufg.inf.es.web.controller;
 
 import br.ufg.inf.es.base.validation.ValidationException;
 import br.ufg.inf.es.integracao.ListaCotacaoService;
+import br.ufg.inf.es.web.datamodel.ListaCotacaoDataModel;
 import br.ufg.inf.es.integracao.exportacaodados.planilha.ExportacaoPlanilhaService;
 import br.ufg.inf.es.model.Autor;
 import br.ufg.inf.es.model.Bibliografia;
@@ -46,18 +47,12 @@ public class ListaCotacaoController extends SGBController<ListaCotacao, ListaCot
     private UsuarioController usuarioController = new UsuarioController();
 
     @Override
-    public void initData() {
-        this.getForm().setTabelaListaCotacoes(new ArrayList<ListaCotacao>());
-        this.getForm().getTabelaListaCotacoes().addAll(this.getService().
-                listByUser(usuarioController.getUsuarioLogado()));
-    }
-
-    @Override
     public String openInitialPage() {
         this.getService().getDAO().closeSession();
-        this.getForm().setTabelaListaCotacoes(new ArrayList<ListaCotacao>());
-        this.getForm().getTabelaListaCotacoes().addAll(this.getService().
+        List<ListaCotacao> listas = new ArrayList(this.getService().
                 listByUser(usuarioController.getUsuarioLogado()));
+        ListaCotacaoDataModel lista = new ListaCotacaoDataModel(listas);
+        this.getForm().setListaCotacaoDataModel(lista);
         return super.openInitialPage();
     }
 
