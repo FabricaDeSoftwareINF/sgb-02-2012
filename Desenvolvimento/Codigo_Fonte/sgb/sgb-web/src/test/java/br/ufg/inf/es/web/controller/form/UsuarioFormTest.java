@@ -15,39 +15,17 @@ import static org.junit.Assert.*;
 public class UsuarioFormTest {
 
     private UsuarioForm form;
-    private Collection<Usuario> tabelaUsuarios = new ArrayList<Usuario>();
     private Collection<UsuarioPerfil> perfis = new ArrayList<UsuarioPerfil>();
     private UsuarioDataModel userDataModel = new UsuarioDataModel();
-    private Usuario[] usuariosSelecionados = new Usuario[0];
-    private Boolean exibirDialogExclusao = true;
+    private Collection<Usuario> usuariosSelecionados = new ArrayList<Usuario>();
 
     @Before
     public void setUp() {
         form = new UsuarioForm();
-
-        form.setTabelaUsuarios(tabelaUsuarios);
+        
         form.setPerfis(perfis);
         form.setUserDataModel(userDataModel);
         form.setUsuariosSelecionados(usuariosSelecionados);
-        form.setExibirDialogExclusao(exibirDialogExclusao);
-    }
-
-    /**
-     * Test of getExibirDialogExclusao method, of class UsuarioForm.
-     */
-    @Test
-    public void testGetExibirDialogExclusao() {
-        Boolean result = form.getExibirDialogExclusao();
-        assertEquals(exibirDialogExclusao, result);
-    }
-
-    /**
-     * Test of getTabelaUsuarios method, of class UsuarioForm.
-     */
-    @Test
-    public void testGetTabelaUsuarios() {
-        Collection result = form.getTabelaUsuarios();
-        assertEquals(tabelaUsuarios, result);
     }
 
     /**
@@ -68,12 +46,4 @@ public class UsuarioFormTest {
         assertTrue(result instanceof UsuarioDataModel);
     }
 
-    /**
-     * Test of getUsuariosSelecionados method, of class UsuarioForm.
-     */
-    @Test
-    public void testGetUsuariosSelecionados() {
-        Usuario[] result = form.getUsuariosSelecionados();
-        assertArrayEquals(usuariosSelecionados, result);
-    }
 }

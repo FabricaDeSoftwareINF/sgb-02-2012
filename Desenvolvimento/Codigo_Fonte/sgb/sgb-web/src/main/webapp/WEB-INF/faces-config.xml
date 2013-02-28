@@ -126,7 +126,7 @@
             
             <from-outcome>DisciplinaController/initialPage</from-outcome>
             
-            <to-view-id>/paginas/comum/disciplina/inicial.xhtml</to-view-id>
+            <to-view-id>/paginas/coordenador/disciplina/inicial.xhtml</to-view-id>
             
             <redirect/>
         </navigation-case>
@@ -135,7 +135,7 @@
             
             <from-outcome>DisciplinaController/insertPage</from-outcome>
             
-            <to-view-id>/paginas/comum/disciplina/inclusao.xhtml</to-view-id>
+            <to-view-id>/paginas/coordenador/disciplina/inclusao.xhtml</to-view-id>
             
             <redirect/>
         </navigation-case>
@@ -144,7 +144,7 @@
             
             <from-outcome>DisciplinaController/editPage</from-outcome>
             
-            <to-view-id>/paginas/comum/disciplina/inclusao.xhtml</to-view-id>
+            <to-view-id>/paginas/coordenador/disciplina/inclusao.xhtml</to-view-id>
             
             <redirect/>
         </navigation-case>
@@ -154,7 +154,7 @@
             
             <from-outcome>CursoController/insertPage</from-outcome>
             
-            <to-view-id>/paginas/comum/curso/incluirCurso.xhtml</to-view-id>
+            <to-view-id>/paginas/coordenador/curso/incluirCurso.xhtml</to-view-id>
             
             <redirect/>
         </navigation-case>
@@ -163,7 +163,7 @@
             
             <from-outcome>CursoController/searchPage</from-outcome>
             
-            <to-view-id>/paginas/comum/curso/manterCurso.xhtml</to-view-id>
+            <to-view-id>/paginas/coordenador/curso/manterCurso.xhtml</to-view-id>
             
             <redirect/>
         </navigation-case>
@@ -172,7 +172,7 @@
             
             <from-outcome>CursoController/editPage</from-outcome>
             
-            <to-view-id>/paginas/comum/curso/editarCurso.xhtml</to-view-id>
+            <to-view-id>/paginas/coordenador/curso/editarCurso.xhtml</to-view-id>
             
             <redirect/>
         </navigation-case>
@@ -190,7 +190,7 @@
             
             <from-outcome>ParametrosController/viewPage</from-outcome>
             
-            <to-view-id>/paginas/comum/parametros/show.xhtml</to-view-id>
+            <to-view-id>/paginas/conselheiro/parametros/show.xhtml</to-view-id>
 
             <redirect/>
         </navigation-case>
@@ -322,7 +322,7 @@
             
             <from-outcome>BibliotecaConfigController/initialPage</from-outcome>
             
-            <to-view-id>/paginas/comum/parametros/biblioteca.xhtml</to-view-id>
+            <to-view-id>/paginas/conselheiro/parametros/biblioteca.xhtml</to-view-id>
             
             <redirect/>
         </navigation-case>
@@ -331,7 +331,7 @@
             
             <from-outcome>ComunicacaoController/initialPage</from-outcome>
             
-            <to-view-id>/paginas/comum/parametros/comunicacao.xhtml</to-view-id>
+            <to-view-id>/paginas/admin/parametros/comunicacao.xhtml</to-view-id>
             
             <redirect/>
         </navigation-case>
@@ -341,7 +341,7 @@
             
             <from-outcome>IntegracaoSdbController/initialPage</from-outcome>
             
-            <to-view-id>/paginas/comum/parametros/integracaoSDB.xhtml</to-view-id>
+            <to-view-id>/paginas/conselheiro/parametros/integracaoSDB.xhtml</to-view-id>
             
             <redirect/>
         </navigation-case>

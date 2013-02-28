@@ -65,20 +65,19 @@
                                      icon="ui-icon-document"/>
                     
                     <p:commandButton value="#{msg['usuario.label.remover']}" 
-                                     action="#{usuarioController.prepararExclusao}"
-                                     update="@form"
-                                     icon="ui-icon-trash"/>
+                                     onclick="dialogRemocao.show()"
+                                     icon="ui-icon-trash" immediate="true"/>
 
-                    <p:confirmDialog id="dialogRemocao" message="#{msg['arquitetura.label.confirmarconteudo']}"
+                    <p:confirmDialog id="dialog_remocao" message="#{msg['arquitetura.label.confirmarconteudo']}"
                                      header="#{msg['arquitetura.label.remover']}" severity="alert" 
-                                     widgetVar="confirmation" visible="#{usuarioController.form.exibirDialogExclusao}">
+                                     widgetVar="dialogRemocao">
 
                         <center>
                             <p:commandButton value="#{msg['arquitetura.msg.sim']}" 
                                              action="#{usuarioController.removerUsuarioSelecionados()}" update="@form" />
 
                             <p:commandButton value="#{msg['arquitetura.msg.nao']}" 
-                                             action="#{usuarioController.openInitialPage()}" ajax="false"/>
+                                             onclick="dialogRemocao.hide()"/>
                         </center>
 
                     </p:confirmDialog>
