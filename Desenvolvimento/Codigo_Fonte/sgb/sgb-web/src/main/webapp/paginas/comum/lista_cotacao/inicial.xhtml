@@ -114,7 +114,7 @@
                         <center>
                             <p:commandButton value="#{msg['arquitetura.msg.sim']}" 
                                              action="#{listaCotacaoController.removerListasSelecionadas()}" 
-                                             update="@form" oncomplete="dialogRemocao.hide()" />
+                                             update="listaCotacoes" oncomplete="dialogRemocao.hide()" />
                             <p:commandButton value="#{msg['arquitetura.msg.nao']}" 
                                              onclick="dialogRemocao.hide()"/>
                         </center>

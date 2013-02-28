@@ -11,9 +11,9 @@
 
         <ui:define name="content">
 
-            <p:panel id="panel_cotacoes" header="#{listaCotacaoController.form.entity.nome}">
+            <h:form prependId="false">
 
-                <h:form prependId="false">
+                <p:panel id="panel_cotacoes" header="#{listaCotacaoController.form.entity.nome}">
 
                     <p:messages id="messages"/>
                     <p:spacer width="15px" height="20px"/>
@@ -111,33 +111,37 @@
 
                         </p:column>
 
-                        <p:column headerText="#{msg['listaCotacao.label.quantidade']}" 
-                                  sortBy="#{cotacaoLivro.quantidade}" 
-                                  width="80">
+                        <p:column headerText="Qtd. Exigida"  style="width:120px">
+                            <h:outputText value="#{cotacaoLivro.quantidadeExigida}" />
+                        </p:column>
+                        
+                        <p:column headerText="Qtd. Disponível"  style="width:120px">
+                            <h:outputText value="#{cotacaoLivro.quantidadeLivrosDisponiveis}" />
+                        </p:column>
+                        
+                        
+                        <p:column headerText="Qtd. a Comprar"  style="width:120px">
 
                             <p:cellEditor>  
 
-                                <f:facet name="output">
-                                    <h:outputText value="#{cotacaoLivro.quantidade}" 
-                                                  title="#{cotacaoLivro.quantidade}"/>
+                                <f:facet name="output"><h:outputText value="#{cotacaoLivro.quantidadeAComprar}" /></f:facet>  
 
-
-                                </f:facet>
                                 <f:facet name="input">
-                                    <p:inputText value="#{cotacaoLivro.quantidade}"
+                                    <p:inputText id="modelInput" style="width: 90px"
                                                  styleClass="numeric" 
-                                                 style="width: 40px;margin-left: 10px"/>
-                                </f:facet>
+                                                 value="#{cotacaoLivro.quantidadeAComprar}">
+                                    </p:inputText>
+                                </f:facet>  
 
-                            </p:cellEditor>
+                            </p:cellEditor>    
 
                         </p:column>
 
                         <p:column headerText="#{msg['listaCotacao.label.valortotal']}" 
                                   style="text-align: center;width: 10%">
 
-                            <h:outputText value="#{cotacaoLivro.valorMedio * cotacaoLivro.quantidade}" 
-                                          title="#{cotacaoLivro.valorMedio * cotacaoLivro.quantidade}" >
+                            <h:outputText value="#{cotacaoLivro.valorMedio * cotacaoLivro.quantidadeAComprar}" 
+                                          title="#{cotacaoLivro.valorMedio * cotacaoLivro.quantidadeAComprar}" >
 
                                 <f:convertNumber maxFractionDigits="2"  minFractionDigits="2"/>
 
@@ -162,13 +166,13 @@
                                           value="TOTAL: #{listaCotacaoController.form.entity.valor}">
                             </h:outputText>
                         </f:facet> 
-                        
+
                         <p:ajax event="rowEdit" oncomplete="updateFooter()" listener="#{listaCotacaoController.atualizaTotal}" />
 
                     </p:dataTable> 
 
                     <p:remoteCommand name="updateFooter" update="cotacoes"/>
-                    
+
                     <p:spacer width="15px" height="50px"/>
 
                     <p:commandButton id="gerar_xls_btn"
@@ -180,25 +184,30 @@
                     </p:commandButton>
 
                     <p:commandButton id="gerar_csv_nac_btn"
-                                     value="#{msg['listaCotacao.button.exportarCSVNacionais']}" 
                                      ajax="false"
+                                     value="#{msg['listaCotacao.button.exportarCSVNacionais']}" 
                                      actionListener="#{listaCotacaoController.exportarCSVNacionais()}"
                                      icon="ui-icon-note">
                         <p:fileDownload value="#{listaCotacaoController.arquivoCSVNacionais}" />  
                     </p:commandButton> 
 
                     <p:commandButton id="gerar_csv_estran_btn"
-                                     value="#{msg['listaCotacao.button.exportarCSVEstrangeiros']}"
                                      ajax="false"
+                                     value="#{msg['listaCotacao.button.exportarCSVEstrangeiros']}"
                                      actionListener="#{listaCotacaoController.exportarCSVEstrangeiros()}"
                                      icon="ui-icon-note">
                         <p:fileDownload value="#{listaCotacaoController.arquivoCSVEstrangeiros}" />  
                     </p:commandButton> 
 
-                </h:form>
+                </p:panel>   
 
-            </p:panel>   
+                <p:spacer width="15px" height="50px"/>
 
+                <p:commandButton value="#{msg['acao.voltar']}" ajax="false" 
+                                 action="#{listaCotacaoController.openInitialPage()}"
+                                 style="width: 120px" 
+                                 icon="ui-icon-arrowreturnthick-1-w"/>
+            </h:form>
         </ui:define>
 
     </ui:composition>

@@ -28,7 +28,7 @@ public class ListaCotacaoTest {
         listaCotacao = new ListaCotacao();
        
         cotacao.setValorMedio(5);
-        cotacao.setQuantidade(4);
+        cotacao.setQuantidadeExigida(4);
         cotacao.setLivro(new Livro());
        
         listaCotacao.setNome(nome);

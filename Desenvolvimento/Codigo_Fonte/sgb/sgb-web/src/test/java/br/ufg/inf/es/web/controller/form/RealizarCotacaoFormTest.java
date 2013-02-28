@@ -122,7 +122,7 @@ public class RealizarCotacaoFormTest {
     public void testGetValorTotalComCotacao() {
         cotacoesSelecionadas = new ItemListaCotacao[1];
         ItemListaCotacao item = new ItemListaCotacao();
-        item.setQuantidade(1);
+        item.setQuantidadeAComprar(1);
         item.setValorMedio(10.0);
         cotacoesSelecionadas[0] = item;
         form.setCotacoesSelecionadas(cotacoesSelecionadas);
