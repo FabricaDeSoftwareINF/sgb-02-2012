@@ -35,7 +35,6 @@ public class ListaCotacaoFormTest {
 
         form = new ListaCotacaoForm();
 
-        form.setTabelaListaCotacoes(tabelaListaCotacoes);
         form.setListaCotacaoDataModel(listaCotacaoDataModel);
         form.setListasSelecionadas(listasSelecionadas);
         form.setExibirDialogExclusao(exibirDialogExclusao);
@@ -59,7 +58,6 @@ public class ListaCotacaoFormTest {
      */
     @Test
     public void testGetListaCotacaoDataModelWhenListaCotacoesIsNull() {
-        form.setTabelaListaCotacoes(null);
         ListaCotacaoDataModel result = form.getListaCotacaoDataModel();
         assertEquals(listaCotacaoDataModel, result);
     }
@@ -71,15 +69,6 @@ public class ListaCotacaoFormTest {
     public void testGetListasSelecionadas() {
         Collection result = form.getListasSelecionadas();
         assertEquals(listasSelecionadas, result);
-    }
-
-    /**
-     * Test of getTabelaListaCotacoes method, of class ListaCotacaoForm.
-     */
-    @Test
-    public void testGetTabelaListaCotacoes() {
-        Collection result = form.getTabelaListaCotacoes();
-        assertEquals(tabelaListaCotacoes, result);
     }
 
     /**

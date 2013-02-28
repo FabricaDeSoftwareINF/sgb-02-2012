@@ -17,7 +17,6 @@ import org.springframework.stereotype.Component;
 @Scope("session")
 public class ListaCotacaoForm extends GenericForm<ListaCotacao> {
 
-    private Collection<ListaCotacao> tabelaListaCotacoes;
     private ListaCotacaoDataModel listaCotacaoDataModel;
     private Collection<ListaCotacao> listasSelecionadas = new ArrayList<ListaCotacao>();
     private Boolean exibirDialogExclusao;
@@ -35,14 +34,6 @@ public class ListaCotacaoForm extends GenericForm<ListaCotacao> {
     }
 
     public ListaCotacaoDataModel getListaCotacaoDataModel() {
-
-        Collection<ListaCotacao> listaCotacao = this.getTabelaListaCotacoes();
-
-        if (listaCotacao != null) {
-            List<ListaCotacao> listasCotacoes = new ArrayList<ListaCotacao>(listaCotacao);
-            listaCotacaoDataModel = new ListaCotacaoDataModel(listasCotacoes);
-        }
-
         return listaCotacaoDataModel;
     }
 
@@ -57,14 +48,6 @@ public class ListaCotacaoForm extends GenericForm<ListaCotacao> {
 
     public void setListasSelecionadas(Collection<ListaCotacao> listasSelecionadas) {
         this.listasSelecionadas = listasSelecionadas;
-    }
-
-    public Collection<ListaCotacao> getTabelaListaCotacoes() {
-        return tabelaListaCotacoes;
-    }
-
-    public void setTabelaListaCotacoes(Collection<ListaCotacao> tabelaListaCotacoes) {
-        this.tabelaListaCotacoes = tabelaListaCotacoes;
     }
 
     public Boolean getExibirDialogExclusao() {
