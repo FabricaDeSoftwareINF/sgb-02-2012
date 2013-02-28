@@ -53,6 +53,15 @@ public class ListaCotacaoController extends SGBController<ListaCotacao, ListaCot
     }
 
     @Override
+    public String openInitialPage() {
+        this.getService().getDAO().closeSession();
+        this.getForm().setTabelaListaCotacoes(new ArrayList<ListaCotacao>());
+        this.getForm().getTabelaListaCotacoes().addAll(this.getService().
+                listByUser(usuarioController.getUsuarioLogado()));
+        return super.openInitialPage();
+    }
+
+    @Override
     public ListaCotacaoForm getForm() {
         return form;
     }
