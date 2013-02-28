@@ -77,7 +77,7 @@ public class ListaCotacaoController extends SGBController<ListaCotacao, ListaCot
         this.getForm().setListaOtimizada(listaOtimizada);
 
         exibirTotalListaOtimizada();
-        
+
         return this.getRootNavigation() + "listaOtimizada";
     }
 
@@ -144,10 +144,10 @@ public class ListaCotacaoController extends SGBController<ListaCotacao, ListaCot
         //Monta o título do cabeçalho da planilha
         SimpleDateFormat formatadorData = new SimpleDateFormat("yyyy");
         String anoCotacao = formatadorData.format(form.getEntity().getDataRealizada());
-        String nomeAutor = this.getForm().getEntity().getUser().getNome() == null ?
-                            "" : this.getForm().getEntity().getUser().getNome();
-        String sobreNomeAutor = this.getForm().getEntity().getUser().getSobrenome() == null ?
-                                "" : this.getForm().getEntity().getUser().getSobrenome();
+        String nomeAutor = this.getForm().getEntity().getUser().getNome() == null
+                ? "" : this.getForm().getEntity().getUser().getNome();
+        String sobreNomeAutor = this.getForm().getEntity().getUser().getSobrenome() == null
+                ? "" : this.getForm().getEntity().getUser().getSobrenome();
 
         String tituloPlanilhaNacionais = builder.append("LISTA DOS TÍTULOS NACIONAIS A SEREM ADQUIRIDOS EM ").
                 append(anoCotacao).append(" - BIBLIOTECA CENTRAL ").append("/ ").append(nomeAutor.toUpperCase()).
@@ -255,35 +255,37 @@ public class ListaCotacaoController extends SGBController<ListaCotacao, ListaCot
     private ItemPlanilha montarItemPlanilha(ItemListaCotacao cotacoesLivro, int numItem) {
 
         StringBuilder nomeAutor = new StringBuilder();
+        StringBuilder nomeCurso = new StringBuilder();
+        int indice = 0;
         ItemPlanilha itemPlanilha = new ItemPlanilha();
         itemPlanilha.setNumItem(numItem);
         itemPlanilha.setTituloObra(cotacoesLivro.getLivro().getTitulo());
 
         List<Autor> autores = new ArrayList<Autor>(cotacoesLivro.getLivro().getAutores());
-        for (int i = 0; i < autores.size(); i++) {
 
-            nomeAutor.append(autores.get(i).getSobrenome().toUpperCase()).append(",").
-                    append(autores.get(i).getNome()).append(System.getProperty("line.separator"));
-
+        if (autores != null && !autores.isEmpty()) {
+            nomeAutor.append(autores.get(indice).getSobrenome().toUpperCase()).append(",").
+                    append(autores.get(indice).getNome());
+        } else {
+            nomeAutor.append("");
         }
+
         itemPlanilha.setNomeAutor(nomeAutor.toString());
 
         itemPlanilha.setEdicao(cotacoesLivro.getLivro().getEdicao());
         itemPlanilha.setEditora(cotacoesLivro.getLivro().getEditora().getNome());
         itemPlanilha.setAno(cotacoesLivro.getLivro().getAno().toString());
 
-        String cursoDestino = "";
         List<Bibliografia> bibliografias = new ArrayList<Bibliografia>(cotacoesLivro.getLivro().getBibliografias());
-        for (int i = 0; i < bibliografias.size(); i++) {
-
-            nomeAutor = new StringBuilder();
-            nomeAutor.append(bibliografias.get(i).getDisciplina().getCurso().getNome()).
-                    append(System.getProperty("line.separator"));
-
-            cursoDestino += nomeAutor.toString();
-
+        if (bibliografias != null && !bibliografias.isEmpty()) {
+            nomeCurso = new StringBuilder();
+            nomeCurso.append(bibliografias.get(indice).getDisciplina().getCurso().getNome());
+        } else {
+            nomeCurso.append("");
         }
-        itemPlanilha.setCursoDestino(cursoDestino);
+
+
+        itemPlanilha.setCursoDestino(nomeCurso.toString());
 
         itemPlanilha.setValorMedioUnitario(cotacoesLivro.getValorMedio());
         itemPlanilha.setQuantExemplares(cotacoesLivro.getQuantidade());
@@ -292,18 +294,18 @@ public class ListaCotacaoController extends SGBController<ListaCotacao, ListaCot
         return itemPlanilha;
 
     }
-    
+
     public void atualizaTotal() {
-        
+
         this.getForm().getEntity().getValor();
     }
-    
+
     public void exibirTotalListaOtimizada() {
-        
+
         ListaCotacao lc = new ListaCotacao();
-        
+
         lc.setItensListaCotacao(this.getForm().getListaOtimizada());
-        
+
         this.getForm().setValorTotalListaOtimizada(lc.getValor());
     }
 }
