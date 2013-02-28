@@ -14,6 +14,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
+import javax.persistence.Transient;
 import org.hibernate.annotations.Cascade;
 
 /**
@@ -53,6 +54,11 @@ public class ListaCotacao extends AbstractEntityModel {
     @JoinColumn(name = "id_item_lista_cotacao"))
     @Cascade(org.hibernate.annotations.CascadeType.DELETE_ORPHAN)
     private Collection<ItemListaCotacao> itensListaCotacao = new ArrayList<ItemListaCotacao>();
+    
+    @Transient
+    private double valor;
+    
+    
 
     /**
      * Obtém o valor do campo
@@ -199,7 +205,10 @@ public class ListaCotacao extends AbstractEntityModel {
         } catch (Exception ex) {
             return 0.0;
         }
-        return valorTotalLista;
+        
+        this.valor = valorTotalLista;
+        
+        return this.valor;
 
     }
 }

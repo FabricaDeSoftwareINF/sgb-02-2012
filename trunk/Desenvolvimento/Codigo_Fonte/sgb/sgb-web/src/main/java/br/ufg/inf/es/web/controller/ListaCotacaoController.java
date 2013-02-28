@@ -290,4 +290,9 @@ public class ListaCotacaoController extends SGBController<ListaCotacao, ListaCot
         return itemPlanilha;
 
     }
+    
+    public void atualizaTotal() {
+        
+        this.getForm().getEntity().getValor();
+    }
 }
