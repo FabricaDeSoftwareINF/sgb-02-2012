@@ -192,8 +192,9 @@ public class ItemListaCompraService extends GenericService<ItemListaCompras> {
                 if (UtilObjeto.isReferencia(livrosBiblioteca) && livrosBiblioteca.size() > 0) {
 
                     for (LivroBiblioteca livroBiblioteca : livrosBiblioteca) {
-
-                        quantidadeBiblioteca += livroBiblioteca.getQuantidade();
+                        if (livroBiblioteca.getQuantidade() != null) {
+                            quantidadeBiblioteca += livroBiblioteca.getQuantidade();
+                        }
                     }
                 }
 

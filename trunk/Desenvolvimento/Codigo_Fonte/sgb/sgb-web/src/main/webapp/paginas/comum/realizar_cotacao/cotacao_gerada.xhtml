@@ -12,7 +12,7 @@
 
             <h:form id="formCotacaoGerada" style="font-size: 14px;">
 
-                <p:messages/>
+                <p:growl id="messages" showDetail="true"/>
 
                 <p:panel header="#{msg['label.cotacao.cotarLivro']}">
 
@@ -20,7 +20,7 @@
 
                     <p:dataTable id="tabelaCotacoes" paginator="true" rows="10"
                                  value="#{realizarCotacaoController.form.cotacoesDataModel}" 
-                                 var="cotacesLivro" style="text-align: center;" editable="true" editMode="row" 
+                                 var="cotacesLivro" style="text-align: center;" editable="true" editMode="cell" 
                                  selection="#{realizarCotacaoController.form.cotacoesSelecionadas}"
                                  resizableColumns="true"
                                  emptyMessage="#{msg['arquitetura.label.nenhumregitro']}">
@@ -92,12 +92,12 @@
                         <p:column headerText="Qtd. Exigida"  style="width:120px">
                             <h:outputText value="#{cotacesLivro.quantidadeExigida}" />
                         </p:column>
-                        
+
                         <p:column headerText="Qtd. Disponível"  style="width:120px">
                             <h:outputText value="#{cotacesLivro.quantidadeLivrosDisponiveis}" />
                         </p:column>
-                        
-                        
+
+
                         <p:column headerText="Qtd. a Comprar"  style="width:120px">
 
                             <p:cellEditor>  
@@ -124,7 +124,6 @@
                                     <h:outputText value="#{(cotacesLivro.cotacoes != null and !cotacesLivro.cotacoes.isEmpty()
                                                            or cotacesLivro.valorMedio > 0.0 )
                                                            ? cotacesLivro.valorMedio : msg['cotacao.msg.valorindisponivel']}">
-
                                         <f:convertNumber maxFractionDigits="2"  minFractionDigits="2"/>
 
                                     </h:outputText>
@@ -145,7 +144,7 @@
 
                         <p:column headerText="Preço Total(R$)" style="width:110px">
 
-                            <h:outputText value="#{cotacesLivro.valorMedio * cotacesLivro.quantidadeAComprar}">
+                            <h:outputText id="precoItem" value="#{cotacesLivro.precoTotal}">
 
                                 <f:convertNumber maxFractionDigits="2"/> 
 
@@ -153,14 +152,12 @@
 
                         </p:column>
 
-                        <p:column style="width:6%">  
-                            <p:rowEditor />  
-                        </p:column> 
-
-                        <p:ajax event="rowEdit" update="valor_total" /> 
-
+                        <p:ajax event="cellEdit" update="@form"/>
                         <f:facet name="footer">  
-                            <h:outputText id="valor_total" value="Total: #{realizarCotacaoController.form.valorTotal}"/>
+                            <h:outputLabel value="Total: "/>
+                            <h:outputText id="valor_total" value="#{realizarCotacaoController.form.valorTotal}">
+                                <f:convertNumber maxFractionDigits="2"/> 
+                            </h:outputText>
                         </f:facet> 
 
                     </p:dataTable>
@@ -171,6 +168,7 @@
                     <p:commandButton value="#{msg['arquitetura.label.remover']}"
                                      onclick="dialogRemocao.show()"
                                      icon="ui-icon-trash" global="false"/>
+                    <p:spacer width="10"/>
                 </p:panel>
 
                 <p:commandButton value="#{msg['acao.salvar']}" 
