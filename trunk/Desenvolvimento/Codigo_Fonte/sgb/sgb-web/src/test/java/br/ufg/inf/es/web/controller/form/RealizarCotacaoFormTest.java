@@ -115,18 +115,4 @@ public class RealizarCotacaoFormTest {
         assertEquals(0.0, result, 0.0);
     }
 
-    /**
-     * Test of getValorTotal method, of class RealizarCotacaoForm.
-     */
-    @Test
-    public void testGetValorTotalComCotacao() {
-        cotacoesSelecionadas = new ItemListaCotacao[1];
-        ItemListaCotacao item = new ItemListaCotacao();
-        item.setQuantidadeAComprar(1);
-        item.setValorMedio(10.0);
-        cotacoesSelecionadas[0] = item;
-        form.setCotacoesSelecionadas(cotacoesSelecionadas);
-        double result = form.getValorTotal();
-        assertEquals(10.0, result, 0.0);
-    }
 }
