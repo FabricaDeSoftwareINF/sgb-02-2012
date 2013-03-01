@@ -179,7 +179,7 @@ public class RealizarCotacaoService extends GenericService<ListaCotacao> {
         }
         return cotacoesLivro;
     }
-    
+
     private double calculaPrecoMedio(ItemListaCotacao cotacoesLivro) {
         double somatorioPrecos = 0.0;
         double media = 0.0;
@@ -216,7 +216,7 @@ public class RealizarCotacaoService extends GenericService<ListaCotacao> {
                 Collection<LivroBiblioteca> livrosBiblioteca = new ArrayList<LivroBiblioteca>();
 
                 Livro livro = cotacao.getLivro();
-                
+
                 Collection<Long> idLivrosBibliotecaRelacionados = this.livroDao.findLivrosBiblioteca(livro.getId());
 
                 for (Long idLivroBiblioteca : idLivrosBibliotecaRelacionados) {
@@ -229,8 +229,9 @@ public class RealizarCotacaoService extends GenericService<ListaCotacao> {
                 if (UtilObjeto.isReferencia(livrosBiblioteca) && livrosBiblioteca.size() > 0) {
 
                     for (LivroBiblioteca livroBiblioteca : livrosBiblioteca) {
-
-                        quantidadeBiblioteca += livroBiblioteca.getQuantidade();
+                        if (livroBiblioteca.getQuantidade() != null) {
+                            quantidadeBiblioteca += livroBiblioteca.getQuantidade();
+                        }
                     }
                 }
 

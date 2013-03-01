@@ -10,6 +10,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import org.hibernate.annotations.Cascade;
 
 /**
@@ -203,4 +204,8 @@ public class ItemListaCotacao extends AbstractEntityModel {
         return true;
     }
 
+    public double getPrecoTotal() {
+        return quantidadeAComprar * valorMedio;
+    }
+    
 }

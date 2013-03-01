@@ -227,7 +227,7 @@ public class LivroBiblioteca implements Serializable {
     public String getNomeMax() {
         final int INICIO_TEXTO = 0;
         final int TAMANHO_MAX_TITULO = 50;
-        if (nome.length() > TAMANHO_MAX_TITULO) {
+        if (nome != null && nome.length() > TAMANHO_MAX_TITULO) {
             return nome.substring(INICIO_TEXTO, TAMANHO_MAX_TITULO);
         } else {
             return nome;

@@ -9,6 +9,7 @@ import br.ufg.inf.es.model.ListaCotacao;
 import br.ufg.inf.es.model.Livro;
 import br.ufg.inf.es.web.datamodel.ItemListaCotacaoDataModel;
 import br.ufg.inf.es.web.datamodel.LivroDataModel;
+import java.util.List;
 
 /**
  *
@@ -85,11 +86,11 @@ public class RealizarCotacaoForm extends GenericForm<ListaCotacao> {
     public void setNomeLista(String nomeLista) {
         this.nomeLista = nomeLista;
     }
-
+    
     public double getValorTotal() {
-        double valorTotal = 0;
-        if (cotacoesSelecionadas != null) {
-            for (ItemListaCotacao cotacoesLivro : cotacoesSelecionadas) {
+        double valorTotal = 0.0;
+        if (cotacoesDataModel.getWrappedData() != null) {
+            for (ItemListaCotacao cotacoesLivro : (List<ItemListaCotacao>) cotacoesDataModel.getWrappedData()) {
                 valorTotal += cotacoesLivro.getValorMedio() * cotacoesLivro.getQuantidadeAComprar();
             }
         }

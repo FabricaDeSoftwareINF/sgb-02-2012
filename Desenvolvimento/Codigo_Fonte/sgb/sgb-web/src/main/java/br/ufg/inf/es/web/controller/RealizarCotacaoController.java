@@ -28,6 +28,8 @@ import br.ufg.inf.es.model.Usuario;
 import br.ufg.inf.es.web.controller.form.RealizarCotacaoForm;
 import br.ufg.inf.es.web.datamodel.ItemListaCotacaoDataModel;
 import br.ufg.inf.es.web.datamodel.LivroDataModel;
+import javax.faces.application.FacesMessage;
+import org.primefaces.event.CellEditEvent;
 
 /**
  *
@@ -152,4 +154,5 @@ public class RealizarCotacaoController extends SGBController<ListaCotacao, Reali
         List<ItemListaCotacao> remover = Arrays.asList(this.getForm().getCotacoesSelecionadas());
         listaItemListaCotacao.removeAll(remover);
     }
+
 }
