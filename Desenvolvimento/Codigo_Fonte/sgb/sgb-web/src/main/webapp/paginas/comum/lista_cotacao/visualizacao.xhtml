@@ -140,7 +140,8 @@
                         <p:column headerText="#{msg['listaCotacao.label.valortotal']}" 
                                   style="text-align: center;width: 10%">
 
-                            <h:outputText value="#{cotacaoLivro.valorTotal}" >
+                            <h:outputText value="#{cotacaoLivro.valorMedio * cotacaoLivro.quantidadeAComprar}" 
+                                          title="#{cotacaoLivro.valorMedio * cotacaoLivro.quantidadeAComprar}" >
 
                                 <f:convertNumber maxFractionDigits="2"  minFractionDigits="2"/>
 
