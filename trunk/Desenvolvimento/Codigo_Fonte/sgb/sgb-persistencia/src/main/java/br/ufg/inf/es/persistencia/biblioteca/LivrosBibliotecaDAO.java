@@ -59,13 +59,13 @@ public class LivrosBibliotecaDAO implements Serializable {
         this.dbConfig = bBibliotecaConfigDAO.getBibliotecaCfg();
         tabelaBiblioteca = this.dbConfig.getTabela();
         colunaId = this.dbConfig.getCampoIdLivroBiblioteca();
-        colunaTitulo = this.dbConfig.getCampoTituloLivro().toUpperCase();
-        colunaISBN = this.dbConfig.getCampoIsbnLivro().toUpperCase();
-        colunaAno = this.dbConfig.getCampoAnoLivro().toUpperCase();
-        colunaEdicao = this.dbConfig.getCampoEdicao().toUpperCase();
-        colunaEditora = this.dbConfig.getCampoEditora().toUpperCase();
-        colunaAutor = this.dbConfig.getCampoAutor().toUpperCase();
-        colunaQuantidade = this.dbConfig.getCampoQuantidadeLivro().toUpperCase();
+        colunaTitulo = this.dbConfig.getCampoTituloLivro();
+        colunaISBN = this.dbConfig.getCampoIsbnLivro();
+        colunaAno = this.dbConfig.getCampoAnoLivro();
+        colunaEdicao = this.dbConfig.getCampoEdicao();
+        colunaEditora = this.dbConfig.getCampoEditora();
+        colunaAutor = this.dbConfig.getCampoAutor();
+        colunaQuantidade = this.dbConfig.getCampoQuantidadeLivro();
     }
 
     /**

@@ -14,32 +14,18 @@
 
                 <p:panel header="#{msg['cadastro.autor.label.cadastrar']}">
 
-                    <p:panelGrid styleClass="semborda" style="width: 40%;">
-
-                        <p:row>
-                            <p:column>
-                                <h:outputLabel value="#{msg['cadastro.autor.label.nome']}:" style="float: right;"></h:outputLabel>
-                            </p:column><p:column>
-                                <p:inputText required="true"
-                                             value="#{autorController.form.entity.nome}"  
-                                             style="width: 100%;"
-                                             requiredMessage="Nome não informado."></p:inputText>
-                            </p:column>
-                        </p:row>
-
-                        <p:row>
-                            <p:column>
-                                <h:outputLabel rendered="true" 
-                                               requiredMessage="Sobrenome não informado."
-                                               value="#{msg['cadastro.autor.label.sobrenome']}:" 
-                                               style="float: right;" 
-                                               ></h:outputLabel>
-                            </p:column>
-                            <p:column>
-                                <p:inputText value="#{autorController.form.entity.sobrenome}"  style="width: 100%;"></p:inputText>
-                            </p:column>
-                        </p:row>
-
+                    <p:panelGrid styleClass="semborda" columns="2">
+                        <h:outputLabel value="#{msg['cadastro.autor.label.nome']}:" style="float: right;"></h:outputLabel>
+                        <p:inputText required="true"
+                                     value="#{autorController.form.entity.nome}"  
+                                     style="width: 100%;"
+                                     requiredMessage="Nome não informado."></p:inputText>
+                        <h:outputLabel rendered="true" 
+                                       requiredMessage="Sobrenome não informado."
+                                       value="#{msg['cadastro.autor.label.sobrenome']}:" 
+                                       style="float: right;" 
+                                       ></h:outputLabel>
+                        <p:inputText value="#{autorController.form.entity.sobrenome}"  style="width: 100%;"></p:inputText>
                     </p:panelGrid>
 
                     <p:commandButton actionListener="#{autorController.insereAutor()}" 
@@ -49,9 +35,9 @@
                                      icon="ui-icon-disk"/>
 
                     <p:commandButton action="#{autorController.openInitialPage()}"
-                                     value="#{msg['cadastro.autor.label.cancelar']}"
+                                     value="#{msg['cadastro.autor.label.voltar']}"
                                      ajax="false"
-                                     icon="ui-icon-close"/>
+                                     icon="ui-icon-arrowreturnthick-1-w"/>
 
                 </p:panel>
 
