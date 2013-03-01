@@ -110,8 +110,8 @@
                         <p:column headerText="#{msg['listaCotacao.label.valortotal']}" 
                                   style="text-align: center;width: 10%">
 
-                            <h:outputText value="#{cotacaoLivro.valorMedio * cotacaoLivro.quantidade}" 
-                                          title="#{cotacaoLivro.valorMedio * cotacaoLivro.quantidade}" >
+                            <h:outputText value="#{cotacaoLivro.valorMedio * cotacaoLivro.quantidadeAComprar}" 
+                                          title="#{cotacaoLivro.valorMedio * cotacaoLivro.quantidadeAComprar}" >
 
                                 <f:convertNumber maxFractionDigits="2"/> 
 
@@ -120,33 +120,24 @@
                         </p:column>
 
                         <p:column headerText="#{msg['listaCotacao.label.quantidade']}" 
-                                  sortBy="#{cotacaoLivro.quantidade}" 
+                                  sortBy="#{cotacaoLivro.quantidadeAComprar}" 
                                   width="80">
 
                             <p:cellEditor>  
 
                                 <f:facet name="output">
-                                    <h:outputText value="#{cotacaoLivro.quantidade}" 
-                                                  title="#{cotacaoLivro.quantidade}"/>
+                                    <h:outputText value="#{cotacaoLivro.quantidadeAComprar}" 
+                                                  title="#{cotacaoLivro.quantidadeAComprar}"/>
 
 
                                 </f:facet>
                                 <f:facet name="input">
-                                    <p:inputText value="#{cotacaoLivro.quantidade}"
+                                    <p:inputText value="#{cotacaoLivro.quantidadeAComprar}"
                                                  styleClass="numeric" 
                                                  style="width: 40px;margin-left: 10px"/>
                                 </f:facet>
 
                             </p:cellEditor>
-
-                        </p:column>
-
-                        <p:column headerText="#{msg['listaCotacao.label.area']}"
-                                  style="text-align: center;width: 10%">
-
-                            <h:outputText value="Ciências Exatas"/><br/>
-                            <h:outputText value="e da Terra"
-                                          title="Ciências Exatas e da Terra"/>
 
                         </p:column>
 
