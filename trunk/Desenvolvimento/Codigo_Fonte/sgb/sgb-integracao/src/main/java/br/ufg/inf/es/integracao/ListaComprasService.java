@@ -10,8 +10,10 @@ import org.springframework.stereotype.Component;
 
 import br.ufg.inf.es.model.ItemListaCompras;
 import br.ufg.inf.es.model.ListaCompras;
+import br.ufg.inf.es.model.ListaCotacao;
 import br.ufg.inf.es.model.Livro;
 import br.ufg.inf.es.model.Parametros;
+import br.ufg.inf.es.model.Usuario;
 import br.ufg.inf.es.model.biblioteca.LivroBiblioteca;
 import br.ufg.inf.es.persistencia.ItemListaComprasDAO;
 import br.ufg.inf.es.persistencia.ListaComprasDAO;
@@ -236,6 +238,10 @@ public class ListaComprasService extends GenericService<ListaCompras> {
             item.setQuantidadeExigida(quantidadeExigida);
             item.setQuantidadeLivrosDisponiveis(quantidadeBiblioteca);
         }
+    }
+    
+    public Collection<ListaCompras> listByUser(Usuario user) {
+        return this.getDAO().findListaByUser(user);
     }
     
 }

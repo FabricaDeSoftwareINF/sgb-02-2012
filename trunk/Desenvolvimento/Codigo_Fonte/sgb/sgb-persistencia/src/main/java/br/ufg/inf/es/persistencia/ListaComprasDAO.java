@@ -11,7 +11,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import br.ufg.inf.es.model.ItemListaCompras;
 import br.ufg.inf.es.model.ListaCompras;
+import br.ufg.inf.es.model.ListaCotacao;
+import br.ufg.inf.es.model.Usuario;
 import org.hibernate.FetchMode;
+import org.hibernate.Query;
 
 /**
  * Classe para o DAO da entidade ListaCompras
@@ -68,4 +71,11 @@ public class ListaComprasDAO extends GenericHibernateDAO<ListaCompras> {
             this.getSession().close();
         }
     }
+    
+    public Collection<ListaCompras> findListaByUser(Usuario user) {
+        Query query = getSession().createQuery("FROM ListaCompras lc WHERE lc.user=:user");
+        query.setParameter("user", user);
+        return query.list();
+    }
+    
 }
