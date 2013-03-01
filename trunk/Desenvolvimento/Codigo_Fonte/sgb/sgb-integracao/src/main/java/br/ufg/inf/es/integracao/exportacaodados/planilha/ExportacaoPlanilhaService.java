@@ -460,6 +460,8 @@ public class ExportacaoPlanilhaService implements Serializable {
 
                 if (iterador.hasNext()) {
                     linha.append(separadorCSV);
+                } else {
+                    linha.append(System.getProperty("line.separator").toString());
                 }
             }
         }
