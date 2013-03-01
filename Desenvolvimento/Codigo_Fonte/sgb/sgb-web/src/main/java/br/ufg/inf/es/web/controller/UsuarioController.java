@@ -120,10 +120,9 @@ public class UsuarioController
      * @return string de navegação
      */
     public String editarUsuario() throws ValidationException {
-
         super.edit();
-
-        return super.openInitialPage();
+        this.getForm().setEntity(new Usuario());
+        return this.openInitialPage();
     }
 
     /**
@@ -132,9 +131,8 @@ public class UsuarioController
      * @return String de navegação para página inicial.
      */
     public String criarUsuario() throws ValidationException {
-
         super.insert();
-
+        this.getForm().setEntity(new Usuario());
         return super.openInitialPage();
     }
 
