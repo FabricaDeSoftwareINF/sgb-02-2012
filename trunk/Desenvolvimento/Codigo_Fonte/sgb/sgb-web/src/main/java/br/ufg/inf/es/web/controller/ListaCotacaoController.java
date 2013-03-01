@@ -91,16 +91,15 @@ public class ListaCotacaoController extends SGBController<ListaCotacao, ListaCot
 
             try {
                 this.service.getDAO().removeAll(this.form.getListasSelecionadas());
+                List data = (List) this.form.getListaCotacaoDataModel().getWrappedData();
+                data.removeAll(this.form.getListasSelecionadas());
             } catch (ConstraintViolationException cve) {
                 cve.printStackTrace();
                 this.addWarningMessage(cve.getMessage());
             } catch (Exception e) {
                 this.addWarningMessage(e.getMessage());
             }
-
             this.form.setListasSelecionadas(new ArrayList<ListaCotacao>());
-            this.form.setCollectionEntities(this.service.getDAO().list());
-
         } else {
             this.addWarningMessage("arquitetura.msg.nenhumitemselecionado");
         }
