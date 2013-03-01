@@ -2,12 +2,14 @@ package br.ufg.inf.es.web.controller;
 
 import br.ufg.inf.es.base.validation.ValidationException;
 import br.ufg.inf.es.integracao.ListaCotacaoService;
+import br.ufg.inf.es.integracao.LivroService;
 import br.ufg.inf.es.web.datamodel.ListaCotacaoDataModel;
 import br.ufg.inf.es.integracao.exportacaodados.planilha.ExportacaoPlanilhaService;
 import br.ufg.inf.es.model.Autor;
 import br.ufg.inf.es.model.Bibliografia;
 import br.ufg.inf.es.model.ItemListaCotacao;
 import br.ufg.inf.es.model.ListaCotacao;
+import br.ufg.inf.es.model.Livro;
 import br.ufg.inf.es.model.exportacaodados.planilha.ItemPlanilha;
 import br.ufg.inf.es.model.exportacaodados.planilha.Planilha;
 import br.ufg.inf.es.web.controller.form.ListaCotacaoForm;
@@ -36,6 +38,8 @@ public class ListaCotacaoController extends SGBController<ListaCotacao, ListaCot
     private ListaCotacaoForm form;
     @Autowired
     private ListaCotacaoService service;
+    @Autowired
+    private LivroService livroService;
     private StreamedContent arquivoXLS;
     private StreamedContent arquivoCSVNacionais;
     private StreamedContent arquivoCSVEstrangeiros;
@@ -54,6 +58,22 @@ public class ListaCotacaoController extends SGBController<ListaCotacao, ListaCot
         ListaCotacaoDataModel lista = new ListaCotacaoDataModel(listas);
         this.getForm().setListaCotacaoDataModel(lista);
         return super.openInitialPage();
+    }
+    
+    @Override
+    public String openViewPage(ListaCotacao listaCotacao) {
+        Collection<ItemListaCotacao> itens = listaCotacao.getItensListaCotacao();
+        if (itens != null) {
+            for (ItemListaCotacao item : itens) {
+                Livro livro = item.getLivro();
+                Collection<Autor> autores = this.livroService.getDAO().getAutores(livro.getId());
+                Collection<Bibliografia> bibliografias = this.livroService.getDAO().getBibliografia(livro.getId());
+                livro.setAutores(autores);
+                livro.setBibliografias(bibliografias);
+            }
+        }
+        this.getForm().setEntity(listaCotacao);
+        return super.openViewPage();
     }
 
     @Override
@@ -86,7 +106,6 @@ public class ListaCotacaoController extends SGBController<ListaCotacao, ListaCot
     }
 
     public String removerListasSelecionadas() {
-
         if (!this.form.getListasSelecionadas().isEmpty()) {
 
             try {
@@ -103,13 +122,11 @@ public class ListaCotacaoController extends SGBController<ListaCotacao, ListaCot
         } else {
             this.addWarningMessage("arquitetura.msg.nenhumitemselecionado");
         }
-
         return super.openInitialPage();
     }
 
     public String editarListaCotacao() {
         try {
-            this.getForm().getCollectionEntities().remove(this.getForm().getEntity());
             this.getService().editar(this.getForm().getEntity());
             addSuccessMessage(EditoraController.KEY_MSG_SUCESSO);
         } catch (ValidationException ve) {
