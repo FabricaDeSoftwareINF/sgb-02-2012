@@ -59,7 +59,7 @@ public class ListaCotacaoController extends SGBController<ListaCotacao, ListaCot
         this.getForm().setListaCotacaoDataModel(lista);
         return super.openInitialPage();
     }
-    
+
     @Override
     public String openViewPage(ListaCotacao listaCotacao) {
         Collection<ItemListaCotacao> itens = listaCotacao.getItensListaCotacao();
@@ -110,12 +110,15 @@ public class ListaCotacaoController extends SGBController<ListaCotacao, ListaCot
 
             try {
                 this.service.getDAO().removeAll(this.form.getListasSelecionadas());
-                List data = (List) this.form.getListaCotacaoDataModel().getWrappedData();
-                data.removeAll(this.form.getListasSelecionadas());
+                List<ListaCotacao> listas = new ArrayList(this.getService().
+                        listByUser(usuarioController.getUsuarioLogado()));
+                ListaCotacaoDataModel lista = new ListaCotacaoDataModel(listas);
+                this.getForm().setListaCotacaoDataModel(lista);
             } catch (ConstraintViolationException cve) {
                 cve.printStackTrace();
                 this.addWarningMessage(cve.getMessage());
             } catch (Exception e) {
+                e.printStackTrace();
                 this.addWarningMessage(e.getMessage());
             }
             this.form.setListasSelecionadas(new ArrayList<ListaCotacao>());
