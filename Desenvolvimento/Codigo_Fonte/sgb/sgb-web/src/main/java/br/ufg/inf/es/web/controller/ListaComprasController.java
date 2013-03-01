@@ -20,6 +20,7 @@ import br.ufg.inf.es.integracao.LivroService;
 import br.ufg.inf.es.integracao.ParametrosService;
 import br.ufg.inf.es.model.ItemListaCompras;
 import br.ufg.inf.es.model.ListaCompras;
+import br.ufg.inf.es.model.ListaCotacao;
 import br.ufg.inf.es.web.controller.form.ListaComprasForm;
 import br.ufg.inf.es.web.datamodel.ItemListaCompraDataModel;
 
@@ -35,8 +36,7 @@ public class ListaComprasController extends SGBController<ListaCompras, ListaCom
     private ListaComprasForm form;
     @Autowired
     private ListaComprasService service;
-    @Autowired
-    private LivroService livroService;
+    
     @Autowired
     private UsuarioController usuarioController;
     @Autowired
@@ -55,7 +55,9 @@ public class ListaComprasController extends SGBController<ListaCompras, ListaCom
     @Override
     public String openInitialPage() {
         this.getService().getDAO().closeSession();
-        this.getForm().setListaCompras(this.getService().list());
+        List<ListaCompras> listas = new ArrayList(this.getService().
+                listByUser(usuarioController.getUsuarioLogado()));
+        this.getForm().setListaCompras(listas);
 
         List<ItemListaCompras> itens = new ArrayList<ItemListaCompras>();
         try {
