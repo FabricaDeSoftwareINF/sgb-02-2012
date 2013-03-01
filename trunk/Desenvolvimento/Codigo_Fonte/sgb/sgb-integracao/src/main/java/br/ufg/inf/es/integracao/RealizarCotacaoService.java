@@ -130,7 +130,7 @@ public class RealizarCotacaoService extends GenericService<ListaCotacao> {
         CotadorBuscape cotadorBuscape = new CotadorBuscape();
         CotadorGoogleShop cotadorGoogleShop = new CotadorGoogleShop();
         Cotador cotador;
-
+        
         for (ItemListaCompras livroListaCotacao : livros) {
             if (livroListaCotacao.getLivro().isEstrangeiro()) {
                 cotador = cotadorGoogleShop;

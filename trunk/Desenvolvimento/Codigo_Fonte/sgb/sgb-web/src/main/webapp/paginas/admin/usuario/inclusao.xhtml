@@ -65,6 +65,7 @@
 
                     <p:commandButton actionListener="#{usuarioController.criarUsuario()}"
                                      value="#{msg['cadastro.usuario.button.insert']}"
+                                     update="@form"
                                      icon="ui-icon-disk"/>
 
                     <p:commandButton  ajax="false" immediate="true"  

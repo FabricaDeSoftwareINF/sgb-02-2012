@@ -70,6 +70,8 @@ public class EditoraController
             
             this.getService().insert(this.getForm().getEntity());
             
+            this.getForm().setEntity(new Editora());
+            
             this.addSuccessMessage(EditoraController.KEY_MSG_SUCESSO);
             
             return this.openInitialPage();
