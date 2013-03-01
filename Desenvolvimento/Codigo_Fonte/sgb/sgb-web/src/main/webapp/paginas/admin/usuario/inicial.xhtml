@@ -74,7 +74,9 @@
 
                         <center>
                             <p:commandButton value="#{msg['arquitetura.msg.sim']}" 
-                                             action="#{usuarioController.removerUsuarioSelecionados()}" update="@form" />
+                                             action="#{usuarioController.removerUsuarioSelecionados}" 
+                                             update="@form" oncomplete="dialogRemocao.hide()"
+                                             />
 
                             <p:commandButton value="#{msg['arquitetura.msg.nao']}" 
                                              onclick="dialogRemocao.hide()"/>

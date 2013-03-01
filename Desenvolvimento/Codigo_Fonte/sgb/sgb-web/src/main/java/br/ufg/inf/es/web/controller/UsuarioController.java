@@ -39,27 +39,25 @@ public class UsuarioController
      */
     @Autowired
     private UsuarioService service;
-    
+
     @Override
     public String openInsertPage() {
         this.getForm().setUsuariosSelecionados(new ArrayList<Usuario>());
         this.getForm().setEntity(new Usuario());
         return super.openInsertPage();
     }
-    
+
     @Override
     public String openInitialPage() {
         List<Usuario> usuarios = new ArrayList<Usuario>(this.getService().list());
         this.getForm().setUserDataModel(new UsuarioDataModel(usuarios));
         return super.openInitialPage();
     }
-    
-    
+
     /**
      * Método responsável por obter o formulário de usuário
      *
-     * @return
-     * <code>UsuarioForm</code>
+     * @return <code>UsuarioForm</code>
      */
     @Override
     public UsuarioForm getForm() {
@@ -69,8 +67,7 @@ public class UsuarioController
     /**
      * Método responsável por obter o Service de Usuário
      *
-     * @return
-     * <code>UsuarioService</code>
+     * @return <code>UsuarioService</code>
      */
     @Override
     public UsuarioService getService() {
@@ -80,8 +77,7 @@ public class UsuarioController
     /**
      * Método responsável por buscar os perfis de acesso ao sistema
      *
-     * @return
-     * <code>Lista de Perfil</code>
+     * @return <code>Lista de Perfil</code>
      */
     public List<UsuarioPerfil> getPerfil() {
         return new ArrayList<UsuarioPerfil>(Arrays.asList(UsuarioPerfil.values()));
@@ -100,6 +96,8 @@ public class UsuarioController
         }
         try {
             this.service.getDAO().removeAll(usuarios);
+            List<Usuario> usuariosCadastrados = new ArrayList<Usuario>(this.getService().list());
+            this.getForm().setUserDataModel(new UsuarioDataModel(usuariosCadastrados));
             this.addSuccessMessage("arquitetura.msg.sucesso");
 
             openInitialView();
@@ -113,7 +111,7 @@ public class UsuarioController
      */
     @Override
     public void initData() {
-        this.getForm().setPerfis(Arrays.asList(UsuarioPerfil.values()));        
+        this.getForm().setPerfis(Arrays.asList(UsuarioPerfil.values()));
     }
 
     /**
@@ -121,7 +119,7 @@ public class UsuarioController
      *
      * @return string de navegação
      */
-    public String editarUsuario() throws ValidationException{
+    public String editarUsuario() throws ValidationException {
 
         super.edit();
 
@@ -133,7 +131,7 @@ public class UsuarioController
      *
      * @return String de navegação para página inicial.
      */
-    public String criarUsuario() throws ValidationException{
+    public String criarUsuario() throws ValidationException {
 
         super.insert();
 
@@ -171,6 +169,6 @@ public class UsuarioController
     public Usuario getUsuarioLogado() {
         String nome = ((HttpServletRequest) FacesContext.getCurrentInstance().
                 getExternalContext().getRequest()).getUserPrincipal().getName();
-        return this.getService().findUsuarioByEmail(nome); 
+        return this.getService().findUsuarioByEmail(nome);
     }
 }
