@@ -292,7 +292,7 @@ public class ListaCotacaoController extends SGBController<ListaCotacao, ListaCot
         List<Autor> autores = new ArrayList<Autor>(cotacoesLivro.getLivro().getAutores());
 
         if (autores != null && !autores.isEmpty()) {
-            nomeAutor.append(autores.get(indice).getSobrenome().toUpperCase()).append(",").
+            nomeAutor.append(autores.get(indice).getSobrenome().toUpperCase()).append(" ").
                     append(autores.get(indice).getNome());
         } else {
             nomeAutor.append("");
