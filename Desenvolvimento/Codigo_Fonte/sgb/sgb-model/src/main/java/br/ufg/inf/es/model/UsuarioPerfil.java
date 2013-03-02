@@ -60,23 +60,8 @@ public enum UsuarioPerfil implements Serializable {
      * @return lista com os nomes do papeis
      */
     public Collection<String> getRoles() {
-        Collection<String> roles = null;
-
-        switch (this) {
-            case ADM:
-                roles = Arrays.asList(ADM.name());
-                break;
-            case DOCENTE:
-                roles = Arrays.asList(DOCENTE.name());
-                break;
-            case CONSELHEIRO:
-                roles = Arrays.asList(CONSELHEIRO.name());
-                break;
-            case TECNICO:
-                roles = Arrays.asList(TECNICO.name());
-                break;
-        }
-
+        Collection<String> roles = new ArrayList<String>();
+        roles.add(this.getName());
         return roles;
     }
 }
