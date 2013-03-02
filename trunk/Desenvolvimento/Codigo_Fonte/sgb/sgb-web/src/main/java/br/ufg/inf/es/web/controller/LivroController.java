@@ -149,6 +149,8 @@ public class LivroController extends SGBController<Livro, LivroForm, LivroServic
         this.getForm().clearSearchData();
         this.getForm().setTipoBibliografia(null);
         this.setLivrosSelecionados(new Livro[]{});
+        this.autor = new Autor();
+        this.editora = new Editora();
         this.getForm().setAutoresAdicionados(new ArrayList<Autor>());
         this.getForm().setBibliografiaRemocao(new Bibliografia());
         this.getForm().setBibliografiaTemp(new Bibliografia());
